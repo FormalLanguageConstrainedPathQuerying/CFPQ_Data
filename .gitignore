@@ -102,3 +102,13 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+**/Matrices/
+
+*.xz
+
+*.gz
+
+GTgraph/
+
+log
