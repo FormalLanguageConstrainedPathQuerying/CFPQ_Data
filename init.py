@@ -5,7 +5,7 @@ import subprocess
 import shutil
 import urllib.request
 import requests
-import random
+import numpy as np
 
 from contextlib import closing
 
@@ -132,18 +132,18 @@ def gen_cycle_graph(target_dir, vertices):
 
 def gen_free_scale_graph(target_dir, n, k, labels, reverse_edges=False):
     g = {
-        i: [(j, random.choice(labels))
+        i: [(j, np.random.choice(labels))
             for j in range(k)] for i in range(k)
     }
     degree = [3] * k
 
     for i in range(k, n):
-        to_vertices = random.choices(range(i), degree, k=k)
+        to_vertices = np.random.choice(range(i), size=k, replace=False, p=np.array(degree) / sum(degree))
 
         g[i] = []
         degree.append(0)
         for to in to_vertices:
-            label = random.choice(labels)
+            label = np.random.choice(labels)
             g[i].append((to, label))
             degree[to] += 1
             degree[i] += 1
