@@ -5,6 +5,7 @@ import subprocess
 import shutil
 import urllib.request
 import requests
+import random
 
 from contextlib import closing
 
@@ -127,7 +128,32 @@ def gen_cycle_graph(target_dir, vertices):
     with open(os.path.join(target_dir, 'fullgraph_%s.txt'%(vertices)), 'a') as out_file:
         for i in range(0, vertices - 1):
             out_file.write('%s A %s \n'%(i, i + 1))
-        out_file.write('%s A %s \n'%(vertices - 1, 0))   
+        out_file.write('%s A %s \n'%(vertices - 1, 0))
+
+def gen_free_scale_graph(target_dir, n, k, labels, reverse_edges=False):
+    g = {
+        i: [(j, random.choice(labels))
+            for j in range(k)] for i in range(k)
+    }
+    degree = [3] * k
+
+    for i in range(k, n):
+        to_vertices = random.choices(range(i), degree, k=k)
+
+        g[i] = []
+        degree.append(0)
+        for to in to_vertices:
+            label = random.choice(labels)
+            g[i].append((to, label))
+            degree[to] += 1
+            degree[i] += 1
+            if reverse_edges:
+                g[to].append((i, label))
+
+    with open(os.path.join(target_dir, f'free_scale_graph_{n}_{k}'), 'a') as out_file:
+        for v in g:
+            for to in g[v]:
+                out_file.write(f'{v} {to[1]} {to[0]}\n')
 
 def clean_dir(path):
    if os.path.isdir(path): 
@@ -163,6 +189,14 @@ def generate_worst_case_graphs():
    
    for n in range(2, NUMBER_OF_WORST_CASES): gen_worst_case_graph(matrices_dir, 2 ** n)
    print('Worst case graphs generation is finished.')
+
+def generate_free_scale_graphs():
+    print('Free scale graphs generation is started.')
+    matrices_dir = os.path.join(DATA_ROOT_DIR, 'FreeScale', MATRICES_DIR)
+    clean_dir(matrices_dir)
+
+    for k in 1, 3, 5, 10: gen_free_scale_graph(matrices_dir, 500, k, ['a', 'b', 'c', 'd'])
+    print('Free scale graphs generation is finished.')
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
     """ Generates a Sierpinski Triangle graph. """
@@ -208,3 +242,4 @@ if __name__ == '__main__':
    generate_all_sparse_graphs()
    generate_full_graphs()
    generate_worst_case_graphs()
+   generate_free_scale_graphs()
