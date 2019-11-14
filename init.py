@@ -91,6 +91,14 @@ def unpack_graphs():
         print ('Unpack ', arch, ' to ', to)
         unpack(arch, to)
 
+def to_file(filepath, graph):
+    with open(filepath, 'w') as out_file:
+        for t in graph:
+            s = t[0]
+            p = t[1]
+            o = t[2]
+            out_file.write('%s %s %s\n'%(s,p,o))
+
 def gen_sparse_graph(target_dir, vertices, prob, add_back_edge):
  
     subprocess.run([GT_GRAPH, '-t', '0', '-n', '%s'%(vertices), '-p', '%s'%(prob), '-o', TMP_FILE])
