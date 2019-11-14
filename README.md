@@ -8,9 +8,12 @@ Graphs and grammars for experiments in context free path querying algorithms.
 
 ## How to start
 
-Just run init.py: 
+Just install requirements and run init.py: 
 
-```python3 init.py```
+```
+pip3 install -r requirements.txt
+python3 init.py
+```
 
 The script downloads data and [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) - a suite of synthetic graph generators.
 
