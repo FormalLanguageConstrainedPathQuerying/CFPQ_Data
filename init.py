@@ -150,7 +150,7 @@ def gen_free_scale_graph(target_dir, n, k, labels, reverse_edges=False):
             if reverse_edges:
                 g[to].append((i, label))
 
-    with open(os.path.join(target_dir, f'free_scale_graph_{n}_{k}'), 'a') as out_file:
+    with open(os.path.join(target_dir, f'free_scale_graph_{n}_{k}.txt'), 'a') as out_file:
         for v in g:
             for to in g[v]:
                 out_file.write(f'{v} {to[1]} {to[0]}\n')
@@ -195,7 +195,9 @@ def generate_free_scale_graphs():
     matrices_dir = os.path.join(DATA_ROOT_DIR, 'FreeScale', MATRICES_DIR)
     clean_dir(matrices_dir)
 
-    for k in 1, 3, 5, 10: gen_free_scale_graph(matrices_dir, 500, k, ['a', 'b', 'c', 'd'])
+    for k in 1, 3, 5, 10:
+        for n in 100, 500, 2500, 10000:
+            gen_free_scale_graph(matrices_dir, n, k, ['a', 'b', 'c', 'd'])
     print('Free scale graphs generation is finished.')
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
