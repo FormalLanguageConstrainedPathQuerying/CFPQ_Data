@@ -36,8 +36,12 @@ Real-world RDF files.
 
 ### Static analysis cases
 
-Points-to graphs generated from [DacapoSuite](https://github.com/dacapobench/dacapobench) java benchmarks used in [Cauliflower:  a Solver Generator Tool forContext-Free Language Reachability](https://easychair.org/publications/open/bnVq)
-Clone into ```git@bitbucket.org:jensdietrich/gigascale-pointsto-oopsla2015.git```, pre-generated graphs in basic CSV format can be found at ```datasets/dacapo9```.
+Points-to graphs generated from [DacapoSuite](https://github.com/dacapobench/dacapobench) java benchmarks used in [Cauliflower:  a Solver Generator Tool forContext-Free Language Reachability](https://easychair.org/publications/open/bnVq).
+To download data run:
+```
+git clone git@bitbucket.org:jensdietrich/gigascale-pointsto-oopsla2015.git
+```
+Pre-generated graphs in basic CSV format can be found in repository at ```datasets/dacapo9```.
 
 ### Worst cases
 
