@@ -34,6 +34,11 @@ Real-world RDF files.
   - [go](http://purl.obolibrary.org/obo/go.owl) - an ontology for describing the function of genes and gene products 
   - [geospecies](http://lod.geospecies.org/geospecies.rdf.gz) - graph related to taxonomic hierarchy and geographical information of animal species
 
+### Static analysis cases
+
+Points-to graphs generated from [DacapoSuite](https://github.com/dacapobench/dacapobench) java benchmarks used in [Cauliflower:  a Solver Generator Tool forContext-Free Language Reachability](https://easychair.org/publications/open/bnVq)
+Clone into ```git@bitbucket.org:jensdietrich/gigascale-pointsto-oopsla2015.git```, pre-generated graphs in basic CSV format can be found at ```datasets/dacapo9```.
+
 ### Worst cases
 
 Graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
