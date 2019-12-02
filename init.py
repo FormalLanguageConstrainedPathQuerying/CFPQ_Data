@@ -6,8 +6,17 @@ import shutil
 import urllib.request
 import requests
 import numpy as np
+import csv
+from rdflib.graph import Graph, Literal
 
 from contextlib import closing
+
+DACAPO_DUMPS_URL = "https://bitbucket.org/jensdietrich/gigascale-pointsto-oopsla2015.git"
+DACAPO_DUMPS_PATH = 'datasets/dacapo9'
+BENCHMARKS = ['jython','avrora','batik','eclipse'
+            , 'fop','h2','luindex','lusearch','pmd'
+            , 'sunflow', 'tomcat', 'tradebeans','tradesoap','xalan']
+PREDICATES = ['Alloc', 'Assign']
 
 GT_GRAPH_URL = 'http://www.cse.psu.edu/~kxm85/software/GTgraph/GTgraph.tar.gz'
 GT_GRAPH_ARCH = 'GTgraph.tar.gz'
@@ -21,12 +30,14 @@ NUMBER_OF_WORST_CASES = 12
 
 
 RDF = 'RDF'
+STATIC_ANALYSIS_JAVA = 'StaticAnalysis'
 MEMORY_ALIASES = 'MemoryAliases'
 DATA_ROOT_DIR = './data/graphs/'
 MATRICES_DIR = 'Matrices'
 DATA_TO_UNPACK = [[MEMORY_ALIASES,MEMORY_ALIASES_DOWNLOAD_ID], [RDF,RDF_DOWNLOAD_ID]]
 GT_GRAPH = './GTgraph/random/GTgraph-random'
 TMP_FILE = 'tmp.txt'
+TMP_DIR = './tmp/'
 
 def download_file_from_google_drive(id, destination):
     URL = "https://docs.google.com/uc?export=download"
@@ -58,13 +69,44 @@ def save_response_content(response, destination):
                 f.write(chunk)
 
 def download_data():
-    print('Downloading from GDrive is tarted.')
+    print('Downloading from git repository is started.')
+    clean_dir(TMP_DIR)
+    subprocess.run(['git', 'clone', DACAPO_DUMPS_URL, TMP_DIR])
+    print('Downloading from git repository is finished.')
+    dacapo_dumps_convert()
+
+    print('Downloading from GDrive is started.')
     for f in DATA_TO_UNPACK:         
         dst = os.path.join(os.path.join(DATA_ROOT_DIR,f[0]),os.path.join(MATRICES_DIR + '.tar.xz'))
         print('Download archive to ' + dst)
         download_file_from_google_drive(f[1], dst)  
-    print('Downloading from GDrive is finised.')
-    
+    print('Downloading from GDrive is finished.')
+
+def dacapo_dumps_convert():
+    print('Converting downloaded CSVs is started.')
+    output_graph = Graph()
+    res = {}
+    next_id = 0
+
+    for bench in BENCHMARKS:
+        dst = os.path.join(DATA_ROOT_DIR, os.path.join(STATIC_ANALYSIS_JAVA, MATRICES_DIR))
+        if not os.path.exists(dst):
+            os.makedirs(dst)
+        output = open(os.path.join(dst, bench + '.txt'), 'w+')
+        for pred in PREDICATES:
+            src = os.path.join(os.path.join(TMP_DIR, DACAPO_DUMPS_PATH), bench)
+            print(src)
+            input_file = csv.reader(open(os.path.join(src, pred + '.csv'), 'r'))
+
+            for row in input_file:
+                output_graph.add((Literal(row[0]), Literal(pred), Literal(row[1])))
+            for s,p,o in output_graph:
+                    for r in [s,o]:
+                        if r not in res:
+                            res[r] = str(next_id)
+                            next_id += 1
+                    output.write(res[s] + ' ' + p + ' ' + res[o] + '\n')
+    print('Converting is finished.')
 
 def unpack(file_from, path_to):
     with lzma.open(file_from) as f:
@@ -150,10 +192,10 @@ def gen_free_scale_graph(target_dir, n, k, labels, reverse_edges=False):
             if reverse_edges:
                 g[to].append((i, label))
 
-    with open(os.path.join(target_dir, f'free_scale_graph_{n}_{k}'), 'a') as out_file:
+    with open(os.path.join(target_dir, 'free_scale_graph_%s_%s' % (n, k)), 'a') as out_file:
         for v in g:
             for to in g[v]:
-                out_file.write(f'{v} {to[1]} {to[0]}\n')
+                out_file.write('%s %s %s\n' % (v, to[1], to[0]))
 
 def clean_dir(path):
    if os.path.isdir(path): 
