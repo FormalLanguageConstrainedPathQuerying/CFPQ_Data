@@ -202,8 +202,8 @@ def generate_scale_free_graphs():
 
     for k in 1, 3, 5, 10:
         for n in 100, 500, 2500, 10000:
-            gen_free_scale_graph(matrices_dir, n, k, ['a', 'b', 'c', 'd'])
-    print('Free scale graphs generation is finished.')
+            gen_scale_free_graph(matrices_dir, n, k, ['a', 'b', 'c', 'd'])
+    print('Scale free graphs generation is finished.')
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
     """ Generates a Sierpinski Triangle graph. """
