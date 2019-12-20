@@ -200,8 +200,10 @@ def generate_scale_free_graphs():
     matrices_dir = os.path.join(DATA_ROOT_DIR, 'ScaleFree', MATRICES_DIR)
     clean_dir(matrices_dir)
 
-    for k in 1, 3, 5, 10: gen_scale_free_graph(matrices_dir, 500, k, ['a', 'b', 'c', 'd'])
-    print('Scale free graphs generation is finished.')
+    for k in 1, 3, 5, 10:
+        for n in 100, 500, 2500, 10000:
+            gen_free_scale_graph(matrices_dir, n, k, ['a', 'b', 'c', 'd'])
+    print('Free scale graphs generation is finished.')
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
     """ Generates a Sierpinski Triangle graph. """
