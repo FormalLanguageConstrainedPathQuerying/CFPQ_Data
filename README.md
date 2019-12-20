@@ -1,6 +1,6 @@
 # CFPQ_Data
 
-Graphs and grammars for experiments in context free path querying algorithms.
+Graphs and grammars for experimental analysis of context free path querying algorithms.
 
 ## Prerequirements
 * GCC
@@ -19,7 +19,7 @@ The script downloads data and [GTgraph](http://www.cse.psu.edu/~kxm85/software/G
 
 ## Repository structure
 
-Graphs and grammars can be found in  ```data/graphs``` - all graphs are divided into groups, which are placed in different directories. Each ```data/graphs/GroupName``` contains ```Matrices``` with graph descriptions and ```Grammars``` - descriptions of queries. 
+Graphs and grammars can be found in  ```data/graphs``` – all graphs are divided into groups, which are placed in different directories. Each ```data/graphs/GroupName``` contains ```Matrices``` with graph descriptions and ```Grammars``` – descriptions of queries. 
 
 ## Data set
 
@@ -27,12 +27,13 @@ Set contains both real-world data and synthetic graphs for several specific case
 
 ### RDFs
 
-Real-world RDF files.
-- Small
-  - [skos](http://www.w3.org/2004/02/skos/core.html) - knowledge organization system based on RDF
-- Big
-  - [go](http://purl.obolibrary.org/obo/go.owl) - an ontology for describing the function of genes and gene products 
-  - [geospecies](http://lod.geospecies.org/geospecies.rdf.gz) - graph related to taxonomic hierarchy and geographical information of animal species
+Real-world RDF files:
+
+- Smaller graphs
+  - a set of popular semantic web ontologies like **foaf**, **wine**, **pizza**.
+- Bigger graphs
+  - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species
+  - a set of graphs from the **Uniprot** protein sequences database
 
 ### Worst cases
 
