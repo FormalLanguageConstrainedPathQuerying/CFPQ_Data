@@ -6,6 +6,7 @@ import shutil
 import urllib.request
 import requests
 import numpy as np
+from rdflib import Graph, URIRef, BNode, Literal
 
 from contextlib import closing
 
@@ -15,10 +16,9 @@ GT_GRAPH_ARCH = 'GTgraph.tar.gz'
 MEMORY_ALIASES_DOWNLOAD_ID = '1fVMY1rE7vX-bFWdP3CDTdjILDsELOXK0'
 RDF_DOWNLOAD_ID = '1ahY5P4UkJ9Fpg9EN6iT2_GQNsztTI2K3'
 
-SAPRSE_GRAPH_TO_GEN = [[5000, 0.001], [10000, 0.001], [10000, 0.01], [10000, 0.1], [20000, 0.001], [40000, 0.001], [80000, 0.001]]
+SPARSE_GRAPH_TO_GEN = [[5000, 0.001], [10000, 0.001], [10000, 0.01], [10000, 0.1], [20000, 0.001], [40000, 0.001], [80000, 0.001]]
 FULL_GRAPH_TO_GEN = [10, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 25000, 50000, 80000]
 NUMBER_OF_WORST_CASES = 12
-
 
 RDF = 'RDF'
 MEMORY_ALIASES = 'MemoryAliases'
@@ -58,14 +58,13 @@ def save_response_content(response, destination):
                 f.write(chunk)
 
 def download_data():
-    print('Downloading from GDrive is tarted.')
+    print('Downloading from GDrive is started.')
     for f in DATA_TO_UNPACK:         
         dst = os.path.join(os.path.join(DATA_ROOT_DIR,f[0]),os.path.join(MATRICES_DIR + '.tar.xz'))
         print('Download archive to ' + dst)
         download_file_from_google_drive(f[1], dst)  
-    print('Downloading from GDrive is finised.')
+    print('Downloading from GDrive is finished.')
     
-
 def unpack(file_from, path_to):
     with lzma.open(file_from) as f:
         with tarfile.open(fileobj=f) as tar:
@@ -92,45 +91,54 @@ def unpack_graphs():
         print ('Unpack ', arch, ' to ', to)
         unpack(arch, to)
 
-def gen_sparse_graph(target_dir, vertices, prob, add_back_edge):
+'''RDF serialization'''
+def write_to_rdf(target, graph):
+    graph.serialize(target + '.nt', format='nt')
+
+def gen_sparse_graph(target_dir, vertices, prob):
  
-    subprocess.run([GT_GRAPH, '-t', '0', '-n', '%s'%(vertices), '-p', '%s'%(prob), '-o', TMP_FILE])
-    
-    with open(os.path.join(target_dir, 'G%sk-%s.txt'%(int(vertices/1000), prob)), 'a') as out_file:
-        with open(TMP_FILE) as in_file:
-            for l in in_file.readlines():
-                if l.startswith('a '):
-                   a = l.split(' ')
-                   if (add_back_edge):
-                      out_file.write('%s A %s\n'%(a[1], a[2]))
-                      out_file.write('%s AR %s\n'%(a[2], a[1]))
-                   else: 
-                      lbl = 'A' if int(a[3]) % 2 == 0 else 'AR'
-                      out_file.write('%s %s %s\n'%(a[1], lbl, a[2]))
-    os.remove(TMP_FILE)
+   subprocess.run([GT_GRAPH, '-t', '0', '-n', '%s'%(vertices), '-p', '%s'%(prob), '-o', TMP_FILE])
+
+   with open(TMP_FILE) as in_file:
+        output_graph = Graph()
+        target = os.path.join(target_dir, 'G%sk-%s'%(int(vertices/1000), prob))
+        for l in in_file.readlines():
+            if l.startswith('a '):
+                a = l.split(' ')
+                lbl = 'A' if int(a[3]) % 2 == 0 else 'AR'
+                output_graph.add((BNode(a[1]), URIRef(lbl), BNode(a[2])))
+        write_to_rdf(target, output_graph)
 
 def gen_worst_case_graph(target_dir, vertices):
     first_cycle = int(vertices / 2) + 1
-    second_cycle = int(vertices / 2) - 1
+    output_graph = Graph()
+    target = os.path.join(target_dir, 'worstcase_%s'%(vertices))
     
-    with open(os.path.join(target_dir, 'worstcase_%s.txt'%(vertices)), 'a') as out_file:
-        for i in range(0, first_cycle - 1):
-            out_file.write('%s A %s \n'%(i, i + 1))
-        out_file.write('%s A %s \n'%(first_cycle - 1, 0))
-        
-        out_file.write('%s B %s \n'%(first_cycle - 1, first_cycle))      
+    for i in range(0, first_cycle - 1):
+        output_graph.add((BNode(i), URIRef('A'), BNode(i + 1)))
 
-        for i in range(first_cycle, vertices - 1):
-            out_file.write('%s B %s \n'%(i, i + 1))
-        out_file.write('%s B %s \n'%(vertices - 1, first_cycle - 1))
+    output_graph.add((BNode(first_cycle - 1), URIRef('A'), BNode(0)))
+    
+    output_graph.add((BNode(first_cycle - 1), URIRef('B'), BNode(first_cycle)))      
+
+    for i in range(first_cycle, vertices - 1):
+        output_graph.add((BNode(i), URIRef('B'), BNode(i + 1)))
+
+    output_graph.add((BNode(vertices - 1), URIRef('B'), BNode(first_cycle - 1)))
+
+    write_to_rdf(target, output_graph)
 
 def gen_cycle_graph(target_dir, vertices):
-    with open(os.path.join(target_dir, 'fullgraph_%s.txt'%(vertices)), 'a') as out_file:
-        for i in range(0, vertices - 1):
-            out_file.write('%s A %s \n'%(i, i + 1))
-        out_file.write('%s A %s \n'%(vertices - 1, 0))
+    output_graph = Graph()
+    target = os.path.join(target_dir, 'fullgraph_%s'%(vertices))
 
-def gen_free_scale_graph(target_dir, n, k, labels, reverse_edges=False):
+    for i in range(0, vertices - 1):
+        output_graph.add((BNode(i), URIRef('A'), BNode(i + 1)))
+    output_graph.add((BNode(vertices - 1), URIRef('A'), BNode(0))) 
+
+    write_to_rdf(target, output_graph)
+
+def gen_scale_free_graph(target_dir, n, k, labels):
     g = {
         i: [(j, np.random.choice(labels))
             for j in range(k)] for i in range(k)
@@ -147,13 +155,15 @@ def gen_free_scale_graph(target_dir, n, k, labels, reverse_edges=False):
             g[i].append((to, label))
             degree[to] += 1
             degree[i] += 1
-            if reverse_edges:
-                g[to].append((i, label))
-
-    with open(os.path.join(target_dir, f'free_scale_graph_{n}_{k}.txt'), 'a') as out_file:
-        for v in g:
-            for to in g[v]:
-                out_file.write(f'{v} {to[1]} {to[0]}\n')
+            g[to].append((i, label))
+    
+    output_graph = Graph()
+    target = os.path.join(target_dir, 'scale_free_graph_%s_%s')%(n, k)
+    for v in g:
+        for to in g[v]:
+            output_graph.add((BNode(v), URIRef(to[1]), BNode(to[0])))
+            
+    write_to_rdf(target, output_graph)
 
 def clean_dir(path):
    if os.path.isdir(path): 
@@ -162,17 +172,12 @@ def clean_dir(path):
 
 def generate_all_sparse_graphs():
    print('Sparse graphs generation is started.') 
-   matrices_dir = os.path.join(os.path.join(DATA_ROOT_DIR, 'SG_1'), MATRICES_DIR)
+
+   matrices_dir = os.path.join(os.path.join(DATA_ROOT_DIR, 'SparseGraph'), MATRICES_DIR)
    clean_dir(matrices_dir)
 
-   for g in SAPRSE_GRAPH_TO_GEN: gen_sparse_graph(matrices_dir, g[0], g[1], True)
-
-   matrices_dir = os.path.join(os.path.join(DATA_ROOT_DIR, 'SG_2'), MATRICES_DIR)
-   clean_dir(matrices_dir)
-
-   for g in SAPRSE_GRAPH_TO_GEN: gen_sparse_graph(matrices_dir, g[0], g[1], False)
+   for g in SPARSE_GRAPH_TO_GEN: gen_sparse_graph(matrices_dir, g[0], g[1])
    print('Sparse graphs generation is finished.')
-
 
 def generate_full_graphs():
    print('Full graphs generation is started.')
@@ -190,15 +195,15 @@ def generate_worst_case_graphs():
    for n in range(2, NUMBER_OF_WORST_CASES): gen_worst_case_graph(matrices_dir, 2 ** n)
    print('Worst case graphs generation is finished.')
 
-def generate_free_scale_graphs():
-    print('Free scale graphs generation is started.')
-    matrices_dir = os.path.join(DATA_ROOT_DIR, 'FreeScale', MATRICES_DIR)
+def generate_scale_free_graphs():
+    print('Scale free graphs generation is started.')
+    matrices_dir = os.path.join(DATA_ROOT_DIR, 'ScaleFree', MATRICES_DIR)
     clean_dir(matrices_dir)
 
     for k in 1, 3, 5, 10:
         for n in 100, 500, 2500, 10000:
-            gen_free_scale_graph(matrices_dir, n, k, ['a', 'b', 'c', 'd'])
-    print('Free scale graphs generation is finished.')
+            gen_scale_free_graph(matrices_dir, n, k, ['a', 'b', 'c', 'd'])
+    print('Scale free graphs generation is finished.')
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
     """ Generates a Sierpinski Triangle graph. """
@@ -244,4 +249,4 @@ if __name__ == '__main__':
    generate_all_sparse_graphs()
    generate_full_graphs()
    generate_worst_case_graphs()
-   generate_free_scale_graphs()
+   generate_scale_free_graphs()
