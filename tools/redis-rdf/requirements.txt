@@ -1,0 +1,5 @@
+pandas
+tqdm==4.36.1
+rdflib==4.2.2
+redis==3.3.10
+git+https://github.com/RedisGraph/redisgraph-py.git@275cf4c7609a061e55b538e10efbc02c91c090e7
