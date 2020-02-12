@@ -6,12 +6,12 @@ import shutil
 import urllib.request
 import requests
 import numpy as np
-from rdflib import Graph, URIRef, BNode, Literal
+from rdflib import Graph, URIRef, BNode
 
 from contextlib import closing
 
 GT_GRAPH_URL = 'http://www.cse.psu.edu/~kxm85/software/GTgraph/GTgraph.tar.gz'
-GT_GRAPH_ARCH = 'GTgraph.tar.gz'
+GT_GRAPH_ARCH = './tools/GTgraph.tar.gz'
 
 MEMORY_ALIASES_DOWNLOAD_ID = '1fVMY1rE7vX-bFWdP3CDTdjILDsELOXK0'
 RDF_DOWNLOAD_ID = '1ahY5P4UkJ9Fpg9EN6iT2_GQNsztTI2K3'
@@ -19,13 +19,14 @@ RDF_DOWNLOAD_ID = '1ahY5P4UkJ9Fpg9EN6iT2_GQNsztTI2K3'
 SPARSE_GRAPH_TO_GEN = [[5000, 0.001], [10000, 0.001], [10000, 0.01], [10000, 0.1], [20000, 0.001], [40000, 0.001], [80000, 0.001]]
 FULL_GRAPH_TO_GEN = [10, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 25000, 50000, 80000]
 NUMBER_OF_WORST_CASES = 12
+URI_PREFIX = 'http://example.org/'
 
 RDF = 'RDF'
 MEMORY_ALIASES = 'MemoryAliases'
 DATA_ROOT_DIR = './data/graphs/'
 MATRICES_DIR = 'Matrices'
 DATA_TO_UNPACK = [[MEMORY_ALIASES,MEMORY_ALIASES_DOWNLOAD_ID], [RDF,RDF_DOWNLOAD_ID]]
-GT_GRAPH = './GTgraph/random/GTgraph-random'
+GT_GRAPH = './tools/GTgraph/random/GTgraph-random'
 TMP_FILE = 'tmp.txt'
 
 def download_file_from_google_drive(id, destination):
@@ -76,12 +77,12 @@ def install_gtgraph():
        shutil.copyfileobj(response, out_file)
     print('GTgraph is downloaded.')
     tar = tarfile.open(GT_GRAPH_ARCH)
-    tar.extractall()
+    tar.extractall('./tools')
     tar.close()
 
-    subprocess.run(['sed', '-i', 's/CC = icc/#CC = icc/g', './GTgraph/Makefile.var'])
-    subprocess.run(['sed', '-i', 's/#CC = gcc/CC = gcc/g', './GTgraph/Makefile.var'])
-    subprocess.run(['make', '-C', './GTgraph']) 
+    subprocess.run(['sed', '-i', 's/CC = icc/#CC = icc/g', './tools/GTgraph/Makefile.var'])
+    subprocess.run(['sed', '-i', 's/#CC = gcc/CC = gcc/g', './tools/GTgraph/Makefile.var'])
+    subprocess.run(['make', '-C', './tools/GTgraph']) 
     print('Installation of GTgraph is finished.') 
 
 def unpack_graphs():
@@ -91,9 +92,15 @@ def unpack_graphs():
         print ('Unpack ', arch, ' to ', to)
         unpack(arch, to)
 
-'''RDF serialization'''
+# RDF serialization
 def write_to_rdf(target, graph):
-    graph.serialize(target + '.nt', format='nt')
+    graph.serialize(target + '.xml', format='xml')
+
+def add_rdf_edge(subj, pred, obj, graph):
+    s = BNode('id-%s'%(subj))
+    p = URIRef(URI_PREFIX + pred)
+    o = BNode('id-%s'%(obj))
+    graph.add((s, p, o))
 
 def gen_sparse_graph(target_dir, vertices, prob):
  
@@ -106,7 +113,7 @@ def gen_sparse_graph(target_dir, vertices, prob):
             if l.startswith('a '):
                 a = l.split(' ')
                 lbl = 'A' if int(a[3]) % 2 == 0 else 'AR'
-                output_graph.add((BNode(a[1]), URIRef(lbl), BNode(a[2])))
+                add_rdf_edge(a[1], lbl, a[2], output_graph)
         write_to_rdf(target, output_graph)
 
 def gen_worst_case_graph(target_dir, vertices):
@@ -115,16 +122,14 @@ def gen_worst_case_graph(target_dir, vertices):
     target = os.path.join(target_dir, 'worstcase_%s'%(vertices))
     
     for i in range(0, first_cycle - 1):
-        output_graph.add((BNode(i), URIRef('A'), BNode(i + 1)))
+        add_rdf_edge(i, 'A', i + 1, output_graph)
 
-    output_graph.add((BNode(first_cycle - 1), URIRef('A'), BNode(0)))
-    
-    output_graph.add((BNode(first_cycle - 1), URIRef('B'), BNode(first_cycle)))      
-
+    add_rdf_edge(first_cycle - 1, 'A', 0, output_graph)    
+    add_rdf_edge(first_cycle - 1, 'B', first_cycle, output_graph)
     for i in range(first_cycle, vertices - 1):
-        output_graph.add((BNode(i), URIRef('B'), BNode(i + 1)))
+        add_rdf_edge(i, 'B', i + 1, output_graph)
 
-    output_graph.add((BNode(vertices - 1), URIRef('B'), BNode(first_cycle - 1)))
+    add_rdf_edge(vertices - 1, 'B', first_cycle - 1, output_graph)
 
     write_to_rdf(target, output_graph)
 
@@ -133,8 +138,8 @@ def gen_cycle_graph(target_dir, vertices):
     target = os.path.join(target_dir, 'fullgraph_%s'%(vertices))
 
     for i in range(0, vertices - 1):
-        output_graph.add((BNode(i), URIRef('A'), BNode(i + 1)))
-    output_graph.add((BNode(vertices - 1), URIRef('A'), BNode(0))) 
+        add_rdf_edge(i, 'A', i + 1, output_graph)
+    add_rdf_edge(vertices - 1, 'A', 0, output_graph)
 
     write_to_rdf(target, output_graph)
 
@@ -161,7 +166,7 @@ def gen_scale_free_graph(target_dir, n, k, labels):
     target = os.path.join(target_dir, 'scale_free_graph_%s_%s')%(n, k)
     for v in g:
         for to in g[v]:
-            output_graph.add((BNode(v), URIRef(to[1]), BNode(to[0])))
+            add_rdf_edge(v, to[1], to[0], output_graph)
             
     write_to_rdf(target, output_graph)
 

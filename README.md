@@ -21,6 +21,13 @@ The script downloads data and [GTgraph](http://www.cse.psu.edu/~kxm85/software/G
 
 Graphs and grammars can be found in  ```data/graphs``` – all graphs are divided into groups, which are placed in different directories. Each ```data/graphs/GroupName``` contains ```Matrices``` with graph descriptions and ```Grammars``` – descriptions of queries. 
 
+### RedisGraph
+
+Data set can be loaded to RedisGraph with ```tools/redis-rdf```, for example:
+```
+python3 ./tools/redis-rdf/main.py --port [PORT] dir ./data/graphs/ScaleFree/Matrices/
+```
+
 ## Data set
 
 Set contains both real-world data and synthetic graphs for several specific cases; all graphs are represented in triples.
