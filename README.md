@@ -21,11 +21,11 @@ python3 init.py --partial [GroupName]
 ```
 Options for ```[GroupName]``` are ```rdf, scalefree, full, worstcase, sparse```
 
-The script downloads data (real-world RDF files) and [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) --- a suite of synthetic graph generators.
+The script downloads data (real-world RDF files) and [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) — a suite of synthetic graph generators.
 
 ## Repository structure
 
-Graphs and grammars can be found in  ```data``` --- all graphs are divided into groups, which are placed in different directories. Each ```data/Matrices/GroupName/``` contains graph descriptions and ```data/Grammars``` --- descriptions of queries. 
+Graphs and grammars can be found in  ```data``` — all graphs are divided into groups, which are placed in different directories. Each ```data/Matrices/GroupName/``` contains graph descriptions and ```data/Grammars``` — descriptions of queries. 
 
 ## Integration with graph DBs
 
@@ -49,23 +49,43 @@ Work in progress.
 Set contains both real-world data and synthetic graphs for several specific cases; all graphs are represented in triples.
 All graphs are represented in RDF format to unify loading process.
 
-### RDFs
+### Graphs
+- ```RDF``` — Real-world RDF files:
 
-Real-world RDF files:
+  - Smaller graphs
+    - a set of popular semantic web ontologies like **foaf**, **wine**, **pizza**.
+  - Bigger graphs
+    - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species
+    - a set of graphs from the **Uniprot** protein sequences database
 
-- Smaller graphs
-  - a set of popular semantic web ontologies like **foaf**, **wine**, **pizza**.
-- Bigger graphs
-  - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species
-  - a set of graphs from the **Uniprot** protein sequences database
+- ```Worst cases``` — graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
 
-### Worst cases
+- ```Sparse graphs``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data.
 
-Graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
+- ```Scale-free graphs``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) by using the Barab\'asi-Albert model of scale-free networks
 
-### Sparse graphs 
+- ```Full graph``` 
 
-Graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data.
+### Grammars
+
+- ```GPPerf1, GPPerf2``` — queries over **subClassOf** and **type** relations 
+  - Use with **RDF** graphs
+
+- ```geo```
+  - Use with **geospecies** dataset
+
+- ```an_bm_cm_dn```
+  - Use with **ScaleFree** graphs
+
+- ```Brackets``` — query describing correct bracket sequences
+  - Use with **WorstCase** graphs
+
+- ```A_star```
+  - Use with **FullGraph**
+
+### Reference values
+
+Control values(e.g. number of paths) for algorithms checking: Work in progress
 
 ## Papers using this data set
 
