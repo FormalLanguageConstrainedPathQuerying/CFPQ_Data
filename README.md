@@ -15,11 +15,17 @@ pip3 install -r requirements.txt
 python3 init.py
 ```
 
+In order to load/update one specific part of the dataset run:
+```
+python3 init.py --partial [GroupName]
+```
+Options for ```[GroupName]``` are ```rdf, scalefree, full, worstcase, sparse```
+
 The script downloads data (real-world RDF files) and [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) --- a suite of synthetic graph generators.
 
 ## Repository structure
 
-Graphs and grammars can be found in  ```data/graphs``` --- all graphs are divided into groups, which are placed in different directories. Each ```data/graphs/GroupName``` contains ```Matrices``` with graph descriptions and ```Grammars``` --- descriptions of queries. 
+Graphs and grammars can be found in  ```data``` --- all graphs are divided into groups, which are placed in different directories. Each ```data/Matrices/GroupName/``` contains graph descriptions and ```data/Grammars``` --- descriptions of queries. 
 
 ## Integration with graph DBs
 
@@ -29,7 +35,9 @@ We provide a set of scripts to simplify data loading into soe popular graph data
 
 Data set can be loaded to RedisGraph with ```tools/redis-rdf```, for example:
 ```
-python3 ./tools/redis-rdf/main.py --port [PORT] dir ./data/graphs/ScaleFree/Matrices/
+cd ./tools/redis-rdf
+python3 main.py --port [PORT] dir ../../data/Matrices/ScaleFree/
+python3 main.py --port [PORT] file ../../data/Matrices/RDF/foaf.rdf foaf
 ```
 
 ### Neo4j
