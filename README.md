@@ -50,7 +50,7 @@ Set contains both real-world data and synthetic graphs for several specific case
 All graphs are represented in RDF format to unify loading process.
 
 ### Graphs
-- ```RDF``` — Real-world RDF files:
+- **RDF** — Real-world RDF files:
 
   - Smaller graphs
     - a set of popular semantic web ontologies like **foaf**, **wine**, **pizza**.
@@ -58,29 +58,29 @@ All graphs are represented in RDF format to unify loading process.
     - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species
     - a set of graphs from the **Uniprot** protein sequences database
 
-- ```Worst cases``` — graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
+- **Worst cases** — graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
 
-- ```Sparse graphs``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data.
+- **Sparse** — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data.
 
-- ```Scale-free graphs``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) by using the Barab\'asi-Albert model of scale-free networks
+- **Scale-free** — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) by using the Barab\'asi-Albert model of scale-free networks
 
-- ```Full graph``` 
+- **Full graph**
 
 ### Grammars
 
-- ```GPPerf1, GPPerf2``` — queries over **subClassOf** and **type** relations 
+- **GPPerf1, GPPerf2** — queries over _subClassOf_ and _type_ relations 
   - Use with **RDF** graphs
 
-- ```geo```
+- **geo**
   - Use with **geospecies** dataset
 
-- ```an_bm_cm_dn```
+- **an_bm_cm_dn**
   - Use with **ScaleFree** graphs
 
-- ```Brackets``` — query describing correct bracket sequences
+- **Brackets** — query describing correct bracket sequences
   - Use with **WorstCase** graphs
 
-- ```A_star```
+- **A_star** — kleene star producing full graph
   - Use with **FullGraph**
 
 ### Reference values
