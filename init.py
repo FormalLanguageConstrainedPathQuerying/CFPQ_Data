@@ -23,6 +23,7 @@ NUMBER_OF_WORST_CASES = 12
 URI_PREFIX = 'http://yacc/'
 RDF = 'RDF'
 DATA_ROOT_DIR = './data/'
+SYNTHETIC_DIR = 'Synthetic'
 MATRICES_DIR = 'Matrices'
 
 #MEMORY_ALIASES = 'MemoryAliases'
@@ -74,7 +75,7 @@ def download_data():
 def unpack(file_from, path_to):
     with lzma.open(file_from) as f:
         with tarfile.open(fileobj=f) as tar:
-            content = tar.extractall(path_to)
+            tar.extractall(path_to)
 
 def install_gtgraph():
     print('Installation of GTgraph is started.')
@@ -176,38 +177,45 @@ def gen_scale_free_graph(target_dir, n, k, labels):
     write_to_rdf(target, output_graph)
 
 def clean_dir(path):
-   if os.path.isdir(path): 
-      shutil.rmtree(path)
-   os.mkdir(path)
+    if os.path.isdir(path): 
+        shutil.rmtree(path)
+    os.mkdir(path)
 
 def generate_all_sparse_graphs():
-   print('Sparse graphs generation is started.') 
+    print('Sparse graphs generation is started.') 
+    synthetic_dir = os.path.join(DATA_ROOT_DIR, SYNTHETIC_DIR, MATRICES_DIR)
+    os.makedirs(synthetic_dir, exist_ok=True)
+    matrices_dir = os.path.join(synthetic_dir, 'SparseGraph')
+    clean_dir(matrices_dir)
 
-   matrices_dir = os.path.join(DATA_ROOT_DIR, MATRICES_DIR, 'SparseGraph')
-   clean_dir(matrices_dir)
-
-   for g in SPARSE_GRAPH_TO_GEN: gen_sparse_graph(matrices_dir, g[0], g[1])
-   print('Sparse graphs generation is finished.')
+    for g in SPARSE_GRAPH_TO_GEN: gen_sparse_graph(matrices_dir, g[0], g[1])
+    print('Sparse graphs generation is finished.')
 
 def generate_full_graphs():
-   print('Full graphs generation is started.')
-   matrices_dir = os.path.join(DATA_ROOT_DIR, MATRICES_DIR, 'FullGraph')
-   clean_dir(matrices_dir)
-   
-   for g in FULL_GRAPH_TO_GEN: gen_cycle_graph(matrices_dir, g)
-   print('Full graphs generation is finished.')
+    print('Full graphs generation is started.')
+    synthetic_dir = os.path.join(DATA_ROOT_DIR, SYNTHETIC_DIR, MATRICES_DIR)
+    os.makedirs(synthetic_dir, exist_ok=True)
+    matrices_dir = os.path.join(synthetic_dir, 'FullGraph')
+    clean_dir(matrices_dir)
+
+    for g in FULL_GRAPH_TO_GEN: gen_cycle_graph(matrices_dir, g)
+    print('Full graphs generation is finished.')
 
 def generate_worst_case_graphs():
-   print('Worst case graphs generation is started.')
-   matrices_dir = os.path.join(DATA_ROOT_DIR, MATRICES_DIR, 'WorstCase')
-   clean_dir(matrices_dir)
-   
-   for n in range(2, NUMBER_OF_WORST_CASES): gen_worst_case_graph(matrices_dir, 2 ** n)
-   print('Worst case graphs generation is finished.')
+    print('Worst case graphs generation is started.')
+    synthetic_dir = os.path.join(DATA_ROOT_DIR, SYNTHETIC_DIR, MATRICES_DIR)
+    os.makedirs(synthetic_dir, exist_ok=True)
+    matrices_dir = os.path.join(synthetic_dir, 'WorstCase')
+    clean_dir(matrices_dir)
+
+    for n in range(2, NUMBER_OF_WORST_CASES): gen_worst_case_graph(matrices_dir, 2 ** n)
+    print('Worst case graphs generation is finished.')
 
 def generate_scale_free_graphs():
     print('Scale free graphs generation is started.')
-    matrices_dir = os.path.join(DATA_ROOT_DIR, MATRICES_DIR, 'ScaleFree')
+    synthetic_dir = os.path.join(DATA_ROOT_DIR, SYNTHETIC_DIR, MATRICES_DIR)
+    os.makedirs(synthetic_dir, exist_ok=True)
+    matrices_dir = os.path.join(synthetic_dir, 'ScaleFree')
     clean_dir(matrices_dir)
 
     for k in 1, 3, 5, 10:
@@ -254,12 +262,12 @@ def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--partial', 
+    parser.add_argument('--update', 
                     choices=['rdf', 'scalefree', 'full', 'worstcase', 'sparse'],
                     required=False, type=str, help='partial dataset update')
     args = parser.parse_args()
 
-    prt = args.partial
+    prt = args.update
 
     if (prt == 'rdf'):
         download_data()

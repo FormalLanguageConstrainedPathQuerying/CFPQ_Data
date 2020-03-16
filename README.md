@@ -17,7 +17,7 @@ python3 init.py
 
 In order to load/update one specific part of the dataset run:
 ```
-python3 init.py --partial [GroupName]
+python3 init.py --update [GroupName]
 ```
 Options for ```[GroupName]``` are ```rdf, scalefree, full, worstcase, sparse```
 
