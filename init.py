@@ -5,6 +5,7 @@ import subprocess
 import shutil
 import urllib.request
 import requests
+import argparse
 import numpy as np
 from rdflib import Graph, URIRef, BNode
 
@@ -19,18 +20,20 @@ RDF_DOWNLOAD_ID = '1x4cELJ7kSwhqlLC0zrOcuxaF3c19qRnK'
 SPARSE_GRAPH_TO_GEN = [[5000, 0.001], [10000, 0.001], [10000, 0.01], [10000, 0.1], [20000, 0.001], [40000, 0.001], [80000, 0.001]]
 FULL_GRAPH_TO_GEN = [10, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 25000, 50000, 80000]
 NUMBER_OF_WORST_CASES = 12
-URI_PREFIX = 'http://example.org/'
-
+URI_PREFIX = 'http://yacc/'
 RDF = 'RDF'
-MEMORY_ALIASES = 'MemoryAliases'
-DATA_ROOT_DIR = './data/graphs/'
+DATA_ROOT_DIR = './data/'
+SYNTHETIC_DIR = 'Synthetic'
 MATRICES_DIR = 'Matrices'
-DATA_TO_UNPACK = [[MEMORY_ALIASES,MEMORY_ALIASES_DOWNLOAD_ID], [RDF,RDF_DOWNLOAD_ID]]
+
+#MEMORY_ALIASES = 'MemoryAliases'
+#DATA_TO_UNPACK = [[MEMORY_ALIASES,MEMORY_ALIASES_DOWNLOAD_ID], [RDF,RDF_DOWNLOAD_ID]]
+DATA_TO_UNPACK = [[RDF,RDF_DOWNLOAD_ID]]
 GT_GRAPH = './tools/GTgraph/random/GTgraph-random'
 TMP_FILE = 'tmp.txt'
 
 def download_file_from_google_drive(id, destination):
-    URL = "https://docs.google.com/uc?export=download"
+    URL = 'https://docs.google.com/uc?export=download'
 
     session = requests.Session()
 
@@ -53,23 +56,26 @@ def get_confirm_token(response):
 def save_response_content(response, destination):
     CHUNK_SIZE = 32768
 
-    with open(destination, "wb") as f:
+    with open(destination, 'wb') as f:
         for chunk in response.iter_content(CHUNK_SIZE):
             if chunk: # filter out keep-alive new chunks
                 f.write(chunk)
 
 def download_data():
     print('Downloading from GDrive is started.')
-    for f in DATA_TO_UNPACK:         
-        dst = os.path.join(os.path.join(DATA_ROOT_DIR,f[0]),os.path.join(MATRICES_DIR + '.tar.xz'))
-        print('Download archive to ' + dst)
-        download_file_from_google_drive(f[1], dst)  
+    dst = os.path.join(DATA_ROOT_DIR, MATRICES_DIR)
+    clean_dir(dst)
+    for f in DATA_TO_UNPACK:
+        arch_dst = os.path.join(dst, f[0] + '.tar.xz')
+        print('Download archive to ' + arch_dst)
+        
+        download_file_from_google_drive(f[1], arch_dst)  
     print('Downloading from GDrive is finished.')
     
 def unpack(file_from, path_to):
     with lzma.open(file_from) as f:
         with tarfile.open(fileobj=f) as tar:
-            content = tar.extractall(path_to)
+            tar.extractall(path_to)
 
 def install_gtgraph():
     print('Installation of GTgraph is started.')
@@ -87,10 +93,11 @@ def install_gtgraph():
 
 def unpack_graphs():
     for d in DATA_TO_UNPACK:
-        to = os.path.join(DATA_ROOT_DIR, d[0])
-        arch = os.path.join(to, '%s.tar.xz'%(MATRICES_DIR))
+        to = os.path.join(DATA_ROOT_DIR, MATRICES_DIR)
+        arch = os.path.join(to, '%s.tar.xz'%(d[0]))
         print ('Unpack ', arch, ' to ', to)
         unpack(arch, to)
+        os.rename(os.path.join(to, MATRICES_DIR), os.path.join(to, d[0]))
 
 # RDF serialization
 def write_to_rdf(target, graph):
@@ -160,7 +167,6 @@ def gen_scale_free_graph(target_dir, n, k, labels):
             g[i].append((to, label))
             degree[to] += 1
             degree[i] += 1
-            g[to].append((i, label))
     
     output_graph = Graph()
     target = os.path.join(target_dir, 'scale_free_graph_%s_%s')%(n, k)
@@ -171,38 +177,45 @@ def gen_scale_free_graph(target_dir, n, k, labels):
     write_to_rdf(target, output_graph)
 
 def clean_dir(path):
-   if os.path.isdir(path): 
-      shutil.rmtree(path)
-   os.mkdir(path)
+    if os.path.isdir(path): 
+        shutil.rmtree(path)
+    os.mkdir(path)
 
 def generate_all_sparse_graphs():
-   print('Sparse graphs generation is started.') 
+    print('Sparse graphs generation is started.') 
+    synthetic_dir = os.path.join(DATA_ROOT_DIR, SYNTHETIC_DIR, MATRICES_DIR)
+    os.makedirs(synthetic_dir, exist_ok=True)
+    matrices_dir = os.path.join(synthetic_dir, 'SparseGraph')
+    clean_dir(matrices_dir)
 
-   matrices_dir = os.path.join(os.path.join(DATA_ROOT_DIR, 'SparseGraph'), MATRICES_DIR)
-   clean_dir(matrices_dir)
-
-   for g in SPARSE_GRAPH_TO_GEN: gen_sparse_graph(matrices_dir, g[0], g[1])
-   print('Sparse graphs generation is finished.')
+    for g in SPARSE_GRAPH_TO_GEN: gen_sparse_graph(matrices_dir, g[0], g[1])
+    print('Sparse graphs generation is finished.')
 
 def generate_full_graphs():
-   print('Full graphs generation is started.')
-   matrices_dir = os.path.join(os.path.join(DATA_ROOT_DIR, 'FullGraph'), MATRICES_DIR)
-   clean_dir(matrices_dir)
-   
-   for g in FULL_GRAPH_TO_GEN: gen_cycle_graph(matrices_dir, g)
-   print('Full graphs generation is finished.')
+    print('Full graphs generation is started.')
+    synthetic_dir = os.path.join(DATA_ROOT_DIR, SYNTHETIC_DIR, MATRICES_DIR)
+    os.makedirs(synthetic_dir, exist_ok=True)
+    matrices_dir = os.path.join(synthetic_dir, 'FullGraph')
+    clean_dir(matrices_dir)
+
+    for g in FULL_GRAPH_TO_GEN: gen_cycle_graph(matrices_dir, g)
+    print('Full graphs generation is finished.')
 
 def generate_worst_case_graphs():
-   print('Worst case graphs generation is started.')
-   matrices_dir = os.path.join(os.path.join(DATA_ROOT_DIR, 'WorstCase'), MATRICES_DIR)
-   clean_dir(matrices_dir)
-   
-   for n in range(2, NUMBER_OF_WORST_CASES): gen_worst_case_graph(matrices_dir, 2 ** n)
-   print('Worst case graphs generation is finished.')
+    print('Worst case graphs generation is started.')
+    synthetic_dir = os.path.join(DATA_ROOT_DIR, SYNTHETIC_DIR, MATRICES_DIR)
+    os.makedirs(synthetic_dir, exist_ok=True)
+    matrices_dir = os.path.join(synthetic_dir, 'WorstCase')
+    clean_dir(matrices_dir)
+
+    for n in range(2, NUMBER_OF_WORST_CASES): gen_worst_case_graph(matrices_dir, 2 ** n)
+    print('Worst case graphs generation is finished.')
 
 def generate_scale_free_graphs():
     print('Scale free graphs generation is started.')
-    matrices_dir = os.path.join(DATA_ROOT_DIR, 'ScaleFree', MATRICES_DIR)
+    synthetic_dir = os.path.join(DATA_ROOT_DIR, SYNTHETIC_DIR, MATRICES_DIR)
+    os.makedirs(synthetic_dir, exist_ok=True)
+    matrices_dir = os.path.join(synthetic_dir, 'ScaleFree')
     clean_dir(matrices_dir)
 
     for k in 1, 3, 5, 10:
@@ -211,7 +224,7 @@ def generate_scale_free_graphs():
     print('Scale free graphs generation is finished.')
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
-    """ Generates a Sierpinski Triangle graph. """
+    ''' Generates a Sierpinski Triangle graph. '''
     
     def sierpinski(t, l, r, deg, preds, g):
         ''' Core function for generating the Sierpinski Triangle. '''
@@ -248,10 +261,30 @@ def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
             out_file.write('%s %s %s \n'%(triple[0], triple[1], triple[2]))
 
 if __name__ == '__main__':
-   install_gtgraph()
-   download_data()
-   unpack_graphs()
-   generate_all_sparse_graphs()
-   generate_full_graphs()
-   generate_worst_case_graphs()
-   generate_scale_free_graphs()
+    parser = argparse.ArgumentParser(description='')
+    parser.add_argument('--update', 
+                    choices=['rdf', 'scalefree', 'full', 'worstcase', 'sparse'],
+                    required=False, type=str, help='partial dataset update')
+    args = parser.parse_args()
+
+    prt = args.update
+
+    if (prt == 'rdf'):
+        download_data()
+        unpack_graphs()
+    elif (prt == 'scalefree'):
+        generate_scale_free_graphs()
+    elif (prt == 'full'):
+        generate_full_graphs()
+    elif (prt == 'worstcase'):
+        generate_worst_case_graphs()
+    elif (prt == 'sparse'):
+        generate_all_sparse_graphs()
+    else:
+        install_gtgraph()
+        download_data()
+        unpack_graphs()
+        generate_all_sparse_graphs()
+        generate_full_graphs()
+        generate_worst_case_graphs()
+        generate_scale_free_graphs()
