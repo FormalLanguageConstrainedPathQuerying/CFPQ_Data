@@ -86,7 +86,7 @@ Set contains both real-world data and synthetic graphs for several specific case
 
 ### Reference values
 
-Control values for algorithms correctness checking can be found in ```control_values.csv```.
+Control values for algorithms correctness checking can be found in [control_values.csv](./control_values.csv).
 
 ## Papers using this data set
 
