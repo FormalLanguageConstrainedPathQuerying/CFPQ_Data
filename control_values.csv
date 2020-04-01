@@ -47,40 +47,40 @@ worstcase_4.txt,Brackets.txt,"{'s': 6, 'a': 3, 'b': 2, 's1': 6}"
 worstcase_512.txt,Brackets.txt,"{'s': 65792, 'a': 257, 'b': 256, 's1': 65792}"
 worstcase_64.txt,Brackets.txt,"{'s': 1056, 'a': 33, 'b': 32, 's1': 1056}"
 worstcase_8.txt,Brackets.txt,"{'s': 20, 'a': 5, 'b': 4, 's1': 20}"
-geospeices.txt,geo.cnf,"""{'s': 226669749, 'bt': 20867, 's1': 21361542, 'btr': 20867}"""35803600
-atom-primitive.txt,GPPerf1_cnf.txt,"{'s': 15447, 's1': 122, 's5': 15128, 's3': 138, 's6': 0, 's2': 122, 's4': 138}"1472
-biomedical-mesure-primitive.txt,GPPerf1_cnf.txt,"{'s': 15156, 's1': 122, 's5': 15006, 's3': 130, 's6': 0, 's2': 122, 's4': 130}"1208
-core.txt,GPPerf1_cnf.txt,"{'s': 316, 's1': 178, 's5': 82, 's3': 706, 's6': 239, 's2': 178, 's4': 1412}"248
-eclass_514en.txt,GPPerf1_cnf.txt,"{'s': 90994, 's1': 90962, 's5': 35505, 's3': 72517, 's6': 30330, 's2': 90962, 's4': 72517}"31188
-enzyme.txt,GPPerf1_cnf.txt,"{'s': 396, 's1': 8163, 's5': 393, 's3': 14989, 's6': 393, 's2': 8163, 's4': 14989}"8036
-foaf.txt,GPPerf1_cnf.txt,"{'s': 4118, 's1': 10, 's5': 120, 's3': 174, 's6': 195, 's2': 10, 's4': 174}"400
-funding.txt,GPPerf1_cnf.txt,"{'s': 17610, 's1': 90, 's5': 6555, 's3': 304, 's6': 2375, 's2': 90, 's4': 304}"468
-generations.txt,GPPerf1_cnf.txt,"{'s': 2164, 's1': 0, 's5': 0, 's3': 78, 's6': 259, 's2': 0, 's4': 78}"224
-go-hierarchy.txt,GPPerf1_cnf.txt,"{'s': 588976, 's1': 490109, 's5': 324016, 's3': 0, 's6': 0, 's2': 490109, 's4': 0}"91976
-go.txt,GPPerf1_cnf.txt,"{'s': 304070, 's1': 90512, 's5': 278610, 's3': 58483, 's6': 39642, 's2': 90512, 's4': 58483}"75604
-pathways.txt,GPPerf1_cnf.txt,"{'s': 884, 's1': 3117, 's5': 882, 's3': 3118, 's6': 882, 's2': 3117, 's4': 3118}"472
-people_pets.txt,GPPerf1_cnf.txt,"{'s': 9472, 's1': 33, 's5': 2486, 's3': 161, 's6': 1881, 's2': 33, 's4': 161}"596
-pizza.txt,GPPerf1_cnf.txt,"{'s': 56195, 's1': 259, 's5': 23044, 's3': 365, 's6': 720, 's2': 259, 's4': 365}"5452
-skos.txt,GPPerf1_cnf.txt,"{'s': 799, 's1': 1, 's5': 5, 's3': 70, 's6': 0, 's2': 1, 's4': 70}"224
-travel.txt,GPPerf1_cnf.txt,"{'s': 2499, 's1': 30, 's5': 1110, 's3': 90, 's6': 630, 's2': 30, 's4': 90}"228
-univ-bench.txt,GPPerf1_cnf.txt,"{'s': 2540, 's1': 36, 's5': 1478, 's3': 84, 's6': 0, 's2': 36, 's4': 84}"224
-wine.txt,GPPerf1_cnf.txt,"{'s': 66572, 's1': 126, 's5': 8172, 's3': 485, 's6': 16261, 's2': 126, 's4': 485}"7036
-atom-primitive.txt,GPPerf2_cnf.txt,"{'b': 122, 's1': 122, 's3': 0, 's2': 122}"244
-biomedical-mesure-primitive.txt,GPPerf2_cnf.txt,"{'b': 2856, 's1': 122, 's3': 1895, 's2': 122}"0
-core.txt,GPPerf2_cnf.txt,"{'b': 214, 's1': 178, 's3': 108, 's2': 178}"236
-eclass_514en.txt,GPPerf2_cnf.txt,"{'b': 96163, 's1': 90962, 's3': 60633, 's2': 90962}"17660
-enzyme.txt,GPPerf2_cnf.txt,"{'b': 8163, 's1': 8163, 's3': 8156, 's2': 8163}"5296
-foaf.txt,GPPerf2_cnf.txt,"{'b': 10, 's1': 10, 's3': 3, 's2': 10}"0
-funding.txt,GPPerf2_cnf.txt,"{'b': 1158, 's1': 90, 's3': 566, 's2': 90}"0
-generations.txt,GPPerf2_cnf.txt,"{'b': 0, 's1': 0, 's3': 0, 's2': 0}"0
-go-hierarchy.txt,GPPerf2_cnf.txt,"{'b': 738937, 's1': 490109, 's3': 422848, 's2': 490109}"88800
-go.txt,GPPerf2_cnf.txt,"{'b': 334850, 's1': 90512, 's3': 327628, 's2': 90512}"78016
-pathways.txt,GPPerf2_cnf.txt,"{'b': 3117, 's1': 3117, 's3': 3010, 's2': 3117}"412
-people_pets.txt,GPPerf2_cnf.txt,"{'b': 37, 's1': 33, 's3': 14, 's2': 33}"0
-pizza.txt,GPPerf2_cnf.txt,"{'b': 1262, 's1': 259, 's3': 384, 's2': 259}"248
-skos.txt,GPPerf2_cnf.txt,"{'b': 1, 's1': 1, 's3': 0, 's2': 1}"0
-travel.txt,GPPerf2_cnf.txt,"{'b': 63, 's1': 30, 's3': 16, 's2': 30}"0
-univ-bench.txt,GPPerf2_cnf.txt,"{'b': 81, 's1': 36, 's3': 21, 's2': 36}"0
+geospeices.txt,geo.cnf,"{'s': 226669749, 'bt': 20867, 's1': 21361542, 'btr': 20867}"
+atom-primitive.txt,GPPerf1_cnf.txt,"{'s': 15447, 's1': 122, 's5': 15128, 's3': 138, 's6': 0, 's2': 122, 's4': 138}"
+biomedical-mesure-primitive.txt,GPPerf1_cnf.txt,"{'s': 15156, 's1': 122, 's5': 15006, 's3': 130, 's6': 0, 's2': 122, 's4': 130}"
+core.txt,GPPerf1_cnf.txt,"{'s': 316, 's1': 178, 's5': 82, 's3': 706, 's6': 239, 's2': 178, 's4': 1412}"
+eclass_514en.txt,GPPerf1_cnf.txt,"{'s': 90994, 's1': 90962, 's5': 35505, 's3': 72517, 's6': 30330, 's2': 90962, 's4': 72517}"
+enzyme.txt,GPPerf1_cnf.txt,"{'s': 396, 's1': 8163, 's5': 393, 's3': 14989, 's6': 393, 's2': 8163, 's4': 14989}"
+foaf.txt,GPPerf1_cnf.txt,"{'s': 4118, 's1': 10, 's5': 120, 's3': 174, 's6': 195, 's2': 10, 's4': 174}"
+funding.txt,GPPerf1_cnf.txt,"{'s': 17610, 's1': 90, 's5': 6555, 's3': 304, 's6': 2375, 's2': 90, 's4': 304}"
+generations.txt,GPPerf1_cnf.txt,"{'s': 2164, 's1': 0, 's5': 0, 's3': 78, 's6': 259, 's2': 0, 's4': 78}"
+go-hierarchy.txt,GPPerf1_cnf.txt,"{'s': 588976, 's1': 490109, 's5': 324016, 's3': 0, 's6': 0, 's2': 490109, 's4': 0}"
+go.txt,GPPerf1_cnf.txt,"{'s': 304070, 's1': 90512, 's5': 278610, 's3': 58483, 's6': 39642, 's2': 90512, 's4': 58483}"
+pathways.txt,GPPerf1_cnf.txt,"{'s': 884, 's1': 3117, 's5': 882, 's3': 3118, 's6': 882, 's2': 3117, 's4': 3118}"
+people_pets.txt,GPPerf1_cnf.txt,"{'s': 9472, 's1': 33, 's5': 2486, 's3': 161, 's6': 1881, 's2': 33, 's4': 161}"
+pizza.txt,GPPerf1_cnf.txt,"{'s': 56195, 's1': 259, 's5': 23044, 's3': 365, 's6': 720, 's2': 259, 's4': 365}"
+skos.txt,GPPerf1_cnf.txt,"{'s': 799, 's1': 1, 's5': 5, 's3': 70, 's6': 0, 's2': 1, 's4': 70}"
+travel.txt,GPPerf1_cnf.txt,"{'s': 2499, 's1': 30, 's5': 1110, 's3': 90, 's6': 630, 's2': 30, 's4': 90}"
+univ-bench.txt,GPPerf1_cnf.txt,"{'s': 2540, 's1': 36, 's5': 1478, 's3': 84, 's6': 0, 's2': 36, 's4': 84}"
+wine.txt,GPPerf1_cnf.txt,"{'s': 66572, 's1': 126, 's5': 8172, 's3': 485, 's6': 16261, 's2': 126, 's4': 485}"
+atom-primitive.txt,GPPerf2_cnf.txt,"{'b': 122, 's1': 122, 's3': 0, 's2': 122}"
+biomedical-mesure-primitive.txt,GPPerf2_cnf.txt,"{'b': 2856, 's1': 122, 's3': 1895, 's2': 122}"
+core.txt,GPPerf2_cnf.txt,"{'b': 214, 's1': 178, 's3': 108, 's2': 178}"
+eclass_514en.txt,GPPerf2_cnf.txt,"{'b': 96163, 's1': 90962, 's3': 60633, 's2': 90962}"
+enzyme.txt,GPPerf2_cnf.txt,"{'b': 8163, 's1': 8163, 's3': 8156, 's2': 8163}"
+foaf.txt,GPPerf2_cnf.txt,"{'b': 10, 's1': 10, 's3': 3, 's2': 10}"
+funding.txt,GPPerf2_cnf.txt,"{'b': 1158, 's1': 90, 's3': 566, 's2': 90}"
+generations.txt,GPPerf2_cnf.txt,"{'b': 0, 's1': 0, 's3': 0, 's2': 0}"
+go-hierarchy.txt,GPPerf2_cnf.txt,"{'b': 738937, 's1': 490109, 's3': 422848, 's2': 490109}"
+go.txt,GPPerf2_cnf.txt,"{'b': 334850, 's1': 90512, 's3': 327628, 's2': 90512}"
+pathways.txt,GPPerf2_cnf.txt,"{'b': 3117, 's1': 3117, 's3': 3010, 's2': 3117}"
+people_pets.txt,GPPerf2_cnf.txt,"{'b': 37, 's1': 33, 's3': 14, 's2': 33}"
+pizza.txt,GPPerf2_cnf.txt,"{'b': 1262, 's1': 259, 's3': 384, 's2': 259}"
+skos.txt,GPPerf2_cnf.txt,"{'b': 1, 's1': 1, 's3': 0, 's2': 1}"
+travel.txt,GPPerf2_cnf.txt,"{'b': 63, 's1': 30, 's3': 16, 's2': 30}"
+univ-bench.txt,GPPerf2_cnf.txt,"{'b': 81, 's1': 36, 's3': 21, 's2': 36}"
 wine.txt,GPPerf2_cnf.txt,"{'b': 133, 's1': 126, 's3': 35, 's2': 126}"228
 G10k-0.001.txt,SG.yrd,"{'s': 98545363, 's1': 49830, 's2': 49975, 's3': 98545412}"
 G10k-0.01.txt,SG.yrd,"{'s': 100000000, 's1': 498331, 's2': 501170, 's3': 100000000}"
