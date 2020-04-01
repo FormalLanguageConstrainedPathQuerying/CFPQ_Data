@@ -81,7 +81,7 @@ pizza.txt,GPPerf2_cnf.txt,"{'b': 1262, 's1': 259, 's3': 384, 's2': 259}"
 skos.txt,GPPerf2_cnf.txt,"{'b': 1, 's1': 1, 's3': 0, 's2': 1}"
 travel.txt,GPPerf2_cnf.txt,"{'b': 63, 's1': 30, 's3': 16, 's2': 30}"
 univ-bench.txt,GPPerf2_cnf.txt,"{'b': 81, 's1': 36, 's3': 21, 's2': 36}"
-wine.txt,GPPerf2_cnf.txt,"{'b': 133, 's1': 126, 's3': 35, 's2': 126}"228
+wine.txt,GPPerf2_cnf.txt,"{'b': 133, 's1': 126, 's3': 35, 's2': 126}"
 G10k-0.001.txt,SG.yrd,"{'s': 98545363, 's1': 49830, 's2': 49975, 's3': 98545412}"
 G10k-0.01.txt,SG.yrd,"{'s': 100000000, 's1': 498331, 's2': 501170, 's3': 100000000}"
 G5k-0.001.txt,SG.yrd,"{'s': 19960645, 's1': 12552, 's2': 12494, 's3': 19961535}"
