@@ -50,22 +50,22 @@ Set contains both real-world data and synthetic graphs for several specific case
 
 ### Graphs
 
-```data/Matrices/RDF``` — Fixed versions of real-world RDF files(links are provided for updating purposes only!):
+- ```data/Matrices/RDF``` — fixed versions of real-world RDF files(links are provided for updating purposes only!):
 
    - Smaller graphs:
-    - a set of popular semantic web ontologies, download links: [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf), [foaf](http://xmlns.com/foaf/0.1/), [wine](https://www.w3.org/TR/owl-guide/wine.rdf), [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl), [generations](http://www.owl-ontologies.com/generations.owl), [travel](https://protege.stanford.edu/ontologies/travel.owl), [univ-bench](http://swat.cse.lehigh.edu/onto/univ-bench.owl), [people-pets](http://owl.man.ac.uk/tutorial/people+pets.rdf)
+      - a set of popular semantic web ontologies, download links: [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf), [foaf](http://xmlns.com/foaf/0.1/), [wine](https://www.w3.org/TR/owl-guide/wine.rdf), [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl), [generations](http://www.owl-ontologies.com/generations.owl), [travel](https://protege.stanford.edu/ontologies/travel.owl), [univ-bench](http://swat.cse.lehigh.edu/onto/univ-bench.owl), [people-pets](http://owl.man.ac.uk/tutorial/people+pets.rdf)
   
   - Bigger graphs:
     - _geospecies_ – graph related to taxonomic hierarchy and geographical information of animal species, download here: <https://old.datahub.io/dataset/geospecies> 
     - a set of graphs from the _Uniprot_ protein sequences database, download here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
 
-```data/Synthetic/Matrices/WorstCase``` — graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
+- ```data/Synthetic/Matrices/WorstCase``` — graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
 
-```data/Synthetic/Matrices/SparseGraph``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data.
+- ```data/Synthetic/Matrices/SparseGraph``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data.
 
-```data/Synthetic/Matrices/ScaleFree``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) by using the Barab\'asi-Albert model of scale-free networks
+- ```data/Synthetic/Matrices/ScaleFree``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) by using the Barab\'asi-Albert model of scale-free networks
 
-```data/Synthetic/Matrices/FullGraph``` — a cycle, all edges are labeled with the same token 
+- ```data/Synthetic/Matrices/FullGraph``` — a cycle, all edges are labeled with the same token 
 
 ### Grammars
 
@@ -86,7 +86,7 @@ Set contains both real-world data and synthetic graphs for several specific case
 
 ### Reference values
 
-Control values for algorithms correctness checking can be found in ```control_values.csv```.
+Control values for algorithms correctness checking can be found in [control_values.csv](./control_values.csv).
 
 ## Papers using this data set
 
