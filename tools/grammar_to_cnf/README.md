@@ -1,4 +1,4 @@
-Loads CFG to pyformlang. 
+Loads context-free grammar and outputs it in CNF.
 
 Use the following input format:
 
@@ -26,5 +26,5 @@ Use the following input format:
 To start run:
 ```
 pip3 install -r requirements.txt
-python3 grammar_to_pyformlang.py PATH_TO_GRAMMAR
+python3 grammar_to_pyformlang.py PATH_TO_GRAMMAR -o PATH_TO_OUTPUT
 ```

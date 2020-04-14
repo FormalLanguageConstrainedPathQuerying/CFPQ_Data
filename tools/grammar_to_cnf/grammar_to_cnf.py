@@ -1,4 +1,3 @@
-
 from pyformlang.cfg import Production, Variable, Terminal, CFG
 from pyformlang.regular_expression import Regex
 import argparse
@@ -57,12 +56,10 @@ def regex_to_grammar_productions(regex, head, var_dict, terminal_dict):
     return production_set
 
 
-def to_pyformlang(input_file):
+def from_txt(lines):
     var_dict = {}
     terminal_dict = {}
     production_set = set()
-
-    lines = input_file.readlines()
 
     # variables
     var_lst = lines[0].split()
@@ -78,15 +75,30 @@ def to_pyformlang(input_file):
     for l in lines[2:]:
         pr = l.split(' -> ')
         head = var_dict[pr[0]]
-        body = pr[1].rstrip('\n')
+        body_str = pr[1].rstrip('\n')
 
-        # transforming body regex
-        production_set |= regex_to_grammar_productions(
-            Regex(body),
-            head,
-            var_dict,
-            terminal_dict
-        )
+        for body in body_str.split('|'):
+            if any(i in body for i in '.+*()'):
+                # Getting productions when body has regex
+                production_set |= regex_to_grammar_productions(
+                    Regex(body),
+                    head,
+                    var_dict,
+                    terminal_dict
+                )
+            else:
+                # Getting productions when body has no regex
+                inner_body = []
+                for sym in body.split():
+                    if sym in var_dict:
+                        inner_body.append(var_dict[sym])
+                    elif sym in terminal_dict:
+                        inner_body.append(terminal_dict[sym])
+                    elif sym != 'eps':
+                        raise ValueError(f'''Symbol "{sym}" is not defined as
+                                        a terminal or a variable''')
+                p = Production(head, inner_body)
+                production_set.add(p)
 
     cfg = CFG(
         start_symbol=start_var, productions=production_set
@@ -94,20 +106,47 @@ def to_pyformlang(input_file):
 
     print('Context-free grammar loaded.')
     # DEBUG OUTPUT
-    for w in list(cfg.get_words(5)):
-        print(w)
-    print(f'Variables: {cfg.variables}')
-    print(f'Terminals: {cfg.terminals}')
-    print(f'Productions: {cfg.productions}')
+    # for w in list(cfg.get_words(5)):
+    #     print(w)
+    # print(f'Variables: {cfg.variables}')
+    # print(f'Terminals: {cfg.terminals}')
+    # print(f'Productions: {cfg.productions}')
+
+    return cfg
+
+
+def to_txt(cfg):
+    variables, productions, terminals = '', '', ''
+
+    for var in cfg.variables:
+        variables += f'{var.value} '
+    for ter in cfg.terminals:
+        terminals += f'{ter.value} '
+    for pr in cfg.productions:
+        head = pr.head.value
+        productions += (f'{head} -> ')
+        for sym in pr.body:
+            productions += f'{sym.value} '
+        productions += '\n'
+    return f'{variables}\n{terminals}\n{productions}'
 
 
 def main():
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('file',
+    parser.add_argument('input',
                         type=argparse.FileType('r')
                         )
+    parser.add_argument("-o", "--output",
+                        help="Directs the output to a name of your choice",
+                        required=True
+                        )
     args = parser.parse_args()
-    to_pyformlang(args.file)
+
+    cfg = from_txt(args.input.readlines())
+    cfg = cfg.to_normal_form()
+    with open(args.output, 'w') as output_file:
+        output_file.write(to_txt(cfg))
+        print(f'Grammar in CNF written to {args.output}')
 
 
 if __name__ == "__main__":
