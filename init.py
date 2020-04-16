@@ -8,6 +8,7 @@ import requests
 import argparse
 import numpy as np
 from rdflib import Graph, URIRef, BNode
+from tools.rdf_helper import write_to_rdf, add_rdf_edge
 
 GT_GRAPH_URL = 'http://www.cse.psu.edu/~kxm85/software/GTgraph/GTgraph.tar.gz'
 GT_GRAPH_ARCH = './tools/GTgraph.tar.gz'
@@ -34,7 +35,7 @@ FULL_GRAPH_TO_GEN = [
 
 NUMBER_OF_WORST_CASES = 12
 
-URI_PREFIX = 'http://yacc/'
+#URI_PREFIX = 'http://yacc/'
 RDF = 'RDF'
 DATA_ROOT_DIR = './data/'
 SYNTHETIC_DIR = 'Synthetic'
@@ -124,18 +125,6 @@ def unpack_graphs():
         arch = os.path.join(to, '%s.tar.xz' % MATRICES_DIR)
         print('Unpack ', arch, ' to ', to)
         unpack(arch, to)
-
-# RDF serialization
-def write_to_rdf(target, graph):
-    graph.serialize(target + '.xml', format='xml')
-
-
-def add_rdf_edge(subj, pred, obj, graph):
-    s = BNode('id-%s' % (subj))
-    p = URIRef(URI_PREFIX + pred)
-    o = BNode('id-%s' % (obj))
-    graph.add((s, p, o))
-
 
 def gen_sparse_graph(target_dir, vertices, prob):
 

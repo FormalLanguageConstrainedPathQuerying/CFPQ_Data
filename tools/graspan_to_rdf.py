@@ -1,19 +1,6 @@
 from os import listdir
 from os.path import isfile, join
-from rdflib import Graph, URIRef, BNode
-
-URI_PREFIX = 'http://yacc/'
-
-# RDF serialization
-def write_to_rdf(target, graph):
-    graph.serialize(target + '.xml', format='xml')
-
-
-def add_rdf_edge(subj, pred, obj, graph):
-    s = BNode('id-%s' % (subj))
-    p = URIRef(URI_PREFIX + pred)
-    o = BNode('id-%s' % (obj))
-    graph.add((s, p, o))
+from rdf_helper import write_to_rdf, add_rdf_edge
 
 def convert_file(in_file_path, out_file_path):
     output_graph = Graph()
