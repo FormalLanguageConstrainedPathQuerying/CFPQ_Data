@@ -12,7 +12,7 @@ from rdflib import Graph, URIRef, BNode
 GT_GRAPH_URL = 'http://www.cse.psu.edu/~kxm85/software/GTgraph/GTgraph.tar.gz'
 GT_GRAPH_ARCH = './tools/GTgraph.tar.gz'
 
-MEMORY_ALIASES_DOWNLOAD_ID = '1fVMY1rE7vX-bFWdP3CDTdjILDsELOXK0'
+MEMORY_ALIASES_DOWNLOAD_ID = '1gZA4x3Nep7IiRv5j3MZlZF7git2sTMEo'
 RDF_DOWNLOAD_ID = '1x4cELJ7kSwhqlLC0zrOcuxaF3c19qRnK'
 
 SPARSE_GRAPH_TO_GEN = [
@@ -24,22 +24,25 @@ SPARSE_GRAPH_TO_GEN = [
     [40000, 0.001],
     [80000, 0.001],
 ]
+
 FULL_GRAPH_TO_GEN = [
     10, 50, 100, 200,
     500, 1000, 2000,
     5000, 10000, 25000,
     50000, 80000,
 ]
+
 NUMBER_OF_WORST_CASES = 12
+
 URI_PREFIX = 'http://yacc/'
 RDF = 'RDF'
 DATA_ROOT_DIR = './data/'
 SYNTHETIC_DIR = 'Synthetic'
 MATRICES_DIR = 'Matrices'
+MEMORY_ALIASES = 'MemoryAliases'
 
-# MEMORY_ALIASES = 'MemoryAliases'
-# DATA_TO_UNPACK = [[MEMORY_ALIASES,MEMORY_ALIASES_DOWNLOAD_ID], [RDF, RDF_DOWNLOAD_ID]]
-DATA_TO_UNPACK = [[RDF, RDF_DOWNLOAD_ID]]
+DATA_TO_UNPACK = [[MEMORY_ALIASES, MEMORY_ALIASES_DOWNLOAD_ID], [RDF, RDF_DOWNLOAD_ID]]
+
 GT_GRAPH = './tools/GTgraph/random/GTgraph-random'
 TMP_FILE = 'tmp.txt'
 
@@ -77,11 +80,11 @@ def save_response_content(response, destination):
 
 
 def download_data():
-    print('Downloading from GDrive is started.')
-    dst = os.path.join(DATA_ROOT_DIR, MATRICES_DIR)
-    clean_dir(dst)
+    print('Downloading from GDrive is started.')    
     for f in DATA_TO_UNPACK:
-        arch_dst = os.path.join(dst, f[0] + '.tar.xz')
+        dst = os.path.join(os.path.join(DATA_ROOT_DIR, f[0]), MATRICES_DIR)
+        clean_dir(dst)
+        arch_dst = os.path.join(dst + '.tar.xz')
         print('Download archive to ' + arch_dst)
 
         download_file_from_google_drive(f[1], arch_dst)
@@ -117,12 +120,10 @@ def install_gtgraph():
 
 def unpack_graphs():
     for d in DATA_TO_UNPACK:
-        to = os.path.join(DATA_ROOT_DIR, MATRICES_DIR)
-        arch = os.path.join(to, '%s.tar.xz' % (d[0]))
+        to = os.path.join(DATA_ROOT_DIR, d[0])
+        arch = os.path.join(to, '%s.tar.xz' % MATRICES_DIR)
         print('Unpack ', arch, ' to ', to)
         unpack(arch, to)
-        os.rename(os.path.join(to, MATRICES_DIR), os.path.join(to, d[0]))
-
 
 # RDF serialization
 def write_to_rdf(target, graph):

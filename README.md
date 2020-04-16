@@ -75,6 +75,10 @@ Set contains both real-world data and synthetic graphs for several specific case
 
 - ```data/Synthetic/Matrices/FullGraph``` — a cycle, all edges are labeled with the same token 
 
+MemoryAliases
+Dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp)
+The original data is placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing)
+
 ### Grammars
 
 ```GPPerf1```, ```GPPerf2``` — queries over _subClassOf_ and _type_ relations 
