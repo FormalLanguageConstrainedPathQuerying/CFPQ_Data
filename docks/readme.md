@@ -1,2 +1,0 @@
-Right place for documentation.
-
