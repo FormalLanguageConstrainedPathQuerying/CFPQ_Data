@@ -50,7 +50,7 @@ Set contains both real-world data and synthetic graphs for several specific case
 
 ### Graphs
 
-- ```data/Matrices/RDF``` — fixed versions of real-world RDF files(links are provided for updating purposes only!):
+- ```data/RDF``` — fixed versions of real-world RDF files(links are provided for updating purposes only!):
 
    - Smaller graphs:
       - a set of popular semantic web ontologies, download links:
@@ -75,9 +75,9 @@ Set contains both real-world data and synthetic graphs for several specific case
 
 - ```data/Synthetic/Matrices/FullGraph``` — a cycle, all edges are labeled with the same token 
 
-MemoryAliases
-Dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp)
-The original data is placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing)
+- ```data/MemoryAliases``` — real-world data for points-to analysis of C code.
+  - First part is a dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp). The original data is placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing)
+  - Second part is a part of dataset form ["Demand-driven alias analysis for C"](https://dl.acm.org/doi/10.1145/1328897.1328464)
 
 ### Grammars
 
