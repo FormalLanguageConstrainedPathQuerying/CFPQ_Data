@@ -35,7 +35,6 @@ FULL_GRAPH_TO_GEN = [
 
 NUMBER_OF_WORST_CASES = 12
 
-#URI_PREFIX = 'http://yacc/'
 RDF = 'RDF'
 DATA_ROOT_DIR = './data/'
 SYNTHETIC_DIR = 'Synthetic'

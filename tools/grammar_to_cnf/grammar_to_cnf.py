@@ -110,11 +110,11 @@ def from_txt(lines):
 
     print('Context-free grammar loaded.')
     # DEBUG OUTPUT
-    for w in list(cfg.get_words(5)):
-        print(w)
-    print(f'Variables: {cfg.variables}')
-    print(f'Terminals: {cfg.terminals}')
-    print(f'Productions: {cfg.productions}')
+    # for w in list(cfg.get_words(5)):
+    #     print(w)
+    # print(f'Variables: {cfg.variables}')
+    # print(f'Terminals: {cfg.terminals}')
+    # print(f'Productions: {cfg.productions}')
 
     return cfg
 
