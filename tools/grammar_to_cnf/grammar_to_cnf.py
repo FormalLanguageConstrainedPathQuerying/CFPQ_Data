@@ -1,7 +1,9 @@
 from pyformlang.cfg import Production, Variable, Terminal, CFG
 from pyformlang.regular_expression import Regex
 import argparse
+import re
 
+SUPPORTED_REGEX_CHARS = '.+*()'
 
 # Counter function used to create unique variable names
 def get_new_var_num():
@@ -19,10 +21,12 @@ def regex_to_grammar_productions(regex, head, var_dict, terminal_dict):
     enfa = enfa.minimize()
     transitions = enfa._transition_function._transitions
 
+    print(enfa._transition_function._transitions)
     # Producing variables from NFA states
     for state in enfa.states:
         _var_dict[state] = Variable(
-            '%s_%s' % (head.value, get_new_var_num())
+            # Creating new CFG variable with unique name
+            '%s#REGEX#%s' % (head.value, get_new_var_num())
         )
 
     for head_state in transitions:
@@ -78,7 +82,7 @@ def from_txt(lines):
         body_str = pr[1].rstrip('\n')
 
         for body in body_str.split('|'):
-            if any(i in body for i in '.+*()'):
+            if any(i in body for i in SUPPORTED_REGEX_CHARS):
                 # Getting productions when body has regex
                 production_set |= regex_to_grammar_productions(
                     Regex(body),
