@@ -3,6 +3,7 @@ from pyformlang.regular_expression import Regex
 import argparse
 import re
 
+EPS_SYM = 'eps'
 SUPPORTED_REGEX_CHARS = '.+*()?'
 
 # Counter function used to create unique variable names
@@ -44,7 +45,7 @@ def regex_to_grammar_productions(regex, head, var_dict, terminal_dict):
                 inner_body.append(var_dict[sym])
             elif sym in terminal_dict:
                 inner_body.append(terminal_dict[sym])
-            elif sym != 'eps':
+            elif sym != EPS_SYM:
                 raise ValueError(f'''Symbol "{sym}" is not defined as
                                  a terminal or a variable''')
 
@@ -84,8 +85,8 @@ def from_txt(lines):
             if any(i in body for i in SUPPORTED_REGEX_CHARS):
                 # Getting productions when body has regex
 
-                # pyformlang doesn't accept '?' quantifier
-                body = body.replace('?','+eps')
+                # pyformlang doesn't accept '?' quantifier, transforming to alternative expression
+                body = body.replace('?',f'+{EPS_SYM}')
                 production_set |= regex_to_grammar_productions(
                     Regex(body),
                     head,
@@ -100,7 +101,7 @@ def from_txt(lines):
                         inner_body.append(var_dict[sym])
                     elif sym in terminal_dict:
                         inner_body.append(terminal_dict[sym])
-                    elif sym != 'eps':
+                    elif sym != EPS_SYM:
                         raise ValueError(f'''Symbol "{sym}" is not defined as
                                         a terminal or a variable''')
                 p = Production(head, inner_body)
