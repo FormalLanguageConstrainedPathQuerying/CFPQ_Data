@@ -4,7 +4,7 @@ import argparse
 import re
 
 EPS_SYM = 'eps'
-SUPPORTED_REGEX_CHARS = '.+*()?|'
+SUPPORTED_REGEX_CHARS = '.*()?|'
 
 # Counter function used to create unique variable names
 def get_new_var_num():
@@ -84,7 +84,7 @@ def from_txt(lines):
         body_str = pr[1].rstrip('\n')
 
         # pyformlang doesn't accept '?' quantifier, transforming to alternative expression
-        body_str = body_str.replace('?',f'+{EPS_SYM}')
+        body_str = body_str.replace('?',f'|{EPS_SYM}')
 
         production_set |= regex_to_grammar_productions(
             Regex(body_str),
