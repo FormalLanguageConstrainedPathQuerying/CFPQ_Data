@@ -100,7 +100,7 @@ Grammars are represented in the following format:
     
     - The concatenation, the default operator, which can by represented either by a space or a dot (.)
     
-    - The union, represented by ```+```
+    - The union, represented by ```+``` or ```|```
 
     - The ```?``` quantifier
     
