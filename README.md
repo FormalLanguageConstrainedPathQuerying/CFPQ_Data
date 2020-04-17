@@ -94,19 +94,19 @@ Grammars are represented in the following format:
 
 - The rest of the lines are productions in the form:
  
-    head -> body<sub>1</sub> | body<sub>2</sub> | ... | body<sub>n</sub>
+    ```head -> body | body | ... | body```
 
     where each body can contain basic regular expression, allowed operators:
     
     - The concatenation, the default operator, which can by represented either by a space or a dot (.)
     
-    - The union, represented by + or |
+    - The union, represented by ```+```
 
-    - The ? quantifier
+    - The ```?``` quantifier
     
-    - The kleene star, represented by *
-
-    Epsilon symbol should be represented as 'eps'
+    - The kleene star, represented by ```*```
+    
+    Epsilon symbol should be represented by ```eps```
 
 Grammar can be converted to CNF with ```tools/gramar_to_cnf```.
 
