@@ -98,7 +98,7 @@ venv.bak/
 .ropeproject
 
 # VSCode stuff
-.vscode/*
+**/.vscode/*
 *.code-workspace
 
 # mkdocs documentation

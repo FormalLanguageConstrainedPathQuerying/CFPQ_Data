@@ -1,0 +1,10 @@
+s v v1 v2 v3
+D_R D A_R A
+s -> D_R v D
+v -> v1 v2 v3
+v1 -> eps
+v1 -> v2 A_R v1
+v2 -> eps
+v2 -> s
+v3 -> eps
+v3 -> A v2 v3

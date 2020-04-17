@@ -1,0 +1,3 @@
+S
+a b
+S -> a S b S | eps
