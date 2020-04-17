@@ -3,7 +3,7 @@ from pyformlang.regular_expression import Regex
 import argparse
 import re
 
-SUPPORTED_REGEX_CHARS = '.+*()'
+SUPPORTED_REGEX_CHARS = '.+*()?'
 
 # Counter function used to create unique variable names
 def get_new_var_num():
@@ -21,7 +21,6 @@ def regex_to_grammar_productions(regex, head, var_dict, terminal_dict):
     enfa = enfa.minimize()
     transitions = enfa._transition_function._transitions
 
-    print(enfa._transition_function._transitions)
     # Producing variables from NFA states
     for state in enfa.states:
         _var_dict[state] = Variable(
@@ -84,6 +83,9 @@ def from_txt(lines):
         for body in body_str.split('|'):
             if any(i in body for i in SUPPORTED_REGEX_CHARS):
                 # Getting productions when body has regex
+
+                # pyformlang doesn't accept '?' quantifier
+                body = body.replace('?','+eps')
                 production_set |= regex_to_grammar_productions(
                     Regex(body),
                     head,

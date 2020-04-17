@@ -100,9 +100,13 @@ Grammars are represented in the following format:
     
     - The concatenation, the default operator, which can by represented either by a space or a dot (.)
     
-    - The union, represented either by +
+    - The union, represented by +
+
+    - The ? quantifier
     
     - The kleene star, represented by *
+    
+    Epsilon symbol should be represented as 'eps'
 
 Grammar can be converted to CNF with ```tools/gramar_to_cnf```.
 

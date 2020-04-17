@@ -23,9 +23,13 @@ Use the following input format:
     
     - The concatenation, the default operator, which can by represented either by a space or a dot (.)
     
-    - The union, represented either by +
+    - The union, represented by +
+
+    - The ? quantifier
     
     - The kleene star, represented by *
+
+    Epsilon symbol should be represented as 'eps'
 
 
 To start run:
