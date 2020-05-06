@@ -1,7 +1,3 @@
-# CFPQ_Data
-
-Graphs and grammars for experimental analysis of context free path querying algorithms.
-
 ## Prerequirements
 * GCC
 * Python 3
@@ -94,7 +90,7 @@ Grammars are represented in the following format:
 
 - The rest of the lines are productions in the form:
  
-    ```head -> body | body | ... | body```
+    ``` head -> body | body | ... | body ```
 
     where each body can contain basic regular expression, allowed operators:
     
