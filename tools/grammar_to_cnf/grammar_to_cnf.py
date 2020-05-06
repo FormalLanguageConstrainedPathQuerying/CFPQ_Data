@@ -1,9 +1,10 @@
-from pyformlang.cfg import Production, Variable, Terminal, CFG
+from pyformlang.cfg import Production, Variable, Terminal, CFG, Epsilon
 from pyformlang.regular_expression import Regex
 import argparse
 import re
 
-SUPPORTED_REGEX_CHARS = '.+*()'
+EPS_SYM = 'eps'
+SUPPORTED_REGEX_CHARS = '.*()?|'
 
 # Counter function used to create unique variable names
 def get_new_var_num():
@@ -21,7 +22,6 @@ def regex_to_grammar_productions(regex, head, var_dict, terminal_dict):
     enfa = enfa.minimize()
     transitions = enfa._transition_function._transitions
 
-    print(enfa._transition_function._transitions)
     # Producing variables from NFA states
     for state in enfa.states:
         _var_dict[state] = Variable(
@@ -45,7 +45,9 @@ def regex_to_grammar_productions(regex, head, var_dict, terminal_dict):
                 inner_body.append(var_dict[sym])
             elif sym in terminal_dict:
                 inner_body.append(terminal_dict[sym])
-            elif sym != 'eps':
+            elif sym == EPS_SYM:
+                inner_body.append(Epsilon())
+            else:
                 raise ValueError(f'''Symbol "{sym}" is not defined as
                                  a terminal or a variable''')
 
@@ -81,28 +83,15 @@ def from_txt(lines):
         head = var_dict[pr[0]]
         body_str = pr[1].rstrip('\n')
 
-        for body in body_str.split('|'):
-            if any(i in body for i in SUPPORTED_REGEX_CHARS):
-                # Getting productions when body has regex
-                production_set |= regex_to_grammar_productions(
-                    Regex(body),
-                    head,
-                    var_dict,
-                    terminal_dict
-                )
-            else:
-                # Getting productions when body has no regex
-                inner_body = []
-                for sym in body.split():
-                    if sym in var_dict:
-                        inner_body.append(var_dict[sym])
-                    elif sym in terminal_dict:
-                        inner_body.append(terminal_dict[sym])
-                    elif sym != 'eps':
-                        raise ValueError(f'''Symbol "{sym}" is not defined as
-                                        a terminal or a variable''')
-                p = Production(head, inner_body)
-                production_set.add(p)
+        # pyformlang doesn't accept '?' quantifier, transforming to alternative expression
+        body_str = body_str.replace('?',f'|{EPS_SYM}')
+
+        production_set |= regex_to_grammar_productions(
+            Regex(body_str),
+            head,
+            var_dict,
+            terminal_dict
+        )
 
     cfg = CFG(
         start_symbol=start_var, productions=production_set
@@ -112,6 +101,7 @@ def from_txt(lines):
     # DEBUG OUTPUT
     # for w in list(cfg.get_words(5)):
     #     print(w)
+    # print(cfg.start_symbol)
     # print(f'Variables: {cfg.variables}')
     # print(f'Terminals: {cfg.terminals}')
     # print(f'Productions: {cfg.productions}')
