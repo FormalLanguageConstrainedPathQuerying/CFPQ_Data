@@ -84,7 +84,7 @@ S -> eps
 
 Grammar can be converted to CNF with ```tools/gramar_to_cnf```, which uses [pyformlang](https://pypi.org/project/pyformlang/) library to perform context-free grammar modifications.
 
-### Data set structure
+### Dataset structure
 
 Graphs and grammars can be found in  ```data``` — all graphs are divided into groups, which are placed in different directories. Each ```data/[GroupName]/Matrices``` contains graph descriptions and ```data/[GroupName]/Grammars``` — descriptions of queries. 
 
