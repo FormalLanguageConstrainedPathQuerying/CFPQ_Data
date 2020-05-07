@@ -37,11 +37,13 @@ NUMBER_OF_WORST_CASES = 12
 
 RDF = 'RDF'
 DATA_ROOT_DIR = './data/'
-SYNTHETIC_DIR = 'Synthetic'
 MATRICES_DIR = 'Matrices'
 MEMORY_ALIASES = 'MemoryAliases'
 
-DATA_TO_UNPACK = [[MEMORY_ALIASES, MEMORY_ALIASES_DOWNLOAD_ID], [RDF, RDF_DOWNLOAD_ID]]
+DATA_TO_UNPACK = {
+    MEMORY_ALIASES: MEMORY_ALIASES_DOWNLOAD_ID,
+    RDF: RDF_DOWNLOAD_ID
+}
 
 GT_GRAPH = './tools/GTgraph/random/GTgraph-random'
 TMP_FILE = 'tmp.txt'
@@ -79,15 +81,13 @@ def save_response_content(response, destination):
                 f.write(chunk)
 
 
-def download_data():
-    print('Downloading from GDrive is started.')    
-    for f in DATA_TO_UNPACK:
-        dst = os.path.join(os.path.join(DATA_ROOT_DIR, f[0]), MATRICES_DIR)
-        clean_dir(dst)
-        arch_dst = os.path.join(dst + '.tar.xz')
-        print('Download archive to ' + arch_dst)
-
-        download_file_from_google_drive(f[1], arch_dst)
+def download_data(graph_key):
+    print('Downloading from GDrive is started.')
+    dst = os.path.join(DATA_ROOT_DIR, graph_key, MATRICES_DIR)
+    clean_dir(dst)
+    arch_dst = os.path.join(dst + '.tar.xz')
+    print('Download archive to ' + arch_dst)
+    download_file_from_google_drive(DATA_TO_UNPACK[graph_key], arch_dst)
     print('Downloading from GDrive is finished.')
 
 
@@ -118,12 +118,12 @@ def install_gtgraph():
     print('Installation of GTgraph is finished.')
 
 
-def unpack_graphs():
-    for d in DATA_TO_UNPACK:
-        to = os.path.join(DATA_ROOT_DIR, d[0])
-        arch = os.path.join(to, '%s.tar.xz' % MATRICES_DIR)
-        print('Unpack ', arch, ' to ', to)
-        unpack(arch, to)
+def unpack_graphs(graph_key):
+    to = os.path.join(DATA_ROOT_DIR, graph_key)
+    arch = os.path.join(to, '%s.tar.xz' % MATRICES_DIR)
+    print('Unpack ', arch, ' to ', to)
+    unpack(arch, to)
+
 
 def gen_sparse_graph(target_dir, vertices, prob):
 
@@ -212,9 +212,7 @@ def clean_dir(path):
 
 
 def add_graph_dir(name):
-    synthetic_dir = os.path.join(DATA_ROOT_DIR, SYNTHETIC_DIR, MATRICES_DIR)
-    os.makedirs(synthetic_dir, exist_ok=True)
-    matrices_dir = os.path.join(synthetic_dir, name)
+    matrices_dir = os.path.join(DATA_ROOT_DIR, name, MATRICES_DIR)
     clean_dir(matrices_dir)
     return matrices_dir
 
@@ -297,7 +295,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument(
         '--update',
-        choices=['rdf', 'scalefree', 'full', 'worstcase', 'sparse'],
+        choices=[
+            'rdf', 'scalefree', 'full', 'worstcase', 'sparse', 'memoryaliases'
+        ],
         required=False,
         type=str,
         help='partial dataset update',
@@ -307,8 +307,11 @@ if __name__ == '__main__':
     prt = args.update
 
     if prt == 'rdf':
-        download_data()
-        unpack_graphs()
+        download_data(RDF)
+        unpack_graphs(RDF)
+    elif prt == 'memoryaliases':
+        download_data(MEMORY_ALIASES)
+        unpack_graphs(MEMORY_ALIASES)
     elif prt == 'scalefree':
         generate_scale_free_graphs()
     elif prt == 'full':
@@ -319,8 +322,9 @@ if __name__ == '__main__':
         generate_all_sparse_graphs()
     else:
         install_gtgraph()
-        download_data()
-        unpack_graphs()
+        for graph_key in DATA_TO_UNPACK:
+            download_data(graph_key)
+            unpack_graphs(graph_key)
         generate_all_sparse_graphs()
         generate_full_graphs()
         generate_worst_case_graphs()
