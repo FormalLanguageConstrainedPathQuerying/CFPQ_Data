@@ -78,11 +78,7 @@ Grammar can be converted to CNF with ```tools/gramar_to_cnf```, which uses [pyfo
 
 Graphs and grammars can be found in  ```data``` — all graphs are divided into groups, which are placed in different directories. Each ```data/[GroupName]/Matrices``` contains graph descriptions and ```data/[GroupName]/Grammars``` — descriptions of queries. 
 
-
-- ```RDF``` — fixed versions of real-world RDF files (links are provided for updating purposes only!):
-
-
-**```data/RDF```** — fixed versions of real-world RDF files (links are provided for updating purposes only!):
+**```RDF```** — fixed versions of real-world RDF files (links are provided for updating purposes only!):
 - Smaller graphs:
     - a set of popular semantic web ontologies. This set is introduced by Xiaowang Zhang in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743) :
        - [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf)
@@ -107,33 +103,24 @@ Graphs and grammars can be found in  ```data``` — all graphs are divided into 
    - **eclass_514en** 
 
 Grammars list contains the following variants of same-generation query over different relation tipes.
--  **g1** — same-geneartion query over _type_ and _subclass-of_ relations. Introduced in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
--  **g2** — same-geneartion query over _type_ and _subclass-of_ relations. Introduced in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
+-  **g1** — same-generation query over _type_ and _subclass-of_ relations. Introduced in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
+-  **g2** — same-generation query over _type_ and _subclass-of_ relations. Introduced in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
 -  **geo** — same-generation query over _broader-transitive_ relation.
   
 
-**```data/MemoryAliases```** — real-world data for points-to analysis of C code.
+**```MemoryAliases```** — real-world data for points-to analysis of C code.
   - First part is a dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp). The original data is placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing). This part is placed in ```Graspan``` folder.
   - Second part is a part of dataset form ["Demand-driven alias analysis for C"](https://dl.acm.org/doi/10.1145/1328897.1328464). This part is placed in ```small``` folder.
 
-  Both grammars ```g1``` and ```g2``` specify the same language which is described in related papers. These two grammars were written in a different way in order to investigate dependencies on query specification format.
+  Both grammars **g1** and **g2** specify the same language which is described in related papers. These two grammars were written in a different way in order to investigate dependencies on query specification format.
 
-- ```data/Synthetic/Matrices/WorstCase``` — graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
+**```WorstCase```** — graphs with two cylces; the query **Brackets** is a grammar for the language of correct bracket sequences.
 
-  - ```GPPerf1```, ```GPPerf2``` — queries over _subClassOf_ and _type_ relations .
-  - ```geo``` — a variant of the _same generation_ query, use with ```geospecies```graph.
+**```SparseGraph```** — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data. The grammar provided is a variant of the same-generation query.
 
-- ```WorstCase``` — graphs with two cylces; the query ```Brackets``` is a grammar for the language of correct bracket sequences.
+**```ScaleFree```** — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) by using the Barab\'asi-Albert model of scale-free networks. Use with grammar **an_bm_cm_dn**, which is a query for _A<sub>n</sub>B<sub>m</sub>C<sub>m</sub>D<sub>n</sub>_ language.
 
-- ```SparseGraph``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data. The grammar provided is a variant of the _same generation_ query.
-
-- ```ScaleFree``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) by using the Barab\'asi-Albert model of scale-free networks. Use with grammar ```an_bm_cm_dn```, which is a query for _A<sub>n</sub>B<sub>m</sub>C<sub>m</sub>D<sub>n</sub>_ language.
-
-- ```FullGraph``` — cycle graphs, all edges are labeled with the same token. Use with ```A_star``` queries, which produce full graph on that dataset.
-
-- ```MemoryAliases``` — real-world data for points-to analysis of C code.
-  - First part is a dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp). The original data is placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing)
-  - Second part is a part of dataset form ["Demand-driven alias analysis for C"](https://dl.acm.org/doi/10.1145/1328897.1328464)
+**```FullGraph```** — cycle graphs, all edges are labeled with the same token. Use with **A_star** queries, which produce full graph on that dataset.
 
 ### Reference values
 
