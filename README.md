@@ -49,27 +49,17 @@ Set contains both real-world data and synthetic graphs for several specific case
 
 Queries are represented as context-free grammars which are represented in the following format:
 
-- Line 0:
-
-    a set of variable symbols delimited by spaces,
-    the first one is the starting symbol
-
-- Line 1:
-
-    a set of terminal symbols delimited by spaces
-
+- Line 0: a set of variable symbols delimited by spaces, the first one is the starting symbol
+- Line 1: a set of terminal symbols delimited by spaces
 - The rest of the lines are productions in the form:
- 
-    ```head -> body | body | ... | body```
+
+     ```head -> body | body | ... | body```
 
     where each body can contain basic regular expression, allowed operators:
     
-    - The concatenation, the default operator, which can by represented either by a space or a dot (.)
-    
+    - The concatenation, the default operator, which can by represented either by a space or a dot (```.```)
     - The union, represented by ```|```
-
     - The ```?``` quantifier
-    
     - The kleene star, represented by ```*```
     
     Epsilon symbol should be represented by ```eps```
@@ -81,27 +71,46 @@ Grammar can be converted to CNF with ```tools/gramar_to_cnf```.
 
 pyformlang!!!!
 
-### Data set structure
+### Dataset structure
 
 Graphs and grammars can be found in  ```data``` — all graphs are divided into groups, which are placed in different directories. Each ```data/Matrices/GroupName/``` contains graph descriptions and ```data/Grammars``` — descriptions of queries. 
 
 
-- ```data/RDF``` — fixed versions of real-world RDF files (links are provided for updating purposes only!):
-
-   - Smaller graphs:
-      - a set of popular semantic web ontologies, download links:
-         - [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf)
-         - [foaf](http://xmlns.com/foaf/0.1/)
-         - [wine](https://www.w3.org/TR/owl-guide/wine.rdf)
-         - [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl)
-         - [generations](http://www.owl-ontologies.com/generations.owl)
-         - [travel](https://protege.stanford.edu/ontologies/travel.owl)
-         - [univ-bench](http://swat.cse.lehigh.edu/onto/univ-bench.owl)
-         - [people-pets](http://owl.man.ac.uk/tutorial/people+pets.rdf)
+**```data/RDF```** — fixed versions of real-world RDF files (links are provided for updating purposes only!):
+- Smaller graphs:
+    - a set of popular semantic web ontologies. This set is introduced by Xiaowang Zhang in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743) :
+       - [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf)
+       - [foaf](http://xmlns.com/foaf/0.1/)
+       - [wine](https://www.w3.org/TR/owl-guide/wine.rdf)
+       - [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl)
+       - [generations](http://www.owl-ontologies.com/generations.owl)
+       - [travel](https://protege.stanford.edu/ontologies/travel.owl)
+       - [univ-bench](http://swat.cse.lehigh.edu/onto/univ-bench.owl)
+       - [people-pets](http://owl.man.ac.uk/tutorial/people+pets.rdf)
   
-  - Bigger graphs:
-    - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species, download here: <https://old.datahub.io/dataset/geospecies> 
-    - a set of graphs from the **Uniprot** protein sequences database, download here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
+- Bigger graphs:
+   - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species, download here: <https://old.datahub.io/dataset/geospecies>. Introduced in ["An Experimental Study ofContext-Free Path Query Evaluation Methods"](https://dl.acm.org/doi/pdf/10.1145/3335783.3335791)
+   - a set of graphs from the **Uniprot** protein sequences database, download here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
+       - **go**
+       - **go-hierarchy**
+       - **pathways**
+       - **taxonomy**
+       - **taxonomy-hierarchy**
+       - **core**
+       - **enzime**
+   - **eclass_514en** 
+
+Grammars list contains the following variants of same-generation query over different relation tipes.
+-  **g1** — same-geneartion query over _type_ and _subclass-of_ relations. Introduced in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
+-  **g2** — same-geneartion query over _type_ and _subclass-of_ relations. Introduced in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
+-  **geo** — same-generation query over _broader-transitive_ relation.
+  
+
+**```data/MemoryAliases```** — real-world data for points-to analysis of C code.
+  - First part is a dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp). The original data is placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing). This part is placed in ```Graspan``` folder.
+  - Second part is a part of dataset form ["Demand-driven alias analysis for C"](https://dl.acm.org/doi/10.1145/1328897.1328464). This part is placed in ```small``` folder.
+
+  Both grammars ```g1``` and ```g2``` specify the same language which is described in related papers. These two grammars were written in a different way in order to investigate dependencies on query specification format.
 
 - ```data/Synthetic/Matrices/WorstCase``` — graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
 
@@ -111,16 +120,7 @@ Graphs and grammars can be found in  ```data``` — all graphs are divided into 
 
 - ```data/Synthetic/Matrices/FullGraph``` — a cycle, all edges are labeled with the same token 
 
-- ```data/MemoryAliases``` — real-world data for points-to analysis of C code.
-  - First part is a dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp). The original data is placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing)
-  - Second part is a part of dataset form ["Demand-driven alias analysis for C"](https://dl.acm.org/doi/10.1145/1328897.1328464)
 
-
-```GPPerf1```, ```GPPerf2``` — queries over _subClassOf_ and _type_ relations 
-  - Use with **RDF** dataset
-
-```geo```
-  - Use with **geospecies** dataset
 
 ```an_bm_cm_dn``` — query for _A<sub>n</sub>B<sub>m</sub>C<sub>m</sub>D<sub>n</sub>_ language
   - Use with **ScaleFree** graphs
