@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- Dataset metadata -->
 <title>CFPQ_Data</title>
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="CFPQ_Data" />
@@ -14,54 +15,8 @@
 <link rel="canonical" href="https://{{ site.github.owner_name }}.github.io/CFPQ_Data/" />
 <meta property="og:url" content="https://{{ site.github.owner_name }}.github.io/CFPQ_Data/" />
 <meta property="og:site_name" content="CFPQ_Data" />
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org/",
-  "@type":"Dataset",
-  "name":"CFPQ_Data",
-  "description":"Dataset contains graphs and grammars for CFPQ algorithms evaluation.",
-  "creator":[
-    {
-      "@type":"Organization",
-      "url": "https://research.jetbrains.org/",
-      "name":"JetBrains Research"
-    },
-    {
-      "@type":"Organization",
-      "url": "https://spbu.ru/",
-      "name":"Saint Petersburg State University"
-    }
-  ],
-  "license" : "https://www.apache.org/licenses/LICENSE-2.0",
-  "hasPart" : [
-        {
-          "@type": "Dataset",
-          "name": "Geospecies knowledge database",
-          "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
-          "license" : "http://creativecommons.org/licenses/by-sa/3.0/us/"
-        },
-        {
-          "@type": "Dataset",
-          "name": "UniProt databases",
-          "description": "Core and supporting datasets from UniProt protein sequences databases",
-          "license": "http://creativecommons.org/licenses/by/4.0/"
-        },
-        {
-          "@type": "Dataset",
-          "name": "Pizza Ontology",
-          "description": "Machine-readable ontology about pizzas and their toppings",
-          "license": "http://creativecommons.org/licenses/by/3.0"
-        },
-        {
-          "@type": "Dataset",
-          "name": "FOAF ontology",
-          "description": "Machine-readable ontology describing persons, their activities and their relations to other people and objects",
-          "license": "http://creativecommons.org/licenses/by/1.0/"       
-        }
-  ]
-}
-</script>
-
+<% include dataset_meta.html %>
+<!-- End of the dataset metadata -->
 
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
     <!--[if lt IE 9]>

@@ -15,13 +15,13 @@ pip3 install -r requirements.txt
 python3 init.py
 ```
 
-This script downloads data (real-world RDF files) and [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) — a suite of synthetic graph generators. After that it generates some synthatic graphs.
+This script downloads data (real-world RDF files) and [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/), a suite of graph generators. After that, some synthetic graphs are generated with it.
 
 In order to download/update one specific part of the dataset run:
 ```
 python3 init.py --update [GroupName]
 ```
-Options for ```[GroupName]``` are ```rdf, scalefree, full, worstcase, sparse```
+Options for ```[GroupName]``` are ```rdf, scalefree, full, worstcase, sparse, memoryaliases```
 
 
 ## Integration with graph DBs
@@ -47,7 +47,7 @@ Set contains both real-world data and synthetic graphs for several specific case
 
 ### Query format
 
-Queries are represented as context-free grammars which are represented in the following format:
+Queries are represented as context-free grammars in the following format:
 
 - Line 0:
 
@@ -74,19 +74,22 @@ Queries are represented as context-free grammars which are represented in the fo
     
     Epsilon symbol should be represented by ```eps```
 
-Example!!!
+Example query in such format:
+```
+S
+a b
+S -> a S b S
+S -> eps
+```
 
-Grammar can be converted to CNF with ```tools/gramar_to_cnf```.
-
-
-pyformlang!!!!
+Grammar can be converted to CNF with ```tools/gramar_to_cnf```, which uses [pyformlang](https://pypi.org/project/pyformlang/) library to perform context-free grammar modifications.
 
 ### Data set structure
 
-Graphs and grammars can be found in  ```data``` — all graphs are divided into groups, which are placed in different directories. Each ```data/Matrices/GroupName/``` contains graph descriptions and ```data/Grammars``` — descriptions of queries. 
+Graphs and grammars can be found in  ```data``` — all graphs are divided into groups, which are placed in different directories. Each ```data/[GroupName]/Matrices``` contains graph descriptions and ```data/[GroupName]/Grammars``` — descriptions of queries. 
 
 
-- ```data/RDF``` — fixed versions of real-world RDF files (links are provided for updating purposes only!):
+- ```RDF``` — fixed versions of real-world RDF files (links are provided for updating purposes only!):
 
    - Smaller graphs:
       - a set of popular semantic web ontologies, download links:
@@ -100,42 +103,36 @@ Graphs and grammars can be found in  ```data``` — all graphs are divided into 
          - [people-pets](http://owl.man.ac.uk/tutorial/people+pets.rdf)
   
   - Bigger graphs:
-    - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species, download here: <https://old.datahub.io/dataset/geospecies> 
-    - a set of graphs from the **Uniprot** protein sequences database, download here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
+    - ```geospecies``` – graph related to taxonomic hierarchy and geographical information of animal species, download here: <https://old.datahub.io/dataset/geospecies> 
+    - a set of graphs from the [Uniprot](https://www.uniprot.org/) protein sequences database, download here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
 
-- ```data/Synthetic/Matrices/WorstCase``` — graphs with two cylces; the query is a grammar for the language of correct bracket sequences.
+  Queries provided with this dataset are:
 
-- ```data/Synthetic/Matrices/SparseGraph``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data.
+  - ```GPPerf1```, ```GPPerf2``` — queries over _subClassOf_ and _type_ relations .
+  - ```geo``` — a variant of the _same generation_ query, use with ```geospecies```graph.
 
-- ```data/Synthetic/Matrices/ScaleFree``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) by using the Barab\'asi-Albert model of scale-free networks
+- ```WorstCase``` — graphs with two cylces; the query ```Brackets``` is a grammar for the language of correct bracket sequences.
 
-- ```data/Synthetic/Matrices/FullGraph``` — a cycle, all edges are labeled with the same token 
+- ```SparseGraph``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) to emulate sparse data. The grammar provided is a variant of the _same generation_ query.
 
-- ```data/MemoryAliases``` — real-world data for points-to analysis of C code.
+- ```ScaleFree``` — graphs generated with [GTgraph](http://www.cse.psu.edu/~kxm85/software/GTgraph/) by using the Barab\'asi-Albert model of scale-free networks. Use with grammar ```an_bm_cm_dn```, which is a query for _A<sub>n</sub>B<sub>m</sub>C<sub>m</sub>D<sub>n</sub>_ language.
+
+- ```FullGraph``` — cycle graphs, all edges are labeled with the same token. Use with ```A_star``` queries, which produce full graph on that dataset.
+
+- ```MemoryAliases``` — real-world data for points-to analysis of C code.
   - First part is a dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp). The original data is placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing)
   - Second part is a part of dataset form ["Demand-driven alias analysis for C"](https://dl.acm.org/doi/10.1145/1328897.1328464)
-
-
-```GPPerf1```, ```GPPerf2``` — queries over _subClassOf_ and _type_ relations 
-  - Use with **RDF** dataset
-
-```geo```
-  - Use with **geospecies** dataset
-
-```an_bm_cm_dn``` — query for _A<sub>n</sub>B<sub>m</sub>C<sub>m</sub>D<sub>n</sub>_ language
-  - Use with **ScaleFree** graphs
-
-```Brackets``` — query describing correct bracket sequences
-  - Use with **WorstCase** graphs
-
-```A_star``` — kleene star query producing full graph
-  - Use with **FullGraph**
 
 ### Reference values
 
 Reference values for algorithms correctnes checking, which can be found in [reference_values.csv](./reference_values.csv), are in the following format: ```graph, grammar, control_sum```, where ```control_sum``` is the number of paths generated by non-terminals of the grammars.
 
-example !!!
+Example of the ```FullGraph``` dataset reference values in such format:
+```
+fullgraph_10,A_star0,"{'s': 100}"
+fullgraph_100,A_star0,"{'s': 10000}"
+...
+```
 
 ## Papers on CFPQ
 
