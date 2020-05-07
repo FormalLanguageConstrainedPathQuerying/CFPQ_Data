@@ -1,6 +1,6 @@
 # CFPQ_Data
 
-Graphs and grammars for experimental analysis of context free path querying algorithms.
+Graphs and grammars for experimental analysis of context-free path querying algorithms. 
 
 ## Prerequirements
 * GCC
@@ -77,8 +77,7 @@ Graphs and grammars can be found in  ```data``` — all graphs are divided into 
 
 
 **```data/RDF```** — fixed versions of real-world RDF files (links are provided for updating purposes only!):
-- Smaller graphs:
-    - a set of popular semantic web ontologies. This set is introduced by Xiaowang Zhang in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743) :
+- Small graphs is a set of popular semantic web ontologies. This set is introduced by Xiaowang Zhang in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743) :
        - [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf)
        - [foaf](http://xmlns.com/foaf/0.1/)
        - [wine](https://www.w3.org/TR/owl-guide/wine.rdf)
