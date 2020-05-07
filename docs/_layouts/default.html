@@ -11,8 +11,8 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Graphs and grammars for CFPQ algorithms evaluation." />
 <meta property="og:description" content="Graphs and grammars for CFPQ algorithms evaluation." />
-<link rel="canonical" href="https://azaat.github.io/CFPQ_Data/" />
-<meta property="og:url" content="https://azaat.github.io/CFPQ_Data/" />
+<link rel="canonical" href="https://{{ site.github.owner_name }}.github.io/CFPQ_Data/" />
+<meta property="og:url" content="https://{{ site.github.owner_name }}.github.io/CFPQ_Data/" />
 <meta property="og:site_name" content="CFPQ_Data" />
 <script type="application/ld+json">
 {
@@ -20,8 +20,38 @@
   "@type":"Dataset",
   "name":"CFPQ_Data",
   "description":"Dataset contains graphs and grammars for CFPQ algorithms evaluation."
+  "creator":{
+    "@type":"Organization",
+    "url": "https://research.jetbrains.org/",
+    "name":"JetBrains Research"
+  },
+  "license" : "https://www.apache.org/licenses/LICENSE-2.0",
+  "hasPart" : [
+        {
+          "@type": "Dataset",
+          "name": "Geospecies knowledge database",
+          "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+          "license" : "http://creativecommons.org/licenses/by-sa/3.0/us/"
+        },
+        {
+          "@type": "Dataset",
+          "name": "UniProt databases",
+          "description": "Dataset from UniProt protein sequences database",
+          "license" : "http://creativecommons.org/licenses/by/4.0/"
+        },        
+        "https://www.w3.org/2009/08/skos-reference/skos.rdf",
+        "http://xmlns.com/foaf/0.1/",
+        "https://www.w3.org/TR/owl-guide/wine.rdf",
+        "https://protege.stanford.edu/ontologies/pizza/pizza.owl",
+        "http://www.owl-ontologies.com/generations.owl",
+        "https://protege.stanford.edu/ontologies/travel.owl",
+        "http://swat.cse.lehigh.edu/onto/univ-bench.owl",
+        "http://owl.man.ac.uk/tutorial/people+pets.rdf"
+  ],
+
 }
 </script>
+
 
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
     <!--[if lt IE 9]>
