@@ -118,10 +118,17 @@ def install_gtgraph():
     print('Installation of GTgraph is finished.')
 
 
+def to_file(filepath, graph):
+    with open(filepath, 'w') as out_file:
+        for t in graph:
+            s = t[0]
+            p = t[1]
+            o = t[2]
+            out_file.write('%s %s %s\n'%(s,p,o))
 def unpack_graphs(graph_key):
     to = os.path.join(DATA_ROOT_DIR, graph_key)
-    arch = os.path.join(to, '%s.tar.xz' % MATRICES_DIR)
     print('Unpack ', arch, ' to ', to)
+    arch = os.path.join(to, '%s.tar.xz' % MATRICES_DIR)
     unpack(arch, to)
 
 
