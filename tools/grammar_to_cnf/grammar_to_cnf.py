@@ -113,7 +113,7 @@ def to_txt(cfg):
     variables, productions, terminals = '', '', ''
 
     for var in cfg.variables:
-        if var not in cfg.variables:
+        if var != cfg.start_symbol:
             variables += f'{var.value} '
     for ter in cfg.terminals:
         terminals += f'{ter.value} '
