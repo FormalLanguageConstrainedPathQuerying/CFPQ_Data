@@ -1,6 +1,6 @@
 # CFPQ_Data
 
-Graphs and grammars for experimental analysis of context free path querying algorithms.
+Graphs and grammars for experimental analysis of context-free path querying algorithms.
 
 ## Prerequirements
 * GCC
@@ -79,17 +79,16 @@ Grammar can be converted to CNF with ```tools/gramar_to_cnf```, which uses [pyfo
 Graphs and grammars can be found in  ```data``` — all graphs are divided into groups, which are placed in different directories. Each ```data/[GroupName]/Matrices``` contains graph descriptions and ```data/[GroupName]/Grammars``` — descriptions of queries. 
 
 **```RDF```** — fixed versions of real-world RDF files (links are provided for updating purposes only!):
-- Smaller graphs:
-    - a set of popular semantic web ontologies. This set is introduced by Xiaowang Zhang in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743) :
-       - [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf)
-       - [foaf](http://xmlns.com/foaf/0.1/)
-       - [wine](https://www.w3.org/TR/owl-guide/wine.rdf)
-       - [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl)
-       - [generations](http://www.owl-ontologies.com/generations.owl)
-       - [travel](https://protege.stanford.edu/ontologies/travel.owl)
-       - [univ-bench](http://swat.cse.lehigh.edu/onto/univ-bench.owl)
-       - [people-pets](http://owl.man.ac.uk/tutorial/people+pets.rdf)
-  
+- Small graphs is a set of popular semantic web ontologies. This set is introduced by Xiaowang Zhang in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743) :
+   - [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf)
+   - [foaf](http://xmlns.com/foaf/0.1/)
+   - [wine](https://www.w3.org/TR/owl-guide/wine.rdf)
+   - [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl)
+   - [generations](http://www.owl-ontologies.com/generations.owl)
+   - [travel](https://protege.stanford.edu/ontologies/travel.owl)
+   - [univ-bench](http://swat.cse.lehigh.edu/onto/univ-bench.owl)
+   - [people-pets](http://owl.man.ac.uk/tutorial/people+pets.rdf)
+
 - Bigger graphs:
    - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species, download here: <https://old.datahub.io/dataset/geospecies>. Introduced in ["An Experimental Study ofContext-Free Path Query Evaluation Methods"](https://dl.acm.org/doi/pdf/10.1145/3335783.3335791)
    - a set of graphs from the **Uniprot** protein sequences database, download here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
