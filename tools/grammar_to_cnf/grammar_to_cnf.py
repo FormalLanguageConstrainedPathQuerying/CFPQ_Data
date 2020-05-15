@@ -111,9 +111,9 @@ def from_txt(lines):
 
 def to_txt(cfg):
     variables, productions, terminals = '', '', ''
-
+    variables += f'{cfg.start_symbol.value} '
     for var in cfg.variables:
-        if var not in cfg.variables:
+        if f'{var.value} ' not in variables:
             variables += f'{var.value} '
     for ter in cfg.terminals:
         terminals += f'{ter.value} '
@@ -123,7 +123,7 @@ def to_txt(cfg):
         for sym in pr.body:
             productions += f'{sym.value} '
         productions += '\n'
-    return f'{cfg.start_symbol} {variables}\n{terminals}\n{productions}'
+    return f'{variables}\n{terminals}\n{productions}'
 
 
 def main():
