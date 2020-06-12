@@ -79,7 +79,7 @@ for s,p,o in graph:
     add_rdf_edge(res[s], 'OTHER', res[o], output)
     edges_count += 1
 
-target = prefix + str(count) + 'v' + str(next_id) + 'e' + edges_count  # output file
+target = prefix + str(count) + 'v' + str(next_id) + 'e' + str(edges_count)  # output file
 write_to_rdf(target,output)
 
 print('Total vertices:', next_id)

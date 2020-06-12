@@ -1,6 +1,6 @@
 # LUBM dataset
 
-## Folder structure:
+## Folder structure
 - config.txt - configures mappings from IRI names to short string names (for our purposes)
 - download.sh - downloads and unzips the lubm generator from oficial website
 - generate.sh - generates dataset for 10 universities (this could be changed in the script: set -univ N)
