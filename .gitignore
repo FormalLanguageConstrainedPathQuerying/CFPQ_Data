@@ -118,3 +118,6 @@ GTgraph/
 log
 
 tmp.txt
+
+# MacOS directory structure meta
+/**/.DS_Store
