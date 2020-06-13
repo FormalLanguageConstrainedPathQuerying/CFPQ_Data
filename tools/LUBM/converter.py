@@ -7,12 +7,12 @@
     
     Usage:
     - Create a conversion configuration file. Each line must contain an IRI,
-      a whitespace character and a string to replace the IRI by.
+    a whitespace character and a string to replace the IRI by.
     - Run converter.py <prefix> <count> <config>
     - Result will have name <pefix><count><vertices count><indices count>.xml
     
     The graph will contain explicit inverted edges added an 'R'.
-"""
+    """
 
 import rdflib, sys, os
 
@@ -37,22 +37,23 @@ if len(sys.argv) < 3:
 replace = {} # map for replacing predicates
 config = sys.argv[3]
 for l in open(config,'r').readlines():
-    pair = l.split(' ')
-    old = rdflib.URIRef(pair[0].strip(' '))
-    new = pair[1].strip('\n').strip(' ')
-    replace[old] = new
+  pair = l.split(' ')
+  old = rdflib.URIRef(pair[0].strip(' '))
+  new = pair[1].strip('\n').strip(' ')
+  replace[old] = new
 
 print(replace)
 
 res = {}        # map from resources to integer ids
 next_id = 0     # id counter
-edges_count = 0 # Total edges 
+edges_count = 0 # Total edges
 
 graph = rdflib.Graph()
 prefix = sys.argv[1]
 count = int(sys.argv[2])
 
 processed = []
+notreplaced = set()
 
 for i in range(0,count):
   for j in range(0,MAX_FILES_PER_UNI):
@@ -60,28 +61,31 @@ for i in range(0,count):
     try:
       g = rdflib.Graph()
       g.parse(filename)
-      graph = graph + g           # Merge graphs here (if 1 file with sub-graph - OK)
+      
+      for s,p,o in g:
+        for r in [s,o]:
+          if r not in res:
+            res[r] = str(next_id)
+            next_id += 1
+
+        if p in replace:
+          add_rdf_edge(res[s], replace[p], res[o], graph)
+          add_rdf_edge(res[s], replace[p] + 'R', res[o], graph)
+          edges_count += 2
+        else:
+          add_rdf_edge(res[s], 'OTHER', res[o], graph)
+          edges_count += 1
+          notreplaced.add(p)
+
       processed.append(filename)
+      print('Merged:', filename)
     except Exception:
       pass
 
-output = rdflib.Graph()
-for s,p,o in graph:
-  for r in [s,o]:
-    if r not in res:
-      res[r] = str(next_id)
-      next_id += 1
-  if p in replace:
-    add_rdf_edge(res[s], replace[p], res[o], output)
-    add_rdf_edge(res[s], replace[p] + 'R', res[o], output)
-    edges_count += 2
-  else:
-    add_rdf_edge(res[s], 'OTHER', res[o], output)
-    edges_count += 1
-
 target = prefix + str(count) + 'v' + str(next_id) + 'e' + str(edges_count)  # output file
-write_to_rdf(target,output)
+write_to_rdf(target,graph)
 
 print('Total vertices:', next_id)
 print('Total edges:', edges_count)
 print('Processed files:\n', processed)
+print('Not replaced labels:', notreplaced)
