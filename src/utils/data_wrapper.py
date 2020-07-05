@@ -27,7 +27,7 @@ class DataWrapper:
         matrix_dir = get_matrix_dir(suite, self.data_path)
         graph_filter = all_filter_combinator(
             lambda g: file_has_extension(g, include_extensions),
-            lambda g: not file_has_extension(g, exclude_extensions),
+            lambda g: exclude_extensions is None or not file_has_extension(g, exclude_extensions),
             lambda g: file_has_size(os.path.join(matrix_dir, g), min_file_size, max_file_size)
         )
         return [os.path.join(matrix_dir, graph) for graph in os.listdir(matrix_dir)
