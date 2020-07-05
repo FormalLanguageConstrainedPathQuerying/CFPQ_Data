@@ -16,7 +16,7 @@ def convert(path, replace=None, reverse_edges=False):
     res = {}
     next_id = 0
 
-    print(f'loading {path}')
+    print(f'Loading {path}')
     graph = rdflib.Graph()
     graph.parse(path)
 
