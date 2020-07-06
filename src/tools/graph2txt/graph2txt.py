@@ -5,7 +5,7 @@ import rdflib
 from tqdm import tqdm
 
 from src.tools.base import Tool
-from src.utils.data_wrapper import *
+from cfpq_data_devtools.data_wrapper import *
 
 GRAPH2TXT_PATH = 'src/tools/graph2txt'
 CONVERTER_CONF_PATH = os.path.join(GRAPH2TXT_PATH, 'converter.conf')

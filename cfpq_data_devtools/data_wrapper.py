@@ -1,6 +1,4 @@
-import os
-
-from src.utils.filters import *
+from cfpq_data_devtools.filters import *
 
 DATA_DIR = 'data'
 MATRICES = 'Matrices'
