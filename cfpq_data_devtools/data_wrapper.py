@@ -2,7 +2,7 @@ from cfpq_data_devtools.filters import *
 
 DATA_DIR = 'data'
 MATRICES = 'Matrices'
-GRAMMAR = 'Grammar'
+GRAMMARS = 'Grammars'
 
 
 def get_matrix_dir(suite, data_path=DATA_DIR):
@@ -10,7 +10,7 @@ def get_matrix_dir(suite, data_path=DATA_DIR):
 
 
 def get_grammar_dir(suite, data_path=DATA_DIR):
-    return os.path.join(data_path, suite, GRAMMAR)
+    return os.path.join(data_path, suite, GRAMMARS)
 
 
 class DataWrapper:
@@ -30,3 +30,11 @@ class DataWrapper:
         )
         return [os.path.join(matrix_dir, graph) for graph in os.listdir(matrix_dir)
                 if graph_filter(graph)]
+
+    def get_grammars(self, suite, include_extension=None):
+        grammar_dir = get_grammar_dir(suite, self.data_path)
+        grammar_filter = all_filter_combinator(
+            lambda gr: file_has_extension(gr, include_extension)
+        )
+        return [os.path.join(grammar_dir, grammar) for grammar in os.listdir(grammar_dir)
+                if grammar_filter(grammar)]

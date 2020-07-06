@@ -60,7 +60,6 @@ class Graph2TxtTool(Tool):
                 replacing = config[suite]
                 for graph in data.get_graphs(suite, exclude_extensions=['txt'], max_file_size=1000):
                     convert(graph, replacing)
-
         elif args.mode == 'file':
             if args.conf:
                 config.read(args.conf)

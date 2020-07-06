@@ -1,15 +1,21 @@
+import os
 from pyformlang.cfg import Production, Variable, Terminal, CFG, Epsilon
 from pyformlang.regular_expression import Regex
 import argparse
-import re
+
+from cfpq_data_devtools.data_wrapper import DataWrapper
+from src.tools.base import Tool
 
 EPS_SYM = 'eps'
 SUPPORTED_REGEX_CHARS = '.*()?|'
+
 
 # Counter function used to create unique variable names
 def get_new_var_num():
     get_new_var_num.calls += 1
     return get_new_var_num.calls
+
+
 get_new_var_num.calls = 0
 
 
@@ -84,7 +90,7 @@ def from_txt(lines):
         body_str = pr[1].rstrip('\n')
 
         # pyformlang doesn't accept '?' quantifier, transforming to alternative expression
-        body_str = body_str.replace('?',f'|{EPS_SYM}')
+        body_str = body_str.replace('?', f'|{EPS_SYM}')
 
         production_set |= regex_to_grammar_productions(
             Regex(body_str),
@@ -126,23 +132,43 @@ def to_txt(cfg):
     return f'{cfg.start_symbol} {variables}\n{terminals}\n{productions}'
 
 
-def main():
-    parser = argparse.ArgumentParser(description='')
-    parser.add_argument('input',
-                        type=argparse.FileType('r')
-                        )
-    parser.add_argument("-o", "--output",
-                        help="Directs the output to a name of your choice",
-                        required=True
-                        )
-    args = parser.parse_args()
-
-    cfg = from_txt(args.input.readlines())
-    cfg = cfg.to_normal_form()
-    with open(args.output, 'w') as output_file:
-        output_file.write(to_txt(cfg))
-        print(f'Grammar in CNF written to {args.output}')
+def convert(input, output):
+    with open(input, 'r') as input_file:
+        cfg = from_txt(input_file.readlines())
+        cfg = cfg.to_normal_form()
+        with open(output, 'w') as output_file:
+            output_file.write(to_txt(cfg))
+            print(f'Grammar in CNF written to {output}')
 
 
-if __name__ == "__main__":
-    main()
+def conver_suites(suites):
+    data = DataWrapper()
+    for suite in suites:
+        for grammar in data.get_grammars(suite, include_extension='txt'):
+            convert(grammar, f'{os.path.splitext(grammar)[0]}.cnf')
+
+
+class Grammar2Cnf(Tool):
+    def init_parser(self, parser: argparse.ArgumentParser):
+        subparsers = parser.add_subparsers(required=True, dest='mode')
+        file_parser = subparsers.add_parser('file')
+        set_parser = subparsers.add_parser('set')
+        all_parser = subparsers.add_parser('all')
+
+        file_parser.add_argument('path') 
+        file_parser.add_argument('--output', help='file path to store result')
+        
+        set_parser.add_argument('suite', nargs='*', choices=DataWrapper().get_suites(), )
+
+    def eval(self, args: argparse.Namespace):
+        if args.mode == 'file':
+            inp = args.path
+            if args.output is None:
+                output = f'{os.path.splitext(inp)[0]}.cnf'
+            else:
+                output = args.output
+            convert(inp, output)
+        elif args.mode == 'set':
+            conver_suites(args.suite)
+        elif args.mode == 'all':
+            conver_suites(DataWrapper().get_suites())
