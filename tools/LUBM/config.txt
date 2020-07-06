@@ -1,0 +1,16 @@
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#subOrganizationOf SO
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#worksFor WF
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#headOf HF
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#teacherOf TF
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#memberOf MF
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#advisor AD
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#takesCourse TC
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#publicationAuthor PA
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#undergraduateDegreeFrom UG
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#mastersDegreeFrom MD
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#doctoralDegreeFrom DD
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#emailAddress EA
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#name NM
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#researchInterest RI
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#telephone TP
+http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#teachingAssistantOf TA
