@@ -48,6 +48,7 @@ DATA_TO_UNPACK = {
 GT_GRAPH = './tools/GTgraph/random/GTgraph-random'
 TMP_FILE = 'tmp.txt'
 
+
 def download_file_from_google_drive(id, destination):
     URL = 'https://docs.google.com/uc?export=download'
 
@@ -123,7 +124,8 @@ def to_file(filepath, graph):
             s = t[0]
             p = t[1]
             o = t[2]
-            out_file.write('%s %s %s\n'%(s,p,o))
+            out_file.write('%s %s %s\n' % (s, p, o))
+
 
 def unpack_graphs(graph_key):
     to = os.path.join(DATA_ROOT_DIR, graph_key)
@@ -133,17 +135,16 @@ def unpack_graphs(graph_key):
 
 
 def gen_sparse_graph(target_dir, vertices, prob):
-
     subprocess.run([
-            GT_GRAPH,
-            '-t',
-            '0',
-            '-n',
-            '%s' % (vertices),
-            '-p',
-            '%s' % (prob),
-            '-o',
-            TMP_FILE,
+        GT_GRAPH,
+        '-t',
+        '0',
+        '-n',
+        '%s' % (vertices),
+        '-p',
+        '%s' % (prob),
+        '-o',
+        TMP_FILE,
     ])
 
     with open(TMP_FILE) as in_file:
@@ -292,13 +293,13 @@ def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
     graph = []
     sierpinski(1, 2, 3, degree, predicates, graph)
     with open(
-        os.path.join(target_dir, 'sierpinskigraph_%s.txt' % (degree)), 'w'
+            os.path.join(target_dir, 'sierpinskigraph_%s.txt' % (degree)), 'w'
     ) as out_file:
         for triple in graph:
             out_file.write('%s %s %s \n' % (triple[0], triple[1], triple[2]))
 
 
-class InstallTool(Tool):
+class InitTool(Tool):
     def init_parser(self, parser):
         parser.add_argument(
             '--update',

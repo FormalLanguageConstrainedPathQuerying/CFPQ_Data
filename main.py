@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from src.tools.install import InstallTool
+from src.tools.init.init import InitTool
 from src.tools.graph2txt.graph2txt import Graph2TxtTool
 import argparse
 
@@ -9,7 +9,7 @@ if __name__ == '__main__':
     subparsers = parser.add_subparsers(dest='tool', required=True)
 
     tools = {
-        'install': InstallTool(),
+        'init': InitTool(),
         'graph2txt': Graph2TxtTool(),
         # all tools will be here
     }
