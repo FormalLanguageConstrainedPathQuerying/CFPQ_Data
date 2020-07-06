@@ -17,9 +17,9 @@ def print_config(lst, path_to_config):
            config.write(x[0] + ' ' + str(i) + '\n')
            i = i + 1
 
-g=rdflib.Graph()
+g = rdflib.Graph()
 
-g.load(sys.argv[1])
+g.parse(sys.argv[1])#, format="nt")
 
 r = get_labels_count (g)
 
