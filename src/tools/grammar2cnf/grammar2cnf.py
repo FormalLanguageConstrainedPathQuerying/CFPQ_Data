@@ -153,12 +153,12 @@ class Grammar2Cnf(Tool):
         subparsers = parser.add_subparsers(required=True, dest='mode')
         file_parser = subparsers.add_parser('file')
         set_parser = subparsers.add_parser('set')
-        all_parser = subparsers.add_parser('all')
+        subparsers.add_parser('all')
 
         file_parser.add_argument('path') 
         file_parser.add_argument('--output', help='file path to store result')
         
-        set_parser.add_argument('suite', nargs='*', choices=DataWrapper().get_suites(), )
+        set_parser.add_argument('suite', nargs='*', choices=DataWrapper().get_suites())
 
     def eval(self, args: argparse.Namespace):
         if args.mode == 'file':
