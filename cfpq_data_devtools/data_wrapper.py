@@ -31,7 +31,8 @@ class DataWrapper:
             lambda g: file_has_size(os.path.join(matrix_dir, g), min_file_size, max_file_size),
             lambda g: file_has_len(os.path.join(matrix_dir, g), min_file_len, max_file_len)
         )
-        return [os.path.join(matrix_dir, graph) for graph in os.listdir(matrix_dir)
+        graphs = os.listdir(matrix_dir) if os.path.exists(matrix_dir) else []
+        return [os.path.join(matrix_dir, graph) for graph in graphs
                 if graph_filter(graph)]
 
     def get_grammars(self, suite, include_extension=None):
@@ -39,5 +40,6 @@ class DataWrapper:
         grammar_filter = all_filter_combinator(
             lambda gr: file_has_extension(gr, include_extension)
         )
-        return [os.path.join(grammar_dir, grammar) for grammar in os.listdir(grammar_dir)
+        grammars = os.listdir(grammar_dir) if os.path.exists(grammar_dir) else []
+        return [os.path.join(grammar_dir, grammar) for grammar in grammars
                 if grammar_filter(grammar)]
