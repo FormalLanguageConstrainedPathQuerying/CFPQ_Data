@@ -31,3 +31,7 @@ def file_has_len(file, min_length=None, max_length=None):
     grater_min = min_length is None or min_length < length
     less_max = max_length is None or length < max_length
     return grater_min and less_max
+
+
+def file_is_hidden(file: str):
+    return file.startswith('.')
