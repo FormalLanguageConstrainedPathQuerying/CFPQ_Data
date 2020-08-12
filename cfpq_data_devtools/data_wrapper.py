@@ -27,11 +27,11 @@ class DataWrapper:
                    ignore_hidden_files=True):
         matrix_dir = get_matrix_dir(suite, self.data_path)
         graph_filter = all_filter_combinator(
+            lambda g: not file_is_hidden(g) if ignore_hidden_files else True,
             lambda g: file_has_extension(g, include_extensions),
             lambda g: exclude_extensions is None or not file_has_extension(g, exclude_extensions),
             lambda g: file_has_size(os.path.join(matrix_dir, g), min_file_size, max_file_size),
             lambda g: file_has_len(os.path.join(matrix_dir, g), min_file_len, max_file_len),
-            lambda g: not file_is_hidden(g) if ignore_hidden_files else True
         )
         graphs = os.listdir(matrix_dir) if os.path.exists(matrix_dir) else []
         return [os.path.join(matrix_dir, graph) for graph in graphs
