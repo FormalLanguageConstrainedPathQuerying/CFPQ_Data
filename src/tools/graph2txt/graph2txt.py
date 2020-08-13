@@ -31,12 +31,12 @@ def convert(path, replace=None, reverse_edges=False):
             if replace:
                 if e in replace:
                     e = replace[p]
+                    if reverse_edges:
+                        out.write(f'{to} {e}_R {v}\n')
                 else:
                     e = 'OTHER'
 
             out.write(f'{v} {e} {to}\n')
-            if reverse_edges:
-                out.write(f'{to} {e}_R {v}\n')
 
 
 class Graph2TxtTool(Tool):
@@ -59,11 +59,11 @@ class Graph2TxtTool(Tool):
             for suite in args.suite:
                 replacing = config[suite]
                 for graph in data.get_graphs(suite, exclude_extensions=['txt'], max_file_size=1000):
-                    convert(graph, replacing)
+                    convert(graph, replace=replacing, reverse_edges=True)
         elif args.mode == 'file':
             if args.conf:
                 config.read(args.conf)
                 replacing = config[DEFAULT_SECTION]
             else:
                 replacing = None
-            convert(args.path, replacing)
+            convert(args.path, replace=replacing, reverse_edges=True)
