@@ -58,7 +58,7 @@ class Graph2TxtTool(Tool):
             config.read(CONVERTER_CONF_PATH)
             for suite in args.suite:
                 replacing = config[suite]
-                for graph in data.get_graphs(suite, exclude_extensions=['txt'], max_file_size=1000):
+                for graph in data.get_graphs(suite, exclude_extensions=['txt']):
                     convert(graph, replace=replacing, reverse_edges=True)
         elif args.mode == 'file':
             if args.conf:
