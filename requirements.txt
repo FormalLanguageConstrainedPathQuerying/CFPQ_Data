@@ -2,3 +2,4 @@ pyformlang
 numpy
 rdflib
 tqdm
+networkx
