@@ -2,16 +2,14 @@ from src.tools.base import Tool
 import lzma
 import tarfile
 import os
-import subprocess
 import shutil
-import urllib.request
 import requests
 import numpy as np
+import networkx as nx
+import random
 from rdflib import Graph, URIRef, BNode
 from tools.rdf_helper import write_to_rdf, add_rdf_edge
 
-GT_GRAPH_URL = 'http://www.cse.psu.edu/~kxm85/software/GTgraph/GTgraph.tar.gz'
-GT_GRAPH_ARCH = './tools/GTgraph.tar.gz'
 
 MEMORY_ALIASES_DOWNLOAD_ID = '1gZA4x3Nep7IiRv5j3MZlZF7git2sTMEo'
 RDF_DOWNLOAD_ID = '1x4cELJ7kSwhqlLC0zrOcuxaF3c19qRnK'
@@ -44,9 +42,6 @@ DATA_TO_UNPACK = {
     MEMORY_ALIASES: MEMORY_ALIASES_DOWNLOAD_ID,
     RDF: RDF_DOWNLOAD_ID
 }
-
-GT_GRAPH = './tools/GTgraph/random/GTgraph-random'
-TMP_FILE = 'tmp.txt'
 
 
 def download_file_from_google_drive(id, destination):
@@ -97,27 +92,6 @@ def unpack(file_from, path_to):
             tar.extractall(path_to)
 
 
-def install_gtgraph():
-    print('Installation of GTgraph is started.')
-    with urllib.request.urlopen(GT_GRAPH_URL) as response, open(
-        GT_GRAPH_ARCH, 'wb'
-    ) as out_file:
-        shutil.copyfileobj(response, out_file)
-    print('GTgraph is downloaded.')
-    tar = tarfile.open(GT_GRAPH_ARCH)
-    tar.extractall('./tools')
-    tar.close()
-
-    subprocess.run(
-        ['sed', '-i', 's/CC = icc/#CC = icc/g', './tools/GTgraph/Makefile.var']
-    )
-    subprocess.run(
-        ['sed', '-i', 's/#CC = gcc/CC = gcc/g', './tools/GTgraph/Makefile.var']
-    )
-    subprocess.run(['make', '-C', './tools/GTgraph'])
-    print('Installation of GTgraph is finished.')
-
-
 def to_file(filepath, graph):
     with open(filepath, 'w') as out_file:
         for t in graph:
@@ -135,27 +109,13 @@ def unpack_graphs(graph_key):
 
 
 def gen_sparse_graph(target_dir, vertices, prob):
-    subprocess.run([
-        GT_GRAPH,
-        '-t',
-        '0',
-        '-n',
-        '%s' % (vertices),
-        '-p',
-        '%s' % (prob),
-        '-o',
-        TMP_FILE,
-    ])
-
-    with open(TMP_FILE) as in_file:
-        output_graph = Graph()
-        target = os.path.join(target_dir, 'G%sk-%s' % (int(vertices / 1000), prob))
-        for l in in_file.readlines():
-            if l.startswith('a '):
-                a = l.split(' ')
-                lbl = 'A' if int(a[3]) % 2 == 0 else 'AR'
-                add_rdf_edge(a[1], lbl, a[2], output_graph)
-        write_to_rdf(target, output_graph)
+    tmp_graph = nx.generators.fast_gnp_random_graph(vertices, prob)
+    output_graph = Graph()
+    target = os.path.join(target_dir, 'G%sk-%s' % (int(vertices / 1000), prob))
+    for l in tmp_graph:
+        lbl = 'A' if random.randint() % 2 == 0 else 'AR'
+        add_rdf_edge(l[0], lbl, l[1], output_graph)
+    write_to_rdf(target, output_graph)
 
 
 def gen_worst_case_graph(target_dir, vertices):
@@ -328,7 +288,6 @@ class InitTool(Tool):
         elif prt == 'sparse':
             generate_all_sparse_graphs()
         else:
-            install_gtgraph()
             for graph_key in DATA_TO_UNPACK:
                 download_data(graph_key)
                 unpack_graphs(graph_key)
