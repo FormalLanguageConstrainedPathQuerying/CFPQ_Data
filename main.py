@@ -3,6 +3,7 @@ from src.tools.init.init import InitTool
 from src.tools.grammar2cnf.grammar2cnf import Grammar2Cnf
 from src.tools.graph2txt.graph2txt import Graph2TxtTool
 from src.tools.LUBM.converter import LUBMTool
+from src.tools.gen_RPQ.gen import GenRPQTool
 import argparse
 
 if __name__ == '__main__':
@@ -14,6 +15,7 @@ if __name__ == '__main__':
         'graph2txt': Graph2TxtTool(),
         'grammar2cnf': Grammar2Cnf(),
         'LUBM': LUBMTool,
+        'gen_RPQ': GenRPQTool,
         # all tools will be here
     }
     for name, tool in tools.items():

@@ -1,5 +1,3 @@
-import rdflib, sys
-
 def get_labels_count (rdf):
     d = {}
     for s,p,o in rdf:     
@@ -16,14 +14,3 @@ def print_config(lst, path_to_config):
        for x in lst:
            config.write(x[0] + ' ' + str(i) + '\n')
            i = i + 1
-
-g=rdflib.Graph()
-
-g.load(sys.argv[1])
-
-r = get_labels_count (g)
-
-for x in r: 
-   print(x[0], ': ', x[1])
-
-print_config(r, sys.argv[2])
