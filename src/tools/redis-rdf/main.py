@@ -2,7 +2,7 @@
 
 import os
 
-from src.redis_loader import load
+from src.tools.redis-rdf.src.redis_loader.loader import load
 from argparse import ArgumentParser
 import logging
 
