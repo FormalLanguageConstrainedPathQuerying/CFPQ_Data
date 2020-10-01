@@ -7,8 +7,8 @@ import requests
 import numpy as np
 import networkx as nx
 import random
-from rdflib import Graph, URIRef, BNode
-from tools.rdf_helper import write_to_rdf, add_rdf_edge
+from rdflib import Graph
+from src.tools.rdf_helper import write_to_rdf, add_rdf_edge
 
 
 MEMORY_ALIASES_DOWNLOAD_ID = '1gZA4x3Nep7IiRv5j3MZlZF7git2sTMEo'
