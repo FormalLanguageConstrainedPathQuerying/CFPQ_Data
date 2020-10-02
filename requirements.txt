@@ -5,4 +5,4 @@ tqdm
 networkx
 pandas
 redis==3.3.10
-git+https://github.com/RedisGraph/redisgraph-py.git@
+git+https://github.com/RedisGraph/redisgraph-py.git@master
