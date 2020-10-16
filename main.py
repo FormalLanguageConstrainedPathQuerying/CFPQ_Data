@@ -15,9 +15,9 @@ if __name__ == '__main__':
         'init': InitTool(),
         'graph2txt': Graph2TxtTool(),
         'grammar2cnf': Grammar2Cnf(),
-        'LUBM': LUBMTool,
-        'gen_RPQ': GenRPQTool,
-        'redis_rdf': RedisRDFTool,
+        'LUBM': LUBMTool(),
+        'gen_RPQ': GenRPQTool(),
+        'redis_rdf': RedisRDFTool(),
     }
     for name, tool in tools.items():
         subparser = subparsers.add_parser(name)
