@@ -20,11 +20,11 @@ class RedisRDFTool(Tool):
         parser_file.add_argument('GRAPH_NAME', help='redis graph name')
 
         parser_dir = subparsers.add_parser('dir')
-        parser_dir.add_argument('dir_path')
+        parser_dir.add_argument('DIR_PATH')
         # logging.disable(logging.WARNING)
 
     def eval(self, args: argparse.Namespace):
-        if 'dir_path' in args:
+        if 'DIR_PATH' in args:
             for file in os.listdir(args.dir_path):
                 load(f'{args.dir_path}/{file}', file, args.host, args.port)
         else:
