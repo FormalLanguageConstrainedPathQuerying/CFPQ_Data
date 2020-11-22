@@ -8,8 +8,8 @@
     Usage:
     - Create a conversion configuration file. Each line must contain an IRI,
     a whitespace character and a string to replace the IRI by.
-    - Run converter.py <prefix> <count> <config>
-    - Result will have name <pefix><count><vertices count><indices count>.xml
+    - Run main.py LUBM convert --pref PREFIX --count COUNT --conf CONFIG
+    - Result will have name <prefix><count><vertices count><indices count>.xml
 
     The graph will contain explicit inverted edges added an 'R'.
     """

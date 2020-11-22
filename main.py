@@ -1,11 +1,10 @@
-#!/usr/bin/python3
+import argparse
 from src.tools.init.init import InitTool
 from src.tools.grammar2cnf.grammar2cnf import Grammar2Cnf
 from src.tools.graph2txt.graph2txt import Graph2TxtTool
 from src.tools.LUBM.converter import LUBMTool
 from src.tools.gen_RPQ.gen import GenRPQTool
 from src.tools.redis_rdf.main import RedisRDFTool
-import argparse
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -25,4 +24,3 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     tools[args.tool].eval(args)
-

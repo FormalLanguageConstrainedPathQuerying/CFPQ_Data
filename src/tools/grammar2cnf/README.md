@@ -34,6 +34,5 @@ Use the following input format:
 
 To start run:
 ```
-pip3 install -r requirements.txt
-python3 grammar_to_pyformlang.py PATH_TO_GRAMMAR -o PATH_TO_OUTPUT
+python3 main.py grammar2cnf file PATH_TO_GRAMMAR --output PATH_TO_OUTPUT
 ```

@@ -10,8 +10,6 @@ import logging
 
 class RedisRDFTool(Tool):
     def init_parser(self, parser: argparse.ArgumentParser):
-        parser = argparse.ArgumentParser('Load rdf into RedisGraph')
-
         parser.add_argument('--host', help='redis host name', default='localhost')
         parser.add_argument('--port', help='redis port', default=6379)
 
