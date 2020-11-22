@@ -4,8 +4,7 @@
 - config.txt - configures mappings from IRI names to short string names (for our purposes)
 - download.sh - downloads and unzips the lubm generator from oficial website
 - generate.sh - generates dataset for 10 universities (this could be changed in the script: set -univ N)
-- prepare.py - prepares files names of the generated dataset (optional)
-- converter.py - convert set of database files to single file with mappings applied
+
 
 ## Usage
 You can prepare files names of the generated dataset (optional) by running
