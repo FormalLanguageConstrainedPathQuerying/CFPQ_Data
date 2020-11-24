@@ -8,18 +8,18 @@ Graphs and grammars for experimental analysis of context-free path querying algo
 
 ## How to start
 
-Just install requirements and run ```init.py```: 
+Just install requirements and run ```main.py```: 
 
 ```
 pip3 install -r requirements.txt
-python3 init.py
+python3 main.py init
 ```
 
 This script downloads data (real-world RDF files) and uses [NetworkX](https://networkx.github.io/) graph generators. After that, some synthetic graphs are generated with it.
 
 In order to download/update one specific part of the dataset run:
 ```
-python3 init.py --update [GroupName]
+python3 main.py init --update [GroupName]
 ```
 Options for ```[GroupName]``` are ```rdf, scalefree, full, worstcase, sparse, memoryaliases```
 
@@ -30,11 +30,10 @@ We provide a set of scripts to simplify data loading into some popular graph dat
 
 ### RedisGraph
 
-The dataset can be loaded to RedisGraph with ```tools/redis-rdf```, for example:
+The dataset can be loaded to RedisGraph with ```src/tools/redis_rdf```, for example:
 ```
-cd ./tools/redis-rdf
-python3 main.py --port [PORT] dir ../../data/Matrices/ScaleFree/
-python3 main.py --port [PORT] file ../../data/Matrices/RDF/foaf.rdf foaf
+python3 main.py redis_rdf --host [HOST] --port [PORT] dir ../../data/Matrices/ScaleFree/
+python3 main.py redis_rdf --host [HOST] --port [PORT] file ../../data/Matrices/RDF/foaf.rdf foaf
 ```
 
 ### Neo4j
@@ -72,7 +71,10 @@ S -> a S b S
 S -> eps
 ```
 
-Grammar can be converted to CNF with ```tools/gramar_to_cnf```, which uses [pyformlang](https://pypi.org/project/pyformlang/) library to perform context-free grammar modifications.
+Grammar can be converted to CNF with ```src/tools/grammar2cnf```, which uses [pyformlang](https://pypi.org/project/pyformlang/) library to perform context-free grammar modifications.
+```
+$ python3 main.py grammar2cnf file [PATH_TO_GRAMMAR] --output [PATH_TO_OUTPUT]
+```
 
 ### Dataset structure
 
