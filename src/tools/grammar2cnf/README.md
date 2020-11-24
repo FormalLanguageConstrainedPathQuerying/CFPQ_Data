@@ -34,5 +34,5 @@ Use the following input format:
 
 To start run:
 ```
-python3 main.py grammar2cnf file PATH_TO_GRAMMAR --output PATH_TO_OUTPUT
+python3 main.py grammar2cnf file [PATH_TO_GRAMMAR] --output [PATH_TO_OUTPUT]
 ```
