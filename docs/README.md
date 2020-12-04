@@ -12,16 +12,16 @@ Just install requirements and run ```main.py```:
 
 ```
 pip3 install -r requirements.txt
-python3 main.py init
+python3 main.py load --group ALL
 ```
 
 This script downloads data (real-world RDF files) and uses [NetworkX](https://networkx.github.io/) graph generators. After that, some synthetic graphs are generated with it.
 
 In order to download/update one specific part of the dataset run:
 ```
-python3 main.py init --update [GroupName]
+python3 main.py load --group [GroupName]
 ```
-Options for ```[GroupName]``` are ```rdf, scalefree, full, worstcase, sparse, memoryaliases```
+Options for ```[GroupName]``` are ```RDF, ScaleFree, FullGraph, WorstCase, SparseGraph, MemoryAliases```
 
 
 ## Integration with graph DBs
