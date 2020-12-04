@@ -4,8 +4,8 @@ import configparser
 import rdflib
 from tqdm import tqdm
 
-from src.tools.base import Tool
 from cfpq_data_devtools.data_wrapper import *
+from src.tools.base import Tool
 
 GRAPH2TXT_PATH = 'src/tools/graph2txt'
 CONVERTER_CONF_PATH = os.path.join(GRAPH2TXT_PATH, 'converter.conf')
@@ -16,12 +16,13 @@ def convert(path, replace=None, reverse_edges=False):
     res = {}
     next_id = 0
 
-    print(f'Loading {path}')
-    graph = rdflib.Graph()
-    graph.parse(path)
+    graph_from = rdflib.Graph()
+    graph_from.parse(path)
 
-    with open(f'{os.path.splitext(path)[0]}.txt', 'w') as out:
-        for s, p, o in tqdm(graph, desc=f'Converting {path}'):
+    graph_to = f'{os.path.splitext(path)[0]}.txt'
+
+    with open(graph_to, 'w') as out:
+        for s, p, o in tqdm(graph_from, desc=f'Converting {graph_from} to {graph_to}'):
             for r in [s, o]:
                 if r not in res:
                     res[r] = str(next_id)
