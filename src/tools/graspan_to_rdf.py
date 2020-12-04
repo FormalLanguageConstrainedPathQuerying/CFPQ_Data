@@ -1,6 +1,7 @@
 from os import listdir
 from os.path import isfile, join
-from rdf_helper import write_to_rdf, add_rdf_edge
+from rdflib import Graph
+from src.tools.rdf_helper import write_to_rdf, add_rdf_edge
 
 def convert_file(in_file_path, out_file_path):
     output_graph = Graph()

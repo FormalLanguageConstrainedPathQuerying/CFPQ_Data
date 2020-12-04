@@ -1,0 +1,3 @@
+ First step is edges investigation
+ * Run  ```python3 main.py gen_RPQ rdf_stat [MY_RDF.rdf] [MY_CONFIG]``` . Mapping from URIs to integers will be saved to my_config. You can use tid config for RDf to triples convertion using RDF_to_triple tool. Numbers of edges labelled with URIs will be printed in concole. 
+ * Run ```python3 main.py gen_RPQ generate -c [MY_CONFIG] -n [n_URIs] -q [q_FOR_EACH_tpl] -o [RESULT_ROOT_DIR]```, where ```MY_CONFIG``` is a config generated at the previous step, first ```n_URIs``` labels from config will be used to generate queryes, ```q_for_each_tpl``` queryes will be generated for each template.   

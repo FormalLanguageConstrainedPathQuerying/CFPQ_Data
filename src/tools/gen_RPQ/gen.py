@@ -1,4 +1,9 @@
-import numpy, sys, os,  shutil
+import numpy, os,  shutil
+import argparse
+import rdflib
+
+from src.tools.base import Tool
+from src.tools.gen_RPQ.RDF_edge_stat import *
 
 templates = [(1, '%s*', 'q1'), (2, '%s %s*', 'q2'), (3, '%s %s* %s*', 'q3'), 
              (2, '(%s | %s)*' , 'q4_2'), (3, '(%s | %s | %s)*', 'q4_3'), (4, '(%s | %s | %s | %s)*', 'q4_4'), (5, '(%s | %s | %s | %s | %s)*', 'q4_5'),
@@ -32,10 +37,37 @@ def print_qs (qs, root_dir):
                 out.write('S -> ' + q[0] + '\n')
                 i = i + 1
 
-r = gen_from_config(sys.argv[1],int(sys.argv[2]),int(sys.argv[3]))
+class GenRPQTool(Tool):
+    def init_parser(self, parser: argparse.ArgumentParser):
+        subparsers = parser.add_subparsers(required=True, dest='mode')
+        rdf_edge_stat_parser = subparsers.add_parser('rdf_stat')
+        gen_parser = subparsers.add_parser('generate')
 
-print_qs(r, sys.argv[4])
+        rdf_edge_stat_parser.add_argument('rdf')
+        rdf_edge_stat_parser.add_argument('output')
 
-for s in r:
-	for q in s:
-		print(q)
+        gen_parser.add_argument('-c', help="a config generated at the rdf_stat mode")
+        gen_parser.add_argument('-n', type=int, help="first n_URIs labels from config will be used to generate queryes")
+        gen_parser.add_argument('-q', type=int, help="q_for_each_tpl queryes will be generated for each template")
+        gen_parser.add_argument('-o', help="result root dir")
+
+    def eval(self, args: argparse.Namespace):
+        if args.mode == 'rdf_stat':
+            g = rdflib.Graph()
+
+            g.load(args.rdf)
+
+            r = get_labels_count(g)
+
+            for x in r:
+                print(x[0], ': ', x[1])
+
+            print_config(r, args.output)
+        elif args.mode == 'generate':
+            r = gen_from_config(args.c,args.n,args.q)
+
+            print_qs(r, args.o)
+
+            for s in r:
+                for q in s:
+                    print(q)
