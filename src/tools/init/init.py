@@ -1,47 +1,61 @@
-from src.tools.base import Tool
-import lzma
-import tarfile
+import json
 import os
-import shutil
-import requests
-import numpy as np
-import networkx as nx
 import random
+import shutil
+from itertools import product
+from pathlib import Path
+
+import networkx as nx
+import numpy as np
+import requests
 from rdflib import Graph
+from tqdm import tqdm
+
+from src.tools.base import Tool
 from src.tools.rdf_helper import write_to_rdf, add_rdf_edge
 
-
-MEMORY_ALIASES_DOWNLOAD_ID = '1gZA4x3Nep7IiRv5j3MZlZF7git2sTMEo'
-RDF_DOWNLOAD_ID = '1x4cELJ7kSwhqlLC0zrOcuxaF3c19qRnK'
+SCALEFREE_GRAPH_TO_GEN = list(product(
+    [100, 500, 2500, 10000]
+    , [1, 3, 5, 10]
+))
 
 SPARSE_GRAPH_TO_GEN = [
-    [5000, 0.001],
-    [10000, 0.001],
-    [10000, 0.01],
-    [10000, 0.1],
-    [20000, 0.001],
-    [40000, 0.001],
-    [80000, 0.001],
+    [5000, 0.001]
+    , [10000, 0.001]
+    , [10000, 0.01]
+    , [10000, 0.1]
+    , [20000, 0.001]
+    , [40000, 0.001]
+    , [80000, 0.001]
 ]
 
 FULL_GRAPH_TO_GEN = [
-    10, 50, 100, 200,
-    500, 1000, 2000,
-    5000, 10000, 25000,
-    50000, 80000,
+    10
+    , 50
+    , 100
+    , 200
+    , 500
+    , 1000
+    , 2000
+    , 5000
+    , 10000
+    , 25000
+    , 50000
+    , 80000
 ]
 
 NUMBER_OF_WORST_CASES = 12
 
-RDF = 'RDF'
 DATA_ROOT_DIR = 'data/'
-MATRICES_DIR = 'Matrices'
-MEMORY_ALIASES = 'MemoryAliases'
+GRAPHS_DIR = 'Graphs'
 
-DATA_TO_UNPACK = {
-    MEMORY_ALIASES: MEMORY_ALIASES_DOWNLOAD_ID,
-    RDF: RDF_DOWNLOAD_ID
-}
+
+def get_info():
+    """ Gets release info from release notes """
+
+    with open('release_notes.json', 'r') as input_file:
+        data = json.load(input_file)
+        return data
 
 
 def download_file_from_google_drive(id, destination):
@@ -76,84 +90,90 @@ def save_response_content(response, destination):
                 f.write(chunk)
 
 
-def download_data(graph_key):
-    print('Downloading from GDrive is started.')
-    dst = os.path.join(DATA_ROOT_DIR, graph_key, MATRICES_DIR)
-    clean_dir(dst)
-    arch_dst = os.path.join(dst + '.tar.xz')
-    print('Download archive to ' + arch_dst)
-    download_file_from_google_drive(DATA_TO_UNPACK[graph_key], arch_dst)
-    print('Downloading from GDrive is finished.')
+def download_data(graph_group, graph_name, graph_key):
+    dst = add_graph_dir(graph_group)
 
+    arch_dst = Path(os.path.join(dst, f'{graph_name}.tar.xz'))
 
-def unpack(file_from, path_to):
-    with lzma.open(file_from) as f:
-        with tarfile.open(fileobj=f) as tar:
-            tar.extractall(path_to)
+    download_file_from_google_drive(graph_key, arch_dst)
 
 
 def to_file(filepath, graph):
     with open(filepath, 'w') as out_file:
         for t in graph:
-            s = t[0]
-            p = t[1]
-            o = t[2]
-            out_file.write('%s %s %s\n' % (s, p, o))
+            s, p, o = t[0], t[1], t[2]
+            out_file.write(f'{s} {p} {o}\n')
 
 
-def unpack_graphs(graph_key):
-    to = os.path.join(DATA_ROOT_DIR, graph_key)
-    arch = os.path.join(to, '%s.tar.xz' % MATRICES_DIR)
-    print('Unpack ', arch, ' to ', to)
-    unpack(arch, to)
+def unpack_graph(graph_group, graph_name):
+    to = Path(os.path.join(DATA_ROOT_DIR, graph_group, GRAPHS_DIR))
+
+    arch = Path(os.path.join(to, f'{graph_name}.tar.xz'))
+
+    shutil.unpack_archive(arch, to)
+
+    os.remove(arch)
 
 
 def gen_sparse_graph(target_dir, vertices, prob):
     tmp_graph = nx.generators.fast_gnp_random_graph(vertices, prob)
+
     output_graph = Graph()
-    target = os.path.join(target_dir, 'G%sk-%s' % (int(vertices / 1000), prob))
+
     for l in tmp_graph:
         lbl = 'A' if random.randint() % 2 == 0 else 'AR'
         add_rdf_edge(l[0], lbl, l[1], output_graph)
+
+    target = os.path.join(target_dir, f'G{vertices}k-{prob}')
+
     write_to_rdf(target, output_graph)
 
 
 def gen_worst_case_graph(target_dir, vertices):
-    first_cycle = int(vertices / 2) + 1
     output_graph = Graph()
-    target = os.path.join(target_dir, 'worstcase_%s' % (vertices))
+
+    first_cycle = int(vertices / 2) + 1
 
     for i in range(0, first_cycle - 1):
         add_rdf_edge(i, 'A', i + 1, output_graph)
 
     add_rdf_edge(first_cycle - 1, 'A', 0, output_graph)
     add_rdf_edge(first_cycle - 1, 'B', first_cycle, output_graph)
+
     for i in range(first_cycle, vertices - 1):
         add_rdf_edge(i, 'B', i + 1, output_graph)
 
     add_rdf_edge(vertices - 1, 'B', first_cycle - 1, output_graph)
+
+    target = os.path.join(target_dir, f'worstcase_{vertices}')
 
     write_to_rdf(target, output_graph)
 
 
 def gen_cycle_graph(target_dir, vertices):
     output_graph = Graph()
-    target = os.path.join(target_dir, 'fullgraph_%s' % (vertices))
 
     for i in range(0, vertices - 1):
         add_rdf_edge(i, 'A', i + 1, output_graph)
+
     add_rdf_edge(vertices - 1, 'A', 0, output_graph)
+
+    target = os.path.join(target_dir, f'fullgraph_{vertices}')
 
     write_to_rdf(target, output_graph)
 
 
 def gen_scale_free_graph(target_dir, n, k, labels):
     g = {i: [(j, np.random.choice(labels)) for j in range(k)] for i in range(k)}
+
     degree = [3] * k
 
     for i in range(k, n):
         to_vertices = np.random.choice(
-            range(i), size=k, replace=False, p=np.array(degree) / sum(degree)
+            range(i)
+            , size=k
+            , replace=False
+            , p=np.array(degree) / sum(degree)
         )
 
         g[i] = []
@@ -165,65 +185,65 @@ def gen_scale_free_graph(target_dir, n, k, labels):
             degree[i] += 1
 
     output_graph = Graph()
-    target = os.path.join(target_dir, 'scale_free_graph_%s_%s') % (n, k)
+
     for v in g:
         for to in g[v]:
             add_rdf_edge(v, to[1], to[0], output_graph)
 
+    target = os.path.join(target_dir, f'scale_free_graph_{n}_{k}')
+
     write_to_rdf(target, output_graph)
 
 
-def clean_dir(path):
+def clean_dir(name):
+    path = Path(os.path.join(DATA_ROOT_DIR, name, GRAPHS_DIR))
     if os.path.isdir(path):
         shutil.rmtree(path)
     os.mkdir(path)
 
 
 def add_graph_dir(name):
-    matrices_dir = os.path.join(DATA_ROOT_DIR, name, MATRICES_DIR)
-    clean_dir(matrices_dir)
-    return matrices_dir
+    dst = Path(os.path.join(DATA_ROOT_DIR, name, GRAPHS_DIR))
+    dst.mkdir(parents=True, exist_ok=True)
+    return dst
 
 
 def generate_all_sparse_graphs():
-    print('Sparse graphs generation is started.')
     add_graph_dir('SparseGraph')
-    matrices_dir = add_graph_dir('SparseGraph')
-    for g in SPARSE_GRAPH_TO_GEN:
-        gen_sparse_graph(matrices_dir, g[0], g[1])
-    print('Sparse graphs generation is finished.')
+
+    graphs_dir = add_graph_dir('SparseGraph')
+
+    for g in tqdm(SPARSE_GRAPH_TO_GEN, desc='Sparse graphs generation'):
+        gen_sparse_graph(graphs_dir, g[0], g[1])
 
 
 def generate_full_graphs():
-    print('Full graphs generation is started.')
-    matrices_dir = add_graph_dir('FullGraph')
-    for g in FULL_GRAPH_TO_GEN:
-        gen_cycle_graph(matrices_dir, g)
-    print('Full graphs generation is finished.')
+    graphs_dir = add_graph_dir('FullGraph')
+
+    for g in tqdm(FULL_GRAPH_TO_GEN, desc='Full graphs generation'):
+        gen_cycle_graph(graphs_dir, g)
 
 
 def generate_worst_case_graphs():
-    print('Worst case graphs generation is started.')
-    matrices_dir = add_graph_dir('WorstCase')
-    for n in range(2, NUMBER_OF_WORST_CASES):
-        gen_worst_case_graph(matrices_dir, 2 ** n)
-    print('Worst case graphs generation is finished.')
+    graphs_dir = add_graph_dir('WorstCase')
+
+    for n in tqdm(range(2, NUMBER_OF_WORST_CASES), desc='WorstCase graphs generation'):
+        gen_worst_case_graph(graphs_dir, 2 ** n)
 
 
 def generate_scale_free_graphs():
-    print('Scale free graphs generation is started.')
-    matrices_dir = add_graph_dir('ScaleFree')
-    for k in 1, 3, 5, 10:
-        for n in 100, 500, 2500, 10000:
-            gen_scale_free_graph(matrices_dir, n, k, ['a', 'b', 'c', 'd'])
-    print('Scale free graphs generation is finished.')
+    graphs_dir = add_graph_dir('ScaleFree')
+
+    for n, k in tqdm(SCALEFREE_GRAPH_TO_GEN, desc='ScaleFree graphs generation'):
+        gen_scale_free_graph(graphs_dir, n, k, ['a', 'b', 'c', 'd'])
 
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
-    ''' Generates a Sierpinski Triangle graph. '''
+    """ Generates a Sierpinski Triangle graph. """
 
     def sierpinski(t, l, r, deg, preds, g):
-        ''' Core function for generating the Sierpinski Triangle. '''
+        """ Core function for generating the Sierpinski Triangle. """
+
         if deg > 0:
             lt = next(ids)
             tr = next(ids)
@@ -237,13 +257,15 @@ def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
             add_edges(r, l, preds, g)
 
     def add_edges(u, v, preds, g):
-        ''' Adds edges between vertices u and v for all predicates. '''
+        """ Adds edges between vertices u and v for all predicates. """
+
         for p in preds:
             g += [[u, p, v]]
             g += [[v, p, u]]
 
     def _idgen():
-        ''' Generates integer identifiers for vertices. '''
+        """ Generates integer identifiers for vertices. """
+
         c = 4
         while True:
             yield c
@@ -252,46 +274,59 @@ def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
     ids = _idgen()
     graph = []
     sierpinski(1, 2, 3, degree, predicates, graph)
-    with open(
-            os.path.join(target_dir, 'sierpinskigraph_%s.txt' % (degree)), 'w'
-    ) as out_file:
+
+    with open(os.path.join(target_dir, f'sierpinskigraph_{degree}.txt'), 'w') as out_file:
         for triple in graph:
-            out_file.write('%s %s %s \n' % (triple[0], triple[1], triple[2]))
+            out_file.write(f'{triple[0]} {triple[1]} {triple[2]} \n')
 
 
-class InitTool(Tool):
+class GraphsLoadTool(Tool):
     def init_parser(self, parser):
         parser.add_argument(
-            '--update',
-            choices=[
-                'rdf', 'scalefree', 'full', 'worstcase', 'sparse', 'memoryaliases'
-            ],
-            required=False,
-            type=str,
-            help='partial dataset update',
+            '--group'
+            , choices=[
+                'ALL'
+                , 'RDF'
+                , 'ScaleFree'
+                , 'FullGraph'
+                , 'WorstCase'
+                , 'SparseGraph'
+                , 'MemoryAliases'
+            ]
+            , required=True
+            , type=str
+            , help='Load specific part from dataset'
         )
 
     def eval(self, args):
-        prt = args.update
-        if prt == 'rdf':
-            download_data(RDF)
-            unpack_graphs(RDF)
-        elif prt == 'memoryaliases':
-            download_data(MEMORY_ALIASES)
-            unpack_graphs(MEMORY_ALIASES)
-        elif prt == 'scalefree':
+        group = args.group
+
+        if group in ('RDF', 'ALL'):
+            clean_dir('RDF')
+            graphs = get_info()['RDF']
+            for graph_name in tqdm(graphs, desc='Downloading RDF'):
+                download_data('RDF', graph_name, graphs[graph_name])
+                unpack_graph('RDF', graph_name)
+
+        if group in ('MemoryAliases', 'ALL'):
+            clean_dir('MemoryAliases')
+            graphs = get_info()['MemoryAliases']
+            for graph_name in tqdm(graphs, desc='Downloading MemoryAliases'):
+                download_data('MemoryAliases', graph_name, graphs[graph_name])
+                unpack_graph('MemoryAliases', graph_name)
+
+        if group in ('ScaleFree', 'ALL'):
+            clean_dir('ScaleFree')
             generate_scale_free_graphs()
-        elif prt == 'full':
+
+        if group in ('FullGraph', 'ALL'):
+            clean_dir('FullGraph')
             generate_full_graphs()
-        elif prt == 'worstcase':
+
+        if group in ('WorstCase', 'ALL'):
+            clean_dir('WorstCase')
             generate_worst_case_graphs()
-        elif prt == 'sparse':
+
+        if group in ('SparseGraph', 'ALL'):
+            clean_dir('SparseGraph')
             generate_all_sparse_graphs()
-        else:
-            for graph_key in DATA_TO_UNPACK:
-                download_data(graph_key)
-                unpack_graphs(graph_key)
-            generate_all_sparse_graphs()
-            generate_full_graphs()
-            generate_worst_case_graphs()
-            generate_scale_free_graphs()
