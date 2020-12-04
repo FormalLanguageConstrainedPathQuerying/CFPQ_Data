@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 
+import argparse
 import os
 
-from src.tools.redis_rdf.src.redis_loader.loader import load
 from src.tools.base import Tool
-import argparse
-import logging
+from src.tools.redis_rdf.src.redis_loader.loader import load
 
 
 class RedisRDFTool(Tool):
