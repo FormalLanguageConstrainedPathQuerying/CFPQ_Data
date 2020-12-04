@@ -1,7 +1,8 @@
+import argparse
 import os
+
 from pyformlang.cfg import Production, Variable, Terminal, CFG, Epsilon
 from pyformlang.regular_expression import Regex
-import argparse
 
 from cfpq_data_devtools.data_wrapper import DataWrapper
 from src.tools.base import Tool
@@ -155,9 +156,9 @@ class Grammar2Cnf(Tool):
         set_parser = subparsers.add_parser('set')
         subparsers.add_parser('all')
 
-        file_parser.add_argument('path') 
+        file_parser.add_argument('path')
         file_parser.add_argument('--output', help='file path to store result')
-        
+
         set_parser.add_argument('suite', nargs='*', choices=DataWrapper().get_suites())
 
     def eval(self, args: argparse.Namespace):
