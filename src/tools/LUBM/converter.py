@@ -14,18 +14,22 @@
     The graph will contain explicit inverted edges added an 'R'.
     """
 
-import rdflib, os
-import subprocess
 import argparse
+import subprocess
+
+import os
+import rdflib
 
 from src.tools.base import Tool
 
 URI_PREFIX = 'http://yacc/'
 MAX_FILES_PER_UNI = 30
 
+
 # RDF serialization
 def write_to_rdf(target, graph):
     graph.serialize(target + '.xml', format='xml')
+
 
 # Edge addition (grapf constructing)
 def add_rdf_edge(subj, pred, obj, graph):
@@ -33,6 +37,7 @@ def add_rdf_edge(subj, pred, obj, graph):
     p = rdflib.URIRef(URI_PREFIX + pred)
     o = rdflib.BNode('id-%s' % (obj))
     graph.add((s, p, o))
+
 
 class LUBMTool(Tool):
     def init_parser(self, parser: argparse.ArgumentParser):
@@ -64,19 +69,19 @@ class LUBMTool(Tool):
             subprocess.run('bash src/tools/LUBM/download.sh')
             subprocess.run('bash src/tools/LUBM/generate.sh')
 
-            replace = {} # map for replacing predicates
+            replace = {}  # map for replacing predicates
             config = args.conf
-            for l in open(config,'r').readlines():
-              pair = l.split(' ')
-              old = rdflib.URIRef(pair[0].strip(' '))
-              new = pair[1].strip('\n').strip(' ')
-              replace[old] = new
+            for l in open(config, 'r').readlines():
+                pair = l.split(' ')
+                old = rdflib.URIRef(pair[0].strip(' '))
+                new = pair[1].strip('\n').strip(' ')
+                replace[old] = new
 
             print(replace)
 
-            res = {}        # map from resources to integer ids
-            next_id = 0     # id counter
-            edges_count = 0 # Total edges
+            res = {}  # map from resources to integer ids
+            next_id = 0  # id counter
+            edges_count = 0  # Total edges
 
             graph = rdflib.Graph()
             prefix = args.pref
@@ -85,35 +90,35 @@ class LUBMTool(Tool):
             processed = []
             notreplaced = set()
 
-            for i in range(0,count):
-              for j in range(0,MAX_FILES_PER_UNI):
-                filename = prefix + str(i) + '_' + str(j) + '.owl'
-                try:
-                  g = rdflib.Graph()
-                  g.parse(filename)
+            for i in range(0, count):
+                for j in range(0, MAX_FILES_PER_UNI):
+                    filename = prefix + str(i) + '_' + str(j) + '.owl'
+                    try:
+                        g = rdflib.Graph()
+                        g.parse(filename)
 
-                  for s,p,o in g:
-                    for r in [s,o]:
-                      if r not in res:
-                        res[r] = str(next_id)
-                        next_id += 1
+                        for s, p, o in g:
+                            for r in [s, o]:
+                                if r not in res:
+                                    res[r] = str(next_id)
+                                    next_id += 1
 
-                    if p in replace:
-                      add_rdf_edge(res[s], replace[p], res[o], graph)
-                      add_rdf_edge(res[s], replace[p] + 'R', res[o], graph)
-                      edges_count += 2
-                    else:
-                      add_rdf_edge(res[s], 'OTHER', res[o], graph)
-                      edges_count += 1
-                      notreplaced.add(p)
+                            if p in replace:
+                                add_rdf_edge(res[s], replace[p], res[o], graph)
+                                add_rdf_edge(res[s], replace[p] + 'R', res[o], graph)
+                                edges_count += 2
+                            else:
+                                add_rdf_edge(res[s], 'OTHER', res[o], graph)
+                                edges_count += 1
+                                notreplaced.add(p)
 
-                  processed.append(filename)
-                  print('Merged:', filename)
-                except Exception:
-                  pass
+                        processed.append(filename)
+                        print('Merged:', filename)
+                    except Exception:
+                        pass
 
             target = prefix + str(count) + 'v' + str(next_id) + 'e' + str(edges_count)  # output file
-            write_to_rdf(target,graph)
+            write_to_rdf(target, graph)
 
             print('Total vertices:', next_id)
             print('Total edges:', edges_count)
