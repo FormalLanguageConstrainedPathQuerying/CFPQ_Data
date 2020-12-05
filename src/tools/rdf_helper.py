@@ -1,6 +1,7 @@
-from rdflib import Graph, URIRef, BNode
+from rdflib import URIRef, BNode
 
 URI_PREFIX = 'http://yacc/'
+
 
 # RDF serialization
 def write_to_rdf(target, graph):
