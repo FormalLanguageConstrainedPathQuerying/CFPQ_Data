@@ -8,21 +8,28 @@ Graphs and grammars for experimental analysis of context-free path querying algo
 
 ## How to start
 
-Just install requirements and run ```main.py```: 
+* Install requirements ```pip3 install -r requirements.txt```
 
-```
-pip3 install -r requirements.txt
-python3 main.py load --group ALL
-```
+* Choose part of the dataset
 
-This script downloads data (real-world RDF files) and uses [NetworkX](https://networkx.github.io/) graph generators. After that, some synthetic graphs are generated with it.
+| Graphs | Command |
+|:------:|:-------:|
+| RDF | python3 cfpq_data.py RDF --all |
+| MemoryAliases | python3 cfpq_data.py MemoryAliases --all |
+| ScaleFree | python3 cfpq_data.py ScaleFree --preset |
+| FullGraph| python3 cfpq_data.py FullGraph --preset |
+| WorstCase | python3 cfpq_data.py WorstCase --preset |
+| SparseGraph | python3 cfpq_data.py SparseGraph --preset |
+| LUBM | python3 cfpq_data.py LUBM |
 
-In order to download/update one specific part of the dataset run:
-```
-python3 main.py load --group [GroupName]
-```
-Options for ```[GroupName]``` are ```RDF, ScaleFree, FullGraph, WorstCase, SparseGraph, MemoryAliases```
+* Or one of tools
 
+| Tool description | Command |
+|:----------------:|:-------:|
+| Convert specific graph or part of dataset to TXT file | python3 graph2txt -h |
+| Convert grammar to cnf format | python3 grammar2cnf -h |
+| Generate RPQ queries | python3 gen_RPQ -h |
+| Load RDF graph to RedisGraph | python3 redis_rdf -h |
 
 ## Integration with graph DBs
 
