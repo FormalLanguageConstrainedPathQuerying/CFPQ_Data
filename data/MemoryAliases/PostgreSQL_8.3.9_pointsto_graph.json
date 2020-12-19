@@ -1,0 +1,11 @@
+{
+  "name": "PostgreSQL_8.3.9_pointsto_graph",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "3 979 306",
+  "edges": {
+    "A": "1 209 597",
+    "D": "3 468 946"
+  },
+  "size of file": "429 924 717 B (429,9 MB)"
+}

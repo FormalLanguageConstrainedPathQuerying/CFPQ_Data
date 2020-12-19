@@ -1,0 +1,11 @@
+{
+  "name": "net_afterInline",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "3 078 714",
+  "edges": {
+    "A": "807 162",
+    "D": "2 692 979"
+  },
+  "size of file": "327 815 218 B (327,8 `MB)"
+}

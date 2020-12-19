@@ -1,0 +1,11 @@
+{
+  "name": "crypto_afterInline",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "2 638 172",
+  "edges": {
+    "A": "678 408",
+    "D": "2 309 979"
+  },
+  "size of file": "280 248 585 B (280,2 MB)"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "bzip2",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "446",
+  "edges": {
+    "A": "259",
+    "D": "297"
+  },
+  "size of file": "45 432 B (45 KB)"
+}

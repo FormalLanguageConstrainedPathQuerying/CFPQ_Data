@@ -1,0 +1,11 @@
+{
+  "name": "drivers_afterInline",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "3 251 414",
+  "edges": {
+    "A": "858 568",
+    "D": "2 849 201"
+  },
+  "size of file": "346 720 743 B (346,7 MB)"
+}

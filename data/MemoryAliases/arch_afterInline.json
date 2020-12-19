@@ -1,0 +1,11 @@
+{
+  "name": "arch_afterInline",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "2 624 180",
+  "edges": {
+    "A": "671 295",
+    "D": "2 298 947"
+  },
+  "size of file": "278 669 103 B (278,7 MB)"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "block_afterInline",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "2 607 242",
+  "edges": {
+    "A": "669 238",
+    "D": "2 282 155"
+  },
+  "size of file": "276 869 199 B (276,9 MB)"
+}

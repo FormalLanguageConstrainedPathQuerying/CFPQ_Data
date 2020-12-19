@@ -1,0 +1,11 @@
+{
+  "name": "security_afterInline",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "2 651 998",
+  "edges": {
+    "A": "683 339",
+    "D": "2 319 987"
+  },
+  "size of file": "281 698 638 B (281,7 MB)"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "gzip",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "1 992",
+  "edges": {
+    "A": "1 075",
+    "D": "1 218"
+  },
+  "size of file": "199 239 B (199 KB)"
+}

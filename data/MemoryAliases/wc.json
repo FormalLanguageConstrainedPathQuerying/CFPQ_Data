@@ -1,0 +1,11 @@
+{
+  "name": "wc",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "244",
+  "edges": {
+    "A": "113",
+    "D": "156"
+  },
+  "size of file": "23 679 B (24 KB)"
+}

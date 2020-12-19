@@ -1,0 +1,11 @@
+{
+  "name": "init_afterInline",
+  "path": "/data/MemoryAliases",
+  "version": "0.0.0",
+  "vertices": "1 866 280",
+  "edges": {
+    "A": "481 994",
+    "D": "1 630 815"
+  },
+  "size of file": "197 676 888 B (197,7 MB)"
+}
