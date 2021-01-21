@@ -1,0 +1,1 @@
+{"name": "Apache_httpd_2.2.18_pointsto_graph", "path": "./data/MemoryAliases/Graphs/", "version": "0.0.0", "vertices": 1721418, "edges": {"All": 1510411, "A": 362799, "D": 1147612}, "size of file": 138037427}
