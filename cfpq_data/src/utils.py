@@ -12,7 +12,7 @@ GRAPHS_DIR = 'Graphs'
 def get_info():
     """ Gets release info from release notes """
 
-    with open('release_notes.json', 'r') as input_file:
+    with open(f'{Path(__file__).parent.parent.absolute()}/release_notes.json', 'r') as input_file:
         data = json.load(input_file)
         return data
 
