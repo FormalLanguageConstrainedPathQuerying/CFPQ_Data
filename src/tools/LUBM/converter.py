@@ -14,13 +14,12 @@
     The graph will contain explicit inverted edges added an 'R'.
     """
 
-import argparse
+import os
 import subprocess
 
-import os
 import rdflib
 
-from src.tools.base import Tool
+from src.tools.CmdParser import CmdParser
 
 URI_PREFIX = 'http://yacc/'
 MAX_FILES_PER_UNI = 30
@@ -39,8 +38,9 @@ def add_rdf_edge(subj, pred, obj, graph):
     graph.add((s, p, o))
 
 
-class LUBMTool(Tool):
-    def init_parser(self, parser: argparse.ArgumentParser):
+class LUBMGraph(CmdParser):
+    @staticmethod
+    def init_cmd_parser(parser):
         subparsers = parser.add_subparsers(required=True, dest='mode')
         prepare_parser = subparsers.add_parser('prepare')
         converter_parser = subparsers.add_parser('convert')
@@ -52,7 +52,8 @@ class LUBMTool(Tool):
         converter_parser.add_argument('--count', required=True, type=int)
         converter_parser.add_argument('--conf', required=True)
 
-    def eval(self, args: argparse.Namespace):
+    @staticmethod
+    def eval_cmd_parser(args):
         if args.mode == 'prepare':
             prefix = args.pref
             new = args.new

@@ -1,11 +1,10 @@
-import argparse
 import configparser
 
 import rdflib
 from tqdm import tqdm
 
 from cfpq_data_devtools.data_wrapper import *
-from src.tools.base import Tool
+from src.tools.CmdParser import CmdParser
 
 GRAPH2TXT_PATH = 'src/tools/graph2txt'
 CONVERTER_CONF_PATH = os.path.join(GRAPH2TXT_PATH, 'converter.conf')
@@ -40,8 +39,9 @@ def convert(path, replace=None, reverse_edges=False):
             out.write(f'{v} {e} {to}\n')
 
 
-class Graph2TxtTool(Tool):
-    def init_parser(self, parser: argparse.ArgumentParser):
+class Graph2TxtGraph(CmdParser):
+    @staticmethod
+    def init_cmd_parser(parser):
         subparsers = parser.add_subparsers(required=True, dest='mode')
         file_parser = subparsers.add_parser('file')
         set_parser = subparsers.add_parser('set')
@@ -51,7 +51,8 @@ class Graph2TxtTool(Tool):
 
         set_parser.add_argument('suite', nargs='*', choices=DataWrapper().get_suites())
 
-    def eval(self, args: argparse.Namespace):
+    @staticmethod
+    def eval_cmd_parser(args):
         config = configparser.ConfigParser(delimiters=('=',))
 
         if args.mode == 'set':

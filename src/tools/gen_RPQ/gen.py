@@ -1,11 +1,10 @@
-import argparse
-
-import numpy
 import os
-import rdflib
 import shutil
 
-from src.tools.base import Tool
+import numpy
+import rdflib
+
+from src.tools.CmdParser import CmdParser
 from src.tools.gen_RPQ.RDF_edge_stat import *
 
 templates = [(1, '%s*', 'q1'), (2, '%s %s*', 'q2'), (3, '%s %s* %s*', 'q3'),
@@ -22,7 +21,7 @@ templates = [(1, '%s*', 'q1'), (2, '%s %s*', 'q2'), (3, '%s %s* %s*', 'q3'),
 
 def gen(tpl, n, lst, k):
     res = set()
-    while (len(res) < n):
+    while len(res) < n:
         perm = numpy.random.permutation(lst)
         res.add(((tpl % tuple(perm[0:k])), tuple(perm[0:k])))
     return res
@@ -48,8 +47,9 @@ def print_qs(qs, root_dir):
                 i = i + 1
 
 
-class GenRPQTool(Tool):
-    def init_parser(self, parser: argparse.ArgumentParser):
+class GenRPQGraph(CmdParser):
+    @staticmethod
+    def init_cmd_parser(parser):
         subparsers = parser.add_subparsers(required=True, dest='mode')
         rdf_edge_stat_parser = subparsers.add_parser('rdf_stat')
         gen_parser = subparsers.add_parser('generate')
@@ -62,7 +62,8 @@ class GenRPQTool(Tool):
         gen_parser.add_argument('-q', type=int, help="q_for_each_tpl queryes will be generated for each template")
         gen_parser.add_argument('-o', help="result root dir")
 
-    def eval(self, args: argparse.Namespace):
+    @staticmethod
+    def eval_cmd_parser(args):
         if args.mode == 'rdf_stat':
             g = rdflib.Graph()
 

@@ -1,11 +1,10 @@
-import argparse
 import os
 
 from pyformlang.cfg import Production, Variable, Terminal, CFG, Epsilon
 from pyformlang.regular_expression import Regex
 
 from cfpq_data_devtools.data_wrapper import DataWrapper
-from src.tools.base import Tool
+from src.tools.CmdParser import CmdParser
 
 EPS_SYM = 'eps'
 SUPPORTED_REGEX_CHARS = '.*()?|'
@@ -149,8 +148,9 @@ def conver_suites(suites):
             convert(grammar, f'{os.path.splitext(grammar)[0]}.cnf')
 
 
-class Grammar2Cnf(Tool):
-    def init_parser(self, parser: argparse.ArgumentParser):
+class Grammar2Cnf(CmdParser):
+    @staticmethod
+    def init_cmd_parser(parser):
         subparsers = parser.add_subparsers(required=True, dest='mode')
         file_parser = subparsers.add_parser('file')
         set_parser = subparsers.add_parser('set')
@@ -161,7 +161,8 @@ class Grammar2Cnf(Tool):
 
         set_parser.add_argument('suite', nargs='*', choices=DataWrapper().get_suites())
 
-    def eval(self, args: argparse.Namespace):
+    @staticmethod
+    def eval_cmd_parser(args):
         if args.mode == 'file':
             inp = args.path
             if args.output is None:

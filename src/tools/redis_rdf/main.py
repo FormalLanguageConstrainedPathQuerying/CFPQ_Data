@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 
-import argparse
 import os
 
-from src.tools.base import Tool
+from src.tools.CmdParser import CmdParser
 from src.tools.redis_rdf.src.redis_loader.loader import load
 
 
-class RedisRDFTool(Tool):
-    def init_parser(self, parser: argparse.ArgumentParser):
+class RedisRDFGraph(CmdParser):
+    @staticmethod
+    def init_cmd_parser(parser):
         parser.add_argument('--host', help='redis host name', default='localhost')
         parser.add_argument('--port', help='redis port', default=6379)
 
@@ -22,7 +22,8 @@ class RedisRDFTool(Tool):
         parser_dir.add_argument('DIR_PATH')
         # logging.disable(logging.WARNING)
 
-    def eval(self, args: argparse.Namespace):
+    @staticmethod
+    def eval_cmd_parser(args):
         if 'DIR_PATH' in args:
             for file in os.listdir(args.dir_path):
                 load(f'{args.dir_path}/{file}', file, args.host, args.port)

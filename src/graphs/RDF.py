@@ -1,28 +1,49 @@
-import json
 import rdflib
-import os
-import glob
-
 from tqdm import tqdm
 
-from src.tools.base import Tool
+from src.graphs.Graph import Graph
+from src.tools.CmdParser import CmdParser
 from src.utils import *
-from src.tools.redis_rdf.src.redis_loader.triplet_loader import uri_to_name
 
 
-def num_of_(graph_name):
-    graph = rdflib.Graph()
-    graph.load(graph_name)
-    d = set()
-    vert = set()
-    for s, p, o in graph:
-        d.add((s, p, o))
-        vert.add(s)
-        vert.add(o)
-    return len(vert), len(d)
+class RDF(Graph, CmdParser):
+    graphs = dict()
+    graph_keys = get_info()['RDF']
 
-class RDF(Tool):
-    def init_parser(self, parser):
+    def __init__(self, graph_name):
+        download_data('RDF', graph_name, RDF.graph_keys[graph_name])
+        path_to_graph = unpack_graph('RDF', graph_name)
+
+        self.graph = rdflib.Graph()
+        self.graph.load(path_to_graph)
+
+        self.dirname = os.path.dirname(path_to_graph)
+        self.basename = os.path.basename(path_to_graph)
+
+        self.number_of_vertices = len(self.graph.all_nodes())
+        self.number_of_edges = len(self.graph)
+
+        self.file_size = os.path.getsize(path_to_graph)
+        self.file_name, self.file_extension = os.path.splitext(self.basename)
+
+        RDF.graphs[self.basename] = path_to_graph
+
+    def get_metadata(self):
+        return {
+            'name': self.basename
+            , 'path': self.dirname
+            , 'version': get_info()['version']
+            , 'vertices': self.number_of_vertices
+            , 'edges': self.number_of_edges
+            , 'size of file': self.file_size
+        }
+
+    def save_metadata(self):
+        with open(f'{self.dirname}/{self.file_name}_meta.json', 'w') as metadata_file:
+            json.dump(self.get_metadata(), metadata_file, indent=4)
+
+    @staticmethod
+    def init_cmd_parser(parser):
         parser.add_argument(
             '-a'
             , '--all'
@@ -38,41 +59,18 @@ class RDF(Tool):
             , help='Load specific RDF graph from dataset'
         )
 
-    def eval(self, args):
+    @staticmethod
+    def eval_cmd_parser(args):
         if args.all is False and args.graph is None:
             print('One of -a/--all, -g/--graph required')
             exit()
 
-        graphs = get_info()['RDF']
-        meta_data_dict = {}
-
         if args.all is True:
             clean_dir('RDF')
-            for graph_name in tqdm(graphs, desc='Downloading RDF'):
-                download_data('RDF', graph_name, graphs[graph_name])
-                unpack_graph('RDF', graph_name)
-                graph_file = glob.glob("./data/RDF/Graphs/" + graph_name + ".*")
-                with open("./data/RDF/" + graph_name + '_meta.json', 'w') as meta_data_file:
-                    meta_data_dict["name"] = graph_name
-                    meta_data_dict["path"] = "./data/RDF/Graphs/"
-                    meta_data_dict["version"] = "0.0.0"
-                    n = num_of_(graph_file[0])
-                    meta_data_dict["vertices"] = n[0]
-                    meta_data_dict["edges"] = n[1]
-                    meta_data_dict["size of file"] = os.path.getsize(graph_file[0])
-                    json.dump(meta_data_dict, meta_data_file)
+            for graph_name in tqdm(RDF.graph_keys, desc='Downloading RDF'):
+                RDF(graph_name).save_metadata()
 
         if args.graph is not None:
-            path = download_data('RDF', args.graph, graphs[args.graph])
-            unpack_graph('RDF', args.graph)
-            print(f'Loaded {args.graph} to {path}')
-            graph_file = glob.glob("./data/RDF/Graphs/" + args.graph + ".*")[0]
-            with open("./data/RDF/" + args.graph + '_meta.json', 'w') as meta_data_file:
-                meta_data_dict["name"] = args.graph
-                meta_data_dict["path"] = "./data/RDF/Graphs/"
-                meta_data_dict["version"] = "0.0.0"
-                n = num_of_(graph_file)
-                meta_data_dict["vertices"] = n[0]
-                meta_data_dict["edges"] = n[1]
-                meta_data_dict["size of file"] = os.path.getsize(graph_file)
-                json.dump(meta_data_dict, meta_data_file)
+            graph = RDF(args.graph)
+            graph.save_metadata()
+            print(f'Loaded {graph.basename} to {graph.dirname}')

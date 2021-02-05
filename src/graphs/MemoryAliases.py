@@ -1,33 +1,49 @@
 import rdflib
-import glob
-
 from tqdm import tqdm
 
-from src.tools.base import Tool
+from src.graphs.Graph import Graph
+from src.tools.CmdParser import CmdParser
 from src.utils import *
-from src.tools.redis_rdf.src.redis_loader.triplet_loader import uri_to_name
 
 
-def num_of_(graph_name):
-    graph = rdflib.Graph()
-    graph.load(graph_name)
-    d = set()
-    vert = set()
-    a, b = 0, 0
-    for s, p, o in graph:
-        d.add((s, p, o))
-        vert.add(s)
-        vert.add(o)
-        if uri_to_name(p, graph) == 'A':
-            a += 1
-        else:
-            b += 1
-    return len(vert), len(d), a, b
+class MemoryAliases(Graph, CmdParser):
+    graphs = dict()
+    graph_keys = get_info()['MemoryAliases']
 
+    def __init__(self, graph_name):
+        download_data('MemoryAliases', graph_name, MemoryAliases.graph_keys[graph_name])
+        path_to_graph = unpack_graph('MemoryAliases', graph_name)
 
+        self.graph = rdflib.Graph()
+        self.graph.load(path_to_graph)
 
-class MemoryAliases(Tool):
-    def init_parser(self, parser):
+        self.dirname = os.path.dirname(path_to_graph)
+        self.basename = os.path.basename(path_to_graph)
+
+        self.number_of_vertices = len(self.graph.all_nodes())
+        self.number_of_edges = len(self.graph)
+
+        self.file_size = os.path.getsize(path_to_graph)
+        self.file_name, self.file_extension = os.path.splitext(self.basename)
+
+        MemoryAliases.graphs[self.basename] = path_to_graph
+
+    def get_metadata(self):
+        return {
+            'name': self.basename
+            , 'path': self.dirname
+            , 'version': get_info()['version']
+            , 'vertices': self.number_of_vertices
+            , 'edges': self.number_of_edges
+            , 'size of file': self.file_size
+        }
+
+    def save_metadata(self):
+        with open(f'{self.dirname}/{self.file_name}_meta.json', 'w') as metadata_file:
+            json.dump(self.get_metadata(), metadata_file, indent=4)
+
+    @staticmethod
+    def init_cmd_parser(parser):
         parser.add_argument(
             '-a'
             , '--all'
@@ -43,45 +59,18 @@ class MemoryAliases(Tool):
             , help='Load specific MemoryAliases graph from dataset'
         )
 
-    def eval(self, args):
+    @staticmethod
+    def eval_cmd_parser(args):
         if args.all is False and args.graph is None:
             print('One of -a/--all, -g/--graph required')
             exit()
 
-        graphs = get_info()['MemoryAliases']
-        meta_data_dict = {}
-
         if args.all is True:
             clean_dir('MemoryAliases')
-            for graph_name in tqdm(graphs, desc='Downloading MemoryAliases'):
-                download_data('MemoryAliases', graph_name, graphs[graph_name])
-                unpack_graph('MemoryAliases', graph_name)
-                graph_file = glob.glob("./data/MemoryAliases/Graphs/" + graph_name + ".*")
-                with open("./data/MemoryAliases/" + graph_name + '_meta.json', 'w') as meta_data_file:
-                    meta_data_dict["name"] = graph_name
-                    meta_data_dict["path"] = "./data/MemoryAliases/Graphs/"
-                    meta_data_dict["version"] = "0.0.0"
-                    n = num_of_(graph_file[0])
-                    meta_data_dict["vertices"] = n[0]
-                    meta_data_dict["edges"] = {"All": n[1],
-                                               "A": n[2],
-                                               "D": n[3]}
-                    meta_data_dict["size of file"] = os.path.getsize(graph_file[0])
-                    json.dump(meta_data_dict, meta_data_file)
+            for graph_name in tqdm(MemoryAliases.graph_keys, desc='Downloading MemoryAliases'):
+                MemoryAliases(graph_name).save_metadata()
 
         if args.graph is not None:
-            path = download_data('MemoryAliases', args.graph, graphs[args.graph])
-            unpack_graph('MemoryAliases', args.graph)
-            print(f'Loaded {args.graph} to {path}')
-            graph_file = glob.glob("./data/MemoryAliases/Graphs/" + args.graph + ".*")[0]
-            with open("./data/MemoryAliases/" + args.graph + '_meta.json', 'w') as meta_data_file:
-                meta_data_dict["name"] = args.graph
-                meta_data_dict["path"] = "./data/MemoryAliases/Graphs/"
-                meta_data_dict["version"] = "0.0.0"
-                n = num_of_(graph_file)
-                meta_data_dict["vertices"] = n[0]
-                meta_data_dict["edges"] = {"All":n[1],
-                                               "A": n[2],
-                                               "D": n[3]}
-                meta_data_dict["size of file"] = os.path.getsize(graph_file)
-                json.dump(meta_data_dict, meta_data_file)
+            graph = MemoryAliases(args.graph)
+            graph.save_metadata()
+            print(f'Loaded {graph.basename} to {graph.dirname}')

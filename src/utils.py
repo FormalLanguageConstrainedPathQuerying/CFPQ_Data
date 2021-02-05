@@ -66,6 +66,15 @@ def to_file(filepath, graph):
             out_file.write(f'{s} {p} {o}\n')
 
 
+def unpack_archive_listdir(dir, arch):
+    tmp = f'{dir}/tmp'
+    os.mkdir(tmp)
+    shutil.unpack_archive(arch, tmp)
+    result = os.listdir(tmp)
+    shutil.rmtree(tmp)
+    return result
+
+
 def unpack_graph(graph_group, graph_name):
     to = Path(os.path.join(DATA_ROOT_DIR, graph_group, GRAPHS_DIR))
 
@@ -73,7 +82,11 @@ def unpack_graph(graph_group, graph_name):
 
     shutil.unpack_archive(arch, to)
 
+    graph = unpack_archive_listdir(to, arch)[0]
+
     os.remove(arch)
+
+    return os.path.join(to, graph)
 
 
 def clean_dir(name):
@@ -86,7 +99,7 @@ def clean_dir(name):
 def add_graph_dir(name):
     dst = Path(os.path.join(DATA_ROOT_DIR, name, GRAPHS_DIR))
     dst.mkdir(parents=True, exist_ok=True)
-    return dst
+    return f'{dst}'
 
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
