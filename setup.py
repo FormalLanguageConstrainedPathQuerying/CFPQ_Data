@@ -9,6 +9,6 @@ setup(
     , author='Grigorev Semyon'
     , author_email='rsdpisuy@gmail.com'
     , description='Graphs and grammars for experimental analysis of context-free path querying algorithms'
-    , package_data={'': ['*.json']}
+    , package_data={'': ['*.json'], 'cfpq_data': ['data/*/Grammars/*.txt']}
     , include_package_data=True
 )
