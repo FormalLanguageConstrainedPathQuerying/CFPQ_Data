@@ -1,10 +1,9 @@
 from itertools import product
 
 import numpy as np
-import rdflib
 from tqdm import tqdm
 
-from cfpq_data.src.graphs.Graph import Graph
+from cfpq_data import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils import *
@@ -15,39 +14,13 @@ SCALEFREE_GRAPH_TO_GEN = list(product(
 ))
 
 
-class ScaleFree(Graph, CmdParser):
+class ScaleFree(RDF, CmdParser):
     graphs = {}
 
-    def __init__(self, vertices_number, vertices_degree):
-        self.dirname = add_graph_dir('ScaleFree')
-        self.basename = f'scale_free_graph_{vertices_number}_{vertices_degree}.xml'
-
-        path_to_graph = gen_scale_free_graph(self.dirname, vertices_number, vertices_degree)
-
-        self.graph = rdflib.Graph()
-        self.graph.load(path_to_graph)
-
-        self.vertices_number = len(self.graph.all_nodes())
-        self.number_of_edges = len(self.graph)
-
-        self.file_size = os.path.getsize(path_to_graph)
-        self.file_name, self.file_extension = os.path.splitext(self.basename)
-
-        ScaleFree.graphs[self.basename] = path_to_graph
-
-    def get_metadata(self):
-        return {
-            'name': self.basename
-            , 'path': self.dirname
-            , 'version': get_info()['version']
-            , 'vertices': self.vertices_number
-            , 'edges': self.number_of_edges
-            , 'size of file': self.file_size
-        }
-
-    def save_metadata(self):
-        with open(f'{self.dirname}/{self.file_name}_meta.json', 'w') as metadata_file:
-            json.dump(self.get_metadata(), metadata_file, indent=4)
+    @classmethod
+    def build(cls, vertices_number, vertices_degree):
+        path_to_graph = gen_scale_free_graph(add_graph_dir('ScaleFree'), vertices_number, vertices_degree)
+        return ScaleFree.from_rdf(path_to_graph)
 
     @staticmethod
     def init_cmd_parser(parser):
@@ -81,10 +54,10 @@ class ScaleFree(Graph, CmdParser):
 
         if args.preset is True:
             for n, k in tqdm(SCALEFREE_GRAPH_TO_GEN, desc='ScaleFree graphs generation'):
-                ScaleFree(n, k).save_metadata()
+                ScaleFree.build(n, k).save_metadata()
 
         if args.vertices_number is not None and args.vertices_degree is not None:
-            graph = ScaleFree(args.vertices_number, args.vertices_degree)
+            graph = ScaleFree.build(args.vertices_number, args.vertices_degree)
             graph.save_metadata()
             print(f'Generated {graph.basename} to {graph.dirname}')
 
@@ -113,7 +86,7 @@ def gen_scale_free_graph(target_dir, n, k, labels=('a', 'b', 'c', 'd')):
             degree[to] += 1
             degree[i] += 1
 
-    output_graph = Graph()
+    output_graph = rdflib.Graph()
 
     for v in g:
         for to in g[v]:
