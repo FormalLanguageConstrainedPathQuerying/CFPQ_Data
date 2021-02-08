@@ -1,7 +1,6 @@
-import rdflib
 from tqdm import tqdm
 
-from cfpq_data.src.graphs.Graph import Graph
+from cfpq_data import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils import *
@@ -9,39 +8,13 @@ from cfpq_data.src.utils import *
 NUMBER_OF_WORST_CASES = 12
 
 
-class WorstCase(Graph, CmdParser):
+class WorstCase(RDF, CmdParser):
     graphs = {}
 
-    def __init__(self, vertices_number):
-        self.dirname = add_graph_dir('WorstCase')
-        self.basename = f'worstcase_{vertices_number}.xml'
-
-        path_to_graph = gen_worst_case_graph(self.dirname, vertices_number)
-
-        self.graph = rdflib.Graph()
-        self.graph.load(path_to_graph)
-
-        self.vertices_number = len(self.graph.all_nodes())
-        self.number_of_edges = len(self.graph)
-
-        self.file_size = os.path.getsize(path_to_graph)
-        self.file_name, self.file_extension = os.path.splitext(self.basename)
-
-        WorstCase.graphs[self.basename] = path_to_graph
-
-    def get_metadata(self):
-        return {
-            'name': self.basename
-            , 'path': self.dirname
-            , 'version': get_info()['version']
-            , 'vertices': self.vertices_number
-            , 'edges': self.number_of_edges
-            , 'size of file': self.file_size
-        }
-
-    def save_metadata(self):
-        with open(f'{self.dirname}/{self.file_name}_meta.json', 'w') as metadata_file:
-            json.dump(self.get_metadata(), metadata_file, indent=4)
+    @classmethod
+    def build(cls, vertices_number):
+        path_to_graph = gen_worst_case_graph(add_graph_dir('WorstCase'), vertices_number)
+        return WorstCase.from_rdf(path_to_graph)
 
     @staticmethod
     def init_cmd_parser(parser):
@@ -67,10 +40,10 @@ class WorstCase(Graph, CmdParser):
 
         if args.preset is True:
             for n in tqdm(range(2, NUMBER_OF_WORST_CASES), desc='WorstCase graphs generation'):
-                WorstCase(2 ** n).save_metadata()
+                WorstCase.build(2 ** n).save_metadata()
 
         if args.vertices_number is not None:
-            graph = WorstCase(args.vertices_number)
+            graph = WorstCase.build(args.vertices_number)
             graph.save_metadata()
             print(f'Generated {graph.basename} to {graph.dirname}')
 
