@@ -68,17 +68,17 @@ def create_table():
 
 
 def clean_table():
-    tmp = 0
+    flag = 0
     with open('./docs/README.md', 'rt') as input_file:
         lines = input_file.readlines()
     with open('./docs/README.md', 'wt') as output_file:
         for line in lines:
             if "#### RDF" in line or "#### MemoryAliases" in line:
                 output_file.write(line)
-                tmp = 1
+                flag = 1
             if "### Reference values" in line:
-                tmp = 0
-            if tmp == 0:
+                flag = 0
+            if flag == 0:
                 output_file.write(line)
 
 
