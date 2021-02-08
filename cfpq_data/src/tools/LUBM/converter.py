@@ -14,28 +14,12 @@
     The graph will contain explicit inverted edges added an 'R'.
     """
 
-import os
 import subprocess
 
-import rdflib
-
 from cfpq_data.src.tools.CmdParser import CmdParser
+from cfpq_data.src.utils import *
 
-URI_PREFIX = 'http://yacc/'
 MAX_FILES_PER_UNI = 30
-
-
-# RDF serialization
-def write_to_rdf(target, graph):
-    graph.serialize(target + '.xml', format='xml')
-
-
-# Edge addition (grapf constructing)
-def add_rdf_edge(subj, pred, obj, graph):
-    s = rdflib.BNode('id-%s' % (subj))
-    p = rdflib.URIRef(URI_PREFIX + pred)
-    o = rdflib.BNode('id-%s' % (obj))
-    graph.add((s, p, o))
 
 
 class LUBMGraph(CmdParser):

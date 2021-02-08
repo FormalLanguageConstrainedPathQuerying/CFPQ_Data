@@ -3,6 +3,7 @@ import os
 import shutil
 from pathlib import Path
 
+import rdflib
 import requests
 
 DATA_ROOT_DIR = 'data/'
@@ -100,6 +101,20 @@ def add_graph_dir(name):
     dst = Path(os.path.join(DATA_ROOT_DIR, name, GRAPHS_DIR))
     dst.mkdir(parents=True, exist_ok=True)
     return f'{dst}'
+
+
+# RDF serialization
+def write_to_rdf(target_path, graph):
+    graph.serialize(target_path + '.xml', format='xml')
+
+
+# Edge addition (grapf constructing)
+def add_rdf_edge(subj, pred, obj, rdf_graph):
+    s = rdflib.BNode(f'id-{subj}')
+    p = rdflib.URIRef(f'http://simple_prefix/{pred}')
+    o = rdflib.BNode(f'id-{obj}')
+
+    rdf_graph.add((s, p, o))
 
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
