@@ -1,8 +1,7 @@
 import networkx as nx
-import rdflib
 from tqdm import tqdm
 
-from cfpq_data.src.graphs.Graph import Graph
+from cfpq_data import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils import *
@@ -18,39 +17,13 @@ SPARSE_GRAPH_TO_GEN = [
 ]
 
 
-class SparseGraph(Graph, CmdParser):
+class SparseGraph(RDF, CmdParser):
     graphs = {}
 
-    def __init__(self, vertices_number, edge_probability):
-        self.dirname = add_graph_dir('SparseGraph')
-        self.basename = f'G{vertices_number}-{edge_probability}'
-
-        path_to_graph = gen_sparse_graph(self.dirname, vertices_number, edge_probability)
-
-        self.graph = rdflib.Graph()
-        self.graph.load(path_to_graph)
-
-        self.vertices_number = len(self.graph.all_nodes())
-        self.number_of_edges = len(self.graph)
-
-        self.file_size = os.path.getsize(path_to_graph)
-        self.file_name, self.file_extension = os.path.splitext(self.basename)
-
-        SparseGraph.graphs[self.basename] = path_to_graph
-
-    def get_metadata(self):
-        return {
-            'name': self.basename
-            , 'path': self.dirname
-            , 'version': get_info()['version']
-            , 'vertices': self.vertices_number
-            , 'edges': self.number_of_edges
-            , 'size of file': self.file_size
-        }
-
-    def save_metadata(self):
-        with open(f'{self.dirname}/{self.file_name}_meta.json', 'w') as metadata_file:
-            json.dump(self.get_metadata(), metadata_file, indent=4)
+    @classmethod
+    def build(cls, vertices_number, edge_probability):
+        path_to_graph = gen_sparse_graph(add_graph_dir('SparseGraph'), vertices_number, edge_probability)
+        return SparseGraph.from_rdf(path_to_graph)
 
     @staticmethod
     def init_cmd_parser(parser):
@@ -84,10 +57,10 @@ class SparseGraph(Graph, CmdParser):
 
         if args.preset is True:
             for g in tqdm(SPARSE_GRAPH_TO_GEN, desc='Sparse graphs generation'):
-                SparseGraph(g[0], g[1]).save_metadata()
+                SparseGraph.build(g[0], g[1]).save_metadata()
 
         if args.vertices_number is not None and args.edge_probability is not None:
-            graph = SparseGraph(args.vertices_number, args.edge_probability)
+            graph = SparseGraph.build(args.vertices_number, args.edge_probability)
             graph.save_metadata()
             print(f'Generated {graph.basename} to {graph.dirname}')
 
@@ -95,7 +68,7 @@ class SparseGraph(Graph, CmdParser):
 def gen_sparse_graph(target_dir, vertices_number, edge_probability):
     tmp_graph = nx.generators.fast_gnp_random_graph(vertices_number, edge_probability)
 
-    output_graph = Graph()
+    output_graph = rdflib.Graph()
 
     for v, to in tmp_graph.edges():
         add_rdf_edge(v, 'A', to, output_graph)
