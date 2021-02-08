@@ -7,8 +7,8 @@ jobs:
         - docker
       python: "3.8.0"
       script:
-        - docker build -t CFPQ_Data .
-        - docker run -it --rm -v "$PWD":/CFPQ_Data CFPQ_Data python3 -m pytest -vv -s  tests/
+        - docker build -t cfpq_data .
+        - docker run -it --rm -v "$PWD":/CFPQ_Data cfpq_data python3 -m pytest -vv -s  tests/
     - name: "Test in Linux"
       os: linux
       python: "3.8.0"
