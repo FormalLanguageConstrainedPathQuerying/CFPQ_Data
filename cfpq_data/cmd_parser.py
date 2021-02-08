@@ -12,7 +12,8 @@ from cfpq_data.src.tools.grammar2cnf.grammar2cnf import Grammar2Cnf
 from cfpq_data.src.tools.graph2txt.graph2txt import Graph2TxtGraph
 from cfpq_data.src.tools.redis_rdf.main import RedisRDFGraph
 
-if __name__ == '__main__':
+
+def cmd_parser():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest='tool', required=True)
 
@@ -36,3 +37,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     tools[args.tool].eval_cmd_parser(args)
+
+
+if __name__ == '__main__':
+    cmd_parser()
