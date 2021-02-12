@@ -1,5 +1,3 @@
-from tqdm import tqdm
-
 from cfpq_data.src.graphs.GraphInterface import GraphInterface
 from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.utils import *
@@ -7,11 +5,15 @@ from cfpq_data.src.utils import *
 
 class RDF(GraphInterface, CmdParser):
     graphs = dict()
-    graph_keys = get_info()['RDF']
+    graph_keys = RELEASE_INFO['RDF']
+    config = RELEASE_INFO['RDF_Config']
 
     def __init__(self):
+        self.type = None
+
         self.store = None
 
+        self.path = None
         self.dirname = None
         self.basename = None
 
@@ -25,29 +27,59 @@ class RDF(GraphInterface, CmdParser):
     @classmethod
     def build(cls, *args):
         try:
-            path_to_graph = args[0]
-            _, file_extension = os.path.splitext(path_to_graph.basename)
-
-            if file_extension == 'txt':
-                return cls.from_txt(path_to_graph)
-            if rdflib.util.guess_format(path_to_graph) == 'xml':
-                return cls.from_rdf(path_to_graph)
-
+            return cls.load(args[0])
         except BaseException as ex:
-            raise BaseException(f'{cls.__name__}:build:{ex}')
+            raise BaseException(f'{cls.__name__}.build: {ex}')
 
     @classmethod
-    def from_rdf(cls, path_to_graph):
+    def load(cls, path_to_graph=None, file_extension='rdf'):
+        if file_extension == 'txt':
+            rdf_graph = cls.load_from_txt(path_to_graph)
+        else:
+            rdf_graph = cls.load_from_rdf(path_to_graph)
+
+        cls.graphs[(rdf_graph.basename, rdf_graph.file_extension)] = path_to_graph
+
+        return rdf_graph
+
+    def save(self, path_to_graph=None, file_extension='rdf', config=config):
+        if path_to_graph is None:
+            path_to_graph = DATA_FOLDER / self.type / 'Graphs' / self.basename
+        if file_extension == 'txt':
+            self.save_to_txt(path_to_graph, config)
+        else:
+            self.save_to_rdf(path_to_graph)
+        return path_to_graph
+
+    def get_metadata(self):
+        return {
+            'name': self.basename
+            , 'path': self.path
+            , 'version': RELEASE_INFO['version']
+            , 'vertices': self.number_of_vertices
+            , 'edges': self.number_of_edges
+            , 'size of file': self.file_size
+        }
+
+    def save_metadata(self):
+        with open(self.dirname / self.file_name + '_meta.json', 'w') as metadata_file:
+            json.dump(self.get_metadata(), metadata_file, indent=4)
+
+    @classmethod
+    def load_from_rdf(cls, path_to_graph):
         if hasattr(cls, 'graph_keys') and path_to_graph in cls.graph_keys:
-            graph_name = path_to_graph
+            graph_name = path_to_graph[:]
             download_data(cls.__name__, graph_name, cls.graph_keys[graph_name])
             path_to_graph = unpack_graph(cls.__name__, graph_name)
 
         rdf_graph = cls()
 
-        rdf_graph.store = rdflib.Graph()
-        rdf_graph.store.load(path_to_graph)
+        rdf_graph.type = cls.__name__
 
+        rdf_graph.store = rdflib.Graph()
+        rdf_graph.store.load(str(path_to_graph))
+
+        rdf_graph.path = path_to_graph
         rdf_graph.dirname = os.path.dirname(path_to_graph)
         rdf_graph.basename = os.path.basename(path_to_graph)
 
@@ -57,63 +89,63 @@ class RDF(GraphInterface, CmdParser):
         rdf_graph.file_size = os.path.getsize(path_to_graph)
         rdf_graph.file_name, rdf_graph.file_extension = os.path.splitext(rdf_graph.basename)
 
-        cls.graphs[rdf_graph.basename] = path_to_graph
-
         return rdf_graph
 
-    def to_rdf(self, path):
-        write_to_rdf(path, self.store)
-        return self
-
     @classmethod
-    def from_txt(cls, path):
+    def load_from_txt(cls, path_to_graph):
         tmp_rdf_graph = rdflib.Graph()
 
-        with open(path, 'r') as input_file:
+        with open(path_to_graph, 'r') as input_file:
             for edge in input_file:
                 s, p, o = edge.split()
                 add_rdf_edge(s, p, o, tmp_rdf_graph)
         write_to_rdf('tmp.xml', tmp_rdf_graph)
 
-        rdf_graph = cls.from_rdf('tmp.xml')
+        rdf_graph = cls.load_from_rdf('tmp.xml')
 
         os.remove('tmp.xml')
 
         return rdf_graph
 
-    def to_txt(self, path):
-        ids = dict()
+    def save_to_rdf(self, path_to_graph):
+        write_to_rdf(path_to_graph, self.store)
+        return path_to_graph
+
+    def save_to_txt(self, path_to_graph, config=config):
+        vertices = dict()
+        edges = dict()
         next_id = 0
         triples = list()
 
         for subj, pred, obj in self.store:
-            if subj not in ids:
-                ids[subj] = next_id
+            if subj not in vertices:
+                vertices[subj] = next_id
                 next_id += 1
-            if obj not in ids:
-                ids[obj] = next_id
+            if obj not in vertices:
+                vertices[obj] = next_id
                 next_id += 1
-            triples.append((subj, pred.value, obj))
 
-        with open(path, 'r') as output_file:
+            edges[pred] = pred
+            if config is not None:
+                if pred in config:
+                    edges[pred] = config[pred]
+                elif 'default' in config:
+                    edges[pred] = config['default']
+
+            triples.append((
+                vertices[subj]
+                , edges[pred]
+                , vertices[obj]
+            ))
+
+        for edge in edges.keys():
+            print(edge)
+
+        with open(path_to_graph, 'w') as output_file:
             for s, p, o in triples:
                 output_file.write(f'{s} {p} {o}\n')
 
-        return TXTGraph.from_txt(path)
-
-    def get_metadata(self):
-        return {
-            'name': self.basename
-            , 'path': self.dirname
-            , 'version': get_info()['version']
-            , 'vertices': self.number_of_vertices
-            , 'edges': self.number_of_edges
-            , 'size of file': self.file_size
-        }
-
-    def save_metadata(self):
-        with open(f'{self.dirname}/{self.file_name}_meta.json', 'w') as metadata_file:
-            json.dump(self.get_metadata(), metadata_file, indent=4)
+        return path_to_graph
 
     @staticmethod
     def init_cmd_parser(parser):
@@ -126,7 +158,7 @@ class RDF(GraphInterface, CmdParser):
         parser.add_argument(
             '-g'
             , '--graph'
-            , choices=list(get_info()['RDF'].keys())
+            , choices=list(RELEASE_INFO['RDF'].keys())
             , required=False
             , type=str
             , help='Load specific RDF graph from dataset'
@@ -141,9 +173,9 @@ class RDF(GraphInterface, CmdParser):
         if args.all is True:
             clean_dir('RDF')
             for graph_name in tqdm(RDF.graph_keys, desc='Downloading RDF'):
-                RDF.from_rdf(graph_name).save_metadata()
+                RDF.load_from_rdf(graph_name).save_metadata()
 
         if args.graph is not None:
-            graph = RDF.from_rdf(args.graph)
+            graph = RDF.load_from_rdf(args.graph)
             graph.save_metadata()
             print(f'Loaded {graph.basename} to {graph.dirname}')
