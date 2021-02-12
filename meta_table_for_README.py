@@ -1,11 +1,12 @@
-import json
 import glob
-from cfpq_data.src.utils import get_info
+import json
+
+from cfpq_data.config import RELEASE_INFO
 
 
 def rdf_dict():
     data_rdf = dict()
-    names_rdf = get_info()['RDF']
+    names_rdf = RELEASE_INFO['RDF']
     for name in names_rdf:
         if name == "taxonomy-hierarchy" or name == "taxonomy":
             continue
@@ -16,7 +17,7 @@ def rdf_dict():
 
 def memoryaliases_dict():
     data_memoryaliases = dict()
-    names_memoryaliases = get_info()['MemoryAliases']
+    names_memoryaliases = RELEASE_INFO['MemoryAliases']
     for name in names_memoryaliases:
         name_of_file = glob.glob('./cfpq_data/data/MemoryAliases/Graphs/' + name + '*')[0]
         with open(name_of_file, 'r') as graph_info:
@@ -36,8 +37,8 @@ def create_table():
 
     rdf = rdf_dict()
     memory_aliases = memoryaliases_dict()
-    names_rdf = get_info()['RDF']
-    names_memoryaliases = get_info()['MemoryAliases']
+    names_rdf = RELEASE_INFO['RDF']
+    names_memoryaliases = RELEASE_INFO['MemoryAliases']
 
     for name in names_rdf:
         if name == "taxonomy-hierarchy" or name == "taxonomy":
