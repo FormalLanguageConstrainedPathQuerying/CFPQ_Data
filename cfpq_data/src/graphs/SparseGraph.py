@@ -1,7 +1,6 @@
 import networkx as nx
-from tqdm import tqdm
 
-from cfpq_data import RDF
+from cfpq_data.src.graphs.RDF import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils import *
@@ -23,7 +22,7 @@ class SparseGraph(RDF, CmdParser):
     @classmethod
     def build(cls, vertices_number, edge_probability):
         path_to_graph = gen_sparse_graph(add_graph_dir('SparseGraph'), vertices_number, edge_probability)
-        return SparseGraph.from_rdf(path_to_graph)
+        return SparseGraph.load_from_rdf(path_to_graph)
 
     @staticmethod
     def init_cmd_parser(parser):
@@ -70,12 +69,17 @@ def gen_sparse_graph(target_dir, vertices_number, edge_probability):
 
     output_graph = rdflib.Graph()
 
-    for v, to in tmp_graph.edges():
-        add_rdf_edge(v, 'A', to, output_graph)
-        add_rdf_edge(to, 'AR', v, output_graph)
+    edges = list()
 
-    target = os.path.join(target_dir, f'G{vertices_number}-{edge_probability}')
+    for v, to in tmp_graph.edges():
+        edges.append((v, 'A', to))
+        edges.append((v, 'AR', to))
+
+    for subj, pred, obj in tqdm(edges, desc=f'G{vertices_number}-{edge_probability} generation'):
+        add_rdf_edge(subj, pred, obj, output_graph)
+
+    target = target_dir / f'G{vertices_number}-{edge_probability}.xml'
 
     write_to_rdf(target, output_graph)
 
-    return f'{target}.xml'
+    return target
