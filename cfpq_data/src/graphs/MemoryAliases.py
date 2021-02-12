@@ -1,13 +1,14 @@
 from tqdm import tqdm
 
-from cfpq_data import RDF
+from cfpq_data.config import RELEASE_INFO
+from cfpq_data.src.graphs.RDF import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.utils import *
 
 
 class MemoryAliases(RDF, CmdParser):
     graphs = dict()
-    graph_keys = get_info()['MemoryAliases']
+    graph_keys = RELEASE_INFO['MemoryAliases']
 
     @staticmethod
     def init_cmd_parser(parser):
@@ -20,7 +21,7 @@ class MemoryAliases(RDF, CmdParser):
         parser.add_argument(
             '-g'
             , '--graph'
-            , choices=list(get_info()['MemoryAliases'].keys())
+            , choices=list(RELEASE_INFO['MemoryAliases'].keys())
             , required=False
             , type=str
             , help='Load specific MemoryAliases graph from dataset'
@@ -35,9 +36,9 @@ class MemoryAliases(RDF, CmdParser):
         if args.all is True:
             clean_dir('MemoryAliases')
             for graph_name in tqdm(MemoryAliases.graph_keys, desc='Downloading MemoryAliases'):
-                MemoryAliases.from_rdf(graph_name).save_metadata()
+                MemoryAliases.load_from_rdf(graph_name).save_metadata()
 
         if args.graph is not None:
-            graph = MemoryAliases.from_rdf(args.graph)
+            graph = MemoryAliases.load_from_rdf(args.graph)
             graph.save_metadata()
             print(f'Loaded {graph.basename} to {graph.dirname}')
