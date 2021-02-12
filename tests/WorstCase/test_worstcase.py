@@ -1,5 +1,7 @@
-from cfpq_data import worst_case_graph
 import os
+
+from cfpq_data import worst_case_graph
+
 
 def check_metadata(first_graph, second_graph):
     for field in ['vertices', 'edges']:
@@ -7,10 +9,11 @@ def check_metadata(first_graph, second_graph):
             return False
     return True
 
-def test_worstcase(num_of_vertices):
-        first_graph = worst_case_graph.build(num_of_vertices)
-        second_graph_path = first_graph.save('tmp')
-        second_graph = worst_case_graph.load_from_rdf(second_graph_path)
-        os.remove(second_graph_path)
 
-        assert check_metadata(first_graph, second_graph)
+def test_worstcase(num_of_vertices):
+    first_graph = worst_case_graph.build(num_of_vertices)
+    second_graph_path = first_graph.save('tmp')
+    second_graph = worst_case_graph.load_from_rdf(second_graph_path)
+    os.remove(second_graph_path)
+
+    assert check_metadata(first_graph, second_graph)

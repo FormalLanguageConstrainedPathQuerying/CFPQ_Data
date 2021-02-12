@@ -1,11 +1,14 @@
-from cfpq_data import scale_free_graph
 import os
+
+from cfpq_data import scale_free_graph
+
 
 def check_metadata(first_graph, second_graph):
     for field in ['vertices', 'edges']:
         if first_graph.get_metadata()[field] != second_graph.get_metadata()[field]:
             return False
     return True
+
 
 def test_scalefree(suit_scalefree):
     vertices_number, vertices_degree = suit_scalefree
