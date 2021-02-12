@@ -1,16 +1,14 @@
-from cfpq_data import MemoryAliases
+from cfpq_data import memory_aliases_graph
 
+def check_metadata(first_graph, second_graph):
+    for field in ['vertices', 'edges']:
+        if first_graph.get_metadata()[field] != second_graph.get_metadata()[field]:
+            return False
+    return True
 
 def test_graph(ma_graph_name):
-    ma_graph = MemoryAliases(ma_graph_name)
+    first_graph = memory_aliases_graph.build(ma_graph_name)
 
-    actual_metadata = ma_graph.get_metadata()
+    second_graph = memory_aliases_graph.build(ma_graph_name)
 
-    actual_number_of_vertices = actual_metadata['vertices']
-    actual_number_of_edges = actual_metadata['edges']
-
-    expected_number_of_vertices = len(ma_graph.graph.all_nodes())
-    expected_number_of_edges = len(ma_graph.graph)
-
-    assert actual_number_of_vertices == expected_number_of_vertices
-    assert actual_number_of_edges == expected_number_of_edges
+    assert check_metadata(first_graph, second_graph)
