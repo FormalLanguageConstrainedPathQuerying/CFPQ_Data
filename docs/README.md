@@ -135,7 +135,7 @@ Grammars list contains the following variants of same-generation query over diff
 #### RDF
 
 | Name | Vertices | Edges | Size of file (Bytes) |
-|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---|
 | atom-primitive.owl | 291 | 425 | 48884 |
 | biomedical-mesure-primitive.owl | 341 | 459 | 53057 |
 | core.owl | 1323 | 2752 | 270846 |
@@ -158,7 +158,7 @@ Grammars list contains the following variants of same-generation query over diff
 #### MemoryAliases
 
 | Name | Vertices | Edges | Size of file (Bytes) |
-|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---|
 | Apache_httpd_2.2.18_pointsto_graph.xml | 1721418 | 1510411 | 138037427 |
 | arch_afterInline.txt.xml | 3448422 | 2970242 | 278669103 |
 | block_afterInline.txt.xml | 3423234 | 2951393 | 276869199 |
