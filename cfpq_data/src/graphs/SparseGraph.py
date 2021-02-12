@@ -43,7 +43,11 @@ class SparseGraph(RDF, CmdParser):
 
         path_to_graph = gen_sparse_graph(add_graph_dir('SparseGraph'), vertices_number, edge_probability)
 
-        return SparseGraph.load_from_rdf(path_to_graph)
+        graph = SparseGraph.load_from_rdf(path_to_graph)
+
+        graph.save_metadata()
+
+        return graph
 
     @staticmethod
     def init_cmd_parser(parser):

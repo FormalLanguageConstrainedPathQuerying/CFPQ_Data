@@ -67,7 +67,9 @@ class RDF(GraphInterface, CmdParser):
         """
 
         try:
-            return cls.load(args[0])
+            graph = cls.load(args[0])
+            graph.save_metadata()
+            return graph
         except BaseException as ex:
             raise BaseException(f'{cls.__name__}.build: {ex}')
 
@@ -124,8 +126,8 @@ class RDF(GraphInterface, CmdParser):
         """
 
         return {
-            'name': self.basename
-            , 'path': self.path
+            'name': str(self.basename)
+            , 'path': str(self.path)
             , 'version': RELEASE_INFO['version']
             , 'vertices': self.vertices_number
             , 'edges': self.edges_number
@@ -139,7 +141,7 @@ class RDF(GraphInterface, CmdParser):
         :rtype: Path
         """
 
-        metadata_file_path = self.dirname / self.file_name + '_meta.json'
+        metadata_file_path = self.dirname / f'{self.file_name}_meta.json'
 
         with open(metadata_file_path, 'w') as metadata_file:
             json.dump(self.get_metadata(), metadata_file, indent=4)
@@ -182,8 +184,8 @@ class RDF(GraphInterface, CmdParser):
         graph.store = rdflib.Graph()
         graph.store.parse(location=str(source), format='xml')
 
-        graph.path = source
-        graph.dirname = os.path.dirname(source)
+        graph.path = Path(source)
+        graph.dirname = Path(os.path.dirname(source))
         graph.basename = os.path.basename(source)
 
         graph.vertices_number = len(graph.store.all_nodes())
@@ -228,7 +230,7 @@ class RDF(GraphInterface, CmdParser):
         :rtype: Path
         """
 
-        write_to_rdf(Path, self.store)
+        write_to_rdf(destination, self.store)
         return destination
 
     def save_to_txt(self, destination: Path, config: Dict[str, str] = config):

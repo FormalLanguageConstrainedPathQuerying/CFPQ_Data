@@ -32,7 +32,11 @@ class WorstCase(RDF, CmdParser):
 
         path_to_graph = gen_worst_case_graph(add_graph_dir('WorstCase'), vertices_number)
 
-        return WorstCase.load_from_rdf(path_to_graph)
+        graph = WorstCase.load_from_rdf(path_to_graph)
+
+        graph.save_metadata()
+
+        return graph
 
     @staticmethod
     def init_cmd_parser(parser):

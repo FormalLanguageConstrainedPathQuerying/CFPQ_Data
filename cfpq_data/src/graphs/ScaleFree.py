@@ -2,8 +2,8 @@ from itertools import product
 from pathlib import Path
 from typing import Tuple
 
-import rdflib
 import numpy as np
+import rdflib
 from tqdm import tqdm
 
 from cfpq_data.src.graphs.RDF import RDF
@@ -40,7 +40,11 @@ class ScaleFree(RDF, CmdParser):
 
         path_to_graph = gen_scale_free_graph(add_graph_dir('ScaleFree'), vertices_number, vertices_degree)
 
-        return ScaleFree.load_from_rdf(path_to_graph)
+        graph = ScaleFree.load_from_rdf(path_to_graph)
+
+        graph.save_metadata()
+
+        return graph
 
     @staticmethod
     def init_cmd_parser(parser):

@@ -49,7 +49,11 @@ class FullGraph(RDF, CmdParser):
 
         path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
 
-        return FullGraph.load_from_rdf(path_to_graph)
+        graph = FullGraph.load_from_rdf(path_to_graph)
+
+        graph.save_metadata()
+
+        return graph
 
     @staticmethod
     def init_cmd_parser(parser: ArgumentParser):
