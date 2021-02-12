@@ -1,21 +1,12 @@
-import json
-import os
 import shutil
-from pathlib import Path
 
 import rdflib
 import requests
+from tqdm import tqdm
 
-DATA_ROOT_DIR = 'data/'
+from cfpq_data.config import *
+
 GRAPHS_DIR = 'Graphs'
-
-
-def get_info():
-    """ Gets release info from release notes """
-
-    with open(f'{Path(__file__).parent.parent.absolute()}/release_notes.json', 'r') as input_file:
-        data = json.load(input_file)
-        return data
 
 
 def download_file_from_google_drive(id, destination):
@@ -45,7 +36,7 @@ def save_response_content(response, destination):
     CHUNK_SIZE = 32768
 
     with open(destination, 'wb') as f:
-        for chunk in response.iter_content(CHUNK_SIZE):
+        for chunk in tqdm(response.iter_content(CHUNK_SIZE), desc='Downloading'):
             if chunk:  # filter out keep-alive new chunks
                 f.write(chunk)
 
@@ -53,22 +44,15 @@ def save_response_content(response, destination):
 def download_data(graph_group, graph_name, graph_key):
     dst = add_graph_dir(graph_group)
 
-    arch_dst = Path(os.path.join(dst, f'{graph_name}.tar.xz'))
+    arch_dst = dst / f'{graph_name}.tar.xz'
 
     download_file_from_google_drive(graph_key, arch_dst)
 
     return dst
 
 
-def to_file(filepath, graph):
-    with open(filepath, 'w') as out_file:
-        for t in graph:
-            s, p, o = t[0], t[1], t[2]
-            out_file.write(f'{s} {p} {o}\n')
-
-
-def unpack_archive_listdir(dir, arch):
-    tmp = f'{dir}/tmp'
+def unpack_archive_listdir(target_dir, arch):
+    tmp = target_dir / 'tmp'
     os.mkdir(tmp)
     shutil.unpack_archive(arch, tmp)
     result = os.listdir(tmp)
@@ -77,9 +61,9 @@ def unpack_archive_listdir(dir, arch):
 
 
 def unpack_graph(graph_group, graph_name):
-    to = Path(os.path.join(DATA_ROOT_DIR, graph_group, GRAPHS_DIR))
+    to = DATA_FOLDER / graph_group / GRAPHS_DIR
 
-    arch = Path(os.path.join(to, f'{graph_name}.tar.xz'))
+    arch = to / f'{graph_name}.tar.xz'
 
     shutil.unpack_archive(arch, to)
 
@@ -91,27 +75,27 @@ def unpack_graph(graph_group, graph_name):
 
 
 def clean_dir(name):
-    path = Path(os.path.join(DATA_ROOT_DIR, name, GRAPHS_DIR))
+    path = DATA_FOLDER / name / GRAPHS_DIR
     if os.path.isdir(path):
         shutil.rmtree(path)
     os.mkdir(path)
 
 
 def add_graph_dir(name):
-    dst = Path(os.path.join(DATA_ROOT_DIR, name, GRAPHS_DIR))
+    dst = DATA_FOLDER / name / GRAPHS_DIR
     dst.mkdir(parents=True, exist_ok=True)
-    return f'{dst}'
+    return dst
 
 
 # RDF serialization
 def write_to_rdf(target_path, graph):
-    graph.serialize(target_path + '.xml', format='xml')
+    graph.serialize(str(target_path), format='xml')
 
 
 # Edge addition (grapf constructing)
 def add_rdf_edge(subj, pred, obj, rdf_graph):
     s = rdflib.BNode(f'id-{subj}')
-    p = rdflib.URIRef(f'http://simple_prefix/{pred}')
+    p = rdflib.URIRef(f'{GENERATORS_CONFIG}{pred}')
     o = rdflib.BNode(f'id-{obj}')
 
     rdf_graph.add((s, p, o))
@@ -154,6 +138,6 @@ def gen_sierpinski_graph(target_dir, degree, predicates=['A']):
     graph = []
     sierpinski(1, 2, 3, degree, predicates, graph)
 
-    with open(os.path.join(target_dir, f'sierpinskigraph_{degree}.txt'), 'w') as out_file:
+    with open(target_dir / f'sierpinskigraph_{degree}.txt', 'w') as out_file:
         for triple in graph:
             out_file.write(f'{triple[0]} {triple[1]} {triple[2]} \n')
