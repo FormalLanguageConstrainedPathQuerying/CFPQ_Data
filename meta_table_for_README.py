@@ -29,11 +29,11 @@ def create_table():
     column_names = ["name", "vertices", "edges", "size of file"]
     table_rdf = \
         "| Name | Vertices | Edges | Size of file (Bytes) |\n" + \
-        "|:---:|:---:|:---:|:---:|\n"
+        "|:---:|:---:|:---:|:---|\n"
 
     table_memoryaliases = \
         "| Name | Vertices | Edges | Size of file (Bytes) |\n" + \
-        "|:---:|:---:|:---:|:---:|\n"
+        "|:---:|:---:|:---:|:---|\n"
 
     rdf = rdf_dict()
     memory_aliases = memoryaliases_dict()
