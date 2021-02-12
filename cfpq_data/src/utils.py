@@ -2,7 +2,6 @@ import shutil
 
 import rdflib
 import requests
-from tqdm import tqdm
 
 from cfpq_data.config import *
 
@@ -36,7 +35,7 @@ def save_response_content(response, destination):
     CHUNK_SIZE = 32768
 
     with open(destination, 'wb') as f:
-        for chunk in tqdm(response.iter_content(CHUNK_SIZE), desc='Downloading'):
+        for chunk in response.iter_content(CHUNK_SIZE):
             if chunk:  # filter out keep-alive new chunks
                 f.write(chunk)
 
