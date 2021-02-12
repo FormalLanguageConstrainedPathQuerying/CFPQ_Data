@@ -7,7 +7,7 @@ def check_metadata(first_graph, second_graph):
             return False
     return True
 
-def test_FullGraph(num_of_vertices):
+def test_fullgraph(num_of_vertices):
         first_graph = full_graph.build(num_of_vertices)
         second_graph_path = first_graph.save('tmp')
         second_graph = full_graph.load_from_rdf(second_graph_path)
