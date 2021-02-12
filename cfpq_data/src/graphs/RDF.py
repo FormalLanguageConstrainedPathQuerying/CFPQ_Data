@@ -1,8 +1,7 @@
 import json
 import os
-from ctypes import Union
 from pathlib import Path
-from typing import Optional, Tuple, Any, List, Dict
+from typing import Optional, Tuple, Any, List, Dict, Union
 
 import rdflib
 from tqdm import tqdm

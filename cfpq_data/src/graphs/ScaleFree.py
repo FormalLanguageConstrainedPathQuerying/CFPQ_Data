@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Tuple
 
 import rdflib
-from pandas import np
+import numpy as np
 from tqdm import tqdm
 
 from cfpq_data.src.graphs.RDF import RDF
