@@ -2,14 +2,6 @@ from abc import *
 
 
 class GraphInterface(ABC):
-    @abstractmethod
-    def get_metadata(self):
-        pass
-
-    @abstractmethod
-    def save_metadata(self):
-        pass
-
     @classmethod
     @abstractmethod
     def build(cls, *args):
@@ -17,18 +9,17 @@ class GraphInterface(ABC):
 
     @classmethod
     @abstractmethod
-    def from_rdf(cls, path):
+    def load(cls, path_to_graph=None, file_extension='rdf'):
         pass
 
     @abstractmethod
-    def to_rdf(self, path):
-        pass
-
-    @classmethod
-    @abstractmethod
-    def from_txt(cls, path):
+    def save(self, path_to_graph=None, file_extension='rdf', config=None):
         pass
 
     @abstractmethod
-    def to_txt(self, path):
+    def get_metadata(self):
+        pass
+
+    @abstractmethod
+    def save_metadata(self):
         pass
