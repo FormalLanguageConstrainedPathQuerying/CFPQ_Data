@@ -1,11 +1,11 @@
-from cfpq_data.src.graphs.FullGraph import FullGraph
-from cfpq_data.src.graphs.MemoryAliases import MemoryAliases
-from cfpq_data.src.graphs.RDF import RDF
-from cfpq_data.src.graphs.ScaleFree import ScaleFree
-from cfpq_data.src.graphs.SparseGraph import SparseGraph
-from cfpq_data.src.graphs.WorstCase import WorstCase
-from cfpq_data.src.tools.LUBM.converter import LUBMGraph
-from cfpq_data.src.tools.gen_RPQ.gen import GenRPQGraph
-from cfpq_data.src.tools.grammar2cnf.grammar2cnf import Grammar2Cnf
-from cfpq_data.src.tools.graph2txt.graph2txt import Graph2TxtGraph
-from cfpq_data.src.tools.redis_rdf.main import RedisRDFGraph
+from cfpq_data.src.graphs.FullGraph import FullGraph as full_graph
+from cfpq_data.src.graphs.MemoryAliases import MemoryAliases as memory_aliases_graph
+from cfpq_data.src.graphs.RDF import RDF as rdf_graph
+from cfpq_data.src.graphs.ScaleFree import ScaleFree as scale_free_graph
+from cfpq_data.src.graphs.SparseGraph import SparseGraph as sparse_graph
+from cfpq_data.src.graphs.WorstCase import WorstCase as worst_case_graph
+from cfpq_data.src.tools.LUBM.converter import LUBMGraph as lubm_graph
+from cfpq_data.src.tools.gen_RPQ.gen import GenRPQGraph as gen_rpq_graph
+from cfpq_data.src.tools.grammar2cnf.grammar2cnf import Grammar2Cnf as grammar2cnf
+from cfpq_data.src.tools.graph2txt.graph2txt import Graph2TxtGraph as graph2txt
+from cfpq_data.src.tools.redis_rdf.main import RedisRDFGraph as redis_rdf_graph
