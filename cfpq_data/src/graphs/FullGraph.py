@@ -1,8 +1,6 @@
-from tqdm import tqdm
-
-from cfpq_data import RDF
+from cfpq_data.src.graphs.RDF import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
+from cfpq_data.src.tools.rdf_helper import write_to_rdf
 from cfpq_data.src.utils import *
 
 FULL_GRAPH_TO_GEN = [
@@ -27,7 +25,7 @@ class FullGraph(RDF, CmdParser):
     @classmethod
     def build(cls, vertices_number):
         path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
-        return FullGraph.from_rdf(path_to_graph)
+        return FullGraph.load_from_rdf(path_to_graph)
 
     @staticmethod
     def init_cmd_parser(parser):
@@ -64,13 +62,18 @@ class FullGraph(RDF, CmdParser):
 def gen_cycle_graph(target_dir, vertices_number):
     output_graph = rdflib.Graph()
 
+    edges = list()
+
     for i in range(0, vertices_number - 1):
-        add_rdf_edge(i, 'A', i + 1, output_graph)
+        edges.append((i, 'A', i + 1))
 
-    add_rdf_edge(vertices_number - 1, 'A', 0, output_graph)
+    edges.append((vertices_number - 1, 'A', 0))
 
-    target = os.path.join(target_dir, f'fullgraph_{vertices_number}')
+    for subj, pred, obj in tqdm(edges, desc=f'fullgraph_{vertices_number} generation'):
+        add_rdf_edge(subj, pred, obj, output_graph)
+
+    target = target_dir / f'fullgraph_{vertices_number}.xml'
 
     write_to_rdf(target, output_graph)
 
-    return f'{target}.xml'
+    return target
