@@ -58,6 +58,8 @@
   "Generators_Config": {
     "http://yacc/rdf-schema#A": "A",
     "A": "http://yacc/rdf-schema#A",
+    "http://yacc/rdf-schema#AR": "AR",
+    "AR": "http://yacc/rdf-schema#AR",
     "http://yacc/rdf-schema#B": "B",
     "B": "http://yacc/rdf-schema#B",
     "http://yacc/rdf-schema#C": "C",
