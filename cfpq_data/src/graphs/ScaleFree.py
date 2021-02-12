@@ -1,9 +1,8 @@
 from itertools import product
 
 import numpy as np
-from tqdm import tqdm
 
-from cfpq_data import RDF
+from cfpq_data.src.graphs.RDF import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils import *
@@ -20,7 +19,7 @@ class ScaleFree(RDF, CmdParser):
     @classmethod
     def build(cls, vertices_number, vertices_degree):
         path_to_graph = gen_scale_free_graph(add_graph_dir('ScaleFree'), vertices_number, vertices_degree)
-        return ScaleFree.from_rdf(path_to_graph)
+        return ScaleFree.load_from_rdf(path_to_graph)
 
     @staticmethod
     def init_cmd_parser(parser):
@@ -62,7 +61,7 @@ class ScaleFree(RDF, CmdParser):
             print(f'Generated {graph.basename} to {graph.dirname}')
 
 
-def gen_scale_free_graph(target_dir, n, k, labels=('a', 'b', 'c', 'd')):
+def gen_scale_free_graph(target_dir, n, k, labels=('A', 'B', 'C', 'D')):
     g = {
         i: [(j, np.random.choice(labels)) for j in range(k)]
         for i in range(k)
@@ -88,12 +87,17 @@ def gen_scale_free_graph(target_dir, n, k, labels=('a', 'b', 'c', 'd')):
 
     output_graph = rdflib.Graph()
 
+    edges = list()
+
     for v in g:
         for to in g[v]:
-            add_rdf_edge(v, to[1], to[0], output_graph)
+            edges.append((v, to[1], to[0]))
 
-    target = os.path.join(target_dir, f'scale_free_graph_{n}_{k}')
+    for subj, pred, obj in tqdm(edges, desc=f'scale_free_graph_{n}_{k} generation'):
+        add_rdf_edge(subj, pred, obj, output_graph)
+
+    target = target_dir / f'scale_free_graph_{n}_{k}.xml'
 
     write_to_rdf(target, output_graph)
 
-    return f'{target}.xml'
+    return target
