@@ -1,7 +1,13 @@
+import sys
+from argparse import ArgumentParser, Namespace
+from pathlib import Path
+
+import rdflib
+from tqdm import tqdm
+
 from cfpq_data.src.graphs.RDF import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.tools.rdf_helper import write_to_rdf
-from cfpq_data.src.utils import *
+from cfpq_data.src.utils import add_graph_dir, add_rdf_edge, write_to_rdf
 
 FULL_GRAPH_TO_GEN = [
     10
@@ -20,15 +26,36 @@ FULL_GRAPH_TO_GEN = [
 
 
 class FullGraph(RDF, CmdParser):
+    """
+    FullGraph — cycle graph, all edges are labeled with the same token.
+    """
+
     graphs = {}
 
     @classmethod
-    def build(cls, vertices_number):
+    def build(cls, *args: int):
+        """
+        Build FullGraph instance by number of vertices in the graph
+        :param args: only one argument - args[0] - number of vertices in the graph
+        :type args: int
+        :return: FullGraph instance
+        :rtype: FullGraph
+        """
+
+        vertices_number = args[0]
         path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
         return FullGraph.load_from_rdf(path_to_graph)
 
     @staticmethod
-    def init_cmd_parser(parser):
+    def init_cmd_parser(parser: ArgumentParser):
+        """
+        Initialize command line parser
+        :param parser: FullGraph subparser of command line parser
+        :type parser: ArgumentParser
+        :return: None
+        :rtype: None
+        """
+
         parser.add_argument(
             '-p'
             , '--preset'
@@ -44,10 +71,18 @@ class FullGraph(RDF, CmdParser):
         )
 
     @staticmethod
-    def eval_cmd_parser(args):
+    def eval_cmd_parser(args: Namespace):
+        """
+        Evaluate command line parser
+        :param args: Command line arguments
+        :type args: Namespace
+        :return: None
+        :rtype: None
+        """
+
         if args.preset is False and args.vertices_number is None:
             print("One of -p/--preset, -n/--vertices_number required")
-            exit()
+            sys.exit()
 
         if args.preset is True:
             for n in tqdm(FULL_GRAPH_TO_GEN, desc='Full graphs generation'):
@@ -59,7 +94,17 @@ class FullGraph(RDF, CmdParser):
             print(f'Generated {graph.basename} to {graph.dirname}')
 
 
-def gen_cycle_graph(target_dir, vertices_number):
+def gen_cycle_graph(target_dir: Path, vertices_number: int) -> Path:
+    """
+    Generates one cycle graph with specified number of vertices
+    :param target_dir: Directory to save the graph
+    :type target_dir: Path
+    :param vertices_number: Number of vertices in the graph
+    :type vertices_number: int
+    :return: Path to generated graph
+    :rtype: Path
+    """
+
     output_graph = rdflib.Graph()
 
     edges = list()

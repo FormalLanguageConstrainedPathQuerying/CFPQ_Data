@@ -1,6 +1,13 @@
+import json
+import os
+
+import rdflib
+from tqdm import tqdm
+
+from cfpq_data.config import RELEASE_INFO, DATA_FOLDER
 from cfpq_data.src.graphs.GraphInterface import GraphInterface
 from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.utils import *
+from cfpq_data.src.utils import download_data, unpack_graph, add_rdf_edge, write_to_rdf, clean_dir
 
 
 class RDF(GraphInterface, CmdParser):

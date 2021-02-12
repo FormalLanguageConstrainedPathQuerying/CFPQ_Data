@@ -1,11 +1,12 @@
 from itertools import product
 
 import numpy as np
+import rdflib
+from tqdm import tqdm
 
 from cfpq_data.src.graphs.RDF import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
-from cfpq_data.src.utils import *
+from cfpq_data.src.utils import add_graph_dir, add_rdf_edge, write_to_rdf
 
 SCALEFREE_GRAPH_TO_GEN = list(product(
     [100, 500, 2500, 10000]

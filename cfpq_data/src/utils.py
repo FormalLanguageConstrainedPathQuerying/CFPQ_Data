@@ -94,7 +94,7 @@ def write_to_rdf(target_path, graph: rdflib.Graph):
 # Edge addition (grapf constructing)
 def add_rdf_edge(subj, pred, obj, rdf_graph):
     s = rdflib.BNode(f'id-{subj}')
-    p = rdflib.URIRef(f'{GENERATORS_CONFIG}{pred}')
+    p = rdflib.URIRef(f'{GENERATORS_CONFIG[pred]}{pred}')
     o = rdflib.BNode(f'id-{obj}')
 
     rdf_graph.add((s, p, o))

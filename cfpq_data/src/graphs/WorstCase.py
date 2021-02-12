@@ -1,7 +1,9 @@
+import rdflib
+from tqdm import tqdm
+
 from cfpq_data.src.graphs.RDF import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.tools.rdf_helper import write_to_rdf
-from cfpq_data.src.utils import *
+from cfpq_data.src.utils import add_graph_dir, add_rdf_edge, write_to_rdf
 
 NUMBER_OF_WORST_CASES = 12
 

@@ -1,9 +1,10 @@
 import networkx as nx
+import rdflib
+from tqdm import tqdm
 
 from cfpq_data.src.graphs.RDF import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
-from cfpq_data.src.utils import *
+from cfpq_data.src.utils import add_graph_dir, add_rdf_edge, write_to_rdf
 
 SPARSE_GRAPH_TO_GEN = [
     [5000, 0.001]
