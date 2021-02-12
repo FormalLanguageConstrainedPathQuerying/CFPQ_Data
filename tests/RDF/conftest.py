@@ -1,8 +1,8 @@
 import pytest
 
-from cfpq_data.src.utils import get_info
+from cfpq_data.config import RELEASE_INFO
 
-rdfs = get_info()['RDF']
+rdfs = RELEASE_INFO['RDF']
 
 
 @pytest.fixture(scope='session', params=[
