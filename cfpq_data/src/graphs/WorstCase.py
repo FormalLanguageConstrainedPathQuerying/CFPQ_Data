@@ -1,8 +1,6 @@
-from tqdm import tqdm
-
-from cfpq_data import RDF
+from cfpq_data.src.graphs.RDF import RDF
 from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
+from cfpq_data.src.tools.rdf_helper import write_to_rdf
 from cfpq_data.src.utils import *
 
 NUMBER_OF_WORST_CASES = 12
@@ -14,7 +12,7 @@ class WorstCase(RDF, CmdParser):
     @classmethod
     def build(cls, vertices_number):
         path_to_graph = gen_worst_case_graph(add_graph_dir('WorstCase'), vertices_number)
-        return WorstCase.from_rdf(path_to_graph)
+        return WorstCase.load_from_rdf(path_to_graph)
 
     @staticmethod
     def init_cmd_parser(parser):
@@ -53,19 +51,24 @@ def gen_worst_case_graph(target_dir, vertices_number):
 
     first_cycle = int(vertices_number / 2) + 1
 
-    for i in range(0, first_cycle - 1):
-        add_rdf_edge(i, 'A', i + 1, output_graph)
+    edges = list()
 
-    add_rdf_edge(first_cycle - 1, 'A', 0, output_graph)
-    add_rdf_edge(first_cycle - 1, 'B', first_cycle, output_graph)
+    for i in range(0, first_cycle - 1):
+        edges.append((i, 'A', i + 1))
+
+    edges.append((first_cycle - 1, 'A', 0))
+    edges.append((first_cycle - 1, 'B', first_cycle))
 
     for i in range(first_cycle, vertices_number - 1):
-        add_rdf_edge(i, 'B', i + 1, output_graph)
+        edges.append((i, 'B', i + 1))
 
-    add_rdf_edge(vertices_number - 1, 'B', first_cycle - 1, output_graph)
+    edges.append((vertices_number - 1, 'B', first_cycle - 1))
 
-    target = os.path.join(target_dir, f'worstcase_{vertices_number}')
+    for subj, pred, obj in tqdm(edges, desc=f'worstcase_{vertices_number} generation'):
+        add_rdf_edge(subj, pred, obj, output_graph)
+
+    target = target_dir / f'worstcase_{vertices_number}.xml'
 
     write_to_rdf(target, output_graph)
 
-    return f'{target}.xml'
+    return target
