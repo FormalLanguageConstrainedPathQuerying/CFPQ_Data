@@ -1,4 +1,5 @@
 from cfpq_data import rdf_graph
+import os
 
 
 def check_metadata(first_graph, second_graph):
@@ -9,8 +10,12 @@ def check_metadata(first_graph, second_graph):
 
 
 def test_rdf(rdf_graph_name):
-    first_graph = rdf_graph.build(rdf_graph_name)
+    first_graph = rdf_graph.build(rdf_graph_name).save('tmp1')
+    first_graph_obj = rdf_graph.build(first_graph)
+    second_graph = rdf_graph.build(rdf_graph_name).save('tmp2')
+    second_graph_obj = rdf_graph.build(second_graph)
 
-    second_graph = rdf_graph.build(rdf_graph_name)
+    os.remove(first_graph)
+    os.remove(second_graph)
 
-    assert check_metadata(first_graph, second_graph)
+    assert check_metadata(first_graph_obj, second_graph_obj)
