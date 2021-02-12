@@ -65,6 +65,12 @@ class RDF(GraphInterface, CmdParser):
         with open(self.dirname / self.file_name + '_meta.json', 'w') as metadata_file:
             json.dump(self.get_metadata(), metadata_file, indent=4)
 
+    def get_triples(self):
+        triples = list()
+        for subj, pred, obj in self.store:
+            triples.append((subj, pred, obj))
+        return triples
+
     @classmethod
     def load_from_rdf(cls, path_to_graph):
         if hasattr(cls, 'graph_keys') and path_to_graph in cls.graph_keys:
@@ -77,7 +83,7 @@ class RDF(GraphInterface, CmdParser):
         rdf_graph.type = cls.__name__
 
         rdf_graph.store = rdflib.Graph()
-        rdf_graph.store.load(str(path_to_graph))
+        rdf_graph.store.parse(location=str(path_to_graph), format='xml')
 
         rdf_graph.path = path_to_graph
         rdf_graph.dirname = os.path.dirname(path_to_graph)
@@ -137,9 +143,6 @@ class RDF(GraphInterface, CmdParser):
                 , edges[pred]
                 , vertices[obj]
             ))
-
-        for edge in edges.keys():
-            print(edge)
 
         with open(path_to_graph, 'w') as output_file:
             for s, p, o in triples:

@@ -88,8 +88,8 @@ def add_graph_dir(name):
 
 
 # RDF serialization
-def write_to_rdf(target_path, graph):
-    graph.serialize(str(target_path), format='xml')
+def write_to_rdf(target_path, graph: rdflib.Graph):
+    graph.serialize(destination=str(target_path), format='xml')
 
 
 # Edge addition (grapf constructing)
