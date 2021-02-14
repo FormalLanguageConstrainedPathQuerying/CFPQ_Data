@@ -3,7 +3,7 @@ from os.path import isfile, join
 
 from rdflib import Graph
 
-from cfpq_data.src.tools.rdf_helper import write_to_rdf, add_rdf_edge
+from cfpq_data.src.utils import write_to_rdf, add_rdf_edge
 
 
 def convert_file(in_file_path, out_file_path):
