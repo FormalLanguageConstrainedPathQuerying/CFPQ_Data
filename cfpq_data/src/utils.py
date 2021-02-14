@@ -1,3 +1,4 @@
+import os
 import shutil
 
 import rdflib
@@ -6,6 +7,13 @@ import requests
 from cfpq_data.config import *
 
 GRAPHS_DIR = 'Graphs'
+
+
+def get_graph_info(graph_type, graph_name):
+    target = MAIN_FOLDER / 'data' / graph_type / 'Graphs' / f'{graph_name}_meta.json'
+    with open(target, 'r') as input_file:
+        info = json.load(input_file)
+    return info
 
 
 def download_file_from_google_drive(id, destination):

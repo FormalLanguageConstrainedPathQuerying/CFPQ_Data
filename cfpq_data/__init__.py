@@ -6,6 +6,4 @@ from cfpq_data.src.graphs.SparseGraph import SparseGraph as sparse_graph
 from cfpq_data.src.graphs.WorstCase import WorstCase as worst_case_graph
 from cfpq_data.src.tools.LUBM.converter import LUBMGraph as lubm_graph
 from cfpq_data.src.tools.gen_RPQ.gen import GenRPQGraph as gen_rpq_graph
-from cfpq_data.src.tools.grammar2cnf.grammar2cnf import Grammar2Cnf as grammar2cnf
-from cfpq_data.src.tools.graph2txt.graph2txt import Graph2TxtGraph as graph2txt
 from cfpq_data.src.tools.redis_rdf.main import RedisRDFGraph as redis_rdf_graph

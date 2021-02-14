@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import rdflib
 from tqdm import tqdm
 
@@ -9,15 +11,44 @@ NUMBER_OF_WORST_CASES = 12
 
 
 class WorstCase(RDF, CmdParser):
+    """
+    WorstCase — graphs with two cylces
+
+    - graphs: already builded graphs
+    """
+
     graphs = {}
 
     @classmethod
     def build(cls, vertices_number):
+        """
+        Builds WorstCase graph instance by number of vertices in the graph
+
+        :param vertices_number: number of vertices in the graph
+        :type vertices_number: int
+        :return: WorstCase graph instance
+        :rtype:WorstCase
+        """
+
         path_to_graph = gen_worst_case_graph(add_graph_dir('WorstCase'), vertices_number)
-        return WorstCase.load_from_rdf(path_to_graph)
+
+        graph = WorstCase.load_from_rdf(path_to_graph)
+
+        graph.save_metadata()
+
+        return graph
 
     @staticmethod
     def init_cmd_parser(parser):
+        """
+        Initialize command line parser
+
+        :param parser: WorstCase subparser of command line parser
+        :type parser: ArgumentParser
+        :return: None
+        :rtype: None
+        """
+
         parser.add_argument(
             '-p'
             , '--preset'
@@ -34,6 +65,15 @@ class WorstCase(RDF, CmdParser):
 
     @staticmethod
     def eval_cmd_parser(args):
+        """
+        Evaluate command line parser
+
+        :param args: command line arguments
+        :type args: Namespace
+        :return: None
+        :rtype: None
+        """
+
         if args.preset is False and args.vertices_number is None:
             print("One of -p/--preset, -n/--vertices_number required")
             exit()
@@ -48,7 +88,18 @@ class WorstCase(RDF, CmdParser):
             print(f'Generated {graph.basename} to {graph.dirname}')
 
 
-def gen_worst_case_graph(target_dir, vertices_number):
+def gen_worst_case_graph(destination_folder: Path, vertices_number: int):
+    """
+    Generates graphs with two cylces by number of vertices in the graph
+
+    :param destination_folder: directory to save the graph
+    :type destination_folder: Path
+    :param vertices_number: number of vertices in the graph
+    :type vertices_number: int
+    :return: path to generated graph
+    :rtype: Path
+    """
+
     output_graph = rdflib.Graph()
 
     first_cycle = int(vertices_number / 2) + 1
@@ -69,7 +120,7 @@ def gen_worst_case_graph(target_dir, vertices_number):
     for subj, pred, obj in tqdm(edges, desc=f'worstcase_{vertices_number} generation'):
         add_rdf_edge(subj, pred, obj, output_graph)
 
-    target = target_dir / f'worstcase_{vertices_number}.xml'
+    target = destination_folder / f'worstcase_{vertices_number}.xml'
 
     write_to_rdf(target, output_graph)
 

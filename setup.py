@@ -1,6 +1,10 @@
+import sys
+
 from setuptools import *
 
 from cfpq_data.config import *
+
+sys.path.append(MAIN_FOLDER)
 
 setup(
     name=PACKAGE_NAME

@@ -1,5 +1,6 @@
-from cfpq_data import rdf_graph
 import os
+
+from cfpq_data import rdf_graph
 
 
 def check_metadata(first_graph, second_graph):

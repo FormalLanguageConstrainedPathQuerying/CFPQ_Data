@@ -27,7 +27,9 @@ FULL_GRAPH_TO_GEN = [
 
 class FullGraph(RDF, CmdParser):
     """
-    FullGraph — cycle graph, all edges are labeled with the same token.
+    FullGraph — cycle graph, all edges are labeled with the same token
+
+    - graphs: already builded graphs
     """
 
     graphs = {}
@@ -35,7 +37,8 @@ class FullGraph(RDF, CmdParser):
     @classmethod
     def build(cls, *args: int):
         """
-        Build FullGraph instance by number of vertices in the graph
+        Builds FullGraph instance by number of vertices in the graph
+
         :param args: only one argument - args[0] - number of vertices in the graph
         :type args: int
         :return: FullGraph instance
@@ -43,13 +46,20 @@ class FullGraph(RDF, CmdParser):
         """
 
         vertices_number = args[0]
+
         path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
-        return FullGraph.load_from_rdf(path_to_graph)
+
+        graph = FullGraph.load_from_rdf(path_to_graph)
+
+        graph.save_metadata()
+
+        return graph
 
     @staticmethod
     def init_cmd_parser(parser: ArgumentParser):
         """
-        Initialize command line parser
+        Initializes command line parser
+
         :param parser: FullGraph subparser of command line parser
         :type parser: ArgumentParser
         :return: None
@@ -73,8 +83,9 @@ class FullGraph(RDF, CmdParser):
     @staticmethod
     def eval_cmd_parser(args: Namespace):
         """
-        Evaluate command line parser
-        :param args: Command line arguments
+        Evaluates command line parser
+
+        :param args: command line arguments
         :type args: Namespace
         :return: None
         :rtype: None
@@ -94,14 +105,15 @@ class FullGraph(RDF, CmdParser):
             print(f'Generated {graph.basename} to {graph.dirname}')
 
 
-def gen_cycle_graph(target_dir: Path, vertices_number: int) -> Path:
+def gen_cycle_graph(destination_folder: Path, vertices_number: int) -> Path:
     """
     Generates one cycle graph with specified number of vertices
-    :param target_dir: Directory to save the graph
-    :type target_dir: Path
-    :param vertices_number: Number of vertices in the graph
+
+    :param destination_folder: directory to save the graph
+    :type destination_folder: Path
+    :param vertices_number: number of vertices in the graph
     :type vertices_number: int
-    :return: Path to generated graph
+    :return: path to generated graph
     :rtype: Path
     """
 
@@ -117,7 +129,7 @@ def gen_cycle_graph(target_dir: Path, vertices_number: int) -> Path:
     for subj, pred, obj in tqdm(edges, desc=f'fullgraph_{vertices_number} generation'):
         add_rdf_edge(subj, pred, obj, output_graph)
 
-    target = target_dir / f'fullgraph_{vertices_number}.xml'
+    target = destination_folder / f'fullgraph_{vertices_number}.xml'
 
     write_to_rdf(target, output_graph)
 

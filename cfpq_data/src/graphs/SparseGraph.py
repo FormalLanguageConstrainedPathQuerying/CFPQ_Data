@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import networkx as nx
 import rdflib
 from tqdm import tqdm
@@ -18,15 +20,46 @@ SPARSE_GRAPH_TO_GEN = [
 
 
 class SparseGraph(RDF, CmdParser):
+    """
+    SparseGraph — graphs generated with NetworkX to emulate sparse data
+
+    - graphs: already builded graphs
+    """
+
     graphs = {}
 
     @classmethod
-    def build(cls, vertices_number, edge_probability):
+    def build(cls, vertices_number: int, edge_probability: float):
+        """
+        Build SparseGraph instance by number of vertices in probability of edge existence
+
+        :param vertices_number: number of vertices in the graph
+        :type vertices_number: int
+        :param edge_probability: probability of edge existence in the graph
+        :type edge_probability: float
+        :return: SparseGraph instance
+        :rtype: SparseGraph
+        """
+
         path_to_graph = gen_sparse_graph(add_graph_dir('SparseGraph'), vertices_number, edge_probability)
-        return SparseGraph.load_from_rdf(path_to_graph)
+
+        graph = SparseGraph.load_from_rdf(path_to_graph)
+
+        graph.save_metadata()
+
+        return graph
 
     @staticmethod
     def init_cmd_parser(parser):
+        """
+        Initialize command line parser
+
+        :param parser: SparseGraph subparser of command line parser
+        :type parser: ArgumentParser
+        :return: None
+        :rtype: None
+        """
+
         parser.add_argument(
             '-p'
             , '--preset'
@@ -50,6 +83,15 @@ class SparseGraph(RDF, CmdParser):
 
     @staticmethod
     def eval_cmd_parser(args):
+        """
+        Evaluate command line parser
+
+        :param args: command line arguments
+        :type args: Namespace
+        :return: None
+        :rtype: None
+        """
+
         if args.preset is False and \
                 (args.vertices_number is None or args.edge_probability is None):
             print("One of -p/--preset, (-n/--vertices_number and necessarily -с/--edge_probability) required")
@@ -65,7 +107,20 @@ class SparseGraph(RDF, CmdParser):
             print(f'Generated {graph.basename} to {graph.dirname}')
 
 
-def gen_sparse_graph(target_dir, vertices_number, edge_probability):
+def gen_sparse_graph(destination_folder: Path, vertices_number: int, edge_probability: float) -> Path:
+    """
+    Generates sparse graph
+
+    :param destination_folder: directory to save the graph
+    :type destination_folder: Path
+    :param vertices_number: number of vertices in the graph
+    :type vertices_number: int
+    :param edge_probability: probability of edge existence in the graph
+    :type edge_probability: float
+    :return: path to generated graph
+    :rtype: Path
+    """
+
     tmp_graph = nx.generators.fast_gnp_random_graph(vertices_number, edge_probability)
 
     output_graph = rdflib.Graph()
@@ -79,7 +134,7 @@ def gen_sparse_graph(target_dir, vertices_number, edge_probability):
     for subj, pred, obj in tqdm(edges, desc=f'G{vertices_number}-{edge_probability} generation'):
         add_rdf_edge(subj, pred, obj, output_graph)
 
-    target = target_dir / f'G{vertices_number}-{edge_probability}.xml'
+    target = destination_folder / f'G{vertices_number}-{edge_probability}.xml'
 
     write_to_rdf(target, output_graph)
 
