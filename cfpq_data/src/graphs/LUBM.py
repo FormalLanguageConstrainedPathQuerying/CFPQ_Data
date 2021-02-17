@@ -1,18 +1,3 @@
-"""
-    RDF merger and converter for LUBM dataset.
-    Database is stored in files <prefix><id>_<sub_id>.owl
-    This files are merged for specified number of universities (ids range),
-    and edges are replaced with specified mapping.
-    Also vertices labels also replaces with integer based names.
-
-    Usage:
-    - Create a conversion configuration file. Each line must contain an IRI,
-    a whitespace character and a string to replace the IRI by.
-    - Run main.py LUBM convert --pref PREFIX --count COUNT --conf CONFIG
-    - Result will have name <prefix><count><vertices count><indices count>.xml
-
-    The graph will contain explicit inverted edges added an 'R'.
-    """
 import os
 import shutil
 import subprocess
@@ -33,11 +18,26 @@ MAX_FILES_PER_UNI = 30
 
 
 class LUBM(RDF, CmdParser):
+    """
+    LUBM - Lehigh University Benchmark graph
+
+    - graphs: already builded graphs
+    """
+
     graphs = dict()
     config = RELEASE_INFO['LUBM_Config']
 
     @classmethod
     def build(cls, *args):
+        """
+        Builds LUBM instance by number of generated graphs to create one LUBM graph
+
+        :param args: args[0] - number of generated graphs, args[1] (optional) - edges configuration
+        :type args: int
+        :return: LUBM instance
+        :rtype: LUBM
+        """
+
         count = int(args[0])
 
         replace = RELEASE_INFO['LUBM_Config']
@@ -59,6 +59,15 @@ class LUBM(RDF, CmdParser):
 
     @staticmethod
     def init_cmd_parser(parser):
+        """
+        Initializes command line parser
+
+        :param parser: LUBM subparser of command line parser
+        :type parser: ArgumentParser
+        :return: None
+        :rtype: None
+        """
+
         parser.add_argument(
             '-n'
             , '--number'
@@ -77,6 +86,15 @@ class LUBM(RDF, CmdParser):
 
     @staticmethod
     def eval_cmd_parser(args):
+        """
+        Evaluates command line parser
+
+        :param args: command line arguments
+        :type args: Namespace
+        :return: None
+        :rtype: None
+        """
+
         if args.config is not None:
             graph = LUBM.build(args.count, args.config)
         else:
@@ -85,7 +103,20 @@ class LUBM(RDF, CmdParser):
         print(f'Generated {graph.basename} to {graph.dirname}')
 
 
-def gen_lubm_graph(destination_folder: Path, count: int, config: Dict):
+def gen_lubm_graph(destination_folder: Path, count: int, config: Dict[str, str]) -> Path:
+    """
+    Generates LUBM graph by specified number of generated graphs to create one LUBM graph
+
+    :param destination_folder: directory to save the graph
+    :type destination_folder: Path
+    :param count: number of generated graphs
+    :type count: int
+    :param config: edges configuration
+    :type config: Dict[str, str]
+    :return: path to generated graph
+    :rtype: Path
+    """
+
     arch = MAIN_FOLDER / 'data' / 'LUBM' / 'uba.zip'
     univ_dir = MAIN_FOLDER / 'data' / 'LUBM' / 'univ'
     if not os.path.exists(univ_dir):
