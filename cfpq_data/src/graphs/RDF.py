@@ -6,7 +6,7 @@ from typing import Optional, Tuple, Any, List, Dict, Union
 import rdflib
 from tqdm import tqdm
 
-from cfpq_data.config import RELEASE_INFO, DATA_FOLDER
+from cfpq_data.config import RELEASE_INFO, MAIN_FOLDER
 from cfpq_data.src.graphs.GraphInterface import GraphInterface
 from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.utils import download_data, unpack_graph, add_rdf_edge, write_to_rdf, clean_dir
@@ -21,9 +21,9 @@ class RDF(GraphInterface, CmdParser):
     - config: default edge configuration
     """
 
-    graphs = dict()
-    graph_keys = RELEASE_INFO['RDF']
-    config = RELEASE_INFO['RDF_Config']
+    graphs: Dict[str, Path] = dict()
+    graph_keys: Dict[str, str] = RELEASE_INFO['RDF']
+    config: Dict[str, str] = RELEASE_INFO['RDF_Config']
 
     def __init__(self):
         """
@@ -60,6 +60,7 @@ class RDF(GraphInterface, CmdParser):
     def build(cls, *args: Union[Path, str]):
         """
         An RDF graph builder
+
         :param args: only one argument - args[0] - path to graph or reserves graph name
         :type args: Union[Path, str]
         :return: RDF graph instance
@@ -77,6 +78,7 @@ class RDF(GraphInterface, CmdParser):
     def load(cls, source: Optional[Union[Path, str]] = None, source_file_format: str = 'rdf'):
         """
         Loads RDF graph from specified source with specified source_file_format
+
         :param source: graph source
         :type source: Optional[Union[Path, str]]
         :param source_file_format: graph format ('txt'/'rdf')
@@ -100,6 +102,7 @@ class RDF(GraphInterface, CmdParser):
              , config: Dict[str, str] = None) -> Path:
         """
         Saves RDF graph to destination with specified destination_file_format and edge configuration
+
         :param destination: path to save the graph
         :type destination: Optional[Union[Path, str]]
         :param destination_file_format: graph format
@@ -111,7 +114,7 @@ class RDF(GraphInterface, CmdParser):
         """
 
         if destination is None:
-            destination = DATA_FOLDER / self.type / 'Graphs' / self.basename
+            destination = MAIN_FOLDER / 'data' / self.type / 'Graphs' / self.basename
         if destination_file_format == 'txt':
             self.save_to_txt(destination, config)
         else:
@@ -121,6 +124,7 @@ class RDF(GraphInterface, CmdParser):
     def get_metadata(self) -> Dict[str, str]:
         """
         Generates RDF graph metadata
+
         :return: metadata
         :rtype: Dict[str, str]
         """
@@ -137,6 +141,7 @@ class RDF(GraphInterface, CmdParser):
     def save_metadata(self) -> Path:
         """
         Saves metadata to specified file
+
         :return: path to file with graph metadata
         :rtype: Path
         """
@@ -151,6 +156,7 @@ class RDF(GraphInterface, CmdParser):
     def get_triples(self) -> List[Tuple[Any, Any, Any]]:
         """
         Returns edges as list of triples (subject, predicate, object)
+
         :return: edges
         :rtype: List[Tuple[Any, Any, Any]]
         """
@@ -166,6 +172,7 @@ class RDF(GraphInterface, CmdParser):
     def load_from_rdf(cls, source: Path = None):
         """
         Loads RDF graph from specified source with rdf format
+
         :param source: graph source
         :type source: Path
         :return: loaded graph
@@ -200,6 +207,7 @@ class RDF(GraphInterface, CmdParser):
     def load_from_txt(cls, source: Path = None):
         """
         Loads RDF graph from specified source with txt format
+
         :param source: graph source
         :type source: Path
         :return: loaded graph
@@ -224,6 +232,7 @@ class RDF(GraphInterface, CmdParser):
     def save_to_rdf(self, destination: Path):
         """
         Saves RDF graph to destination rdf file
+
         :param destination: path to save the graph
         :type destination: Path
         :return: path to saved graph
@@ -236,6 +245,7 @@ class RDF(GraphInterface, CmdParser):
     def save_to_txt(self, destination: Path, config: Dict[str, str] = config):
         """
         Saves RDF graph to destination txt file with specified edge configuration
+
         :param destination: path to save the graph
         :type destination: Path
         :param config: edges configuration
@@ -250,12 +260,10 @@ class RDF(GraphInterface, CmdParser):
         triples = list()
 
         for subj, pred, obj in self.store:
-            if subj not in vertices:
-                vertices[subj] = next_id
-                next_id += 1
-            if obj not in vertices:
-                vertices[obj] = next_id
-                next_id += 1
+            for tmp in [subj, obj]:
+                if tmp not in vertices:
+                    vertices[tmp] = next_id
+                    next_id += 1
 
             edges[pred] = pred
             if config is not None:
@@ -264,11 +272,7 @@ class RDF(GraphInterface, CmdParser):
                 elif 'default' in config:
                     edges[pred] = config['default']
 
-            triples.append((
-                vertices[subj]
-                , edges[pred]
-                , vertices[obj]
-            ))
+            triples.append((vertices[subj], edges[pred], vertices[obj]))
 
         with open(destination, 'w') as output_file:
             for s, p, o in triples:
