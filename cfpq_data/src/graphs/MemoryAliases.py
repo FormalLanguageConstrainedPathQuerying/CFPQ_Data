@@ -1,4 +1,6 @@
 from argparse import ArgumentParser, Namespace
+from pathlib import Path
+from typing import Dict
 
 from tqdm import tqdm
 
@@ -17,9 +19,9 @@ class MemoryAliases(RDF, CmdParser):
     - config: default edge configuration
     """
 
-    graphs = dict()
-    graph_keys = RELEASE_INFO['MemoryAliases']
-    config = RELEASE_INFO['MemoryAliases_Config']
+    graphs: Dict[str, Path] = dict()
+    graph_keys: Dict[str, str] = RELEASE_INFO['MemoryAliases']
+    config: Dict[str, str] = RELEASE_INFO['MemoryAliases_Config']
 
     @staticmethod
     def init_cmd_parser(parser: ArgumentParser):
