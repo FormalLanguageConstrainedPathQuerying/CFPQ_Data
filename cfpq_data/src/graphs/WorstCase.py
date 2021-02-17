@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Dict
 
 import rdflib
 from tqdm import tqdm
@@ -17,7 +18,7 @@ class WorstCase(RDF, CmdParser):
     - graphs: already builded graphs
     """
 
-    graphs = {}
+    graphs: Dict[str, Path] = dict()
 
     @classmethod
     def build(cls, vertices_number):
