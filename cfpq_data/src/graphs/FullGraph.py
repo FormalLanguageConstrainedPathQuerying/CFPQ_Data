@@ -1,6 +1,7 @@
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
+from typing import Dict
 
 import rdflib
 from tqdm import tqdm
@@ -32,7 +33,7 @@ class FullGraph(RDF, CmdParser):
     - graphs: already builded graphs
     """
 
-    graphs = {}
+    graphs: Dict[str, Path] = dict()
 
     @classmethod
     def build(cls, *args: int):
