@@ -5,8 +5,6 @@ PACKAGE_NAME = 'cfpq_data'
 
 MAIN_FOLDER = Path(__file__).parent
 
-DATA_FOLDER = MAIN_FOLDER / 'data'
-
 with open(MAIN_FOLDER / 'release_notes.json', 'r') as input_file:
     RELEASE_INFO = json.load(input_file)
 
