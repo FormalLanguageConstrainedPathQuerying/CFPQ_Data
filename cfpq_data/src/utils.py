@@ -4,16 +4,7 @@ import shutil
 import rdflib
 import requests
 
-from cfpq_data.config import *
-
-GRAPHS_DIR = 'Graphs'
-
-
-def get_graph_info(graph_type, graph_name):
-    target = MAIN_FOLDER / 'data' / graph_type / 'Graphs' / f'{graph_name}_meta.json'
-    with open(target, 'r') as input_file:
-        info = json.load(input_file)
-    return info
+from cfpq_data.config import MAIN_FOLDER, RELEASE_INFO
 
 
 def download_file_from_google_drive(id, destination):
@@ -68,7 +59,7 @@ def unpack_archive_listdir(target_dir, arch):
 
 
 def unpack_graph(graph_group, graph_name):
-    to = DATA_FOLDER / graph_group / GRAPHS_DIR
+    to = MAIN_FOLDER / 'data' / graph_group / 'Graphs'
 
     arch = to / f'{graph_name}.tar.xz'
 
@@ -82,14 +73,14 @@ def unpack_graph(graph_group, graph_name):
 
 
 def clean_dir(name):
-    path = DATA_FOLDER / name / GRAPHS_DIR
+    path = MAIN_FOLDER / 'data' / name / 'Graphs'
     if os.path.isdir(path):
         shutil.rmtree(path)
     os.mkdir(path)
 
 
 def add_graph_dir(name):
-    dst = DATA_FOLDER / name / GRAPHS_DIR
+    dst = MAIN_FOLDER / 'data' / name / 'Graphs'
     dst.mkdir(parents=True, exist_ok=True)
     return dst
 
@@ -100,7 +91,7 @@ def write_to_rdf(target_path, graph: rdflib.Graph):
 
 
 # Edge addition (grapf constructing)
-def add_rdf_edge(subj, pred, obj, rdf_graph, config=GENERATORS_CONFIG, reverse=False):
+def add_rdf_edge(subj, pred, obj, rdf_graph, config=RELEASE_INFO['Generators_Config'], reverse=False):
     s = rdflib.BNode(f'id-{subj}')
 
     p_text = config[pred]
