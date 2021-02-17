@@ -83,6 +83,14 @@
     "http://yacc/rdf-schema#CR": "CR",
     "http://yacc/rdf-schema#D": "D",
     "http://yacc/rdf-schema#DR": "DR",
+    "A": "http://yacc/rdf-schema#A",
+    "AR": "http://yacc/rdf-schema#AR",
+    "B": "http://yacc/rdf-schema#B",
+    "BR": "http://yacc/rdf-schema#BR",
+    "C": "http://yacc/rdf-schema#C",
+    "CR": "http://yacc/rdf-schema#CR",
+    "D": "http://yacc/rdf-schema#D",
+    "DR": "http://yacc/rdf-schema#DR",
     "default": "UNKNOWN"
   }
 }
