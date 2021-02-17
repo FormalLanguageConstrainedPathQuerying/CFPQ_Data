@@ -55,17 +55,34 @@
     "http://yacc/D": "D",
     "default": "UNKNOWN"
   },
+  "LUBM_Config": {
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#subOrganizationOf": "SO",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#worksFor": "WF",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#headOf": "HF",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#teacherOf": "TF",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#memberOf": "MF",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#advisor": "AD",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#takesCourse": "TC",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#publicationAuthor": "PA",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#undergraduateDegreeFrom": "UG",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#mastersDegreeFrom": "MD",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#doctoralDegreeFrom": "DD",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#emailAddress": "EA",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#name": "NM",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#researchInterest": "RI",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#telephone": "TP",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#teachingAssistantOf": "TA",
+    "default": "UNKNOWN"
+  },
   "Generators_Config": {
     "http://yacc/rdf-schema#A": "A",
-    "A": "http://yacc/rdf-schema#A",
     "http://yacc/rdf-schema#AR": "AR",
-    "AR": "http://yacc/rdf-schema#AR",
     "http://yacc/rdf-schema#B": "B",
-    "B": "http://yacc/rdf-schema#B",
+    "http://yacc/rdf-schema#BR": "BR",
     "http://yacc/rdf-schema#C": "C",
-    "C": "http://yacc/rdf-schema#C",
+    "http://yacc/rdf-schema#CR": "CR",
     "http://yacc/rdf-schema#D": "D",
-    "D": "http://yacc/rdf-schema#D",
+    "http://yacc/rdf-schema#DR": "DR",
     "default": "UNKNOWN"
   }
 }

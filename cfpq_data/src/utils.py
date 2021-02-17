@@ -100,12 +100,22 @@ def write_to_rdf(target_path, graph: rdflib.Graph):
 
 
 # Edge addition (grapf constructing)
-def add_rdf_edge(subj, pred, obj, rdf_graph):
+def add_rdf_edge(subj, pred, obj, rdf_graph, config=GENERATORS_CONFIG, reverse=False):
     s = rdflib.BNode(f'id-{subj}')
-    p = rdflib.URIRef(f'{GENERATORS_CONFIG[pred]}{pred}')
+
+    p_text = config[pred]
+    if not p_text.startswith('http'):
+        p_text = f'http://yacc/rdf-schema#{p_text}'
+    p = rdflib.URIRef(p_text)
+
     o = rdflib.BNode(f'id-{obj}')
 
     rdf_graph.add((s, p, o))
+
+    if reverse is True:
+        pr = rdflib.URIRef(p_text + 'R')
+
+        rdf_graph.add((s, pr, o))
 
 
 def gen_sierpinski_graph(target_dir, degree, predicates=['A']):

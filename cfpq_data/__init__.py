@@ -4,6 +4,6 @@ from cfpq_data.src.graphs.RDF import RDF as rdf_graph
 from cfpq_data.src.graphs.ScaleFree import ScaleFree as scale_free_graph
 from cfpq_data.src.graphs.SparseGraph import SparseGraph as sparse_graph
 from cfpq_data.src.graphs.WorstCase import WorstCase as worst_case_graph
-from cfpq_data.src.tools.LUBM.converter import LUBMGraph as lubm_graph
+from cfpq_data.src.graphs.LUBM import LUBM as lubm_graph
 from cfpq_data.src.tools.gen_RPQ.gen import GenRPQGraph as gen_rpq_graph
 from cfpq_data.src.tools.redis_rdf.main import RedisRDFGraph as redis_rdf_graph
