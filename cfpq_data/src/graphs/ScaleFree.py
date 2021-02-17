@@ -1,6 +1,6 @@
 from itertools import product
 from pathlib import Path
-from typing import Tuple
+from typing import Tuple, Dict
 
 import numpy as np
 import rdflib
@@ -23,7 +23,7 @@ class ScaleFree(RDF, CmdParser):
     - graphs: already builded graphs
     """
 
-    graphs = {}
+    graphs: Dict[str, Path] = dict()
 
     @classmethod
     def build(cls, vertices_number: int, vertices_degree: int):
