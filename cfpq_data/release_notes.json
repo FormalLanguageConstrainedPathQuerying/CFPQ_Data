@@ -91,6 +91,7 @@
     "CR": "http://yacc/rdf-schema#CR",
     "D": "http://yacc/rdf-schema#D",
     "DR": "http://yacc/rdf-schema#DR",
-    "default": "UNKNOWN"
+    "default": "UNKNOWN",
+    "UNKNOWN": "UNKNOWN"
   }
 }
