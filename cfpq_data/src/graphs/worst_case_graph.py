@@ -1,27 +1,34 @@
+from __future__ import annotations
+
+import sys
+from argparse import ArgumentParser, Namespace
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Tuple
 
 import rdflib
 from tqdm import tqdm
 
-from cfpq_data.src.graphs.RDF import RDF
-from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.utils import add_graph_dir, add_rdf_edge, write_to_rdf
+from cfpq_data.config import RELEASE_INFO
+from cfpq_data.src.graphs.rdf_graph import RDF
+from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
+from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
+from cfpq_data.src.utils.utils import add_graph_dir
 
 NUMBER_OF_WORST_CASES = 12
 
 
-class WorstCase(RDF, CmdParser):
+class WorstCase(RDF, ICmdParser):
     """
-    WorstCase — graphs with two cylces
+    WorstCase — graphs with two cycles
 
-    - graphs: already builded graphs
+    - graphs: already built graphs
     """
 
-    graphs: Dict[str, Path] = dict()
+    graphs: Dict[Tuple[str, str], Path] = dict()
+    config: Dict[str, str] = RELEASE_INFO['Generators_Config']
 
     @classmethod
-    def build(cls, vertices_number):
+    def build(cls, vertices_number: int) -> WorstCase:
         """
         Builds WorstCase graph instance by number of vertices in the graph
 
@@ -40,7 +47,7 @@ class WorstCase(RDF, CmdParser):
         return graph
 
     @staticmethod
-    def init_cmd_parser(parser):
+    def init_cmd_parser(parser: ArgumentParser) -> None:
         """
         Initialize command line parser
 
@@ -51,21 +58,21 @@ class WorstCase(RDF, CmdParser):
         """
 
         parser.add_argument(
-            '-p'
-            , '--preset'
-            , action='store_true'
-            , help='Load preset WorstCase graphs from dataset'
+            '-p',
+            '--preset',
+            action='store_true',
+            help='Load preset WorstCase graphs from dataset'
         )
         parser.add_argument(
-            '-n'
-            , '--vertices_number'
-            , required=False
-            , type=int
-            , help='Number of vertices of WorstCase graph'
+            '-n',
+            '--vertices_number',
+            required=False,
+            type=int,
+            help='Number of vertices of WorstCase graph'
         )
 
     @staticmethod
-    def eval_cmd_parser(args):
+    def eval_cmd_parser(args: Namespace) -> None:
         """
         Evaluate command line parser
 
@@ -77,7 +84,7 @@ class WorstCase(RDF, CmdParser):
 
         if args.preset is False and args.vertices_number is None:
             print("One of -p/--preset, -n/--vertices_number required")
-            exit()
+            sys.exit()
 
         if args.preset is True:
             for n in tqdm(range(2, NUMBER_OF_WORST_CASES), desc='WorstCase graphs generation'):
@@ -89,9 +96,9 @@ class WorstCase(RDF, CmdParser):
             print(f'Generated {graph.basename} to {graph.dirname}')
 
 
-def gen_worst_case_graph(destination_folder: Path, vertices_number: int):
+def gen_worst_case_graph(destination_folder: Path, vertices_number: int) -> Path:
     """
-    Generates graphs with two cylces by number of vertices in the graph
+    Generates graphs with two cycles by number of vertices in the graph
 
     :param destination_folder: directory to save the graph
     :type destination_folder: Path
