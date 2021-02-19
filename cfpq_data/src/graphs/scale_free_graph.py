@@ -4,13 +4,12 @@ import sys
 from argparse import ArgumentParser, Namespace
 from itertools import product
 from pathlib import Path
-from typing import Tuple, Dict
+from typing import Tuple, Dict, Union, Optional
 
 import numpy as np
 import rdflib
 from tqdm import tqdm
 
-from cfpq_data.config import RELEASE_INFO
 from cfpq_data.src.graphs.rdf_graph import RDF
 from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
@@ -30,34 +29,47 @@ class ScaleFree(RDF, ICmdParser):
     """
 
     graphs: Dict[Tuple[str, str], Path] = dict()
-    config: Dict[str, str] = RELEASE_INFO['Generators_Config']
 
     @classmethod
     def build(cls,
-              vertices_number: int,
-              vertices_degree: int,
-              source_file_format = 'rdf') -> ScaleFree:
+              *args: Union[Path, str, int],
+              source_file_format: str = 'rdf',
+              config: Optional[Dict[str, str]] = None) -> ScaleFree:
         """
         Builds ScaleFree graph instance by number of vertices and degree of vertex
 
-        :param vertices_number: number of vertices in the graph
-        :type vertices_number: int
-        :param vertices_degree: degree of the vertex in the graph
-        :type vertices_degree: int
+        - args[0] - number of vertices in the graph or path
+        - args[1] - degree of the vertex in the graph (if args[0] is not a path)
+
+        :param args: arguments
+        :type args: int
+        :param source_file_format: graph format ('txt'/'rdf')
+        :type source_file_format: str
+        :param config: edge configuration
+        :type config: Optional[Dict[str, str]]
         :return: ScaleFree graph instance
         :rtype: ScaleFree
         """
 
-        path_to_graph = gen_scale_free_graph(add_graph_dir('ScaleFree'),
-                                             vertices_number,
-                                             vertices_degree)
+        if len(args) > 1:
+            vertices_number = args[0]
+            vertices_degree = args[1]
 
-        graph = ScaleFree.load_from_rdf(path_to_graph)
+            path_to_graph = gen_scale_free_graph(add_graph_dir('ScaleFree'),
+                                                 vertices_number,
+                                                 vertices_degree)
 
-        if source_file_format == 'txt':
-            graph.save_to_txt(graph.dirname + graph.file_name + '.txt')
+            graph = ScaleFree.load_from_rdf(path_to_graph)
+        else:
+            source = args[0]
+            if source_file_format == 'txt':
+                graph = cls.load_from_txt(source, config)
+            else:
+                graph = cls.load_from_rdf(source)
 
         graph.save_metadata()
+
+        cls.graphs[(graph.basename, graph.file_extension)] = graph.path
 
         return graph
 
