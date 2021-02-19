@@ -1,39 +1,43 @@
+from __future__ import annotations
+
 import os
 import shutil
 import subprocess
+from argparse import ArgumentParser, Namespace
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Tuple, Union
 
 import rdflib
-import wget as wget
+import wget
 from tqdm import tqdm
 
 from cfpq_data.config import RELEASE_INFO, MAIN_FOLDER
-from cfpq_data.src.graphs.RDF import RDF
-from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.utils import add_graph_dir, add_rdf_edge, write_to_rdf
+from cfpq_data.src.graphs.rdf_graph import RDF
+from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
+from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
+from cfpq_data.src.utils.utils import add_graph_dir
 
 LUBM_URL = 'http://swat.cse.lehigh.edu/projects/lubm/uba1.7.zip'
 MAX_FILES_PER_UNI = 30
 
 
-class LUBM(RDF, CmdParser):
+class LUBM(RDF, ICmdParser):
     """
     LUBM - Lehigh University Benchmark graph
 
-    - graphs: already builded graphs
+    - graphs: already built graphs
     """
 
-    graphs = dict()
+    graphs: Dict[Tuple[str, str], Path] = dict()
     config = RELEASE_INFO['LUBM_Config']
 
     @classmethod
-    def build(cls, *args):
+    def build(cls, *args: Union[int, Tuple[int, int]]) -> LUBM:
         """
         Builds LUBM instance by number of generated graphs to create one LUBM graph
 
         :param args: args[0] - number of generated graphs, args[1] (optional) - edges configuration
-        :type args: int
+        :type args: Union[int, Tuple[int, int]]
         :return: LUBM instance
         :rtype: LUBM
         """
@@ -58,7 +62,7 @@ class LUBM(RDF, CmdParser):
         return graph
 
     @staticmethod
-    def init_cmd_parser(parser):
+    def init_cmd_parser(parser: ArgumentParser) -> None:
         """
         Initializes command line parser
 
@@ -69,23 +73,23 @@ class LUBM(RDF, CmdParser):
         """
 
         parser.add_argument(
-            '-n'
-            , '--number'
-            , required=True
-            , type=int
-            , help='Number of generated graphs to create LUBM graph'
+            '-n',
+            '--number',
+            required=True,
+            type=int,
+            help='Number of generated graphs to create LUBM graph'
         )
 
         parser.add_argument(
-            '-c'
-            , '--config'
-            , required=False
-            , type=str
-            , help='Path to configuration file'
+            '-c',
+            '--config',
+            required=False,
+            type=str,
+            help='Path to configuration file'
         )
 
     @staticmethod
-    def eval_cmd_parser(args):
+    def eval_cmd_parser(args: Namespace) -> None:
         """
         Evaluates command line parser
 
@@ -103,7 +107,9 @@ class LUBM(RDF, CmdParser):
         print(f'Generated {graph.basename} to {graph.dirname}')
 
 
-def gen_lubm_graph(destination_folder: Path, count: int, config: Dict[str, str]) -> Path:
+def gen_lubm_graph(destination_folder: Path,
+                   count: int,
+                   config: Dict[str, str]) -> Path:
     """
     Generates LUBM graph by specified number of generated graphs to create one LUBM graph
 
@@ -125,18 +131,19 @@ def gen_lubm_graph(destination_folder: Path, count: int, config: Dict[str, str])
         os.remove(arch)
     subprocess.run(
         [
-            'java'
-            , '-cp'
-            , 'classes'
-            , 'edu.lehigh.swat.bench.uba.Generator'
-            , '-univ'
-            , f'{count}'
-            , '-onto'
-            , 'http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl'
-        ]
-        , cwd=str(univ_dir)
-        , stdout=subprocess.PIPE
-        , stderr=subprocess.PIPE
+            'java',
+            '-cp',
+            'classes',
+            'edu.lehigh.swat.bench.uba.Generator',
+            '-univ',
+            f'{count}',
+            '-onto',
+            'http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl'
+        ],
+        cwd=str(univ_dir),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=True
     )
 
     output_graph = rdflib.Graph()
@@ -146,8 +153,9 @@ def gen_lubm_graph(destination_folder: Path, count: int, config: Dict[str, str])
     vertices = dict()
     next_id = 0
 
-    generated_graphs = os.listdir(MAIN_FOLDER / 'data' / 'LUBM') + \
-                       os.listdir(univ_dir)  # for Windows
+    generated_graphs = \
+        os.listdir(MAIN_FOLDER / 'data' / 'LUBM') + \
+        os.listdir(univ_dir)  # for Windows
 
     for tmp_graph_path in generated_graphs:
         if 'University' not in tmp_graph_path:
