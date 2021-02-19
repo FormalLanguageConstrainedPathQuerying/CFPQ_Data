@@ -67,7 +67,7 @@ class RDF(IGraph, ICmdParser):
         """
         An RDF graph builder
 
-        :param args: only one argument - args[0] - path to graph or reserved graph name
+        :param args: args[0] - path to graph or reserved graph name, args[1] (optional) - graph file extension
         :type args: Union[Path, str]
         :return: RDF graph instance
         :rtype: RDF
@@ -75,7 +75,10 @@ class RDF(IGraph, ICmdParser):
 
         try:
             source = args[0]
-            graph = cls.load(args[0])
+            if len(args) > 1:
+                graph = cls.load(args[0], args[1])
+            else:
+                graph = cls.load(args[0])
             graph.save_metadata()
             cls.graphs[(graph.basename, graph.file_extension)] = source
             return graph
