@@ -1,6 +1,6 @@
 import os
 
-from cfpq_data import scale_free_graph
+from cfpq_data import ScaleFree
 
 
 def check_metadata(first_graph, second_graph):
@@ -12,9 +12,9 @@ def check_metadata(first_graph, second_graph):
 
 def test_scalefree(suit_scalefree):
     vertices_number, vertices_degree = suit_scalefree
-    first_graph = scale_free_graph.build(vertices_number, vertices_degree)
+    first_graph = ScaleFree.build(vertices_number, vertices_degree)
     second_graph_path = first_graph.save('tmp')
-    second_graph = scale_free_graph.load(second_graph_path)
+    second_graph = ScaleFree.load(second_graph_path)
     os.remove(second_graph_path)
 
     assert check_metadata(first_graph, second_graph)
