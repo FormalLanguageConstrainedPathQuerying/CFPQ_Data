@@ -1,6 +1,6 @@
 import os
 
-from cfpq_data import sparse_graph
+from cfpq_data import SparseGraph
 
 
 def check_metadata(first_graph, second_graph):
@@ -12,9 +12,9 @@ def check_metadata(first_graph, second_graph):
 
 def test_sparse(suit_sparsegraph):
     vertices_number, edge_probability = suit_sparsegraph
-    first_graph = sparse_graph.build(vertices_number, edge_probability)
+    first_graph = SparseGraph.build(vertices_number, edge_probability)
     second_graph_path = first_graph.save('tmp')
-    second_graph = sparse_graph.load(second_graph_path)
+    second_graph = SparseGraph.load(second_graph_path)
     os.remove(second_graph_path)
 
     assert check_metadata(first_graph, second_graph)
