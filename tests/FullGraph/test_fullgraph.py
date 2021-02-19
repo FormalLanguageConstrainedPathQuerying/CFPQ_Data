@@ -1,6 +1,6 @@
 import os
 
-from cfpq_data import full_graph
+from cfpq_data import FullGraph
 
 
 def check_metadata(first_graph, second_graph):
@@ -11,9 +11,9 @@ def check_metadata(first_graph, second_graph):
 
 
 def test_fullgraph(num_of_vertices):
-    first_graph = full_graph.build(num_of_vertices)
+    first_graph = FullGraph.build(num_of_vertices)
     second_graph_path = first_graph.save('tmp')
-    second_graph = full_graph.load_from_rdf(second_graph_path)
+    second_graph = FullGraph.load_from_rdf(second_graph_path)
     os.remove(second_graph_path)
 
     assert check_metadata(first_graph, second_graph)

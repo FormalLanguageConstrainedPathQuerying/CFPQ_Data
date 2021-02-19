@@ -1,42 +1,37 @@
+from __future__ import annotations
+
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Tuple
 
 import rdflib
 from tqdm import tqdm
 
-from cfpq_data.src.graphs.RDF import RDF
-from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.utils import add_graph_dir, add_rdf_edge, write_to_rdf
+from cfpq_data.config import RELEASE_INFO
+from cfpq_data.src.graphs.rdf_graph import RDF
+from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
+from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
+from cfpq_data.src.utils.utils import add_graph_dir
 
 FULL_GRAPH_TO_GEN = [
-    10
-    , 50
-    , 100
-    , 200
-    , 500
-    , 1000
-    , 2000
-    , 5000
-    , 10000
-    , 25000
-    , 50000
-    , 80000
+    10, 50, 100, 200, 500,
+    1000, 2000, 5000, 10000, 25000, 50000, 80000
 ]
 
 
-class FullGraph(RDF, CmdParser):
+class FullGraph(RDF, ICmdParser):
     """
     FullGraph — cycle graph, all edges are labeled with the same token
 
-    - graphs: already builded graphs
+    - graphs: already built graphs
     """
 
-    graphs: Dict[str, Path] = dict()
+    graphs: Dict[Tuple[str, str], Path] = dict()
+    config: Dict[str, str] = RELEASE_INFO['Generators_Config']
 
     @classmethod
-    def build(cls, *args: int):
+    def build(cls, *args: int) -> FullGraph:
         """
         Builds FullGraph instance by number of vertices in the graph
 
@@ -57,7 +52,7 @@ class FullGraph(RDF, CmdParser):
         return graph
 
     @staticmethod
-    def init_cmd_parser(parser: ArgumentParser):
+    def init_cmd_parser(parser: ArgumentParser) -> None:
         """
         Initializes command line parser
 
@@ -68,21 +63,21 @@ class FullGraph(RDF, CmdParser):
         """
 
         parser.add_argument(
-            '-p'
-            , '--preset'
-            , action='store_true'
-            , help='Load preset FullGraph graphs from dataset'
+            '-p',
+            '--preset',
+            action='store_true',
+            help='Load preset FullGraph graphs from dataset'
         )
         parser.add_argument(
-            '-n'
-            , '--vertices_number'
-            , required=False
-            , type=int
-            , help='Number of vertices of FullGraph graph'
+            '-n',
+            '--vertices_number',
+            required=False,
+            ype=int,
+            help='Number of vertices of FullGraph graph'
         )
 
     @staticmethod
-    def eval_cmd_parser(args: Namespace):
+    def eval_cmd_parser(args: Namespace) -> None:
         """
         Evaluates command line parser
 
