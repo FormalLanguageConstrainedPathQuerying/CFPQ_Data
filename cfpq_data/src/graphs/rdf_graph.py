@@ -1,5 +1,9 @@
+from __future__ import annotations
+
 import json
 import os
+import sys
+from argparse import ArgumentParser, Namespace
 from pathlib import Path
 from typing import Optional, Tuple, Any, List, Dict, Union
 
@@ -7,21 +11,23 @@ import rdflib
 from tqdm import tqdm
 
 from cfpq_data.config import RELEASE_INFO, MAIN_FOLDER
-from cfpq_data.src.graphs.GraphInterface import GraphInterface
-from cfpq_data.src.tools.CmdParser import CmdParser
-from cfpq_data.src.utils import download_data, unpack_graph, add_rdf_edge, write_to_rdf, clean_dir
+from cfpq_data.src.graphs.graph_interface import IGraph
+from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
+from cfpq_data.src.utils.rdf_graphs_downloader import download_data
+from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
+from cfpq_data.src.utils.utils import unpack_graph, clean_dir
 
 
-class RDF(GraphInterface, CmdParser):
+class RDF(IGraph, ICmdParser):
     """
     RDF — fixed versions of real-world RDF files (links are provided for updating purposes only!)
 
-    - graphs: already builded graphs
+    - graphs: already built graphs
     - graph_keys: reserved graph names
     - config: default edge configuration
     """
 
-    graphs: Dict[str, Path] = dict()
+    graphs: Dict[Tuple[str, str], Path] = dict()
     graph_keys: Dict[str, str] = RELEASE_INFO['RDF']
     config: Dict[str, str] = RELEASE_INFO['RDF_Config']
 
@@ -32,7 +38,7 @@ class RDF(GraphInterface, CmdParser):
         - type: type of graph instance
         - store: stored rdflib graph
         - path: absolute path to graph
-        - dirname: absoute path to graph directory
+        - dirname: absolute path to graph directory
         - basename: graph file
         - vertices_number: number of vertices in the graph
         - edges_number: number of edges in the graph
@@ -46,36 +52,40 @@ class RDF(GraphInterface, CmdParser):
         self.store: Optional[rdflib.Graph] = None
 
         self.path: Optional[Path] = None
-        self.dirname = None
-        self.basename = None
+        self.dirname: Optional[Path] = None
+        self.basename: Optional[str] = None
 
-        self.vertices_number = None
-        self.edges_number = None
+        self.vertices_number: Optional[int] = None
+        self.edges_number: Optional[int] = None
 
-        self.file_size = None
-        self.file_name = None
-        self.file_extension = None
+        self.file_size: Optional[int] = None
+        self.file_name: Optional[str] = None
+        self.file_extension: Optional[str] = None
 
     @classmethod
-    def build(cls, *args: Union[Path, str]):
+    def build(cls, *args: Union[Path, str]) -> RDF:
         """
         An RDF graph builder
 
-        :param args: only one argument - args[0] - path to graph or reserves graph name
+        :param args: only one argument - args[0] - path to graph or reserved graph name
         :type args: Union[Path, str]
         :return: RDF graph instance
         :rtype: RDF
         """
 
         try:
+            source = args[0]
             graph = cls.load(args[0])
             graph.save_metadata()
+            cls.graphs[(graph.basename, graph.file_extension)] = source
             return graph
         except BaseException as ex:
-            raise BaseException(f'{cls.__name__}.build: {ex}')
+            raise BaseException(f'{cls.__name__}.build: {ex}') from ex
 
     @classmethod
-    def load(cls, source: Optional[Union[Path, str]] = None, source_file_format: str = 'rdf'):
+    def load(cls,
+             source: Union[Path, str],
+             source_file_format: str = 'rdf') -> RDF:
         """
         Loads RDF graph from specified source with specified source_file_format
 
@@ -92,14 +102,12 @@ class RDF(GraphInterface, CmdParser):
         else:
             rdf_graph = cls.load_from_rdf(source)
 
-        cls.graphs[(rdf_graph.basename, rdf_graph.file_extension)] = source
-
         return rdf_graph
 
-    def save(self
-             , destination: Optional[Union[Path, str]] = None
-             , destination_file_format: str = 'rdf'
-             , config: Dict[str, str] = None) -> Path:
+    def save(self,
+             destination: Union[Path, str],
+             destination_file_format: str = 'rdf',
+             config: Dict[str, str] = None) -> Path:
         """
         Saves RDF graph to destination with specified destination_file_format and edge configuration
 
@@ -130,12 +138,12 @@ class RDF(GraphInterface, CmdParser):
         """
 
         return {
-            'name': str(self.basename)
-            , 'path': str(self.path)
-            , 'version': RELEASE_INFO['version']
-            , 'vertices': self.vertices_number
-            , 'edges': self.edges_number
-            , 'size of file': self.file_size
+            'name': str(self.basename),
+            'path': str(self.path),
+            'version': RELEASE_INFO['version'],
+            'vertices': self.vertices_number,
+            'edges': self.edges_number,
+            'size of file': self.file_size
         }
 
     def save_metadata(self) -> Path:
@@ -169,7 +177,7 @@ class RDF(GraphInterface, CmdParser):
         return triples
 
     @classmethod
-    def load_from_rdf(cls, source: Path = None):
+    def load_from_rdf(cls, source: Path = None) -> RDF:
         """
         Loads RDF graph from specified source with rdf format
 
@@ -204,7 +212,7 @@ class RDF(GraphInterface, CmdParser):
         return graph
 
     @classmethod
-    def load_from_txt(cls, source: Path = None):
+    def load_from_txt(cls, source: Path = None) -> RDF:
         """
         Loads RDF graph from specified source with txt format
 
@@ -221,7 +229,7 @@ class RDF(GraphInterface, CmdParser):
                 s, p, o = edge.split()
                 add_rdf_edge(s, p, o, tmp_graph)
 
-        write_to_rdf('tmp.xml', tmp_graph)
+        write_to_rdf(Path('tmp.xml'), tmp_graph)
 
         graph = cls.load_from_rdf(Path('tmp.xml'))
 
@@ -229,7 +237,7 @@ class RDF(GraphInterface, CmdParser):
 
         return graph
 
-    def save_to_rdf(self, destination: Path):
+    def save_to_rdf(self, destination: Path) -> Path:
         """
         Saves RDF graph to destination rdf file
 
@@ -242,7 +250,9 @@ class RDF(GraphInterface, CmdParser):
         write_to_rdf(destination, self.store)
         return destination
 
-    def save_to_txt(self, destination: Path, config: Dict[str, str] = config):
+    def save_to_txt(self,
+                    destination: Path,
+                    config: Dict[str, str] = None) -> Path:
         """
         Saves RDF graph to destination txt file with specified edge configuration
 
@@ -265,12 +275,14 @@ class RDF(GraphInterface, CmdParser):
                     vertices[tmp] = next_id
                     next_id += 1
 
+            if config is None:
+                config = self.config
+
             edges[pred] = pred
-            if config is not None:
-                if pred in config:
-                    edges[pred] = config[pred]
-                elif 'default' in config:
-                    edges[pred] = config['default']
+            if pred in config:
+                edges[pred] = config[pred]
+            elif 'default' in config:
+                edges[pred] = config['default']
 
             triples.append((vertices[subj], edges[pred], vertices[obj]))
 
@@ -281,7 +293,7 @@ class RDF(GraphInterface, CmdParser):
         return destination
 
     @staticmethod
-    def init_cmd_parser(parser):
+    def init_cmd_parser(parser: ArgumentParser) -> None:
         """
         Initialize command line parser
         :param parser: RDF subparser of command line parser
@@ -291,22 +303,22 @@ class RDF(GraphInterface, CmdParser):
         """
 
         parser.add_argument(
-            '-a'
-            , '--all'
-            , action='store_true'
-            , help='Load all RDF graphs from dataset'
+            '-a',
+            '--all',
+            action='store_true',
+            help='Load all RDF graphs from dataset'
         )
         parser.add_argument(
-            '-g'
-            , '--graph'
-            , choices=list(RELEASE_INFO['RDF'].keys())
-            , required=False
-            , type=str
-            , help='Load specific RDF graph from dataset'
+            '-g',
+            '--graph',
+            choices=list(RELEASE_INFO['RDF'].keys()),
+            required=False,
+            type=str,
+            help='Load specific RDF graph from dataset'
         )
 
     @staticmethod
-    def eval_cmd_parser(args):
+    def eval_cmd_parser(args: Namespace) -> None:
         """
         Evaluate command line parser
         :param args: command line arguments
@@ -317,7 +329,7 @@ class RDF(GraphInterface, CmdParser):
 
         if args.all is False and args.graph is None:
             print('One of -a/--all, -g/--graph required')
-            exit()
+            sys.exit()
 
         if args.all is True:
             clean_dir('RDF')
