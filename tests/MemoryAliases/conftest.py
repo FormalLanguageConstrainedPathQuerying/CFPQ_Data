@@ -1,9 +1,5 @@
 import pytest
 
-from cfpq_data.config import RELEASE_INFO
-
-mas = RELEASE_INFO['MemoryAliases']
-
 
 @pytest.fixture(scope='session', params=[
     'bzip2'
