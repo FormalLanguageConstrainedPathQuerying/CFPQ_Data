@@ -143,7 +143,8 @@ def gen_lubm_graph(destination_folder: Path,
         cwd=str(univ_dir),
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        check=True
+        check=True,
+        shell=True
     )
 
     output_graph = rdflib.Graph()
