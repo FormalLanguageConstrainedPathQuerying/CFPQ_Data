@@ -2,21 +2,21 @@ language: python
 cache: pip
 jobs:
   include:
-    - name: "Docker testing"
+    - name: "Docker"
       services:
         - docker
       python: "3.8.0"
       script:
         - docker build -t cfpq_data .
         - docker run -it --rm -v "$PWD":/CFPQ_Data cfpq_data python3 -m pytest -vv -s  tests/
-    - name: "Linux testing"
+    - name: "Linux"
       os: linux
       python: "3.8.0"
-    - name: "MacOS testing"
+    - name: "MacOS"
       os: osx
       osx_image: xcode12u
       language: shell
-    - name: "Windows testing"
+    - name: "Windows"
       os: windows
       language: shell
       before_install:
