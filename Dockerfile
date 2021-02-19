@@ -1,10 +1,11 @@
 FROM ubuntu:latest
+FROM python:3
+FROM openjdk:7
 
 RUN apt-get -y update && \
     apt-get install -y \
     python3-pip \
-    git \
-    openjdk-11-jre-headless
+    git
 
 COPY . /CFPQ_Data
 
