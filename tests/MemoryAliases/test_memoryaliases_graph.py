@@ -1,6 +1,6 @@
 import os
 
-from cfpq_data import memory_aliases_graph
+from cfpq_data import MemoryAliases
 
 
 def check_metadata(first_graph, second_graph):
@@ -11,10 +11,10 @@ def check_metadata(first_graph, second_graph):
 
 
 def test_graph(ma_graph_name):
-    first_graph = memory_aliases_graph.build(ma_graph_name).save('tmp1')
-    first_graph_obj = memory_aliases_graph.build(first_graph)
-    second_graph = memory_aliases_graph.build(ma_graph_name).save('tmp2')
-    second_graph_obj = memory_aliases_graph.build(second_graph)
+    first_graph = MemoryAliases.build(ma_graph_name).save('tmp1')
+    first_graph_obj = MemoryAliases.build(first_graph)
+    second_graph = MemoryAliases.build(ma_graph_name).save('tmp2')
+    second_graph_obj = MemoryAliases.build(second_graph)
 
     os.remove(first_graph)
     os.remove(second_graph)
