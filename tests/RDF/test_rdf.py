@@ -11,12 +11,22 @@ def check_metadata(first_graph, second_graph):
 
 
 def test_rdf(rdf_graph_name):
-    first_graph = RDF.build(rdf_graph_name).save('tmp1')
-    first_graph_obj = RDF.build(first_graph)
-    second_graph = RDF.build(rdf_graph_name).save('tmp2')
-    second_graph_obj = RDF.build(second_graph)
+    first_graph_path = RDF.build(rdf_graph_name).save('tmp1')
+    first_graph = RDF.build(first_graph_path)
+    second_graph_path = RDF.build(rdf_graph_name).save('tmp2')
+    second_graph = RDF.build(second_graph_path)
 
-    os.remove(first_graph)
-    os.remove(second_graph)
+    os.remove(first_graph_path)
+    os.remove(second_graph_path)
 
-    assert check_metadata(first_graph_obj, second_graph_obj)
+    assert check_metadata(first_graph, second_graph)
+
+
+def test_txt(rdf_graph_name):
+    first_graph = RDF.build(rdf_graph_name)
+    first_graph_path = first_graph.save('tmp1', 'txt')
+    second_graph = RDF.build(first_graph_path, 'txt')
+
+    os.remove(first_graph_path)
+
+    assert check_metadata(first_graph, second_graph)

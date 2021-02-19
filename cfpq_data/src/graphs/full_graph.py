@@ -72,7 +72,7 @@ class FullGraph(RDF, ICmdParser):
             '-n',
             '--vertices_number',
             required=False,
-            ype=int,
+            type=int,
             help='Number of vertices of FullGraph graph'
         )
 

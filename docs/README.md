@@ -3,33 +3,24 @@
 Graphs and grammars for experimental analysis of context-free path querying algorithms.
 
 ## Prerequirements
+
 * GCC
 * Python 3
 
-## How to start
+## Installing
 
-* Install requirements ```pip3 install -r requirements.txt```
+```shell
+python3 -m pip install cfpq_data
+cfpq_data -h
+```
 
-* Choose part of the dataset
+OR
 
-| Graphs | Command |
-|:------:|:-------:|
-| RDF | python3 cfpq_data.py RDF --all |
-| MemoryAliases | python3 cfpq_data.py MemoryAliases --all |
-| ScaleFree | python3 cfpq_data.py ScaleFree --preset |
-| FullGraph| python3 cfpq_data.py FullGraph --preset |
-| WorstCase | python3 cfpq_data.py WorstCase --preset |
-| SparseGraph | python3 cfpq_data.py SparseGraph --preset |
-| LUBM | python3 cfpq_data.py LUBM |
-
-* Or one of tools
-
-| Tool description | Command |
-|:----------------:|:-------:|
-| Convert specific graph or part of dataset to TXT file | python3 graph2txt -h |
-| Convert grammar to cnf format | python3 grammar2cnf -h |
-| Generate RPQ queries | python3 gen_RPQ -h |
-| Load RDF graph to RedisGraph | python3 redis_rdf -h |
+```shell
+git clone https://github.com/JetBrains-Research/CFPQ_Data.git
+cd CFPQ_Data
+python3 -m cfpq_data --help
+```
 
 ## Integration with graph DBs
 
@@ -37,10 +28,14 @@ We provide a set of scripts to simplify data loading into some popular graph dat
 
 ### RedisGraph
 
-The dataset can be loaded to RedisGraph with ```src/tools/redis_rdf```, for example:
+**Note! At the moment redis_rdf is not part of the cfpq_data project and can only be used after downloading the
+repository directly**
+
+The dataset can be loaded to RedisGraph with ```cfpq_data/src/tools/redis_rdf```, for example:
+
 ```
-python3 main.py redis_rdf --host [HOST] --port [PORT] dir ../../data/Matrices/ScaleFree/
-python3 main.py redis_rdf --host [HOST] --port [PORT] file ../../data/Matrices/RDF/foaf.rdf foaf
+python3 main.py redis_rdf --host [HOST] --port [PORT] dir <path to folder with graphs>
+python3 main.py redis_rdf --host [HOST] --port [PORT] file <path to graph> <graph name>
 ```
 
 ### Neo4j
@@ -49,7 +44,8 @@ To load RDF data into Neo4j database one can use [Neosemantix plugin for Neo4j](
 
 ## Dataset
 
-Set contains both real-world data and synthetic graphs for several specific cases. All graphs are represented in RDF format to unify loading process.
+Set contains both real-world data and synthetic graphs for several specific cases. All graphs are represented in RDF
+format to unify loading process.
 
 ### Query format
 
@@ -59,18 +55,19 @@ Queries are represented as context-free grammars in the following format:
 - Line 1: a set of terminal symbols delimited by spaces
 - The rest of the lines are productions in the form:
 
-     ```head -> body | body | ... | body```
+  ```head -> body | body | ... | body```
 
-    where each body can contain basic regular expression, allowed operators:
-    
+  where each body can contain basic regular expression, allowed operators:
+
     - The concatenation, the default operator, which can by represented either by a space or a dot (```.```)
     - The union, represented by ```|```
     - The ```?``` quantifier
     - The kleene star, represented by ```*```
-    
-    Epsilon symbol should be represented by ```eps```
+
+  Epsilon symbol should be represented by ```eps```
 
 Example query in such format:
+
 ```
 S
 a b
@@ -78,61 +75,85 @@ S -> a S b S
 S -> eps
 ```
 
-Grammar can be converted to CNF with ```src/tools/grammar2cnf```, which uses [pyformlang](https://pypi.org/project/pyformlang/) library to perform context-free grammar modifications.
+Grammar can be converted to CNF with ```src/tools/grammar2cnf```, which
+uses [pyformlang](https://pypi.org/project/pyformlang/) library to perform context-free grammar modifications.
+
 ```
 $ python3 main.py grammar2cnf file [PATH_TO_GRAMMAR] --output [PATH_TO_OUTPUT]
 ```
 
 ### Dataset structure
 
-Graphs and grammars can be found in  ```data``` — all graphs are divided into groups, which are placed in different directories. Each ```data/[GroupName]/Matrices``` contains graph descriptions and ```data/[GroupName]/Grammars``` — descriptions of queries. 
+Graphs and grammars can be found in  ```data``` — all graphs are divided into groups, which are placed in different
+directories. Each ```data/[GroupName]/Matrices``` contains graph descriptions and ```data/[GroupName]/Grammars``` —
+descriptions of queries.
 
 **```RDF```** — fixed versions of real-world RDF files (links are provided for updating purposes only!):
-- Small graphs is a set of popular semantic web ontologies. This set is introduced by Xiaowang Zhang in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743) :
-   - [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf)
-   - [foaf](http://xmlns.com/foaf/0.1/)
-   - [wine](https://www.w3.org/TR/owl-guide/wine.rdf)
-   - [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl)
-   - [generations](http://www.owl-ontologies.com/generations.owl)
-   - [travel](https://protege.stanford.edu/ontologies/travel.owl)
-   - [univ-bench](http://swat.cse.lehigh.edu/onto/univ-bench.owl)
-   - [people-pets](http://owl.man.ac.uk/tutorial/people+pets.rdf)
+
+- Small graphs is a set of popular semantic web ontologies. This set is introduced by Xiaowang Zhang
+  in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743) :
+    - [skos](https://www.w3.org/2009/08/skos-reference/skos.rdf)
+    - [foaf](http://xmlns.com/foaf/0.1/)
+    - [wine](https://www.w3.org/TR/owl-guide/wine.rdf)
+    - [pizza](https://protege.stanford.edu/ontologies/pizza/pizza.owl)
+    - [generations](http://www.owl-ontologies.com/generations.owl)
+    - [travel](https://protege.stanford.edu/ontologies/travel.owl)
+    - [univ-bench](http://swat.cse.lehigh.edu/onto/univ-bench.owl)
+    - [people-pets](http://owl.man.ac.uk/tutorial/people+pets.rdf)
 
 - Bigger graphs:
-   - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species, download here: <https://old.datahub.io/dataset/geospecies>. Introduced in ["An Experimental Study ofContext-Free Path Query Evaluation Methods"](https://dl.acm.org/doi/pdf/10.1145/3335783.3335791)
-   - a set of graphs from the **Uniprot** protein sequences database, download here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
-       - **go**
-       - **go-hierarchy**
-       - **pathways**
-       - **taxonomy**
-       - **taxonomy-hierarchy**
-       - **core**
-       - **enzime**
-   - **eclass_514en** 
+    - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species, download
+      here: <https://old.datahub.io/dataset/geospecies>. Introduced
+      in ["An Experimental Study ofContext-Free Path Query Evaluation Methods"](https://dl.acm.org/doi/pdf/10.1145/3335783.3335791)
+    - a set of graphs from the **Uniprot** protein sequences database, download
+      here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
+        - **go**
+        - **go-hierarchy**
+        - **pathways**
+        - **taxonomy**
+        - **taxonomy-hierarchy**
+        - **core**
+        - **enzime**
+    - **eclass_514en**
 
 Grammars list contains the following variants of same-generation query over different relation tipes.
--  **g1** — same-generation query over _type_ and _subclass-of_ relations. Introduced in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
--  **g2** — same-generation query over _type_ and _subclass-of_ relations. Introduced in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
--  **geo** — same-generation query over _broader-transitive_ relation.
-  
+
+- **g1** — same-generation query over _type_ and _subclass-of_ relations. Introduced
+  in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
+- **g2** — same-generation query over _type_ and _subclass-of_ relations. Introduced
+  in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
+- **geo** — same-generation query over _broader-transitive_ relation.
 
 **```MemoryAliases```** — real-world data for points-to analysis of C code.
-  - First part is a dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp). The original data is placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing). This part is placed in ```Graspan``` folder.
-  - Second part is a part of dataset form ["Demand-driven alias analysis for C"](https://dl.acm.org/doi/10.1145/1328897.1328464). This part is placed in ```small``` folder.
 
-  Both grammars **g1** and **g2** specify the same language which is described in related papers. These two grammars were written in a different way in order to investigate dependencies on query specification format.
+- First part is a dataset form [Graspan tool](https://github.com/Graspan/graspan-cpp). The original data is
+  placed [here](https://drive.google.com/drive/folders/0B8bQanV_QfNkbDJsOWc2WWk4SkE?usp=sharing). This part is placed
+  in ```Graspan``` folder.
+- Second part is a part of dataset
+  form ["Demand-driven alias analysis for C"](https://dl.acm.org/doi/10.1145/1328897.1328464). This part is placed
+  in ```small``` folder.
 
-**```WorstCase```** — graphs with two cylces; the query **Brackets** is a grammar for the language of correct bracket sequences.
+Both grammars **g1** and **g2** specify the same language which is described in related papers. These two grammars were
+written in a different way in order to investigate dependencies on query specification format.
 
-**```SparseGraph```** — graphs generated with [NetworkX](https://networkx.github.io/) to emulate sparse data. The grammar provided is a variant of the same-generation query.
+**```WorstCase```** — graphs with two cylces; the query **Brackets** is a grammar for the language of correct bracket
+sequences.
 
-**```ScaleFree```** — graphs generated by using the Barab\'asi-Albert model of scale-free networks. Use with grammar **an_bm_cm_dn**, which is a query for _A<sub>n</sub>B<sub>m</sub>C<sub>m</sub>D<sub>n</sub>_ language.
+**```SparseGraph```** — graphs generated with [NetworkX](https://networkx.github.io/) to emulate sparse data. The
+grammar provided is a variant of the same-generation query.
 
-**```FullGraph```** — cycle graphs, all edges are labeled with the same token. Use with **A_star** queries, which produce full graph on that dataset.
+**```ScaleFree```** — graphs generated by using the Barab\'asi-Albert model of scale-free networks. Use with grammar **
+an_bm_cm_dn**, which is a query for _A<sub>n</sub>B<sub>m</sub>C<sub>m</sub>D<sub>n</sub>_ language.
+
+**```FullGraph```** — cycle graphs, all edges are labeled with the same token. Use with **A_star** queries, which
+produce full graph on that dataset.
+
+**```LUBM```** - the Lehigh University Benchmark graphs.
 
 ### Graphs information
 
 #### RDF
+
 | Name | Vertices | Edges | Size of file (Bytes) |
 |:---|:---|:---|:---|
 | atom-primitive.owl | 291 | 425 | 48884 |
@@ -155,6 +176,7 @@ Grammars list contains the following variants of same-generation query over diff
 | wine.rdf | 733 | 1839 | 78225 |
 
 #### MemoryAliases
+
 | Name | Vertices | Edges | Size of file (Bytes) |
 |:---|:---|:---|:---|
 | Apache_httpd_2.2.18_pointsto_graph.xml | 1721418 | 1510411 | 138037427 |
@@ -178,29 +200,21 @@ Grammars list contains the following variants of same-generation query over diff
 | sound_afterInline.txt.xml | 3528861 | 3049732 | 285856817 |
 | wc.txt.xml | 332 | 269 | 23679 |
 
-### Reference values
-
-Reference values for algorithms correctnes checking, which can be found in [reference_values.csv](./reference_values.csv), are in the following format: ```graph, grammar, control_sum```, where ```control_sum``` is the number of paths generated by non-terminals of the grammars.
-
-Example of the ```FullGraph``` dataset reference values in such format:
-```
-fullgraph_10,A_star0,"{'s': 100}"
-fullgraph_100,A_star0,"{'s': 10000}"
-...
-```
-
 ## Papers on CFPQ
 
 List of CFPQ-related works. The list is not full, work in progress.
 
 ### Graph databases
+
 - M. Yannakakis. "Graph-theoretic methods in database theory".
 - P. Sevon and L. Eronen. "Subgraph queries by context-free grammars".
-- J. Kuijpers, G. Fletcher, N. Yakovets, and T. Lindaaker. "An experimental study of context-free path query evaluation methods".
-- H. Miao and A. Deshpande. "Understanding Data Science Lifecycle Provenance via Graph Segmentation and Summarization". 
+- J. Kuijpers, G. Fletcher, N. Yakovets, and T. Lindaaker. "An experimental study of context-free path query evaluation
+  methods".
+- H. Miao and A. Deshpande. "Understanding Data Science Lifecycle Provenance via Graph Segmentation and Summarization".
 - TBD
 
 ### Static code analysis
+
 - T. Reps. "Program analysis via graph reachability".
 - X. Zheng and R. Rugina. "Demand-driven alias analysis for C".
 - TBD

@@ -20,3 +20,13 @@ def test_graph(ma_graph_name):
     os.remove(second_graph)
 
     assert check_metadata(first_graph_obj, second_graph_obj)
+
+
+def test_txt(ma_graph_name):
+    first_graph = MemoryAliases.build(ma_graph_name)
+    first_graph_path = first_graph.save('tmp1', 'txt')
+    second_graph = MemoryAliases.build(first_graph_path, 'txt')
+
+    os.remove(first_graph_path)
+
+    assert check_metadata(first_graph, second_graph)
