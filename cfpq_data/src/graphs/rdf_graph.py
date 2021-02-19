@@ -16,6 +16,7 @@ from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_graphs_downloader import download_data
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils.utils import unpack_graph, clean_dir
+from cfpq_data.src.tools.redis_rdf.src.redis_loader.triplet_loader import uri_to_name
 
 
 class RDF(IGraph, ICmdParser):
@@ -75,7 +76,10 @@ class RDF(IGraph, ICmdParser):
 
         try:
             source = args[0]
-            graph = cls.load(args[0])
+            if len(args) > 1:
+                graph = cls.load(args[0], args[1])
+            else:
+                graph = cls.load(args[0])
             graph.save_metadata()
             cls.graphs[(graph.basename, graph.file_extension)] = source
             return graph
@@ -268,6 +272,8 @@ class RDF(IGraph, ICmdParser):
         edges = dict()
         next_id = 0
         triples = list()
+        if config is None:
+            config = self.config
 
         for subj, pred, obj in self.store:
             for tmp in [subj, obj]:
@@ -275,16 +281,12 @@ class RDF(IGraph, ICmdParser):
                     vertices[tmp] = next_id
                     next_id += 1
 
-            if config is None:
-                config = self.config
-
-            edges[pred] = pred
-            if pred in config:
-                edges[pred] = config[pred]
+            if str(pred) in config:
+                edges[str(pred)] = config[str(pred)]
             elif 'default' in config:
-                edges[pred] = config['default']
+                edges[str(pred)] = config['default']
 
-            triples.append((vertices[subj], edges[pred], vertices[obj]))
+            triples.append((vertices[subj], edges[str(pred)], vertices[obj]))
 
         with open(destination, 'w') as output_file:
             for s, p, o in triples:
