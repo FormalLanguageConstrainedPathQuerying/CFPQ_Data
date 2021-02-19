@@ -16,7 +16,6 @@ from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_graphs_downloader import download_data
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils.utils import unpack_graph, clean_dir
-from cfpq_data.src.tools.redis_rdf.src.redis_loader.triplet_loader import uri_to_name
 
 
 class RDF(IGraph, ICmdParser):
@@ -64,12 +63,16 @@ class RDF(IGraph, ICmdParser):
         self.file_extension: Optional[str] = None
 
     @classmethod
-    def build(cls, *args: Union[Path, str]) -> RDF:
+    def build(cls,
+              *args: Union[Path, str],
+              config: Optional[Dict[str, str]] = None) -> RDF:
         """
         An RDF graph builder
 
         :param args: args[0] - path to graph or reserved graph name, args[1] (optional) - graph file extension
         :type args: Union[Path, str]
+        :param config: edge configuration
+        :type config: Optional[Dict[str, str]]
         :return: RDF graph instance
         :rtype: RDF
         """
@@ -77,7 +80,7 @@ class RDF(IGraph, ICmdParser):
         try:
             source = args[0]
             if len(args) > 1:
-                graph = cls.load(args[0], args[1])
+                graph = cls.load(args[0], source_file_format=args[1])
             else:
                 graph = cls.load(args[0])
             graph.save_metadata()
@@ -89,7 +92,8 @@ class RDF(IGraph, ICmdParser):
     @classmethod
     def load(cls,
              source: Union[Path, str],
-             source_file_format: str = 'rdf') -> RDF:
+             source_file_format: str = 'rdf',
+             config: Optional[Dict[str, str]] = None) -> RDF:
         """
         Loads RDF graph from specified source with specified source_file_format
 
@@ -97,12 +101,14 @@ class RDF(IGraph, ICmdParser):
         :type source: Optional[Union[Path, str]]
         :param source_file_format: graph format ('txt'/'rdf')
         :type source_file_format: str
+        :param config: edge configuration
+        :type config: Optional[Dict[str, str]]
         :return: loaded graph
         :rtype: RDF
         """
 
         if source_file_format == 'txt':
-            rdf_graph = cls.load_from_txt(source)
+            rdf_graph = cls.load_from_txt(source, config)
         else:
             rdf_graph = cls.load_from_rdf(source)
 
@@ -127,6 +133,7 @@ class RDF(IGraph, ICmdParser):
 
         if destination is None:
             destination = MAIN_FOLDER / 'data' / self.type / 'Graphs' / self.basename
+
         if destination_file_format == 'txt':
             self.save_to_txt(destination, config)
         else:
@@ -207,8 +214,18 @@ class RDF(IGraph, ICmdParser):
         graph.dirname = Path(os.path.dirname(source))
         graph.basename = os.path.basename(source)
 
-        graph.vertices_number = len(graph.store.all_nodes())
-        graph.edges_number = len(graph.store)
+        vertices = dict()
+        next_vertex = 0
+        edges_number = 0
+
+        for subj, pred, obj in graph.store:
+            for tmp in [subj, obj]:
+                vertices[tmp] = next_vertex
+                next_vertex += 1
+            edges_number += 1
+
+        graph.vertices_number = len(vertices.keys())
+        graph.edges_number = edges_number
 
         graph.file_size = os.path.getsize(source)
         graph.file_name, graph.file_extension = os.path.splitext(graph.basename)
@@ -216,28 +233,41 @@ class RDF(IGraph, ICmdParser):
         return graph
 
     @classmethod
-    def load_from_txt(cls, source: Path = None) -> RDF:
+    def load_from_txt(cls, source: Path = None, config: Optional[Dict[str, str]] = None) -> RDF:
         """
         Loads RDF graph from specified source with txt format
 
         :param source: graph source
         :type source: Path
+        :param config: edge configuration
+        :type config: Optional[Dict[str, str]]
         :return: loaded graph
         :rtype: RDF
         """
 
         tmp_graph = rdflib.Graph()
 
+        if config is None:
+            config = dict()
+
+            with open(source, 'r') as input_file:
+                for edge in input_file:
+                    s, p, o = edge.strip('\n').split(' ')
+                    p_text = p
+                    if not p.startswith('http'):
+                        p_text = f'http://yacc/rdf-schema#{p_text}'
+                    config[p] = p_text
+
         with open(source, 'r') as input_file:
             for edge in input_file:
-                s, p, o = edge.split()
-                add_rdf_edge(s, p, o, tmp_graph)
+                s, p, o = edge.strip('\n').split(' ')
+                add_rdf_edge(s, config[p], o, tmp_graph)
 
         write_to_rdf(Path('tmp.xml'), tmp_graph)
 
         graph = cls.load_from_rdf(Path('tmp.xml'))
 
-        os.remove('tmp.xml')
+        # os.remove('tmp.xml')
 
         return graph
 
@@ -256,14 +286,14 @@ class RDF(IGraph, ICmdParser):
 
     def save_to_txt(self,
                     destination: Path,
-                    config: Dict[str, str] = None) -> Path:
+                    config: Optional[Dict[str, str]] = None) -> Path:
         """
         Saves RDF graph to destination txt file with specified edge configuration
 
         :param destination: path to save the graph
         :type destination: Path
         :param config: edges configuration
-        :type config: Dict[str, str]
+        :type config: Optional[Dict[str, str]]
         :return: path to saved graph
         :rtype: Path
         """
@@ -272,8 +302,13 @@ class RDF(IGraph, ICmdParser):
         edges = dict()
         next_id = 0
         triples = list()
+
         if config is None:
-            config = self.config
+            config = dict()
+
+            for subj, pred, obj in self.store:
+                p_text = str(pred)
+                config[p_text] = p_text
 
         for subj, pred, obj in self.store:
             for tmp in [subj, obj]:
@@ -281,10 +316,11 @@ class RDF(IGraph, ICmdParser):
                     vertices[tmp] = next_id
                     next_id += 1
 
-            if str(pred) in config:
-                edges[str(pred)] = config[str(pred)]
-            elif 'default' in config:
-                edges[str(pred)] = config['default']
+            p_text = str(pred)
+            if p_text in config:
+                edges[p_text] = config[p_text]
+            else:
+                edges[p_text] = 'other'
 
             triples.append((vertices[subj], edges[str(pred)], vertices[obj]))
 
