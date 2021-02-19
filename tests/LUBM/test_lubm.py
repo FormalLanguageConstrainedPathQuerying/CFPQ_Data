@@ -10,7 +10,7 @@ def check_metadata(first_graph, second_graph):
     return True
 
 
-def test_fullgraph(num_of_vertices):
+def test_lubm(num_of_vertices):
     first_graph = LUBM.build(num_of_vertices)
     second_graph_path = first_graph.save('tmp')
     second_graph = LUBM.load_from_rdf(second_graph_path)
