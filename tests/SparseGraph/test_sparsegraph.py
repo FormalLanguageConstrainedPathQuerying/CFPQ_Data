@@ -25,6 +25,7 @@ def test_txt(suit_sparsegraph):
     first_graph = SparseGraph.build(vertices_number, edge_probability)
     second_graph_path = first_graph.save('tmp', 'txt')
     second_graph = SparseGraph.load_from_txt(second_graph_path)
+
     os.remove(second_graph_path)
 
     assert check_metadata(first_graph, second_graph)

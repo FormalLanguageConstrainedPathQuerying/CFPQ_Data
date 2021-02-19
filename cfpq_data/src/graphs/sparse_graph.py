@@ -3,13 +3,12 @@ from __future__ import annotations
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Union, Optional
 
 import networkx as nx
 import rdflib
 from tqdm import tqdm
 
-from cfpq_data.config import RELEASE_INFO
 from cfpq_data.src.graphs.rdf_graph import RDF
 from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
@@ -34,36 +33,48 @@ class SparseGraph(RDF, ICmdParser):
     """
 
     graphs: Dict[Tuple[str, str], Path] = dict()
-    config: Dict[str, str] = RELEASE_INFO['Generators_Config']
 
     @classmethod
     def build(cls,
-              vertices_number: int,
-              edge_probability: float,
-              source_file_format = 'rdf') -> SparseGraph:
+              *args: Union[Path, str, int],
+              source_file_format: str = 'rdf',
+              config: Optional[Dict[str, str]] = None) -> SparseGraph:
         """
         Build SparseGraph instance by number of vertices in probability of edge existence
 
-        :param vertices_number: number of vertices in the graph
-        :type vertices_number: int
-        :param edge_probability: probability of edge existence in the graph
-        :type edge_probability: float
+        - args[0] - number of vertices in the graph
+        - args[1] - probability of edge existence in the graph
+
+        :param args: arguments
+        :type args: int
+        :param source_file_format: graph format ('txt'/'rdf')
+        :type source_file_format: str
+        :param config: edge configuration
+        :type config: Optional[Dict[str, str]]
         :return: SparseGraph instance
         :rtype: SparseGraph
         """
 
-        path_to_graph = gen_sparse_graph(
-            add_graph_dir('SparseGraph'),
-            vertices_number,
-            edge_probability
-        )
+        if len(args) > 1:
+            vertices_number = args[0]
+            edge_probability = args[1]
 
-        graph = SparseGraph.load_from_rdf(path_to_graph)
+            path_to_graph = gen_sparse_graph(add_graph_dir('SparseGraph'),
+                                             vertices_number,
+                                             edge_probability
+                                             )
 
-        if source_file_format == 'txt':
-            graph.save_to_txt(graph.dirname + graph.file_name + '.txt')
+            graph = SparseGraph.load_from_rdf(path_to_graph)
+        else:
+            source = args[0]
+            if source_file_format == 'txt':
+                graph = cls.load_from_txt(source, config)
+            else:
+                graph = cls.load_from_rdf(source)
 
         graph.save_metadata()
+
+        cls.graphs[(graph.basename, graph.file_extension)] = graph.path
 
         return graph
 
