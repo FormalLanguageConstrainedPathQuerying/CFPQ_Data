@@ -1,6 +1,6 @@
 FROM ubuntu:latest
-FROM python:3
-FROM openjdk:7
+FROM python:latest
+FROM openjdk:latest
 
 RUN apt-get -y update && \
     apt-get install -y \
