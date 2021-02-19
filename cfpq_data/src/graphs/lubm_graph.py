@@ -130,20 +130,19 @@ def gen_lubm_graph(destination_folder: Path,
         shutil.unpack_archive(filename=str(arch), extract_dir=str(univ_dir))
         os.remove(arch)
     subprocess.run(
-        [
-            'java',
-            '-cp',
-            'classes',
-            'edu.lehigh.swat.bench.uba.Generator',
-            '-univ',
-            f'{count}',
-            '-onto',
-            'http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl'
-        ],
+        'java ' +
+        '-cp ' +
+        'classes ' +
+        'edu.lehigh.swat.bench.uba.Generator ' +
+        '-univ ' +
+        f'{count} ' +
+        '-onto ' +
+        'http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl',
         cwd=str(univ_dir),
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        check=True
+        check=True,
+        shell=True
     )
 
     output_graph = rdflib.Graph()

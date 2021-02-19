@@ -1,13 +1,13 @@
 FROM ubuntu:latest
 
-RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt -y update && \
-    apt install -y \
+    apt-get -y install software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt -y install \
     python3.9 \
     python3-pip \
     git \
-    default-jre \
-    default-jdk
+    openjdk-8-jdk
 
 COPY . /CFPQ_Data
 
