@@ -22,7 +22,6 @@ class MemoryAliases(RDF, ICmdParser):
 
     graphs: Dict[Tuple[str, str], Path] = dict()
     graph_keys: Dict[str, str] = RELEASE_INFO['MemoryAliases']
-    config: Dict[str, str] = RELEASE_INFO['MemoryAliases_Config']
 
     @staticmethod
     def init_cmd_parser(parser: ArgumentParser) -> None:
