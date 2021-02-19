@@ -1,11 +1,13 @@
 FROM ubuntu:latest
-FROM python:latest
-FROM openjdk:latest
 
-RUN apt-get -y update && \
-    apt-get install -y \
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt -y update && \
+    apt install -y \
+    python3.9 \
     python3-pip \
-    git
+    git \
+    default-jre \
+    default-jdk
 
 COPY . /CFPQ_Data
 
