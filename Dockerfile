@@ -1,10 +1,10 @@
 FROM ubuntu:latest
 
 RUN apt -y update && \
-    apt-get install software-properties-common && \
+    apt-get -y install software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt install -y \
-    python3.9 \
+    apt -y install \
+    python3.8 \
     python3-pip \
     git \
     default-jre \
