@@ -24,8 +24,8 @@ def test_rdf(rdf_graph_name):
 
 def test_txt(rdf_graph_name):
     first_graph = RDF.build(rdf_graph_name)
-    first_graph_path = first_graph.save('tmp1', 'txt')
-    second_graph = RDF.build(first_graph_path, 'txt')
+    first_graph_path = first_graph.save('tmp1.txt', 'txt')
+    second_graph = RDF.load_from_txt(first_graph_path)
 
     os.remove(first_graph_path)
 

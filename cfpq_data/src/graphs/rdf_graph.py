@@ -29,7 +29,6 @@ class RDF(IGraph, ICmdParser):
 
     graphs: Dict[Tuple[str, str], Path] = dict()
     graph_keys: Dict[str, str] = RELEASE_INFO['RDF']
-    config: Dict[str, str] = RELEASE_INFO['RDF_Config']
 
     def __init__(self):
         """
@@ -65,29 +64,33 @@ class RDF(IGraph, ICmdParser):
     @classmethod
     def build(cls,
               *args: Union[Path, str],
+              source_file_format: str = 'rdf',
               config: Optional[Dict[str, str]] = None) -> RDF:
         """
         An RDF graph builder
 
         :param args: args[0] - path to graph or reserved graph name, args[1] (optional) - graph file extension
         :type args: Union[Path, str]
+        :param source_file_format: graph format ('txt'/'rdf')
+        :type source_file_format: str
         :param config: edge configuration
         :type config: Optional[Dict[str, str]]
         :return: RDF graph instance
         :rtype: RDF
         """
 
-        try:
-            source = args[0]
-            if len(args) > 1:
-                graph = cls.load(args[0], source_file_format=args[1])
-            else:
-                graph = cls.load(args[0])
-            graph.save_metadata()
-            cls.graphs[(graph.basename, graph.file_extension)] = source
-            return graph
-        except BaseException as ex:
-            raise BaseException(f'{cls.__name__}.build: {ex}') from ex
+        source = args[0]
+
+        if source_file_format == 'txt':
+            graph = cls.load_from_txt(source, config)
+        else:
+            graph = cls.load_from_rdf(source)
+
+        graph.save_metadata()
+
+        cls.graphs[(graph.basename, graph.file_extension)] = graph.path
+
+        return graph
 
     @classmethod
     def load(cls,
@@ -117,7 +120,7 @@ class RDF(IGraph, ICmdParser):
     def save(self,
              destination: Union[Path, str],
              destination_file_format: str = 'rdf',
-             config: Dict[str, str] = None) -> Path:
+             config: Optional[Dict[str, str]] = None) -> Path:
         """
         Saves RDF graph to destination with specified destination_file_format and edge configuration
 
@@ -126,7 +129,7 @@ class RDF(IGraph, ICmdParser):
         :param destination_file_format: graph format
         :type destination_file_format: str
         :param config: edges configuration
-        :type config: Dict[str, str]
+        :type config: Optional[Dict[str, str]]
         :return: path to saved graph
         :rtype: Path
         """
@@ -214,18 +217,8 @@ class RDF(IGraph, ICmdParser):
         graph.dirname = Path(os.path.dirname(source))
         graph.basename = os.path.basename(source)
 
-        vertices = dict()
-        next_vertex = 0
-        edges_number = 0
-
-        for subj, pred, obj in graph.store:
-            for tmp in [subj, obj]:
-                vertices[tmp] = next_vertex
-                next_vertex += 1
-            edges_number += 1
-
-        graph.vertices_number = len(vertices.keys())
-        graph.edges_number = edges_number
+        graph.vertices_number = len(graph.store.all_nodes())
+        graph.edges_number = len(graph.store)
 
         graph.file_size = os.path.getsize(source)
         graph.file_name, graph.file_extension = os.path.splitext(graph.basename)
@@ -233,7 +226,9 @@ class RDF(IGraph, ICmdParser):
         return graph
 
     @classmethod
-    def load_from_txt(cls, source: Path = None, config: Optional[Dict[str, str]] = None) -> RDF:
+    def load_from_txt(cls,
+                      source: Path = None,
+                      config: Optional[Dict[str, str]] = None) -> RDF:
         """
         Loads RDF graph from specified source with txt format
 
