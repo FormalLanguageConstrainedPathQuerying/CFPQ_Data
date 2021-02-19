@@ -1,8 +1,8 @@
 FROM ubuntu:latest
 
-RUN apt-get install software-properties-common
-RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt -y update && \
+    apt-get install software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
     apt install -y \
     python3.9 \
     python3-pip \
