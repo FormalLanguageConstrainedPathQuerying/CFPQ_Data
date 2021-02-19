@@ -40,7 +40,10 @@ def add_rdf_edge(subj: int, pred: str, obj: int,
 
     s = BNode(f'id-{subj}')
 
-    p = URIRef(str(pred))
+    p_text = str(pred)
+    if not p_text.startswith('http'):
+        p_text = f'http://yacc/rdf-schema#{p_text}'
+    p = URIRef(p_text)
 
     o = BNode(f'id-{obj}')
 
