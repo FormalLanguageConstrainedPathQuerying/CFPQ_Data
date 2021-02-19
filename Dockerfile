@@ -1,5 +1,6 @@
 FROM ubuntu:latest
 
+RUN apt-get install software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt -y update && \
     apt install -y \
