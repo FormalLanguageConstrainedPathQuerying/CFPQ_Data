@@ -5,13 +5,13 @@ import shutil
 import subprocess
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-from typing import Dict, Tuple, Union
+from typing import Dict, Tuple, Union, Optional
 
 import rdflib
 import wget
 from tqdm import tqdm
 
-from cfpq_data.config import RELEASE_INFO, MAIN_FOLDER
+from cfpq_data.config import MAIN_FOLDER
 from cfpq_data.src.graphs.rdf_graph import RDF
 from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
@@ -29,35 +29,41 @@ class LUBM(RDF, ICmdParser):
     """
 
     graphs: Dict[Tuple[str, str], Path] = dict()
-    config = RELEASE_INFO['LUBM_Config']
 
     @classmethod
-    def build(cls, *args: Union[int, Tuple[int, int]]) -> LUBM:
+    def build(cls,
+              *args: Union[Path, str, int],
+              source_file_format: str = 'rdf',
+              config: Optional[Dict[str, str]] = None) -> LUBM:
         """
         Builds LUBM instance by number of generated graphs to create one LUBM graph
 
-        :param args: args[0] - number of generated graphs, args[1] (optional) - edges configuration
+        :param args: args[0] - number of generated graphs or path
         :type args: Union[int, Tuple[int, int]]
+        :param source_file_format: graph format ('txt'/'rdf')
+        :type source_file_format: str
+        :param config: edge configuration
+        :type config: Optional[Dict[str, str]]
         :return: LUBM instance
         :rtype: LUBM
         """
 
         count = int(args[0])
 
-        replace = RELEASE_INFO['LUBM_Config']
-        if len(args) > 1:
-            config = args[1]
-            for edge_config in open(config, 'r').readlines():
-                pair = edge_config.split(' ')
-                old = rdflib.URIRef(pair[0].strip(' '))
-                new = pair[1].strip('\n').strip(' ')
-                replace[old] = new
-
-        path_to_graph = gen_lubm_graph(add_graph_dir('LUBM'), count, replace)
-
-        graph = LUBM.load_from_rdf(path_to_graph)
+        if type(args[0]) is int:
+            number_of_generated_graphs = args[0]
+            path_to_graph = gen_lubm_graph(add_graph_dir('LUBM'), count)
+            graph = LUBM.load_from_rdf(path_to_graph)
+        else:
+            source = args[0]
+            if source_file_format == 'txt':
+                graph = cls.load_from_txt(source, config)
+            else:
+                graph = cls.load_from_rdf(source)
 
         graph.save_metadata()
+
+        cls.graphs[(graph.basename, graph.file_extension)] = graph.path
 
         return graph
 
@@ -107,9 +113,7 @@ class LUBM(RDF, ICmdParser):
         print(f'Generated {graph.basename} to {graph.dirname}')
 
 
-def gen_lubm_graph(destination_folder: Path,
-                   count: int,
-                   config: Dict[str, str]) -> Path:
+def gen_lubm_graph(destination_folder: Path, count: int) -> Path:
     """
     Generates LUBM graph by specified number of generated graphs to create one LUBM graph
 
@@ -117,8 +121,6 @@ def gen_lubm_graph(destination_folder: Path,
     :type destination_folder: Path
     :param count: number of generated graphs
     :type count: int
-    :param config: edges configuration
-    :type config: Dict[str, str]
     :return: path to generated graph
     :rtype: Path
     """
@@ -169,15 +171,12 @@ def gen_lubm_graph(destination_folder: Path,
                 if tmp not in vertices:
                     vertices[tmp] = next_id
                     next_id += 1
-            if pred in config:
-                triples.append((vertices[subj], pred, vertices[obj]))
-            else:
-                triples.append((vertices[subj], 'default', vertices[obj]))
+            triples.append((vertices[subj], pred, vertices[obj]))
 
         os.remove(tmp_graph_path)
 
     for subj, pred, obj in tqdm(triples, desc=f'lubm_{count} generation'):
-        add_rdf_edge(subj, pred, obj, output_graph, config=config, reverse=True)
+        add_rdf_edge(subj, pred, obj, output_graph, reverse=True)
 
     target = destination_folder / f'lubm_{count}.xml'
 
