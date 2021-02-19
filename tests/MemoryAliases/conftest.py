@@ -1,13 +1,16 @@
 import pytest
 
-from cfpq_data.src.utils import get_info
+from cfpq_data.config import RELEASE_INFO
 
-mas = get_info()['MemoryAliases']
+mas = RELEASE_INFO['MemoryAliases']
 
 
 @pytest.fixture(scope='session', params=[
-    name
-    for name, _ in mas.items()
+    'bzip2'
+    , 'gzip'
+    , 'ls'
+    , 'pr'
+    , 'wc'
 ])
 def ma_graph_name(request):
     return request.param

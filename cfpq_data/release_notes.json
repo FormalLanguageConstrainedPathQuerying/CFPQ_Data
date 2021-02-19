@@ -43,5 +43,54 @@
     "security_afterInline": "1TY206_ikpQL35AuWP_6KqAdxPGQQfKLN",
     "sound_afterInline": "1KdolYE4XB929vXpv8ISu8xNtGM4UmacC",
     "wc": "1dQD5zbsj7FvpCJ0dh1LoH9cfdMTb3mcm"
+  },
+  "RDF_Config": {
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": "SCO",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "T",
+    "http://www.w3.org/2004/02/skos/core#broaderTransitive": "BT",
+    "default": "UNKNOWN"
+  },
+  "MemoryAliases_Config": {
+    "http://yacc/A": "A",
+    "http://yacc/D": "D",
+    "default": "UNKNOWN"
+  },
+  "LUBM_Config": {
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#subOrganizationOf": "SO",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#worksFor": "WF",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#headOf": "HF",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#teacherOf": "TF",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#memberOf": "MF",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#advisor": "AD",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#takesCourse": "TC",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#publicationAuthor": "PA",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#undergraduateDegreeFrom": "UG",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#mastersDegreeFrom": "MD",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#doctoralDegreeFrom": "DD",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#emailAddress": "EA",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#name": "NM",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#researchInterest": "RI",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#telephone": "TP",
+    "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#teachingAssistantOf": "TA",
+    "default": "UNKNOWN"
+  },
+  "Generators_Config": {
+    "http://yacc/rdf-schema#A": "A",
+    "http://yacc/rdf-schema#AR": "AR",
+    "http://yacc/rdf-schema#B": "B",
+    "http://yacc/rdf-schema#BR": "BR",
+    "http://yacc/rdf-schema#C": "C",
+    "http://yacc/rdf-schema#CR": "CR",
+    "http://yacc/rdf-schema#D": "D",
+    "http://yacc/rdf-schema#DR": "DR",
+    "A": "http://yacc/rdf-schema#A",
+    "AR": "http://yacc/rdf-schema#AR",
+    "B": "http://yacc/rdf-schema#B",
+    "BR": "http://yacc/rdf-schema#BR",
+    "C": "http://yacc/rdf-schema#C",
+    "CR": "http://yacc/rdf-schema#CR",
+    "D": "http://yacc/rdf-schema#D",
+    "DR": "http://yacc/rdf-schema#DR",
+    "default": "UNKNOWN"
   }
 }
