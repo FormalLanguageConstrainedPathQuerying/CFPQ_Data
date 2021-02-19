@@ -35,7 +35,8 @@ class ScaleFree(RDF, ICmdParser):
     @classmethod
     def build(cls,
               vertices_number: int,
-              vertices_degree: int) -> ScaleFree:
+              vertices_degree: int,
+              source_file_format = 'rdf') -> ScaleFree:
         """
         Builds ScaleFree graph instance by number of vertices and degree of vertex
 
@@ -52,6 +53,9 @@ class ScaleFree(RDF, ICmdParser):
                                              vertices_degree)
 
         graph = ScaleFree.load_from_rdf(path_to_graph)
+
+        if source_file_format == 'txt':
+            graph.save_to_txt(graph.dirname + graph.file_name + '.txt')
 
         graph.save_metadata()
 

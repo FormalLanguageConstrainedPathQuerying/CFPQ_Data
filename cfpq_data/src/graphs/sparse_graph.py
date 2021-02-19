@@ -39,7 +39,8 @@ class SparseGraph(RDF, ICmdParser):
     @classmethod
     def build(cls,
               vertices_number: int,
-              edge_probability: float) -> SparseGraph:
+              edge_probability: float,
+              source_file_format = 'rdf') -> SparseGraph:
         """
         Build SparseGraph instance by number of vertices in probability of edge existence
 
@@ -58,6 +59,9 @@ class SparseGraph(RDF, ICmdParser):
         )
 
         graph = SparseGraph.load_from_rdf(path_to_graph)
+
+        if source_file_format == 'txt':
+            graph.save_to_txt(graph.dirname + graph.file_name + '.txt')
 
         graph.save_metadata()
 

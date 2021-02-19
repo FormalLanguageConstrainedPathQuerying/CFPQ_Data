@@ -28,7 +28,7 @@ class WorstCase(RDF, ICmdParser):
     config: Dict[str, str] = RELEASE_INFO['Generators_Config']
 
     @classmethod
-    def build(cls, vertices_number: int) -> WorstCase:
+    def build(cls, vertices_number: int, source_file_format = 'rdf') -> WorstCase:
         """
         Builds WorstCase graph instance by number of vertices in the graph
 
@@ -43,6 +43,9 @@ class WorstCase(RDF, ICmdParser):
         graph = WorstCase.load_from_rdf(path_to_graph)
 
         graph.save_metadata()
+
+        if source_file_format == 'txt':
+            graph.save_to_txt(graph.dirname + graph.file_name + '.txt')
 
         return graph
 

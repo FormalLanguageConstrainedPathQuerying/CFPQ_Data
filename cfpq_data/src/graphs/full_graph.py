@@ -46,7 +46,7 @@ class FullGraph(RDF, ICmdParser):
         if (len(args) > 1 and args[1] == 'txt'):
             path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
             graph = FullGraph.load_from_rdf(path_to_graph)
-            graph.save_to_txt(Path(str(path_to_graph) + '.txt'))
+            graph.save_to_txt(graph.dirname + graph.file_name + '.txt')
         else:
             path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
             graph = FullGraph.load_from_rdf(path_to_graph)
