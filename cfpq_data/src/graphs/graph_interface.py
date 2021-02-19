@@ -1,9 +1,11 @@
-from abc import *
+from __future__ import annotations
+
+from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Optional, Union, Dict
+from typing import Union, Dict, Any
 
 
-class GraphInterface(ABC):
+class IGraph(ABC):
     """
     Generic graph interface
 
@@ -11,21 +13,21 @@ class GraphInterface(ABC):
 
     @classmethod
     @abstractmethod
-    def build(cls, *args):
+    def build(cls, *args: Any) -> IGraph:
         """
         Builds graph by arguments
 
         :param args: various arguments
         :type args: Any
-        :return: builded graph
-        :rtype: GraphInterface
+        :return: built graph
+        :rtype: IGraph
         """
-
-        pass
 
     @classmethod
     @abstractmethod
-    def load(cls, source: Optional[Union[Path, str]] = None, source_file_format: str = 'rdf'):
+    def load(cls,
+             source: Union[Path, str],
+             source_file_format: str = 'rdf') -> IGraph:
         """
         Loads graph from specified destination with specified destination_file_format
 
@@ -34,16 +36,14 @@ class GraphInterface(ABC):
         :param source_file_format: graph destination_file_format ('txt'/'rdf')
         :type source_file_format: str
         :return: loaded graph
-        :rtype: GraphInterface
+        :rtype: IGraph
         """
 
-        pass
-
     @abstractmethod
-    def save(self
-             , destination: Optional[Union[Path, str]] = None
-             , destination_file_format: str = 'rdf'
-             , config: Dict[str, str] = None) -> Path:
+    def save(self,
+             destination: Union[Path, str],
+             destination_file_format: str = 'rdf',
+             config: Dict[str, str] = None) -> Path:
         """
         Saves graph with specified destination_file_format and edge configuration
 
@@ -54,10 +54,8 @@ class GraphInterface(ABC):
         :param config: edges configuration
         :type config: Dict[str, str]
         :return: path to saved graph
-        :rtype:
+        :rtype: Path
         """
-
-        pass
 
     @abstractmethod
     def get_metadata(self) -> Dict[str, str]:
@@ -68,8 +66,6 @@ class GraphInterface(ABC):
         :rtype: Dict[str, str]
         """
 
-        pass
-
     @abstractmethod
     def save_metadata(self) -> Path:
         """
@@ -78,5 +74,3 @@ class GraphInterface(ABC):
         :return: path to file with graph metadata
         :rtype: Path
         """
-
-        pass
