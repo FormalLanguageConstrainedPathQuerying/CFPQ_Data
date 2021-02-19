@@ -1,9 +1,6 @@
 from pathlib import Path
-from typing import Dict
 
 from rdflib import Graph, BNode, URIRef
-
-from cfpq_data.config import RELEASE_INFO
 
 
 def write_to_rdf(target_path: Path, graph: Graph):
@@ -23,7 +20,6 @@ def write_to_rdf(target_path: Path, graph: Graph):
 
 def add_rdf_edge(subj: int, pred: str, obj: int,
                  rdf_graph: Graph,
-                 config: Dict[str, str] = RELEASE_INFO['Generators_Config'],
                  reverse: bool = False) -> None:
     """
     Add edge to RDF graph
@@ -36,8 +32,6 @@ def add_rdf_edge(subj: int, pred: str, obj: int,
     :type obj: int
     :param rdf_graph: the graph to which the edge will be added
     :type rdf_graph: rdflib.Graph
-    :param config: edge configuration
-    :type config: Dict[str, str]
     :param reverse: a label indicating whether to add a reverse edge to the graph
     :type reverse: bool
     :return: None
@@ -46,15 +40,12 @@ def add_rdf_edge(subj: int, pred: str, obj: int,
 
     s = BNode(f'id-{subj}')
 
-    p_text = config[pred]
-    if not p_text.startswith('http'):
-        p_text = f'http://yacc/rdf-schema#{p_text}'
-    p = URIRef(p_text)
+    p = URIRef(str(pred))
 
     o = BNode(f'id-{obj}')
 
     rdf_graph.add((s, p, o))
 
     if reverse is True:
-        pr = URIRef(p_text + 'R')
+        pr = URIRef(str(p) + 'R')
         rdf_graph.add((s, pr, o))
