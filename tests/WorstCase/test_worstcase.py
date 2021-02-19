@@ -23,6 +23,7 @@ def test_txt(num_of_vertices):
     first_graph = WorstCase.build(num_of_vertices)
     second_graph_path = first_graph.save('tmp', 'txt')
     second_graph = WorstCase.load_from_txt(second_graph_path)
+
     os.remove(second_graph_path)
 
     assert check_metadata(first_graph, second_graph)

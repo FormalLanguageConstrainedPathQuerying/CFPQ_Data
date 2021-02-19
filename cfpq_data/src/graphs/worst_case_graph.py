@@ -3,12 +3,11 @@ from __future__ import annotations
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Union, Optional
 
 import rdflib
 from tqdm import tqdm
 
-from cfpq_data.config import RELEASE_INFO
 from cfpq_data.src.graphs.rdf_graph import RDF
 from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
@@ -25,27 +24,39 @@ class WorstCase(RDF, ICmdParser):
     """
 
     graphs: Dict[Tuple[str, str], Path] = dict()
-    config: Dict[str, str] = RELEASE_INFO['Generators_Config']
 
     @classmethod
-    def build(cls, vertices_number: int, source_file_format = 'rdf') -> WorstCase:
+    def build(cls,
+              *args: Union[Path, str],
+              source_file_format: str = 'rdf',
+              config: Optional[Dict[str, str]] = None) -> WorstCase:
         """
         Builds WorstCase graph instance by number of vertices in the graph
 
-        :param vertices_number: number of vertices in the graph
-        :type vertices_number: int
+        :param args: args[0] - number of vertices in the graph
+        :type args: int
+        :param source_file_format: graph format ('txt'/'rdf')
+        :type source_file_format: str
+        :param config: edge configuration
+        :type config: Optional[Dict[str, str]]
         :return: WorstCase graph instance
         :rtype:WorstCase
         """
 
-        path_to_graph = gen_worst_case_graph(add_graph_dir('WorstCase'), vertices_number)
-
-        graph = WorstCase.load_from_rdf(path_to_graph)
+        if type(args[0]) is int:
+            vertices_number = int(args[0])
+            path_to_graph = gen_worst_case_graph(add_graph_dir('WorstCase'), vertices_number)
+            graph = WorstCase.load_from_rdf(path_to_graph)
+        else:
+            source = args[0]
+            if source_file_format == 'txt':
+                graph = cls.load_from_txt(source, config)
+            else:
+                graph = cls.load_from_rdf(source)
 
         graph.save_metadata()
 
-        if source_file_format == 'txt':
-            graph.save_to_txt(graph.dirname + graph.file_name + '.txt')
+        cls.graphs[(graph.basename, graph.file_extension)] = graph.path
 
         return graph
 
