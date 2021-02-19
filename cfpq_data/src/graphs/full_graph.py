@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Union
 
 import rdflib
 from tqdm import tqdm
@@ -31,7 +31,7 @@ class FullGraph(RDF, ICmdParser):
     config: Dict[str, str] = RELEASE_INFO['Generators_Config']
 
     @classmethod
-    def build(cls, *args: int) -> FullGraph:
+    def build(cls, *args: Union[int, str]) -> FullGraph:
         """
         Builds FullGraph instance by number of vertices in the graph
 
@@ -43,9 +43,13 @@ class FullGraph(RDF, ICmdParser):
 
         vertices_number = args[0]
 
-        path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
-
-        graph = FullGraph.load_from_rdf(path_to_graph)
+        if (len(args) > 1 and args[1] == 'txt'):
+            path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
+            graph = FullGraph.load_from_rdf(path_to_graph)
+            graph.save_to_txt(Path(str(path_to_graph) + '.txt'))
+        else:
+            path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
+            graph = FullGraph.load_from_rdf(path_to_graph)
 
         graph.save_metadata()
 
@@ -126,7 +130,6 @@ def gen_cycle_graph(destination_folder: Path, vertices_number: int) -> Path:
         add_rdf_edge(subj, pred, obj, output_graph)
 
     target = destination_folder / f'fullgraph_{vertices_number}.xml'
-
     write_to_rdf(target, output_graph)
 
     return target
