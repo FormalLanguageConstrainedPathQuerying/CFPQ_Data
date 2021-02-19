@@ -4,8 +4,8 @@ import shutil
 import numpy
 import rdflib
 
-from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.tools.gen_RPQ.RDF_edge_stat import *
+from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 
 templates = [(1, '%s*', 'q1'), (2, '%s %s*', 'q2'), (3, '%s %s* %s*', 'q3'),
              (2, '(%s | %s)*', 'q4_2'), (3, '(%s | %s | %s)*', 'q4_3'), (4, '(%s | %s | %s | %s)*', 'q4_4'),
@@ -47,7 +47,7 @@ def print_qs(qs, root_dir):
                 i = i + 1
 
 
-class GenRPQGraph(CmdParser):
+class GenRPQGraph(ICmdParser):
     @staticmethod
     def init_cmd_parser(parser):
         subparsers = parser.add_subparsers(required=True, dest='mode')

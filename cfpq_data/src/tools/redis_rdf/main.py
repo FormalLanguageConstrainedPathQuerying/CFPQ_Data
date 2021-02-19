@@ -2,11 +2,11 @@
 
 import os
 
-from cfpq_data.src.tools.CmdParser import CmdParser
 from cfpq_data.src.tools.redis_rdf.src.redis_loader.loader import load
+from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 
 
-class RedisRDFGraph(CmdParser):
+class RedisRDFGraph(ICmdParser):
     @staticmethod
     def init_cmd_parser(parser):
         parser.add_argument('--host', help='redis host name', default='localhost')
