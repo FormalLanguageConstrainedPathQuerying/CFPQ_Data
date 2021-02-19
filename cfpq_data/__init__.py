@@ -1,9 +1,7 @@
-from cfpq_data.src.graphs.FullGraph import FullGraph as full_graph
-from cfpq_data.src.graphs.MemoryAliases import MemoryAliases as memory_aliases_graph
-from cfpq_data.src.graphs.RDF import RDF as rdf_graph
-from cfpq_data.src.graphs.ScaleFree import ScaleFree as scale_free_graph
-from cfpq_data.src.graphs.SparseGraph import SparseGraph as sparse_graph
-from cfpq_data.src.graphs.WorstCase import WorstCase as worst_case_graph
-from cfpq_data.src.graphs.LUBM import LUBM as lubm_graph
-from cfpq_data.src.tools.gen_RPQ.gen import GenRPQGraph as gen_rpq_graph
-from cfpq_data.src.tools.redis_rdf.main import RedisRDFGraph as redis_rdf_graph
+from cfpq_data.src.graphs.full_graph import FullGraph
+from cfpq_data.src.graphs.lubm_graph import LUBM
+from cfpq_data.src.graphs.memory_aliases_graph import MemoryAliases
+from cfpq_data.src.graphs.rdf_graph import RDF
+from cfpq_data.src.graphs.scale_free_graph import ScaleFree
+from cfpq_data.src.graphs.sparse_graph import SparseGraph
+from cfpq_data.src.graphs.worst_case_graph import WorstCase

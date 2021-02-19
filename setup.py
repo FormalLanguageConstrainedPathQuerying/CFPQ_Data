@@ -12,7 +12,7 @@ setup(
     , description='Graphs and grammars for experimental analysis of context-free path querying algorithms'
     , long_description=Path(__file__).parent / 'README.md'
     , long_description_content_type='text/markdown'
-    , packages=find_packages()
+    , packages=find_packages(exclude='tools')  # better to completely remove tools in the next versions
     , package_dir=MAIN_FOLDER
     , url='https://github.com/JetBrains-Research/CFPQ_Data'
     , license='Apache License 2.0'
