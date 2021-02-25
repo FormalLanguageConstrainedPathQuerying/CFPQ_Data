@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import sys
-from argparse import ArgumentParser, Namespace
 from pathlib import Path
 from typing import Dict, Tuple, Union, Optional
 
@@ -9,14 +7,13 @@ import rdflib
 from tqdm import tqdm
 
 from cfpq_data.src.graphs.rdf_graph import RDF
-from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils.utils import add_graph_dir
 
 NUMBER_OF_WORST_CASES = 12
 
 
-class WorstCase(RDF, ICmdParser):
+class WorstCase(RDF):
     """
     WorstCase — graphs with two cycles
 
@@ -43,7 +40,7 @@ class WorstCase(RDF, ICmdParser):
         :rtype:WorstCase
         """
 
-        if type(args[0]) is int:
+        if isinstance(args[0], int):
             vertices_number = int(args[0])
             path_to_graph = gen_worst_case_graph(add_graph_dir('WorstCase'), vertices_number)
             graph = WorstCase.load_from_rdf(path_to_graph)
@@ -59,55 +56,6 @@ class WorstCase(RDF, ICmdParser):
         cls.graphs[(graph.basename, graph.file_extension)] = graph.path
 
         return graph
-
-    @staticmethod
-    def init_cmd_parser(parser: ArgumentParser) -> None:
-        """
-        Initialize command line parser
-
-        :param parser: WorstCase subparser of command line parser
-        :type parser: ArgumentParser
-        :return: None
-        :rtype: None
-        """
-
-        parser.add_argument(
-            '-p',
-            '--preset',
-            action='store_true',
-            help='Load preset WorstCase graphs from dataset'
-        )
-        parser.add_argument(
-            '-n',
-            '--vertices_number',
-            required=False,
-            type=int,
-            help='Number of vertices of WorstCase graph'
-        )
-
-    @staticmethod
-    def eval_cmd_parser(args: Namespace) -> None:
-        """
-        Evaluate command line parser
-
-        :param args: command line arguments
-        :type args: Namespace
-        :return: None
-        :rtype: None
-        """
-
-        if args.preset is False and args.vertices_number is None:
-            print("One of -p/--preset, -n/--vertices_number required")
-            sys.exit()
-
-        if args.preset is True:
-            for n in tqdm(range(2, NUMBER_OF_WORST_CASES), desc='WorstCase graphs generation'):
-                WorstCase.build(2 ** n).save_metadata()
-
-        if args.vertices_number is not None:
-            graph = WorstCase.build(args.vertices_number)
-            graph.save_metadata()
-            print(f'Generated {graph.basename} to {graph.dirname}')
 
 
 def gen_worst_case_graph(destination_folder: Path, vertices_number: int) -> Path:
