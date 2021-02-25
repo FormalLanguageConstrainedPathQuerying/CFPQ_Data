@@ -16,23 +16,7 @@ python3
 >>> help(cfpq_data)
 ```
 
-## Integration with graph DBs
-
-We provide a set of scripts to simplify data loading into some popular graph databases.
-
-### RedisGraph
-
-**Note! At the moment redis_rdf is not part of the cfpq_data project and can only be used after downloading the
-repository directly**
-
-The dataset can be loaded to RedisGraph with ```cfpq_data/tools/redis_rdf```, for example:
-
-```
-python3 cfpq_data/tools/redis_rdf/main.py --host [HOST] --port [PORT] dir <path to folder with graphs>
-python3 cfpq_data/tools/redis_rdf/main.py --host [HOST] --port [PORT] file <path to graph> <graph name>
-```
-
-### Neo4j
+### Integration with Neo4j
 
 To load RDF data into Neo4j database one can use [Neosemantix plugin for Neo4j](https://neo4j.com/labs/nsmtx-rdf/).
 
