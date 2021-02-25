@@ -25,11 +25,11 @@ We provide a set of scripts to simplify data loading into some popular graph dat
 **Note! At the moment redis_rdf is not part of the cfpq_data project and can only be used after downloading the
 repository directly**
 
-The dataset can be loaded to RedisGraph with ```cfpq_data/src/tools/redis_rdf```, for example:
+The dataset can be loaded to RedisGraph with ```cfpq_data/tools/redis_rdf```, for example:
 
 ```
-python3 main.py redis_rdf --host [HOST] --port [PORT] dir <path to folder with graphs>
-python3 main.py redis_rdf --host [HOST] --port [PORT] file <path to graph> <graph name>
+python3 cfpq_data/tools/redis_rdf/main.py --host [HOST] --port [PORT] dir <path to folder with graphs>
+python3 cfpq_data/tools/redis_rdf/main.py --host [HOST] --port [PORT] file <path to graph> <graph name>
 ```
 
 ### Neo4j
