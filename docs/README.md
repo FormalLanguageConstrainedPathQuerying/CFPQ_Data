@@ -11,15 +11,9 @@ Graphs and grammars for experimental analysis of context-free path querying algo
 
 ```shell
 python3 -m pip install cfpq_data
-cfpq_data -h
-```
-
-OR
-
-```shell
-git clone https://github.com/JetBrains-Research/CFPQ_Data.git
-cd CFPQ_Data
-python3 -m cfpq_data --help
+python3
+>>> import cfpq_data
+>>> help(cfpq_data)
 ```
 
 ## Integration with graph DBs
