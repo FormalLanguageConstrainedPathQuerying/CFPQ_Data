@@ -2,23 +2,19 @@ from __future__ import annotations
 
 import json
 import os
-import sys
-from argparse import ArgumentParser, Namespace
 from pathlib import Path
 from typing import Optional, Tuple, Any, List, Dict, Union
 
 import rdflib
-from tqdm import tqdm
 
 from cfpq_data.config import RELEASE_INFO, MAIN_FOLDER
 from cfpq_data.src.graphs.graph_interface import IGraph
-from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_graphs_downloader import download_data
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
-from cfpq_data.src.utils.utils import unpack_graph, clean_dir
+from cfpq_data.src.utils.utils import unpack_graph
 
 
-class RDF(IGraph, ICmdParser):
+class RDF(IGraph):
     """
     RDF — fixed versions of real-world RDF files (links are provided for updating purposes only!)
 
@@ -324,52 +320,3 @@ class RDF(IGraph, ICmdParser):
                 output_file.write(f'{s} {p} {o}\n')
 
         return destination
-
-    @staticmethod
-    def init_cmd_parser(parser: ArgumentParser) -> None:
-        """
-        Initialize command line parser
-        :param parser: RDF subparser of command line parser
-        :type parser: ArgumentParser
-        :return: None
-        :rtype: None
-        """
-
-        parser.add_argument(
-            '-a',
-            '--all',
-            action='store_true',
-            help='Load all RDF graphs from dataset'
-        )
-        parser.add_argument(
-            '-g',
-            '--graph',
-            choices=list(RELEASE_INFO['RDF'].keys()),
-            required=False,
-            type=str,
-            help='Load specific RDF graph from dataset'
-        )
-
-    @staticmethod
-    def eval_cmd_parser(args: Namespace) -> None:
-        """
-        Evaluate command line parser
-        :param args: command line arguments
-        :type args: Namespace
-        :return: None
-        :rtype: None
-        """
-
-        if args.all is False and args.graph is None:
-            print('One of -a/--all, -g/--graph required')
-            sys.exit()
-
-        if args.all is True:
-            clean_dir('RDF')
-            for graph_name in tqdm(RDF.graph_keys, desc='Downloading RDF'):
-                RDF.load_from_rdf(graph_name).save_metadata()
-
-        if args.graph is not None:
-            graph = RDF.load_from_rdf(args.graph)
-            graph.save_metadata()
-            print(f'Loaded {graph.basename} to {graph.dirname}')
