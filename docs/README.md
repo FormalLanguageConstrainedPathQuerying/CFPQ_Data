@@ -103,8 +103,8 @@ descriptions of queries.
 
 - Bigger graphs:
     - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species, download
-      here: <https://old.datahub.io/dataset/geospecies>. Introduced
-      in ["An Experimental Study ofContext-Free Path Query Evaluation Methods"](https://dl.acm.org/doi/pdf/10.1145/3335783.3335791)
+      here: <http://rdf.geospecies.org/geospecies.rdf.gz>. Introduced
+      in ["An Experimental Study of Context-Free Path Query Evaluation Methods"](https://dl.acm.org/doi/pdf/10.1145/3335783.3335791)
     - a set of graphs from the **Uniprot** protein sequences database, download
       here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
         - **go**
