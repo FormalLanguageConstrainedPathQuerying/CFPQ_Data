@@ -23,22 +23,6 @@ class IGraph(ABC):
         :rtype: IGraph
         """
 
-    @classmethod
-    @abstractmethod
-    def load(cls,
-             source: Union[Path, str],
-             source_file_format: str = 'rdf') -> IGraph:
-        """
-        Loads graph from specified destination with specified destination_file_format
-
-        :param source: graph destination
-        :type source: Optional[Union[Path, str]]
-        :param source_file_format: graph destination_file_format ('txt'/'rdf')
-        :type source_file_format: str
-        :return: loaded graph
-        :rtype: IGraph
-        """
-
     @abstractmethod
     def save(self,
              destination: Union[Path, str],

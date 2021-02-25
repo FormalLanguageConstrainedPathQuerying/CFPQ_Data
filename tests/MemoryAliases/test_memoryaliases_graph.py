@@ -25,7 +25,7 @@ def test_graph(ma_graph_name):
 def test_txt(ma_graph_name):
     first_graph = MemoryAliases.build(ma_graph_name)
     first_graph_path = first_graph.save('tmp1', 'txt')
-    second_graph = MemoryAliases.build(first_graph_path, 'txt')
+    second_graph = MemoryAliases.load_from_txt(first_graph_path)
 
     os.remove(first_graph_path)
 

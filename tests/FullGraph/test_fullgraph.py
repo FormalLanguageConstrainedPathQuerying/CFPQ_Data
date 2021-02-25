@@ -17,3 +17,13 @@ def test_fullgraph(num_of_vertices):
     os.remove(second_graph_path)
 
     assert check_metadata(first_graph, second_graph)
+
+
+def test_txt(num_of_vertices):
+    first_graph = FullGraph.build(num_of_vertices)
+    first_graph_path = first_graph.save('tmp1', 'txt')
+    second_graph = FullGraph.load_from_txt(first_graph_path)
+
+    os.remove(first_graph_path)
+
+    assert check_metadata(first_graph, second_graph)

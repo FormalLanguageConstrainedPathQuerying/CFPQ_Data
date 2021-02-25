@@ -1,16 +1,12 @@
 from __future__ import annotations
 
-import sys
-from argparse import ArgumentParser, Namespace
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Union, Optional
 
 import rdflib
 from tqdm import tqdm
 
-from cfpq_data.config import RELEASE_INFO
 from cfpq_data.src.graphs.rdf_graph import RDF
-from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils.utils import add_graph_dir
 
@@ -20,7 +16,7 @@ FULL_GRAPH_TO_GEN = [
 ]
 
 
-class FullGraph(RDF, ICmdParser):
+class FullGraph(RDF):
     """
     FullGraph — cycle graph, all edges are labeled with the same token
 
@@ -28,77 +24,41 @@ class FullGraph(RDF, ICmdParser):
     """
 
     graphs: Dict[Tuple[str, str], Path] = dict()
-    config: Dict[str, str] = RELEASE_INFO['Generators_Config']
 
     @classmethod
-    def build(cls, *args: int) -> FullGraph:
+    def build(cls,
+              *args: Union[Path, str, int],
+              source_file_format: str = 'rdf',
+              config: Optional[Dict[str, str]] = None) -> FullGraph:
         """
         Builds FullGraph instance by number of vertices in the graph
 
-        :param args: only one argument - args[0] - number of vertices in the graph
+        :param args: args[0] - number of vertices in the graph
         :type args: int
+        :param source_file_format: graph format ('txt'/'rdf')
+        :type source_file_format: str
+        :param config: edge configuration
+        :type config: Optional[Dict[str, str]]
         :return: FullGraph instance
         :rtype: FullGraph
         """
 
-        vertices_number = args[0]
-
-        path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
-
-        graph = FullGraph.load_from_rdf(path_to_graph)
+        if isinstance(args[0], int):
+            vertices_number = int(args[0])
+            path_to_graph = gen_cycle_graph(add_graph_dir('FullGraph'), vertices_number)
+            graph = FullGraph.load_from_rdf(path_to_graph)
+        else:
+            source = args[0]
+            if source_file_format == 'txt':
+                graph = cls.load_from_txt(source, config)
+            else:
+                graph = cls.load_from_rdf(source)
 
         graph.save_metadata()
 
+        cls.graphs[(graph.basename, graph.file_extension)] = graph.path
+
         return graph
-
-    @staticmethod
-    def init_cmd_parser(parser: ArgumentParser) -> None:
-        """
-        Initializes command line parser
-
-        :param parser: FullGraph subparser of command line parser
-        :type parser: ArgumentParser
-        :return: None
-        :rtype: None
-        """
-
-        parser.add_argument(
-            '-p',
-            '--preset',
-            action='store_true',
-            help='Load preset FullGraph graphs from dataset'
-        )
-        parser.add_argument(
-            '-n',
-            '--vertices_number',
-            required=False,
-            type=int,
-            help='Number of vertices of FullGraph graph'
-        )
-
-    @staticmethod
-    def eval_cmd_parser(args: Namespace) -> None:
-        """
-        Evaluates command line parser
-
-        :param args: command line arguments
-        :type args: Namespace
-        :return: None
-        :rtype: None
-        """
-
-        if args.preset is False and args.vertices_number is None:
-            print("One of -p/--preset, -n/--vertices_number required")
-            sys.exit()
-
-        if args.preset is True:
-            for n in tqdm(FULL_GRAPH_TO_GEN, desc='Full graphs generation'):
-                FullGraph.build(n).save_metadata()
-
-        if args.vertices_number is not None:
-            graph = FullGraph.build(args.vertices_number)
-            graph.save_metadata()
-            print(f'Generated {graph.basename} to {graph.dirname}')
 
 
 def gen_cycle_graph(destination_folder: Path, vertices_number: int) -> Path:
@@ -126,7 +86,6 @@ def gen_cycle_graph(destination_folder: Path, vertices_number: int) -> Path:
         add_rdf_edge(subj, pred, obj, output_graph)
 
     target = destination_folder / f'fullgraph_{vertices_number}.xml'
-
     write_to_rdf(target, output_graph)
 
     return target

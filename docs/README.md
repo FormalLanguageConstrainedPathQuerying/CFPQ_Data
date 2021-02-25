@@ -11,15 +11,9 @@ Graphs and grammars for experimental analysis of context-free path querying algo
 
 ```shell
 python3 -m pip install cfpq_data
-cfpq_data -h
-```
-
-OR
-
-```shell
-git clone https://github.com/JetBrains-Research/CFPQ_Data.git
-cd CFPQ_Data
-python3 -m cfpq_data --help
+python3
+>>> import cfpq_data
+>>> help(cfpq_data)
 ```
 
 ## Integration with graph DBs
@@ -31,11 +25,11 @@ We provide a set of scripts to simplify data loading into some popular graph dat
 **Note! At the moment redis_rdf is not part of the cfpq_data project and can only be used after downloading the
 repository directly**
 
-The dataset can be loaded to RedisGraph with ```cfpq_data/src/tools/redis_rdf```, for example:
+The dataset can be loaded to RedisGraph with ```cfpq_data/tools/redis_rdf```, for example:
 
 ```
-python3 main.py redis_rdf --host [HOST] --port [PORT] dir <path to folder with graphs>
-python3 main.py redis_rdf --host [HOST] --port [PORT] file <path to graph> <graph name>
+python3 cfpq_data/tools/redis_rdf/main.py --host [HOST] --port [PORT] dir <path to folder with graphs>
+python3 cfpq_data/tools/redis_rdf/main.py --host [HOST] --port [PORT] file <path to graph> <graph name>
 ```
 
 ### Neo4j
@@ -103,8 +97,8 @@ descriptions of queries.
 
 - Bigger graphs:
     - **geospecies** – graph related to taxonomic hierarchy and geographical information of animal species, download
-      here: <https://old.datahub.io/dataset/geospecies>. Introduced
-      in ["An Experimental Study ofContext-Free Path Query Evaluation Methods"](https://dl.acm.org/doi/pdf/10.1145/3335783.3335791)
+      here: <http://rdf.geospecies.org/geospecies.rdf.gz>. Introduced
+      in ["An Experimental Study of Context-Free Path Query Evaluation Methods"](https://dl.acm.org/doi/pdf/10.1145/3335783.3335791)
     - a set of graphs from the **Uniprot** protein sequences database, download
       here: <ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf>
         - **go**

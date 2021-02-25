@@ -1,9 +1,5 @@
 import pytest
 
-from cfpq_data.config import RELEASE_INFO
-
-rdfs = RELEASE_INFO['RDF']
-
 
 @pytest.fixture(scope='session', params=[
     'atom-primitive'
