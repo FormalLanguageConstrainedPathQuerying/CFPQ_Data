@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import sys
-from argparse import ArgumentParser, Namespace
 from pathlib import Path
 from typing import Dict, Tuple, Union, Optional
 
@@ -10,7 +8,6 @@ import rdflib
 from tqdm import tqdm
 
 from cfpq_data.src.graphs.rdf_graph import RDF
-from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils.utils import add_graph_dir
 
@@ -25,7 +22,7 @@ SPARSE_GRAPH_TO_GEN = [
 ]
 
 
-class SparseGraph(RDF, ICmdParser):
+class SparseGraph(RDF):
     """
     SparseGraph — graphs generated with NetworkX to emulate sparse data
 
@@ -77,68 +74,6 @@ class SparseGraph(RDF, ICmdParser):
         cls.graphs[(graph.basename, graph.file_extension)] = graph.path
 
         return graph
-
-    @staticmethod
-    def init_cmd_parser(parser: ArgumentParser) -> None:
-        """
-        Initialize command line parser
-
-        :param parser: SparseGraph subparser of command line parser
-        :type parser: ArgumentParser
-        :return: None
-        :rtype: None
-        """
-
-        parser.add_argument(
-            '-p',
-            '--preset',
-            action='store_true',
-            help='Load preset SparseGraph graphs from dataset'
-        )
-        parser.add_argument(
-            '-n',
-            '--vertices_number',
-            required=False,
-            type=int,
-            help='Number of vertices of SparseGraph graph'
-        )
-        parser.add_argument(
-            '-pr',
-            '--edge_probability',
-            required=False,
-            type=float,
-            help='Probability of edge occurrence in graph'
-        )
-
-    @staticmethod
-    def eval_cmd_parser(args: Namespace) -> None:
-        """
-        Evaluate command line parser
-
-        :param args: command line arguments
-        :type args: Namespace
-        :return: None
-        :rtype: None
-        """
-
-        if args.preset is False and \
-                (args.vertices_number is None or args.edge_probability is None):
-            print(
-                "One of " +
-                "-p/--preset, " +
-                "(-n/--vertices_number and necessarily -с/--edge_probability) " +
-                "required"
-            )
-            sys.exit()
-
-        if args.preset is True:
-            for g in tqdm(SPARSE_GRAPH_TO_GEN, desc='Sparse graphs generation'):
-                SparseGraph.build(g[0], g[1]).save_metadata()
-
-        if args.vertices_number is not None and args.edge_probability is not None:
-            graph = SparseGraph.build(args.vertices_number, args.edge_probability)
-            graph.save_metadata()
-            print(f'Generated {graph.basename} to {graph.dirname}')
 
 
 def gen_sparse_graph(destination_folder: Path,
