@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 import shutil
 import subprocess
-from argparse import ArgumentParser, Namespace
 from pathlib import Path
 from typing import Dict, Tuple, Union, Optional
 
@@ -13,7 +12,6 @@ from tqdm import tqdm
 
 from cfpq_data.config import MAIN_FOLDER
 from cfpq_data.src.graphs.rdf_graph import RDF
-from cfpq_data.src.utils.cmd_parser_interface import ICmdParser
 from cfpq_data.src.utils.rdf_helper import write_to_rdf, add_rdf_edge
 from cfpq_data.src.utils.utils import add_graph_dir
 
@@ -21,7 +19,7 @@ LUBM_URL = 'http://swat.cse.lehigh.edu/projects/lubm/uba1.7.zip'
 MAX_FILES_PER_UNI = 30
 
 
-class LUBM(RDF, ICmdParser):
+class LUBM(RDF):
     """
     LUBM - Lehigh University Benchmark graph
 
@@ -48,11 +46,9 @@ class LUBM(RDF, ICmdParser):
         :rtype: LUBM
         """
 
-        count = int(args[0])
-
-        if type(args[0]) is int:
+        if isinstance(args[0], int):
             number_of_generated_graphs = args[0]
-            path_to_graph = gen_lubm_graph(add_graph_dir('LUBM'), count)
+            path_to_graph = gen_lubm_graph(add_graph_dir('LUBM'), number_of_generated_graphs)
             graph = LUBM.load_from_rdf(path_to_graph)
         else:
             source = args[0]
@@ -66,51 +62,6 @@ class LUBM(RDF, ICmdParser):
         cls.graphs[(graph.basename, graph.file_extension)] = graph.path
 
         return graph
-
-    @staticmethod
-    def init_cmd_parser(parser: ArgumentParser) -> None:
-        """
-        Initializes command line parser
-
-        :param parser: LUBM subparser of command line parser
-        :type parser: ArgumentParser
-        :return: None
-        :rtype: None
-        """
-
-        parser.add_argument(
-            '-n',
-            '--number',
-            required=True,
-            type=int,
-            help='Number of generated graphs to create LUBM graph'
-        )
-
-        parser.add_argument(
-            '-c',
-            '--config',
-            required=False,
-            type=str,
-            help='Path to configuration file'
-        )
-
-    @staticmethod
-    def eval_cmd_parser(args: Namespace) -> None:
-        """
-        Evaluates command line parser
-
-        :param args: command line arguments
-        :type args: Namespace
-        :return: None
-        :rtype: None
-        """
-
-        if args.config is not None:
-            graph = LUBM.build(args.count, args.config)
-        else:
-            graph = LUBM.build(args.count)
-        graph.save_metadata()
-        print(f'Generated {graph.basename} to {graph.dirname}')
 
 
 def gen_lubm_graph(destination_folder: Path, count: int) -> Path:
