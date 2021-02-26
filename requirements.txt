@@ -5,3 +5,4 @@ networkx
 requests
 pytest
 setuptools
+wget
