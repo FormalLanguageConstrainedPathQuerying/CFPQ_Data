@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/JetBrains-Research/CFPQ_Data.svg?branch=master)](https://travis-ci.com/JetBrains-Research/CFPQ_Data)
+
 # CFPQ_Data
 
 Graphs and grammars for experimental analysis of context-free path querying algorithms.
