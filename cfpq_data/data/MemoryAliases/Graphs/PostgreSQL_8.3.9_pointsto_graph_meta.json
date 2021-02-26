@@ -1,0 +1,8 @@
+{
+    "name": "PostgreSQL_8.3.9_pointsto_graph.xml",
+    "path": "data/MemoryAliases/Graphs",
+    "version": "0.0.0",
+    "vertices": 5203419,
+    "edges": 4678543,
+    "size of file": 429924717
+}

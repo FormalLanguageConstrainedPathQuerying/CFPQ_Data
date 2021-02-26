@@ -1,3 +1,0 @@
-s
-BT BTR
-s -> BT s BTR | BT BTR

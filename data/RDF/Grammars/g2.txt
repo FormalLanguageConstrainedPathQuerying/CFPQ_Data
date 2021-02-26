@@ -1,3 +1,0 @@
-s
-SCOR SCO TR T
-s -> SCOR s SCO | SCO

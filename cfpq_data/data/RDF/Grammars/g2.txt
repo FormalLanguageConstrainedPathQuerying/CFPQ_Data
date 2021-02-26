@@ -1,0 +1,3 @@
+s
+SCO_R SCO T_R T
+s -> SCO_R s SCO | SCO

@@ -1,3 +1,0 @@
-s
-AR A
-s -> AR A | AR s A
