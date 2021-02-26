@@ -1,2 +1,8 @@
 numpy
 rdflib
+tqdm
+networkx
+requests
+pytest
+setuptools
+wget
