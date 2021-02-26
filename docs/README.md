@@ -178,3 +178,25 @@ produce full graph on that dataset.
 | PostgreSQL_8.3.9_pointsto_graph.xml | 5203419 | 4678543 | 429924717 |
 | kernel_afterInline.txt.xml | 11254434 | 9484213 | 886162222 |
 
+## Papers on CFPQ
+
+List of CFPQ-related works. The list is not full, work in progress.
+
+### Graph databases
+
+- M. Yannakakis. "Graph-theoretic methods in database theory".
+- P. Sevon and L. Eronen. "Subgraph queries by context-free grammars".
+- J. Kuijpers, G. Fletcher, N. Yakovets, and T. Lindaaker. "An experimental study of context-free path query evaluation
+  methods".
+- H. Miao and A. Deshpande. "Understanding Data Science Lifecycle Provenance via Graph Segmentation and Summarization".
+- TBD
+
+### Static code analysis
+
+- T. Reps. "Program analysis via graph reachability".
+- X. Zheng and R. Rugina. "Demand-driven alias analysis for C".
+- TBD
+
+## Papers using this dataset
+
+- [Evaluation of the Context-Free Path Querying Algorithm Based on Matrix Multiplication](https://dl.acm.org/citation.cfm?id=3328503)
