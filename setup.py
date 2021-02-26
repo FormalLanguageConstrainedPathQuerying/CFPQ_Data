@@ -9,8 +9,8 @@ with open('requirements.txt') as f:
     required = f.read().splitlines()
 
 setuptools.setup(
-    name='cfpq_data_test1337',
-    version='0.0.1',
+    name='cfpq_data',
+    version='0.0.0',
     description='Graphs and grammars for experimental analysis of context-free path querying algorithms',
     long_description=long_description,
     long_description_content_type='text/markdown',
