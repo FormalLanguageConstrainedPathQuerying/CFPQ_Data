@@ -5,9 +5,12 @@ import setuptools
 with open(Path(__file__).parent / 'docs' / 'README.md', "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
 setuptools.setup(
-    name='cfpq_data',
-    version='0.0.0',
+    name='cfpq_data_test1337',
+    version='0.0.1',
     description='Graphs and grammars for experimental analysis of context-free path querying algorithms',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -19,4 +22,5 @@ setuptools.setup(
     package_data={'': ['*.json'], 'cfpq_data': ['data/*/Grammars/*.txt']},
     include_package_data=True,
     python_requires='>=3.7',
+    install_requires=required
 )
