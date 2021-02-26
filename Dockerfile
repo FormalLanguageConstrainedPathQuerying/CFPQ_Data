@@ -4,7 +4,7 @@ RUN apt -y update && \
     apt-get -y install software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt -y install \
-    python3.9 \
+    python3.8 \
     python3-pip \
     git \
     openjdk-8-jdk

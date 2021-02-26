@@ -21,6 +21,6 @@ setuptools.setup(
     author_email='rsdpisuy@gmail.com',
     package_data={'': ['*.json'], 'cfpq_data': ['data/*/Grammars/*.txt']},
     include_package_data=True,
-    python_requires='>=3.7',
+    python_requires='>=3.8',
     install_requires=required
 )
