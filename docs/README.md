@@ -131,72 +131,50 @@ produce full graph on that dataset.
 ### Graphs information
 
 #### RDF
-
 | Name | Vertices | Edges | Size of file (Bytes) |
 |:---|:---|:---|:---|
+| generations.owl | 129 | 273 | 13826 |
+| univ-bench.owl | 179 | 293 | 14433 |
+| travel.owl | 131 | 277 | 17169 |
+| skos.rdf | 144 | 252 | 28966 |
+| people_pets.rdf | 337 | 640 | 40375 |
+| foaf.rdf | 256 | 631 | 44209 |
 | atom-primitive.owl | 291 | 425 | 48884 |
 | biomedical-mesure-primitive.owl | 341 | 459 | 53057 |
-| core.owl | 1323 | 2752 | 270846 |
-| eclass_514en.owl | 239111 | 360248 | 40191953 |
-| enzyme.rdf | 48815 | 86543 | 8806602 |
-| foaf.rdf | 256 | 631 | 44209 |
-| funding.rdf | 778 | 1086 | 131564 |
-| generations.owl | 129 | 273 | 13826 |
-| geospecies.rdf | 450609 | 2201532 | 187133434 |
-| go-hierarchy.owl | 45007 | 490109 | 38888638 |
-| go.owl | 582929 | 1437437 | 164749424 |
-| pathways.rdf | 6238 | 12363 | 1305842 |
-| people_pets.rdf | 337 | 640 | 40375 |
-| pizza.owl | 671 | 1980 | 126939 |
-| skos.rdf | 144 | 252 | 28966 |
-| travel.owl | 131 | 277 | 17169 |
-| univ-bench.owl | 179 | 293 | 14433 |
 | wine.rdf | 733 | 1839 | 78225 |
+| pizza.owl | 671 | 1980 | 126939 |
+| funding.rdf | 778 | 1086 | 131564 |
+| core.owl | 1323 | 2752 | 270846 |
+| pathways.rdf | 6238 | 12363 | 1305842 |
+| enzyme.rdf | 48815 | 86543 | 8806602 |
+| go-hierarchy.owl | 45007 | 490109 | 38888638 |
+| eclass_514en.owl | 239111 | 360248 | 40191953 |
+| go.owl | 582929 | 1437437 | 164749424 |
+| geospecies.rdf | 450609 | 2201532 | 187133434 |
+| taxonomy.rdf | 5728398 | 14922125 | 1293836336 |
+| taxonomy-hierarchy.rdf | 2112625 | 32876289 | 2425286037 |
 
 #### MemoryAliases
-
 | Name | Vertices | Edges | Size of file (Bytes) |
 |:---|:---|:---|:---|
-| Apache_httpd_2.2.18_pointsto_graph.xml | 1721418 | 1510411 | 138037427 |
-| arch_afterInline.txt.xml | 3448422 | 2970242 | 278669103 |
-| block_afterInline.txt.xml | 3423234 | 2951393 | 276869199 |
+| wc.txt.xml | 332 | 269 | 23679 |
 | bzip2.txt.xml | 632 | 556 | 45432 |
-| crypto_afterInline.txt.xml | 3464970 | 2988387 | 280248585 |
-| drivers_afterInline.txt.xml | 4273803 | 3707769 | 346720743 |
-| fs_afterInline.txt.xml | 4177416 | 3609373 | 337856145 |
-| gzip.txt.xml | 2687 | 2293 | 199239 |
-| init_afterInline.txt.xml | 2446224 | 2112809 | 197676888 |
-| ipc_afterInline.txt.xml | 3401022 | 2931498 | 275033440 |
-| kernel_afterInline.txt.xml | 11254434 | 9484213 | 886162222 |
-| lib_afterInline.txt.xml | 3401355 | 2931880 | 275060825 |
-| ls.txt.xml | 1687 | 1453 | 126329 |
-| mm_afterInline.txt.xml | 2538243 | 2191079 | 205010253 |
-| net_afterInline.txt.xml | 4039470 | 3500141 | 327815218 |
-| PostgreSQL_8.3.9_pointsto_graph.xml | 5203419 | 4678543 | 429924717 |
 | pr.txt.xml | 815 | 692 | 59629 |
+| ls.txt.xml | 1687 | 1453 | 126329 |
+| gzip.txt.xml | 2687 | 2293 | 199239 |
+| Apache_httpd_2.2.18_pointsto_graph.xml | 1721418 | 1510411 | 138037427 |
+| init_afterInline.txt.xml | 2446224 | 2112809 | 197676888 |
+| mm_afterInline.txt.xml | 2538243 | 2191079 | 205010253 |
+| ipc_afterInline.txt.xml | 3401022 | 2931498 | 275033440 |
+| lib_afterInline.txt.xml | 3401355 | 2931880 | 275060825 |
+| block_afterInline.txt.xml | 3423234 | 2951393 | 276869199 |
+| arch_afterInline.txt.xml | 3448422 | 2970242 | 278669103 |
+| crypto_afterInline.txt.xml | 3464970 | 2988387 | 280248585 |
 | security_afterInline.txt.xml | 3479982 | 3003326 | 281698638 |
 | sound_afterInline.txt.xml | 3528861 | 3049732 | 285856817 |
-| wc.txt.xml | 332 | 269 | 23679 |
+| net_afterInline.txt.xml | 4039470 | 3500141 | 327815218 |
+| fs_afterInline.txt.xml | 4177416 | 3609373 | 337856145 |
+| drivers_afterInline.txt.xml | 4273803 | 3707769 | 346720743 |
+| PostgreSQL_8.3.9_pointsto_graph.xml | 5203419 | 4678543 | 429924717 |
+| kernel_afterInline.txt.xml | 11254434 | 9484213 | 886162222 |
 
-## Papers on CFPQ
-
-List of CFPQ-related works. The list is not full, work in progress.
-
-### Graph databases
-
-- M. Yannakakis. "Graph-theoretic methods in database theory".
-- P. Sevon and L. Eronen. "Subgraph queries by context-free grammars".
-- J. Kuijpers, G. Fletcher, N. Yakovets, and T. Lindaaker. "An experimental study of context-free path query evaluation
-  methods".
-- H. Miao and A. Deshpande. "Understanding Data Science Lifecycle Provenance via Graph Segmentation and Summarization".
-- TBD
-
-### Static code analysis
-
-- T. Reps. "Program analysis via graph reachability".
-- X. Zheng and R. Rugina. "Demand-driven alias analysis for C".
-- TBD
-
-## Papers using this dataset
-
-- [Evaluation of the Context-Free Path Querying Algorithm Based on Matrix Multiplication](https://dl.acm.org/citation.cfm?id=3328503)
