@@ -19,3 +19,11 @@ def test_CNF(grammar_name):
     cfg = Grammar.load_from_txt(grammar_name)
     cfg = CNFGrammar.from_grammar(cfg)
     assert CFG.is_normal_form(cfg)
+
+def test_dump_Grammar(grammar_name):
+    cfg = Grammar.load_from_txt(grammar_name)
+    assert cfg.dump_to_txt('tmp1.txt')
+
+def test_dump_CNFGrammar(grammar_name):
+    cfg = CNFGrammar.load_from_txt(grammar_name)
+    assert cfg.dump_to_txt('tmp2.txt')
