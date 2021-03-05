@@ -48,7 +48,7 @@ class Grammar(ABC):
         )
 
     @classmethod
-    def load_from_txt(cls, path):
+    def load_from_txt(cls, path, start_symbol=Variable("S")):
         """
         Uploading grammar from *.txt
 
@@ -56,7 +56,7 @@ class Grammar(ABC):
         :return: Grammar or CNFGrammar object
         """
         with open(path, 'r') as f:
-            cfg = CFG.from_text(f.read())
+            cfg = CFG.from_text(f.read(), start_symbol)
 
         return cls(
             cfg.variables,
