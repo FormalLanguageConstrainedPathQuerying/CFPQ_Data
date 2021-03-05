@@ -32,7 +32,6 @@ class Grammar(ABC):
         self.productions = productions
 
     @classmethod
-    @abstractmethod
     def from_grammar(cls, grammar_base):  # Grammar -> Grammar
         """
         Converting grammars into different forms (for example Grammar into CNFGrammar)
@@ -64,6 +63,16 @@ class Grammar(ABC):
             cfg.start_symbol,
             cfg.productions
         )
+
+    def dump_to_txt(cls, path):
+        cfg = CFG(
+            variables=cls.variables,
+            terminals=cls.terminals,
+            start_symbol=cls.start_symbol,
+            productions=cls.productions
+        )
+        with open(path, 'w') as f:
+            f.write(cfg.to_text())
 
 
 class CNFGrammar(Grammar):
