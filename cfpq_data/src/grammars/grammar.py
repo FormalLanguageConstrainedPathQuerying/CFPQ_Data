@@ -47,24 +47,26 @@ class Grammar(ABC):
         )
 
     @classmethod
-    def load_from_txt(cls, path, start_symbol=Variable("S")):
+    def load_from_txt(cls, path: str, start_symbol: Variable = Variable("S")):
         """
-        Uploading grammar from *.txt
+        Load grammar from txt file
 
-        :param path: path to *.txt file with grammar
+        :param path: path to txt file with grammar
+        :param start_symbol: :class:`~pyformlang.cfg.Variable`, optional
+        The start symbol
         :return: Grammar or CNFGrammar object
         """
         with open(path, 'r') as f:
             cfg = CFG.from_text(f.read(), start_symbol)
 
         return cls(
-            cfg.variables,
-            cfg.terminals,
-            cfg.start_symbol,
-            cfg.productions
+            variables=cfg.variables,
+            terminals=cfg.terminals,
+            start_symbol=cfg.start_symbol,
+            productions=cfg.productions
         )
 
-    def dump_to_txt(self, path):
+    def dump_to_txt(self, path: str) -> str:
         """
         Saving grammar to *.txt file
 
@@ -84,7 +86,7 @@ class Grammar(ABC):
 
 class CNFGrammar(Grammar):
     """
-    CNFGrammar - a class representing a context free grammars in chomsky normal form
+    CNFGrammar - a class representing a context free grammar in Chomsky Normal Form
     """
 
     def __init__(self,
@@ -93,7 +95,7 @@ class CNFGrammar(Grammar):
                  start_symbol: Variable = None,
                  productions: Iterable[Production] = None):
         """
-        Generic constructor
+        CNFGrammar constructor
 
         :param variables: set of :class:`~pyformlang.cfg.Variable`, optional
         The variables of the CFG
