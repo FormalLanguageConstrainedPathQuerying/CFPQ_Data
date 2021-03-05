@@ -72,7 +72,7 @@ class Grammar(ABC):
         """
         Saving grammar to *.txt file
 
-        :param path: path to *.txt file
+        :param path: path to txt file
         :return: path
         """
         cfg = CFG(
