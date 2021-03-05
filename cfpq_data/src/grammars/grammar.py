@@ -34,6 +34,12 @@ class Grammar(ABC):
     @classmethod
     @abstractmethod
     def from_grammar(cls, grammar_base):  # Grammar -> Grammar
+        """
+        Converting grammars into different forms (for example Grammar into CNFGrammar)
+
+        :param grammar_base: Grammar or CNFGrammar object
+        :return: CNFGrammar or Grammar object
+        """
         return cls(
             variables=grammar_base.variables,
             terminals=grammar_base.terminals,
@@ -43,6 +49,12 @@ class Grammar(ABC):
 
     @classmethod
     def load_from_txt(cls, path):
+        """
+        Uploading grammar from *.txt
+
+        :param path: path to *.txt file with grammar
+        :return: Grammar or CNFGrammar object
+        """
         productions = []
         with open(path, 'r') as f:
             for line in f:
