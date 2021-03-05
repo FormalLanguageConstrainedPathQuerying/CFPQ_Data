@@ -65,6 +65,12 @@ class Grammar(ABC):
         )
 
     def dump_to_txt(cls, path):
+        """
+        Saving grammar to *.txt file
+
+        :param path: path to *.txt file
+        :return: path
+        """
         cfg = CFG(
             variables=cls.variables,
             terminals=cls.terminals,
