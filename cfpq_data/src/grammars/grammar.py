@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import AbstractSet, Iterable, Optional
 from abc import abstractmethod, ABC
 
@@ -32,22 +34,22 @@ class Grammar(ABC):
         self.productions = productions
 
     @classmethod
-    def from_grammar(cls, grammar_base):  # Grammar -> Grammar
+    def from_grammar(cls, source: Grammar) -> Grammar:
         """
         Converting grammars into different forms (for example Grammar into CNFGrammar)
 
-        :param grammar_base: Grammar or CNFGrammar object
+        :param source: Grammar or CNFGrammar object
         :return: CNFGrammar or Grammar object
         """
         return cls(
-            variables=grammar_base.variables,
-            terminals=grammar_base.terminals,
-            start_symbol=grammar_base.start_symbol,
-            productions=grammar_base.productions
+            variables=source.variables,
+            terminals=source.terminals,
+            start_symbol=source.start_symbol,
+            productions=source.productions
         )
 
     @classmethod
-    def load_from_txt(cls, path: str, start_symbol: Variable = Variable("S")):
+    def load_from_txt(cls, path: str, start_symbol: Variable = Variable("S")) -> Grammar:
         """
         Load grammar from txt file
 
