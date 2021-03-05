@@ -64,7 +64,7 @@ class Grammar(ABC):
             cfg.productions
         )
 
-    def dump_to_txt(cls, path):
+    def dump_to_txt(self, path):
         """
         Saving grammar to *.txt file
 
@@ -72,10 +72,10 @@ class Grammar(ABC):
         :return: path
         """
         cfg = CFG(
-            variables=cls.variables,
-            terminals=cls.terminals,
-            start_symbol=cls.start_symbol,
-            productions=cls.productions
+            variables=self.variables,
+            terminals=self.terminals,
+            start_symbol=self.start_symbol,
+            productions=self.productions
         )
         with open(path, 'w') as f:
             f.write(cfg.to_text())
