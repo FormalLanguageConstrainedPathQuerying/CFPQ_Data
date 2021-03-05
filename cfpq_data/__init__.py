@@ -17,3 +17,5 @@ from cfpq_data.src.graphs.rdf_graph import RDF
 from cfpq_data.src.graphs.scale_free_graph import ScaleFree
 from cfpq_data.src.graphs.sparse_graph import SparseGraph
 from cfpq_data.src.graphs.worst_case_graph import WorstCase
+
+from cfpq_data.src.grammars.grammar import *
