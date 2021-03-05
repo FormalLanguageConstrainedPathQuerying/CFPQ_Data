@@ -1,4 +1,2 @@
-S X
-a b c d
 S -> a S d | a X d
 X -> b X c | b c

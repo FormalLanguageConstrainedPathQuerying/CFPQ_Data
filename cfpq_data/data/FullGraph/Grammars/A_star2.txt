@@ -1,3 +1,1 @@
-s
-A
-s -> s s | s s s | A
+S -> S S | S S S | a
