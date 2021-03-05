@@ -55,13 +55,8 @@ class Grammar(ABC):
         :param path: path to *.txt file with grammar
         :return: Grammar or CNFGrammar object
         """
-        productions = []
         with open(path, 'r') as f:
-            for line in f:
-                production = line.split()
-                productions.append(production[0] + ' -> ' + ' '.join(production[1:]))
-
-        cfg = CFG.from_text('\n'.join(productions))
+            cfg = CFG.from_text(f.read())
 
         return cls(
             cfg.variables,
