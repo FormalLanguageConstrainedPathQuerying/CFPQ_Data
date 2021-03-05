@@ -24,7 +24,7 @@ def test_CNF(grammar_name):
         start_symbol=cfg.start_symbol,
         productions=cfg.productions
     )
-    assert CFG.is_normal_form(cfg)
+    assert cfg.is_normal_form()
 
 def test_dump_Grammar(grammar_name):
     cfg = Grammar.load_from_txt(grammar_name)
