@@ -5,6 +5,9 @@ import setuptools
 with open(Path(__file__).parent / 'docs' / 'README.md', "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
 setuptools.setup(
     name='cfpq_data',
     version='0.0.0',
@@ -14,9 +17,10 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     url='https://github.com/JetBrains-Research/CFPQ_Data',
     license='Apache License 2.0',
-    author='Grigoriev Semyon',
-    author_email='rsdpisuy@gmail.com',
+    author='Abzalov Vadim, Kovalev Nikita',
+    author_email='vadim.i.abzalov@gmail.com, Nikitoskova123@gmail.com',
     package_data={'': ['*.json'], 'cfpq_data': ['data/*/Grammars/*.txt']},
     include_package_data=True,
-    python_requires='>=3.7',
+    python_requires='>=3.8',
+    install_requires=required
 )

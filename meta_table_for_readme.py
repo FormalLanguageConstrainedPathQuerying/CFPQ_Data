@@ -8,8 +8,6 @@ def rdf_dict():
     data_rdf = dict()
     names_rdf = RELEASE_INFO['RDF']
     for name in names_rdf:
-        if name == "taxonomy-hierarchy" or name == "taxonomy":
-            continue
         with open(f'./cfpq_data/data/RDF/Graphs/{name}_meta.json', 'r') as graph_info:
             data_rdf[name] = json.load(graph_info)
     return data_rdf
@@ -40,13 +38,11 @@ def create_table():
     names_rdf = RELEASE_INFO['RDF']
     names_memoryaliases = RELEASE_INFO['MemoryAliases']
 
-    for name in names_rdf:
-        if name == "taxonomy-hierarchy" or name == "taxonomy":
-            continue
+    for name in sorted(names_rdf, key=lambda x: int(rdf[x]["size of file"])):
         for column_name in column_names:
             table_rdf += "| " + str(rdf[name][column_name]) + " "
         table_rdf += "|\n"
-    for name in names_memoryaliases:
+    for name in sorted(names_memoryaliases, key=lambda x: int(memory_aliases[x]["size of file"])):
         for column_name in column_names:
             table_memoryaliases += "| " + str(memory_aliases[name][column_name]) + " "
         table_memoryaliases += "|\n"
