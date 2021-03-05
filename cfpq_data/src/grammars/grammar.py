@@ -73,6 +73,7 @@ class Grammar(ABC):
         )
         with open(path, 'w') as f:
             f.write(cfg.to_text())
+        return path
 
 
 class CNFGrammar(Grammar):
