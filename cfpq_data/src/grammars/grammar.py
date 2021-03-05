@@ -5,12 +5,27 @@ from pyformlang.cfg import *
 
 
 class Grammar(ABC):
+    """
+    Grammar - a class representing a context free base grammars
+    """
 
     def __init__(self,
                  variables: AbstractSet[Variable] = None,
                  terminals: AbstractSet[Terminal] = None,
                  start_symbol: Variable = None,
                  productions: Iterable[Production] = None):
+        """
+        Generic constructor
+
+        :param variables: set of :class:`~pyformlang.cfg.Variable`, optional
+        The variables of the CFG
+        :param terminals: set of :class:`~pyformlang.cfg.Terminal`, optional
+        The terminals of the CFG
+        :param start_symbol: :class:`~pyformlang.cfg.Variable`, optional
+        The start symbol
+        :param productions: set of :class:`~pyformlang.cfg.Production`, optional
+        The productions or rules of the CFG
+        """
         self.variables = variables
         self.terminals = terminals
         self.start_symbol = start_symbol
@@ -19,10 +34,15 @@ class Grammar(ABC):
     @classmethod
     @abstractmethod
     def from_grammar(cls, grammar_base):  # Grammar -> Grammar
-        pass
+        return cls(
+            variables=grammar_base.variables,
+            terminals=grammar_base.terminals,
+            start_symbol=grammar_base.start_symbol,
+            productions=grammar_base.productions
+        )
 
     @classmethod
-    def _load_from_txt_(cls, path):
+    def load_from_txt(cls, path):
         productions = []
         with open(path, 'r') as f:
             for line in f:
@@ -31,27 +51,36 @@ class Grammar(ABC):
 
         cfg = CFG.from_text('\n'.join(productions))
 
-        return [
+        return cls(
             cfg.variables,
             cfg.terminals,
             cfg.start_symbol,
             cfg.productions
-        ]
-
-    @classmethod
-    @abstractmethod
-    def load_from_txt(self, path):
-        _1, _2, _3, _4 = self._load_from_txt_(path)
-        return Grammar(_1, _2, _3, _4)
+        )
 
 
 class CNFGrammar(Grammar):
+    """
+    CNFGrammar - a class representing a context free grammars in chomsky normal form
+    """
 
     def __init__(self,
                  variables: AbstractSet[Variable] = None,
                  terminals: AbstractSet[Terminal] = None,
                  start_symbol: Variable = None,
                  productions: Iterable[Production] = None):
+        """
+        Generic constructor
+
+        :param variables: set of :class:`~pyformlang.cfg.Variable`, optional
+        The variables of the CFG
+        :param terminals: set of :class:`~pyformlang.cfg.Terminal`, optional
+        The terminals of the CFG
+        :param start_symbol: :class:`~pyformlang.cfg.Variable`, optional
+        The start symbol
+        :param productions: set of :class:`~pyformlang.cfg.Production`, optional
+        The productions or rules of the CFG
+        """
         cfg = CFG(
             variables=variables,
             terminals=terminals,
@@ -69,35 +98,4 @@ class CNFGrammar(Grammar):
             terminals=cfg._terminals,
             start_symbol=cfg._start_symbol,
             productions=cfg._productions
-        )
-
-    @classmethod
-    def load_from_txt(self, path):
-        _1, _2, _3, _4 = self._load_from_txt_(path)
-        return CNFGrammar(_1, _2, _3, _4)
-
-    @classmethod
-    def from_grammar(cls, grammar_base):
-        return CNFGrammar(
-            grammar_base.variables,
-            grammar_base.terminals,
-            grammar_base.start_symbol,
-            grammar_base.productions
-        )
-
-
-class BaseGrammar(Grammar):
-
-    @classmethod
-    def load_from_txt(self, path):
-        _1, _2, _3, _4 = self._load_from_txt_(path)
-        return BaseGrammar(_1, _2, _3, _4)
-
-    @classmethod
-    def from_grammar(cls, grammar_base):
-        return BaseGrammar(
-            grammar_base.variables,
-            grammar_base.terminals,
-            grammar_base.start_symbol,
-            grammar_base.productions
         )
