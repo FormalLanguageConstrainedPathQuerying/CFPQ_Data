@@ -1,3 +1,1 @@
-s
-BT BT_R
-s -> BT s BT_R | BT BT_R
+S -> bt S bt_r | bt bt_r
