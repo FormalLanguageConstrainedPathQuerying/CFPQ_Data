@@ -64,4 +64,5 @@ class CNFGrammarToTXT(GrammarSerializer):
 
 class RSAToTXT(GrammarSerializer):
 
-    pass
+    def dump(self):
+        pass

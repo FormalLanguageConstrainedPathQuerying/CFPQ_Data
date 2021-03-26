@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import AbstractSet, Iterable, Optional
-from abc import abstractmethod, ABC
+from abc import ABC
 
 from pyformlang.cfg import *
 
@@ -79,23 +79,6 @@ class CNFGrammar(Grammar):
             start_symbol=cfg._start_symbol,
             productions=cfg._productions
         )
-
-    def dump_to_txt(self, path: str) -> str:
-        """
-        Saving grammar to txt file
-
-        :param path: path to txt file
-        :return: path
-        """
-        cfg = CFG(
-            variables=self.variables,
-            terminals=self.terminals,
-            start_symbol=self.start_symbol,
-            productions=self.productions
-        )
-        with open(path, 'w') as f:
-            f.write(cfg.to_text())
-        return path
 
 
 class RSA(Grammar):

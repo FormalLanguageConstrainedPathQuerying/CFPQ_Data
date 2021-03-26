@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABC
 from cfpq_data.src.grammars.grammar import CNFGrammar, BaseGrammar, RSA
 from cfpq_data.src.grammars.creator import TXTRSAGrammarCreator
+from cfpq_data.src.grammars.serializer import BaseGrammarToTXT, CNFGrammarToTXT
 
 
 class GrammarConverter(ABC):
@@ -62,8 +63,8 @@ class BaseGrammarToRSAConverter(GrammarConverter):
         :return: RSA object
         """
         grammar_obj = self.grammar
-        grammar_obj.dump_to_txt('tmp.txt')
-        g = TXTRSAGrammarCreator('tmp.txt', grammar_obj.start_symbol).create()
+        path = BaseGrammarToTXT(grammar_obj=grammar_obj, path='tmp.txt').dump()
+        g = TXTRSAGrammarCreator(path=path, start_symbol=grammar_obj.start_symbol).create()
         return g
 
 
@@ -79,8 +80,8 @@ class CNFGrammarToRSAConverter(GrammarConverter):
         :return: RSA object
         """
         grammar_obj = self.grammar
-        grammar_obj.dump_to_txt('tmp.txt')
-        g = TXTRSAGrammarCreator('tmp.txt', grammar_obj.start_symbol).create()
+        path = CNFGrammarToTXT(grammar_obj=grammar_obj, path='tmp.txt').dump()
+        g = TXTRSAGrammarCreator(path=path, start_symbol=grammar_obj.start_symbol).create()
         return g
 
 
