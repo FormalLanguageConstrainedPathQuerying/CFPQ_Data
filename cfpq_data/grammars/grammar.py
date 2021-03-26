@@ -11,11 +11,13 @@ class Grammar(ABC):
     Grammar - a class representing a context free base grammars
     """
 
-    def __init__(self,
-                 variables: AbstractSet[Variable] = None,
-                 terminals: AbstractSet[Terminal] = None,
-                 start_symbol: Variable = None,
-                 productions: Iterable[Production] = None):
+    def __init__(
+        self,
+        variables: AbstractSet[Variable] = None,
+        terminals: AbstractSet[Terminal] = None,
+        start_symbol: Variable = None,
+        productions: Iterable[Production] = None,
+    ):
         """
         Generic constructor
 
@@ -45,11 +47,13 @@ class Grammar(ABC):
             variables=source.variables,
             terminals=source.terminals,
             start_symbol=source.start_symbol,
-            productions=source.productions
+            productions=source.productions,
         )
 
     @classmethod
-    def load_from_txt(cls, path: str, start_symbol: Variable = Variable("S")) -> Grammar:
+    def load_from_txt(
+        cls, path: str, start_symbol: Variable = Variable("S")
+    ) -> Grammar:
         """
         Load grammar from txt file
 
@@ -58,14 +62,14 @@ class Grammar(ABC):
         The start symbol
         :return: Grammar or CNFGrammar object
         """
-        with open(path, 'r') as f:
+        with open(path, "r") as f:
             cfg = CFG.from_text(f.read(), start_symbol)
 
         return cls(
             variables=cfg.variables,
             terminals=cfg.terminals,
             start_symbol=cfg.start_symbol,
-            productions=cfg.productions
+            productions=cfg.productions,
         )
 
     def dump_to_txt(self, path: str) -> str:
@@ -79,9 +83,9 @@ class Grammar(ABC):
             variables=self.variables,
             terminals=self.terminals,
             start_symbol=self.start_symbol,
-            productions=self.productions
+            productions=self.productions,
         )
-        with open(path, 'w') as f:
+        with open(path, "w") as f:
             f.write(cfg.to_text())
         return path
 
@@ -91,11 +95,13 @@ class CNFGrammar(Grammar):
     CNFGrammar - a class representing a context free grammar in Chomsky Normal Form
     """
 
-    def __init__(self,
-                 variables: AbstractSet[Variable] = None,
-                 terminals: AbstractSet[Terminal] = None,
-                 start_symbol: Variable = None,
-                 productions: Iterable[Production] = None):
+    def __init__(
+        self,
+        variables: AbstractSet[Variable] = None,
+        terminals: AbstractSet[Terminal] = None,
+        start_symbol: Variable = None,
+        productions: Iterable[Production] = None,
+    ):
         """
         CNFGrammar constructor
 
@@ -112,7 +118,7 @@ class CNFGrammar(Grammar):
             variables=variables,
             terminals=terminals,
             start_symbol=start_symbol,
-            productions=productions
+            productions=productions,
         )
         eps = cfg.generate_epsilon()
         cfg = cfg.to_normal_form()
@@ -124,5 +130,5 @@ class CNFGrammar(Grammar):
             variables=cfg._variables,
             terminals=cfg._terminals,
             start_symbol=cfg._start_symbol,
-            productions=cfg._productions
+            productions=cfg._productions,
         )
