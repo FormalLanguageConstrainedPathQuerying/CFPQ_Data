@@ -34,39 +34,22 @@ class Grammar(ABC):
         self.start_symbol = start_symbol
         self.productions = productions
 
-    @classmethod
-    def from_grammar(cls, source: Grammar) -> Grammar:
-        """
-        Converting grammars into different forms (for example Grammar into CNFGrammar)
+    @abstractmethod
+    def dump_to_txt(self, path: str):
+        pass
 
-        :param source: Grammar or CNFGrammar object
-        :return: CNFGrammar or Grammar object
-        """
-        return cls(
-            variables=source.variables,
-            terminals=source.terminals,
-            start_symbol=source.start_symbol,
-            productions=source.productions
-        )
 
-    @classmethod
-    def load_from_txt(cls, path: str, start_symbol: Variable = Variable("S")) -> Grammar:
-        """
-        Load grammar from txt file
-
-        :param path: path to txt file with grammar
-        :param start_symbol: :class:`~pyformlang.cfg.Variable`, optional
-        The start symbol
-        :return: Grammar or CNFGrammar object
-        """
-        with open(path, 'r') as f:
-            cfg = CFG.from_text(f.read(), start_symbol)
-
-        return cls(
-            variables=cfg.variables,
-            terminals=cfg.terminals,
-            start_symbol=cfg.start_symbol,
-            productions=cfg.productions
+class BaseGrammar(Grammar):
+    def __init__(self,
+                 variables: AbstractSet[Variable] = None,
+                 terminals: AbstractSet[Terminal] = None,
+                 start_symbol: Variable = None,
+                 productions: Iterable[Production] = None):
+        super(BaseGrammar, self).__init__(
+            variables=variables,
+            terminals=terminals,
+            start_symbol=start_symbol,
+            productions=productions
         )
 
     def dump_to_txt(self, path: str) -> str:
@@ -128,6 +111,23 @@ class CNFGrammar(Grammar):
             productions=cfg._productions
         )
 
+    def dump_to_txt(self, path: str) -> str:
+        """
+        Saving grammar to txt file
+
+        :param path: path to txt file
+        :return: path
+        """
+        cfg = CFG(
+            variables=self.variables,
+            terminals=self.terminals,
+            start_symbol=self.start_symbol,
+            productions=self.productions
+        )
+        with open(path, 'w') as f:
+            f.write(cfg.to_text())
+        return path
+
 
 class RSA(Grammar):
     """
@@ -172,24 +172,91 @@ class RSA(Grammar):
             productions=self.productions
         )
 
-    def from_grammar(cls, source: Grammar) -> Grammar:
-        """
-        Converting from CNFGrammar or Grammar to RSA
+    def dump_to_txt(self, path: str):
+        pass
 
-        :param source: CNFGrammar or Grammar object
+
+class GrammarCreator(ABC):
+
+    def __init__(self, path: str, start_symbol: Variable = Variable('S')):
+        self.path = path
+        self.start_symbol = start_symbol
+
+    @abstractmethod
+    def create(self):
+        pass
+
+
+class TXTBaseGrammarCreator(GrammarCreator):
+
+    def create(self) -> BaseGrammar:
+        """
+        Load grammar from txt file
+
+        :return: BaseGrammar object
+        """
+        path = self.path
+        start_symbol = self.start_symbol
+
+        with open(path, 'r') as f:
+            cfg = CFG.from_text(f.read(), start_symbol)
+
+        return BaseGrammar(
+            variables=cfg.variables,
+            terminals=cfg.terminals,
+            start_symbol=cfg.start_symbol,
+            productions=cfg.productions
+        )
+
+
+class TXTCNFGrammarCreator(GrammarCreator):
+
+    def create(self) -> CNFGrammar:
+        """
+        Load grammar from txt file
+
+        :return: CNFGrammar object
+        """
+        path = self.path
+        start_symbol = self.start_symbol
+
+        with open(path, 'r') as f:
+            cfg = CFG.from_text(f.read(), start_symbol)
+
+        return CNFGrammar(
+            variables=cfg.variables,
+            terminals=cfg.terminals,
+            start_symbol=cfg.start_symbol,
+            productions=cfg.productions
+        )
+
+
+class TXTRSAGrammarCreator(GrammarCreator):
+
+    def create(self) -> RSA:
+        """
+        Load RSA from txt file with Grammar
+
         :return: RSA object
         """
+        path = self.path
+        start_symbol = self.start_symbol
 
-        rsm = RSA()
-        text = str()
-        rsm.start_symbol = source.start_symbol
-        source.dump_to_txt('tmp.txt')
-        with open('tmp.txt', 'r') as f:
-            productions = f.readlines()
+        rsa = RSA()
+        rsa.start_symbol = start_symbol
+        productions = []
+
+        with open(path, 'r') as f:
+            for line in f:
+                production = line.replace(' -> ', ' ').split()
+                productions.append(production[0] + ' -> ' + ' '.join(production[1:]))
+
+        text = '\n'.join(productions)
 
         changing = True
         while changing:
             changing = False
+            productions = text.split('\n')
             eps_head, eps_body = None, None
             for p in productions:
                 head, body = p.split(' -> ')
@@ -244,11 +311,94 @@ class RSA(Grammar):
             body = body.replace('epsilon', '$').replace('eps', '$')
             if body == '':
                 body = '$'
-            rsm.boxes[head] = rsm.boxes.get(head, list()) + [
+            rsa.boxes[head] = rsa.boxes.get(head, list()) + [
                 Regex(body) \
                     .to_epsilon_nfa() \
                     .to_deterministic() \
                     .minimize()
             ]
+        return rsa
 
-        return rsm
+
+class GrammarConverter(ABC):
+
+    def __init__(self, grammar_obj: Grammar):
+        self.grammar = grammar_obj
+
+    @abstractmethod
+    def convert(self):
+        pass
+
+
+class BaseGrammarToCNFGrammarConverter(GrammarConverter):
+
+    def convert(self) -> CNFGrammar:
+        """
+        Converting BaseGrammar into CNF
+
+        :return: CNFGrammar object
+        """
+        source = self.grammar
+        return CNFGrammar(
+            variables=source.variables,
+            terminals=source.terminals,
+            start_symbol=source.start_symbol,
+            productions=source.productions
+        )
+
+
+class CNFGrammarToBaseGrammarConverter(GrammarConverter):
+
+    def convert(self) -> BaseGrammar:
+        """
+        Converting CNF into BaseGrammar
+
+        :return: BaseGrammar object
+        """
+        source = self.grammar
+        return BaseGrammar(
+            variables=source.variables,
+            terminals=source.terminals,
+            start_symbol=source.start_symbol,
+            productions=source.productions
+        )
+
+
+class BaseGrammarToRSAConverter(GrammarConverter):
+
+    def convert(self) -> RSA:
+        """
+        Converting BaseGrammar into RSA
+
+        :return: RSA object
+        """
+        grammar_obj = self.grammar
+        grammar_obj.dump_to_txt('tmp.txt')
+        g = TXTRSAGrammarCreator('tmp.txt', grammar_obj.start_symbol).create()
+        return g
+
+
+class CNFGrammarToRSAConverter(GrammarConverter):
+
+    def convert(self) -> RSA:
+        """
+        Converting CNF into RSA
+
+        :return: RSA object
+        """
+        grammar_obj = self.grammar
+        grammar_obj.dump_to_txt('tmp.txt')
+        g = TXTRSAGrammarCreator('tmp.txt', grammar_obj.start_symbol).create()
+        return g
+
+
+class RSAToCNFGrammarConverter(GrammarConverter):
+
+    def convert(self):
+        pass
+
+
+class RSAToBaseGrammarConverter(GrammarConverter):
+
+    def convert(self):
+        pass
