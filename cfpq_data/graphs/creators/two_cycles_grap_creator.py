@@ -6,7 +6,7 @@ $C_{n, m}(s)$ is a graph composed from $C_n$ and $C_m$ connected by node s.
 
 from typing import Union, Iterable, Any
 
-from networkx import MultiDiGraph, cycle_graph, compose, path_graph
+from networkx import MultiDiGraph, compose, path_graph
 
 from cfpq_data.graphs.creators.graph_creator import GraphCreator
 
