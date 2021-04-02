@@ -18,6 +18,7 @@ class TXTGraphSerializer(GraphSerializer):
     ----------
     graph : MultiDiGraph
         Graph to serialize.
+
     path: Union[Path, str]
         The path to the file where the graph will be serialized.
 
@@ -35,6 +36,7 @@ class TXTGraphSerializer(GraphSerializer):
         ----------
         graph : MultiDiGraph
             Graph to serialize.
+
         path: Union[Path, str]
             The path to the file where the graph will be serialized.
 
@@ -63,5 +65,6 @@ class TXTGraphSerializer(GraphSerializer):
         path = Path(self.path).resolve()
         with open(path, "w") as fout:
             for edge in self.graph.edges:
-                fout.write(f"{edge[0]} {self.graph.edges[edge]['label']} {edge[1]}\n")
+                labels = " ".join([label for label in self.graph.edges[edge].values()])
+                fout.write(f"{edge[0]} {labels} {edge[1]}\n")
         return path
