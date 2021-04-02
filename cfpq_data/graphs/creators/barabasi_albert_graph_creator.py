@@ -24,12 +24,15 @@ class BarabasiAlbertGraphCreator(GraphCreator):
     Parameters
     ----------
     number_of_nodes : int
-        Number of nodes
+        Number of nodes.
+
     number_of_edges : int
-        Number of edges to attach from a new node to existing nodes
+        Number of edges to attach from a new node to existing nodes.
+
     seed : Union[int, RandomState, None]
         Indicator of random number generation state.
         See [2]_.
+
     edge_labels: Iterable[str]
         Labels that will be used to mark the edges of the graph.
 
@@ -63,12 +66,15 @@ class BarabasiAlbertGraphCreator(GraphCreator):
         Parameters
         ----------
         number_of_nodes : int
-            Number of nodes
+            Number of nodes.
+
         number_of_edges : int
-            Number of edges to attach from a new node to existing nodes
+            Number of edges to attach from a new node to existing nodes.
+
         seed : Union[int, RandomState, None]
             Indicator of random number generation state.
             See [2]_.
+
         edge_labels: Iterable[str]
             Labels that will be used to mark the edges of the graph.
 
@@ -109,13 +115,16 @@ class BarabasiAlbertGraphCreator(GraphCreator):
         NetworkXError
             If `m` does not satisfy ``1 <= m < n``.
         """
-        g = barabasi_albert_graph(
-            n=self.number_of_nodes, m=self.number_of_edges, seed=self.seed
+        g = MultiDiGraph(
+            barabasi_albert_graph(
+                n=self.number_of_nodes, m=self.number_of_edges, seed=self.seed
+            )
         )
 
         np.random.seed(self.seed)
 
         for edge in g.edges:
-            g.edges[edge]["label"] = np.random.choice(list(self.edge_labels))
+            label = np.random.choice(list(self.edge_labels))
+            g.edges[edge][label] = label
 
         return g
