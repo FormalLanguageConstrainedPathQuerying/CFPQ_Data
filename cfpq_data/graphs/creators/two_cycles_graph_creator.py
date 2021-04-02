@@ -24,11 +24,14 @@ class TwoCyclesGraphCreator(GraphCreator):
     number_of_nodes_in_first_cycle : Union[int, Iterable[Any]]
         If n is an integer, nodes are from `range(n)`.
         If n is a container of nodes, those nodes appear in the graph.
+
     number_of_nodes_in_second_cycle : Union[int, Iterable[Any]]
         If n is an integer, nodes are from `range(n)`.
         If n is a container of nodes, those nodes appear in the graph.
+
     common_node_of_two_cycles : Union[int, Any]
         The node along which two cycles are connected.
+
     edge_label: Iterable[str]
         Labels that will be used to mark the edges of the graph.
 
@@ -57,11 +60,14 @@ class TwoCyclesGraphCreator(GraphCreator):
         number_of_nodes_in_first_cycle : Union[int, Iterable[Any]]
             If n is an integer, nodes are from `range(n)`.
             If n is a container of nodes, those nodes appear in the graph.
+
         number_of_nodes_in_second_cycle : Union[int, Iterable[Any]]
             If n is an integer, nodes are from `range(n)`.
             If n is a container of nodes, those nodes appear in the graph.
+
         common_node_of_two_cycles : Union[int, Any]
             The node along which two cycles are connected.
+
         edge_label: Iterable[str]
             Labels that will be used to mark the edges of the graph.
 
@@ -122,9 +128,9 @@ class TwoCyclesGraphCreator(GraphCreator):
             tmp.add_edge(self.common_node_of_two_cycles, first_node)
             tmp.add_edge(last_node, self.common_node_of_two_cycles)
 
-        g = compose(g1, g2)
+        g = MultiDiGraph(compose(g1, g2))
 
         for edge in g.edges:
-            g.edges[edge]["label"] = self.edge_label
+            g.edges[edge][self.edge_label] = self.edge_label
 
         return g
