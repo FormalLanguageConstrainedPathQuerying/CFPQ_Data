@@ -22,6 +22,7 @@ class CycleGraphCreator(GraphCreator):
     number_of_nodes : Union[int, Iterable[Any]]
         If n is an integer, nodes are from `range(n)`.
         If n is a container of nodes, those nodes appear in the graph.
+
     edge_label: Iterable[str]
         Labels that will be used to mark the edges of the graph.
 
@@ -47,6 +48,7 @@ class CycleGraphCreator(GraphCreator):
         number_of_nodes : Union[int, Iterable[Any]]
             If n is an integer, nodes are from `range(n)`.
             If n is a container of nodes, those nodes appear in the graph.
+
         edge_label: Iterable[str]
             Labels that will be used to mark the edges of the graph.
 
@@ -79,6 +81,6 @@ class CycleGraphCreator(GraphCreator):
         g = cycle_graph(n=self.number_of_nodes, create_using=MultiDiGraph)
 
         for edge in g.edges:
-            g.edges[edge]["label"] = self.edge_label
+            g.edges[edge][self.edge_label] = self.edge_label
 
         return g
