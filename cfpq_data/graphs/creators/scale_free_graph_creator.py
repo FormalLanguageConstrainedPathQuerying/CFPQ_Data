@@ -20,25 +20,32 @@ class ScaleFreeGraphCreator(GraphCreator):
     Parameters
     ----------
     number_of_nodes : integer
-        Number of nodes in graph
+        Number of nodes in graph.
+
     alpha : float
         Probability for adding a new node connected to an existing node
         chosen randomly according to the in-degree distribution.
+
     beta : float
         Probability for adding an edge between two existing nodes.
         One existing node is chosen randomly according the in-degree
         distribution and the other chosen randomly according to the out-degree
         distribution.
+
     gamma : float
         Probability for adding a new node connected to an existing node
         chosen randomly according to the out-degree distribution.
+
     delta_in : float
         Bias for choosing nodes from in-degree distribution.
+
     delta_out : float
         Bias for choosing nodes from out-degree distribution.
+
     seed : integer, random_state, or None (default)
         Indicator of random number generation state.
         See [2]_.
+
     edge_labels: Iterable[str]
         Labels that will be used to mark the edges of the graph.
 
@@ -78,25 +85,32 @@ class ScaleFreeGraphCreator(GraphCreator):
         Parameters
         ----------
         number_of_nodes : integer
-            Number of nodes in graph
+            Number of nodes in graph.
+
         alpha : float
             Probability for adding a new node connected to an existing node
             chosen randomly according to the in-degree distribution.
+
         beta : float
             Probability for adding an edge between two existing nodes.
             One existing node is chosen randomly according the in-degree
             distribution and the other chosen randomly according to the out-degree
             distribution.
+
         gamma : float
             Probability for adding a new node connected to an existing node
             chosen randomly according to the out-degree distribution.
+
         delta_in : float
             Bias for choosing nodes from in-degree distribution.
+
         delta_out : float
             Bias for choosing nodes from out-degree distribution.
+
         seed : integer, random_state, or None (default)
             Indicator of random number generation state.
             See [2]_.
+
         edge_labels: Iterable[str]
             Labels that will be used to mark the edges of the graph.
 
@@ -142,19 +156,22 @@ class ScaleFreeGraphCreator(GraphCreator):
         -------
         G : MultiDiGraph
         """
-        g = scale_free_graph(
-            n=self.number_of_nodes,
-            alpha=self.alpha,
-            beta=self.beta,
-            gamma=self.gamma,
-            delta_in=self.delta_in,
-            delta_out=self.delta_out,
-            seed=self.seed,
+        g = MultiDiGraph(
+            scale_free_graph(
+                n=self.number_of_nodes,
+                alpha=self.alpha,
+                beta=self.beta,
+                gamma=self.gamma,
+                delta_in=self.delta_in,
+                delta_out=self.delta_out,
+                seed=self.seed,
+            )
         )
 
         np.random.seed(self.seed)
 
         for edge in g.edges:
-            g.edges[edge]["label"] = np.random.choice(list(self.edge_labels))
+            label = np.random.choice(list(self.edge_labels))
+            g.edges[edge][label] = label
 
         return g
