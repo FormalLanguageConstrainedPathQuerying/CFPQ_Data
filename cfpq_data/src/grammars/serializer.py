@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABC
 from pyformlang.cfg import *
-from cfpq_data.src.grammars.grammar import CNFGrammar, BaseGrammar
+from cfpq_data.src.grammars.grammar import CNFGrammar, BaseGrammar, RSA
+from cfpq_data.src.grammars.converter import RSAToBaseGrammarConverter
 
 
 class GrammarSerializer(ABC):
@@ -64,5 +65,13 @@ class CNFGrammarToTXT(GrammarSerializer):
 
 class RSAToTXT(GrammarSerializer):
 
-    def dump(self):
-        pass
+    def __init__(self, grammar_obj: RSA, path: str):
+        self.path = path
+        self.grammar = grammar_obj
+
+    def dump(self) -> str:
+        grammar = self.grammar
+        path = self.path
+        bg = RSAToBaseGrammarConverter(grammar_obj=grammar).convert()
+        new_path = BaseGrammarToTXT(grammar_obj=bg, path=path).dump()
+        return new_path
