@@ -49,7 +49,7 @@ class RDFGraphCreator(GraphCreator):
         >>> G.number_of_nodes(), G.number_of_edges()
         (671, 1980)
         """
-        self.source = source
+        self.source: Union[Path, str] = source
 
     def create(self) -> MultiDiGraph:
         """Returns a graph from CFPQ_Data dataset.
@@ -74,12 +74,13 @@ class RDFGraphCreator(GraphCreator):
             ):
                 download_data("RDF", self.source, RELEASE_INFO[cls_name][self.source])
                 path_to_rdf = unpack_graph("RDF", self.source)
+                break
 
         tmp = rdflib.Graph()
-        tmp.parse(location=str(path_to_rdf), format="xml")
+        tmp.load(str(path_to_rdf), format="xml")
 
         g = rdflib_to_networkx_multidigraph(
-            graph=tmp, edge_attrs=lambda s, p, o: {"label": p}
+            graph=tmp, edge_attrs=lambda s, p, o: {p: p}
         )
 
         return g
