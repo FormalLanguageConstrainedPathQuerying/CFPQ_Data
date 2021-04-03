@@ -1,5 +1,4 @@
 import requests
-from tqdm import tqdm
 
 from cfpq_data.utils import add_graph_dir
 
@@ -32,7 +31,7 @@ def save_response_content(response, destination):
     chunk_size = 32768
 
     with open(destination, "wb") as f:
-        for chunk in tqdm(response.iter_content(chunk_size), desc="Downloading"):
+        for chunk in response.iter_content(chunk_size):
             if chunk:  # filter out keep-alive new chunks
                 f.write(chunk)
 
