@@ -12,7 +12,7 @@ class TestRDFGraphSerializer:
     @classmethod
     def build_graphs(cls):
         cls.g1 = cfpq_data.RDFGraphCreator("pizza").create()
-        cls.g2 = cfpq_data.RDFGraphCreator("geospecies").create()
+        cls.g2 = cfpq_data.RDFGraphCreator("foaf").create()
 
     def test_g1(self):
         (fd, fname) = tempfile.mkstemp()
