@@ -75,16 +75,16 @@ class RDFGraphSerializer(GraphSerializer):
 
         tmp = RDFGraph()
 
-        for edge in self.graph.edges:
-            subj = BNode(edge[0])
-            if isinstance(edge[0], (BNode, URIRef, Literal)):
-                subj = edge[0]
+        for u, v, labels in self.graph.edges(data=True):
+            subj = BNode(u)
+            if isinstance(u, (BNode, URIRef, Literal)):
+                subj = u
 
-            obj = BNode(edge[1])
-            if isinstance(edge[1], (BNode, URIRef, Literal)):
-                obj = edge[1]
+            obj = BNode(v)
+            if isinstance(v, (BNode, URIRef, Literal)):
+                obj = v
 
-            for label in self.graph.edges[edge].values():
+            for label in labels.values():
                 pred = Literal(f"{label}", datatype=XSD.string)
                 tmp.add((subj, pred, obj))
 
