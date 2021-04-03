@@ -137,6 +137,10 @@ class FastBinomialGraphCreator(GraphCreator):
         >>> G.number_of_nodes(), G.number_of_edges()
         (42, 722)
 
+        Returns
+        -------
+        G : MultiDiGraph
+
         Notes
         -----
         The $G_{n,p}$ graph algorithm chooses each of the $[n (n - 1)] / 2$
