@@ -1,12 +1,11 @@
 """Creator of a graph from CFPQ_Data dataset.
 """
-
+import os
 from pathlib import Path
 from typing import Union
 
-import rdflib
 from networkx import MultiDiGraph
-from rdflib.extras.external_graph_libs import rdflib_to_networkx_multidigraph
+from rdflib import Graph as RDFGraph
 
 from cfpq_data.config import RELEASE_INFO
 from cfpq_data.graphs.creators.graph_creator import GraphCreator
@@ -69,18 +68,19 @@ class RDFGraphCreator(GraphCreator):
 
         for cls_name in ["RDF", "MemoryAliases"]:
             if (
-                isinstance(self.source, str)
-                and self.source in RELEASE_INFO[cls_name].keys()
+                    not os.path.isfile(self.source)
+                    and self.source in RELEASE_INFO[cls_name].keys()
             ):
                 download_data("RDF", self.source, RELEASE_INFO[cls_name][self.source])
                 path_to_rdf = unpack_graph("RDF", self.source)
                 break
 
-        tmp = rdflib.Graph()
+        tmp = RDFGraph()
         tmp.load(str(path_to_rdf), format="xml")
 
-        g = rdflib_to_networkx_multidigraph(
-            graph=tmp, edge_attrs=lambda s, p, o: {p: p}
-        )
+        g = MultiDiGraph()
+
+        for subj, pred, obj in tmp:
+            g.add_edge(subj, obj, **{str(pred): str(pred)})
 
         return g
