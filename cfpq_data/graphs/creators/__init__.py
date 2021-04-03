@@ -6,3 +6,4 @@ from cfpq_data.graphs.creators.graph_creator import *
 from cfpq_data.graphs.creators.rdf_graph_creator import *
 from cfpq_data.graphs.creators.scale_free_graph_creator import *
 from cfpq_data.graphs.creators.two_cycles_graph_creator import *
+from cfpq_data.graphs.creators.txt_graph_creator import *
