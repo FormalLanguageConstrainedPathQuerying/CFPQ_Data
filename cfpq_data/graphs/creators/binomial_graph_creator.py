@@ -121,6 +121,10 @@ class BinomialGraphCreator(GraphCreator):
         >>> G.number_of_nodes(), G.number_of_edges()
         (42, 1453)
 
+        Returns
+        -------
+        G : MultiDiGraph
+
         Notes
         -----
         This algorithm runs in `O(n^2)` time.  For sparse graphs (that is, for
