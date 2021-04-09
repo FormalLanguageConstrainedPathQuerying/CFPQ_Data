@@ -41,7 +41,7 @@ class BarabasiAlbertGraphCreator(GraphCreator):
     >>> import cfpq_data
     >>> G = cfpq_data.BarabasiAlbertGraphCreator(42, 29, 42).create()
     >>> G.number_of_nodes(), G.number_of_edges()
-    (42, 377)
+    (42, 754)
 
     References
     ----------
@@ -83,7 +83,7 @@ class BarabasiAlbertGraphCreator(GraphCreator):
         >>> import cfpq_data
         >>> G = cfpq_data.BarabasiAlbertGraphCreator(42, 29, seed=42).create()
         >>> G.number_of_nodes(), G.number_of_edges()
-        (42, 377)
+        (42, 754)
 
         References
         ----------
@@ -104,7 +104,7 @@ class BarabasiAlbertGraphCreator(GraphCreator):
         >>> import cfpq_data
         >>> G = cfpq_data.BarabasiAlbertGraphCreator(42, 29, 42).create()
         >>> G.number_of_nodes(), G.number_of_edges()
-        (42, 377)
+        (42, 754)
 
         Returns
         -------
@@ -125,6 +125,6 @@ class BarabasiAlbertGraphCreator(GraphCreator):
 
         for edge in g.edges:
             label = np.random.choice(list(self.edge_labels))
-            g.edges[edge][label] = label
+            g.edges[edge]["label"] = label
 
         return g
