@@ -61,26 +61,16 @@ class TXTGraphCreator(GraphCreator):
         -------
         G : MultiDiGraph
         """
-        edges = self.source
+        edges = str(self.source).splitlines()
         if os.path.isfile(self.source):
             with open(self.source, "r") as fin:
-                edges = fin.read().strip()
+                edges = fin.read().splitlines()
 
         g = MultiDiGraph()
 
-        for edge in edges.split("\n"):
-            units = ssplit(edge)
+        for edge in edges:
+            u, label, v = ssplit(edge)
 
-            if len(units) == 0:
-                continue
-
-            u = units[0]
-            v = units[-1]
-
-            labels = dict()
-            if len(units) > 2:
-                labels = {label: label for label in units[1:-1]}
-
-            g.add_edge(u, v, **labels)
+            g.add_edge(u, v, label=label)
 
         return g
