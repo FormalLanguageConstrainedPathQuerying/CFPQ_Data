@@ -81,6 +81,6 @@ class RDFGraphCreator(GraphCreator):
         g = MultiDiGraph()
 
         for subj, pred, obj in tmp:
-            g.add_edge(subj, obj, **{str(pred): str(pred)})
+            g.add_edge(subj, obj, label=pred)
 
         return g
