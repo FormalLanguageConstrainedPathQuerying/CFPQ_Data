@@ -172,6 +172,6 @@ class ScaleFreeGraphCreator(GraphCreator):
 
         for edge in g.edges:
             label = np.random.choice(list(self.edge_labels))
-            g.edges[edge][label] = label
+            g.edges[edge]["label"] = label
 
         return g
