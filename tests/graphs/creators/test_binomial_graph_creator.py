@@ -1,3 +1,7 @@
+import random
+
+import numpy as np
+
 import cfpq_data
 
 
@@ -9,6 +13,8 @@ class TestBinomialGraphCreator:
     @classmethod
     def build_graphs(cls):
         seed = 42
+        random.seed(seed)
+        np.random.seed(seed)
         cls.g1 = cfpq_data.BinomialGraphCreator(42, 0.42, seed=seed).create()
         cls.g2 = cfpq_data.BinomialGraphCreator(42, 0.73, seed=seed).create()
 
