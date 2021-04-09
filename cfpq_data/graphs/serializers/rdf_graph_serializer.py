@@ -35,7 +35,6 @@ class RDFGraphSerializer(GraphSerializer):
             self,
             graph: MultiDiGraph,
             path: Union[Path, str],
-            *,
             labels: Iterable[str] = ("label",),
     ):
         """Initialize the serializer of the graph.
