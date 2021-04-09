@@ -1,3 +1,7 @@
+import random
+
+import numpy as np
+
 import cfpq_data
 
 
@@ -9,6 +13,8 @@ class TestScaleFreeGraphCreator:
     @classmethod
     def build_graphs(cls):
         seed = 42
+        random.seed(seed)
+        np.random.seed(seed)
         cls.g1 = cfpq_data.ScaleFreeGraphCreator(29, seed=seed).create()
         cls.g2 = cfpq_data.ScaleFreeGraphCreator(42, seed=seed).create()
 
