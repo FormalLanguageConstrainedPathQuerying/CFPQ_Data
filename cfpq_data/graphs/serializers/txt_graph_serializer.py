@@ -65,6 +65,6 @@ class TXTGraphSerializer(GraphSerializer):
         path = Path(self.path).resolve()
         with open(path, "w") as fout:
             for u, v, labels in self.graph.edges(data=True):
-                edge_labels = " ".join([label for label in labels.values()])
-                fout.write(f"'{u}' {edge_labels} '{v}'\n")
+                for label in labels.values():
+                    fout.write(f"'{u}' {label} '{v}'\n")
         return path
