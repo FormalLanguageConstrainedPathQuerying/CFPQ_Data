@@ -23,8 +23,8 @@ class CycleGraphCreator(GraphCreator):
         If n is an integer, nodes are from `range(n)`.
         If n is a container of nodes, those nodes appear in the graph.
 
-    edge_label: Iterable[str]
-        Labels that will be used to mark the edges of the graph.
+    edge_label: str
+        Label that will be used to mark the edges of the graph.
 
     Examples
     --------
@@ -35,9 +35,9 @@ class CycleGraphCreator(GraphCreator):
     """
 
     def __init__(
-        self,
-        number_of_nodes: Union[int, Iterable[Any]],
-        edge_label: Iterable[str] = "A",
+            self,
+            number_of_nodes: Union[int, Iterable[Any]],
+            edge_label: str = "A",
     ):
         """Initialize the creator of the cycle graph $C_n$ of cyclically connected nodes.
 
@@ -49,8 +49,8 @@ class CycleGraphCreator(GraphCreator):
             If n is an integer, nodes are from `range(n)`.
             If n is a container of nodes, those nodes appear in the graph.
 
-        edge_label: Iterable[str]
-            Labels that will be used to mark the edges of the graph.
+        edge_label: str
+            Label that will be used to mark the edges of the graph.
 
         Examples
         --------
@@ -60,7 +60,7 @@ class CycleGraphCreator(GraphCreator):
         (42, 42)
         """
         self.number_of_nodes: Union[int, Iterable[Any]] = number_of_nodes
-        self.edge_label: Iterable[str] = edge_label
+        self.edge_label: str = edge_label
 
     def create(self) -> MultiDiGraph:
         """Returns the cycle graph $C_n$ of cyclically connected nodes.
@@ -81,6 +81,6 @@ class CycleGraphCreator(GraphCreator):
         g = cycle_graph(n=self.number_of_nodes, create_using=MultiDiGraph)
 
         for edge in g.edges:
-            g.edges[edge][self.edge_label] = self.edge_label
+            g.edges[edge]["label"] = self.edge_label
 
         return g
