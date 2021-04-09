@@ -4,7 +4,7 @@ $C_n$ is a path with its two end-nodes connected.
 $C_{n, m}(s)$ is a graph composed from $C_n$ and $C_m$ connected by node s.
 """
 
-from typing import Union, Iterable, Any
+from typing import Union, Iterable, Any, Tuple
 
 from networkx import MultiDiGraph, compose, path_graph
 
@@ -32,7 +32,7 @@ class TwoCyclesGraphCreator(GraphCreator):
     common_node_of_two_cycles : Union[int, Any]
         The node along which two cycles are connected.
 
-    edge_label: Iterable[str]
+    edge_labels: Tuple[str, str]
         Labels that will be used to mark the edges of the graph.
 
     Examples
@@ -44,11 +44,11 @@ class TwoCyclesGraphCreator(GraphCreator):
     """
 
     def __init__(
-        self,
-        number_of_nodes_in_first_cycle: Union[int, Iterable[Any]],
-        number_of_nodes_in_second_cycle: Union[int, Iterable[Any]],
-        common_node_of_two_cycles: Union[int, Any] = 0,
-        edge_label: Iterable[str] = "A",
+            self,
+            number_of_nodes_in_first_cycle: Union[int, Iterable[Any]],
+            number_of_nodes_in_second_cycle: Union[int, Iterable[Any]],
+            common_node_of_two_cycles: Union[int, Any] = 0,
+            edge_labels: Tuple[str, str] = ("A", "B"),
     ):
         """Initialize the creator of the two cycles graph $C_{n, m}(s)$.
 
@@ -68,7 +68,7 @@ class TwoCyclesGraphCreator(GraphCreator):
         common_node_of_two_cycles : Union[int, Any]
             The node along which two cycles are connected.
 
-        edge_label: Iterable[str]
+        edge_labels: Tuple[str, str]
             Labels that will be used to mark the edges of the graph.
 
         Examples
@@ -85,7 +85,7 @@ class TwoCyclesGraphCreator(GraphCreator):
             int, Iterable[Any]
         ] = number_of_nodes_in_second_cycle
         self.common_node_of_two_cycles: Union[int, Any] = common_node_of_two_cycles
-        self.edge_label: Iterable[str] = edge_label
+        self.edge_labels: Tuple[str, str] = edge_labels
 
     def create(self) -> MultiDiGraph:
         """Returns the two cycles graph $C_{n, m}(s)$.
@@ -128,9 +128,12 @@ class TwoCyclesGraphCreator(GraphCreator):
             tmp.add_edge(self.common_node_of_two_cycles, first_node)
             tmp.add_edge(last_node, self.common_node_of_two_cycles)
 
-        g = MultiDiGraph(compose(g1, g2))
+        for edge in g1.edges:
+            g1.edges[edge]["label"] = self.edge_labels[0]
 
-        for edge in g.edges:
-            g.edges[edge][self.edge_label] = self.edge_label
+        for edge in g2.edges:
+            g2.edges[edge]["label"] = self.edge_labels[1]
+
+        g = MultiDiGraph(compose(g1, g2))
 
         return g
