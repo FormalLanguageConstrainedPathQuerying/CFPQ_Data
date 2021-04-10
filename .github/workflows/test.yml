@@ -1,19 +1,14 @@
-name: test
+name: ci
 
-on:
-  push:
-    branches: [ main, dev, ci ]
-  pull_request:
-    branches: [ main, dev, ci ]
+on: [ push, pull_request ]
 
 jobs:
-
-  default:
-    runs-on: ${{ matrix.os }}-latest
+  tests:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu, macos ]
-        python-version: [ 3.7, 3.8, 3.9 ]
+        os: [ ubuntu-16.04, ubuntu-18.04, ubuntu-20.04, ubuntu-latest, macos-10.15, macos-11.0, macos-latest ]
+        python-version: [ 3.7, 3.8, 3.9, 3.10 ]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -23,11 +18,10 @@ jobs:
 
       - name: Install packages
         run: |
-          python -m pip install --upgrade pip
           python -m pip install --upgrade pip wheel setuptools
           python -m pip install -r requirements.txt
           python -m pip install .
           python -m pip list
-      - name: Test CFPQ_Data
+      - name: Lint CFPQ_Data
         run: |
-          pytest --doctest-modules -vv -s
+          pre-commit run --all-files --show-diff-on-failure --color always
