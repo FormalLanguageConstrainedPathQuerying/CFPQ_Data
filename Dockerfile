@@ -1,13 +1,8 @@
 FROM ubuntu:latest
 
-RUN apt -y update && \
-    apt-get -y install software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt -y install \
-    python3.8 \
-    python3-pip \
-    git \
-    openjdk-8-jdk
+RUN apt-get -y update && \
+    apt-get -y install && \
+    python3-pip
 
 COPY . /CFPQ_Data
 
