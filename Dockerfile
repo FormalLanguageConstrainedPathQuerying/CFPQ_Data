@@ -1,8 +1,4 @@
-FROM ubuntu:latest
-
-RUN apt-get -y update && \
-    apt-get -y install && \
-    python3-pip
+FROM python:latest
 
 COPY . /CFPQ_Data
 
