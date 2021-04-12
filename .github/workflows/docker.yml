@@ -1,0 +1,18 @@
+name: ci docker
+
+on: [ push, pull_request ]
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-16.04, ubuntu-18.04, ubuntu-20.04, ubuntu-latest, macos-10.15, macos-latest ]
+        python-version: [ 3.7, 3.8, 3.9 ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Test CFPQ_Data inside Docker
+        run: |
+          docker build -t cfpq_data .
+          docker run -it --rm -v "$PWD":/CFPQ_Data cfpq_data python3 -m pytest --doctest-modules -vv -s
