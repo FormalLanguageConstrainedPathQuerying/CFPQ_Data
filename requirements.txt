@@ -1,9 +1,6 @@
-numpy
-rdflib
-tqdm
-networkx
-requests
-pytest
-setuptools
-wget
-pyformlang
+numpy>=1.20.2
+setuptools>=56.0.0
+requests>=2.25.1
+networkx>=2.5.1
+rdflib>=5.0.0
+pyformlang>=0.1.23
