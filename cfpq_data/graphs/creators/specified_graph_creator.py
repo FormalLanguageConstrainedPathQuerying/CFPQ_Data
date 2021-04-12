@@ -30,11 +30,7 @@ class SpecifiedGraphCreator(GraphCreator):
     42
     """
 
-    def __init__(
-            self,
-            graph: MultiDiGraph,
-            spec: Dict[Any, Any],
-    ):
+    def __init__(self, graph: MultiDiGraph, spec: Dict[Any, Any]):
         """Initialize the creator of the graph with specified edge labels mapping.
 
         Parameters
