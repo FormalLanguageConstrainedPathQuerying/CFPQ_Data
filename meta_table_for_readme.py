@@ -28,13 +28,13 @@ def memoryaliases_dict():
 def create_table():
     column_names = ["name", "vertices", "edges", "size of file"]
     table_rdf = (
-            "| Name | Vertices | Edges | Size of file (Bytes) |\n"
-            + "|:---|:---|:---|:---|\n"
+        "| Name | Vertices | Edges | Size of file (Bytes) |\n"
+        + "|:---|:---|:---|:---|\n"
     )
 
     table_memoryaliases = (
-            "| Name | Vertices | Edges | Size of file (Bytes) |\n"
-            + "|:---|:---|:---|:---|\n"
+        "| Name | Vertices | Edges | Size of file (Bytes) |\n"
+        + "|:---|:---|:---|:---|\n"
     )
 
     rdf = rdf_dict()
@@ -47,7 +47,7 @@ def create_table():
             table_rdf += "| " + str(rdf[name][column_name]) + " "
         table_rdf += "|\n"
     for name in sorted(
-            names_memoryaliases, key=lambda x: int(memory_aliases[x]["size of file"])
+        names_memoryaliases, key=lambda x: int(memory_aliases[x]["size of file"])
     ):
         for column_name in column_names:
             table_memoryaliases += "| " + str(memory_aliases[name][column_name]) + " "

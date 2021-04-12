@@ -68,8 +68,8 @@ class RDFGraphCreator(GraphCreator):
 
         for cls_name in ["RDF", "MemoryAliases"]:
             if (
-                    not os.path.isfile(self.source)
-                    and self.source in RELEASE_INFO[cls_name].keys()
+                not os.path.isfile(self.source)
+                and self.source in RELEASE_INFO[cls_name].keys()
             ):
                 download_data("RDF", self.source, RELEASE_INFO[cls_name][self.source])
                 path_to_rdf = unpack_graph("RDF", self.source)

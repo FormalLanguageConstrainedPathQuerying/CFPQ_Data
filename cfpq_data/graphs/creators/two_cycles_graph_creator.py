@@ -44,11 +44,11 @@ class TwoCyclesGraphCreator(GraphCreator):
     """
 
     def __init__(
-            self,
-            number_of_nodes_in_first_cycle: Union[int, Iterable[Any]],
-            number_of_nodes_in_second_cycle: Union[int, Iterable[Any]],
-            common_node_of_two_cycles: Union[int, Any] = 0,
-            edge_labels: Tuple[str, str] = ("A", "B"),
+        self,
+        number_of_nodes_in_first_cycle: Union[int, Iterable[Any]],
+        number_of_nodes_in_second_cycle: Union[int, Iterable[Any]],
+        common_node_of_two_cycles: Union[int, Any] = 0,
+        edge_labels: Tuple[str, str] = ("A", "B"),
     ):
         """Initialize the creator of the two cycles graph $C_{n, m}(s)$.
 
