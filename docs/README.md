@@ -6,8 +6,7 @@ Graphs and grammars for experimental analysis of context-free path querying algo
 
 ## Prerequirements
 
-* GCC
-* Python 3
+* Python 3.8 or newer
 
 ## Installing
 
