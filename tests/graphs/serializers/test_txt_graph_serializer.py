@@ -11,7 +11,7 @@ class TestTXTGraphSerializer:
 
     @classmethod
     def build_graphs(cls):
-        cls.g1 = cfpq_data.RDFGraphCreator("pizza").create()
+        cls.g1 = cfpq_data.CycleGraphCreator(42).create()
         cls.g2 = cfpq_data.TwoCyclesGraphCreator(2, 3).create()
 
     def test_g1(self):
