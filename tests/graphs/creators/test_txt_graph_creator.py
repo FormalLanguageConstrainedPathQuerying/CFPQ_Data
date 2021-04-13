@@ -9,22 +9,15 @@ class TestTXTGraphCreator:
     @classmethod
     def build_graphs(cls):
         cls.g1 = cfpq_data.TXTGraphCreator(
-            "\n".join([
-                f"{u} {label} {v}"
-                for u, label, v in [
-                    (1, 'A', 2),
-                    (2, 'A', 3),
-                    (3, 'A', 1)
+            "\n".join(
+                [
+                    f"{u} {label} {v}"
+                    for u, label, v in [(1, "A", 2), (2, "A", 3), (3, "A", 1)]
                 ]
-            ])
+            )
         ).create()
         cls.g2 = cfpq_data.TXTGraphCreator(
-            "\n".join([
-                f"{u} {label} {v}"
-                for u, label, v in [
-                    (1, 'A', 2),
-                ]
-            ])
+            "\n".join([f"{u} {label} {v}" for u, label, v in [(1, "A", 2)]])
         ).create()
 
     def test_g1(self):

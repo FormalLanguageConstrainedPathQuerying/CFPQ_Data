@@ -57,11 +57,11 @@ class BinomialGraphCreator(GraphCreator):
     """
 
     def __init__(
-            self,
-            number_of_nodes: int,
-            edge_probability: float,
-            seed: Union[int, RandomState, None] = None,
-            edge_labels: Iterable[str] = "ABCD",
+        self,
+        number_of_nodes: int,
+        edge_probability: float,
+        seed: Union[int, RandomState, None] = None,
+        edge_labels: Iterable[str] = "ABCD",
     ):
         """Initialize the creator of a `G_{n,p}` random graph, also known as an Erdős-Rényi graph or
         a binomial graph.

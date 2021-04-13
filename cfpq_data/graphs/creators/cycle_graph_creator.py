@@ -35,9 +35,7 @@ class CycleGraphCreator(GraphCreator):
     """
 
     def __init__(
-            self,
-            number_of_nodes: Union[int, Iterable[Any]],
-            edge_label: str = "A",
+        self, number_of_nodes: Union[int, Iterable[Any]], edge_label: str = "A"
     ):
         """Initialize the creator of the cycle graph $C_n$ of cyclically connected nodes.
 
