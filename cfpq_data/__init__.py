@@ -11,3 +11,6 @@ __version__ = "0.0.0"
 
 import cfpq_data.graphs
 from cfpq_data.graphs import *
+
+import cfpq_data.grammars
+from cfpq_data.grammars import *
