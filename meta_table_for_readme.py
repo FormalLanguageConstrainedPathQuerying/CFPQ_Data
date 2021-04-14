@@ -1,12 +1,12 @@
 import glob
 import json
 
-from cfpq_data.config import RELEASE_INFO
+from cfpq_data.config import DATASET
 
 
 def rdf_dict():
     data_rdf = dict()
-    names_rdf = RELEASE_INFO["RDF"]
+    names_rdf = DATASET["RDF"]
     for name in names_rdf:
         with open(f"./cfpq_data/data/RDF/Graphs/{name}_meta.json", "r") as graph_info:
             data_rdf[name] = json.load(graph_info)
@@ -15,7 +15,7 @@ def rdf_dict():
 
 def memoryaliases_dict():
     data_memoryaliases = dict()
-    names_memoryaliases = RELEASE_INFO["MemoryAliases"]
+    names_memoryaliases = DATASET["MemoryAliases"]
     for name in names_memoryaliases:
         name_of_file = glob.glob("./cfpq_data/data/MemoryAliases/Graphs/" + name + "*")[
             0
@@ -39,8 +39,8 @@ def create_table():
 
     rdf = rdf_dict()
     memory_aliases = memoryaliases_dict()
-    names_rdf = RELEASE_INFO["RDF"]
-    names_memoryaliases = RELEASE_INFO["MemoryAliases"]
+    names_rdf = DATASET["RDF"]
+    names_memoryaliases = DATASET["MemoryAliases"]
 
     for name in sorted(names_rdf, key=lambda x: int(rdf[x]["size of file"])):
         for column_name in column_names:
