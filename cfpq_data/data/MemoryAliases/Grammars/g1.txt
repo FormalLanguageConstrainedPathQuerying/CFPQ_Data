@@ -1,8 +1,0 @@
-S -> d_r V d
-V -> V1 V2 V3
-V1 -> epsilon
-V1 -> V2 a_r V1
-V2 -> epsilon
-V2 -> S
-V3 -> epsilon
-V3 -> a V2 V3

@@ -12,8 +12,8 @@ np.random.seed(seed)
 g1 = cfpq_data.labeled_barabasi_albert_graph(42, 3, seed, edge_labels="A")
 g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed, edge_labels="A")
 
-rg1 = cfpq_data.relabel_graph(g1, {"A": "B"})
-rg2 = cfpq_data.relabel_graph(g2, {"A": "B"})
+rg1 = cfpq_data.relabel_graph(g1, {"a": "b"})
+rg2 = cfpq_data.relabel_graph(g2, {"a": "b"})
 
 
 @pytest.mark.parametrize(

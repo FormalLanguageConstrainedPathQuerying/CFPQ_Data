@@ -16,7 +16,7 @@ def fast_labeled_binomial_graph(
     number_of_nodes: int,
     edge_probability: float,
     seed: Union[int, RandomState, None] = None,
-    edge_labels: Iterable[str] = "ABCD",
+    edge_labels: Iterable[str] = "a",
 ) -> MultiDiGraph:
     """Returns a `G_{n,p}` random graph,
     also known as an Erdős-Rényi graph or

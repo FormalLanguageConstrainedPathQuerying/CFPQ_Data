@@ -12,7 +12,7 @@ __all__ = ["labeled_cycle_graph"]
 
 
 def labeled_cycle_graph(
-    number_of_nodes: Union[int, Iterable[Any]], edge_label: str = "A"
+    number_of_nodes: Union[int, Iterable[Any]], edge_label: str = "a"
 ) -> MultiDiGraph:
     """Creator of the cycle graph $C_n$
     of cyclically connected nodes.

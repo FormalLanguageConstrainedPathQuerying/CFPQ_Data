@@ -19,7 +19,7 @@ def labeled_scale_free_graph(
     delta_in: float = 0.2,
     delta_out: float = 0,
     seed: Union[int, RandomState, None] = None,
-    edge_labels: Iterable[str] = "ABCD",
+    edge_labels: Iterable[str] = "abcd",
 ) -> MultiDiGraph:
     """Returns a scale-free directed graph.
     With labeled edges.

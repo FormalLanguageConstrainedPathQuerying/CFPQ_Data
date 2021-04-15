@@ -23,7 +23,7 @@ def relabel_graph(graph: MultiDiGraph, spec: Dict) -> MultiDiGraph:
     --------
     >>> import cfpq_data
     >>> g = cfpq_data.labeled_cycle_graph(42)
-    >>> rg = cfpq_data.relabel_graph(g, {"A": "B"})
+    >>> rg = cfpq_data.relabel_graph(g, {"a": "b"})
     >>> g.number_of_nodes() == rg.number_of_nodes()
     True
     >>> g.number_of_edges() == rg.number_of_edges()

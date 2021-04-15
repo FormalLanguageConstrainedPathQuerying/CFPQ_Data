@@ -85,5 +85,6 @@ def clean_table():
                 output_file.write(line)
 
 
-clean_table()
-create_table()
+if __name__ == "__main__":
+    clean_table()
+    create_table()
