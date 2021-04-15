@@ -19,7 +19,7 @@ def labeled_barabasi_albert_graph(
     number_of_nodes: int,
     number_of_edges: int,
     seed: Union[int, RandomState, None] = None,
-    edge_labels: Iterable[str] = "ABCD",
+    edge_labels: Iterable[str] = "abcd",
 ) -> MultiDiGraph:
     """Returns a random graph according
     to the Barabási–Albert preferential attachment model
