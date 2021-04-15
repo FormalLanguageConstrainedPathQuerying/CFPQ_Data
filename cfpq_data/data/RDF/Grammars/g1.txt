@@ -1,1 +1,0 @@
-S -> sco_r S sco | t_r S t | sco_r sco | t_r t

@@ -1,1 +1,0 @@
-S -> bt S bt_r | bt bt_r
