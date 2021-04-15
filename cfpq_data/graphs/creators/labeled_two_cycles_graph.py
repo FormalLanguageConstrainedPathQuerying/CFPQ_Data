@@ -12,7 +12,7 @@ def labeled_two_cycles_graph(
     n: Union[int, Iterable[Any]],
     m: Union[int, Iterable[Any]],
     common: Union[int, Any] = 0,
-    edge_labels: Tuple[str, str] = ("A", "B"),
+    edge_labels: Tuple[str, str] = ("a", "b"),
 ) -> MultiDiGraph:
     """Returns a graph with two cycles connected by one node.
     With labeled edges.
