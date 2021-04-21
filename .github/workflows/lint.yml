@@ -24,5 +24,10 @@ jobs:
           python -m pip install .
           python -m pip list
 
-      - name: Lint CFPQ_Data
-        uses: pre-commit/action@v2.0.2
+      - name: Install pre-commit
+        run: |
+          pre-commit install
+
+      - name: Lint
+        run: |
+          pre-commit run --all-files --color always --verbose
