@@ -59,7 +59,7 @@ class RSM:
         return "\n".join(productions)
 
     def contains(self, word: str) -> bool:
-        """ Gives the membership of a word
+        """Gives the membership of a word
         to the Recursive State Machine [1]_
 
         Parameters
