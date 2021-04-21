@@ -1,0 +1,4 @@
+networkx>=2.5
+pyformlang>=0.1
+rdflib>=5.0
+requests>=2.25

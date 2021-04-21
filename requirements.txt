@@ -1,7 +1,0 @@
-networkx>=2.5.1
-numpy>=1.20.2
-pyformlang>=0.1.23
-pytest>=6.2.3
-rdflib>=5.0.0
-requests>=2.25.1
-setuptools>=56.0.0
