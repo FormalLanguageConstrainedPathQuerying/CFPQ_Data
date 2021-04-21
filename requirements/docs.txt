@@ -1,5 +1,5 @@
-sphinx==3.5.4
-pydata_sphinx_theme==0.6.0
-numpydoc==1.1
 nb2plots==0.6
+numpydoc==1.1
+pydata_sphinx_theme==0.6.0
+sphinx==3.5.4
 sphinx-copybutton==0.3.1
