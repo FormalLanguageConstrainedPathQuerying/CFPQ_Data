@@ -17,16 +17,15 @@ def labeled_two_cycles_graph(
     """Returns a graph with two cycles connected by one node.
     With labeled edges.
 
-    $C_n$ is a path with its two end-nodes connected.
-    $C_{n, m}(s)$ is a graph composed from $C_n$ and $C_m$ connected by node s.
-
     Parameters
     ----------
     n : Union[int, Iterable[Any]]
+        The number of nodes in the first cycle without a common node.
         If n is an integer, nodes are from `range(n)`.
         If n is a container of nodes, those nodes appear in the graph.
 
     m : Union[int, Iterable[Any]]
+        The number of nodes in the second cycle without a common node.
         If m is an integer, nodes are from `range(n)`.
         If m is a container of nodes, those nodes appear in the graph.
 
