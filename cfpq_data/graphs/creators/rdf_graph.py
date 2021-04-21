@@ -15,13 +15,13 @@ __all__ = ["rdf_graph"]
 
 
 def rdf_graph(source: Union[Path, str]) -> MultiDiGraph:
-    """Returns a graph from CFPQ_Data dataset.
+    """Returns a graph from CFPQ_Data dataset or RDF file.
 
     Parameters
     ----------
     source : Union[Path, str]
         If source is a str, then the graph will be searched by name among the graphs in the dataset.
-        If source is a Path, then the graph will be loaded from a file.
+        If source is a Path, then the graph will be loaded from a RDF file.
 
     Examples
     --------
