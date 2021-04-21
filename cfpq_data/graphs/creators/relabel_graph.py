@@ -15,6 +15,7 @@ def relabel_graph(graph: MultiDiGraph, spec: Dict) -> MultiDiGraph:
     Parameters
     ----------
     graph : MultiDiGraph
+        Initial graph.
 
     spec: Dict
         Edge labels mapping.
