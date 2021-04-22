@@ -116,7 +116,7 @@ Grammars list contains the following variants of same-generation query over diff
 Both grammars **g1** and **g2** specify the same language which is described in related papers. These two grammars were
 written in a different way in order to investigate dependencies on query specification format.
 
-**```WorstCase```** — graphs with two cylces; the query **Brackets** is a grammar for the language of correct bracket
+**```WorstCase```** — graphs with two cycles; the query **Brackets** is a grammar for the language of correct bracket
 sequences.
 
 **```SparseGraph```** — graphs generated with [NetworkX](https://networkx.github.io/) to emulate sparse data. The
