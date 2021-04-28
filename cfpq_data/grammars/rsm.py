@@ -1,11 +1,6 @@
-"""Recursive State Machine [1]_.
-
-References
-----------
-.. [1] Egor Orachev, Ilya Epelbaum, Rustam Azimov
-   and Semyon Grigorev "Context-Free Path Querying
-   by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+"""Recursive State Machine.
 """
+import re
 from typing import Tuple, Sequence
 
 from pyformlang.cfg import Variable, CFG, Production, Terminal
@@ -31,6 +26,14 @@ class RSM:
     ):
         """Initialize a Recursive State Machine [1]_.
 
+        Parameters
+        ----------
+        start_symbol : Variable
+            Start symbol of a Recursive State Machine.
+
+        boxes : Sequence[Tuple[Variable, DeterministicFiniteAutomaton]]
+            Boxes of a Recursive State Machine.
+
         References
         ----------
         .. [1] Egor Orachev, Ilya Epelbaum, Rustam Azimov
@@ -44,10 +47,17 @@ class RSM:
         """Turns the Recursive State Machine [1]_
         into its string representation.
 
+        Examples
+        --------
+        >>> import cfpq_data
+        >>> rsm = cfpq_data.rsm_from_text("S -> (a S* b S*)*")
+        >>> text = rsm.to_text()
+
         Returns
         -------
         text : str
-            The Recursive State Machine as a string.
+            The Recursive State Machine
+            text representation.
 
         References
         ----------
@@ -58,23 +68,27 @@ class RSM:
         productions = [f"{box[0]} -> {box[1].to_regex()}" for box in self.boxes]
         return "\n".join(productions)
 
-    def contains(self, word: str) -> bool:
-        """Gives the membership of a word
-        to the Recursive State Machine [1]_
+    def to_cfg(self):
+        """Create a context-free grammar [1]_
+        from Recursive State Machine [2]_.
 
-        Parameters
-        ----------
-        word : str
-            The word to check.
+        Examples
+        --------
+        >>> import cfpq_data
+        >>> rsm = cfpq_data.rsm_from_text("S -> (a S* b S*)*")
+        >>> cfg = rsm.to_cfg()
+        >>> [cfg.contains(word) for word in ["", "ab", "aabb"]]
+        [True, True, True]
 
         Returns
-        ----------
-        contains : bool
-            Whether word if in the Recursive State Machine or not.
+        -------
+        cfg : CFG
+            Context-free grammar.
 
         References
         ----------
-        .. [1] Egor Orachev, Ilya Epelbaum, Rustam Azimov
+        .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
+        .. [2] Egor Orachev, Ilya Epelbaum, Rustam Azimov
            and Semyon Grigorev "Context-Free Path Querying
            by Kronecker Product", ADBIS 2020, pp 49-59, 2020
         """
@@ -97,16 +111,55 @@ class RSM:
 
             for v, label, to in dfa._transition_function.get_edges():
                 if label.value == label.value.lower():
-                    terminals.add(Terminal(label.value))
-                    mid = Terminal(label.value.lower())
-                else:
-                    mid = Variable(label.value.upper())
+                    try:
+                        label_value = re.search('"TER:(.*)"', label.value).group(1)
+                    except AttributeError:
+                        label_value = label.value
 
-                productions.add(Production(naming[v], [mid, naming[to]]))
+                    terminals.add(Terminal(label_value))
+                    production_label = Terminal(label_value)
+                else:
+                    try:
+                        label_value = re.search('"VAR:(.*)"', label.value).group(1)
+                    except AttributeError:
+                        label_value = label.value
+
+                    production_label = Variable(label_value)
+
+                productions.add(Production(naming[v], [production_label, naming[to]]))
 
         return CFG(
             variables=variables,
             terminals=terminals,
             start_symbol=self.start_symbol,
             productions=productions,
-        ).contains(word)
+        )
+
+    def contains(self, word: str) -> bool:
+        """Gives the membership of a word
+        to the Recursive State Machine [1]_
+
+        Parameters
+        ----------
+        word : str
+            The word to check.
+
+        Examples
+        --------
+        >>> import cfpq_data
+        >>> rsm = cfpq_data.rsm_from_text("S -> (a S* b S*)*")
+        >>> [rsm.contains(word) for word in ["", "ab", "aabb"]]
+        [True, True, True]
+
+        Returns
+        ----------
+        contains : bool
+            Whether word if in the Recursive State Machine or not.
+
+        References
+        ----------
+        .. [1] Egor Orachev, Ilya Epelbaum, Rustam Azimov
+           and Semyon Grigorev "Context-Free Path Querying
+           by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+        """
+        return self.to_cfg().contains(word)
