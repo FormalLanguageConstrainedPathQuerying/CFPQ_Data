@@ -1,14 +1,14 @@
-"""Returns a graph with relabeled edges
+"""Returns a graph with changed edges
 by specified edge labels mapping.
 """
 from typing import Any, Dict
 
 from networkx import MultiDiGraph
 
-__all__ = ["relabel_graph"]
+__all__ = ["change_edges"]
 
 
-def relabel_graph(graph: MultiDiGraph, spec: Dict) -> MultiDiGraph:
+def change_edges(graph: MultiDiGraph, spec: Dict[str, Any]) -> MultiDiGraph:
     """Returns a graph with relabeled edges
     by specified edge labels mapping.
 
@@ -24,16 +24,16 @@ def relabel_graph(graph: MultiDiGraph, spec: Dict) -> MultiDiGraph:
     --------
     >>> import cfpq_data
     >>> g = cfpq_data.labeled_cycle_graph(42)
-    >>> rg = cfpq_data.relabel_graph(g, {"a": "b"})
-    >>> g.number_of_nodes() == rg.number_of_nodes()
+    >>> new_g = cfpq_data.change_edges(g, {"a": "b"})
+    >>> g.number_of_nodes() == new_g.number_of_nodes()
     True
-    >>> g.number_of_edges() == rg.number_of_edges()
+    >>> g.number_of_edges() == new_g.number_of_edges()
     True
 
     Returns
     -------
     g : MultiDiGraph
-        A graph with relabeled edges.
+        A graph with changed edges.
     """
     g = MultiDiGraph()
 
@@ -41,9 +41,12 @@ def relabel_graph(graph: MultiDiGraph, spec: Dict) -> MultiDiGraph:
         g.add_node(node, **node_labels)
 
     for u, v, edge_labels in graph.edges(data=True):
-        relabeled_edge_labels = {
-            k: v if v not in spec.keys() else spec[v] for k, v in edge_labels.items()
-        }
-        g.add_edge(u, v, **relabeled_edge_labels)
+        changed_edge_labels = dict()
+        for key, value in edge_labels.items():
+            if str(value) in spec.keys():
+                changed_edge_labels[key] = spec[value]
+            else:
+                changed_edge_labels[key] = value
+        g.add_edge(u, v, **changed_edge_labels)
 
     return g
