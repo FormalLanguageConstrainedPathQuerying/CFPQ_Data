@@ -2,7 +2,7 @@
 """
 from pyformlang.cfg import CFG
 
-from cfpq_data.grammars.creators.rsm_from_txt import rsm_from_txt
+from cfpq_data.grammars.readwrite.rsm import rsm_from_text
 
 __all__ = ["g1", "g2"]
 g1 = CFG.from_text(
@@ -17,4 +17,4 @@ g1 = CFG.from_text(
     V3 -> a V2 V3
     """
 )
-g2 = rsm_from_txt("S -> d_r V d\nV -> ((S?) a_r)* (S?) (a (S?))*")
+g2 = rsm_from_text("S -> d_r V d\nV -> ((S?) a_r)* (S?) (a (S?))*")
