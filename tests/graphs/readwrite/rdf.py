@@ -6,13 +6,19 @@ import pytest
 import cfpq_data
 
 
-@pytest.mark.parametrize("graph_name", ["people_pets", "foaf"])
-def test_graph_to_rdf(graph_name):
+@pytest.mark.parametrize(
+    "graph_name",
+    [
+        "people_pets",
+        "foaf",
+    ],
+)
+def test_rdf(graph_name):
     (fd, fname) = tempfile.mkstemp()
 
-    graph = cfpq_data.rdf_graph(graph_name)
+    graph = cfpq_data.graph_from_dataset(graph_name)
     path = cfpq_data.graph_to_rdf(graph, fname)
-    gin = cfpq_data.rdf_graph(path)
+    gin = cfpq_data.graph_from_rdf(path)
 
     os.close(fd)
     os.unlink(fname)
