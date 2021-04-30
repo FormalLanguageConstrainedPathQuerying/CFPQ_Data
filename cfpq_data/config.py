@@ -3,48 +3,208 @@ from pathlib import Path
 MAIN_FOLDER = Path(__file__).parent
 
 DATASET = {
-    "RDF": {
-        "atom-primitive": "12tY-PRFGs51WOtlkWW-WlY9tRBjg3PXd",
-        "biomedical-mesure-primitive": "1NvmSbs75zWN_I9p_wLhrsza757cvhXPs",
-        "core": "1Qa-jqExT43AmY7S2TPHg0vp3EmSF732d",
-        "eclass_514en": "1Wc4z7oR8DsZ7yPJwERGtUmLm5PV3UeNZ",
-        "enzyme": "1oF2rfeGhrgIfK-Mf-hSUz7PrvZHcfZbv",
-        "foaf": "1KTVJq59BfgQxJcPM4Jv7TSqGhEzfj3qh",
-        "funding": "1Hzj5BHz4N00P8RhriRNYoszpGLHjxjLE",
-        "generations": "1AeaE4Vq57Lgm4-_0NKQVNaZ-LsKWSUu_",
-        "geospecies": "1cIskhK_hP5qYQ8zSfIDJI7dMPOcw-5VY",
-        "go-hierarchy": "131tO2DpNTmCR309e5usP7fCBDt0Ztb29",
-        "go": "1Pn1BGwhoiIDsb6fFp4QaJmcSewn2BGuD",
-        "pathways": "1uTybJMkitcEiZLdN1du4jn5IsetjpqgX",
-        "people_pets": "1_pqQP85XzaMdSFGR24kj5VILsq3y6SFY",
-        "pizza": "1zHEhhmy7evsarSScuZfW1eRVsxXlLGt3",
-        "skos": "14kqPKPjUyIQwe0muJTmNRboFcqRsvCKa",
-        "taxonomy-hierarchy": "1BazxlQZxWOYmcqsWzZExBoPMlMi-8NFV",
-        "taxonomy": "1u1RNOe6bgauEv4O6HPWzQcx3f8FDU3MT",
-        "travel": "1r9FtzUgLw-RMV8i8LqITpQyiJk63aqyK",
-        "univ-bench": "1Ar5M50iD5URszbbKUI2hS4dlJzigYyfA",
-        "wine": "1lGf1N4poMHMOEDGovIS5opGsPbCPHeZJ",
-    },
     "MemoryAliases": {
-        "Apache_httpd_2.2.18_pointsto_graph": "12EC1ygETIT1XFoMiqYPSaD9gmLY49aOC",
-        "arch_afterInline": "1LW-mSzSOGwr0q-euqaDiGaqtFkwd5y8_",
-        "block_afterInline": "1dBuAgoksdmOEnB5g0J2jgOAw5M2ErPHu",
-        "bzip2": "1L9lytXXftpzPG7u1uqLHH799h8HWuq4Q",
-        "crypto_afterInline": "1fh-fgvnPdpwE_PVWa3NouvA8sJ1BC_Om",
-        "drivers_afterInline": "1XdTEujSToK492zESnMv5pEqJUGpdKp6c",
-        "fs_afterInline": "1u8DGGIfNewzFCEeblMphOPxzJx_jDn9r",
-        "gzip": "1VY2x2giq3RNZjalYkO_imNnWtWvrUs6E",
-        "init_afterInline": "1dEM7MJUmwNfsAZMx4Q_bcqeAIQ1HU17t",
-        "ipc_afterInline": "1qsHz9XPeaDrGqZDePz6i9RgBNGCh85TY",
-        "kernel_afterInline": "1Oi1RpYRnYkVF92EXsBaoHEgCGydRUDWg",
-        "lib_afterInline": "1wjIaV7gng2H06JBbNkE1XSaUVPty_Amg",
-        "ls": "1GH3-ClTb_f6wf5Kehh-pg4H9AnbeQ9cn",
-        "mm_afterInline": "1V4QzXUZBtRaB9XFAZzSahxcbvxyKa8XN",
-        "net_afterInline": "1PU8pcDUxDXUuKe8FzRDpqHbrV_EmSxbl",
-        "PostgreSQL_8.3.9_pointsto_graph": "1__5K0F-uDeYuTumiLsegPE4AwS8qDHI5",
-        "pr": "1eO79LgXdf3k4djN-npeMWLWrVxArYozA",
-        "security_afterInline": "1TY206_ikpQL35AuWP_6KqAdxPGQQfKLN",
-        "sound_afterInline": "1KdolYE4XB929vXpv8ISu8xNtGM4UmacC",
-        "wc": "1dQD5zbsj7FvpCJ0dh1LoH9cfdMTb3mcm",
+        "Apache_httpd_2.2.18_pointsto_graph": {
+            "version_id": "6CfRViYHGLyYvSiKf8kWhwOQpFUvUhrw",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "PostgreSQL_8.3.9_pointsto_graph": {
+            "version_id": "dlVensEsC3.Tjn3MZipEgfCXTyFc9Gno",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "arch_afterInline": {
+            "version_id": "oYn672Yd85LFkdAVsW3ppJDAXcvTWEsq",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "block_afterInline": {
+            "version_id": "yjSfyx3ND7LiqlTZcyk3WQDGO.bdmTed",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "bzip2": {
+            "version_id": "_V9sUGA3HzqgF22dH34QjMq5wbO48oVL",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "crypto_afterInline": {
+            "version_id": "ikRlpHT_E5e8iutdRRwyiadm6Y3LB2DS",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "drivers_afterInline": {
+            "version_id": "Wwlv0L6vKWvPYttwLNWfGESPN6wPCnP.",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "fs_afterInline": {
+            "version_id": "MkdtntPJDg2zH5EYLPvgbZe5y.x.FAyv",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "gzip": {
+            "version_id": "Qq7CIGhL6TZvfsOhT2ou64mR9HoxwZjz",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "init_afterInline": {
+            "version_id": "Qb48SAVUqCy3PnQ5tPGesC4jXtw93kpy",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "ipc_afterInline": {
+            "version_id": "Hg3IDlRfPYHdXPBfdSib.N7TwPYl9n1S",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "kernel_afterInline": {
+            "version_id": "hDJdX1VgrfoEzJzQCIcCfa4aTRsttVHN",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "lib_afterInline": {
+            "version_id": "eOLlCHTuaqG952PnkV1UBEhc0ZInJ7C7",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "ls": {
+            "version_id": "joxt5Ofql.T9BGD9DzGamhY4w1Dp3Of2",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "mm_afterInline": {
+            "version_id": "h3zNK21CY54316eQcay6fgsp5QJCnOgs",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "net_afterInline": {
+            "version_id": "4RT6k1W58sd6GciF2wlk4kDaCD3RPBJ6",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "pr": {
+            "version_id": "7JVaerYb4Xr6Pee4qU8qJWVKyUlJ5rVr",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "security_afterInline": {
+            "version_id": "ptv8rwCAPdHuo3ABJpvnr92.pQPTU.6C",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "sound_afterInline": {
+            "version_id": "C2b1j6J73_8tx6pZNVLtTDyhq8bAW5Zn",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        },
+        "wc": {
+            "version_id": "wvpVN9XAqfMvkAO44YYXC5L4vKP3lJLM",
+            "file_extension": ".xml",
+            "archive_extension": ".tar.gz"
+        }
     },
+    "RDF": {
+        "atom-primitive": {
+            "version_id": "d.KnhyNlOpor7YAnu6MCOefbTQmDAWyy",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "biomedical-mesure-primitive": {
+            "version_id": "gz33IPh2tGDGI27Z3mIdBBdNYKyOg_.Y",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "core": {
+            "version_id": "Uztj4uXtJMtW92Tpi3bnBQ.GR_qBSmlp",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "eclass_514en": {
+            "version_id": "JMWYihKJ463hxx_c6AXT4RjDTk0HlXlD",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "enzyme": {
+            "version_id": "dD7wbg9FtbuxYQLlmVsnEWGSFSdXhegZ",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        },
+        "foaf": {
+            "version_id": "Z6I8ecv_QvvEQRM8V4zOVODq1n_UW8AR",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        },
+        "funding": {
+            "version_id": "gdYtwOO4UfJYNjkjVffwneIe2NHSlpDK",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        },
+        "generations": {
+            "version_id": "WYijOVKMwCxlJhGO1_7KPYbvumMgABTv",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "geospecies": {
+            "version_id": "lw9qej02UyFuHkcBmQ_7RIXDajisTK1P",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        },
+        "go-hierarchy": {
+            "version_id": "8Sx964vDBw8plJh8uVR028MD.Hm8SyfQ",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "go": {
+            "version_id": "g3htMbp43uGbexRrbBO4mzHGeYVDBkR3",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "pathways": {
+            "version_id": "ZpMYFCBHEftavyxjFWOFnvoLkj6wblcJ",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        },
+        "people_pets": {
+            "version_id": "NIbwB0y9iGpKQ.eXVZ6qLqvTgon3Czps",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        },
+        "pizza": {
+            "version_id": "ARc81JDYzyL0MuO_9f74gn6VjfNZh9FF",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "skos": {
+            "version_id": "sYzQ5wxgKcGOw5MqXPqojJBwJKRwOKcr",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        },
+        "taxonomy-hierarchy": {
+            "version_id": "UW4M3aO4mx72w_Yq0g6106wpfjGVU9ci",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        },
+        "taxonomy": {
+            "version_id": "i_ZqYKddbnqtHkk2HD.CX1Ip8YMtgFhQ",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        },
+        "travel": {
+            "version_id": "k7O7zm3_Mj4ZT3BjOHbrPiKm3Yjj0HOB",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "univ-bench": {
+            "version_id": "bt6cu6_XOImhe5wgSXeNFJIZv3il7.ry",
+            "file_extension": ".owl",
+            "archive_extension": ".tar.gz"
+        },
+        "wine": {
+            "version_id": "e.1EQN4f_Z1lN8idPAaUnpxO68_AMbTR",
+            "file_extension": ".rdf",
+            "archive_extension": ".tar.gz"
+        }
+    }
 }
