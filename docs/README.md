@@ -99,9 +99,18 @@ Grammars list contains the following variants of same-generation query over diff
 
 - **g1** — same-generation query over _type_ and _subclass-of_ relations. Introduced
   in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
+  ```
+  S -> sco_r S sco | t_r S t | sco_r sco | t_r t
+  ```
 - **g2** — same-generation query over _type_ and _subclass-of_ relations. Introduced
   in ["Context-Free Path Queries on RDF Graphs"](https://arxiv.org/abs/1506.00743)
+  ```
+  S -> sco_r S sco | sco
+  ```
 - **geo** — same-generation query over _broader-transitive_ relation.
+  ```
+  S -> bt S bt_r | bt bt_r
+  ```
 
 **```MemoryAliases```** — real-world data for points-to analysis of C code.
 
