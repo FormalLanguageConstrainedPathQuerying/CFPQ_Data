@@ -30,4 +30,4 @@ jobs:
 
       - name: Run black
         run: |
-          pre-commit run --all-files --color always --verbose
+          pre-commit run --all-files --color always --verbose --show-diff-on-failure
