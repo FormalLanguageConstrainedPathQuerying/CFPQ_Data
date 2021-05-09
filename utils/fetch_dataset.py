@@ -36,7 +36,7 @@ def fetch_dataset():
 
 def update_dataset(dataset):
     with open(MAIN_FOLDER / "cfpq_data" / "dataset.py", "w") as fout:
-        fout.write("dataset = " + dumps(dataset, indent=4))
+        fout.write("DATASET = " + dumps(dataset, indent=4))
 
 
 if __name__ == "__main__":

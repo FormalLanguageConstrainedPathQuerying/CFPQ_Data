@@ -17,7 +17,7 @@ from cfpq_data.config import (
     MAIN_FOLDER,
     BUCKET_NAME,
 )
-from cfpq_data.dataset import dataset as DATASET
+from cfpq_data.dataset import DATASET
 
 __all__ = [
     "graph_from_dataset",

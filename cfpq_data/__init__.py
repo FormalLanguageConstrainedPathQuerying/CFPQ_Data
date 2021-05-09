@@ -12,6 +12,9 @@ __version__ = "1.0.0"
 import cfpq_data.config
 from cfpq_data.config import *
 
+import cfpq_data.dataset
+from cfpq_data.dataset import *
+
 import cfpq_data.graphs
 from cfpq_data.graphs import *
 
