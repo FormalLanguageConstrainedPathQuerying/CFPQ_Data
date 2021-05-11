@@ -1,14 +1,14 @@
 CFPQ_Data
 =========
 
-.. image:: https://github.com/JetBrains-Research/CFPQ_Data/actions/workflows/tests.yml/badge.svg?branch=master
-   :target: https://github.com/JetBrains-Research/CFPQ_Data/actions/workflows/tests.yml
+.. image:: https://img.shields.io/github/checks-status/JetBrains-Research/CFPQ_Data/master
+   :alt: GitHub branch checks state
 
-.. image:: https://codecov.io/gh/JetBrains-Research/CFPQ_Data/branch/master/graph/badge.svg?token=6IAZM6KZT7
-   :target: https://codecov.io/gh/JetBrains-Research/CFPQ_Data
+.. image:: https://img.shields.io/codecov/c/github/JetBrains-Research/CFPQ_Data?token=6IAZM6KZT7
+   :alt: Codecov
 
-.. image:: https://img.shields.io/pypi/v/cfpq-data.svg
-   :target: https://pypi.org/project/cfpq-data/
+.. image:: https://img.shields.io/pypi/v/cfpq_data
+   :alt: PyPI
 
 .. image:: https://img.shields.io/pypi/pyversions/cfpq-data.svg
    :target: https://pypi.org/project/cfpq-data/
