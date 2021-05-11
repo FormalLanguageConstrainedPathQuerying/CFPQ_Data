@@ -1,0 +1,23 @@
+cfpq\_data.grammars.samples.memory\_aliases
+===========================================
+
+.. automodule:: cfpq_data.grammars.samples.memory_aliases
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

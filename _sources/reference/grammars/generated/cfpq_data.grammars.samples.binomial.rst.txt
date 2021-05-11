@@ -1,0 +1,23 @@
+cfpq\_data.grammars.samples.binomial
+====================================
+
+.. automodule:: cfpq_data.grammars.samples.binomial
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

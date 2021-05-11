@@ -1,0 +1,6 @@
+cfpq\_data.graphs.generators.labeled\_binomial\_graph
+=====================================================
+
+.. currentmodule:: cfpq_data.graphs.generators
+
+.. autofunction:: labeled_binomial_graph

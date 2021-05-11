@@ -1,0 +1,31 @@
+cfpq\_data.grammars.utils.change\_terminals
+===========================================
+
+.. automodule:: cfpq_data.grammars.utils.change_terminals
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      change_terminals_in_cfg
+      change_terminals_in_cnf
+      change_terminals_in_rsm
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

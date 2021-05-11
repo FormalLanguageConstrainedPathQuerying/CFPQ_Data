@@ -1,0 +1,6 @@
+cfpq\_data.graphs.utils.filter\_edges
+=====================================
+
+.. currentmodule:: cfpq_data.graphs.utils
+
+.. autofunction:: filter_edges

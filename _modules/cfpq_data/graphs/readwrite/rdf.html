@@ -1,0 +1,430 @@
+
+<!DOCTYPE html>
+
+<html lang="English">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cfpq_data.graphs.readwrite.rdf &#8212; CFPQ_Data 1.0.0 documentation</title>
+    
+  <link href="../../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../../_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/about.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../../../../_static/js/index.c86189f1ce1b71a67eb6.js">
+
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "CFPQ_Data",
+        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "CONTEXT-FREE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://research.jetbrains.org/",
+                "name": "JetBrains Research"
+            },
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../../../index.html">
+  <img src="../../../../_static/JetbrainsResearchLogo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../dataset/index.html">
+  Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../reference/index.html">
+  Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../about.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../license.html">
+  License
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/JetBrains-Research/CFPQ_Data" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/cfpq-data/" rel="noopener" target="_blank" title="PyPI">
+            <span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for cfpq_data.graphs.readwrite.rdf</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Read (and write) a graph</span>
+<span class="sd">from (and to) RDF file.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">remove</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">unpack_archive</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">boto3</span> <span class="kn">import</span> <span class="n">client</span>
+<span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">MultiDiGraph</span>
+<span class="kn">from</span> <span class="nn">rdflib</span> <span class="kn">import</span> <span class="n">Graph</span> <span class="k">as</span> <span class="n">RDFGraph</span><span class="p">,</span> <span class="n">BNode</span><span class="p">,</span> <span class="n">URIRef</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">XSD</span>
+
+<span class="kn">from</span> <span class="nn">cfpq_data</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">VERSION</span>
+<span class="kn">from</span> <span class="nn">cfpq_data.config</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AWS_ACCESS_KEY_ID</span><span class="p">,</span>
+    <span class="n">AWS_SECRET_ACCESS_KEY</span><span class="p">,</span>
+    <span class="n">MAIN_FOLDER</span><span class="p">,</span>
+    <span class="n">BUCKET_NAME</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">cfpq_data.dataset</span> <span class="kn">import</span> <span class="n">DATASET</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;graph_from_dataset&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;graph_from_rdf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;graph_to_rdf&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="graph_from_dataset"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.rdf.html#cfpq_data.graphs.readwrite.rdf.graph_from_dataset">[docs]</a><span class="k">def</span> <span class="nf">graph_from_dataset</span><span class="p">(</span><span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MultiDiGraph</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns a graph from</span>
+<span class="sd">    an RDF file loaded from</span>
+<span class="sd">    a dataset by name.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    graph_name : str</span>
+<span class="sd">        The name of the graph from the dataset.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
+<span class="sd">    &gt;&gt;&gt; generations = cfpq_data.graph_from_dataset(&quot;generations&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; generations.number_of_nodes()</span>
+<span class="sd">    129</span>
+<span class="sd">    &gt;&gt;&gt; generations.number_of_edges()</span>
+<span class="sd">    273</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    g : MultiDiGraph</span>
+<span class="sd">        Loaded graph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">graph_class</span> <span class="ow">in</span> <span class="n">DATASET</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">graph_name</span> <span class="ow">in</span> <span class="n">DATASET</span><span class="p">[</span><span class="n">graph_class</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">dst</span> <span class="o">=</span> <span class="n">MAIN_FOLDER</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="n">graph_class</span> <span class="o">/</span> <span class="s2">&quot;Graphs&quot;</span>
+            <span class="n">dst</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">graph_file</span> <span class="o">=</span> <span class="n">graph_name</span> <span class="o">+</span> <span class="n">DATASET</span><span class="p">[</span><span class="n">graph_class</span><span class="p">][</span><span class="n">graph_name</span><span class="p">][</span><span class="s2">&quot;FileExtension&quot;</span><span class="p">]</span>
+            <span class="n">graph_file_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dst</span> <span class="o">/</span> <span class="n">graph_file</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">graph_file_path</span><span class="p">):</span>
+                <span class="n">graph_archive</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">graph_file</span> <span class="o">+</span> <span class="n">DATASET</span><span class="p">[</span><span class="n">graph_class</span><span class="p">][</span><span class="n">graph_name</span><span class="p">][</span><span class="s2">&quot;ArchiveExtension&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">graph_archive_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dst</span> <span class="o">/</span> <span class="n">graph_archive</span><span class="p">)</span>
+
+                <span class="n">s3</span> <span class="o">=</span> <span class="n">client</span><span class="p">(</span>
+                    <span class="s2">&quot;s3&quot;</span><span class="p">,</span>
+                    <span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">AWS_ACCESS_KEY_ID</span><span class="p">,</span>
+                    <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="n">AWS_SECRET_ACCESS_KEY</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">s3</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span>
+                    <span class="n">Bucket</span><span class="o">=</span><span class="n">BUCKET_NAME</span><span class="p">,</span>
+                    <span class="n">Key</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">VERSION</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">graph_class</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">graph_archive</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">Filename</span><span class="o">=</span><span class="n">graph_archive_path</span><span class="p">,</span>
+                    <span class="n">ExtraArgs</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;VersionId&quot;</span><span class="p">:</span> <span class="n">DATASET</span><span class="p">[</span><span class="n">graph_class</span><span class="p">][</span><span class="n">graph_name</span><span class="p">][</span><span class="s2">&quot;VersionId&quot;</span><span class="p">],</span>
+                    <span class="p">},</span>
+                <span class="p">)</span>
+
+                <span class="n">unpack_archive</span><span class="p">(</span><span class="n">graph_archive_path</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+
+                <span class="n">remove</span><span class="p">(</span><span class="n">graph_archive_path</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">graph_from_rdf</span><span class="p">(</span><span class="n">graph_file_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="graph_from_rdf"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.rdf.html#cfpq_data.graphs.readwrite.rdf.graph_from_rdf">[docs]</a><span class="k">def</span> <span class="nf">graph_from_rdf</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">MultiDiGraph</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns a graph from RDF file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    source : Union[Path, str]</span>
+<span class="sd">        The path to the RDF file with which</span>
+<span class="sd">        the graph will be created.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
+<span class="sd">    &gt;&gt;&gt; generations = cfpq_data.graph_from_dataset(&quot;generations&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; path = cfpq_data.graph_to_rdf(generations, &quot;test.xml&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; g = cfpq_data.graph_from_rdf(path)</span>
+<span class="sd">    &gt;&gt;&gt; generations.number_of_nodes() == g.number_of_nodes()</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; generations.number_of_edges() == g.number_of_edges()</span>
+<span class="sd">    True</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    g : MultiDiGraph</span>
+<span class="sd">        Loaded graph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">RDFGraph</span><span class="p">()</span>
+    <span class="n">tmp</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;xml&quot;</span><span class="p">)</span>
+
+    <span class="n">g</span> <span class="o">=</span> <span class="n">MultiDiGraph</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">subj</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">subj</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">pred</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">g</span></div>
+
+
+<div class="viewcode-block" id="graph_to_rdf"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.rdf.html#cfpq_data.graphs.readwrite.rdf.graph_to_rdf">[docs]</a><span class="k">def</span> <span class="nf">graph_to_rdf</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">MultiDiGraph</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns the path to the RDF file</span>
+<span class="sd">    where the graph will be saved.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    graph : MultiDiGraph</span>
+<span class="sd">        Graph to save.</span>
+
+<span class="sd">    path : Union[Path, str]</span>
+<span class="sd">        The path to the file where the graph will be saved.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
+<span class="sd">    &gt;&gt;&gt; g = cfpq_data.graph_from_dataset(&quot;generations&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; path = cfpq_data.graph_to_rdf(g, &quot;test.xml&quot;)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : Path</span>
+<span class="sd">        Path to the RDF file where the graph will be saved.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">RDFGraph</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">edge_labels</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">subj</span> <span class="o">=</span> <span class="n">BNode</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="p">(</span><span class="n">BNode</span><span class="p">,</span> <span class="n">URIRef</span><span class="p">,</span> <span class="n">Literal</span><span class="p">)):</span>
+            <span class="n">subj</span> <span class="o">=</span> <span class="n">u</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">BNode</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">BNode</span><span class="p">,</span> <span class="n">URIRef</span><span class="p">,</span> <span class="n">Literal</span><span class="p">)):</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">edge_labels</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="n">XSD</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+            <span class="n">tmp</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">subj</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">obj</span><span class="p">))</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="n">tmp</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;xml&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">path</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    
+  <script src="../../../../_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2019-2021, vdshk.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+cfpq\_data.graphs.generators.labeled\_barabasi\_albert\_graph
+=============================================================
+
+.. currentmodule:: cfpq_data.graphs.generators
+
+.. autofunction:: labeled_barabasi_albert_graph

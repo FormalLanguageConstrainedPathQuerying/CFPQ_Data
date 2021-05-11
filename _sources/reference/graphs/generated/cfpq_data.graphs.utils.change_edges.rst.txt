@@ -1,0 +1,6 @@
+cfpq\_data.graphs.utils.change\_edges
+=====================================
+
+.. currentmodule:: cfpq_data.graphs.utils
+
+.. autofunction:: change_edges

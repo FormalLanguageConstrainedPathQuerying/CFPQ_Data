@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+
+<html lang="English">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Install &#8212; CFPQ_Data 1.0.0 documentation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/about.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.c86189f1ce1b71a67eb6.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial" href="tutorial.html" />
+    <link rel="prev" title="MemoryAliases graphs" href="dataset/MemoryAliases.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "CFPQ_Data",
+        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "CONTEXT-FREE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://research.jetbrains.org/",
+                "name": "JetBrains Research"
+            },
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="index.html">
+  <img src="_static/JetbrainsResearchLogo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="dataset/index.html">
+  Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="current reference internal nav-link" href="#">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="reference/index.html">
+  Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="about.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="license.html">
+  License
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/JetBrains-Research/CFPQ_Data" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/cfpq-data/" rel="noopener" target="_blank" title="PyPI">
+            <span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#install-the-released-version">
+   Install the released version
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="install">
+<span id="id1"></span><h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Release</dt>
+<dd class="field-odd"><p>1.0.0</p>
+</dd>
+<dt class="field-even">Date</dt>
+<dd class="field-even"><p>May 11, 2021</p>
+</dd>
+</dl>
+<p>CFPQ_Data requires Python 3.7 or later.  If you do not already
+have a Python environment configured on your computer, please see the
+instructions for installing the full <a class="reference external" href="https://scipy.org/install.html">scientific Python stack</a>.</p>
+<p>Below we assume you have the default Python environment already configured on
+your computer and you intend to install <code class="docutils literal notranslate"><span class="pre">cfpq_data</span></code> inside of it.  If you want
+to create and work with Python virtual environments, please follow instructions
+on <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a> and <a class="reference external" href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">virtual
+environments</a>.</p>
+<p>First, make sure you have the latest version of <code class="docutils literal notranslate"><span class="pre">pip</span></code> (the Python package manager)
+installed. If you do not, refer to the <a class="reference external" href="https://pip.pypa.io/en/stable/installing/">Pip documentation</a> and install <code class="docutils literal notranslate"><span class="pre">pip</span></code> first.</p>
+<div class="section" id="install-the-released-version">
+<h2>Install the released version<a class="headerlink" href="#install-the-released-version" title="Permalink to this headline">¶</a></h2>
+<p>Install the current release of <code class="docutils literal notranslate"><span class="pre">cfpq_data</span></code> with <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">cfpq_data</span>
+</pre></div>
+</div>
+<p>To upgrade to a newer release use the <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">cfpq_data</span>
+</pre></div>
+</div>
+<p>If you do not have permission to install software systemwide, you can
+install into your user directory using the <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="n">cfpq_data</span>
+</pre></div>
+</div>
+<p>Alternatively, you can manually download <code class="docutils literal notranslate"><span class="pre">cfpq_data</span></code> from
+<a class="reference external" href="https://github.com/JetBrains-Research/CFPQ_Data/releases">GitHub</a>  or
+<a class="reference external" href="https://pypi.org/project/cfpq-data/">PyPI</a>.
+To install one of these versions, unpack it and run the following from the
+top-level source directory using the Terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="dataset/MemoryAliases.html" title="previous page">MemoryAliases graphs</a>
+    <a class='right-next' id="next-link" href="tutorial.html" title="next page">Tutorial</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    
+  <script src="_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2019-2021, vdshk.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

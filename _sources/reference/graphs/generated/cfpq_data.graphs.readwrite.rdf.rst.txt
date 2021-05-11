@@ -1,0 +1,31 @@
+cfpq\_data.graphs.readwrite.rdf
+===============================
+
+.. automodule:: cfpq_data.graphs.readwrite.rdf
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      graph_from_dataset
+      graph_from_rdf
+      graph_to_rdf
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

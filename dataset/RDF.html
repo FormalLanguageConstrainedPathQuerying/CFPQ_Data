@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+
+<html lang="English">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RDF graphs &#8212; CFPQ_Data 1.0.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/about.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.c86189f1ce1b71a67eb6.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MemoryAliases graphs" href="MemoryAliases.html" />
+    <link rel="prev" title="Dataset" href="index.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "CFPQ_Data",
+        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "CONTEXT-FREE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://research.jetbrains.org/",
+                "name": "JetBrains Research"
+            },
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/JetbrainsResearchLogo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../about.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../license.html">
+  License
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/JetBrains-Research/CFPQ_Data" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/cfpq-data/" rel="noopener" target="_blank" title="PyPI">
+            <span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   RDF graphs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="MemoryAliases.html">
+   MemoryAliases graphs
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#description">
+   Description
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metadata">
+   Metadata
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="rdf-graphs">
+<span id="rdf"></span><h1>RDF graphs<a class="headerlink" href="#rdf-graphs" title="Permalink to this headline">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Release</dt>
+<dd class="field-odd"><p>1.0.0</p>
+</dd>
+<dt class="field-even">Date</dt>
+<dd class="field-even"><p>May 11, 2021</p>
+</dd>
+</dl>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Fixed versions of real-world RDF files.</p>
+<p>Small graphs is a set of popular semantic web ontologies.
+This set is introduced by Xiaowang Zhang in
+<a class="reference external" href="https://arxiv.org/abs/1506.00743">&quot;Context-Free Path Queries on RDF Graphs&quot;</a>.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.w3.org/2009/08/skos-reference/skos.rdf">skos</a></p></li>
+<li><p><a class="reference external" href="http://xmlns.com/foaf/0.1/">foaf</a></p></li>
+<li><p><a class="reference external" href="https://www.w3.org/TR/owl-guide/wine.rdf">wine</a></p></li>
+<li><p><a class="reference external" href="https://protege.stanford.edu/ontologies/pizza/pizza.owl">pizza</a></p></li>
+<li><p><a class="reference external" href="http://www.owl-ontologies.com/generations.owl">generations</a></p></li>
+<li><p><a class="reference external" href="https://protege.stanford.edu/ontologies/travel.owl">travel</a></p></li>
+<li><p><a class="reference external" href="http://swat.cse.lehigh.edu/onto/univ-bench.owl">univ_bench</a></p></li>
+<li><p><a class="reference external" href="http://owl.man.ac.uk/tutorial/people+pets.rdf">people_pets</a></p></li>
+</ul>
+<p><a class="reference external" href="http://rdf.geospecies.org/geospecies.rdf.gz">geospecies</a>
+- graph related to taxonomic hierarchy and geographical information of animal species.</p>
+<p>And a set of graphs from the <a class="reference external" href="ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf">Uniprot</a>
+protein sequences database.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">go</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">go_hierarchy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pathways</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taxonomy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taxonomy_hierarchy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enzime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eclass_514en</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="metadata">
+<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
+<table class="table">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Graph</p></th>
+<th class="head"><p>#Vertices</p></th>
+<th class="head"><p>#Edges</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>skos</p></td>
+<td><p>144</p></td>
+<td><p>252</p></td>
+</tr>
+<tr class="row-odd"><td><p>generations</p></td>
+<td><p>129</p></td>
+<td><p>273</p></td>
+</tr>
+<tr class="row-even"><td><p>travel</p></td>
+<td><p>131</p></td>
+<td><p>277</p></td>
+</tr>
+<tr class="row-odd"><td><p>univ_bench</p></td>
+<td><p>179</p></td>
+<td><p>293</p></td>
+</tr>
+<tr class="row-even"><td><p>atom_primitive</p></td>
+<td><p>291</p></td>
+<td><p>425</p></td>
+</tr>
+<tr class="row-odd"><td><p>biomedical_mesure_primitive</p></td>
+<td><p>341</p></td>
+<td><p>459</p></td>
+</tr>
+<tr class="row-even"><td><p>foaf</p></td>
+<td><p>256</p></td>
+<td><p>631</p></td>
+</tr>
+<tr class="row-odd"><td><p>people_pets</p></td>
+<td><p>337</p></td>
+<td><p>640</p></td>
+</tr>
+<tr class="row-even"><td><p>funding</p></td>
+<td><p>778</p></td>
+<td><p>1,086</p></td>
+</tr>
+<tr class="row-odd"><td><p>wine</p></td>
+<td><p>733</p></td>
+<td><p>1,839</p></td>
+</tr>
+<tr class="row-even"><td><p>pizza</p></td>
+<td><p>671</p></td>
+<td><p>1,980</p></td>
+</tr>
+<tr class="row-odd"><td><p>core</p></td>
+<td><p>1,323</p></td>
+<td><p>2,752</p></td>
+</tr>
+<tr class="row-even"><td><p>pathways</p></td>
+<td><p>6,238</p></td>
+<td><p>12,363</p></td>
+</tr>
+<tr class="row-odd"><td><p>enzyme</p></td>
+<td><p>48,815</p></td>
+<td><p>86,543</p></td>
+</tr>
+<tr class="row-even"><td><p>eclass_514en</p></td>
+<td><p>239,111</p></td>
+<td><p>360,248</p></td>
+</tr>
+<tr class="row-odd"><td><p>go_hierarchy</p></td>
+<td><p>45,007</p></td>
+<td><p>490,109</p></td>
+</tr>
+<tr class="row-even"><td><p>go</p></td>
+<td><p>582,929</p></td>
+<td><p>1,437,437</p></td>
+</tr>
+<tr class="row-odd"><td><p>geospecies</p></td>
+<td><p>450,609</p></td>
+<td><p>2,201,532</p></td>
+</tr>
+<tr class="row-even"><td><p>taxonomy</p></td>
+<td><p>5,728,398</p></td>
+<td><p>14,922,125</p></td>
+</tr>
+<tr class="row-odd"><td><p>taxonomy_hierarchy</p></td>
+<td><p>2,112,625</p></td>
+<td><p>32,876,289</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="index.html" title="previous page">Dataset</a>
+    <a class='right-next' id="next-link" href="MemoryAliases.html" title="next page">MemoryAliases graphs</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    
+  <script src="../_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2019-2021, vdshk.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

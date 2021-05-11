@@ -1,0 +1,6 @@
+cfpq\_data.graphs.generators.labeled\_scale\_free\_graph
+========================================================
+
+.. currentmodule:: cfpq_data.graphs.generators
+
+.. autofunction:: labeled_scale_free_graph

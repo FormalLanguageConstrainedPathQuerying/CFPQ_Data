@@ -1,0 +1,507 @@
+
+<!DOCTYPE html>
+
+<html lang="English">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cfpq_data.grammars.samples.barabasi_albert &#8212; CFPQ_Data 1.0.0 documentation</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/about.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.c86189f1ce1b71a67eb6.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="cfpq_data.grammars.samples.binomial" href="cfpq_data.grammars.samples.binomial.html" />
+    <link rel="prev" title="Grammar&#39;s samples" href="../grammars_samples.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "CFPQ_Data",
+        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "CONTEXT-FREE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://research.jetbrains.org/",
+                "name": "JetBrains Research"
+            },
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../../index.html">
+  <img src="../../../_static/JetbrainsResearchLogo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../dataset/index.html">
+  Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../../index.html">
+  Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../about.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../license.html">
+  License
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/JetBrains-Research/CFPQ_Data" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/cfpq-data/" rel="noopener" target="_blank" title="PyPI">
+            <span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../graphs/index.html">
+   Graphs
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../graphs/graphs_generators.html">
+     Graph's generators
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.generators.fast_labeled_binomial_graph.html">
+       cfpq_data.graphs.generators.fast_labeled_binomial_graph
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.generators.labeled_barabasi_albert_graph.html">
+       cfpq_data.graphs.generators.labeled_barabasi_albert_graph
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.generators.labeled_binomial_graph.html">
+       cfpq_data.graphs.generators.labeled_binomial_graph
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.generators.labeled_cycle_graph.html">
+       cfpq_data.graphs.generators.labeled_cycle_graph
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.generators.labeled_scale_free_graph.html">
+       cfpq_data.graphs.generators.labeled_scale_free_graph
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.generators.labeled_two_cycles_graph.html">
+       cfpq_data.graphs.generators.labeled_two_cycles_graph
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../graphs/graphs_readwrite.html">
+     Graph's readwrite
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.readwrite.rdf.html">
+       cfpq_data.graphs.readwrite.rdf
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.readwrite.txt.html">
+       cfpq_data.graphs.readwrite.txt
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../graphs/graphs_utils.html">
+     Graph's utils
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.utils.change_edges.html">
+       cfpq_data.graphs.utils.change_edges
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../graphs/generated/cfpq_data.graphs.utils.filter_edges.html">
+       cfpq_data.graphs.utils.filter_edges
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../index.html">
+   Grammars
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../grammars_converters.html">
+     Grammar's converters
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.converters.cfg.html">
+       cfpq_data.grammars.converters.cfg
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.converters.cnf.html">
+       cfpq_data.grammars.converters.cnf
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.converters.rsm.html">
+       cfpq_data.grammars.converters.rsm
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../grammars_readwrite.html">
+     Grammar's readwrite
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.readwrite.cfg.html">
+       cfpq_data.grammars.readwrite.cfg
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.readwrite.cnf.html">
+       cfpq_data.grammars.readwrite.cnf
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.readwrite.rsm.html">
+       cfpq_data.grammars.readwrite.rsm
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../grammars_samples.html">
+     Grammar's samples
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       cfpq_data.grammars.samples.barabasi_albert
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.samples.binomial.html">
+       cfpq_data.grammars.samples.binomial
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.samples.cycle.html">
+       cfpq_data.grammars.samples.cycle
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.samples.memory_aliases.html">
+       cfpq_data.grammars.samples.memory_aliases
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.samples.rdf.html">
+       cfpq_data.grammars.samples.rdf
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.samples.two_cycles.html">
+       cfpq_data.grammars.samples.two_cycles
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../grammars_utils.html">
+     Grammar's utils
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="cfpq_data.grammars.utils.change_terminals.html">
+       cfpq_data.grammars.utils.change_terminals
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-cfpq_data.grammars.samples.barabasi_albert">
+<span id="cfpq-data-grammars-samples-barabasi-albert"></span><h1>cfpq_data.grammars.samples.barabasi_albert<a class="headerlink" href="#module-cfpq_data.grammars.samples.barabasi_albert" title="Permalink to this headline">¶</a></h1>
+<p>Sample grammars for <cite>labeled_barabasi_albert_graph</cite>.</p>
+<dl class="py data">
+<dt id="cfpq_data.grammars.samples.barabasi_albert.an_bm_cm_dn">
+<code class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.samples.barabasi_albert.</span></code><code class="sig-name descname"><span class="pre">an_bm_cm_dn</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;pyformlang.cfg.cfg.CFG</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cfpq_data.grammars.samples.barabasi_albert.an_bm_cm_dn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(S \, \rightarrow \, a \, S \, d \, \mid \, a \, X \, d \, \\
+X \, \rightarrow \, b \, X \, c \, \mid \, b \, c \, \\\)</span></p>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../grammars_samples.html" title="previous page">Grammar's samples</a>
+    <a class='right-next' id="next-link" href="cfpq_data.grammars.samples.binomial.html" title="next page">cfpq_data.grammars.samples.binomial</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    
+  <script src="../../../_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2019-2021, vdshk.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

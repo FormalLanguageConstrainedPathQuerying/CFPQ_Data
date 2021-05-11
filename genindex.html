@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+
+<html lang="English">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; CFPQ_Data 1.0.0 documentation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/about.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.c86189f1ce1b71a67eb6.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "CFPQ_Data",
+        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "CONTEXT-FREE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://research.jetbrains.org/",
+                "name": "JetBrains Research"
+            },
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="index.html">
+  <img src="_static/JetbrainsResearchLogo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="dataset/index.html">
+  Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="reference/index.html">
+  Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="about.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="license.html">
+  License
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/JetBrains-Research/CFPQ_Data" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/cfpq-data/" rel="noopener" target="_blank" title="PyPI">
+            <span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.cycle.html#cfpq_data.grammars.samples.cycle.a_star_0">a_star_0 (in module cfpq_data.grammars.samples.cycle)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.cycle.html#cfpq_data.grammars.samples.cycle.a_star_1">a_star_1 (in module cfpq_data.grammars.samples.cycle)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.cycle.html#cfpq_data.grammars.samples.cycle.a_star_2">a_star_2 (in module cfpq_data.grammars.samples.cycle)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.barabasi_albert.html#cfpq_data.grammars.samples.barabasi_albert.an_bm_cm_dn">an_bm_cm_dn (in module cfpq_data.grammars.samples.barabasi_albert)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.two_cycles.html#cfpq_data.grammars.samples.two_cycles.brackets">brackets (in module cfpq_data.grammars.samples.two_cycles)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.cfg.html#cfpq_data.grammars.converters.cfg.cfg_from_cnf">cfg_from_cnf() (in module cfpq_data.grammars.converters.cfg)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.cfg.html#cfpq_data.grammars.converters.cfg.cfg_from_rsm">cfg_from_rsm() (in module cfpq_data.grammars.converters.cfg)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text">cfg_from_text() (in module cfpq_data.grammars.readwrite.cfg)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_txt">cfg_from_txt() (in module cfpq_data.grammars.readwrite.cfg)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_to_text">cfg_to_text() (in module cfpq_data.grammars.readwrite.cfg)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_to_txt">cfg_to_txt() (in module cfpq_data.grammars.readwrite.cfg)</a>
+</li>
+      <li>
+    cfpq_data.grammars.converters
+
+      <ul>
+        <li><a href="reference/grammars/grammars_converters.html#module-cfpq_data.grammars.converters">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.converters.cfg
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.cfg.html#module-cfpq_data.grammars.converters.cfg">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.converters.cnf
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.cnf.html#module-cfpq_data.grammars.converters.cnf">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.converters.rsm
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.rsm.html#module-cfpq_data.grammars.converters.rsm">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.readwrite
+
+      <ul>
+        <li><a href="reference/grammars/grammars_readwrite.html#module-cfpq_data.grammars.readwrite">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.readwrite.cfg
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#module-cfpq_data.grammars.readwrite.cfg">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.readwrite.cnf
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cnf.html#module-cfpq_data.grammars.readwrite.cnf">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.readwrite.rsm
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#module-cfpq_data.grammars.readwrite.rsm">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.samples
+
+      <ul>
+        <li><a href="reference/grammars/grammars_samples.html#module-cfpq_data.grammars.samples">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.samples.barabasi_albert
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.barabasi_albert.html#module-cfpq_data.grammars.samples.barabasi_albert">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.samples.binomial
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.binomial.html#module-cfpq_data.grammars.samples.binomial">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.samples.cycle
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.cycle.html#module-cfpq_data.grammars.samples.cycle">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    cfpq_data.grammars.samples.memory_aliases
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.memory_aliases.html#module-cfpq_data.grammars.samples.memory_aliases">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.samples.rdf
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.rdf.html#module-cfpq_data.grammars.samples.rdf">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.samples.two_cycles
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.two_cycles.html#module-cfpq_data.grammars.samples.two_cycles">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.utils
+
+      <ul>
+        <li><a href="reference/grammars/grammars_utils.html#module-cfpq_data.grammars.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.grammars.utils.change_terminals
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#module-cfpq_data.grammars.utils.change_terminals">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.graphs.generators
+
+      <ul>
+        <li><a href="reference/graphs/graphs_generators.html#module-cfpq_data.graphs.generators">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.graphs.readwrite
+
+      <ul>
+        <li><a href="reference/graphs/graphs_readwrite.html#module-cfpq_data.graphs.readwrite">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.graphs.readwrite.rdf
+
+      <ul>
+        <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.rdf.html#module-cfpq_data.graphs.readwrite.rdf">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.graphs.readwrite.txt
+
+      <ul>
+        <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#module-cfpq_data.graphs.readwrite.txt">module</a>
+</li>
+      </ul></li>
+      <li>
+    cfpq_data.graphs.utils
+
+      <ul>
+        <li><a href="reference/graphs/graphs_utils.html#module-cfpq_data.graphs.utils">module</a>
+</li>
+      </ul></li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.utils.change_edges.html#cfpq_data.graphs.utils.change_edges">change_edges() (in module cfpq_data.graphs.utils)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg">change_terminals_in_cfg() (in module cfpq_data.grammars.utils.change_terminals)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf">change_terminals_in_cnf() (in module cfpq_data.grammars.utils.change_terminals)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsm">change_terminals_in_rsm() (in module cfpq_data.grammars.utils.change_terminals)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.cnf.html#cfpq_data.grammars.converters.cnf.cnf_from_cfg">cnf_from_cfg() (in module cfpq_data.grammars.converters.cnf)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.cnf.html#cfpq_data.grammars.converters.cnf.cnf_from_rsm">cnf_from_rsm() (in module cfpq_data.grammars.converters.cnf)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cnf.html#cfpq_data.grammars.readwrite.cnf.cnf_from_text">cnf_from_text() (in module cfpq_data.grammars.readwrite.cnf)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cnf.html#cfpq_data.grammars.readwrite.cnf.cnf_from_txt">cnf_from_txt() (in module cfpq_data.grammars.readwrite.cnf)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cnf.html#cfpq_data.grammars.readwrite.cnf.cnf_to_text">cnf_to_text() (in module cfpq_data.grammars.readwrite.cnf)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cnf.html#cfpq_data.grammars.readwrite.cnf.cnf_to_txt">cnf_to_txt() (in module cfpq_data.grammars.readwrite.cnf)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.generators.fast_labeled_binomial_graph.html#cfpq_data.graphs.generators.fast_labeled_binomial_graph">fast_labeled_binomial_graph() (in module cfpq_data.graphs.generators)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.utils.filter_edges.html#cfpq_data.graphs.utils.filter_edges">filter_edges() (in module cfpq_data.graphs.utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.memory_aliases.html#cfpq_data.grammars.samples.memory_aliases.g1">g1 (in module cfpq_data.grammars.samples.memory_aliases)</a>
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.rdf.html#cfpq_data.grammars.samples.rdf.g1">(in module cfpq_data.grammars.samples.rdf)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.memory_aliases.html#cfpq_data.grammars.samples.memory_aliases.g2">g2 (in module cfpq_data.grammars.samples.memory_aliases)</a>
+
+      <ul>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.rdf.html#cfpq_data.grammars.samples.rdf.g2">(in module cfpq_data.grammars.samples.rdf)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.rdf.html#cfpq_data.grammars.samples.rdf.geo">geo (in module cfpq_data.grammars.samples.rdf)</a>
+</li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.rdf.html#cfpq_data.graphs.readwrite.rdf.graph_from_dataset">graph_from_dataset() (in module cfpq_data.graphs.readwrite.rdf)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.rdf.html#cfpq_data.graphs.readwrite.rdf.graph_from_rdf">graph_from_rdf() (in module cfpq_data.graphs.readwrite.rdf)</a>
+</li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_from_text">graph_from_text() (in module cfpq_data.graphs.readwrite.txt)</a>
+</li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_from_txt">graph_from_txt() (in module cfpq_data.graphs.readwrite.txt)</a>
+</li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.rdf.html#cfpq_data.graphs.readwrite.rdf.graph_to_rdf">graph_to_rdf() (in module cfpq_data.graphs.readwrite.rdf)</a>
+</li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_to_text">graph_to_text() (in module cfpq_data.graphs.readwrite.txt)</a>
+</li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_to_txt">graph_to_txt() (in module cfpq_data.graphs.readwrite.txt)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.generators.labeled_barabasi_albert_graph.html#cfpq_data.graphs.generators.labeled_barabasi_albert_graph">labeled_barabasi_albert_graph() (in module cfpq_data.graphs.generators)</a>
+</li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.generators.labeled_binomial_graph.html#cfpq_data.graphs.generators.labeled_binomial_graph">labeled_binomial_graph() (in module cfpq_data.graphs.generators)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.generators.labeled_cycle_graph.html#cfpq_data.graphs.generators.labeled_cycle_graph">labeled_cycle_graph() (in module cfpq_data.graphs.generators)</a>
+</li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.generators.labeled_scale_free_graph.html#cfpq_data.graphs.generators.labeled_scale_free_graph">labeled_scale_free_graph() (in module cfpq_data.graphs.generators)</a>
+</li>
+      <li><a href="reference/graphs/generated/cfpq_data.graphs.generators.labeled_two_cycles_graph.html#cfpq_data.graphs.generators.labeled_two_cycles_graph">labeled_two_cycles_graph() (in module cfpq_data.graphs.generators)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="reference/grammars/grammars_converters.html#module-cfpq_data.grammars.converters">cfpq_data.grammars.converters</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.cfg.html#module-cfpq_data.grammars.converters.cfg">cfpq_data.grammars.converters.cfg</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.cnf.html#module-cfpq_data.grammars.converters.cnf">cfpq_data.grammars.converters.cnf</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.rsm.html#module-cfpq_data.grammars.converters.rsm">cfpq_data.grammars.converters.rsm</a>
+</li>
+        <li><a href="reference/grammars/grammars_readwrite.html#module-cfpq_data.grammars.readwrite">cfpq_data.grammars.readwrite</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#module-cfpq_data.grammars.readwrite.cfg">cfpq_data.grammars.readwrite.cfg</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.cnf.html#module-cfpq_data.grammars.readwrite.cnf">cfpq_data.grammars.readwrite.cnf</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#module-cfpq_data.grammars.readwrite.rsm">cfpq_data.grammars.readwrite.rsm</a>
+</li>
+        <li><a href="reference/grammars/grammars_samples.html#module-cfpq_data.grammars.samples">cfpq_data.grammars.samples</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.barabasi_albert.html#module-cfpq_data.grammars.samples.barabasi_albert">cfpq_data.grammars.samples.barabasi_albert</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.binomial.html#module-cfpq_data.grammars.samples.binomial">cfpq_data.grammars.samples.binomial</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.cycle.html#module-cfpq_data.grammars.samples.cycle">cfpq_data.grammars.samples.cycle</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.memory_aliases.html#module-cfpq_data.grammars.samples.memory_aliases">cfpq_data.grammars.samples.memory_aliases</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.rdf.html#module-cfpq_data.grammars.samples.rdf">cfpq_data.grammars.samples.rdf</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.two_cycles.html#module-cfpq_data.grammars.samples.two_cycles">cfpq_data.grammars.samples.two_cycles</a>
+</li>
+        <li><a href="reference/grammars/grammars_utils.html#module-cfpq_data.grammars.utils">cfpq_data.grammars.utils</a>
+</li>
+        <li><a href="reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#module-cfpq_data.grammars.utils.change_terminals">cfpq_data.grammars.utils.change_terminals</a>
+</li>
+        <li><a href="reference/graphs/graphs_generators.html#module-cfpq_data.graphs.generators">cfpq_data.graphs.generators</a>
+</li>
+        <li><a href="reference/graphs/graphs_readwrite.html#module-cfpq_data.graphs.readwrite">cfpq_data.graphs.readwrite</a>
+</li>
+        <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.rdf.html#module-cfpq_data.graphs.readwrite.rdf">cfpq_data.graphs.readwrite.rdf</a>
+</li>
+        <li><a href="reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#module-cfpq_data.graphs.readwrite.txt">cfpq_data.graphs.readwrite.txt</a>
+</li>
+        <li><a href="reference/graphs/graphs_utils.html#module-cfpq_data.graphs.utils">cfpq_data.graphs.utils</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.rsm.html#cfpq_data.grammars.converters.rsm.rsm_from_cfg">rsm_from_cfg() (in module cfpq_data.grammars.converters.rsm)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.converters.rsm.html#cfpq_data.grammars.converters.rsm.rsm_from_cnf">rsm_from_cnf() (in module cfpq_data.grammars.converters.rsm)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#cfpq_data.grammars.readwrite.rsm.rsm_from_text">rsm_from_text() (in module cfpq_data.grammars.readwrite.rsm)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#cfpq_data.grammars.readwrite.rsm.rsm_from_txt">rsm_from_txt() (in module cfpq_data.grammars.readwrite.rsm)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#cfpq_data.grammars.readwrite.rsm.rsm_to_text">rsm_to_text() (in module cfpq_data.grammars.readwrite.rsm)</a>
+</li>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#cfpq_data.grammars.readwrite.rsm.rsm_to_txt">rsm_to_txt() (in module cfpq_data.grammars.readwrite.rsm)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/grammars/generated/cfpq_data.grammars.samples.binomial.html#cfpq_data.grammars.samples.binomial.sg">sg (in module cfpq_data.grammars.samples.binomial)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    
+  <script src="_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2019-2021, vdshk.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

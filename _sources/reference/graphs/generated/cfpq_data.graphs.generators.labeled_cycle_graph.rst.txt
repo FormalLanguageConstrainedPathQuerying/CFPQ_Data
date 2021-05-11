@@ -1,0 +1,6 @@
+cfpq\_data.graphs.generators.labeled\_cycle\_graph
+==================================================
+
+.. currentmodule:: cfpq_data.graphs.generators
+
+.. autofunction:: labeled_cycle_graph

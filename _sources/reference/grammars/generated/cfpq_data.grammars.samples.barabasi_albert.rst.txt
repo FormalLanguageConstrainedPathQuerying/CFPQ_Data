@@ -1,0 +1,23 @@
+cfpq\_data.grammars.samples.barabasi\_albert
+============================================
+
+.. automodule:: cfpq_data.grammars.samples.barabasi_albert
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

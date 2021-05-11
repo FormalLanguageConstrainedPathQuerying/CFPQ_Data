@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+
+<html lang="English">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cfpq_data.grammars.readwrite.rsm &#8212; CFPQ_Data 1.0.0 documentation</title>
+    
+  <link href="../../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../../_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/about.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../../../../_static/js/index.c86189f1ce1b71a67eb6.js">
+
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "CFPQ_Data",
+        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "CONTEXT-FREE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://research.jetbrains.org/",
+                "name": "JetBrains Research"
+            },
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../../../index.html">
+  <img src="../../../../_static/JetbrainsResearchLogo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../dataset/index.html">
+  Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../reference/index.html">
+  Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../about.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../license.html">
+  License
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/JetBrains-Research/CFPQ_Data" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/cfpq-data/" rel="noopener" target="_blank" title="PyPI">
+            <span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for cfpq_data.grammars.readwrite.rsm</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Read (and write) a Recursive State Machine</span>
+<span class="sd">from (and to) different sources.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">pyformlang.cfg</span> <span class="kn">import</span> <span class="n">Variable</span>
+<span class="kn">from</span> <span class="nn">pyformlang.regular_expression</span> <span class="kn">import</span> <span class="n">Regex</span>
+
+<span class="kn">from</span> <span class="nn">cfpq_data.grammars.rsm</span> <span class="kn">import</span> <span class="n">RSM</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;rsm_from_text&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rsm_to_text&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rsm_from_txt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rsm_to_txt&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="rsm_from_text"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#cfpq_data.grammars.readwrite.rsm.rsm_from_text">[docs]</a><span class="k">def</span> <span class="nf">rsm_from_text</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">start_symbol</span><span class="p">:</span> <span class="n">Variable</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">RSM</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create a Recursive State Machine [1]_ from text.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    source : str</span>
+<span class="sd">        The text with which</span>
+<span class="sd">        the Recursive State Machine</span>
+<span class="sd">        will be created.</span>
+
+<span class="sd">    start_symbol : Variable</span>
+<span class="sd">        Start symbol of a Recursive State Machine.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
+<span class="sd">    &gt;&gt;&gt; rsm = cfpq_data.rsm_from_text(&quot;S -&gt; (a S* b S*)*&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; [rsm.contains(word) for word in [&quot;&quot;, &quot;ab&quot;, &quot;aabb&quot;]]</span>
+<span class="sd">    [True, True, True]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    rsm : RSM</span>
+<span class="sd">        Recursive State Machine.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,</span>
+<span class="sd">       Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.</span>
+<span class="sd">       Lecture Notes in Computer Science, vol 2102.</span>
+<span class="sd">       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">boxes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">production</span> <span class="ow">in</span> <span class="n">source</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">production</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">head</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="n">production</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; -&gt; &quot;</span><span class="p">)</span>
+
+        <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;epsilon&quot;</span><span class="p">,</span> <span class="s2">&quot;$&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;$&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">body</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;$&quot;</span>
+
+        <span class="n">boxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="n">head</span><span class="p">),</span> <span class="n">Regex</span><span class="p">(</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">to_epsilon_nfa</span><span class="p">()</span><span class="o">.</span><span class="n">to_deterministic</span><span class="p">()</span><span class="o">.</span><span class="n">minimize</span><span class="p">())</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">RSM</span><span class="p">(</span><span class="n">start_symbol</span><span class="p">,</span> <span class="n">boxes</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rsm_to_text"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#cfpq_data.grammars.readwrite.rsm.rsm_to_text">[docs]</a><span class="k">def</span> <span class="nf">rsm_to_text</span><span class="p">(</span><span class="n">rsm</span><span class="p">:</span> <span class="n">RSM</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Turns a Recursive State Machine [1]_</span>
+<span class="sd">    into its text representation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rsm : RSM</span>
+<span class="sd">        Recursive State Machine.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
+<span class="sd">    &gt;&gt;&gt; rsm = cfpq_data.rsm_from_text(&quot;S -&gt; (a S* b S*)*&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; text = cfpq_data.rsm_to_text(rsm)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    text : str</span>
+<span class="sd">        Recursive State Machine text representation.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,</span>
+<span class="sd">       Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.</span>
+<span class="sd">       Lecture Notes in Computer Science, vol 2102.</span>
+<span class="sd">       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">rsm</span><span class="o">.</span><span class="n">to_text</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="rsm_from_txt"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#cfpq_data.grammars.readwrite.rsm.rsm_from_txt">[docs]</a><span class="k">def</span> <span class="nf">rsm_from_txt</span><span class="p">(</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">start_symbol</span><span class="p">:</span> <span class="n">Variable</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RSM</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create a Recursive State Machine [1]_</span>
+<span class="sd">    from TXT file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    source : Union[Path, str]</span>
+<span class="sd">        The path to the TXT file with which</span>
+<span class="sd">        the Recursive State Machine</span>
+<span class="sd">        will be created.</span>
+
+<span class="sd">    start_symbol : Variable</span>
+<span class="sd">        Start symbol of a Recursive State Machine.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
+<span class="sd">    &gt;&gt;&gt; rsm_1 = cfpq_data.rsm_from_text(&quot;S -&gt; (a S* b S*)*&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; path = cfpq_data.rsm_to_txt(rsm_1, &quot;test.txt&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; rsm = cfpq_data.rsm_from_txt(path)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    rsm : RSM</span>
+<span class="sd">        Recursive State Machine.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,</span>
+<span class="sd">       Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.</span>
+<span class="sd">       Lecture Notes in Computer Science, vol 2102.</span>
+<span class="sd">       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fin</span><span class="p">:</span>
+        <span class="n">productions</span> <span class="o">=</span> <span class="n">fin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">rsm_from_text</span><span class="p">(</span><span class="n">productions</span><span class="p">,</span> <span class="n">start_symbol</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rsm_to_txt"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.rsm.html#cfpq_data.grammars.readwrite.rsm.rsm_to_txt">[docs]</a><span class="k">def</span> <span class="nf">rsm_to_txt</span><span class="p">(</span><span class="n">rsm</span><span class="p">:</span> <span class="n">RSM</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Saves a Recursive State Machine</span>
+<span class="sd">    text representation</span>
+<span class="sd">    into TXT file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rsm : RSM</span>
+<span class="sd">        Recursive State Machine.</span>
+
+<span class="sd">    destination : Union[Path, str]</span>
+<span class="sd">        The path to the TXT file</span>
+<span class="sd">        where Recursive State Machine</span>
+<span class="sd">        text representation</span>
+<span class="sd">        will be saved.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
+<span class="sd">    &gt;&gt;&gt; rsm = cfpq_data.rsm_from_text(&quot;S -&gt; (a S* b S*)*&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; path = cfpq_data.rsm_to_txt(rsm, &quot;test.txt&quot;)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : Path</span>
+<span class="sd">        The path to the TXT file</span>
+<span class="sd">        where Recursive State Machine</span>
+<span class="sd">        text representation</span>
+<span class="sd">        will be saved.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,</span>
+<span class="sd">       Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.</span>
+<span class="sd">       Lecture Notes in Computer Science, vol 2102.</span>
+<span class="sd">       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fout</span><span class="p">:</span>
+        <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">rsm_to_text</span><span class="p">(</span><span class="n">rsm</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    
+  <script src="../../../../_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2019-2021, vdshk.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
