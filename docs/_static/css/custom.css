@@ -1,0 +1,28 @@
+:root {
+    --pst-header-height: 80px;
+    --pst-font-size-base: 16px;
+    --pst-font-family-base: Montserrat, var(--pst-font-family-base-system);
+    --pst-font-family-heading: Montserrat, var(--pst-font-family-base-system);
+    --pst-font-family-monospace: "JetBrains Mono", var(--pst-font-family-monospace-system);
+}
+
+/* Set font size for code examples */
+span {
+    font-size: 16px;
+}
+
+th, td {
+    font-family: monospace;
+    text-align: right;
+}
+
+#navbar-center {
+    font-size: var(--pst-font-size-h4);
+}
+
+#navbar-icon-links i.fa, #navbar-icon-links i.fab, #navbar-icon-links i.far, #navbar-icon-links i.fas {
+    vertical-align: middle;
+    font-style: normal;
+    font-size: 3rem;
+    line-height: 1.25;
+}

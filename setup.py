@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 root = Path(__file__).parent
 
-with open(root / "docs" / "README.md", "r", encoding="utf-8") as f:
+with open(root / "README.rst", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 with open("cfpq_data/__init__.py") as f:
@@ -12,6 +12,13 @@ with open("cfpq_data/__init__.py") as f:
         if line.startswith("__version__"):
             version = line.strip().split()[-1][1:-1]
             break
+
+name = "cfpq_data"
+
+description = (
+    "Python package containing Graphs and Grammars "
+    + "for experimental analysis of Context-Free Path Querying algorithms"
+)
 
 authors = {
     "vdshk": ("Vadim Abzalov", "vadim.i.abzalov@gmail.com"),
@@ -21,12 +28,12 @@ authors = {
 url = "https://jetbrains-research.github.io/CFPQ_Data/"
 
 project_urls = {
+    "Documentation": "https://jetbrains-research.github.io/CFPQ_Data",
+    "Source Code": "https://github.com/JetBrains-Research/CFPQ_Data",
     "Bug Tracker": "https://github.com/JetBrains-Research/CFPQ_Data/issues",
-    "Documentation": "https://jetbrains-research.github.io/CFPQ_Data/documentation/stable/",
-    "Source Code": "https://jetbrains-research.github.io/CFPQ_Data/",
 }
 
-platforms = ["Linux", "Mac OSX", "Unix"]
+platforms = ["Linux", "Mac OSX", "Unix", "Windows"]
 
 keywords = ["graphs", "grammars", "context-free", "path-query", "cfpq-data"]
 
@@ -39,6 +46,8 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS",
     "Operating System :: Unix",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -65,13 +74,13 @@ extras_require = {
 if __name__ == "__main__":
     setup(
         name="cfpq_data",
+        description=description,
+        long_description=long_description,
         author=authors["vdshk"][0],
         author_email=authors["vdshk"][1],
         maintainer=authors["Yakonick"][0],
         maintainer_email=authors["Yakonick"][1],
         version=version,
-        description="Graphs and grammars for experimental analysis of context-free path querying algorithms",
-        long_description=long_description,
         keywords=keywords,
         packages=find_packages(),
         platforms=platforms,
