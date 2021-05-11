@@ -37,9 +37,10 @@ def rsm_from_cfg(cfg: CFG) -> RSM:
     References
     ----------
     .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
-    .. [2] Egor Orachev, Ilya Epelbaum, Rustam Azimov
-       and Semyon Grigorev "Context-Free Path Querying
-       by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+    .. [2] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,
+       Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
+       Lecture Notes in Computer Science, vol 2102.
+       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
     return rsm_from_text(cfg.to_text(), cfg.start_symbol)
 
@@ -71,8 +72,9 @@ def rsm_from_cnf(cnf: CFG) -> RSM:
     References
     ----------
     .. [1] https://en.wikipedia.org/wiki/Chomsky_normal_form
-    .. [2] Egor Orachev, Ilya Epelbaum, Rustam Azimov
-       and Semyon Grigorev "Context-Free Path Querying
-       by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+    .. [2] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,
+       Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
+       Lecture Notes in Computer Science, vol 2102.
+       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
     return rsm_from_text(cnf.to_text(), cnf.start_symbol)

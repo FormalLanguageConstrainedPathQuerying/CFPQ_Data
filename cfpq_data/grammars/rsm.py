@@ -14,9 +14,10 @@ class RSM:
 
     References
     ----------
-    .. [1] Egor Orachev, Ilya Epelbaum, Rustam Azimov
-       and Semyon Grigorev "Context-Free Path Querying
-       by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,
+       Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
+       Lecture Notes in Computer Science, vol 2102.
+       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
 
     def __init__(
@@ -36,9 +37,10 @@ class RSM:
 
         References
         ----------
-        .. [1] Egor Orachev, Ilya Epelbaum, Rustam Azimov
-           and Semyon Grigorev "Context-Free Path Querying
-           by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+        .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,
+           Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
+           Lecture Notes in Computer Science, vol 2102.
+           Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
         """
         self.start_symbol: Variable = start_symbol
         self.boxes: Sequence[Tuple[Variable, DeterministicFiniteAutomaton]] = boxes
@@ -61,9 +63,10 @@ class RSM:
 
         References
         ----------
-        .. [1] Egor Orachev, Ilya Epelbaum, Rustam Azimov
-           and Semyon Grigorev "Context-Free Path Querying
-           by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+        .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,
+           Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
+           Lecture Notes in Computer Science, vol 2102.
+           Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
         """
         productions = [f"{box[0]} -> {box[1].to_regex()}" for box in self.boxes]
         return "\n".join(productions)
@@ -88,9 +91,10 @@ class RSM:
         References
         ----------
         .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
-        .. [2] Egor Orachev, Ilya Epelbaum, Rustam Azimov
-           and Semyon Grigorev "Context-Free Path Querying
-           by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+        .. [2] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,
+           Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
+           Lecture Notes in Computer Science, vol 2102.
+           Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
         """
         variables = set()
         terminals = set()
@@ -158,8 +162,9 @@ class RSM:
 
         References
         ----------
-        .. [1] Egor Orachev, Ilya Epelbaum, Rustam Azimov
-           and Semyon Grigorev "Context-Free Path Querying
-           by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+        .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,
+           Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
+           Lecture Notes in Computer Science, vol 2102.
+           Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
         """
         return self.to_cfg().contains(word)

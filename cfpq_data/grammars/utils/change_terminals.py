@@ -119,9 +119,10 @@ def change_terminals_in_rsm(rsm: RSM, spec: Dict[str, str]) -> RSM:
 
     References
     ----------
-    .. [1] Egor Orachev, Ilya Epelbaum, Rustam Azimov
-       and Semyon Grigorev "Context-Free Path Querying
-       by Kronecker Product", ADBIS 2020, pp 49-59, 2020
+    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,
+       Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
+       Lecture Notes in Computer Science, vol 2102.
+       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
     regex = re.compile("|".join(map(re.escape, spec.keys())))
     text = regex.sub(lambda match: spec[match.group(0)], rsm.to_text())
