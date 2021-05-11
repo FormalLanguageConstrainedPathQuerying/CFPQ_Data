@@ -4,7 +4,7 @@ on: [ push, pull_request ]
 
 jobs:
   report:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [ 3.8 ]
@@ -23,7 +23,7 @@ jobs:
           python -m pip install .
           python -m pip list
 
-      - name: Test CFPQ_Data
+      - name: Test CFPQ_Data with coverage
         run: |
           pytest --cov=cfpq_data --doctest-modules -vv -s cfpq_data tests
           codecov
