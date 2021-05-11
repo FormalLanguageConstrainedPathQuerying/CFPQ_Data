@@ -4,7 +4,7 @@ CFPQ_Data
 .. image:: https://github.com/JetBrains-Research/CFPQ_Data/actions/workflows/tests.yml/badge.svg?branch=dev
    :target: https://github.com/JetBrains-Research/CFPQ_Data/actions/workflows/tests.yml
 
-.. image:: https://codecov.io/gh/JetBrains-Research/CFPQ_Data/branch/master/graph/badge.svg
+.. image:: https://codecov.io/gh/JetBrains-Research/CFPQ_Data/branch/master/graph/badge.svg?token=6IAZM6KZT7
    :target: https://codecov.io/gh/JetBrains-Research/CFPQ_Data
 
 .. image:: https://img.shields.io/pypi/v/cfpq-data.svg
