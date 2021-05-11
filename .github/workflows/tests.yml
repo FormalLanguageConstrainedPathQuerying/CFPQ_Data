@@ -38,6 +38,7 @@ jobs:
         run: |
           pytest --doctest-modules -vv -s
 
+  # Only supported on linux platform
   docker:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -47,11 +48,6 @@ jobs:
             ubuntu-18.04,
             ubuntu-20.04,
             ubuntu-latest,
-            macos-10.15,
-            macos-latest,
-            windows-2016,
-            windows-2019,
-            windows-latest,
         ]
     steps:
       - uses: actions/checkout@v2
