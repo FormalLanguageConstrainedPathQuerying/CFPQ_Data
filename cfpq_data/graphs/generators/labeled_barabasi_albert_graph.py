@@ -2,8 +2,8 @@
 the Barabási–Albert preferential attachment model
 With labeled edges.
 
-A graph of $number_of_nodes$ nodes is grown by attaching new nodes each with
-$number_of_edges$ edges that are preferentially attached to existing nodes with high degree.
+A graph of `number_of_nodes` nodes is grown by attaching new nodes each with
+`number_of_edges` edges that are preferentially attached to existing nodes with high degree.
 """
 import random
 from typing import Iterable, Union
@@ -25,8 +25,8 @@ def labeled_barabasi_albert_graph(
     to the Barabási–Albert preferential attachment model
     With labeled edges.
 
-    A graph of $number_of_nodes$ nodes is grown by attaching new nodes each with
-    $number_of_edges$ edges that are preferentially attached to existing nodes with high degree.
+    A graph of `number_of_nodes` nodes is grown by attaching new nodes each with
+    `number_of_edges` edges that are preferentially attached to existing nodes with high degree.
 
     Parameters
     ----------

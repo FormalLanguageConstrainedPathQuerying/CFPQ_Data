@@ -1,4 +1,4 @@
-"""Returns a `G_{n,p}` random graph,
+"""Returns a $G_{n,p}$ random graph,
 also known as an Erdős-Rényi graph or
 a binomial graph. With labeled edges.
 """
@@ -18,12 +18,11 @@ def labeled_binomial_graph(
     seed: Union[int, RandomState, None] = None,
     edge_labels: Iterable[str] = "a",
 ) -> MultiDiGraph:
-    """Returns a `G_{n,p}` random graph,
+    """Returns a $G_{n,p}$ random graph,
     also known as an Erdős-Rényi graph or
     a binomial graph. With labeled edges.
 
-    The `G_{n,p}` model chooses each of the possible edges with probability
-    ``p``.
+    The $G_{n,p}$ model chooses each of the possible edges with probability $p$.
 
     Parameters
     ----------
@@ -53,8 +52,8 @@ def labeled_binomial_graph(
 
     Notes
     -----
-    This algorithm runs in `O(n^2)` time.  For sparse graphs (that is, for
-    small values of `p`), :func:`fast_labeled_binomial_graph` is faster.
+    This algorithm runs in $O(n^2)$ time.  For sparse graphs (that is, for
+    small values of $p$), :func:`fast_labeled_binomial_graph` is faster.
 
     References
     ----------

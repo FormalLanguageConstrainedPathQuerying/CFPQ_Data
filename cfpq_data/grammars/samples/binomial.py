@@ -2,5 +2,10 @@
 """
 from pyformlang.cfg import CFG
 
-__all__ = ["sg"]
-sg = CFG.from_text("S -> a_r a | a_r S a")
+__all__ = [
+    "sg",
+]
+
+#: $S \, \rightarrow \, \overline{a} \, S \, a \, \mid \,
+#: \overline{a} \, a \, \\$
+sg = CFG.from_text("S -> a_r S a | a_r a")
