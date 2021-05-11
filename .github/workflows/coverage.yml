@@ -1,4 +1,4 @@
-name: Continuous integration
+name: Code coverage
 
 on: [ push, pull_request ]
 
