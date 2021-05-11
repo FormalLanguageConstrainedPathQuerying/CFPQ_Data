@@ -1,8 +1,2 @@
-numpy
-rdflib
-tqdm
-networkx
-requests
-pytest
-setuptools
-wget
+-r requirements/default.txt
+-r requirements/tests.txt

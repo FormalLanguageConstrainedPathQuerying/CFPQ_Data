@@ -1,4 +1,0 @@
-s v
-A A_R D D_R
-s -> D_R v D
-v -> ((s?) A_R)* (s?) (A (s?))*

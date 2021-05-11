@@ -1,6 +1,9 @@
 # IDEA
 .idea
 
+# Data
+cfpq_data/data
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -49,6 +52,10 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+
+# Doctest files
+test.txt
+test.xml
 
 # Translations
 *.mo
