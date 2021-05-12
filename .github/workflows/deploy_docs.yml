@@ -7,7 +7,7 @@ on:
 jobs:
   documentation:
     # Do not attempt to deploy documentation on forks
-    if: github.repository_owner == 'CFPQ_Data'
+    if: github.repository_owner == 'JetBrains-Research'
     runs-on: ubuntu-latest
     strategy:
       matrix:
