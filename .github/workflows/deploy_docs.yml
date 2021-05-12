@@ -5,7 +5,9 @@ on:
     branches: [ master ]
 
 jobs:
-  report:
+  documentation:
+    # Do not attempt to deploy documentation on forks
+    if: github.repository_owner == 'CFPQ_Data'
     runs-on: ubuntu-latest
     strategy:
       matrix:
