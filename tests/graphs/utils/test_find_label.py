@@ -11,9 +11,23 @@ g3 = cfpq_data.graph_from_text("1 A 2", verbose=False)
 @pytest.mark.parametrize(
     "graph,query,expected_response",
     [
-        (g1, "subClassOf", ('label', rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#subClassOf'))),
-        (g2, "type", ('label', rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'))),
-        (g3, "A", ('label', 'A')),
+        (
+            g1,
+            "subClassOf",
+            (
+                "label",
+                rdflib.term.URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),
+            ),
+        ),
+        (
+            g2,
+            "type",
+            (
+                "label",
+                rdflib.term.URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+            ),
+        ),
+        (g3, "A", ("label", "A")),
         (g3, "B", None),
     ],
 )
