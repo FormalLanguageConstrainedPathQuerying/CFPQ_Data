@@ -71,7 +71,7 @@ class RSM:
         productions = [f"{box[0]} -> {box[1].to_regex()}" for box in self.boxes]
         return "\n".join(productions)
 
-    def to_cfg(self):
+    def to_cfg(self) -> CFG:
         """Create a context-free grammar [1]_
         from Recursive State Machine [2]_.
 
