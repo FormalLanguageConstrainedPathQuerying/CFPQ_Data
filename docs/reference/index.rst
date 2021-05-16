@@ -10,6 +10,9 @@ Reference
    :Release: |release|
    :Date: |today|
 
+- :doc:`NetworkX reference <networkx:reference/index>`
+- :doc:`Pyformlang reference <pyformlang:usage>`
+
 .. toctree::
    :maxdepth: 2
 
