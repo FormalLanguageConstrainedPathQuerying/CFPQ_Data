@@ -7,6 +7,7 @@ from typing import Union, Iterable
 import numpy as np
 from networkx import MultiDiGraph, scale_free_graph
 from numpy.random import RandomState
+from tqdm import tqdm
 
 __all__ = ["labeled_scale_free_graph"]
 
@@ -20,6 +21,7 @@ def labeled_scale_free_graph(
     delta_out: float = 0,
     seed: Union[int, RandomState, None] = None,
     edge_labels: Iterable[str] = "abcd",
+    verbose: bool = True,
 ) -> MultiDiGraph:
     """Returns a scale-free directed graph.
     With labeled edges.
@@ -55,12 +57,17 @@ def labeled_scale_free_graph(
     edge_labels: Iterable[str]
         Labels that will be used to mark the edges of the graph.
 
+    verbose : bool
+        If true, a progress bar will be displayed.
+
     Examples
     --------
     >>> import cfpq_data
-    >>> g = cfpq_data.labeled_scale_free_graph(42, seed=42)
-    >>> g.number_of_nodes(), g.number_of_edges()
-    (42, 88)
+    >>> g = cfpq_data.labeled_scale_free_graph(42, seed=42, verbose=False)
+    >>> g.number_of_nodes()
+    42
+    >>> g.number_of_edges()
+    88
 
     Returns
     -------
@@ -93,7 +100,7 @@ def labeled_scale_free_graph(
     random.seed(seed)
     np.random.seed(seed)
 
-    for edge in g.edges:
+    for edge in tqdm(g.edges, disable=not verbose, desc="Generation..."):
         label = np.random.choice(list(edge_labels))
         g.edges[edge]["label"] = label
 
