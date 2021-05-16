@@ -73,7 +73,7 @@ Grammars
 --------
 
 You can create your own context-free grammar (CFG) or use a predefined one.
-We now have three representations of CFG documented on the :ref:`grammars` page:
+Now we have three representations of CFG documented on the :ref:`grammars` page:
 
 1. `Classic <https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions>`_
 2. `Chomsky Normal Form <https://en.wikipedia.org/wiki/Chomsky_normal_form>`_
