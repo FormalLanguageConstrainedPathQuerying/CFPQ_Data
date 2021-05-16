@@ -55,7 +55,7 @@ def graph_from_text(source: str, verbose: bool = True) -> MultiDiGraph:
             u, label, v = splitted_edge
             g.add_edge(u, v, label=label)
         else:
-            raise ValueError("too many values to unpack")
+            raise ValueError("only 1, 2, or 3 values per line are allowed")
 
     return g
 
