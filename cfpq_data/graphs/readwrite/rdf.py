@@ -76,7 +76,7 @@ def graph_from_dataset(graph_name: str, verbose: bool = True) -> MultiDiGraph:
                     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
                 )
 
-                if verbose:
+                if verbose is True:
 
                     def _hook(t):
                         def _inner(bytes_amount):
