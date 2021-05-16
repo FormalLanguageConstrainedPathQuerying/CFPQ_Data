@@ -2,8 +2,8 @@ import pytest
 
 import cfpq_data
 
-g1 = cfpq_data.labeled_two_cycles_graph(42, 29)
-g2 = cfpq_data.labeled_two_cycles_graph(84, 58)
+g1 = cfpq_data.labeled_two_cycles_graph(42, 29, verbose=False)
+g2 = cfpq_data.labeled_two_cycles_graph(84, 58, verbose=False)
 
 
 @pytest.mark.parametrize(

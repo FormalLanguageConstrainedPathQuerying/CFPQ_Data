@@ -11,8 +11,8 @@ seed = 42
 random.seed(seed)
 np.random.seed(seed)
 
-g1 = cfpq_data.labeled_binomial_graph(42, 0.42, seed=seed)
-g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed)
+g1 = cfpq_data.labeled_binomial_graph(42, 0.42, seed=seed, verbose=False)
+g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed, verbose=False)
 
 
 @pytest.mark.parametrize(
@@ -25,8 +25,8 @@ g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed)
 def test_txt(graph):
     (fd, fname) = tempfile.mkstemp()
 
-    path = cfpq_data.graph_to_txt(graph, fname)
-    gin = cfpq_data.graph_from_txt(path)
+    path = cfpq_data.graph_to_txt(graph, fname, verbose=False)
+    gin = cfpq_data.graph_from_txt(path, verbose=False)
 
     os.close(fd)
     os.unlink(fname)
@@ -45,9 +45,9 @@ def test_txt(graph):
     ],
 )
 def test_text(graph):
-    g = cfpq_data.graph_from_text(graph)
-    text = cfpq_data.graph_to_text(g)
-    gin = cfpq_data.graph_from_text(text)
+    g = cfpq_data.graph_from_text(graph, verbose=False)
+    text = cfpq_data.graph_to_text(g, verbose=False)
+    gin = cfpq_data.graph_from_text(text, verbose=False)
 
     assert (
         g.number_of_nodes() == gin.number_of_nodes()
