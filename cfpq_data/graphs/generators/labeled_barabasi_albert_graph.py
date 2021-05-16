@@ -11,6 +11,7 @@ from typing import Iterable, Union
 import numpy as np
 from networkx import MultiDiGraph, barabasi_albert_graph
 from numpy.random import RandomState
+from tqdm import tqdm
 
 __all__ = ["labeled_barabasi_albert_graph"]
 
@@ -20,6 +21,7 @@ def labeled_barabasi_albert_graph(
     number_of_edges: int,
     seed: Union[int, RandomState, None] = None,
     edge_labels: Iterable[str] = "abcd",
+    verbose: bool = True,
 ) -> MultiDiGraph:
     """Returns a random graph according
     to the Barabási–Albert preferential attachment model
@@ -42,12 +44,17 @@ def labeled_barabasi_albert_graph(
     edge_labels: Iterable[str]
         Labels that will be used to mark the edges of the graph.
 
+    verbose : bool
+        If true, a progress bar will be displayed.
+
     Examples
     --------
     >>> import cfpq_data
-    >>> g = cfpq_data.labeled_barabasi_albert_graph(42, 29, 42)
-    >>> g.number_of_nodes(), g.number_of_edges()
-    (42, 754)
+    >>> g = cfpq_data.labeled_barabasi_albert_graph(42, 29, 42, verbose=False)
+    >>> g.number_of_nodes()
+    42
+    >>> g.number_of_edges()
+    754
 
     Returns
     -------
@@ -73,7 +80,7 @@ def labeled_barabasi_albert_graph(
     random.seed(seed)
     np.random.seed(seed)
 
-    for edge in g.edges:
+    for edge in tqdm(g.edges, disable=not verbose, desc="Generation..."):
         label = np.random.choice(list(edge_labels))
         g.edges[edge]["label"] = label
 
