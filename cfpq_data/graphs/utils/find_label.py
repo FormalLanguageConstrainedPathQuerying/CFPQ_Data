@@ -9,7 +9,9 @@ from tqdm import tqdm
 __all__ = ["find_label"]
 
 
-def find_label(graph: MultiDiGraph, query: str, verbose: bool = True) -> Optional[Tuple[Any, Any]]:
+def find_label(
+    graph: MultiDiGraph, query: str, verbose: bool = True
+) -> Optional[Tuple[Any, Any]]:
     """Returns the edge label
     containing the specified string.
 
@@ -40,7 +42,9 @@ def find_label(graph: MultiDiGraph, query: str, verbose: bool = True) -> Optiona
     """
     res = None
 
-    for _, _, edge_labels in tqdm(graph.edges(data=True), disable=not verbose, desc="Searching..."):
+    for _, _, edge_labels in tqdm(
+        graph.edges(data=True), disable=not verbose, desc="Searching..."
+    ):
         for k, v in edge_labels.items():
             if query in str(v):
                 res = (k, v)

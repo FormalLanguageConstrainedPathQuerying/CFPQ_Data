@@ -34,7 +34,9 @@ def get_labels(graph: MultiDiGraph, verbose: bool = True) -> set:
     """
     res = set()
 
-    for _, _, edge_labels in tqdm(graph.edges(data=True), disable=not verbose, desc="Loading..."):
+    for _, _, edge_labels in tqdm(
+        graph.edges(data=True), disable=not verbose, desc="Loading..."
+    ):
         res |= set(edge_labels.values())
 
     return res
