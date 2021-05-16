@@ -8,6 +8,7 @@ from typing import Union, Iterable
 import numpy as np
 from networkx import MultiDiGraph, fast_gnp_random_graph
 from numpy.random import RandomState
+from tqdm import tqdm
 
 __all__ = ["fast_labeled_binomial_graph"]
 
@@ -17,6 +18,7 @@ def fast_labeled_binomial_graph(
     edge_probability: float,
     seed: Union[int, RandomState, None] = None,
     edge_labels: Iterable[str] = "a",
+    verbose: bool = True,
 ) -> MultiDiGraph:
     """Returns a $G_{n,p}$ random graph,
     also known as an Erdős-Rényi graph or
@@ -38,12 +40,17 @@ def fast_labeled_binomial_graph(
     edge_labels: Iterable[str]
         Labels that will be used to mark the edges of the graph.
 
+    verbose : bool
+        If true, a progress bar will be displayed.
+
     Examples
     --------
     >>> import cfpq_data
-    >>> g = cfpq_data.fast_labeled_binomial_graph(42, 0.42, seed=42)
-    >>> g.number_of_nodes(), g.number_of_edges()
-    (42, 722)
+    >>> g = cfpq_data.fast_labeled_binomial_graph(42, 0.42, seed=42, verbose=False)
+    >>> g.number_of_nodes()
+    42
+    >>> g.number_of_edges()
+    722
 
     Returns
     -------
@@ -78,7 +85,7 @@ def fast_labeled_binomial_graph(
     random.seed(seed)
     np.random.seed(seed)
 
-    for edge in g.edges:
+    for edge in tqdm(g.edges, disable=not verbose, desc="Generation..."):
         g.edges[edge]["label"] = np.random.choice(list(edge_labels))
 
     return g
