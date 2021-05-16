@@ -13,6 +13,7 @@ np.random.seed(seed)
 
 g1 = cfpq_data.labeled_binomial_graph(42, 0.42, seed=seed, verbose=False)
 g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed, verbose=False)
+g3 = cfpq_data.graph_from_text("1 2\n2 3", verbose=False)
 
 
 @pytest.mark.parametrize(
@@ -20,6 +21,7 @@ g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed, verbose=False)
     [
         g1,
         g2,
+        g3,
     ],
 )
 def test_txt(graph):
