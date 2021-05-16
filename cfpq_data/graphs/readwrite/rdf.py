@@ -9,6 +9,7 @@ from typing import Union
 from boto3 import client
 from networkx import MultiDiGraph
 from rdflib import Graph as RDFGraph, BNode, URIRef, Literal, XSD
+from tqdm import tqdm
 
 from cfpq_data import __version__ as VERSION
 from cfpq_data.config import (
@@ -25,8 +26,11 @@ __all__ = [
     "graph_to_rdf",
 ]
 
+if "dev" in VERSION:
+    VERSION = "dev"
 
-def graph_from_dataset(graph_name: str) -> MultiDiGraph:
+
+def graph_from_dataset(graph_name: str, verbose: bool = True) -> MultiDiGraph:
     """Returns a graph from
     an RDF file loaded from
     a dataset by name.
@@ -36,13 +40,16 @@ def graph_from_dataset(graph_name: str) -> MultiDiGraph:
     graph_name : str
         The name of the graph from the dataset.
 
+    verbose : bool
+        If true, a progress bar will be displayed.
+
     Examples
     --------
     >>> import cfpq_data
-    >>> generations = cfpq_data.graph_from_dataset("generations")
-    >>> generations.number_of_nodes()
+    >>> g = cfpq_data.graph_from_dataset("generations", verbose=False)
+    >>> g.number_of_nodes()
     129
-    >>> generations.number_of_edges()
+    >>> g.number_of_edges()
     273
 
     Returns
@@ -68,23 +75,47 @@ def graph_from_dataset(graph_name: str) -> MultiDiGraph:
                     aws_access_key_id=AWS_ACCESS_KEY_ID,
                     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
                 )
-                s3.download_file(
-                    Bucket=BUCKET_NAME,
-                    Key=f"{VERSION}/{graph_class}/{graph_archive}",
-                    Filename=graph_archive_path,
-                    ExtraArgs={
-                        "VersionId": DATASET[graph_class][graph_name]["VersionId"],
-                    },
-                )
+
+                if verbose:
+
+                    def _hook(t):
+                        def _inner(bytes_amount):
+                            t.update(bytes_amount)
+
+                        return _inner
+
+                    file_size_in_bytes = s3.head_object(
+                        Bucket=BUCKET_NAME,
+                        Key=f"{VERSION}/{graph_class}/{graph_archive}",
+                    )["ContentLength"]
+
+                    with tqdm(
+                        total=file_size_in_bytes,
+                        unit="B",
+                        unit_scale=True,
+                        desc=f"Downloading '{graph_name}'...",
+                    ) as t:
+                        s3.download_file(
+                            Bucket=BUCKET_NAME,
+                            Key=f"{VERSION}/{graph_class}/{graph_archive}",
+                            Filename=graph_archive_path,
+                            Callback=_hook(t),
+                        )
+                else:
+                    s3.download_file(
+                        Bucket=BUCKET_NAME,
+                        Key=f"{VERSION}/{graph_class}/{graph_archive}",
+                        Filename=graph_archive_path,
+                    )
 
                 unpack_archive(graph_archive_path, dst)
 
                 remove(graph_archive_path)
 
-            return graph_from_rdf(graph_file_path)
+            return graph_from_rdf(graph_file_path, verbose=verbose)
 
 
-def graph_from_rdf(source: Union[Path, str]) -> MultiDiGraph:
+def graph_from_rdf(source: Union[Path, str], verbose: bool = True) -> MultiDiGraph:
     """Returns a graph from RDF file.
 
     Parameters
@@ -93,16 +124,19 @@ def graph_from_rdf(source: Union[Path, str]) -> MultiDiGraph:
         The path to the RDF file with which
         the graph will be created.
 
+    verbose : bool
+        If true, a progress bar will be displayed.
+
     Examples
     --------
     >>> import cfpq_data
-    >>> generations = cfpq_data.graph_from_dataset("generations")
-    >>> path = cfpq_data.graph_to_rdf(generations, "test.xml")
-    >>> g = cfpq_data.graph_from_rdf(path)
-    >>> generations.number_of_nodes() == g.number_of_nodes()
-    True
-    >>> generations.number_of_edges() == g.number_of_edges()
-    True
+    >>> generations = cfpq_data.graph_from_dataset("generations", verbose=False)
+    >>> path = cfpq_data.graph_to_rdf(generations, "test.xml", verbose=False)
+    >>> g = cfpq_data.graph_from_rdf(path, verbose=False)
+    >>> g.number_of_nodes()
+    129
+    >>> g.number_of_edges()
+    273
 
     Returns
     -------
@@ -113,13 +147,16 @@ def graph_from_rdf(source: Union[Path, str]) -> MultiDiGraph:
     tmp.load(str(source), format="xml")
 
     g = MultiDiGraph()
-    for subj, pred, obj in tmp:
+
+    for subj, pred, obj in tqdm(tmp, disable=not verbose, desc="Loading..."):
         g.add_edge(subj, obj, label=pred)
 
     return g
 
 
-def graph_to_rdf(graph: MultiDiGraph, path: Union[Path, str]) -> Path:
+def graph_to_rdf(
+    graph: MultiDiGraph, path: Union[Path, str], verbose: bool = True
+) -> Path:
     """Returns the path to the RDF file
     where the graph will be saved.
 
@@ -131,11 +168,14 @@ def graph_to_rdf(graph: MultiDiGraph, path: Union[Path, str]) -> Path:
     path : Union[Path, str]
         The path to the file where the graph will be saved.
 
+    verbose : bool
+        If true, a progress bar will be displayed.
+
     Examples
     --------
     >>> import cfpq_data
-    >>> g = cfpq_data.graph_from_dataset("generations")
-    >>> path = cfpq_data.graph_to_rdf(g, "test.xml")
+    >>> g = cfpq_data.graph_from_dataset("generations", verbose=False)
+    >>> path = cfpq_data.graph_to_rdf(g, "test.xml", verbose=False)
 
     Returns
     -------
@@ -144,7 +184,9 @@ def graph_to_rdf(graph: MultiDiGraph, path: Union[Path, str]) -> Path:
     """
     tmp = RDFGraph()
 
-    for u, v, edge_labels in graph.edges(data=True):
+    for u, v, edge_labels in tqdm(
+        graph.edges(data=True), disable=not verbose, desc="Generation..."
+    ):
         subj = BNode(u)
         if isinstance(u, (BNode, URIRef, Literal)):
             subj = u
