@@ -3,9 +3,12 @@ from json import dumps
 
 from boto3 import client
 
-from cfpq_data import __version__ as cfpq_data_version
+from cfpq_data import __version__ as VERSION
 from cfpq_data.config import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET_NAME
 from config import MAIN_FOLDER
+
+if "dev" in VERSION:
+    VERSION = "dev"
 
 
 def fetch_dataset():
@@ -17,9 +20,7 @@ def fetch_dataset():
 
     dataset = defaultdict(dict)
 
-    for graph in s3.list_objects(Bucket="cfpq-data", Prefix=cfpq_data_version)[
-        "Contents"
-    ]:
+    for graph in s3.list_objects(Bucket="cfpq-data", Prefix=VERSION)["Contents"]:
         graph_key = graph["Key"]
         graph_class, graph_full_name = graph_key.split("/")[1:]
         graph_name = graph_full_name.split(".")[0]
