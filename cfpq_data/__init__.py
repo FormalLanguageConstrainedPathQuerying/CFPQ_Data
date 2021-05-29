@@ -7,7 +7,7 @@ structure, dynamics, and functions of complex Graphs and Grammars used for
 experimental analysis of context-free path querying algorithms
 """
 
-__version__ = "1.0.1-dev"
+__version__ = "1.0.1"
 
 import cfpq_data.config
 from cfpq_data.config import *

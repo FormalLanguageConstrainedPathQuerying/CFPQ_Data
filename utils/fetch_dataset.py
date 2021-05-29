@@ -1,3 +1,4 @@
+import re
 from collections import defaultdict
 from json import dumps
 
@@ -7,11 +8,15 @@ from cfpq_data import __version__ as VERSION
 from cfpq_data.config import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET_NAME
 from config import MAIN_FOLDER
 
-if "dev" in VERSION:
-    VERSION = "dev"
-
 
 def fetch_dataset():
+    DATASET_VERSION = VERSION
+
+    if re.match(r"^(\d+)\.(\d+)\.(\d+)$", DATASET_VERSION) is not None:
+        DATASET_VERSION = (
+            str(re.match(r"^(\d+)\.(\d+)\.(\d+)$", DATASET_VERSION).group(1)) + ".0.0"
+        )
+
     s3 = client(
         "s3",
         aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -20,7 +25,9 @@ def fetch_dataset():
 
     dataset = defaultdict(dict)
 
-    for graph in s3.list_objects(Bucket="cfpq-data", Prefix=VERSION)["Contents"]:
+    for graph in s3.list_objects(Bucket="cfpq-data", Prefix=DATASET_VERSION)[
+        "Contents"
+    ]:
         graph_key = graph["Key"]
         graph_class, graph_full_name = graph_key.split("/")[1:]
         graph_name = graph_full_name.split(".")[0]

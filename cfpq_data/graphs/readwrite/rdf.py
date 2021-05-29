@@ -1,6 +1,7 @@
 """Read (and write) a graph
 from (and to) RDF file.
 """
+import re
 from os import path, remove
 from pathlib import Path
 from shutil import unpack_archive
@@ -25,9 +26,6 @@ __all__ = [
     "graph_from_rdf",
     "graph_to_rdf",
 ]
-
-if "dev" in VERSION:
-    VERSION = "dev"
 
 
 def graph_from_dataset(graph_name: str, verbose: bool = True) -> MultiDiGraph:
@@ -65,6 +63,17 @@ def graph_from_dataset(graph_name: str, verbose: bool = True) -> MultiDiGraph:
             graph_file_path = str(dst / graph_file)
 
             if not path.isfile(graph_file_path):
+
+                DATASET_VERSION = VERSION
+
+                if re.match(r"^(\d+)\.(\d+)\.(\d+)$", DATASET_VERSION) is not None:
+                    DATASET_VERSION = (
+                        str(
+                            re.match(r"^(\d+)\.(\d+)\.(\d+)$", DATASET_VERSION).group(1)
+                        )
+                        + ".0.0"
+                    )
+
                 graph_archive = (
                     graph_file + DATASET[graph_class][graph_name]["ArchiveExtension"]
                 )
@@ -86,7 +95,7 @@ def graph_from_dataset(graph_name: str, verbose: bool = True) -> MultiDiGraph:
 
                     file_size_in_bytes = s3.head_object(
                         Bucket=BUCKET_NAME,
-                        Key=f"{VERSION}/{graph_class}/{graph_archive}",
+                        Key=f"{DATASET_VERSION}/{graph_class}/{graph_archive}",
                     )["ContentLength"]
 
                     with tqdm(
@@ -97,14 +106,14 @@ def graph_from_dataset(graph_name: str, verbose: bool = True) -> MultiDiGraph:
                     ) as t:
                         s3.download_file(
                             Bucket=BUCKET_NAME,
-                            Key=f"{VERSION}/{graph_class}/{graph_archive}",
+                            Key=f"{DATASET_VERSION}/{graph_class}/{graph_archive}",
                             Filename=graph_archive_path,
                             Callback=_hook(t),
                         )
                 else:
                     s3.download_file(
                         Bucket=BUCKET_NAME,
-                        Key=f"{VERSION}/{graph_class}/{graph_archive}",
+                        Key=f"{DATASET_VERSION}/{graph_class}/{graph_archive}",
                         Filename=graph_archive_path,
                     )
 
