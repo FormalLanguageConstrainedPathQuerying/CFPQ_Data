@@ -17,3 +17,6 @@ Graph utilities
 
    change_edges
    filter_edges
+   find_label
+   get_labels
+   nodes_to_integers

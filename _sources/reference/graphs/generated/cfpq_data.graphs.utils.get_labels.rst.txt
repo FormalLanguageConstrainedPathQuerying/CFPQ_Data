@@ -1,0 +1,6 @@
+cfpq\_data.graphs.utils.get\_labels
+===================================
+
+.. currentmodule:: cfpq_data.graphs.utils
+
+.. autofunction:: get_labels

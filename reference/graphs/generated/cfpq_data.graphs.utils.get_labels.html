@@ -5,44 +5,43 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Graph generators &#8212; CFPQ_Data 1.0.1 documentation</title>
+    <title>cfpq_data.graphs.utils.get_labels &#8212; CFPQ_Data 1.0.1 documentation</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
 
     
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/basic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/about.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/about.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="author" title="About these documents" href="../../about.html" />
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="cfpq_data.graphs.generators.fast_labeled_binomial_graph" href="generated/cfpq_data.graphs.generators.fast_labeled_binomial_graph.html" />
-    <link rel="prev" title="Graphs" href="index.html" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="cfpq_data.graphs.utils.nodes_to_integers" href="cfpq_data.graphs.utils.nodes_to_integers.html" />
+    <link rel="prev" title="cfpq_data.graphs.utils.find_label" href="cfpq_data.graphs.utils.find_label.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -99,8 +98,8 @@
     
     
 
-<a class="navbar-brand" href="../../index.html">
-  <img src="../../_static/JetbrainsResearchLogo.svg" class="logo" alt="logo">
+<a class="navbar-brand" href="../../../index.html">
+  <img src="../../../_static/JetbrainsResearchLogo.svg" class="logo" alt="logo">
 </a>
 
 
@@ -118,37 +117,37 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../dataset/index.html">
+ <a class="reference internal nav-link" href="../../../dataset/index.html">
   Dataset
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../install.html">
+ <a class="reference internal nav-link" href="../../../install.html">
   Install
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../tutorial.html">
+ <a class="reference internal nav-link" href="../../../tutorial.html">
   Tutorial
  </a>
 </li>
 
 <li class="toctree-l1 current active nav-item">
- <a class="reference internal nav-link" href="../index.html">
+ <a class="reference internal nav-link" href="../../index.html">
   Reference
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../about.html">
+ <a class="reference internal nav-link" href="../../../about.html">
   About
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../license.html">
+ <a class="reference internal nav-link" href="../../../license.html">
   License
  </a>
 </li>
@@ -189,14 +188,14 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="index.html">
+  <a class="reference internal" href="../index.html">
    Graphs
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -205,50 +204,50 @@
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2 current active has-children">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../graphs_generators.html">
      Graph generators
     </a>
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
     <label for="toctree-checkbox-2">
      <i class="fas fa-chevron-down">
      </i>
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.generators.fast_labeled_binomial_graph.html">
+      <a class="reference internal" href="cfpq_data.graphs.generators.fast_labeled_binomial_graph.html">
        cfpq_data.graphs.generators.fast_labeled_binomial_graph
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_barabasi_albert_graph.html">
+      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_barabasi_albert_graph.html">
        cfpq_data.graphs.generators.labeled_barabasi_albert_graph
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_binomial_graph.html">
+      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_binomial_graph.html">
        cfpq_data.graphs.generators.labeled_binomial_graph
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_cycle_graph.html">
+      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_cycle_graph.html">
        cfpq_data.graphs.generators.labeled_cycle_graph
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_scale_free_graph.html">
+      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_scale_free_graph.html">
        cfpq_data.graphs.generators.labeled_scale_free_graph
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_two_cycles_graph.html">
+      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_two_cycles_graph.html">
        cfpq_data.graphs.generators.labeled_two_cycles_graph
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="graphs_readwrite.html">
+    <a class="reference internal" href="../graphs_readwrite.html">
      Reading and writing graphs
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -258,49 +257,49 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.readwrite.rdf.html">
+      <a class="reference internal" href="cfpq_data.graphs.readwrite.rdf.html">
        cfpq_data.graphs.readwrite.rdf
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.readwrite.txt.html">
+      <a class="reference internal" href="cfpq_data.graphs.readwrite.txt.html">
        cfpq_data.graphs.readwrite.txt
       </a>
      </li>
     </ul>
    </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="graphs_utils.html">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../graphs_utils.html">
      Graph utilities
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
     <label for="toctree-checkbox-4">
      <i class="fas fa-chevron-down">
      </i>
     </label>
-    <ul>
+    <ul class="current">
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.utils.change_edges.html">
+      <a class="reference internal" href="cfpq_data.graphs.utils.change_edges.html">
        cfpq_data.graphs.utils.change_edges
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.utils.filter_edges.html">
+      <a class="reference internal" href="cfpq_data.graphs.utils.filter_edges.html">
        cfpq_data.graphs.utils.filter_edges
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.utils.find_label.html">
+      <a class="reference internal" href="cfpq_data.graphs.utils.find_label.html">
        cfpq_data.graphs.utils.find_label
       </a>
      </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.utils.get_labels.html">
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
        cfpq_data.graphs.utils.get_labels
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="generated/cfpq_data.graphs.utils.nodes_to_integers.html">
+      <a class="reference internal" href="cfpq_data.graphs.utils.nodes_to_integers.html">
        cfpq_data.graphs.utils.nodes_to_integers
       </a>
      </li>
@@ -309,7 +308,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../grammars/index.html">
+  <a class="reference internal" href="../../grammars/index.html">
    Grammars
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
@@ -319,7 +318,7 @@
   </label>
   <ul>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../grammars/grammars_converters.html">
+    <a class="reference internal" href="../../grammars/grammars_converters.html">
      Grammar converters
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
@@ -329,24 +328,24 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.converters.cfg.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.converters.cfg.html">
        cfpq_data.grammars.converters.cfg
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.converters.cnf.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.converters.cnf.html">
        cfpq_data.grammars.converters.cnf
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.converters.rsm.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.converters.rsm.html">
        cfpq_data.grammars.converters.rsm
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../grammars/grammars_readwrite.html">
+    <a class="reference internal" href="../../grammars/grammars_readwrite.html">
      Reading and writing grammars
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
@@ -356,24 +355,24 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.readwrite.cfg.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.readwrite.cfg.html">
        cfpq_data.grammars.readwrite.cfg
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.readwrite.cnf.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.readwrite.cnf.html">
        cfpq_data.grammars.readwrite.cnf
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.readwrite.rsm.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.readwrite.rsm.html">
        cfpq_data.grammars.readwrite.rsm
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../grammars/grammars_samples.html">
+    <a class="reference internal" href="../../grammars/grammars_samples.html">
      Grammar samples
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
@@ -383,39 +382,39 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.samples.barabasi_albert.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.barabasi_albert.html">
        cfpq_data.grammars.samples.barabasi_albert
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.samples.binomial.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.binomial.html">
        cfpq_data.grammars.samples.binomial
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.samples.cycle.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.cycle.html">
        cfpq_data.grammars.samples.cycle
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.samples.memory_aliases.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.memory_aliases.html">
        cfpq_data.grammars.samples.memory_aliases
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.samples.rdf.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.rdf.html">
        cfpq_data.grammars.samples.rdf
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.samples.two_cycles.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.two_cycles.html">
        cfpq_data.grammars.samples.two_cycles
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../grammars/grammars_utils.html">
+    <a class="reference internal" href="../../grammars/grammars_utils.html">
      Grammar utilities
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
@@ -425,7 +424,7 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../grammars/generated/cfpq_data.grammars.utils.change_terminals.html">
+      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.utils.change_terminals.html">
        cfpq_data.grammars.utils.change_terminals
       </a>
      </li>
@@ -469,38 +468,38 @@
               
               <div>
                 
-  <div class="section" id="graph-generators">
-<span id="graphs-generators"></span><h1>Graph generators<a class="headerlink" href="#graph-generators" title="Permalink to this headline">¶</a></h1>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><a class="reference external" href="https://networkx.org/documentation/stable/reference/generators.html">NetworkX Graph generators</a></p>
+  <div class="section" id="cfpq-data-graphs-utils-get-labels">
+<h1>cfpq_data.graphs.utils.get_labels<a class="headerlink" href="#cfpq-data-graphs-utils-get-labels" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="cfpq_data.graphs.utils.get_labels">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.utils.</span></span><span class="sig-name descname"><span class="pre">get_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.9)"><span class="pre">set</span></a><a class="reference internal" href="../../../_modules/cfpq_data/graphs/utils/get_labels.html#get_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.utils.get_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the set of
+all edge labels in the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>MultiDiGraph</em>) -- Initial graph.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- If true, a progress bar will be displayed.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cfpq_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">labeled_two_cycles_graph</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfpq_data</span><span class="o">.</span><span class="n">get_labels</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">{&#39;x&#39;}</span>
+</pre></div>
 </div>
-<span class="target" id="module-cfpq_data.graphs.generators"></span><table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/cfpq_data.graphs.generators.fast_labeled_binomial_graph.html#cfpq_data.graphs.generators.fast_labeled_binomial_graph" title="cfpq_data.graphs.generators.fast_labeled_binomial_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fast_labeled_binomial_graph</span></code></a>(number_of_nodes, ...)</p></td>
-<td><p>Returns a <span class="math notranslate nohighlight">\(G_{n,p}\)</span> random graph, also known as an Erdős-Rényi graph or a binomial graph.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_barabasi_albert_graph.html#cfpq_data.graphs.generators.labeled_barabasi_albert_graph" title="cfpq_data.graphs.generators.labeled_barabasi_albert_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">labeled_barabasi_albert_graph</span></code></a>(...[, seed, ...])</p></td>
-<td><p>Returns a random graph according to the Barabási–Albert preferential attachment model With labeled edges.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_binomial_graph.html#cfpq_data.graphs.generators.labeled_binomial_graph" title="cfpq_data.graphs.generators.labeled_binomial_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">labeled_binomial_graph</span></code></a>(number_of_nodes, ...)</p></td>
-<td><p>Returns a <span class="math notranslate nohighlight">\(G_{n,p}\)</span> random graph, also known as an Erdős-Rényi graph or a binomial graph.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_cycle_graph.html#cfpq_data.graphs.generators.labeled_cycle_graph" title="cfpq_data.graphs.generators.labeled_cycle_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">labeled_cycle_graph</span></code></a>(number_of_nodes[, ...])</p></td>
-<td><p>Returns a cycle graph <span class="math notranslate nohighlight">\(C_n\)</span> of cyclically connected nodes.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_scale_free_graph.html#cfpq_data.graphs.generators.labeled_scale_free_graph" title="cfpq_data.graphs.generators.labeled_scale_free_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">labeled_scale_free_graph</span></code></a>(number_of_nodes[, ...])</p></td>
-<td><p>Returns a scale-free directed graph.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/cfpq_data.graphs.generators.labeled_two_cycles_graph.html#cfpq_data.graphs.generators.labeled_two_cycles_graph" title="cfpq_data.graphs.generators.labeled_two_cycles_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">labeled_two_cycles_graph</span></code></a>(n, m[, common, ...])</p></td>
-<td><p>Returns a graph with two cycles connected by one node.</p></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>g</strong> -- A set of all edge labels in the graph.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>MultiDiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -509,8 +508,8 @@
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="index.html" title="previous page">Graphs</a>
-    <a class='right-next' id="next-link" href="generated/cfpq_data.graphs.generators.fast_labeled_binomial_graph.html" title="next page">cfpq_data.graphs.generators.fast_labeled_binomial_graph</a>
+    <a class='left-prev' id="prev-link" href="cfpq_data.graphs.utils.find_label.html" title="previous page">cfpq_data.graphs.utils.find_label</a>
+    <a class='right-next' id="next-link" href="cfpq_data.graphs.utils.nodes_to_integers.html" title="next page">cfpq_data.graphs.utils.nodes_to_integers</a>
 
               </div>
               
@@ -520,7 +519,7 @@
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   <footer class="footer mt-5 mt-md-0">
   <div class="container">
