@@ -7,20 +7,19 @@ import cfpq_data
 
 grammar_1 = "S -> a b"
 grammar_2 = "S -> a"
+grammar_3 = "\n"
 
 
 @pytest.mark.parametrize(
     "grammar, expected",
-    [
-        (grammar_1, ["ab"]),
-        (grammar_2, ["a"]),
-    ],
+    [(grammar_1, ["ab"]), (grammar_2, ["a"]), (grammar_3, [None])],
 )
 def test_rsm_from_text(grammar, expected):
     rsm = cfpq_data.rsm_from_text(grammar)
 
     for word in expected:
-        assert rsm.contains(word)
+        if word is not None:
+            assert rsm.contains(word)
 
 
 @pytest.mark.parametrize(
@@ -28,6 +27,7 @@ def test_rsm_from_text(grammar, expected):
     [
         (grammar_1, {"S -> ($.(a.b))"}),
         (grammar_2, {"S -> ($.a)"}),
+        (grammar_3, set()),
     ],
 )
 def test_rsm_to_text(grammar, expected):
@@ -43,6 +43,7 @@ def test_rsm_to_text(grammar, expected):
     [
         grammar_1,
         grammar_2,
+        grammar_3,
     ],
 )
 def test_rsm_from_and_to_txt(grammar):
