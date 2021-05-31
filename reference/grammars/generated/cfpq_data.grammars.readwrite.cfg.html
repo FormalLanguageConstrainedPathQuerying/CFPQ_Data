@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.grammars.readwrite.cfg &#8212; CFPQ_Data 1.0.0 documentation</title>
+    <title>cfpq_data.grammars.readwrite.cfg &#8212; CFPQ_Data 1.0.1 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../../_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -22,16 +22,16 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/about.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.c86189f1ce1b71a67eb6.js">
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -41,7 +41,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="cfpq_data.grammars.readwrite.cnf" href="cfpq_data.grammars.readwrite.cnf.html" />
-    <link rel="prev" title="Grammar&#39;s readwrite" href="../grammars_readwrite.html" />
+    <link rel="prev" title="Reading and writing grammars" href="../grammars_readwrite.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -206,7 +206,7 @@
   <ul>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../graphs/graphs_generators.html">
-     Graph's generators
+     Graph generators
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
     <label for="toctree-checkbox-2">
@@ -248,7 +248,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../graphs/graphs_readwrite.html">
-     Graph's readwrite
+     Reading and writing graphs
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
     <label for="toctree-checkbox-3">
@@ -270,7 +270,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../graphs/graphs_utils.html">
-     Graph's utils
+     Graph utilities
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
     <label for="toctree-checkbox-4">
@@ -304,7 +304,7 @@
   <ul class="current">
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../grammars_converters.html">
-     Grammar's converters
+     Grammar converters
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
     <label for="toctree-checkbox-6">
@@ -331,7 +331,7 @@
    </li>
    <li class="toctree-l2 current active has-children">
     <a class="reference internal" href="../grammars_readwrite.html">
-     Grammar's readwrite
+     Reading and writing grammars
     </a>
     <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
     <label for="toctree-checkbox-7">
@@ -358,7 +358,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../grammars_samples.html">
-     Grammar's samples
+     Grammar samples
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
     <label for="toctree-checkbox-8">
@@ -400,7 +400,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../grammars_utils.html">
-     Grammar's utils
+     Grammar utilities
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
     <label for="toctree-checkbox-9">
@@ -479,8 +479,8 @@ from (and to) different sources.</p>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="cfpq_data.grammars.readwrite.cfg.cfg_from_text">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.readwrite.cfg.</span></code><code class="sig-name descname"><span class="pre">cfg_from_text</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_symbol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.variable.Variable</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">Variable(S)</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pyformlang.cfg.cfg.CFG</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/readwrite/cfg.html#cfg_from_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.grammars.readwrite.cfg.cfg_from_text">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.readwrite.cfg.</span></span><span class="sig-name descname"><span class="pre">cfg_from_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_symbol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.variable.Variable</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">Variable(S)</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pyformlang.cfg.cfg.CFG</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/readwrite/cfg.html#cfg_from_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a context-free grammar <a class="reference internal" href="#r8b2693d1d51d-1" id="id5">[1]</a> from text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -516,8 +516,8 @@ will be created.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="cfpq_data.grammars.readwrite.cfg.cfg_from_txt">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.readwrite.cfg.</span></code><code class="sig-name descname"><span class="pre">cfg_from_txt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_symbol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.variable.Variable</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">Variable(S)</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pyformlang.cfg.cfg.CFG</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/readwrite/cfg.html#cfg_from_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.readwrite.cfg.cfg_from_txt" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.grammars.readwrite.cfg.cfg_from_txt">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.readwrite.cfg.</span></span><span class="sig-name descname"><span class="pre">cfg_from_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_symbol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.variable.Variable</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">Variable(S)</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pyformlang.cfg.cfg.CFG</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/readwrite/cfg.html#cfg_from_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.readwrite.cfg.cfg_from_txt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a context-free grammar <a class="reference internal" href="#ree470952dc8f-1" id="id6">[1]</a>
 from TXT file.</p>
 <dl class="field-list simple">
@@ -555,8 +555,8 @@ the context-free grammar will be created.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="cfpq_data.grammars.readwrite.cfg.cfg_to_text">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.readwrite.cfg.</span></code><code class="sig-name descname"><span class="pre">cfg_to_text</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.cfg.CFG</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><a class="reference internal" href="../../../_modules/cfpq_data/grammars/readwrite/cfg.html#cfg_to_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.readwrite.cfg.cfg_to_text" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.grammars.readwrite.cfg.cfg_to_text">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.readwrite.cfg.</span></span><span class="sig-name descname"><span class="pre">cfg_to_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.cfg.CFG</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><a class="reference internal" href="../../../_modules/cfpq_data/grammars/readwrite/cfg.html#cfg_to_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.readwrite.cfg.cfg_to_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turns a context-free grammar <a class="reference internal" href="#reaf614411e05-1" id="id7">[1]</a>
 into its text representation.</p>
 <dl class="field-list simple">
@@ -589,8 +589,8 @@ text representation.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="cfpq_data.grammars.readwrite.cfg.cfg_to_txt">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.readwrite.cfg.</span></code><code class="sig-name descname"><span class="pre">cfg_to_txt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.cfg.CFG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><a class="reference internal" href="../../../_modules/cfpq_data/grammars/readwrite/cfg.html#cfg_to_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.readwrite.cfg.cfg_to_txt" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.grammars.readwrite.cfg.cfg_to_txt">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.readwrite.cfg.</span></span><span class="sig-name descname"><span class="pre">cfg_to_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.cfg.CFG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><a class="reference internal" href="../../../_modules/cfpq_data/grammars/readwrite/cfg.html#cfg_to_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.readwrite.cfg.cfg_to_txt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves a context-free grammar <a class="reference internal" href="#r2414c0273348-1" id="id8">[1]</a>
 text representation
 into TXT file.</p>
@@ -638,7 +638,7 @@ will be saved.</p>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="../grammars_readwrite.html" title="previous page">Grammar's readwrite</a>
+    <a class='left-prev' id="prev-link" href="../grammars_readwrite.html" title="previous page">Reading and writing grammars</a>
     <a class='right-next' id="next-link" href="cfpq_data.grammars.readwrite.cnf.html" title="next page">cfpq_data.grammars.readwrite.cnf</a>
 
               </div>
@@ -648,11 +648,10 @@ will be saved.</p>
 
       </div>
     </div>
-    
-  <script src="../../../_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    <footer class="footer mt-5 mt-md-0">
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -663,7 +662,7 @@ will be saved.</p>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
 </p>
     </div>
     

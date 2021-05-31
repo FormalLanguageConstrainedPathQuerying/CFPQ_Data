@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.graphs.generators.labeled_two_cycles_graph &#8212; CFPQ_Data 1.0.0 documentation</title>
+    <title>cfpq_data.graphs.generators.labeled_two_cycles_graph &#8212; CFPQ_Data 1.0.1 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../../_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -22,16 +22,16 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/about.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.c86189f1ce1b71a67eb6.js">
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -40,7 +40,7 @@
     <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Graph&#39;s readwrite" href="../graphs_readwrite.html" />
+    <link rel="next" title="Reading and writing graphs" href="../graphs_readwrite.html" />
     <link rel="prev" title="cfpq_data.graphs.generators.labeled_scale_free_graph" href="cfpq_data.graphs.generators.labeled_scale_free_graph.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
@@ -206,7 +206,7 @@
   <ul class="current">
    <li class="toctree-l2 current active has-children">
     <a class="reference internal" href="../graphs_generators.html">
-     Graph's generators
+     Graph generators
     </a>
     <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
     <label for="toctree-checkbox-2">
@@ -248,7 +248,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../graphs_readwrite.html">
-     Graph's readwrite
+     Reading and writing graphs
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
     <label for="toctree-checkbox-3">
@@ -270,7 +270,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../graphs_utils.html">
-     Graph's utils
+     Graph utilities
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
     <label for="toctree-checkbox-4">
@@ -304,7 +304,7 @@
   <ul>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../grammars/grammars_converters.html">
-     Grammar's converters
+     Grammar converters
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
     <label for="toctree-checkbox-6">
@@ -331,7 +331,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../grammars/grammars_readwrite.html">
-     Grammar's readwrite
+     Reading and writing grammars
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
     <label for="toctree-checkbox-7">
@@ -358,7 +358,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../grammars/grammars_samples.html">
-     Grammar's samples
+     Grammar samples
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
     <label for="toctree-checkbox-8">
@@ -400,7 +400,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../grammars/grammars_utils.html">
-     Grammar's utils
+     Grammar utilities
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
     <label for="toctree-checkbox-9">
@@ -456,8 +456,8 @@
   <div class="section" id="cfpq-data-graphs-generators-labeled-two-cycles-graph">
 <h1>cfpq_data.graphs.generators.labeled_two_cycles_graph<a class="headerlink" href="#cfpq-data-graphs-generators-labeled-two-cycles-graph" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="cfpq_data.graphs.generators.labeled_two_cycles_graph">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.generators.</span></code><code class="sig-name descname"><span class="pre">labeled_two_cycles_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">common</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">('a',</span> <span class="pre">'b')</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">networkx.classes.multidigraph.MultiDiGraph</span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/generators/labeled_two_cycles_graph.html#labeled_two_cycles_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.generators.labeled_two_cycles_graph" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.graphs.generators.labeled_two_cycles_graph">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.generators.</span></span><span class="sig-name descname"><span class="pre">labeled_two_cycles_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">common</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">('a',</span> <span class="pre">'b')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">networkx.classes.multidigraph.MultiDiGraph</span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/generators/labeled_two_cycles_graph.html#labeled_two_cycles_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.generators.labeled_two_cycles_graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a graph with two cycles connected by one node.
 With labeled edges.</p>
 <dl class="field-list simple">
@@ -471,14 +471,17 @@ If m is an integer, nodes are from <cite>range(n)</cite>.
 If m is a container of nodes, those nodes appear in the graph.</p></li>
 <li><p><strong>common</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>, </em><em>Any</em><em>]</em>) -- The node along which two cycles are connected.</p></li>
 <li><p><strong>edge_labels</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) -- Labels that will be used to mark the edges of the graph.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- If true, a progress bar will be displayed.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cfpq_data</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">labeled_two_cycles_graph</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(),</span> <span class="n">g</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
-<span class="go">(72, 73)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">labeled_two_cycles_graph</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+<span class="go">72</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
+<span class="go">73</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -500,7 +503,7 @@ If m is a container of nodes, those nodes appear in the graph.</p></li>
               <div class='prev-next-bottom'>
                 
     <a class='left-prev' id="prev-link" href="cfpq_data.graphs.generators.labeled_scale_free_graph.html" title="previous page">cfpq_data.graphs.generators.labeled_scale_free_graph</a>
-    <a class='right-next' id="next-link" href="../graphs_readwrite.html" title="next page">Graph's readwrite</a>
+    <a class='right-next' id="next-link" href="../graphs_readwrite.html" title="next page">Reading and writing graphs</a>
 
               </div>
               
@@ -509,11 +512,10 @@ If m is a container of nodes, those nodes appear in the graph.</p></li>
 
       </div>
     </div>
-    
-  <script src="../../../_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    <footer class="footer mt-5 mt-md-0">
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -524,7 +526,7 @@ If m is a container of nodes, those nodes appear in the graph.</p></li>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
 </p>
     </div>
     

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial &#8212; CFPQ_Data 1.0.0 documentation</title>
+    <title>Tutorial &#8212; CFPQ_Data 1.0.1 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -22,16 +22,16 @@
       
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/about.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.c86189f1ce1b71a67eb6.js">
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -281,25 +281,32 @@
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release</dt>
-<dd class="field-odd"><p>1.0.0</p>
+<dd class="field-odd"><p>1.0.1</p>
 </dd>
 <dt class="field-even">Date</dt>
-<dd class="field-even"><p>May 11, 2021</p>
+<dd class="field-even"><p>May 31, 2021</p>
 </dd>
 </dl>
-<p>This guide can help you start working with CFPQ_Data.</p>
+<p>This guide can help you start working with CFPQ_Data.
+You can download this tutorial as a Jupyter Notebook from the link at the end of the page.</p>
+<div class="topic">
+<p class="topic-title">NetworkX</p>
 <p>We use the NetworkX <a class="reference external" href="https://networkx.org/documentation/latest/reference/classes/multidigraph.html">MultiDiGraph</a> to represent the labeled graph.
-To familiarize yourself with this representation, see <a class="reference external" href="https://networkx.org/documentation/latest/tutorial.html">NetworkX tutorial</a>.</p>
-<p>We use the Pyformlang <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html">CFG</a> to represent the
-context-free grammar.
-To familiarize yourself with this representation, see <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/usage.html#context-free-grammar">Pyformlang usage</a>.</p>
+To familiarize yourself with this representation and find useful functions, see <a class="reference external" href="https://networkx.org/documentation/latest/tutorial.html">NetworkX tutorial</a>.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Pyformlang</p>
+<p>We use the Pyformlang <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html">CFG</a> to represent
+the context-free grammar.
+To familiarize yourself with this representation and find useful functions, see <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/usage.html#context-free-grammar">Pyformlang usage</a>.</p>
+</div>
 <p>All functions are documented on the <a class="reference internal" href="reference/index.html#reference"><span class="std std-ref">Reference</span></a> page.</p>
 <div class="section" id="graphs">
 <h2>Graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h2>
 <p>You are able to get a synthetic or real-world graph with CFPQ_Data.</p>
 <div class="section" id="create-a-synthetic-graph">
 <h3>Create a synthetic graph<a class="headerlink" href="#create-a-synthetic-graph" title="Permalink to this headline">¶</a></h3>
-<p>You can create many different synthetic graphs by using functions from <a class="reference internal" href="reference/graphs/graphs_generators.html#graphs-generators"><span class="std std-ref">Graph's generators</span></a>.</p>
+<p>You can create many different synthetic graphs by using functions from <a class="reference internal" href="reference/graphs/graphs_generators.html#graphs-generators"><span class="std std-ref">Graph generators</span></a>.</p>
 <p>For example, let's create a one cycle graph, the edges of which are marked with the letter <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cfpq_data</span>
 <span class="n">cycle</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">labeled_cycle_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">edge_label</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
@@ -309,7 +316,7 @@ To familiarize yourself with this representation, see <a class="reference extern
 <div class="section" id="get-a-real-graph">
 <h3>Get a real graph<a class="headerlink" href="#get-a-real-graph" title="Permalink to this headline">¶</a></h3>
 <p>You can get many different real-world graphs from CFPQ_Data <a class="reference internal" href="dataset/index.html#dataset"><span class="std std-ref">Dataset</span></a>.</p>
-<p>And present these graphs in convenient formats by using functions from <a class="reference internal" href="reference/graphs/graphs_readwrite.html#graphs-readwrite"><span class="std std-ref">Graph's readwrite</span></a>.</p>
+<p>And present these graphs in convenient formats by using functions from <a class="reference internal" href="reference/graphs/graphs_readwrite.html#graphs-readwrite"><span class="std std-ref">Reading and writing graphs</span></a>.</p>
 <p>For example, let's get a <code class="docutils literal notranslate"><span class="pre">generations</span></code> ontology graph.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">generations</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_dataset</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">)</span>
 </pre></div>
@@ -318,7 +325,7 @@ To familiarize yourself with this representation, see <a class="reference extern
 <div class="section" id="change-labels">
 <h3>Change labels<a class="headerlink" href="#change-labels" title="Permalink to this headline">¶</a></h3>
 <p>You can change the specified graph labels by using function <a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.change_edges.html#cfpq_data.graphs.utils.change_edges" title="cfpq_data.graphs.utils.change_edges"><code class="xref py py-func docutils literal notranslate"><span class="pre">cfpq_data.graphs.utils.change_edges()</span></code></a>
-from <a class="reference internal" href="reference/graphs/graphs_utils.html#graphs-utils"><span class="std std-ref">Graph's utils</span></a>.</p>
+from <a class="reference internal" href="reference/graphs/graphs_utils.html#graphs-utils"><span class="std std-ref">Graph utilities</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_cycle</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">change_edges</span><span class="p">(</span><span class="n">cycle</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">})</span>
 </pre></div>
 </div>
@@ -328,7 +335,7 @@ from <a class="reference internal" href="reference/graphs/graphs_utils.html#grap
 <div class="section" id="grammars">
 <h2>Grammars<a class="headerlink" href="#grammars" title="Permalink to this headline">¶</a></h2>
 <p>You can create your own context-free grammar (CFG) or use a predefined one.
-We now have three representations of CFG documented on the <a class="reference internal" href="reference/grammars/index.html#grammars"><span class="std std-ref">Grammars</span></a> page:</p>
+Now we have three representations of CFG documented on the <a class="reference internal" href="reference/grammars/index.html#grammars"><span class="std std-ref">Grammars</span></a> page:</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions">Classic</a></p></li>
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Chomsky_normal_form">Chomsky Normal Form</a></p></li>
@@ -337,14 +344,14 @@ We now have three representations of CFG documented on the <a class="reference i
 <div class="section" id="create-a-context-free-grammar">
 <h3>Create a context-free grammar<a class="headerlink" href="#create-a-context-free-grammar" title="Permalink to this headline">¶</a></h3>
 <p>You can create context-free grammar by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="cfpq_data.grammars.readwrite.cfg.cfg_from_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">cfpq_data.grammars.readwrite.cfg.cfg_from_text()</span></code></a>
-from <a class="reference internal" href="reference/grammars/grammars_readwrite.html#grammars-readwrite"><span class="std std-ref">Grammar's readwrite</span></a>.</p>
+from <a class="reference internal" href="reference/grammars/grammars_readwrite.html#grammars-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">cfg_from_text</span><span class="p">(</span><span class="s2">&quot;S -&gt; a S b S | a b&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="use-predefined-context-free-grammar">
 <h3>Use predefined context-free grammar<a class="headerlink" href="#use-predefined-context-free-grammar" title="Permalink to this headline">¶</a></h3>
-<p>CFPQ_Data has many predefined grammars documented on the <a class="reference internal" href="reference/grammars/grammars_samples.html#grammars-samples"><span class="std std-ref">Grammar's samples</span></a> page.</p>
+<p>CFPQ_Data has many predefined grammars documented on the <a class="reference internal" href="reference/grammars/grammars_samples.html#grammars-samples"><span class="std std-ref">Grammar samples</span></a> page.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brackets</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">brackets</span>
 <span class="n">brackets</span><span class="o">.</span><span class="n">to_text</span><span class="p">()</span>  <span class="c1"># &#39;S -&gt; a S b\nS -&gt; a b\n&#39;</span>
 </pre></div>
@@ -354,7 +361,7 @@ from <a class="reference internal" href="reference/grammars/grammars_readwrite.h
 <h3>Change terminals<a class="headerlink" href="#change-terminals" title="Permalink to this headline">¶</a></h3>
 <p>You can change the specified grammar terminals by using
 function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg" title="cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg"><code class="xref py py-func docutils literal notranslate"><span class="pre">cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg()</span></code></a>
-from <a class="reference internal" href="reference/grammars/grammars_utils.html#grammars-utils"><span class="std std-ref">Grammar's utils</span></a>.</p>
+from <a class="reference internal" href="reference/grammars/grammars_utils.html#grammars-utils"><span class="std std-ref">Grammar utilities</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brackets1</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">change_terminals_in_cfg</span><span class="p">(</span><span class="n">brackets</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">})</span>
 <span class="n">brackets1</span><span class="o">.</span><span class="n">to_text</span><span class="p">()</span>  <span class="c1"># &#39;S -&gt; b S c\nS -&gt; b c\n&#39;</span>
 </pre></div>
@@ -384,11 +391,10 @@ from <a class="reference internal" href="reference/grammars/grammars_utils.html#
 
       </div>
     </div>
-    
-  <script src="_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    <footer class="footer mt-5 mt-md-0">
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -399,7 +405,7 @@ from <a class="reference internal" href="reference/grammars/grammars_utils.html#
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
 </p>
     </div>
     

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.grammars.utils.change_terminals &#8212; CFPQ_Data 1.0.0 documentation</title>
+    <title>cfpq_data.grammars.utils.change_terminals &#8212; CFPQ_Data 1.0.1 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../../_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -22,16 +22,16 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/about.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.c86189f1ce1b71a67eb6.js">
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -41,7 +41,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="About" href="../../../about.html" />
-    <link rel="prev" title="Grammar&#39;s utils" href="../grammars_utils.html" />
+    <link rel="prev" title="Grammar utilities" href="../grammars_utils.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -206,7 +206,7 @@
   <ul>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../graphs/graphs_generators.html">
-     Graph's generators
+     Graph generators
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
     <label for="toctree-checkbox-2">
@@ -248,7 +248,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../graphs/graphs_readwrite.html">
-     Graph's readwrite
+     Reading and writing graphs
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
     <label for="toctree-checkbox-3">
@@ -270,7 +270,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../graphs/graphs_utils.html">
-     Graph's utils
+     Graph utilities
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
     <label for="toctree-checkbox-4">
@@ -304,7 +304,7 @@
   <ul class="current">
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../grammars_converters.html">
-     Grammar's converters
+     Grammar converters
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
     <label for="toctree-checkbox-6">
@@ -331,7 +331,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../grammars_readwrite.html">
-     Grammar's readwrite
+     Reading and writing grammars
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
     <label for="toctree-checkbox-7">
@@ -358,7 +358,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../grammars_samples.html">
-     Grammar's samples
+     Grammar samples
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
     <label for="toctree-checkbox-8">
@@ -400,7 +400,7 @@
    </li>
    <li class="toctree-l2 current active has-children">
     <a class="reference internal" href="../grammars_utils.html">
-     Grammar's utils
+     Grammar utilities
     </a>
     <input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
     <label for="toctree-checkbox-9">
@@ -477,8 +477,8 @@ in different formats.</p>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.utils.change_terminals.</span></code><code class="sig-name descname"><span class="pre">change_terminals_in_cfg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.cfg.CFG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pyformlang.cfg.cfg.CFG</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_cfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.utils.change_terminals.</span></span><span class="sig-name descname"><span class="pre">change_terminals_in_cfg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.cfg.CFG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pyformlang.cfg.cfg.CFG</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_cfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change terminals of
 a context-free grammar <a class="reference internal" href="#rc48c1866b337-1" id="id4">[1]</a>.</p>
 <dl class="field-list simple">
@@ -514,8 +514,8 @@ a context-free grammar <a class="reference internal" href="#rc48c1866b337-1" id=
 </dd></dl>
 
 <dl class="py function">
-<dt id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.utils.change_terminals.</span></code><code class="sig-name descname"><span class="pre">change_terminals_in_cnf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.cfg.CFG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pyformlang.cfg.cfg.CFG</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_cnf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.utils.change_terminals.</span></span><span class="sig-name descname"><span class="pre">change_terminals_in_cnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.cfg.cfg.CFG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pyformlang.cfg.cfg.CFG</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_cnf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change terminals of
 a context-free grammar <a class="reference internal" href="#r163063ea841a-1" id="id5">[1]</a>
 in Chomsky normal form.</p>
@@ -555,8 +555,8 @@ with changed terminals.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsm">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.utils.change_terminals.</span></code><code class="sig-name descname"><span class="pre">change_terminals_in_rsm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rsm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">cfpq_data.grammars.rsm.RSM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">cfpq_data.grammars.rsm.RSM</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_rsm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsm" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsm">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.grammars.utils.change_terminals.</span></span><span class="sig-name descname"><span class="pre">change_terminals_in_rsm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rsm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">cfpq_data.grammars.rsm.RSM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">cfpq_data.grammars.rsm.RSM</span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_rsm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change terminals of
 a Recursive State Machine <a class="reference internal" href="#r76fd51c972af-1" id="id6">[1]</a>.</p>
 <dl class="field-list simple">
@@ -603,7 +603,7 @@ Springer, Berlin, Heidelberg. <a class="reference external" href="https://doi.or
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="../grammars_utils.html" title="previous page">Grammar's utils</a>
+    <a class='left-prev' id="prev-link" href="../grammars_utils.html" title="previous page">Grammar utilities</a>
     <a class='right-next' id="next-link" href="../../../about.html" title="next page">About</a>
 
               </div>
@@ -613,11 +613,10 @@ Springer, Berlin, Heidelberg. <a class="reference external" href="https://doi.or
 
       </div>
     </div>
-    
-  <script src="../../../_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    <footer class="footer mt-5 mt-md-0">
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -628,7 +627,7 @@ Springer, Berlin, Heidelberg. <a class="reference external" href="https://doi.or
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
 </p>
     </div>
     

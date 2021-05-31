@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.graphs.readwrite.rdf &#8212; CFPQ_Data 1.0.0 documentation</title>
+    <title>cfpq_data.graphs.readwrite.rdf &#8212; CFPQ_Data 1.0.1 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../../_static/css/index.ee6fb81b276d6fba8a971ad8e9b95dd9.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -22,16 +22,16 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/about.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.c86189f1ce1b71a67eb6.js">
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -41,7 +41,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="cfpq_data.graphs.readwrite.txt" href="cfpq_data.graphs.readwrite.txt.html" />
-    <link rel="prev" title="Graph&#39;s readwrite" href="../graphs_readwrite.html" />
+    <link rel="prev" title="Reading and writing graphs" href="../graphs_readwrite.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -206,7 +206,7 @@
   <ul class="current">
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../graphs_generators.html">
-     Graph's generators
+     Graph generators
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
     <label for="toctree-checkbox-2">
@@ -248,7 +248,7 @@
    </li>
    <li class="toctree-l2 current active has-children">
     <a class="reference internal" href="../graphs_readwrite.html">
-     Graph's readwrite
+     Reading and writing graphs
     </a>
     <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
     <label for="toctree-checkbox-3">
@@ -270,7 +270,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../graphs_utils.html">
-     Graph's utils
+     Graph utilities
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
     <label for="toctree-checkbox-4">
@@ -304,7 +304,7 @@
   <ul>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../grammars/grammars_converters.html">
-     Grammar's converters
+     Grammar converters
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
     <label for="toctree-checkbox-6">
@@ -331,7 +331,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../grammars/grammars_readwrite.html">
-     Grammar's readwrite
+     Reading and writing grammars
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
     <label for="toctree-checkbox-7">
@@ -358,7 +358,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../grammars/grammars_samples.html">
-     Grammar's samples
+     Grammar samples
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
     <label for="toctree-checkbox-8">
@@ -400,7 +400,7 @@
    </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../grammars/grammars_utils.html">
-     Grammar's utils
+     Grammar utilities
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
     <label for="toctree-checkbox-9">
@@ -464,34 +464,37 @@ from (and to) RDF file.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#cfpq_data.graphs.readwrite.rdf.graph_from_dataset" title="cfpq_data.graphs.readwrite.rdf.graph_from_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_from_dataset</span></code></a>(graph_name)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cfpq_data.graphs.readwrite.rdf.graph_from_dataset" title="cfpq_data.graphs.readwrite.rdf.graph_from_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_from_dataset</span></code></a>(graph_name[, verbose])</p></td>
 <td><p>Returns a graph from an RDF file loaded from a dataset by name.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#cfpq_data.graphs.readwrite.rdf.graph_from_rdf" title="cfpq_data.graphs.readwrite.rdf.graph_from_rdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_from_rdf</span></code></a>(source)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#cfpq_data.graphs.readwrite.rdf.graph_from_rdf" title="cfpq_data.graphs.readwrite.rdf.graph_from_rdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_from_rdf</span></code></a>(source[, verbose])</p></td>
 <td><p>Returns a graph from RDF file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#cfpq_data.graphs.readwrite.rdf.graph_to_rdf" title="cfpq_data.graphs.readwrite.rdf.graph_to_rdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_to_rdf</span></code></a>(graph, path)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cfpq_data.graphs.readwrite.rdf.graph_to_rdf" title="cfpq_data.graphs.readwrite.rdf.graph_to_rdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_to_rdf</span></code></a>(graph, path[, verbose])</p></td>
 <td><p>Returns the path to the RDF file where the graph will be saved.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="cfpq_data.graphs.readwrite.rdf.graph_from_dataset">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.readwrite.rdf.</span></code><code class="sig-name descname"><span class="pre">graph_from_dataset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">networkx.classes.multidigraph.MultiDiGraph</span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/readwrite/rdf.html#graph_from_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.readwrite.rdf.graph_from_dataset" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.graphs.readwrite.rdf.graph_from_dataset">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.readwrite.rdf.</span></span><span class="sig-name descname"><span class="pre">graph_from_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">networkx.classes.multidigraph.MultiDiGraph</span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/readwrite/rdf.html#graph_from_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.readwrite.rdf.graph_from_dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a graph from
 an RDF file loaded from
 a dataset by name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>graph_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The name of the graph from the dataset.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) -- The name of the graph from the dataset.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- If true, a progress bar will be displayed.</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cfpq_data</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">generations</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_dataset</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">generations</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_dataset</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
 <span class="go">129</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">generations</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
 <span class="go">273</span>
 </pre></div>
 </div>
@@ -506,24 +509,27 @@ a dataset by name.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="cfpq_data.graphs.readwrite.rdf.graph_from_rdf">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.readwrite.rdf.</span></code><code class="sig-name descname"><span class="pre">graph_from_rdf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">networkx.classes.multidigraph.MultiDiGraph</span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/readwrite/rdf.html#graph_from_rdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.readwrite.rdf.graph_from_rdf" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.graphs.readwrite.rdf.graph_from_rdf">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.readwrite.rdf.</span></span><span class="sig-name descname"><span class="pre">graph_from_rdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">networkx.classes.multidigraph.MultiDiGraph</span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/readwrite/rdf.html#graph_from_rdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.readwrite.rdf.graph_from_rdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a graph from RDF file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>source</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) -- The path to the RDF file with which
-the graph will be created.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) -- The path to the RDF file with which
+the graph will be created.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- If true, a progress bar will be displayed.</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cfpq_data</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">generations</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_dataset</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_to_rdf</span><span class="p">(</span><span class="n">generations</span><span class="p">,</span> <span class="s2">&quot;test.xml&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_rdf</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">generations</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
-<span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">generations</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
-<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generations</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_dataset</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_to_rdf</span><span class="p">(</span><span class="n">generations</span><span class="p">,</span> <span class="s2">&quot;test.xml&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_rdf</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+<span class="go">129</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
+<span class="go">273</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -537,8 +543,8 @@ the graph will be created.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="cfpq_data.graphs.readwrite.rdf.graph_to_rdf">
-<code class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.readwrite.rdf.</span></code><code class="sig-name descname"><span class="pre">graph_to_rdf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><a class="reference internal" href="../../../_modules/cfpq_data/graphs/readwrite/rdf.html#graph_to_rdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.readwrite.rdf.graph_to_rdf" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cfpq_data.graphs.readwrite.rdf.graph_to_rdf">
+<span class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.readwrite.rdf.</span></span><span class="sig-name descname"><span class="pre">graph_to_rdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">pathlib.Path</span></a><a class="reference internal" href="../../../_modules/cfpq_data/graphs/readwrite/rdf.html#graph_to_rdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.readwrite.rdf.graph_to_rdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the path to the RDF file
 where the graph will be saved.</p>
 <dl class="field-list simple">
@@ -546,13 +552,14 @@ where the graph will be saved.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<em>MultiDiGraph</em>) -- Graph to save.</p></li>
 <li><p><strong>path</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) -- The path to the file where the graph will be saved.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- If true, a progress bar will be displayed.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cfpq_data</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_dataset</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_to_rdf</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;test.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_dataset</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_to_rdf</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;test.xml&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -573,7 +580,7 @@ where the graph will be saved.</p>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="../graphs_readwrite.html" title="previous page">Graph's readwrite</a>
+    <a class='left-prev' id="prev-link" href="../graphs_readwrite.html" title="previous page">Reading and writing graphs</a>
     <a class='right-next' id="next-link" href="cfpq_data.graphs.readwrite.txt.html" title="next page">cfpq_data.graphs.readwrite.txt</a>
 
               </div>
@@ -583,11 +590,10 @@ where the graph will be saved.</p>
 
       </div>
     </div>
-    
-  <script src="../../../_static/js/index.c86189f1ce1b71a67eb6.js"></script>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    <footer class="footer mt-5 mt-md-0">
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -598,7 +604,7 @@ where the graph will be saved.</p>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
 </p>
     </div>
     

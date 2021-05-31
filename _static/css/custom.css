@@ -26,3 +26,9 @@ th, td {
     font-size: 3rem;
     line-height: 1.25;
 }
+
+div.topic {
+    border: 1px solid #eee;
+    padding: 7px;
+    margin: 10px 0 10px 0;
+}
