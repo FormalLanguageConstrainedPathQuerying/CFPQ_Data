@@ -52,7 +52,7 @@ def rsm_from_text(source: str, start_symbol: Variable = Variable("S")) -> RSM:
     boxes = list()
 
     for production in source.splitlines():
-        if not production:
+        if " -> " not in production:
             continue
 
         head, body = production.split(" -> ")
