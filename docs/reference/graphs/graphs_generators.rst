@@ -2,8 +2,14 @@
 
 .. currentmodule:: cfpq_data
 
-Graph's generators
-******************
+****************
+Graph generators
+****************
+
+.. seealso::
+
+    `NetworkX Graph generators
+    <https://networkx.org/documentation/stable/reference/generators.html>`_
 
 .. automodule:: cfpq_data.graphs.generators
 .. autosummary::

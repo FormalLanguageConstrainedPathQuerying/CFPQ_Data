@@ -2,8 +2,14 @@
 
 .. currentmodule:: cfpq_data
 
-Grammar's utils
-***************
+*****************
+Grammar utilities
+*****************
+
+.. seealso::
+
+    `Pyformlang CFG
+    <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_
 
 .. automodule:: cfpq_data.grammars.utils
 .. autosummary::

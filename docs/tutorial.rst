@@ -13,17 +13,22 @@ Tutorial
 .. currentmodule:: cfpq_data
 
 This guide can help you start working with CFPQ_Data.
+You can download this tutorial as a Jupyter Notebook from the link at the end of the page.
 
-We use the NetworkX `MultiDiGraph
-<https://networkx.org/documentation/latest/reference/classes/multidigraph.html>`_ to represent the labeled graph.
-To familiarize yourself with this representation, see `NetworkX tutorial
-<https://networkx.org/documentation/latest/tutorial.html>`_.
+.. topic:: NetworkX
 
-We use the Pyformlang `CFG
-<https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_ to represent the
-context-free grammar.
-To familiarize yourself with this representation, see `Pyformlang usage
-<https://pyformlang.readthedocs.io/en/latest/usage.html#context-free-grammar>`_.
+    We use the NetworkX `MultiDiGraph
+    <https://networkx.org/documentation/latest/reference/classes/multidigraph.html>`_ to represent the labeled graph.
+    To familiarize yourself with this representation and find useful functions, see `NetworkX tutorial
+    <https://networkx.org/documentation/latest/tutorial.html>`_.
+
+.. topic:: Pyformlang
+
+    We use the Pyformlang `CFG
+    <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_ to represent
+    the context-free grammar.
+    To familiarize yourself with this representation and find useful functions, see `Pyformlang usage
+    <https://pyformlang.readthedocs.io/en/latest/usage.html#context-free-grammar>`_.
 
 All functions are documented on the :ref:`reference` page.
 

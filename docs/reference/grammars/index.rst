@@ -2,6 +2,7 @@
 
 .. currentmodule:: cfpq_data
 
+********
 Grammars
 ********
 

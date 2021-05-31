@@ -2,8 +2,14 @@
 
 .. currentmodule:: cfpq_data
 
-Graph's readwrite
-*****************
+**************************
+Reading and writing graphs
+**************************
+
+.. seealso::
+
+    `NetworkX Reading and writing graphs
+    <https://networkx.org/documentation/stable/reference/readwrite/index.html>`_
 
 .. automodule:: cfpq_data.graphs.readwrite
 .. autosummary::

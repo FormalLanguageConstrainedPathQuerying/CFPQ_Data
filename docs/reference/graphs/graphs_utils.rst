@@ -2,8 +2,14 @@
 
 .. currentmodule:: cfpq_data
 
-Graph's utils
-*************
+***************
+Graph utilities
+***************
+
+.. seealso::
+
+    `NetworkX Utilities
+    <https://networkx.org/documentation/stable/reference/utils.html>`_
 
 .. automodule:: cfpq_data.graphs.utils
 .. autosummary::

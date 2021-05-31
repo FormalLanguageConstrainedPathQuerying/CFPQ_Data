@@ -37,7 +37,7 @@ CFPQ_Data development is guided by the following core team:
              alt="Avatar picture of @Yakonick"
            />
         </div>
-        Kovalev Nikita
+        Nikita Kovalev
      </a>
      <div class="team-member-handle">@Yakonick</div>
    </div>
