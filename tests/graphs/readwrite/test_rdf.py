@@ -32,16 +32,16 @@ def test_rdf(graph_name):
 @pytest.mark.parametrize(
     "graph_name",
     [
-        "people_pets",
-        "foaf",
+        "pizza",
+        "core",
     ],
 )
 def test_rdf_with_verbose(graph_name):
     (fd, fname) = tempfile.mkstemp()
 
-    graph = cfpq_data.graph_from_dataset(graph_name)
-    path = cfpq_data.graph_to_rdf(graph, fname)
-    gin = cfpq_data.graph_from_rdf(path)
+    graph = cfpq_data.graph_from_dataset(graph_name, verbose=True)
+    path = cfpq_data.graph_to_rdf(graph, fname, verbose=True)
+    gin = cfpq_data.graph_from_rdf(path, verbose=True)
 
     os.close(fd)
     os.unlink(fname)

@@ -2,6 +2,7 @@ import os
 import random
 import tempfile
 
+import networkx as nx
 import numpy as np
 import pytest
 
@@ -14,6 +15,7 @@ np.random.seed(seed)
 g1 = cfpq_data.labeled_binomial_graph(42, 0.42, seed=seed, verbose=False)
 g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed, verbose=False)
 g3 = cfpq_data.graph_from_text("1 2", verbose=False)
+g4 = nx.path_graph(42, create_using=nx.MultiDiGraph)
 
 
 @pytest.mark.parametrize(
@@ -22,6 +24,7 @@ g3 = cfpq_data.graph_from_text("1 2", verbose=False)
         g1,
         g2,
         g3,
+        g4,
     ],
 )
 def test_txt(graph):
@@ -45,6 +48,7 @@ def test_txt(graph):
         g1,
         g2,
         g3,
+        g4,
     ],
 )
 def test_txt_with_quoting(graph):
