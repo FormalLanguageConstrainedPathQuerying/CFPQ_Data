@@ -68,3 +68,8 @@ def test_text(graph, quoting, verbose):
         g.number_of_nodes() == gin.number_of_nodes()
         and g.number_of_edges() == gin.number_of_edges()
     )
+
+
+def test_text_format():
+    with pytest.raises(ValueError):
+        cfpq_data.graph_from_text("1 2 3 4")
