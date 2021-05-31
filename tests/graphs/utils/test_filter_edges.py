@@ -2,11 +2,11 @@ import pytest
 
 import cfpq_data
 
-g1 = cfpq_data.labeled_two_cycles_graph(42, 29)
-g2 = cfpq_data.labeled_cycle_graph(42)
+g1 = cfpq_data.labeled_two_cycles_graph(42, 29, verbose=False)
+g2 = cfpq_data.labeled_cycle_graph(42, verbose=False)
 
-rg1 = cfpq_data.filter_edges(g1, ["a"])
-rg2 = cfpq_data.filter_edges(g2, ["a"])
+rg1 = cfpq_data.filter_edges(g1, ["a"], verbose=False)
+rg2 = cfpq_data.filter_edges(g2, ["a"], verbose=False)
 
 
 @pytest.mark.parametrize(

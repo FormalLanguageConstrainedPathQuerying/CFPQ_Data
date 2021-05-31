@@ -2,8 +2,14 @@
 
 .. currentmodule:: cfpq_data
 
-Grammar's samples
-*****************
+***************
+Grammar samples
+***************
+
+.. seealso::
+
+    `Pyformlang CFG
+    <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_
 
 .. automodule:: cfpq_data.grammars.samples
 .. autosummary::

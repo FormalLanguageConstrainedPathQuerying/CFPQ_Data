@@ -9,8 +9,8 @@ seed = 42
 random.seed(seed)
 np.random.seed(seed)
 
-g1 = cfpq_data.labeled_barabasi_albert_graph(100, 1, seed=seed)
-g2 = cfpq_data.labeled_barabasi_albert_graph(100, 3, seed=seed)
+g1 = cfpq_data.labeled_barabasi_albert_graph(100, 1, seed=seed, verbose=False)
+g2 = cfpq_data.labeled_barabasi_albert_graph(100, 3, seed=seed, verbose=False)
 
 
 @pytest.mark.parametrize(

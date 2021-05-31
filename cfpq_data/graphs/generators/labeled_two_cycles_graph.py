@@ -4,6 +4,7 @@ With labeled edges.
 from typing import Union, Iterable, Any, Tuple
 
 from networkx import MultiDiGraph, compose, path_graph
+from tqdm import tqdm
 
 __all__ = ["labeled_two_cycles_graph"]
 
@@ -13,6 +14,7 @@ def labeled_two_cycles_graph(
     m: Union[int, Iterable[Any]],
     common: Union[int, Any] = 0,
     edge_labels: Tuple[str, str] = ("a", "b"),
+    verbose: bool = True,
 ) -> MultiDiGraph:
     """Returns a graph with two cycles connected by one node.
     With labeled edges.
@@ -35,12 +37,17 @@ def labeled_two_cycles_graph(
     edge_labels: Tuple[str, str]
         Labels that will be used to mark the edges of the graph.
 
+    verbose : bool
+        If true, a progress bar will be displayed.
+
     Examples
     --------
     >>> import cfpq_data
-    >>> g = cfpq_data.labeled_two_cycles_graph(42, 29)
-    >>> g.number_of_nodes(), g.number_of_edges()
-    (72, 73)
+    >>> g = cfpq_data.labeled_two_cycles_graph(42, 29, verbose=False)
+    >>> g.number_of_nodes()
+    72
+    >>> g.number_of_edges()
+    73
 
     Returns
     -------
@@ -67,10 +74,14 @@ def labeled_two_cycles_graph(
         tmp.add_edge(common, first_node)
         tmp.add_edge(last_node, common)
 
-    for edge in g1.edges:
+    for edge in tqdm(
+        g1.edges, disable=not verbose, desc="Generation of the first cycle..."
+    ):
         g1.edges[edge]["label"] = edge_labels[0]
 
-    for edge in g2.edges:
+    for edge in tqdm(
+        g2.edges, disable=not verbose, desc="Generation of the second cycle..."
+    ):
         g2.edges[edge]["label"] = edge_labels[1]
 
     g = MultiDiGraph(compose(g1, g2))
