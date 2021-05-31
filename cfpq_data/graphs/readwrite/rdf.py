@@ -57,10 +57,11 @@ def graph_from_dataset(graph_name: str, verbose: bool = True) -> MultiDiGraph:
     """
     for graph_class in DATASET.keys():
         if graph_name in DATASET[graph_class].keys():
-            dst = MAIN_FOLDER / "data" / graph_class / "Graphs"
-            dst.mkdir(parents=True, exist_ok=True)
+            destination_dir = MAIN_FOLDER / "data" / graph_class / "Graphs"
+            destination_dir.mkdir(parents=True, exist_ok=True)
+
             graph_file = graph_name + DATASET[graph_class][graph_name]["FileExtension"]
-            graph_file_path = str(dst / graph_file)
+            graph_file_path = str(destination_dir / graph_file)
 
             if not path.isfile(graph_file_path):
 
@@ -77,7 +78,7 @@ def graph_from_dataset(graph_name: str, verbose: bool = True) -> MultiDiGraph:
                 graph_archive = (
                     graph_file + DATASET[graph_class][graph_name]["ArchiveExtension"]
                 )
-                graph_archive_path = str(dst / graph_archive)
+                graph_archive_path = str(destination_dir / graph_archive)
 
                 s3 = client(
                     "s3",
@@ -117,7 +118,7 @@ def graph_from_dataset(graph_name: str, verbose: bool = True) -> MultiDiGraph:
                         Filename=graph_archive_path,
                     )
 
-                unpack_archive(graph_archive_path, dst)
+                unpack_archive(graph_archive_path, destination_dir)
 
                 remove(graph_archive_path)
 

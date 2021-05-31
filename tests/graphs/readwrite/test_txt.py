@@ -1,6 +1,6 @@
+from itertools import product
 import os
 import random
-import tempfile
 
 import networkx as nx
 import numpy as np
@@ -19,22 +19,25 @@ g4 = nx.path_graph(42, create_using=nx.MultiDiGraph)
 
 
 @pytest.mark.parametrize(
-    "graph",
-    [
-        g1,
-        g2,
-        g3,
-        g4,
-    ],
+    "graph, quoting, verbose",
+    list(
+        product(
+            [
+                g1,
+                g2,
+                g3,
+                g4,
+            ],
+            [True, False],
+            [True, False],
+        )
+    ),
 )
-def test_txt(graph):
-    (fd, fname) = tempfile.mkstemp()
+def test_txt(graph, quoting, verbose):
+    path = cfpq_data.graph_to_txt(graph, "test.txt", quoting=quoting, verbose=verbose)
+    gin = cfpq_data.graph_from_txt(path, verbose=verbose)
 
-    path = cfpq_data.graph_to_txt(graph, fname, verbose=False)
-    gin = cfpq_data.graph_from_txt(path, verbose=False)
-
-    os.close(fd)
-    os.unlink(fname)
+    os.remove("test.txt")
 
     assert (
         graph.number_of_nodes() == gin.number_of_nodes()
@@ -43,40 +46,23 @@ def test_txt(graph):
 
 
 @pytest.mark.parametrize(
-    "graph",
-    [
-        g1,
-        g2,
-        g3,
-        g4,
-    ],
+    "graph, quoting, verbose",
+    list(
+        product(
+            [
+                "1 A 2",
+                "1 A 2\n2 B 3",
+                "1 2\n2 3",
+            ],
+            [True, False],
+            [True, False],
+        )
+    ),
 )
-def test_txt_with_quoting(graph):
-    (fd, fname) = tempfile.mkstemp()
-
-    path = cfpq_data.graph_to_txt(graph, fname, quoting=True, verbose=False)
-    gin = cfpq_data.graph_from_txt(path, verbose=False)
-
-    os.close(fd)
-    os.unlink(fname)
-
-    assert (
-        graph.number_of_nodes() == gin.number_of_nodes()
-        and graph.number_of_edges() == gin.number_of_edges()
-    )
-
-
-@pytest.mark.parametrize(
-    "graph",
-    [
-        "1 A 2",
-        "1 A 2\n2 B 3",
-    ],
-)
-def test_text(graph):
-    g = cfpq_data.graph_from_text(graph, verbose=False)
-    text = cfpq_data.graph_to_text(g, verbose=False)
-    gin = cfpq_data.graph_from_text(text, verbose=False)
+def test_text(graph, quoting, verbose):
+    g = cfpq_data.graph_from_text(graph, verbose=verbose)
+    text = cfpq_data.graph_to_text(g, quoting=quoting, verbose=verbose)
+    gin = cfpq_data.graph_from_text(text, verbose=verbose)
 
     assert (
         g.number_of_nodes() == gin.number_of_nodes()

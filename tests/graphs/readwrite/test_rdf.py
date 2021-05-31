@@ -1,5 +1,5 @@
 import os
-import tempfile
+from itertools import product
 
 import pytest
 
@@ -7,44 +7,25 @@ import cfpq_data
 
 
 @pytest.mark.parametrize(
-    "graph_name",
-    [
-        "people_pets",
-        "foaf",
-    ],
+    "graph_name, verbose",
+    list(
+        product(
+            [
+                "people_pets",
+                "foaf",
+                "pizza",
+                "core",
+            ],
+            [True, False],
+        )
+    ),
 )
-def test_rdf(graph_name):
-    (fd, fname) = tempfile.mkstemp()
+def test_rdf(graph_name, verbose):
+    graph = cfpq_data.graph_from_dataset(graph_name, verbose=verbose)
+    path = cfpq_data.graph_to_rdf(graph, "test.xml", verbose=verbose)
+    gin = cfpq_data.graph_from_rdf(path, verbose=verbose)
 
-    graph = cfpq_data.graph_from_dataset(graph_name, verbose=False)
-    path = cfpq_data.graph_to_rdf(graph, fname, verbose=False)
-    gin = cfpq_data.graph_from_rdf(path, verbose=False)
-
-    os.close(fd)
-    os.unlink(fname)
-
-    assert (
-        graph.number_of_nodes() == gin.number_of_nodes()
-        and graph.number_of_edges() == gin.number_of_edges()
-    )
-
-
-@pytest.mark.parametrize(
-    "graph_name",
-    [
-        "pizza",
-        "core",
-    ],
-)
-def test_rdf_with_verbose(graph_name):
-    (fd, fname) = tempfile.mkstemp()
-
-    graph = cfpq_data.graph_from_dataset(graph_name, verbose=True)
-    path = cfpq_data.graph_to_rdf(graph, fname, verbose=True)
-    gin = cfpq_data.graph_from_rdf(path, verbose=True)
-
-    os.close(fd)
-    os.unlink(fname)
+    os.remove("test.xml")
 
     assert (
         graph.number_of_nodes() == gin.number_of_nodes()
