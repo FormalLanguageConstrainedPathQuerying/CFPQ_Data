@@ -25,5 +25,5 @@ jobs:
 
       - name: Test CFPQ_Data with coverage
         run: |
-          pytest --cov=cfpq_data --doctest-modules -vv -s cfpq_data tests
+          pytest --cov=cfpq_data --doctest-modules -vv -s tests cfpq_data
           codecov
