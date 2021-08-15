@@ -9,8 +9,15 @@ from pyformlang.finite_automaton import DeterministicFiniteAutomaton
 __all__ = ["RSM"]
 
 
+# TODO: Remove in cfpq_data 2.0
 class RSM:
     """Recursive State Machine [1]_.
+
+    .. deprecated:: 2.0.0
+
+       The class `RSM` will be replaced
+       with class `RecursiveAutomaton`
+       from pyformlang
 
     References
     ----------
@@ -42,6 +49,17 @@ class RSM:
            Lecture Notes in Computer Science, vol 2102.
            Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
         """
+        import warnings
+
+        msg = (
+            "\nThe class `RSM` will be replaced "
+            "with class `RecursiveAutomaton` "
+            "from pyformlang "
+            "in cfpq_data 2.0.0\n"
+        )
+
+        warnings.warn(msg, FutureWarning, stacklevel=2)
+
         self.start_symbol: Variable = start_symbol
         self.boxes: Sequence[Tuple[Variable, DeterministicFiniteAutomaton]] = boxes
 

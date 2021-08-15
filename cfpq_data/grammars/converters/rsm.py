@@ -12,9 +12,15 @@ __all__ = [
 ]
 
 
+# TODO: Remove in cfpq_data 2.0.0
 def rsm_from_cfg(cfg: CFG) -> RSM:
     """Create a Recursive State Machine [2]_
     from context-free grammar [1]_.
+
+    .. deprecated:: 2.0.0
+
+       The function `rsm_from_cfg` will be replaced
+       with function `rsa_from_cfg`
 
     Parameters
     ----------
@@ -42,13 +48,29 @@ def rsm_from_cfg(cfg: CFG) -> RSM:
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
+    import warnings
+
+    msg = (
+        "\nThe function `rsm_from_cfg` will be replaced "
+        "with function `rsa_from_cfg` in "
+        "cfpq_data 2.0.0\n"
+    )
+
+    warnings.warn(msg, FutureWarning, stacklevel=2)
+
     return rsm_from_text(cfg.to_text(), cfg.start_symbol)
 
 
+# TODO: Remove in cfpq_data 2.0.0
 def rsm_from_cnf(cnf: CFG) -> RSM:
     """Create a Recursive State Machine [2]_
     from context-free grammar
     in Chomsky normal form [1]_.
+
+    .. deprecated:: 2.0.0
+
+       The function `rsm_from_cnf` will be replaced
+       with function `rsa_from_cnf`
 
     Parameters
     ----------
@@ -77,4 +99,14 @@ def rsm_from_cnf(cnf: CFG) -> RSM:
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
+    import warnings
+
+    msg = (
+        "\nThe function `rsm_from_cnf` will be replaced "
+        "with function `rsa_from_cnf` in "
+        "cfpq_data 2.0.0\n"
+    )
+
+    warnings.warn(msg, FutureWarning, stacklevel=2)
+
     return rsm_from_text(cnf.to_text(), cnf.start_symbol)
