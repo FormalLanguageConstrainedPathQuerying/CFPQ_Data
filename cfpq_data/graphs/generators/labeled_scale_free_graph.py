@@ -67,7 +67,7 @@ def labeled_scale_free_graph(
     >>> g.number_of_nodes()
     42
     >>> g.number_of_edges()
-    88
+    81
 
     Returns
     -------
