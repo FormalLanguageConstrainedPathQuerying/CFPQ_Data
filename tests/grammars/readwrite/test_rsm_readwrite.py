@@ -1,3 +1,4 @@
+# TODO: Remove in cfpq_data 2.0.0
 import os
 import tempfile
 
