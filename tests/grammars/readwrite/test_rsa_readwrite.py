@@ -7,14 +7,22 @@ import cfpq_data
 
 grammar_1 = "S -> a b"
 grammar_2 = "S -> a"
+grammar_3 = "S -> a\nS -> b"
+grammar_4 = "S -> \n#comment"
 
 
 @pytest.mark.parametrize(
     "grammar, expected",
-    [(grammar_1, ["ab"]), (grammar_2, ["a"])],
+    [
+        (grammar_1, ["ab"]),
+        (grammar_2, ["a"]),
+        (grammar_3, ["a", "b"]),
+        (grammar_4, [""]),
+    ],
 )
 def test_rsa_from_text(grammar, expected):
     rsa = cfpq_data.rsa_from_text(grammar)
+    print(cfpq_data.rsa_to_text(rsa))
     cfg_from_rsa = cfpq_data.cfg_from_rsa(rsa)
 
     for word in expected:
@@ -27,6 +35,7 @@ def test_rsa_from_text(grammar, expected):
     [
         (grammar_1, {"S -> ($.(a.b))"}),
         (grammar_2, {"S -> ($.a)"}),
+        (grammar_3, {"S -> ($.(a|b))", "S -> ($.(b|a))"}),
     ],
 )
 def test_rsa_to_text(grammar, expected):
@@ -34,7 +43,7 @@ def test_rsa_to_text(grammar, expected):
 
     actual = set(cfpq_data.rsa_to_text(rsa).splitlines())
 
-    assert actual == expected
+    assert actual.issubset(expected)
 
 
 @pytest.mark.parametrize(
@@ -42,6 +51,7 @@ def test_rsa_to_text(grammar, expected):
     [
         grammar_1,
         grammar_2,
+        grammar_3,
     ],
 )
 def test_rsa_from_and_to_txt(grammar):
