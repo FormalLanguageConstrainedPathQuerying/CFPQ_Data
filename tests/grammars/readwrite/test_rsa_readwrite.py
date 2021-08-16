@@ -22,7 +22,6 @@ grammar_4 = "S -> \n#comment"
 )
 def test_rsa_from_text(grammar, expected):
     rsa = cfpq_data.rsa_from_text(grammar)
-    print(cfpq_data.rsa_to_text(rsa))
     cfg_from_rsa = cfpq_data.cfg_from_rsa(rsa)
 
     for word in expected:
@@ -66,6 +65,4 @@ def test_rsa_from_and_to_txt(grammar):
     os.close(fd)
     os.unlink(fname)
 
-    assert set(cfpq_data.rsa_to_text(rsa_1).splitlines()) == set(
-        cfpq_data.rsa_to_text(rsa_2).splitlines()
-    )
+    assert rsa_1 == rsa_2
