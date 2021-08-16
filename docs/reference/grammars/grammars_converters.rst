@@ -18,3 +18,4 @@ Grammar converters
    cfg
    cnf
    rsm
+   rsa
