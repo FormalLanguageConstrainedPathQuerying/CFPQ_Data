@@ -35,6 +35,7 @@ def test_rsa_from_text(grammar, expected):
         (grammar_1, {"S -> ($.(a.b))"}),
         (grammar_2, {"S -> ($.a)"}),
         (grammar_3, {"S -> ($.(a|b))", "S -> ($.(b|a))"}),
+        (grammar_4, {"S -> $"}),
     ],
 )
 def test_rsa_to_text(grammar, expected):
@@ -47,11 +48,7 @@ def test_rsa_to_text(grammar, expected):
 
 @pytest.mark.parametrize(
     "grammar",
-    [
-        grammar_1,
-        grammar_2,
-        grammar_3,
-    ],
+    [grammar_1, grammar_2, grammar_3, grammar_4],
 )
 def test_rsa_from_and_to_txt(grammar):
     (fd, fname) = tempfile.mkstemp()
@@ -65,4 +62,6 @@ def test_rsa_from_and_to_txt(grammar):
     os.close(fd)
     os.unlink(fname)
 
-    assert rsa_1 == rsa_2
+    assert rsa_1.labels == rsa_2.labels and all(
+        [rsa_1.get_box(label) == rsa_2.get_box(label) for label in rsa_1.labels]
+    )
