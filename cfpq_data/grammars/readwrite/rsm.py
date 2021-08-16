@@ -17,8 +17,14 @@ __all__ = [
 ]
 
 
+# TODO: Remove in cfpq_data 2.0.0
 def rsm_from_text(source: str, start_symbol: Variable = Variable("S")) -> RSM:
     """Create a Recursive State Machine [1]_ from text.
+
+    .. deprecated:: 2.0.0
+
+       The function `rsm_from_text` will be replaced
+       with function `rsa_from_text`
 
     Parameters
     ----------
@@ -49,6 +55,16 @@ def rsm_from_text(source: str, start_symbol: Variable = Variable("S")) -> RSM:
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
+    import warnings
+
+    msg = (
+        "\nThe function `rsm_from_text` will be replaced "
+        "with function `rsa_from_text` in "
+        "cfpq_data 2.0.0\n"
+    )
+
+    warnings.warn(msg, FutureWarning, stacklevel=2)
+
     boxes = list()
 
     for production in source.splitlines():
@@ -68,9 +84,15 @@ def rsm_from_text(source: str, start_symbol: Variable = Variable("S")) -> RSM:
     return RSM(start_symbol, boxes)
 
 
+# TODO: Remove in cfpq_data 2.0.0
 def rsm_to_text(rsm: RSM) -> str:
     """Turns a Recursive State Machine [1]_
     into its text representation.
+
+    .. deprecated:: 2.0.0
+
+       The function `rsm_to_text` will be replaced
+       with function `rsa_to_text`
 
     Parameters
     ----------
@@ -95,14 +117,30 @@ def rsm_to_text(rsm: RSM) -> str:
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
+    import warnings
+
+    msg = (
+        "\nThe function `rsm_to_text` will be replaced "
+        "with function `rsa_to_text` in "
+        "cfpq_data 2.0.0\n"
+    )
+
+    warnings.warn(msg, FutureWarning, stacklevel=2)
+
     return rsm.to_text()
 
 
+# TODO: Remove in cfpq_data 2.0.0
 def rsm_from_txt(
     source: Union[Path, str], start_symbol: Variable = Variable("S")
 ) -> RSM:
     """Create a Recursive State Machine [1]_
     from TXT file.
+
+    .. deprecated:: 2.0.0
+
+       The function `rsm_from_txt` will be replaced
+       with function `rsa_from_txt`
 
     Parameters
     ----------
@@ -133,15 +171,31 @@ def rsm_from_txt(
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
+    import warnings
+
+    msg = (
+        "\nThe function `rsm_from_txt` will be replaced "
+        "with function `rsa_from_txt` in "
+        "cfpq_data 2.0.0\n"
+    )
+
+    warnings.warn(msg, FutureWarning, stacklevel=2)
+
     with open(source, "r") as fin:
         productions = fin.read()
     return rsm_from_text(productions, start_symbol)
 
 
+# TODO: Remove in cfpq_data 2.0.0
 def rsm_to_txt(rsm: RSM, destination: Union[Path, str]) -> Path:
     """Saves a Recursive State Machine
     text representation
     into TXT file.
+
+    .. deprecated:: 2.0.0
+
+       The function `rsm_to_txt` will be replaced
+       with function `rsa_to_txt`
 
     Parameters
     ----------
@@ -175,6 +229,16 @@ def rsm_to_txt(rsm: RSM, destination: Union[Path, str]) -> Path:
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
     """
+    import warnings
+
+    msg = (
+        "\nThe function `rsm_to_txt` will be replaced "
+        "with function `rsa_to_txt` in "
+        "cfpq_data 2.0.0\n"
+    )
+
+    warnings.warn(msg, FutureWarning, stacklevel=2)
+
     with open(destination, "w") as fout:
         fout.write(rsm_to_text(rsm))
     return Path(destination).resolve()
