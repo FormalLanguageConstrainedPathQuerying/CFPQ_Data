@@ -1,7 +1,5 @@
-boto3>=1.17
-networkx>=2.5
-numpy>=1.20
-pyformlang>=0.1
-rdflib>=5.0
-requests>=2.25
-tqdm>=4.60
+boto3==1.18.31
+networkx==2.6.2
+pyformlang==0.1.26
+rdflib==6.0.0
+tqdm==4.62.2
