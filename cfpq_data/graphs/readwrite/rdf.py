@@ -154,7 +154,7 @@ def graph_from_rdf(source: Union[Path, str], verbose: bool = True) -> MultiDiGra
         Loaded graph.
     """
     tmp = RDFGraph()
-    tmp.load(str(source), format="xml")
+    tmp.parse(str(source), format="xml")
 
     g = MultiDiGraph()
 
