@@ -2,11 +2,11 @@
 #
 # Release
 #
-# :   1.0.1
+# :   1.0.2
 #
 # Date
 #
-# :   May 31, 2021
+# :   Aug 30, 2021
 #
 # This guide can help you start working with CFPQ_Data.
 # You can download this tutorial as a Jupyter Notebook from the link at the end of the page.

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.graphs.readwrite.rdf &#8212; CFPQ_Data 1.0.1 documentation</title>
+    <title>cfpq_data.graphs.readwrite.rdf &#8212; CFPQ_Data 1.0.2 documentation</title>
     
   <link href="../../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -369,7 +369,7 @@
 <span class="sd">        Loaded graph.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tmp</span> <span class="o">=</span> <span class="n">RDFGraph</span><span class="p">()</span>
-    <span class="n">tmp</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;xml&quot;</span><span class="p">)</span>
+    <span class="n">tmp</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;xml&quot;</span><span class="p">)</span>
 
     <span class="n">g</span> <span class="o">=</span> <span class="n">MultiDiGraph</span><span class="p">()</span>
 
@@ -457,7 +457,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
 </p>
     </div>
     
