@@ -8,9 +8,7 @@ A graph of `number_of_nodes` nodes is grown by attaching new nodes each with
 import random
 from typing import Iterable, Union
 
-import numpy as np
 from networkx import MultiDiGraph, barabasi_albert_graph
-from numpy.random import RandomState
 from tqdm import tqdm
 
 __all__ = ["labeled_barabasi_albert_graph"]
@@ -19,7 +17,7 @@ __all__ = ["labeled_barabasi_albert_graph"]
 def labeled_barabasi_albert_graph(
     number_of_nodes: int,
     number_of_edges: int,
-    seed: Union[int, RandomState, None] = None,
+    seed: Union[int, None] = None,
     edge_labels: Iterable[str] = "abcd",
     verbose: bool = True,
 ) -> MultiDiGraph:
@@ -78,10 +76,9 @@ def labeled_barabasi_albert_graph(
     )
 
     random.seed(seed)
-    np.random.seed(seed)
 
     for edge in tqdm(g.edges, disable=not verbose, desc="Generation..."):
-        label = np.random.choice(list(edge_labels))
+        label = random.choice(list(edge_labels))
         g.edges[edge]["label"] = label
 
     return g

@@ -5,9 +5,7 @@ a binomial graph. With labeled edges.
 import random
 from typing import Union, Iterable
 
-import numpy as np
 from networkx import MultiDiGraph, fast_gnp_random_graph
-from numpy.random import RandomState
 from tqdm import tqdm
 
 __all__ = ["fast_labeled_binomial_graph"]
@@ -16,7 +14,7 @@ __all__ = ["fast_labeled_binomial_graph"]
 def fast_labeled_binomial_graph(
     number_of_nodes: int,
     edge_probability: float,
-    seed: Union[int, RandomState, None] = None,
+    seed: Union[int, None] = None,
     edge_labels: Iterable[str] = "a",
     verbose: bool = True,
 ) -> MultiDiGraph:
@@ -83,9 +81,8 @@ def fast_labeled_binomial_graph(
     )
 
     random.seed(seed)
-    np.random.seed(seed)
 
     for edge in tqdm(g.edges, disable=not verbose, desc="Generation..."):
-        g.edges[edge]["label"] = np.random.choice(list(edge_labels))
+        g.edges[edge]["label"] = random.choice(list(edge_labels))
 
     return g

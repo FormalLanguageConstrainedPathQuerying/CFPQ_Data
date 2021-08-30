@@ -3,14 +3,12 @@ import os
 import random
 
 import networkx as nx
-import numpy as np
 import pytest
 
 import cfpq_data
 
 seed = 42
 random.seed(seed)
-np.random.seed(seed)
 
 g1 = cfpq_data.labeled_binomial_graph(42, 0.42, seed=seed, verbose=False)
 g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed, verbose=False)

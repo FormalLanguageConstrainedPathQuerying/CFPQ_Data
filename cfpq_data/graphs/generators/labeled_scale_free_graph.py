@@ -4,9 +4,7 @@ With labeled edges.
 import random
 from typing import Union, Iterable
 
-import numpy as np
 from networkx import MultiDiGraph, scale_free_graph
-from numpy.random import RandomState
 from tqdm import tqdm
 
 __all__ = ["labeled_scale_free_graph"]
@@ -19,7 +17,7 @@ def labeled_scale_free_graph(
     gamma: float = 0.05,
     delta_in: float = 0.2,
     delta_out: float = 0,
-    seed: Union[int, RandomState, None] = None,
+    seed: Union[int, None] = None,
     edge_labels: Iterable[str] = "abcd",
     verbose: bool = True,
 ) -> MultiDiGraph:
@@ -67,7 +65,7 @@ def labeled_scale_free_graph(
     >>> g.number_of_nodes()
     42
     >>> g.number_of_edges()
-    88
+    81
 
     Returns
     -------
@@ -98,10 +96,9 @@ def labeled_scale_free_graph(
     )
 
     random.seed(seed)
-    np.random.seed(seed)
 
     for edge in tqdm(g.edges, disable=not verbose, desc="Generation..."):
-        label = np.random.choice(list(edge_labels))
+        label = random.choice(list(edge_labels))
         g.edges[edge]["label"] = label
 
     return g
