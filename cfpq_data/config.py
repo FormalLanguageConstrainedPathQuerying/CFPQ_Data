@@ -1,15 +1,12 @@
-from pathlib import Path
+import pathlib
 
 __all__ = [
-    "MAIN_FOLDER",
-    "AWS_ACCESS_KEY_ID",
-    "AWS_SECRET_ACCESS_KEY",
-    "BUCKET_NAME",
+    "VERSION",
+    "ROOT",
+    "DATA",
 ]
 
-MAIN_FOLDER = Path(__file__).parent
+VERSION = "2.0.0"
 
-AWS_ACCESS_KEY_ID = "AKIA326NG25W2XT6TBAZ"
-AWS_SECRET_ACCESS_KEY = "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"
-
-BUCKET_NAME = "cfpq-data"
+ROOT = pathlib.Path(__file__).parent
+DATA = ROOT / "data"

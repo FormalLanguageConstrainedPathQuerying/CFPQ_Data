@@ -10,10 +10,9 @@ Tutorial
    :Release: |release|
    :Date: |today|
 
-.. currentmodule:: cfpq_data
-
 This guide can help you start working with CFPQ_Data.
-You can download this tutorial as a Jupyter Notebook from the link at the end of the page.
+
+**You can download this tutorial as a Jupyter Notebook from the link at the end of the page.**
 
 .. topic:: NetworkX
 
@@ -30,42 +29,60 @@ You can download this tutorial as a Jupyter Notebook from the link at the end of
     To familiarize yourself with this representation and find useful functions, see `Pyformlang usage
     <https://pyformlang.readthedocs.io/en/latest/usage.html#context-free-grammar>`_.
 
-All functions are documented on the :ref:`reference` page.
+.. note::
 
-Graphs
+   All functions are documented on the :ref:`reference` page.
+
+Import
 ------
 
-You are able to get a synthetic or real-world graph with CFPQ_Data.
+First you need to import the package.
 
-Create a synthetic graph
+.. nbplot::
+
+   import cfpq_data
+
+Load graph
+----------
+
+After the package is imported, we can load the graphs.
+
+Load graph archive from Dataset
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We can load the archive with the graph using function `download <cfpq_data.dataset.download>`.
+
+.. nbplot::
+
+   bzip_path = cfpq_data.download("bzip")
+
+Load graph by path
+^^^^^^^^^^^^^^^^^^
+
+We can load the graph along the specified path using function `graph_from_csv <cfpq_data.graphs.readwrite.csv.graph_from_csv>`.
+
+.. nbplot::
+
+   bzip = cfpq_data.graph_from_csv(bzip_path)
+
+Create graph
+------------
+
+We can also create a synthetic graph using one of the generators in module :ref:`graphs_generators`.
+
+Create a one cycle graph
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can create many different synthetic graphs by using functions from :ref:`graphs_generators`.
-
-For example, let's create a one cycle graph, the edges of which are marked with the letter ``a``.
+For example, let's create a one cycle graph, with 5 nodes, the edges of which are marked with the letter ``a``.
 
 .. nbplot::
 
-    import cfpq_data
-    cycle = cfpq_data.labeled_cycle_graph(5, edge_label="a")
+    cycle = cfpq_data.labeled_cycle_graph(5, label="a")
 
-Get a real graph
-^^^^^^^^^^^^^^^^
+Change edges
+------------
 
-You can get many different real-world graphs from CFPQ_Data :ref:`dataset`.
-
-And present these graphs in convenient formats by using functions from :ref:`graphs_readwrite`.
-
-For example, let's get a ``generations`` ontology graph.
-
-.. nbplot::
-
-    generations = cfpq_data.graph_from_dataset("generations")
-
-Change labels
-^^^^^^^^^^^^^
-
-You can change the specified graph labels by using function :func:`cfpq_data.graphs.utils.change_edges`
+We can change the specified graph labels by using function `change_edges <cfpq_data.graphs.utils.change_edges>`
 from :ref:`graphs_utils`.
 
 .. nbplot::
@@ -87,33 +104,11 @@ Now we have three representations of CFG documented on the :ref:`grammars` page:
 Create a context-free grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can create context-free grammar by using function :func:`cfpq_data.grammars.readwrite.cfg.cfg_from_text`
+You can create context-free grammar by using function `cfg_from_text <cfpq_data.grammars.readwrite.cfg.cfg_from_text>`
 from :ref:`grammars_readwrite`.
 
 .. nbplot::
 
     cfg = cfpq_data.cfg_from_text("S -> a S b S | a b")
-
-Use predefined context-free grammar
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-CFPQ_Data has many predefined grammars documented on the :ref:`grammars_samples` page.
-
-.. nbplot::
-
-    brackets = cfpq_data.brackets
-    brackets.to_text()  # 'S -> a S b\nS -> a b\n'
-
-Change terminals
-^^^^^^^^^^^^^^^^
-
-You can change the specified grammar terminals by using
-function :func:`cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg`
-from :ref:`grammars_utils`.
-
-.. nbplot::
-
-    brackets1 = cfpq_data.change_terminals_in_cfg(brackets, {"a": "b", "b": "c"})
-    brackets1.to_text()  # 'S -> b S c\nS -> b c\n'
 
 .. code-links::

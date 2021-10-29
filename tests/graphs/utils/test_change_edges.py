@@ -7,15 +7,13 @@ import cfpq_data
 seed = 42
 random.seed(seed)
 
-g1 = cfpq_data.labeled_barabasi_albert_graph(
-    42, 3, seed, edge_labels="a", verbose=False
-)
-g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed, edge_labels="a", verbose=False)
-g3 = cfpq_data.labeled_two_cycles_graph(42, 29, verbose=False)
+g1 = cfpq_data.labeled_barabasi_albert_graph(42, 3, seed=seed, labels="a")
+g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed, labels=["a"])
+g3 = cfpq_data.labeled_two_cycles_graph(42, 29)
 
-rg1 = cfpq_data.change_edges(g1, {"a": "b"}, verbose=False)
-rg2 = cfpq_data.change_edges(g2, {"a": "b"}, verbose=False)
-rg3 = cfpq_data.change_edges(g3, {"b": "c"}, verbose=False)
+rg1 = cfpq_data.change_edges(g1, {"a": "b"})
+rg2 = cfpq_data.change_edges(g2, {"a": "b"})
+rg3 = cfpq_data.change_edges(g3, {"b": "c"})
 
 
 @pytest.mark.parametrize(

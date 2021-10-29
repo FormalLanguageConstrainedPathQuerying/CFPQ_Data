@@ -1,32 +1,30 @@
-"""Returns a scale-free directed graph.
-With labeled edges.
-"""
+"""Returns a scale-free directed graph. With labeled edges."""
+import logging
 import random
-from typing import Union, Iterable
+from typing import Union, Iterable, Callable
 
-from networkx import MultiDiGraph, scale_free_graph
-from tqdm import tqdm
+import networkx as nx
 
 __all__ = ["labeled_scale_free_graph"]
 
 
 def labeled_scale_free_graph(
-    number_of_nodes: int,
+    n: int,
+    *,
     alpha: float = 0.41,
     beta: float = 0.54,
     gamma: float = 0.05,
     delta_in: float = 0.2,
     delta_out: float = 0,
+    labels: Iterable[str] = "abcd",
+    choice: Callable[[Iterable[str]], str] = random.choice,
     seed: Union[int, None] = None,
-    edge_labels: Iterable[str] = "abcd",
-    verbose: bool = True,
-) -> MultiDiGraph:
-    """Returns a scale-free directed graph.
-    With labeled edges.
+) -> nx.MultiDiGraph:
+    """Returns a scale-free directed graph. With labeled edges.
 
     Parameters
     ----------
-    number_of_nodes : integer
+    n : integer
         Number of nodes in graph.
 
     alpha : float
@@ -49,19 +47,19 @@ def labeled_scale_free_graph(
     delta_out : float
         Bias for choosing nodes from out-degree distribution.
 
+    labels: Iterable[str]
+        Labels that will be used to mark the edges of the graph.
+
+    choice: Callable[[Iterable[str]], str]
+        Function for marking edges.
+
     seed : integer, random_state, or None (default)
         Indicator of random number generation state.
 
-    edge_labels: Iterable[str]
-        Labels that will be used to mark the edges of the graph.
-
-    verbose : bool
-        If true, a progress bar will be displayed.
-
     Examples
     --------
-    >>> import cfpq_data
-    >>> g = cfpq_data.labeled_scale_free_graph(42, seed=42, verbose=False)
+    >>> from cfpq_data import *
+    >>> g = labeled_scale_free_graph(42, seed=42)
     >>> g.number_of_nodes()
     42
     >>> g.number_of_edges()
@@ -84,21 +82,26 @@ def labeled_scale_free_graph(
            Discrete Algorithms, 132--139, 2003.
     .. [2] https://networkx.org/documentation/stable//reference/randomness.html#randomness
     """
-    g = scale_free_graph(
-        n=number_of_nodes,
+    graph = nx.scale_free_graph(
+        n=n,
         alpha=alpha,
         beta=beta,
         gamma=gamma,
         delta_in=delta_in,
         delta_out=delta_out,
         seed=seed,
-        create_using=MultiDiGraph,
+        create_using=nx.MultiDiGraph,
     )
 
     random.seed(seed)
 
-    for edge in tqdm(g.edges, disable=not verbose, desc="Generation..."):
-        label = random.choice(list(edge_labels))
-        g.edges[edge]["label"] = label
+    for edge in graph.edges:
+        graph.edges[edge]["label"] = choice(labels)
 
-    return g
+    logging.info(
+        f"Create a scale-free directed {graph=} "
+        f"with {n=}, {alpha=}, {beta=}, {gamma=}, {delta_in=}, {delta_out=}, "
+        f"{labels=}, {choice=}, {seed=}"
+    )
+
+    return graph

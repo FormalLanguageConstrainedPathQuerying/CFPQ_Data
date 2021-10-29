@@ -1,34 +1,28 @@
-"""Returns a graph with
-nodes converted to integers.
-"""
-from networkx import MultiDiGraph
+"""Returns a graph with nodes converted to integers."""
+import logging
 
-from tqdm import tqdm
+import networkx as nx
 
 __all__ = ["nodes_to_integers"]
 
 
-def nodes_to_integers(graph: MultiDiGraph, verbose: bool = True) -> MultiDiGraph:
-    """Returns a graph with
-    nodes converted to integers.
+def nodes_to_integers(graph: nx.MultiDiGraph) -> nx.MultiDiGraph:
+    """Returns a graph with nodes converted to integers.
 
     Parameters
     ----------
     graph : MultiDiGraph
         Initial graph.
 
-    verbose : bool
-        If true, a progress bar will be displayed.
-
     Examples
     --------
-    >>> import cfpq_data
-    >>> g = cfpq_data.graph_from_text("29 A 42", verbose=False)
-    >>> new_g = cfpq_data.nodes_to_integers(g, verbose=False)
-    >>> g.edges(data=True)
-    OutMultiEdgeDataView([('29', '42', {'label': 'A'})])
-    >>> new_g.edges(data=True)
-    OutMultiEdgeDataView([(0, 1, {'label': 'A'})])
+    >>> from cfpq_data import *
+    >>> g = graph_from_text(["FROM LABEL TO"])
+    >>> list(g.edges(data=True))
+    [('FROM', 'TO', {'label': 'LABEL'})]
+    >>> new_g = nodes_to_integers(g)
+    >>> list(new_g.edges(data=True))
+    [(0, 1, {'label': 'LABEL'})]
 
     Returns
     -------
@@ -41,14 +35,14 @@ def nodes_to_integers(graph: MultiDiGraph, verbose: bool = True) -> MultiDiGraph
         if node not in node2int.keys():
             node2int[node] = len(node2int)
 
-    g = MultiDiGraph()
+    new_graph = nx.MultiDiGraph()
 
     for node, node_labels in graph.nodes(data=True):
-        g.add_node(node2int[node], **node_labels)
+        new_graph.add_node(node2int[node], **node_labels)
 
-    for u, v, edge_labels in tqdm(
-        graph.edges(data=True), disable=not verbose, desc="Generation..."
-    ):
-        g.add_edge(node2int[u], node2int[v], **edge_labels)
+    for u, v, edge_labels in graph.edges(data=True):
+        new_graph.add_edge(node2int[u], node2int[v], **edge_labels)
 
-    return g
+    logging.info(f"Enumerate nodes in {graph=}  to {new_graph=}")
+
+    return new_graph

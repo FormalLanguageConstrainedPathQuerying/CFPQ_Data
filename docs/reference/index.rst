@@ -22,5 +22,6 @@ Reference
 .. toctree::
    :maxdepth: 2
 
+   dataset/index
    graphs/index
    grammars/index

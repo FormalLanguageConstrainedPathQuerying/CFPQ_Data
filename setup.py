@@ -2,14 +2,14 @@ from pathlib import Path
 
 from setuptools import setup, find_packages
 
-root = Path(__file__).parent
+root = Path(__file__).parent.resolve()
 
 with open(root / "README.rst", "r", encoding="utf-8") as f:
     long_description = f.read()
 
-with open("cfpq_data/__init__.py") as f:
+with open(root / "cfpq_data/config.py") as f:
     for line in f:
-        if line.startswith("__version__"):
+        if line.startswith("VERSION"):
             version = line.strip().split()[-1][1:-1]
             break
 
@@ -48,7 +48,6 @@ classifiers = [
     "Operating System :: Unix",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3 :: Only",
@@ -65,9 +64,9 @@ def parse_requirements_file(filename):
     return requires
 
 
-install_requires = parse_requirements_file("requirements/default.txt")
+install_requires = parse_requirements_file(root / "requirements" / "default.txt")
 extras_require = {
-    dep: parse_requirements_file("requirements/" + dep + ".txt")
+    dep: parse_requirements_file(root / "requirements" / f"{dep}.txt")
     for dep in ["developer", "docs", "tests"]
 }
 
@@ -89,6 +88,6 @@ if __name__ == "__main__":
         classifiers=classifiers,
         install_requires=install_requires,
         extras_require=extras_require,
-        python_requires=">=3.7",
+        python_requires=">=3.8",
         zip_safe=False,
     )

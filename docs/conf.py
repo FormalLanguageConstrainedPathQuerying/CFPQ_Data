@@ -26,6 +26,9 @@ project = "CFPQ_Data"
 copyright = f"2019-{date.today().year}, vdshk"
 author = "vdshk"
 
+# The default replacements for |version| and |release|, also used in various
+# other places throughout the built documents.
+#
 # The short X.Y version
 import cfpq_data
 
@@ -72,10 +75,16 @@ autodoc_default_options = {
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
+suppress_warnings = ["ref.citation", "ref.footnote"]
+
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-# source_suffix = ['.rst', '.md']
+# source_suffix = {
+#     '.rst': 'restructuredtext',
+#     '.txt': 'markdown',
+#     '.md': 'markdown',
+# }
 source_suffix = ".rst"
 
 # The encoding of source files.
@@ -96,10 +105,14 @@ language = "English"
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
+# If true, the current module name will be prepended to all description
+# unit titles (such as .. function::).
+add_module_names = False
+
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "borland"
 
-# A list of prefixs that are ignored when creating the module index. (new in Sphinx 0.6)
+# A list of prefixes that are ignored when creating the module index. (new in Sphinx 0.6)
 modindex_common_prefix = ["cfpq_data."]
 
 doctest_global_setup = "import cfpq_data"
@@ -112,7 +125,14 @@ doctest_global_setup = "import cfpq_data"
 html_theme = "pydata_sphinx_theme"
 html_theme_path = get_html_theme_path()
 
+# Theme options are theme-specific and customize the look and feel of a theme
+# further.  For a list of options available for each theme, see the
+# documentation.
+#
 html_theme_options = {
+    "collapse_navigation": True,
+    "navigation_depth": 2,
+    "show_prev_next": False,
     "icon_links": [
         {
             "name": "GitHub",
@@ -125,13 +145,9 @@ html_theme_options = {
             "icon": "fas fa-box",
         },
     ],
+    "navbar_end": ["navbar-icon-links"],
+    "page_sidebar_items": [],
 }
-
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-#
-# html_theme_options = {}
 
 html_logo = "_static/img/JetbrainsResearchLogo.svg"
 
@@ -139,6 +155,10 @@ html_logo = "_static/img/JetbrainsResearchLogo.svg"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
+# using the given strftime format.
+html_last_updated_fmt = "%b %d, %Y"
 
 # Custom css files
 # These paths are either relative to html_static_path
@@ -156,7 +176,18 @@ html_css_files = [
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-# html_sidebars = {}
+html_sidebars = {
+    "**": ["sidebar-nav-bs"],
+    "index": [],
+    "install": [],
+    "tutorial": [],
+    "auto_examples/index": [],
+}
+
+# If true, the reST sources are included in the HTML build as _sources/<name>.
+html_copy_source = False
+
+html_use_opensearch = "https://jetbrains-research.github.io/CFPQ_Data/"
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -164,71 +195,11 @@ html_css_files = [
 # Output file base name for HTML help builder.
 htmlhelp_basename = "CFPQ_Data"
 
-# -- Options for LaTeX output ------------------------------------------------
-
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
-}
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, "CFPQ_Data.tex", "CFPQ\\_Data Documentation", "vdshk", "manual"),
-]
-
 # -- Options for manual page output ------------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [(master_doc, "cfpq_data", "CFPQ_Data Documentation", [author], 1)]
-
-# -- Options for Texinfo output ----------------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-texinfo_documents = [
-    (
-        master_doc,
-        "CFPQ_Data",
-        "CFPQ_Data Documentation",
-        author,
-        "CFPQ_Data",
-        "One line description of project.",
-        "Miscellaneous",
-    ),
-]
-
-# -- Options for Epub output -------------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ["search.html"]
-
-# -- Extension configuration -------------------------------------------------
 
 # -- Options for intersphinx extension ---------------------------------------
 
@@ -238,3 +209,9 @@ intersphinx_mapping = {
     "networkx": ("https://networkx.org/documentation/stable/", None),
     "pyformlang": ("https://pyformlang.readthedocs.io/en/latest/", None),
 }
+
+# The reST default role (used for this markup: `text`) to use for all
+# documents.
+default_role = "obj"
+
+numpydoc_show_class_members = False
