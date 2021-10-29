@@ -1,12 +1,10 @@
-"""Read (and write) a graph
-from (and to) TXT file.
-"""
-from pathlib import Path
-from shlex import split as ssplit
-from typing import Union
+"""Read (and write) a graph from (and to) TXT file."""
+import logging
+import pathlib
+import shlex
+from typing import Union, Iterable, Iterator
 
-from networkx import MultiDiGraph
-from tqdm import tqdm
+import networkx as nx
 
 __all__ = [
     "graph_from_text",
@@ -16,22 +14,18 @@ __all__ = [
 ]
 
 
-def graph_from_text(source: str, verbose: bool = True) -> MultiDiGraph:
+def graph_from_text(text: Iterable[str]) -> nx.MultiDiGraph:
     """Returns a graph from text.
 
     Parameters
     ----------
-    source : str
-        The text with which
-        the graph will be created.
-
-    verbose : bool
-        If true, a progress bar will be displayed.
+    text : Iterable[str]
+        The text with which the graph will be created.
 
     Examples
     --------
-    >>> import cfpq_data
-    >>> g = cfpq_data.graph_from_text("1 A 2", verbose=False)
+    >>> from cfpq_data import *
+    >>> g = graph_from_text(["1 A 2"])
     >>> g.number_of_nodes()
     2
     >>> g.number_of_edges()
@@ -42,29 +36,28 @@ def graph_from_text(source: str, verbose: bool = True) -> MultiDiGraph:
     g : MultiDiGraph
         Loaded graph.
     """
-    g = MultiDiGraph()
+    graph = nx.MultiDiGraph()
 
-    for edge in tqdm(source.splitlines(), disable=not verbose, desc="Loading..."):
-        splitted_edge = ssplit(edge)
-        if len(splitted_edge) == 1:
-            g.add_node(splitted_edge[0])
-        elif len(splitted_edge) == 2:
-            u, v = splitted_edge
-            g.add_edge(u, v)
-        elif len(splitted_edge) == 3:
-            u, label, v = splitted_edge
-            g.add_edge(u, v, label=label)
-        else:
-            raise ValueError("only 1, 2, or 3 values per line are allowed")
+    for edge in text:
+        try:
+            u, label, v = shlex.split(edge.strip())
+            graph.add_edge(
+                u_for_edge=u,
+                v_for_edge=v,
+                label=label,
+            )
+        except Exception as e:
+            raise ValueError(
+                f"{edge} does not match the input format: FROM LABEL TO"
+            ) from e
 
-    return g
+    logging.info(f"Load {graph=} from {text=}")
+
+    return graph
 
 
-def graph_to_text(
-    graph: MultiDiGraph, quoting: bool = True, verbose: bool = True
-) -> str:
-    """Turns a graph into
-    its text representation.
+def graph_to_text(graph: nx.MultiDiGraph, *, quoting: bool = False) -> Iterator[str]:
+    """Turns a graph into its text representation.
 
     Parameters
     ----------
@@ -74,59 +67,44 @@ def graph_to_text(
     quoting : bool
         If true, quotes will be added.
 
-    verbose : bool
-        If true, a progress bar will be displayed.
-
     Examples
     --------
-    >>> import cfpq_data
-    >>> g = cfpq_data.labeled_cycle_graph(2, edge_label="a", verbose=False)
-    >>> cfpq_data.graph_to_text(g, verbose=False)
-    "'0' 'a' '1'\\n'1' 'a' '0'\\n"
-    >>> cfpq_data.graph_to_text(g, quoting=False, verbose=False)
-    '0 a 1\\n1 a 0\\n'
+    >>> from cfpq_data import *
+    >>> g = labeled_cycle_graph(2)
+    >>> list(graph_to_text(g, quoting=True))
+    ["'0' 'a' '1'", "'1' 'a' '0'"]
+    >>> list(graph_to_text(g, quoting=False))
+    ['0 a 1', '1 a 0']
 
     Returns
     -------
     text : str
-        Graph text representation.
+        Generator of graph edges.
     """
-    text = ""
-    for u, v, edge_labels in tqdm(
-        graph.edges(data=True), disable=not verbose, desc="Generation..."
-    ):
-        if len(edge_labels.values()) > 0:
-            for label in edge_labels.values():
-                if quoting:
-                    text += f"'{u}' '{label}' '{v}'\n"
-                else:
-                    text += f"{u} {label} {v}\n"
-        else:
+    for u, v, edge_labels in graph.edges(data=True):
+        for label in edge_labels.values():
             if quoting:
-                text += f"'{u}' '{v}'\n"
+                yield f"'{u}' '{label}' '{v}'"
             else:
-                text += f"{u} {v}\n"
-    return text
+                yield f"{u} {label} {v}"
+
+    logging.info(f"Turn {graph=} into text with {quoting=}")
 
 
-def graph_from_txt(source: Union[Path, str], verbose: bool = True) -> MultiDiGraph:
+def graph_from_txt(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
     """Returns a graph loaded from a TXT file.
 
     Parameters
     ----------
-    source : Union[Path, str]
-        The path to the TXT file with which
-        the graph will be created.
-
-    verbose : bool
-        If true, a progress bar will be displayed.
+    path : Union[Path, str]
+        The path to the TXT file with which the graph will be created.
 
     Examples
     --------
-    >>> import cfpq_data
-    >>> g_1 = cfpq_data.graph_from_text("1 A 2", verbose=False)
-    >>> path = cfpq_data.graph_to_txt(g_1, "test.txt", verbose=False)
-    >>> g = cfpq_data.graph_from_txt(path, verbose=False)
+    >>> from cfpq_data import *
+    >>> g_1 = graph_from_text(["1 A 2"])
+    >>> p = graph_to_txt(g_1, "test.txt")
+    >>> g = graph_from_txt(p)
     >>> g.number_of_nodes()
     2
     >>> g.number_of_edges()
@@ -137,19 +115,21 @@ def graph_from_txt(source: Union[Path, str], verbose: bool = True) -> MultiDiGra
     g : MultiDiGraph
         Loaded graph.
     """
-    with open(source, "r") as fin:
-        edges = fin.read()
-    return graph_from_text(edges, verbose=verbose)
+    with open(path, "r") as f:
+        graph = graph_from_text(f)
+
+    logging.info(f"Load {graph=} from {path=}")
+
+    return graph
 
 
 def graph_to_txt(
-    graph: MultiDiGraph,
-    path: Union[Path, str],
-    quoting: bool = True,
-    verbose: bool = True,
-) -> Path:
-    """Returns a path to the TXT file
-    where the graph will be saved.
+    graph: nx.MultiDiGraph,
+    path: Union[pathlib.Path, str],
+    *,
+    quoting: bool = False,
+) -> pathlib.Path:
+    """Returns a path to the TXT file where the graph will be saved.
 
     Parameters
     ----------
@@ -162,33 +142,23 @@ def graph_to_txt(
     quoting : bool
         If true, quotes will be added.
 
-    verbose : bool
-        If true, a progress bar will be displayed.
-
     Examples
     --------
-    >>> import cfpq_data
-    >>> g = cfpq_data.labeled_cycle_graph(42, edge_label="a", verbose=False)
-    >>> path = cfpq_data.graph_to_txt(g, "test.txt", quoting=False, verbose=False)
+    >>> from cfpq_data import *
+    >>> g = labeled_cycle_graph(42, label="a")
+    >>> path = graph_to_txt(g, "test.txt", quoting=False)
 
     Returns
     -------
     path : Path
         Path to a TXT file where the graph will be saved.
     """
-    with open(path, "w") as fout:
-        for u, v, edge_labels in tqdm(
-            graph.edges(data=True), disable=not verbose, desc="Generation..."
-        ):
-            if len(edge_labels.values()) > 0:
-                for label in edge_labels.values():
-                    if quoting:
-                        fout.write(f"'{u}' '{label}' '{v}'\n")
-                    else:
-                        fout.write(f"{u} {label} {v}\n")
-            else:
-                if quoting:
-                    fout.write(f"'{u}' '{v}'\n")
-                else:
-                    fout.write(f"{u} {v}\n")
-    return Path(path).resolve()
+    with open(path, "w") as f:
+        for edge in graph_to_text(graph=graph, quoting=quoting):
+            f.write(edge + "\n")
+
+    dest = pathlib.Path(path).resolve()
+
+    logging.info(f"Save {graph=} to {dest=}")
+
+    return dest

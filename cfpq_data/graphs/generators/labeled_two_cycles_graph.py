@@ -1,10 +1,8 @@
-"""Returns a graph with two cycles connected by one node.
-With labeled edges.
-"""
+"""Returns a graph with two cycles connected by one node. With labeled edges."""
+import logging
 from typing import Union, Iterable, Any, Tuple
 
-from networkx import MultiDiGraph, compose, path_graph
-from tqdm import tqdm
+import networkx as nx
 
 __all__ = ["labeled_two_cycles_graph"]
 
@@ -12,12 +10,11 @@ __all__ = ["labeled_two_cycles_graph"]
 def labeled_two_cycles_graph(
     n: Union[int, Iterable[Any]],
     m: Union[int, Iterable[Any]],
-    common: Union[int, Any] = 0,
-    edge_labels: Tuple[str, str] = ("a", "b"),
-    verbose: bool = True,
-) -> MultiDiGraph:
-    """Returns a graph with two cycles connected by one node.
-    With labeled edges.
+    *,
+    common_node: Union[int, Any] = 0,
+    labels: Tuple[str, str] = ("a", "b"),
+) -> nx.MultiDiGraph:
+    """Returns a graph with two cycles connected by one node. With labeled edges.
 
     Parameters
     ----------
@@ -31,19 +28,16 @@ def labeled_two_cycles_graph(
         If m is an integer, nodes are from `range(n)`.
         If m is a container of nodes, those nodes appear in the graph.
 
-    common : Union[int, Any]
+    common_node : Union[int, Any]
         The node along which two cycles are connected.
 
-    edge_labels: Tuple[str, str]
+    labels: Tuple[str, str]
         Labels that will be used to mark the edges of the graph.
-
-    verbose : bool
-        If true, a progress bar will be displayed.
 
     Examples
     --------
-    >>> import cfpq_data
-    >>> g = cfpq_data.labeled_two_cycles_graph(42, 29, verbose=False)
+    >>> from cfpq_data import *
+    >>> g = labeled_two_cycles_graph(42, 29)
     >>> g.number_of_nodes()
     72
     >>> g.number_of_edges()
@@ -54,36 +48,37 @@ def labeled_two_cycles_graph(
     g : MultiDiGraph
         A graph with two cycles connected by one node.
     """
-    g1 = path_graph(n=n, create_using=MultiDiGraph)
+    g1 = nx.path_graph(n=n, create_using=nx.MultiDiGraph)
 
     if isinstance(n, int):
         g1_number_of_nodes = g1.number_of_nodes()
         g1_nodes = map(lambda x: x + 1, g1.nodes)
-        g1 = path_graph(n=g1_nodes, create_using=MultiDiGraph)
+        g1 = nx.path_graph(n=g1_nodes, create_using=nx.MultiDiGraph)
 
-    g2 = path_graph(n=m, create_using=MultiDiGraph)
+    g2 = nx.path_graph(n=m, create_using=nx.MultiDiGraph)
 
     if isinstance(m, int):
         g1_number_of_nodes = g1.number_of_nodes()
         g2_nodes = map(lambda x: x + g1_number_of_nodes + 1, g2.nodes)
-        g2 = path_graph(n=g2_nodes, create_using=MultiDiGraph)
+        g2 = nx.path_graph(n=g2_nodes, create_using=nx.MultiDiGraph)
 
     for tmp in [g1, g2]:
         first_node = list(tmp.nodes)[0]
         last_node = list(tmp.nodes)[-1]
-        tmp.add_edge(common, first_node)
-        tmp.add_edge(last_node, common)
+        tmp.add_edge(common_node, first_node)
+        tmp.add_edge(last_node, common_node)
 
-    for edge in tqdm(
-        g1.edges, disable=not verbose, desc="Generation of the first cycle..."
-    ):
-        g1.edges[edge]["label"] = edge_labels[0]
+    for edge in g1.edges:
+        g1.edges[edge]["label"] = labels[0]
 
-    for edge in tqdm(
-        g2.edges, disable=not verbose, desc="Generation of the second cycle..."
-    ):
-        g2.edges[edge]["label"] = edge_labels[1]
+    for edge in g2.edges:
+        g2.edges[edge]["label"] = labels[1]
 
-    g = MultiDiGraph(compose(g1, g2))
+    graph = nx.MultiDiGraph(nx.compose(g1, g2))
 
-    return g
+    logging.info(
+        f"Create a {graph=} with two cycles connected by one node "
+        f"with {n=}, {m=}, {common_node=}, {labels=}"
+    )
+
+    return graph

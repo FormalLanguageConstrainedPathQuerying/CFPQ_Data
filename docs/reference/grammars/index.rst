@@ -16,5 +16,4 @@ Grammars
 
    grammars_converters
    grammars_readwrite
-   grammars_samples
    grammars_utils

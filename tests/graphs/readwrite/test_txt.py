@@ -10,64 +10,55 @@ import cfpq_data
 seed = 42
 random.seed(seed)
 
-g1 = cfpq_data.labeled_binomial_graph(42, 0.42, seed=seed, verbose=False)
-g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed, verbose=False)
-g3 = cfpq_data.graph_from_text("1 2", verbose=False)
-g4 = nx.path_graph(42, create_using=nx.MultiDiGraph)
+g1 = cfpq_data.labeled_binomial_graph(42, 0.42, seed=seed)
+g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed)
+g3 = cfpq_data.graph_from_text(["1 A 2"])
 
 
 @pytest.mark.parametrize(
-    "graph, quoting, verbose",
+    "graph, quoting",
     list(
         product(
             [
                 g1,
                 g2,
                 g3,
-                g4,
             ],
-            [True, False],
             [True, False],
         )
     ),
 )
-def test_txt(graph, quoting, verbose):
-    path = cfpq_data.graph_to_txt(graph, "test.txt", quoting=quoting, verbose=verbose)
-    gin = cfpq_data.graph_from_txt(path, verbose=verbose)
+def test_txt(graph, quoting):
+    path = cfpq_data.graph_to_txt(graph, "test.txt", quoting=quoting)
+    gin = cfpq_data.graph_from_txt(path)
 
     os.remove("test.txt")
 
-    assert (
-        graph.number_of_nodes() == gin.number_of_nodes()
-        and graph.number_of_edges() == gin.number_of_edges()
-    )
+    assert graph.number_of_nodes() == gin.number_of_nodes()
+    assert graph.number_of_edges() == gin.number_of_edges()
 
 
 @pytest.mark.parametrize(
-    "graph, quoting, verbose",
+    "graph, quoting",
     list(
         product(
             [
-                "1 A 2",
-                "1 A 2\n2 B 3",
-                "1 2\n2 3",
+                ["1 A 2"],
+                ["1 A 2", "2 B 3"],
             ],
-            [True, False],
             [True, False],
         )
     ),
 )
-def test_text(graph, quoting, verbose):
-    g = cfpq_data.graph_from_text(graph, verbose=verbose)
-    text = cfpq_data.graph_to_text(g, quoting=quoting, verbose=verbose)
-    gin = cfpq_data.graph_from_text(text, verbose=verbose)
+def test_text(graph, quoting):
+    g = cfpq_data.graph_from_text(graph)
+    text = cfpq_data.graph_to_text(g, quoting=quoting)
+    gin = cfpq_data.graph_from_text(text)
 
-    assert (
-        g.number_of_nodes() == gin.number_of_nodes()
-        and g.number_of_edges() == gin.number_of_edges()
-    )
+    assert g.number_of_nodes() == gin.number_of_nodes()
+    assert g.number_of_edges() == gin.number_of_edges()
 
 
 def test_text_format():
     with pytest.raises(ValueError):
-        cfpq_data.graph_from_text("1 2 3 4")
+        cfpq_data.graph_from_text(["1 2 3 4"])

@@ -1,7 +1,6 @@
-"""Read (and write) a context-free grammar
-from (and to) different sources.
-"""
-from pathlib import Path
+"""Read (and write) a context-free grammar from (and to) different sources."""
+import logging
+import pathlib
 from typing import Union
 
 from pyformlang.cfg import Variable, CFG
@@ -14,25 +13,23 @@ __all__ = [
 ]
 
 
-def cfg_from_text(source: str, start_symbol: Variable = Variable("S")) -> CFG:
+def cfg_from_text(text: str, *, start_symbol: Variable = Variable("S")) -> CFG:
     """Create a context-free grammar [1]_ from text.
 
     Parameters
     ----------
-    source : str
-        The text with which
-        the context-free grammar
-        will be created.
+    text : str
+        The text with which the context-free grammar will be created.
 
     start_symbol : Variable
         Start symbol of a context-free grammar.
 
     Examples
     --------
-    >>> import cfpq_data
-    >>> cfg = cfpq_data.cfg_from_text("S -> a S b S")
-    >>> cfpq_data.cfg_to_text(cfg)
-    'S -> a S b S\\n'
+    >>> from cfpq_data import *
+    >>> cfg = cfg_from_text("S -> a S b S")
+    >>> cfg_to_text(cfg)
+    'S -> a S b S'
 
     Returns
     -------
@@ -43,12 +40,15 @@ def cfg_from_text(source: str, start_symbol: Variable = Variable("S")) -> CFG:
     ----------
     .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
     """
-    return CFG.from_text(source, start_symbol)
+    cfg = CFG.from_text(text=text, start_symbol=start_symbol)
+
+    logging.info(f"Create {cfg=} from {text=}, {start_symbol=}")
+
+    return cfg
 
 
 def cfg_to_text(cfg: CFG) -> str:
-    """Turns a context-free grammar [1]_
-    into its text representation.
+    """Turns a context-free grammar [1]_ into its text representation.
 
     Parameters
     ----------
@@ -57,47 +57,57 @@ def cfg_to_text(cfg: CFG) -> str:
 
     Examples
     --------
-    >>> import cfpq_data
-    >>> cfg = cfpq_data.cfg_from_text("S -> a S b S")
-    >>> cfpq_data.cfg_to_text(cfg)
-    'S -> a S b S\\n'
+    >>> from cfpq_data import *
+    >>> cfg = cfg_from_text("S -> a S b S | epsilon")
+    >>> cfg_to_text(cfg)
+    'S -> \\nS -> a S b S'
 
     Returns
     -------
     text : str
-        Context-free grammar
-        text representation.
+        Context-free grammar text representation.
 
     References
     ----------
     .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
     """
-    return cfg.to_text()
+    productions = [
+        f"{p.head.value} -> " + " ".join(map(lambda x: x.value, p.body))
+        for p in cfg.productions
+    ]
+
+    productions.sort(
+        key=lambda s: (s.split(" -> ")[0] != cfg.start_symbol.value, s),
+    )
+
+    text = "\n".join(productions)
+
+    logging.info(f"Turn {cfg=} into {text=}")
+
+    return text
 
 
 def cfg_from_txt(
-    source: Union[Path, str], start_symbol: Variable = Variable("S")
+    path: Union[pathlib.Path, str], *, start_symbol: Variable = Variable("S")
 ) -> CFG:
-    """Create a context-free grammar [1]_
-    from TXT file.
+    """Create a context-free grammar [1]_ from TXT file.
 
     Parameters
     ----------
-    source : Union[Path, str]
-        The path to the TXT file with which
-        the context-free grammar will be created.
+    path : Union[Path, str]
+        The path to the TXT file with which the context-free grammar will be created.
 
     start_symbol : Variable
         Start symbol of a context-free grammar.
 
     Examples
     --------
-    >>> import cfpq_data
-    >>> cfg_1 = cfpq_data.cfg_from_text("S -> a S b S")
-    >>> path = cfpq_data.cfg_to_txt(cfg_1, "test.txt")
-    >>> cfg = cfpq_data.cfg_from_txt(path)
-    >>> cfpq_data.cfg_to_text(cfg)
-    'S -> a S b S\\n'
+    >>> from cfpq_data import *
+    >>> cfg_1 = cfg_from_text("S -> a S b S | epsilon")
+    >>> path = cfg_to_txt(cfg_1, "test.txt")
+    >>> cfg = cfg_from_txt(path)
+    >>> cfg_to_text(cfg)
+    'S -> \\nS -> a S b S'
 
     Returns
     -------
@@ -108,45 +118,49 @@ def cfg_from_txt(
     ----------
     .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
     """
-    with open(source, "r") as fin:
-        productions = fin.read()
-    return cfg_from_text(productions, start_symbol)
+    with open(path, "r") as f:
+        productions = f.read()
+
+    cfg = cfg_from_text(productions, start_symbol=start_symbol)
+
+    logging.info(f"Create {cfg=} from {path=}, {start_symbol=}")
+
+    return cfg
 
 
-def cfg_to_txt(cfg: CFG, destination: Union[Path, str]) -> Path:
-    """Saves a context-free grammar [1]_
-    text representation
-    into TXT file.
+def cfg_to_txt(cfg: CFG, path: Union[pathlib.Path, str]) -> pathlib.Path:
+    """Saves a context-free grammar [1]_ text representation into TXT file.
 
     Parameters
     ----------
     cfg : CFG
         Context-free grammar.
 
-    destination : Union[Path, str]
-        The path to the TXT file
-        where context-free grammar
-        text representation
+    path : Union[Path, str]
+        The path to the TXT file where context-free grammar text representation
         will be saved.
 
     Examples
     --------
-    >>> import cfpq_data
-    >>> cfg = cfpq_data.cfg_from_text("S -> a S b S")
-    >>> path = cfpq_data.cfg_to_txt(cfg, "test.txt")
+    >>> from cfpq_data import *
+    >>> cfg = cfg_from_text("S -> a S b S")
+    >>> path = cfg_to_txt(cfg, "test.txt")
 
     Returns
     -------
     path : Path
-        The path to the TXT file
-        where context-free grammar
-        text representation
+        The path to the TXT file where context-free grammar text representation
         will be saved.
 
     References
     ----------
     .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
     """
-    with open(destination, "w") as fout:
-        fout.write(cfg_to_text(cfg))
-    return Path(destination).resolve()
+    with open(path, "w") as f:
+        f.write(cfg_to_text(cfg))
+
+    dest = pathlib.Path(path).resolve()
+
+    logging.info(f"Save {cfg=} to {dest=}")
+
+    return dest

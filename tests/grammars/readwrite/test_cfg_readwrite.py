@@ -12,15 +12,14 @@ grammar_2 = "S -> a S\nS -> \n"
 @pytest.mark.parametrize(
     "grammar, expected",
     [
-        (grammar_1, ["", "ab", "aabb", "abab"]),
-        (grammar_2, ["", "a", "aa", "aaa"]),
+        (grammar_1, "S -> \nS -> a S b S"),
+        (grammar_2, "S -> \nS -> a S"),
     ],
 )
 def test_cfg_from_text(grammar, expected):
     cfg = cfpq_data.cfg_from_text(grammar)
 
-    for word in expected:
-        assert cfg.contains(word)
+    assert cfpq_data.cfg_to_text(cfg) == expected
 
 
 @pytest.mark.parametrize(

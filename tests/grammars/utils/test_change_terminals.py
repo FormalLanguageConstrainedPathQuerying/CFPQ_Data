@@ -14,11 +14,11 @@ exp_cnf_1 = cfpq_data.cnf_from_text("S -> b")
 cnf_2 = cfpq_data.cnf_from_text("S -> b")
 exp_cnf_2 = cfpq_data.cnf_from_text("S -> c")
 
-rsm_1 = cfpq_data.rsm_from_text("S -> a b\n")
-exp_rsm_1 = cfpq_data.rsm_from_text("S -> b c\n")
+rsa_1 = cfpq_data.rsa_from_text("S -> a b\n")
+exp_rsa_1 = cfpq_data.rsa_from_text("S -> b c\n")
 
-rsm_2 = cfpq_data.rsm_from_text("S -> b a\n")
-exp_rsm_2 = cfpq_data.rsm_from_text("S -> c b\n")
+rsa_2 = cfpq_data.rsa_from_text("S -> b a\n")
+exp_rsa_2 = cfpq_data.rsa_from_text("S -> c b\n")
 
 
 @pytest.mark.parametrize(
@@ -30,7 +30,9 @@ exp_rsm_2 = cfpq_data.rsm_from_text("S -> c b\n")
 )
 def test_change_terminals_in_cfg(cfg, exp_cfg):
     act_cfg = cfpq_data.change_terminals_in_cfg(cfg, {"a": "b", "b": "c"})
-    assert set(exp_cfg.to_text().split("\n")) == set(act_cfg.to_text().split("\n"))
+    assert set(cfpq_data.cfg_to_text(exp_cfg).split("\n")) == set(
+        cfpq_data.cfg_to_text(act_cfg).split("\n")
+    )
 
 
 @pytest.mark.parametrize(
@@ -42,16 +44,20 @@ def test_change_terminals_in_cfg(cfg, exp_cfg):
 )
 def test_change_terminals_in_cnf(cnf, exp_cnf):
     act_cnf = cfpq_data.change_terminals_in_cnf(cnf, {"a": "b", "b": "c"})
-    assert set(exp_cnf.to_text().split("\n")) == set(act_cnf.to_text().split("\n"))
+    assert set(cfpq_data.cfg_to_text(exp_cnf).split("\n")) == set(
+        cfpq_data.cfg_to_text(act_cnf).split("\n")
+    )
 
 
 @pytest.mark.parametrize(
-    "rsm, exp_rsm",
+    "rsa, exp_rsa",
     [
-        (rsm_1, exp_rsm_1),
-        (rsm_2, exp_rsm_2),
+        (rsa_1, exp_rsa_1),
+        (rsa_2, exp_rsa_2),
     ],
 )
-def test_change_terminals_in_rsm(rsm, exp_rsm):
-    act_rsm = cfpq_data.change_terminals_in_rsm(rsm, {"a": "b", "b": "c"})
-    assert set(exp_rsm.to_text().split("\n")) == set(act_rsm.to_text().split("\n"))
+def test_change_terminals_in_rsa(rsa, exp_rsa):
+    act_rsa = cfpq_data.change_terminals_in_rsa(rsa, {"a": "b", "b": "c"})
+    assert set(cfpq_data.rsa_to_text(exp_rsa).split("\n")) == set(
+        cfpq_data.rsa_to_text(act_rsa).split("\n")
+    )

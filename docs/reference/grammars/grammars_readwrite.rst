@@ -17,4 +17,4 @@ Reading and writing grammars
 
    cfg
    cnf
-   rsm
+   rsa

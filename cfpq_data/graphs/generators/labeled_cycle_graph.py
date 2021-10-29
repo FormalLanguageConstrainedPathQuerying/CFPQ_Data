@@ -1,44 +1,37 @@
-"""Returns a cycle graph $C_n$
-of cyclically connected nodes.
-With labeled edges.
+"""Returns a cycle graph $C_n$ of cyclically connected nodes. With labeled edges.
 
 $C_n$ is a path with its two end-nodes connected.
 """
+import logging
 from typing import Union, Iterable, Any
 
-from networkx import MultiDiGraph, cycle_graph
-from tqdm import tqdm
+import networkx as nx
 
 __all__ = ["labeled_cycle_graph"]
 
 
 def labeled_cycle_graph(
-    number_of_nodes: Union[int, Iterable[Any]],
-    edge_label: str = "a",
-    verbose: bool = True,
-) -> MultiDiGraph:
-    """Returns a cycle graph $C_n$
-    of cyclically connected nodes.
+    n: Union[int, Iterable[Any]],
+    label: str = "a",
+) -> nx.MultiDiGraph:
+    """Returns a cycle graph $C_n$ of cyclically connected nodes.
     With labeled edges.
 
     $C_n$ is a path with its two end-nodes connected.
 
     Parameters
     ----------
-    number_of_nodes : Union[int, Iterable[Any]]
+    n : Union[int, Iterable[Any]]
         If n is an integer, nodes are from `range(n)`.
         If n is a container of nodes, those nodes appear in the graph.
 
-    edge_label: str
+    label: str
         Label that will be used to mark the edges of the graph.
-
-    verbose : bool
-        If true, a progress bar will be displayed.
 
     Examples
     --------
-    >>> import cfpq_data
-    >>> g = cfpq_data.labeled_cycle_graph(42, verbose=False)
+    >>> from cfpq_data import *
+    >>> g = labeled_cycle_graph(42)
     >>> g.number_of_nodes()
     42
     >>> g.number_of_edges()
@@ -49,9 +42,11 @@ def labeled_cycle_graph(
     g : MultiDiGraph
         A cycle graph $C_n$.
     """
-    g = cycle_graph(n=number_of_nodes, create_using=MultiDiGraph)
+    graph = nx.cycle_graph(n=n, create_using=nx.MultiDiGraph)
 
-    for edge in tqdm(g.edges, disable=not verbose, desc="Generation..."):
-        g.edges[edge]["label"] = edge_label
+    for edge in graph.edges:
+        graph.edges[edge]["label"] = label
 
-    return g
+    logging.info(f"Create a cycle {graph=} with {n=}, {label=}")
+
+    return graph
