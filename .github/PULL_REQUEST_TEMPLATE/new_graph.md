@@ -1,6 +1,4 @@
-⚠ To suggest a new graph, you must fill in all the fields in the triangle brackets(``<>``) ⚠
----
-# About the new graph
+<!-- ⚠ To suggest a new graph, you must fill in all the fields in the triangle brackets(``<>``) ⚠ -->
 
 ## Info
 | | |
@@ -26,3 +24,9 @@
 | Edge Label | Num Edge Label |
 |---:|---:|
 | ``<The type of the edge label of the new graph >`` | ``<The number of edges in the new graph of this type>`` |
+
+## Canonical grammars
+
+<LaTeX format of grammar>
+
+<Pyformlang CFG format of grammar>
