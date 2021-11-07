@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.graphs.generators.labeled_cycle_graph &#8212; CFPQ_Data 1.0.2 documentation</title>
+    <title>cfpq_data.graphs.generators.labeled_cycle_graph &#8212; CFPQ_Data 2.0.0 documentation</title>
     
   <link href="../../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -37,6 +37,9 @@
     <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/clipboard.min.js"></script>
     <script src="../../../../_static/copybutton.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 2.0.0 documentation"
+          href="../../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../../about.html" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -186,10 +189,7 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     
   </div>
@@ -213,47 +213,40 @@
               <div>
                 
   <h1>Source code for cfpq_data.graphs.generators.labeled_cycle_graph</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Returns a cycle graph $C_n$</span>
-<span class="sd">of cyclically connected nodes.</span>
-<span class="sd">With labeled edges.</span>
+<span></span><span class="sd">&quot;&quot;&quot;Returns a cycle graph $C_n$ of cyclically connected nodes. With labeled edges.</span>
 
 <span class="sd">$C_n$ is a path with its two end-nodes connected.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">MultiDiGraph</span><span class="p">,</span> <span class="n">cycle_graph</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;labeled_cycle_graph&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="labeled_cycle_graph"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.generators.labeled_cycle_graph.html#cfpq_data.graphs.generators.labeled_cycle_graph">[docs]</a><span class="k">def</span> <span class="nf">labeled_cycle_graph</span><span class="p">(</span>
-    <span class="n">number_of_nodes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
-    <span class="n">edge_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MultiDiGraph</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Returns a cycle graph $C_n$</span>
-<span class="sd">    of cyclically connected nodes.</span>
+    <span class="n">n</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns a cycle graph $C_n$ of cyclically connected nodes.</span>
 <span class="sd">    With labeled edges.</span>
 
 <span class="sd">    $C_n$ is a path with its two end-nodes connected.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    number_of_nodes : Union[int, Iterable[Any]]</span>
+<span class="sd">    n : Union[int, Iterable[Any]]</span>
 <span class="sd">        If n is an integer, nodes are from `range(n)`.</span>
 <span class="sd">        If n is a container of nodes, those nodes appear in the graph.</span>
 
-<span class="sd">    edge_label: str</span>
+<span class="sd">    label: str</span>
 <span class="sd">        Label that will be used to mark the edges of the graph.</span>
-
-<span class="sd">    verbose : bool</span>
-<span class="sd">        If true, a progress bar will be displayed.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; g = cfpq_data.labeled_cycle_graph(42, verbose=False)</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; g = labeled_cycle_graph(42)</span>
 <span class="sd">    &gt;&gt;&gt; g.number_of_nodes()</span>
 <span class="sd">    42</span>
 <span class="sd">    &gt;&gt;&gt; g.number_of_edges()</span>
@@ -264,21 +257,18 @@
 <span class="sd">    g : MultiDiGraph</span>
 <span class="sd">        A cycle graph $C_n$.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">cycle_graph</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">number_of_nodes</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">MultiDiGraph</span><span class="p">)</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">cycle_graph</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Generation...&quot;</span><span class="p">):</span>
-        <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">edge_label</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
 
-    <span class="k">return</span> <span class="n">g</span></div>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Create a cycle </span><span class="si">{</span><span class="n">graph</span><span class="si">=}</span><span class="s2"> with </span><span class="si">{</span><span class="n">n</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">label</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">graph</span></div>
 </pre></div>
 
               </div>
               
-              
-              <div class='prev-next-bottom'>
-                
-
-              </div>
               
           </main>
           

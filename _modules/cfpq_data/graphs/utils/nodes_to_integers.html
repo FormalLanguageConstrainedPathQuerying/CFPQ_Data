@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.graphs.utils.nodes_to_integers &#8212; CFPQ_Data 1.0.2 documentation</title>
+    <title>cfpq_data.graphs.utils.nodes_to_integers &#8212; CFPQ_Data 2.0.0 documentation</title>
     
   <link href="../../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -37,6 +37,9 @@
     <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/clipboard.min.js"></script>
     <script src="../../../../_static/copybutton.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 2.0.0 documentation"
+          href="../../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../../about.html" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -186,10 +189,7 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     
   </div>
@@ -213,37 +213,31 @@
               <div>
                 
   <h1>Source code for cfpq_data.graphs.utils.nodes_to_integers</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Returns a graph with</span>
-<span class="sd">nodes converted to integers.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">MultiDiGraph</span>
+<span></span><span class="sd">&quot;&quot;&quot;Returns a graph with nodes converted to integers.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;nodes_to_integers&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="nodes_to_integers"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.utils.nodes_to_integers.html#cfpq_data.graphs.utils.nodes_to_integers">[docs]</a><span class="k">def</span> <span class="nf">nodes_to_integers</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">MultiDiGraph</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MultiDiGraph</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Returns a graph with</span>
-<span class="sd">    nodes converted to integers.</span>
+<div class="viewcode-block" id="nodes_to_integers"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.utils.nodes_to_integers.html#cfpq_data.graphs.utils.nodes_to_integers">[docs]</a><span class="k">def</span> <span class="nf">nodes_to_integers</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns a graph with nodes converted to integers.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    graph : MultiDiGraph</span>
 <span class="sd">        Initial graph.</span>
 
-<span class="sd">    verbose : bool</span>
-<span class="sd">        If true, a progress bar will be displayed.</span>
-
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; g = cfpq_data.graph_from_text(&quot;29 A 42&quot;, verbose=False)</span>
-<span class="sd">    &gt;&gt;&gt; new_g = cfpq_data.nodes_to_integers(g, verbose=False)</span>
-<span class="sd">    &gt;&gt;&gt; g.edges(data=True)</span>
-<span class="sd">    OutMultiEdgeDataView([(&#39;29&#39;, &#39;42&#39;, {&#39;label&#39;: &#39;A&#39;})])</span>
-<span class="sd">    &gt;&gt;&gt; new_g.edges(data=True)</span>
-<span class="sd">    OutMultiEdgeDataView([(0, 1, {&#39;label&#39;: &#39;A&#39;})])</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; g = graph_from_text([&quot;FROM LABEL TO&quot;])</span>
+<span class="sd">    &gt;&gt;&gt; list(g.edges(data=True))</span>
+<span class="sd">    [(&#39;FROM&#39;, &#39;TO&#39;, {&#39;label&#39;: &#39;LABEL&#39;})]</span>
+<span class="sd">    &gt;&gt;&gt; new_g = nodes_to_integers(g)</span>
+<span class="sd">    &gt;&gt;&gt; list(new_g.edges(data=True))</span>
+<span class="sd">    [(0, 1, {&#39;label&#39;: &#39;LABEL&#39;})]</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -256,26 +250,21 @@
         <span class="k">if</span> <span class="n">node</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node2int</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">node2int</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">node2int</span><span class="p">)</span>
 
-    <span class="n">g</span> <span class="o">=</span> <span class="n">MultiDiGraph</span><span class="p">()</span>
+    <span class="n">new_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">()</span>
 
     <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">node_labels</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node2int</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="o">**</span><span class="n">node_labels</span><span class="p">)</span>
+        <span class="n">new_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node2int</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="o">**</span><span class="n">node_labels</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">edge_labels</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span>
-        <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Generation...&quot;</span>
-    <span class="p">):</span>
-        <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node2int</span><span class="p">[</span><span class="n">u</span><span class="p">],</span> <span class="n">node2int</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="o">**</span><span class="n">edge_labels</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">edge_labels</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">new_graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node2int</span><span class="p">[</span><span class="n">u</span><span class="p">],</span> <span class="n">node2int</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="o">**</span><span class="n">edge_labels</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">g</span></div>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Enumerate nodes in </span><span class="si">{</span><span class="n">graph</span><span class="si">=}</span><span class="s2">  to </span><span class="si">{</span><span class="n">new_graph</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_graph</span></div>
 </pre></div>
 
               </div>
               
-              
-              <div class='prev-next-bottom'>
-                
-
-              </div>
               
           </main>
           

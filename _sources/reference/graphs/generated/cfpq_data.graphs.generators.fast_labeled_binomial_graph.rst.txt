@@ -1,6 +1,0 @@
-cfpq\_data.graphs.generators.fast\_labeled\_binomial\_graph
-===========================================================
-
-.. currentmodule:: cfpq_data.graphs.generators
-
-.. autofunction:: fast_labeled_binomial_graph

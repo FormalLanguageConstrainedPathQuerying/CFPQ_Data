@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.grammars.utils.change_terminals &#8212; CFPQ_Data 1.0.2 documentation</title>
+    <title>cfpq_data.grammars.utils.change_terminals &#8212; CFPQ_Data 2.0.0 documentation</title>
     
   <link href="../../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -37,6 +37,9 @@
     <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/clipboard.min.js"></script>
     <script src="../../../../_static/copybutton.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 2.0.0 documentation"
+          href="../../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../../about.html" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -186,10 +189,7 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     
   </div>
@@ -213,46 +213,43 @@
               <div>
                 
   <h1>Source code for cfpq_data.grammars.utils.change_terminals</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Change terminals</span>
-<span class="sd">of a context-free grammar</span>
-<span class="sd">in different formats.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Change terminals of a context-free grammar in different formats.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
 <span class="kn">from</span> <span class="nn">pyformlang.cfg</span> <span class="kn">import</span> <span class="n">CFG</span>
+<span class="kn">from</span> <span class="nn">pyformlang.rsa</span> <span class="kn">import</span> <span class="n">RecursiveAutomaton</span> <span class="k">as</span> <span class="n">RSA</span>
 
-<span class="kn">from</span> <span class="nn">cfpq_data.grammars.readwrite.cfg</span> <span class="kn">import</span> <span class="n">cfg_from_text</span>
+<span class="kn">from</span> <span class="nn">cfpq_data.grammars.readwrite.cfg</span> <span class="kn">import</span> <span class="n">cfg_to_text</span><span class="p">,</span> <span class="n">cfg_from_text</span>
 <span class="kn">from</span> <span class="nn">cfpq_data.grammars.readwrite.cnf</span> <span class="kn">import</span> <span class="n">cnf_from_text</span>
-<span class="kn">from</span> <span class="nn">cfpq_data.grammars.readwrite.rsm</span> <span class="kn">import</span> <span class="n">rsm_from_text</span>
-<span class="kn">from</span> <span class="nn">cfpq_data.grammars.rsm</span> <span class="kn">import</span> <span class="n">RSM</span>
+<span class="kn">from</span> <span class="nn">cfpq_data.grammars.readwrite.rsa</span> <span class="kn">import</span> <span class="n">rsa_to_text</span><span class="p">,</span> <span class="n">rsa_from_text</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;change_terminals_in_cfg&quot;</span><span class="p">,</span>
     <span class="s2">&quot;change_terminals_in_cnf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;change_terminals_in_rsm&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;change_terminals_in_rsa&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="change_terminals_in_cfg"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg">[docs]</a><span class="k">def</span> <span class="nf">change_terminals_in_cfg</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">CFG</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Change terminals of</span>
-<span class="sd">    a context-free grammar [1]_.</span>
+<div class="viewcode-block" id="change_terminals_in_cfg"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg">[docs]</a><span class="k">def</span> <span class="nf">change_terminals_in_cfg</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">CFG</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Change terminals of a context-free grammar [1]_.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    cfg : CFG</span>
 <span class="sd">        Context-free grammar.</span>
 
-<span class="sd">    spec: Dict</span>
+<span class="sd">    mapping: Dict[str, str]</span>
 <span class="sd">        Terminals mapping.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; cfg = cfpq_data.cfg_from_text(&quot;S -&gt; a S b S&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; new_cfg = cfpq_data.change_terminals_in_cfg(cfg, {&quot;a&quot;: &quot;b&quot;, &quot;b&quot;: &quot;c&quot;})</span>
-<span class="sd">    &gt;&gt;&gt; new_cfg.to_text()</span>
-<span class="sd">    &#39;S -&gt; b S c S\\n&#39;</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; cfg = cfg_from_text(&quot;S -&gt; a S b S&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; new_cfg = change_terminals_in_cfg(cfg, {&quot;a&quot;: &quot;b&quot;, &quot;b&quot;: &quot;c&quot;})</span>
+<span class="sd">    &gt;&gt;&gt; cfg_to_text(new_cfg)</span>
+<span class="sd">    &#39;S -&gt; b S c S&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -263,15 +260,18 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">spec</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">cfg</span><span class="o">.</span><span class="n">to_text</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">cfg_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">mapping</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">cfg_to_text</span><span class="p">(</span><span class="n">cfg</span><span class="p">))</span>
+
+    <span class="n">new_cfg</span> <span class="o">=</span> <span class="n">cfg_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start_symbol</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">start_symbol</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Change terminals in </span><span class="si">{</span><span class="n">cfg</span><span class="si">=}</span><span class="s2"> with </span><span class="si">{</span><span class="n">mapping</span><span class="si">=}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_cfg</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_cfg</span></div>
 
 
-<div class="viewcode-block" id="change_terminals_in_cnf"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf">[docs]</a><span class="k">def</span> <span class="nf">change_terminals_in_cnf</span><span class="p">(</span><span class="n">cnf</span><span class="p">:</span> <span class="n">CFG</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Change terminals of</span>
-<span class="sd">    a context-free grammar [1]_</span>
-<span class="sd">    in Chomsky normal form.</span>
+<div class="viewcode-block" id="change_terminals_in_cnf"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf">[docs]</a><span class="k">def</span> <span class="nf">change_terminals_in_cnf</span><span class="p">(</span><span class="n">cnf</span><span class="p">:</span> <span class="n">CFG</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Change terminals of a context-free grammar [1]_ in Chomsky normal form.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -279,78 +279,79 @@
 <span class="sd">        Context-free grammar</span>
 <span class="sd">        in Chomsky normal form.</span>
 
-<span class="sd">    spec: Dict</span>
+<span class="sd">    mapping: Dict[str, str]</span>
 <span class="sd">        Terminals mapping.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; cnf = cfpq_data.cnf_from_text(&quot;S -&gt; a S b S | epsilon&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; new_cnf = cfpq_data.change_terminals_in_cnf(cnf, {&quot;a&quot;: &quot;b&quot;, &quot;b&quot;: &quot;c&quot;})</span>
-<span class="sd">    &gt;&gt;&gt; [new_cnf.contains(word) for word in [&quot;&quot;, &quot;bc&quot;, &quot;bbcc&quot;]]</span>
-<span class="sd">    [True, True, True]</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; cnf = cnf_from_text(&quot;S -&gt; a b&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; new_cnf = change_terminals_in_cnf(cnf, {&quot;a&quot;: &quot;b&quot;, &quot;b&quot;: &quot;c&quot;})</span>
+<span class="sd">    &gt;&gt;&gt; cfg_to_text(new_cnf)</span>
+<span class="sd">    &#39;S -&gt; b#CNF##CNF# c#CNF##CNF#\\nb#CNF##CNF# -&gt; b#CNF#\\nc#CNF##CNF# -&gt; c#CNF#&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    cnf : CFG</span>
-<span class="sd">        Context-free grammar</span>
-<span class="sd">        in Chomsky normal form</span>
-<span class="sd">        with changed terminals.</span>
+<span class="sd">        Context-free grammar in Chomsky normal form with changed terminals.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [1] https://en.wikipedia.org/wiki/Chomsky_normal_form</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">spec</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">cnf</span><span class="o">.</span><span class="n">to_text</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">cnf_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">mapping</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">cfg_to_text</span><span class="p">(</span><span class="n">cnf</span><span class="p">))</span>
+
+    <span class="n">new_cnf</span> <span class="o">=</span> <span class="n">cnf_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start_symbol</span><span class="o">=</span><span class="n">cnf</span><span class="o">.</span><span class="n">start_symbol</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Change terminals in </span><span class="si">{</span><span class="n">cnf</span><span class="si">=}</span><span class="s2"> with </span><span class="si">{</span><span class="n">mapping</span><span class="si">=}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_cnf</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_cnf</span></div>
 
 
-<div class="viewcode-block" id="change_terminals_in_rsm"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsm">[docs]</a><span class="k">def</span> <span class="nf">change_terminals_in_rsm</span><span class="p">(</span><span class="n">rsm</span><span class="p">:</span> <span class="n">RSM</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">RSM</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Change terminals of</span>
-<span class="sd">    a Recursive State Machine [1]_.</span>
+<div class="viewcode-block" id="change_terminals_in_rsa"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsa">[docs]</a><span class="k">def</span> <span class="nf">change_terminals_in_rsa</span><span class="p">(</span><span class="n">rsa</span><span class="p">:</span> <span class="n">RSA</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">RSA</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Change terminals of a Recursive State Automaton [1]_.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    rsm : RSM</span>
-<span class="sd">        Recursive State Machine.</span>
+<span class="sd">    rsa : RSA</span>
+<span class="sd">        Recursive State Automaton.</span>
 
-<span class="sd">    spec: Dict</span>
+<span class="sd">    mapping: Dict</span>
 <span class="sd">        Terminals mapping.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; rsm = cfpq_data.rsm_from_text(&quot;S -&gt; (a S* b S*)*&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; new_rsm = cfpq_data.change_terminals_in_rsm(rsm, {&quot;a&quot;: &quot;b&quot;, &quot;b&quot;: &quot;c&quot;})</span>
-<span class="sd">    &gt;&gt;&gt; [new_rsm.contains(word) for word in [&quot;&quot;, &quot;bc&quot;, &quot;bbcc&quot;]]</span>
-<span class="sd">    [True, True, True]</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; rsa = rsa_from_text(&quot;S -&gt; a*&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; new_rsa = change_terminals_in_rsa(rsa, {&quot;a&quot;: &quot;b&quot;})</span>
+<span class="sd">    &gt;&gt;&gt; rsa_to_text(new_rsa)</span>
+<span class="sd">    &#39;S -&gt; (b)*&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    rsm : RSM</span>
-<span class="sd">        Recursive State Machine</span>
-<span class="sd">        with changed terminals.</span>
+<span class="sd">    rsa : RSA</span>
+<span class="sd">        Recursive State Automaton with changed terminals.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines. In: Berry G.,</span>
-<span class="sd">       Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.</span>
+<span class="sd">    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines.</span>
+<span class="sd">       In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.</span>
 <span class="sd">       Lecture Notes in Computer Science, vol 2102.</span>
 <span class="sd">       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">spec</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">rsm</span><span class="o">.</span><span class="n">to_text</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">rsm_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">mapping</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">rsa_to_text</span><span class="p">(</span><span class="n">rsa</span><span class="p">))</span>
+
+    <span class="n">new_rsa</span> <span class="o">=</span> <span class="n">rsa_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start_symbol</span><span class="o">=</span><span class="n">rsa</span><span class="o">.</span><span class="n">initial_label</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Change terminals in </span><span class="si">{</span><span class="n">rsa</span><span class="si">=}</span><span class="s2"> with </span><span class="si">{</span><span class="n">mapping</span><span class="si">=}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_rsa</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rsa_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
 </pre></div>
 
               </div>
               
-              
-              <div class='prev-next-bottom'>
-                
-
-              </div>
               
           </main>
           

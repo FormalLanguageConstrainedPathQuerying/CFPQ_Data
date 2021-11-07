@@ -1,6 +1,0 @@
-cfpq\_data.graphs.utils.nodes\_to\_integers
-===========================================
-
-.. currentmodule:: cfpq_data.graphs.utils
-
-.. autofunction:: nodes_to_integers

@@ -2,50 +2,58 @@
 #
 # Release
 #
-# :   1.0.2
+# :   2.0.0
 #
 # Date
 #
-# :   Aug 30, 2021
+# :   Nov 07, 2021
 #
 # This guide can help you start working with CFPQ_Data.
-# You can download this tutorial as a Jupyter Notebook from the link at the end of the page.
 #
-# All functions are documented on the Reference page.
+# **You can download this tutorial as a Jupyter Notebook from the link at the end of the page.**
 #
-# ### Graphs
+# ### Import
 #
-# You are able to get a synthetic or real-world graph with CFPQ_Data.
-#
-# #### Create a synthetic graph
-#
-# You can create many different synthetic graphs by using functions from Graph generators.
-#
-# For example, let's create a one cycle graph, the edges of which are marked with the letter `a`.
+# First you need to import the package.
 
 import cfpq_data
-cycle = cfpq_data.labeled_cycle_graph(5, edge_label="a")
 
-# # Get a real graph
+# # Load graph
 #
-# You can get many different real-world graphs from CFPQ_Data Dataset.
+# After the package is imported, we can load the graphs.
 #
-# And present these graphs in convenient formats by using functions from Reading and writing graphs.
+# ## Load graph archive from Dataset
 #
-# For example, let's get a `generations` ontology graph.
+# We can load the archive with the graph using function `download`.
 
-generations = cfpq_data.graph_from_dataset("generations")
+bzip_path = cfpq_data.download("bzip")
 
-# # Change labels
+# # Load graph by path
 #
-# You can change the specified graph labels by using function `cfpq_data.graphs.utils.change_edges()`
+# We can load the graph along the specified path using function `graph_from_csv`.
+
+bzip = cfpq_data.graph_from_csv(bzip_path)
+
+# Create graph
+#
+# We can also create a synthetic graph using one of the generators in module Graph generators.
+#
+# # Create a one cycle graph
+#
+# For example, let's create a one cycle graph, with 5 nodes, the edges of which are marked with the letter `a`.
+
+cycle = cfpq_data.labeled_cycle_graph(5, label="a")
+
+# Change edges
+#
+# We can change the specified graph labels by using function `change_edges`
 # from Graph utilities.
 
 new_cycle = cfpq_data.change_edges(cycle, {"a": "b"})
 
 # Now the labels `a` have changed to `b`.
 #
-#  Grammars
+# # Grammars
 #
 # You can create your own context-free grammar (CFG) or use a predefined one.
 # Now we have three representations of CFG documented on the Grammars page:
@@ -56,25 +64,9 @@ new_cycle = cfpq_data.change_edges(cycle, {"a": "b"})
 #
 # 1. [Recursive State Machine](https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6#Sec2)
 #
-# # Create a context-free grammar
+# ## Create a context-free grammar
 #
-# You can create context-free grammar by using function `cfpq_data.grammars.readwrite.cfg.cfg_from_text()`
+# You can create context-free grammar by using function `cfg_from_text`
 # from Reading and writing grammars.
 
 cfg = cfpq_data.cfg_from_text("S -> a S b S | a b")
-
-# # Use predefined context-free grammar
-#
-# CFPQ_Data has many predefined grammars documented on the Grammar samples page.
-
-brackets = cfpq_data.brackets
-brackets.to_text()  # 'S -> a S b\nS -> a b\n'
-
-# # Change terminals
-#
-# You can change the specified grammar terminals by using
-# function `cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg()`
-# from Grammar utilities.
-
-brackets1 = cfpq_data.change_terminals_in_cfg(brackets, {"a": "b", "b": "c"})
-brackets1.to_text()  # 'S -> b S c\nS -> b c\n'

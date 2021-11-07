@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial &#8212; CFPQ_Data 1.0.2 documentation</title>
+    <title>Tutorial &#8212; CFPQ_Data 2.0.0 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -37,6 +37,9 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 2.0.0 documentation"
+          href="_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -187,83 +190,13 @@
       <div class="row">
           
             
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
-    
-  </div>
-</nav>
-            </div>
+            <div class="col-12 col-md-1 col-xl-2 bd-sidebar no-sidebar"></div>
             
           
 
           
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             
-              
-              <div class="toc-item">
-                
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
-
-<nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#graphs">
-   Graphs
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#create-a-synthetic-graph">
-     Create a synthetic graph
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#get-a-real-graph">
-     Get a real graph
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#change-labels">
-     Change labels
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#grammars">
-   Grammars
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#create-a-context-free-grammar">
-     Create a context-free grammar
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#use-predefined-context-free-grammar">
-     Use predefined context-free grammar
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#change-terminals">
-     Change terminals
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-</nav>
-              </div>
-              
-              <div class="toc-item">
-                
-              </div>
               
             
           </div>
@@ -273,7 +206,7 @@
           
             
           
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+          <main class="col-12 col-md-11 col-xl-8 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
               
               <div>
                 
@@ -281,14 +214,14 @@
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release</dt>
-<dd class="field-odd"><p>1.0.2</p>
+<dd class="field-odd"><p>2.0.0</p>
 </dd>
 <dt class="field-even">Date</dt>
-<dd class="field-even"><p>Aug 30, 2021</p>
+<dd class="field-even"><p>Nov 07, 2021</p>
 </dd>
 </dl>
-<p>This guide can help you start working with CFPQ_Data.
-You can download this tutorial as a Jupyter Notebook from the link at the end of the page.</p>
+<p>This guide can help you start working with CFPQ_Data.</p>
+<p><strong>You can download this tutorial as a Jupyter Notebook from the link at the end of the page.</strong></p>
 <div class="topic">
 <p class="topic-title">NetworkX</p>
 <p>We use the NetworkX <a class="reference external" href="https://networkx.org/documentation/latest/reference/classes/multidigraph.html">MultiDiGraph</a> to represent the labeled graph.
@@ -300,37 +233,54 @@ To familiarize yourself with this representation and find useful functions, see 
 the context-free grammar.
 To familiarize yourself with this representation and find useful functions, see <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/usage.html#context-free-grammar">Pyformlang usage</a>.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>All functions are documented on the <a class="reference internal" href="reference/index.html#reference"><span class="std std-ref">Reference</span></a> page.</p>
-<div class="section" id="graphs">
-<h2>Graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h2>
-<p>You are able to get a synthetic or real-world graph with CFPQ_Data.</p>
-<div class="section" id="create-a-synthetic-graph">
-<h3>Create a synthetic graph<a class="headerlink" href="#create-a-synthetic-graph" title="Permalink to this headline">¶</a></h3>
-<p>You can create many different synthetic graphs by using functions from <a class="reference internal" href="reference/graphs/graphs_generators.html#graphs-generators"><span class="std std-ref">Graph generators</span></a>.</p>
-<p>For example, let's create a one cycle graph, the edges of which are marked with the letter <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+</div>
+<div class="section" id="import">
+<h2>Import<a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h2>
+<p>First you need to import the package.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cfpq_data</span>
-<span class="n">cycle</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">labeled_cycle_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">edge_label</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="get-a-real-graph">
-<h3>Get a real graph<a class="headerlink" href="#get-a-real-graph" title="Permalink to this headline">¶</a></h3>
-<p>You can get many different real-world graphs from CFPQ_Data <a class="reference internal" href="dataset/index.html#dataset"><span class="std std-ref">Dataset</span></a>.</p>
-<p>And present these graphs in convenient formats by using functions from <a class="reference internal" href="reference/graphs/graphs_readwrite.html#graphs-readwrite"><span class="std std-ref">Reading and writing graphs</span></a>.</p>
-<p>For example, let's get a <code class="docutils literal notranslate"><span class="pre">generations</span></code> ontology graph.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">generations</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_dataset</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">)</span>
+<div class="section" id="load-graph">
+<h2>Load graph<a class="headerlink" href="#load-graph" title="Permalink to this headline">¶</a></h2>
+<p>After the package is imported, we can load the graphs.</p>
+<div class="section" id="load-graph-archive-from-dataset">
+<h3>Load graph archive from Dataset<a class="headerlink" href="#load-graph-archive-from-dataset" title="Permalink to this headline">¶</a></h3>
+<p>We can load the archive with the graph using function <a class="reference internal" href="reference/dataset/generated/cfpq_data.dataset.download.html#cfpq_data.dataset.download" title="cfpq_data.dataset.download"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bzip_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;bzip&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="change-labels">
-<h3>Change labels<a class="headerlink" href="#change-labels" title="Permalink to this headline">¶</a></h3>
-<p>You can change the specified graph labels by using function <a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.change_edges.html#cfpq_data.graphs.utils.change_edges" title="cfpq_data.graphs.utils.change_edges"><code class="xref py py-func docutils literal notranslate"><span class="pre">cfpq_data.graphs.utils.change_edges()</span></code></a>
+<div class="section" id="load-graph-by-path">
+<h3>Load graph by path<a class="headerlink" href="#load-graph-by-path" title="Permalink to this headline">¶</a></h3>
+<p>We can load the graph along the specified path using function <a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.readwrite.csv.html#cfpq_data.graphs.readwrite.csv.graph_from_csv" title="cfpq_data.graphs.readwrite.csv.graph_from_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_from_csv</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bzip</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_csv</span><span class="p">(</span><span class="n">bzip_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="create-graph">
+<h2>Create graph<a class="headerlink" href="#create-graph" title="Permalink to this headline">¶</a></h2>
+<p>We can also create a synthetic graph using one of the generators in module <a class="reference internal" href="reference/graphs/graphs_generators.html#graphs-generators"><span class="std std-ref">Graph generators</span></a>.</p>
+<div class="section" id="create-a-one-cycle-graph">
+<h3>Create a one cycle graph<a class="headerlink" href="#create-a-one-cycle-graph" title="Permalink to this headline">¶</a></h3>
+<p>For example, let's create a one cycle graph, with 5 nodes, the edges of which are marked with the letter <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cycle</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">labeled_cycle_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="change-edges">
+<h2>Change edges<a class="headerlink" href="#change-edges" title="Permalink to this headline">¶</a></h2>
+<p>We can change the specified graph labels by using function <a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.change_edges.html#cfpq_data.graphs.utils.change_edges" title="cfpq_data.graphs.utils.change_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_edges</span></code></a>
 from <a class="reference internal" href="reference/graphs/graphs_utils.html#graphs-utils"><span class="std std-ref">Graph utilities</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_cycle</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">change_edges</span><span class="p">(</span><span class="n">cycle</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>Now the labels <code class="docutils literal notranslate"><span class="pre">a</span></code> have changed to <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
-</div>
 </div>
 <div class="section" id="grammars">
 <h2>Grammars<a class="headerlink" href="#grammars" title="Permalink to this headline">¶</a></h2>
@@ -343,27 +293,9 @@ Now we have three representations of CFG documented on the <a class="reference i
 </ol>
 <div class="section" id="create-a-context-free-grammar">
 <h3>Create a context-free grammar<a class="headerlink" href="#create-a-context-free-grammar" title="Permalink to this headline">¶</a></h3>
-<p>You can create context-free grammar by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="cfpq_data.grammars.readwrite.cfg.cfg_from_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">cfpq_data.grammars.readwrite.cfg.cfg_from_text()</span></code></a>
+<p>You can create context-free grammar by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="cfpq_data.grammars.readwrite.cfg.cfg_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_text</span></code></a>
 from <a class="reference internal" href="reference/grammars/grammars_readwrite.html#grammars-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">cfg_from_text</span><span class="p">(</span><span class="s2">&quot;S -&gt; a S b S | a b&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="use-predefined-context-free-grammar">
-<h3>Use predefined context-free grammar<a class="headerlink" href="#use-predefined-context-free-grammar" title="Permalink to this headline">¶</a></h3>
-<p>CFPQ_Data has many predefined grammars documented on the <a class="reference internal" href="reference/grammars/grammars_samples.html#grammars-samples"><span class="std std-ref">Grammar samples</span></a> page.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brackets</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">brackets</span>
-<span class="n">brackets</span><span class="o">.</span><span class="n">to_text</span><span class="p">()</span>  <span class="c1"># &#39;S -&gt; a S b\nS -&gt; a b\n&#39;</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="change-terminals">
-<h3>Change terminals<a class="headerlink" href="#change-terminals" title="Permalink to this headline">¶</a></h3>
-<p>You can change the specified grammar terminals by using
-function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg" title="cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg"><code class="xref py py-func docutils literal notranslate"><span class="pre">cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg()</span></code></a>
-from <a class="reference internal" href="reference/grammars/grammars_utils.html#grammars-utils"><span class="std std-ref">Grammar utilities</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brackets1</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">change_terminals_in_cfg</span><span class="p">(</span><span class="n">brackets</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">})</span>
-<span class="n">brackets1</span><span class="o">.</span><span class="n">to_text</span><span class="p">()</span>  <span class="c1"># &#39;S -&gt; b S c\nS -&gt; b c\n&#39;</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -378,13 +310,6 @@ from <a class="reference internal" href="reference/grammars/grammars_utils.html#
 
               </div>
               
-              
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="install.html" title="previous page">Install</a>
-    <a class='right-next' id="next-link" href="reference/index.html" title="next page">Reference</a>
-
-              </div>
               
           </main>
           

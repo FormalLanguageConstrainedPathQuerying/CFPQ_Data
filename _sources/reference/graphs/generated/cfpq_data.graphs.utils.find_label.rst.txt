@@ -1,6 +1,0 @@
-cfpq\_data.graphs.utils.find\_label
-===================================
-
-.. currentmodule:: cfpq_data.graphs.utils
-
-.. autofunction:: find_label

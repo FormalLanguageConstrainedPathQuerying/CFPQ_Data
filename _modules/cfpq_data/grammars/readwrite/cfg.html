@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.grammars.readwrite.cfg &#8212; CFPQ_Data 1.0.2 documentation</title>
+    <title>cfpq_data.grammars.readwrite.cfg &#8212; CFPQ_Data 2.0.0 documentation</title>
     
   <link href="../../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -37,6 +37,9 @@
     <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/clipboard.min.js"></script>
     <script src="../../../../_static/copybutton.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 2.0.0 documentation"
+          href="../../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../../about.html" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -186,10 +189,7 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     
   </div>
@@ -213,10 +213,9 @@
               <div>
                 
   <h1>Source code for cfpq_data.grammars.readwrite.cfg</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Read (and write) a context-free grammar</span>
-<span class="sd">from (and to) different sources.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span></span><span class="sd">&quot;&quot;&quot;Read (and write) a context-free grammar from (and to) different sources.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">pyformlang.cfg</span> <span class="kn">import</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">CFG</span>
@@ -229,25 +228,23 @@
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="cfg_from_text"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text">[docs]</a><span class="k">def</span> <span class="nf">cfg_from_text</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">start_symbol</span><span class="p">:</span> <span class="n">Variable</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
+<div class="viewcode-block" id="cfg_from_text"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text">[docs]</a><span class="k">def</span> <span class="nf">cfg_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">start_symbol</span><span class="p">:</span> <span class="n">Variable</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Create a context-free grammar [1]_ from text.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    source : str</span>
-<span class="sd">        The text with which</span>
-<span class="sd">        the context-free grammar</span>
-<span class="sd">        will be created.</span>
+<span class="sd">    text : str</span>
+<span class="sd">        The text with which the context-free grammar will be created.</span>
 
 <span class="sd">    start_symbol : Variable</span>
 <span class="sd">        Start symbol of a context-free grammar.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; cfg = cfpq_data.cfg_from_text(&quot;S -&gt; a S b S&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; cfpq_data.cfg_to_text(cfg)</span>
-<span class="sd">    &#39;S -&gt; a S b S\\n&#39;</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; cfg = cfg_from_text(&quot;S -&gt; a S b S&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; cfg_to_text(cfg)</span>
+<span class="sd">    &#39;S -&gt; a S b S&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -258,12 +255,15 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">CFG</span><span class="o">.</span><span class="n">from_text</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">start_symbol</span><span class="p">)</span></div>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">CFG</span><span class="o">.</span><span class="n">from_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">start_symbol</span><span class="o">=</span><span class="n">start_symbol</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Create </span><span class="si">{</span><span class="n">cfg</span><span class="si">=}</span><span class="s2"> from </span><span class="si">{</span><span class="n">text</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">start_symbol</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cfg</span></div>
 
 
 <div class="viewcode-block" id="cfg_to_text"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_to_text">[docs]</a><span class="k">def</span> <span class="nf">cfg_to_text</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">CFG</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Turns a context-free grammar [1]_</span>
-<span class="sd">    into its text representation.</span>
+    <span class="sd">&quot;&quot;&quot;Turns a context-free grammar [1]_ into its text representation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -272,47 +272,57 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; cfg = cfpq_data.cfg_from_text(&quot;S -&gt; a S b S&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; cfpq_data.cfg_to_text(cfg)</span>
-<span class="sd">    &#39;S -&gt; a S b S\\n&#39;</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; cfg = cfg_from_text(&quot;S -&gt; a S b S | epsilon&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; cfg_to_text(cfg)</span>
+<span class="sd">    &#39;S -&gt; \\nS -&gt; a S b S&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    text : str</span>
-<span class="sd">        Context-free grammar</span>
-<span class="sd">        text representation.</span>
+<span class="sd">        Context-free grammar text representation.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">cfg</span><span class="o">.</span><span class="n">to_text</span><span class="p">()</span></div>
+    <span class="n">productions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">body</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">cfg</span><span class="o">.</span><span class="n">productions</span>
+    <span class="p">]</span>
+
+    <span class="n">productions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; -&gt; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">start_symbol</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">s</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">productions</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Turn </span><span class="si">{</span><span class="n">cfg</span><span class="si">=}</span><span class="s2"> into </span><span class="si">{</span><span class="n">text</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">text</span></div>
 
 
 <div class="viewcode-block" id="cfg_from_txt"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_txt">[docs]</a><span class="k">def</span> <span class="nf">cfg_from_txt</span><span class="p">(</span>
-    <span class="n">source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">start_symbol</span><span class="p">:</span> <span class="n">Variable</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">start_symbol</span><span class="p">:</span> <span class="n">Variable</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Create a context-free grammar [1]_</span>
-<span class="sd">    from TXT file.</span>
+    <span class="sd">&quot;&quot;&quot;Create a context-free grammar [1]_ from TXT file.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    source : Union[Path, str]</span>
-<span class="sd">        The path to the TXT file with which</span>
-<span class="sd">        the context-free grammar will be created.</span>
+<span class="sd">    path : Union[Path, str]</span>
+<span class="sd">        The path to the TXT file with which the context-free grammar will be created.</span>
 
 <span class="sd">    start_symbol : Variable</span>
 <span class="sd">        Start symbol of a context-free grammar.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; cfg_1 = cfpq_data.cfg_from_text(&quot;S -&gt; a S b S&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; path = cfpq_data.cfg_to_txt(cfg_1, &quot;test.txt&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; cfg = cfpq_data.cfg_from_txt(path)</span>
-<span class="sd">    &gt;&gt;&gt; cfpq_data.cfg_to_text(cfg)</span>
-<span class="sd">    &#39;S -&gt; a S b S\\n&#39;</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; cfg_1 = cfg_from_text(&quot;S -&gt; a S b S | epsilon&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; path = cfg_to_txt(cfg_1, &quot;test.txt&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; cfg = cfg_from_txt(path)</span>
+<span class="sd">    &gt;&gt;&gt; cfg_to_text(cfg)</span>
+<span class="sd">    &#39;S -&gt; \\nS -&gt; a S b S&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -323,57 +333,56 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fin</span><span class="p">:</span>
-        <span class="n">productions</span> <span class="o">=</span> <span class="n">fin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">cfg_from_text</span><span class="p">(</span><span class="n">productions</span><span class="p">,</span> <span class="n">start_symbol</span><span class="p">)</span></div>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">productions</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">cfg_from_text</span><span class="p">(</span><span class="n">productions</span><span class="p">,</span> <span class="n">start_symbol</span><span class="o">=</span><span class="n">start_symbol</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Create </span><span class="si">{</span><span class="n">cfg</span><span class="si">=}</span><span class="s2"> from </span><span class="si">{</span><span class="n">path</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">start_symbol</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cfg</span></div>
 
 
-<div class="viewcode-block" id="cfg_to_txt"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_to_txt">[docs]</a><span class="k">def</span> <span class="nf">cfg_to_txt</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">CFG</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Saves a context-free grammar [1]_</span>
-<span class="sd">    text representation</span>
-<span class="sd">    into TXT file.</span>
+<div class="viewcode-block" id="cfg_to_txt"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_to_txt">[docs]</a><span class="k">def</span> <span class="nf">cfg_to_txt</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">CFG</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Saves a context-free grammar [1]_ text representation into TXT file.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    cfg : CFG</span>
 <span class="sd">        Context-free grammar.</span>
 
-<span class="sd">    destination : Union[Path, str]</span>
-<span class="sd">        The path to the TXT file</span>
-<span class="sd">        where context-free grammar</span>
-<span class="sd">        text representation</span>
+<span class="sd">    path : Union[Path, str]</span>
+<span class="sd">        The path to the TXT file where context-free grammar text representation</span>
 <span class="sd">        will be saved.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; cfg = cfpq_data.cfg_from_text(&quot;S -&gt; a S b S&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; path = cfpq_data.cfg_to_txt(cfg, &quot;test.txt&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; cfg = cfg_from_text(&quot;S -&gt; a S b S&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; path = cfg_to_txt(cfg, &quot;test.txt&quot;)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    path : Path</span>
-<span class="sd">        The path to the TXT file</span>
-<span class="sd">        where context-free grammar</span>
-<span class="sd">        text representation</span>
+<span class="sd">        The path to the TXT file where context-free grammar text representation</span>
 <span class="sd">        will be saved.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fout</span><span class="p">:</span>
-        <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cfg_to_text</span><span class="p">(</span><span class="n">cfg</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span></div>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cfg_to_text</span><span class="p">(</span><span class="n">cfg</span><span class="p">))</span>
+
+    <span class="n">dest</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Save </span><span class="si">{</span><span class="n">cfg</span><span class="si">=}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dest</span></div>
 </pre></div>
 
               </div>
               
-              
-              <div class='prev-next-bottom'>
-                
-
-              </div>
               
           </main>
           

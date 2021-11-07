@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.graphs.utils.nodes_to_integers &#8212; CFPQ_Data 1.0.2 documentation</title>
+    <title>cfpq_data.graphs.utils.nodes_to_integers &#8212; CFPQ_Data 2.0.0 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -37,11 +37,14 @@
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 2.0.0 documentation"
+          href="../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Grammars" href="../../grammars/index.html" />
-    <link rel="prev" title="cfpq_data.graphs.utils.get_labels" href="cfpq_data.graphs.utils.get_labels.html" />
+    <link rel="prev" title="cfpq_data.graphs.utils.filter_edges" href="cfpq_data.graphs.utils.filter_edges.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -188,12 +191,14 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../dataset/index.html">
+   Dataset utilities
+  </a>
+ </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../index.html">
    Graphs
@@ -204,233 +209,27 @@
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2 has-children">
+   <li class="toctree-l2">
     <a class="reference internal" href="../graphs_generators.html">
      Graph generators
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-    <label for="toctree-checkbox-2">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.generators.fast_labeled_binomial_graph.html">
-       cfpq_data.graphs.generators.fast_labeled_binomial_graph
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_barabasi_albert_graph.html">
-       cfpq_data.graphs.generators.labeled_barabasi_albert_graph
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_binomial_graph.html">
-       cfpq_data.graphs.generators.labeled_binomial_graph
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_cycle_graph.html">
-       cfpq_data.graphs.generators.labeled_cycle_graph
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_scale_free_graph.html">
-       cfpq_data.graphs.generators.labeled_scale_free_graph
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.generators.labeled_two_cycles_graph.html">
-       cfpq_data.graphs.generators.labeled_two_cycles_graph
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toctree-l2 has-children">
+   <li class="toctree-l2">
     <a class="reference internal" href="../graphs_readwrite.html">
      Reading and writing graphs
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-    <label for="toctree-checkbox-3">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.readwrite.rdf.html">
-       cfpq_data.graphs.readwrite.rdf
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.readwrite.txt.html">
-       cfpq_data.graphs.readwrite.txt
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toctree-l2 current active has-children">
+   <li class="toctree-l2 current active">
     <a class="reference internal" href="../graphs_utils.html">
      Graph utilities
     </a>
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul class="current">
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.utils.change_edges.html">
-       cfpq_data.graphs.utils.change_edges
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.utils.filter_edges.html">
-       cfpq_data.graphs.utils.filter_edges
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.utils.find_label.html">
-       cfpq_data.graphs.utils.find_label
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="cfpq_data.graphs.utils.get_labels.html">
-       cfpq_data.graphs.utils.get_labels
-      </a>
-     </li>
-     <li class="toctree-l3 current active">
-      <a class="current reference internal" href="#">
-       cfpq_data.graphs.utils.nodes_to_integers
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="../../grammars/index.html">
    Grammars
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../grammars/grammars_converters.html">
-     Grammar converters
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.converters.cfg.html">
-       cfpq_data.grammars.converters.cfg
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.converters.cnf.html">
-       cfpq_data.grammars.converters.cnf
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.converters.rsm.html">
-       cfpq_data.grammars.converters.rsm
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../grammars/grammars_readwrite.html">
-     Reading and writing grammars
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-    <label for="toctree-checkbox-7">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.readwrite.cfg.html">
-       cfpq_data.grammars.readwrite.cfg
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.readwrite.cnf.html">
-       cfpq_data.grammars.readwrite.cnf
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.readwrite.rsm.html">
-       cfpq_data.grammars.readwrite.rsm
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../grammars/grammars_samples.html">
-     Grammar samples
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.barabasi_albert.html">
-       cfpq_data.grammars.samples.barabasi_albert
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.binomial.html">
-       cfpq_data.grammars.samples.binomial
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.cycle.html">
-       cfpq_data.grammars.samples.cycle
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.memory_aliases.html">
-       cfpq_data.grammars.samples.memory_aliases
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.rdf.html">
-       cfpq_data.grammars.samples.rdf
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.samples.two_cycles.html">
-       cfpq_data.grammars.samples.two_cycles
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../grammars/grammars_utils.html">
-     Grammar utilities
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-    <label for="toctree-checkbox-9">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../grammars/generated/cfpq_data.grammars.utils.change_terminals.html">
-       cfpq_data.grammars.utils.change_terminals
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -443,18 +242,6 @@
           
           <div class="d-none d-xl-block col-xl-2 bd-toc">
             
-              
-              <div class="toc-item">
-                
-
-<nav id="bd-toc-nav">
-    
-</nav>
-              </div>
-              
-              <div class="toc-item">
-                
-              </div>
               
             
           </div>
@@ -472,25 +259,21 @@
 <h1>cfpq_data.graphs.utils.nodes_to_integers<a class="headerlink" href="#cfpq-data-graphs-utils-nodes-to-integers" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="cfpq_data.graphs.utils.nodes_to_integers">
-<span class="sig-prename descclassname"><span class="pre">cfpq_data.graphs.utils.</span></span><span class="sig-name descname"><span class="pre">nodes_to_integers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.6.2)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.6.2)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/utils/nodes_to_integers.html#nodes_to_integers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.utils.nodes_to_integers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a graph with
-nodes converted to integers.</p>
+<span class="sig-name descname"><span class="pre">nodes_to_integers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.6.2)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.6.2)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/utils/nodes_to_integers.html#nodes_to_integers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.utils.nodes_to_integers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a graph with nodes converted to integers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<em>MultiDiGraph</em>) -- Initial graph.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) -- If true, a progress bar will be displayed.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>graph</strong> (<em>MultiDiGraph</em>) -- Initial graph.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cfpq_data</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_text</span><span class="p">(</span><span class="s2">&quot;29 A 42&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">nodes_to_integers</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">OutMultiEdgeDataView([(&#39;29&#39;, &#39;42&#39;, {&#39;label&#39;: &#39;A&#39;})])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_g</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">OutMultiEdgeDataView([(0, 1, {&#39;label&#39;: &#39;A&#39;})])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cfpq_data</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">graph_from_text</span><span class="p">([</span><span class="s2">&quot;FROM LABEL TO&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[(&#39;FROM&#39;, &#39;TO&#39;, {&#39;label&#39;: &#39;LABEL&#39;})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_g</span> <span class="o">=</span> <span class="n">nodes_to_integers</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">new_g</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[(0, 1, {&#39;label&#39;: &#39;LABEL&#39;})]</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -508,13 +291,6 @@ nodes converted to integers.</p>
 
               </div>
               
-              
-              <div class='prev-next-bottom'>
-                
-    <a class='left-prev' id="prev-link" href="cfpq_data.graphs.utils.get_labels.html" title="previous page">cfpq_data.graphs.utils.get_labels</a>
-    <a class='right-next' id="next-link" href="../../grammars/index.html" title="next page">Grammars</a>
-
-              </div>
               
           </main>
           

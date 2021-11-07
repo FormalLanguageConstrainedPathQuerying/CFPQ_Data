@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.graphs.readwrite.txt &#8212; CFPQ_Data 1.0.2 documentation</title>
+    <title>cfpq_data.graphs.readwrite.txt &#8212; CFPQ_Data 2.0.0 documentation</title>
     
   <link href="../../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -37,6 +37,9 @@
     <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/clipboard.min.js"></script>
     <script src="../../../../_static/copybutton.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 2.0.0 documentation"
+          href="../../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../../about.html" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -186,10 +189,7 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     
   </div>
@@ -213,15 +213,13 @@
               <div>
                 
   <h1>Source code for cfpq_data.graphs.readwrite.txt</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Read (and write) a graph</span>
-<span class="sd">from (and to) TXT file.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">shlex</span> <span class="kn">import</span> <span class="n">split</span> <span class="k">as</span> <span class="n">ssplit</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span></span><span class="sd">&quot;&quot;&quot;Read (and write) a graph from (and to) TXT file.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">shlex</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span>
 
-<span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">MultiDiGraph</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;graph_from_text&quot;</span><span class="p">,</span>
@@ -231,22 +229,18 @@
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="graph_from_text"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_from_text">[docs]</a><span class="k">def</span> <span class="nf">graph_from_text</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MultiDiGraph</span><span class="p">:</span>
+<div class="viewcode-block" id="graph_from_text"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_from_text">[docs]</a><span class="k">def</span> <span class="nf">graph_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Returns a graph from text.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    source : str</span>
-<span class="sd">        The text with which</span>
-<span class="sd">        the graph will be created.</span>
-
-<span class="sd">    verbose : bool</span>
-<span class="sd">        If true, a progress bar will be displayed.</span>
+<span class="sd">    text : Iterable[str]</span>
+<span class="sd">        The text with which the graph will be created.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; g = cfpq_data.graph_from_text(&quot;1 A 2&quot;, verbose=False)</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; g = graph_from_text([&quot;1 A 2&quot;])</span>
 <span class="sd">    &gt;&gt;&gt; g.number_of_nodes()</span>
 <span class="sd">    2</span>
 <span class="sd">    &gt;&gt;&gt; g.number_of_edges()</span>
@@ -257,29 +251,28 @@
 <span class="sd">    g : MultiDiGraph</span>
 <span class="sd">        Loaded graph.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">MultiDiGraph</span><span class="p">()</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">()</span>
 
-    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(),</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Loading...&quot;</span><span class="p">):</span>
-        <span class="n">splitted_edge</span> <span class="o">=</span> <span class="n">ssplit</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">splitted_edge</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">splitted_edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">splitted_edge</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">splitted_edge</span>
-            <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">splitted_edge</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">u</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">splitted_edge</span>
-            <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;only 1, 2, or 3 values per line are allowed&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">u</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
+                <span class="n">u_for_edge</span><span class="o">=</span><span class="n">u</span><span class="p">,</span>
+                <span class="n">v_for_edge</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">edge</span><span class="si">}</span><span class="s2"> does not match the input format: FROM LABEL TO&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
-    <span class="k">return</span> <span class="n">g</span></div>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Load </span><span class="si">{</span><span class="n">graph</span><span class="si">=}</span><span class="s2"> from </span><span class="si">{</span><span class="n">text</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">graph</span></div>
 
 
-<div class="viewcode-block" id="graph_to_text"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_to_text">[docs]</a><span class="k">def</span> <span class="nf">graph_to_text</span><span class="p">(</span>
-    <span class="n">graph</span><span class="p">:</span> <span class="n">MultiDiGraph</span><span class="p">,</span> <span class="n">quoting</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Turns a graph into</span>
-<span class="sd">    its text representation.</span>
+<div class="viewcode-block" id="graph_to_text"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_to_text">[docs]</a><span class="k">def</span> <span class="nf">graph_to_text</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">quoting</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Turns a graph into its text representation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -289,59 +282,44 @@
 <span class="sd">    quoting : bool</span>
 <span class="sd">        If true, quotes will be added.</span>
 
-<span class="sd">    verbose : bool</span>
-<span class="sd">        If true, a progress bar will be displayed.</span>
-
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; g = cfpq_data.labeled_cycle_graph(2, edge_label=&quot;a&quot;, verbose=False)</span>
-<span class="sd">    &gt;&gt;&gt; cfpq_data.graph_to_text(g, verbose=False)</span>
-<span class="sd">    &quot;&#39;0&#39; &#39;a&#39; &#39;1&#39;\\n&#39;1&#39; &#39;a&#39; &#39;0&#39;\\n&quot;</span>
-<span class="sd">    &gt;&gt;&gt; cfpq_data.graph_to_text(g, quoting=False, verbose=False)</span>
-<span class="sd">    &#39;0 a 1\\n1 a 0\\n&#39;</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; g = labeled_cycle_graph(2)</span>
+<span class="sd">    &gt;&gt;&gt; list(graph_to_text(g, quoting=True))</span>
+<span class="sd">    [&quot;&#39;0&#39; &#39;a&#39; &#39;1&#39;&quot;, &quot;&#39;1&#39; &#39;a&#39; &#39;0&#39;&quot;]</span>
+<span class="sd">    &gt;&gt;&gt; list(graph_to_text(g, quoting=False))</span>
+<span class="sd">    [&#39;0 a 1&#39;, &#39;1 a 0&#39;]</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    text : str</span>
-<span class="sd">        Graph text representation.</span>
+<span class="sd">        Generator of graph edges.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">edge_labels</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span>
-        <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Generation...&quot;</span>
-    <span class="p">):</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_labels</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">edge_labels</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">quoting</span><span class="p">:</span>
-                    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">&#39; &#39;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&#39; &#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">edge_labels</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">edge_labels</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">quoting</span><span class="p">:</span>
-                <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">&#39; &#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">&#39; &#39;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&#39; &#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="k">return</span> <span class="n">text</span></div>
+                <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Turn </span><span class="si">{</span><span class="n">graph</span><span class="si">=}</span><span class="s2"> into text with </span><span class="si">{</span><span class="n">quoting</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="graph_from_txt"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_from_txt">[docs]</a><span class="k">def</span> <span class="nf">graph_from_txt</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MultiDiGraph</span><span class="p">:</span>
+<div class="viewcode-block" id="graph_from_txt"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_from_txt">[docs]</a><span class="k">def</span> <span class="nf">graph_from_txt</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Returns a graph loaded from a TXT file.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    source : Union[Path, str]</span>
-<span class="sd">        The path to the TXT file with which</span>
-<span class="sd">        the graph will be created.</span>
-
-<span class="sd">    verbose : bool</span>
-<span class="sd">        If true, a progress bar will be displayed.</span>
+<span class="sd">    path : Union[Path, str]</span>
+<span class="sd">        The path to the TXT file with which the graph will be created.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; g_1 = cfpq_data.graph_from_text(&quot;1 A 2&quot;, verbose=False)</span>
-<span class="sd">    &gt;&gt;&gt; path = cfpq_data.graph_to_txt(g_1, &quot;test.txt&quot;, verbose=False)</span>
-<span class="sd">    &gt;&gt;&gt; g = cfpq_data.graph_from_txt(path, verbose=False)</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; g_1 = graph_from_text([&quot;1 A 2&quot;])</span>
+<span class="sd">    &gt;&gt;&gt; p = graph_to_txt(g_1, &quot;test.txt&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; g = graph_from_txt(p)</span>
 <span class="sd">    &gt;&gt;&gt; g.number_of_nodes()</span>
 <span class="sd">    2</span>
 <span class="sd">    &gt;&gt;&gt; g.number_of_edges()</span>
@@ -352,19 +330,21 @@
 <span class="sd">    g : MultiDiGraph</span>
 <span class="sd">        Loaded graph.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fin</span><span class="p">:</span>
-        <span class="n">edges</span> <span class="o">=</span> <span class="n">fin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">graph_from_text</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span></div>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">graph_from_text</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Load </span><span class="si">{</span><span class="n">graph</span><span class="si">=}</span><span class="s2"> from </span><span class="si">{</span><span class="n">path</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">graph</span></div>
 
 
 <div class="viewcode-block" id="graph_to_txt"><a class="viewcode-back" href="../../../../reference/graphs/generated/cfpq_data.graphs.readwrite.txt.html#cfpq_data.graphs.readwrite.txt.graph_to_txt">[docs]</a><span class="k">def</span> <span class="nf">graph_to_txt</span><span class="p">(</span>
-    <span class="n">graph</span><span class="p">:</span> <span class="n">MultiDiGraph</span><span class="p">,</span>
-    <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-    <span class="n">quoting</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Returns a path to the TXT file</span>
-<span class="sd">    where the graph will be saved.</span>
+    <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">,</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">quoting</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns a path to the TXT file where the graph will be saved.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -377,45 +357,30 @@
 <span class="sd">    quoting : bool</span>
 <span class="sd">        If true, quotes will be added.</span>
 
-<span class="sd">    verbose : bool</span>
-<span class="sd">        If true, a progress bar will be displayed.</span>
-
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import cfpq_data</span>
-<span class="sd">    &gt;&gt;&gt; g = cfpq_data.labeled_cycle_graph(42, edge_label=&quot;a&quot;, verbose=False)</span>
-<span class="sd">    &gt;&gt;&gt; path = cfpq_data.graph_to_txt(g, &quot;test.txt&quot;, quoting=False, verbose=False)</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; g = labeled_cycle_graph(42, label=&quot;a&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; path = graph_to_txt(g, &quot;test.txt&quot;, quoting=False)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    path : Path</span>
 <span class="sd">        Path to a TXT file where the graph will be saved.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fout</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">edge_labels</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span>
-            <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Generation...&quot;</span>
-        <span class="p">):</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_labels</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">edge_labels</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                    <span class="k">if</span> <span class="n">quoting</span><span class="p">:</span>
-                        <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">&#39; &#39;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&#39; &#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">quoting</span><span class="p">:</span>
-                    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">&#39; &#39;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span></div>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">graph_to_text</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">quoting</span><span class="o">=</span><span class="n">quoting</span><span class="p">):</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">edge</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">dest</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Save </span><span class="si">{</span><span class="n">graph</span><span class="si">=}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dest</span></div>
 </pre></div>
 
               </div>
               
-              
-              <div class='prev-next-bottom'>
-                
-
-              </div>
               
           </main>
           
