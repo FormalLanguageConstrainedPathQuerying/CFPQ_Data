@@ -28,3 +28,28 @@ experimental analysis of Context-Free Path Querying algorithms.
 - **Documentation:** https://jetbrains-research.github.io/CFPQ_Data/reference/index.html
 - **Source Code:** https://github.com/JetBrains-Research/CFPQ_Data
 - **Bug Tracker:** https://github.com/JetBrains-Research/CFPQ_Data/issues
+
+Examples
+********
+
+Dataset content
+---------------
+
+.. code-block:: python
+
+   >>> import cfpq_data
+   >>> cfpq_data.DATASET
+   ['skos', 'wc', 'generations', 'travel', 'univ', 'atom', 'biomedical', 'bzip', 'foaf', 'people', 'pr', 'funding', 'ls', 'wine', 'pizza', 'gzip', 'core', 'pathways', 'enzyme', 'eclass', 'go_hierarchy', 'go', 'apache', 'init', 'mm', 'geospecies', 'ipc', 'lib', 'block', 'arch', 'crypto', 'security', 'sound', 'net', 'fs', 'drivers', 'postgre', 'kernel', 'taxonomy', 'taxonomy_hierarchy']
+
+Load graph from Dataset
+-----------------------
+
+.. code-block:: python
+
+   >>> bzip_path = cfpq_data.download("bzip")
+   >>> bzip = cfpq_data.graph_from_csv(bzip_path)
+   
+How to add a new graph?
+***********************
+
+Just create a PR (Pull Request) corresponding to the `"Template for adding a new graph" <https://github.com/JetBrains-Research/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md>`_.
