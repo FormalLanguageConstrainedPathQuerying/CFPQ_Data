@@ -1,5 +1,5 @@
 ---
-name: Graph add template
+name: ADD NEW GRAPH
 about: Suggest new graph to this project
 title: "[NEW GRAPH] <Graph brief description>"
 labels: new graph

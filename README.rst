@@ -48,8 +48,11 @@ Load graph from Dataset
 
    >>> bzip_path = cfpq_data.download("bzip")
    >>> bzip = cfpq_data.graph_from_csv(bzip_path)
-   
+
 How to add a new graph?
 ***********************
 
-Just create a PR (Pull Request) corresponding to the `"Template for adding a new graph" <https://github.com/JetBrains-Research/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md>`_.
+Just create
+
+- an ``Issue`` corresponding to the `"Issue template for adding a new graph" <https://github.com/JetBrains-Research/CFPQ_Data/blob/master/.github/ISSUE_TEMPLATE/graph-add-template.md>`_.
+- a ``Pull Request`` corresponding to the `"Pull request template for adding a new graph" <https://github.com/JetBrains-Research/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md>`_.
