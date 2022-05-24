@@ -2,11 +2,11 @@
 #
 # Release
 #
-# :   2.0.0
+# :   3.0.0
 #
 # Date
 #
-# :   Nov 09, 2021
+# :   May 24, 2022
 #
 # This guide can help you start working with CFPQ_Data.
 #
