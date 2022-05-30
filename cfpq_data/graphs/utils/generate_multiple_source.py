@@ -21,7 +21,7 @@ def generate_multiple_source(
     	Number of nodes to sample into the generated chunk.
     Returns
     -------
-    nodes: list[int]
+    nodes: List[int]
         The list of sampled node indices for which to evaluate multiple-source CFPQ.
     """
     nodes = graph.number_of_nodes()
