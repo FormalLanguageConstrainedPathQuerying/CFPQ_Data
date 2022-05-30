@@ -1,5 +1,6 @@
 import random
 import logging
+from typing import List
 
 import networkx as nx
 
@@ -7,7 +8,7 @@ __all__ = ["generate_single_source"]
 
 def generate_single_source(
     graph: nx.MultiDiGraph
-    ) -> list[int]:
+    ) -> List[int]:
     """Returns a set of vertices for single-source evaluation for the given graph.
 
     The size of generated set is dependant on the number of nodes in the graph.
@@ -20,7 +21,7 @@ def generate_single_source(
 
     Returns
     -------
-    nodes: list[int]
+    nodes: List[int]
         The list of sampled node indices for which to evaluate single-source CFPQ.
     """
     nodes = graph.number_of_nodes()

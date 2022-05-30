@@ -1,5 +1,6 @@
 import random
 import logging
+from typing import List
 
 import networkx as nx
 
@@ -8,7 +9,7 @@ __all__ = ["generate_multiple_source"]
 def generate_multiple_source(
     graph: nx.MultiDiGraph,
     chunk_size: int
-    ) -> list[int]:
+    ) -> List[int]:
     """Returns a fixed-size set of vertices for multiple-source evaluation for the given graph.
 
     Parameters
