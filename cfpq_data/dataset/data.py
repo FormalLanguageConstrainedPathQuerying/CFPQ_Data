@@ -8,9 +8,10 @@ import requests
 
 from cfpq_data.config import DATA, VERSION
 
-__all__ = ["DATASET", "DATASET_URL", "download"]
+__all__ = ["DATASET_URL", "BENCHMARK_URL", "DATASET", "BENCHMARK", "download", "download_benchmark"]
 
-DATASET_URL = f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/"
+DATASET_URL = f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/Graphs/"
+BENCHMARK_URL = f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/Benchmarks/"
 
 DATASET = [
     "skos",
@@ -70,6 +71,11 @@ DATASET = [
 ]
 
 
+BENCHMARK = [
+    "MS_Reachability",
+]
+
+
 def download(name: str) -> pathlib.Path:
     """Download graph data from dataset.
 
@@ -116,3 +122,51 @@ def download(name: str) -> pathlib.Path:
         return graph
     else:
         raise FileNotFoundError(f"No graph with {name=} found")
+
+
+def download_benchmark(name: str) -> pathlib.Path:
+    """Download benchmark data.
+
+    Parameters
+    ----------
+    name : str
+        The name of the benchmark.
+
+    Examples
+    --------
+    >>> from cfpq_data import *
+    >>> path = download_benchmark("MS_Reachability")
+
+    Returns
+    -------
+    path : Path
+        Path to the directory with benchmark data.
+    """
+    if name in BENCHMARK:
+        logging.info(f"Found benchmark with {name=}")
+
+        DATA.mkdir(exist_ok=True, parents=True)
+
+        benchmark_archive = DATA / f"{name}.tar.gz"
+        benchmark = DATA / name
+
+        with requests.get(
+            url=BENCHMARK_URL + f"{name}.tar.gz",
+            stream=True,
+        ) as r:
+            with open(benchmark_archive, "wb") as f:
+                shutil.copyfileobj(r.raw, f)
+
+        logging.info(f"Load archive {benchmark_archive=}")
+
+        shutil.unpack_archive(benchmark_archive, DATA)
+
+        logging.info(f"Unzip benchmark {name=} to directory {benchmark=}")
+
+        os.remove(benchmark_archive)
+
+        logging.info(f"Remove archive {benchmark_archive=}")
+
+        return benchmark
+    else:
+        raise FileNotFoundError(f"No benchmark with {name=} found")

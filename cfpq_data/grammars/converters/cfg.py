@@ -3,10 +3,12 @@ import logging
 import re
 
 from pyformlang.cfg import CFG, Variable, Production, Terminal
+from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
 __all__ = [
     "cfg_from_cnf",
+    "cfg_from_regex",
     "cfg_from_rsa",
 ]
 
@@ -41,6 +43,42 @@ def cfg_from_cnf(cnf: CFG) -> CFG:
     cfg = CFG.from_text(cnf.to_text(), cnf.start_symbol)
 
     logging.info(f"Create {cfg=} from {cnf=}")
+
+    return cfg
+
+
+def cfg_from_regex(regex: Regex, *, start_symbol: Variable = Variable("S")) -> CFG:
+    """Create a context-free grammar [1]_ from given regular expression [2]_.
+
+    Parameters
+    ----------
+    regex : Regex
+        Regular expression.
+
+    start_symbol : string
+        Start symbol of a context-free grammar.
+
+    Examples
+    --------
+    >>> from cfpq_data import *
+    >>> expr = regex_from_text("a*")
+    >>> cfg = cfg_from_regex(expr)
+    >>> cfg_to_text(cfg)
+    'S -> \\nS -> A0\\nS -> S S\\nA0 -> a'
+
+    Returns
+    -------
+    cfg : CFG
+        Context-free grammar.
+
+    References
+    ----------
+    .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
+    .. [2] https://en.wikipedia.org/wiki/Regular_expression#Formal_definition
+    """
+    cfg = regex.to_cfg(start_symbol)
+
+    logging.info(f"Create {cfg=} from {regex=}")
 
     return cfg
 

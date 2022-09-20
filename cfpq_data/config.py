@@ -6,7 +6,7 @@ __all__ = [
     "DATA",
 ]
 
-VERSION = "3.0.0"
+VERSION = "4.0.0"
 
 ROOT = pathlib.Path(__file__).parent
 DATA = ROOT / "data"
