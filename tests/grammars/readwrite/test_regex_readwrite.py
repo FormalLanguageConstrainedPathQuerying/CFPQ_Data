@@ -13,7 +13,11 @@ expression_2 = "a (bc|d*)"
     "expression, expected, not_expected",
     [
         (expression_1, [["abc"], ["d", "d", "d"], []], [["a"], ["a", "d"]]),
-        (expression_2, [["a"], ["a", "bc"], ["a", "d", "d"]], [[], ["bc"], ["a", "bc", "d"]]),
+        (
+            expression_2,
+            [["a"], ["a", "bc"], ["a", "d", "d"]],
+            [[], ["bc"], ["a", "bc", "d"]],
+        ),
     ],
 )
 def test_cfg_from_text(expression, expected, not_expected):

@@ -8,10 +8,19 @@ import requests
 
 from cfpq_data.config import DATA, VERSION
 
-__all__ = ["DATASET_URL", "BENCHMARK_URL", "DATASET", "BENCHMARK", "download", "download_benchmark"]
+__all__ = [
+    "DATASET_URL",
+    "BENCHMARK_URL",
+    "DATASET",
+    "BENCHMARK",
+    "download",
+    "download_benchmark",
+]
 
 DATASET_URL = f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/Graphs/"
-BENCHMARK_URL = f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/Benchmarks/"
+BENCHMARK_URL = (
+    f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/Benchmarks/"
+)
 
 DATASET = [
     "skos",
