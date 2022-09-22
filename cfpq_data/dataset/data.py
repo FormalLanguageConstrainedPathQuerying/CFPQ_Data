@@ -17,9 +17,9 @@ __all__ = [
     "download_benchmark",
 ]
 
-DATASET_URL = f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/Graphs/"
+DATASET_URL = f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/graph/"
 BENCHMARK_URL = (
-    f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/Benchmarks/"
+    f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/benchmark/"
 )
 
 DATASET = [
