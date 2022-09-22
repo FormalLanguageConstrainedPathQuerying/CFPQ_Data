@@ -10,7 +10,7 @@ Dataset
    :Date: |today|
 
 How to add a new graph?
----------------------
+-----------------------
 
 Just create a PR (Pull Request) corresponding to the `"Template for adding a new graph" <https://github.com/JetBrains-Research/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md>`_.
 

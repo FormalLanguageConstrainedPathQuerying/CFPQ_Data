@@ -18,3 +18,4 @@ Reading and writing grammars
    cfg
    cnf
    rsa
+   regex
