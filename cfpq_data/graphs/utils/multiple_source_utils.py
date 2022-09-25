@@ -1,3 +1,4 @@
+"""Utilities for the multiple-source query evaluation."""
 import random
 import logging
 import pathlib
@@ -38,8 +39,9 @@ def generate_multiple_source(
     Examples
     --------
     >>> from cfpq_data import *
+    >>> seed = 42
     >>> g = cfpq_data.labeled_two_cycles_graph(42, 29)
-    >>> source_vertices = cfpq_data.generate_multiple_source(g, 10)
+    >>> source_vertices = cfpq_data.generate_multiple_source(g, 10, seed=seed)
     >>> source_vertices
     [3, 4, 12, 14, 15, 18, 29, 32, 36, 54]
 
@@ -93,7 +95,8 @@ def generate_multiple_source_percent(
     >>> g = cfpq_data.labeled_two_cycles_graph(42, 29)
     >>> g.number_of_nodes()
     72
-    >>> source_vertices = cfpq_data.generate_multiple_source_percent(g, 10.0)
+    >>> seed = 42
+    >>> source_vertices = cfpq_data.generate_multiple_source_percent(g, 10.0, seed=seed)
     >>> source_vertices
     [4, 14, 15, 18, 29, 32, 36]
 
@@ -123,8 +126,8 @@ def multiple_source_from_txt(path: Union[pathlib.Path, str]) -> List[int]:
     --------
     >>> from cfpq_data import *
     >>> l = [1, 2, 5, 10]
-    >>> path = source_vertices_to_txt(l, "test.txt")
-    >>> source_vertices = source_vertices_from_txt(path)
+    >>> path = multiple_source_to_txt(l, "test.txt")
+    >>> source_vertices = multiple_source_from_txt(path)
     >>> source_vertices
     [1, 2, 5, 10]
 
@@ -168,7 +171,7 @@ def multiple_source_to_txt(
     --------
     >>> from cfpq_data import *
     >>> l = [1, 2, 5, 10]
-    >>> path = source_vertices_to_txt(l, "test.txt")
+    >>> path = multiple_source_to_txt(l, "test.txt")
 
     Returns
     -------

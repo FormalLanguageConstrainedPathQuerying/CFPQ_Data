@@ -16,4 +16,6 @@ Dataset utilities
    :toctree: generated/
 
    download
+   download_benchmark
    DATASET
+   BENCHMARK
