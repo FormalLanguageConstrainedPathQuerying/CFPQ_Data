@@ -141,15 +141,13 @@ def multiple_source_from_txt(path: Union[pathlib.Path, str]) -> List[int]:
 
     with open(path, "r") as f:
         for vertex in f:
-            try:
-                v = int(vertex.strip())
-                source_vertices.append(v)
-            except Exception as e:
-                raise ValueError(
-                    f"{vertex} does not match the input format (integer)"
-                ) from e
+            vertex = vertex.strip()
+            if not vertex.isnumeric():
+                raise ValueError(f"{vertex} is not numeric")
+            v = int(vertex)
+            source_vertices.append(v)
 
-        logging.info(f"Load {source_vertices=} from {path=}")
+    logging.info(f"Load {source_vertices=} from {path=}")
 
     return source_vertices
 
@@ -218,13 +216,11 @@ def multiple_source_result_from_txt(
 
     with open(path, "r") as f:
         for vertex_pair in f:
-            try:
-                u, v = shlex.split(vertex_pair.strip())
+            u, v = shlex.split(vertex_pair.strip())
+            if u.isnumeric() and v.isnumeric():
                 reachable_pairs.append((int(u), int(v)))
-            except Exception as e:
-                raise ValueError(
-                    f"{vertex_pair} does not match the input format: FROM TO"
-                ) from e
+            else:
+                raise ValueError(f"({u} {v}) is not numeric pair")
 
         logging.info(f"Load {reachable_pairs=} from {path=}")
 
