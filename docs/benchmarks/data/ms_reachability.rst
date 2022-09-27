@@ -86,4 +86,5 @@ Query Examples
 
 Useful utilities
 ----------------
-For this benchmark we provide some useful functions from :ref:`multiple_source_utils`.
+For this benchmark we provide some useful functions from
+:ref:`multiple_source_utils <cfpq_data.graphs.utils.multiple_source_utils>`.

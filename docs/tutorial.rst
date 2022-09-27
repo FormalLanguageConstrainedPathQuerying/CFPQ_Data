@@ -142,7 +142,7 @@ a particular formal-language-constrained path querying problem.
 
 Currently, we provide the following benchmarks documented on the :ref:`benchmarks` page:
 
-1. MS_Reachability
+1. :ref:`msreachability`
 
 Load benchmark archive
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -159,7 +159,8 @@ MS_Reachability benchmark
 MS_Reachability benchmark can be used for the experimental study of the algorithms that solve the multiple-source
 formal-language-constrained reachability problem. This benchmark is described on the :ref:`msreachability` page.
 
-For this benchmark we provide some useful functions from :ref:`multiple_source_utils`.
+For this benchmark we provide some useful functions from
+:ref:`multiple_source_utils <cfpq_data.graphs.utils.multiple_source_utils>`.
 For example, you can save the list of source vertices to the TXT file or read it from loaded benchmark by using
 functions `multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
 `multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
