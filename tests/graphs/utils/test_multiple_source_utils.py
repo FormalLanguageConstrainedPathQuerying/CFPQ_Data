@@ -29,7 +29,7 @@ g2 = cfpq_data.labeled_cycle_graph(42)
 def test_generate_multiple_source(graph, set_size):
     actual = cfpq_data.generate_multiple_source(graph, set_size, seed=seed)
 
-    assert len(set(actual)) == set_size
+    assert len(actual) == set_size
 
     expected = cfpq_data.generate_multiple_source(graph, set_size, seed=seed)
 
@@ -66,7 +66,7 @@ def test_multiple_source_set_size(incorrect_set_size):
 def test_generate_multiple_source_percent(graph, percent):
     actual = cfpq_data.generate_multiple_source_percent(graph, percent, seed=seed)
 
-    assert len(set(actual)) == int(percent * graph.number_of_nodes() / 100.0)
+    assert len(actual) == int(percent * graph.number_of_nodes() / 100.0)
 
     expected = cfpq_data.generate_multiple_source_percent(graph, percent, seed=seed)
 
@@ -134,8 +134,8 @@ def test_multiple_source_txt_format(incorrect_line):
 @pytest.mark.parametrize(
     "reachable_pairs",
     [
-        [],
-        [(1, 1), (1, 3), (2, 2), (3, 1)],
+        set(),
+        {(1, 1), (1, 3), (2, 2), (3, 1)},
     ],
 )
 def test_multiple_source_result_txt(reachable_pairs):

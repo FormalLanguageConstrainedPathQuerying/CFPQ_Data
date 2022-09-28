@@ -3,7 +3,7 @@ import random
 import logging
 import pathlib
 import shlex
-from typing import List, Tuple, Union
+from typing import List, Set, Tuple, Union
 
 import networkx as nx
 
@@ -22,8 +22,8 @@ def generate_multiple_source(
     set_size: int,
     *,
     seed: Union[int, None] = None,
-) -> List[int]:
-    """Returns a fixed-size list of unique graph vertices for multiple-source evaluation.
+) -> Set[int]:
+    """Returns a fixed-size set of graph vertices for multiple-source evaluation.
 
     Parameters
     ----------
@@ -43,12 +43,12 @@ def generate_multiple_source(
     >>> g = cfpq_data.labeled_two_cycles_graph(42, 29)
     >>> source_vertices = cfpq_data.generate_multiple_source(g, 10, seed=seed)
     >>> source_vertices
-    [3, 4, 12, 14, 15, 18, 29, 32, 36, 54]
+    {32, 3, 4, 36, 12, 14, 15, 18, 54, 29}
 
     Returns
     -------
-    source_vertices: List[int]
-        The sorted list of unique sampled vertices for the given graph.
+    source_vertices: Set[int]
+        The set of sampled source vertices for the given graph.
     """
     num_nodes = graph.number_of_nodes()
 
@@ -60,8 +60,7 @@ def generate_multiple_source(
         raise ValueError(f"{set_size} cannot be negative")
 
     random.seed(seed)
-    source_vertices = list(random.sample(list(graph.nodes), set_size))
-    source_vertices.sort()
+    source_vertices = set(random.sample(list(graph.nodes), set_size))
 
     logging.info(
         f"Generate set of source vertices of {set_size} nodes for {graph=} for multiple-source evaluation"
@@ -75,8 +74,8 @@ def generate_multiple_source_percent(
     percent: float,
     *,
     seed: Union[int, None] = None,
-) -> List[int]:
-    """Returns a list of unique graph vertices with the given percent of vertices for multiple-source evaluation.
+) -> Set[int]:
+    """Returns a set of graph vertices with the given percent of vertices for multiple-source evaluation.
 
     Parameters
     ----------
@@ -98,12 +97,12 @@ def generate_multiple_source_percent(
     >>> seed = 42
     >>> source_vertices = cfpq_data.generate_multiple_source_percent(g, 10.0, seed=seed)
     >>> source_vertices
-    [4, 14, 15, 18, 29, 32, 36]
+    {32, 4, 36, 14, 15, 18, 29}
 
     Returns
     -------
-    source_vertices: List[int]
-        The sorted list of unique sampled vertices for the given graph.
+    source_vertices: Set[int]
+        The set of sampled source vertices for the given graph.
     """
 
     if percent < 0 or percent > 100:
@@ -114,8 +113,8 @@ def generate_multiple_source_percent(
     )
 
 
-def multiple_source_from_txt(path: Union[pathlib.Path, str]) -> List[int]:
-    """Returns a list of source vertices loaded from a TXT file.
+def multiple_source_from_txt(path: Union[pathlib.Path, str]) -> Set[int]:
+    """Returns a set of source vertices loaded from a TXT file.
 
     Parameters
     ----------
@@ -125,19 +124,19 @@ def multiple_source_from_txt(path: Union[pathlib.Path, str]) -> List[int]:
     Examples
     --------
     >>> from cfpq_data import *
-    >>> l = [1, 2, 5, 10]
-    >>> path = multiple_source_to_txt(l, "test.txt")
+    >>> s = {1, 2, 5, 10}
+    >>> path = multiple_source_to_txt(s, "test.txt")
     >>> source_vertices = multiple_source_from_txt(path)
-    >>> source_vertices
-    [1, 2, 5, 10]
+    >>> len(source_vertices)
+    4
 
     Returns
     -------
-    source_vertices: List[int]
-        The loaded list of source vertices.
+    source_vertices: Set[int]
+        The loaded set of source vertices.
     """
 
-    source_vertices = []
+    source_vertices = set()
 
     with open(path, "r") as f:
         for vertex in f:
@@ -145,7 +144,7 @@ def multiple_source_from_txt(path: Union[pathlib.Path, str]) -> List[int]:
             if not vertex.isnumeric():
                 raise ValueError(f"{vertex} is not numeric")
             v = int(vertex)
-            source_vertices.append(v)
+            source_vertices.add(v)
 
     logging.info(f"Load {source_vertices=} from {path=}")
 
@@ -153,28 +152,28 @@ def multiple_source_from_txt(path: Union[pathlib.Path, str]) -> List[int]:
 
 
 def multiple_source_to_txt(
-    source_vertices: List[int], path: Union[pathlib.Path, str]
+    source_vertices: Set[int], path: Union[pathlib.Path, str]
 ) -> pathlib.Path:
-    """Returns a path to the TXT file where the graph will be saved.
+    """Returns a path to the TXT file where the set of source vertices will be saved.
 
     Parameters
     ----------
-    source_vertices : List[int]
-        The list of source vertices to save.
+    source_vertices : Set[int]
+        The set of source vertices to save.
 
     path: Union[Path, str]
-        The path to the file where the list of source vertices will be saved.
+        The path to the file where the set of source vertices will be saved.
 
     Examples
     --------
     >>> from cfpq_data import *
-    >>> l = [1, 2, 5, 10]
-    >>> path = multiple_source_to_txt(l, "test.txt")
+    >>> s = {1, 2, 5, 10}
+    >>> path = multiple_source_to_txt(s, "test.txt")
 
     Returns
     -------
     path : Path
-        Path to a TXT file where the list of source vertices will be saved.
+        Path to a TXT file where the set of source vertices will be saved.
     """
     with open(path, "w") as f:
         for vertex in source_vertices:
@@ -189,8 +188,8 @@ def multiple_source_to_txt(
 
 def multiple_source_result_from_txt(
     path: Union[pathlib.Path, str]
-) -> List[Tuple[int, int]]:
-    """Returns a list with the result of multiple-source query evaluation loaded from a TXT file.
+) -> Set[Tuple[int, int]]:
+    """Returns a set with the result of multiple-source query evaluation loaded from a TXT file.
 
     Parameters
     ----------
@@ -200,25 +199,25 @@ def multiple_source_result_from_txt(
     Examples
     --------
     >>> from cfpq_data import *
-    >>> ms_result = [(1, 1), (1, 3), (2, 2), (3, 1)]
+    >>> ms_result = {(1, 1), (1, 3), (2, 2), (3, 1)}
     >>> path = multiple_source_result_to_txt(ms_result, "test.txt")
     >>> reachable_pairs = multiple_source_result_from_txt(path)
-    >>> reachable_pairs
-    [(1, 1), (1, 3), (2, 2), (3, 1)]
+    >>> len(reachable_pairs)
+    4
 
     Returns
     -------
-    reachable_pairs: List[Tuple[int, int]]
+    reachable_pairs: Set[Tuple[int, int]]
         The loaded pairs of reachable vertices.
     """
 
-    reachable_pairs = []
+    reachable_pairs = set()
 
     with open(path, "r") as f:
         for vertex_pair in f:
             u, v = shlex.split(vertex_pair.strip())
             if u.isnumeric() and v.isnumeric():
-                reachable_pairs.append((int(u), int(v)))
+                reachable_pairs.add((int(u), int(v)))
             else:
                 raise ValueError(f"({u} {v}) is not numeric pair")
 
@@ -228,13 +227,13 @@ def multiple_source_result_from_txt(
 
 
 def multiple_source_result_to_txt(
-    reachable_pairs: List[Tuple[int, int]], path: Union[pathlib.Path, str]
+    reachable_pairs: Set[Tuple[int, int]], path: Union[pathlib.Path, str]
 ) -> pathlib.Path:
     """Returns a path to the TXT file where the multiple-source query evaluation result will be saved.
 
     Parameters
     ----------
-    reachable_pairs : List[Tuple[int, int]]
+    reachable_pairs : Set[Tuple[int, int]]
         The multiple-source query evaluation result to save.
 
     path: Union[Path, str]
@@ -243,7 +242,7 @@ def multiple_source_result_to_txt(
     Examples
     --------
     >>> from cfpq_data import *
-    >>> ms_result = [(1, 1), (1, 3), (2, 2), (3, 1)]
+    >>> ms_result = {(1, 1), (1, 3), (2, 2), (3, 1)}
     >>> path = multiple_source_result_to_txt(ms_result, "test.txt")
 
     Returns

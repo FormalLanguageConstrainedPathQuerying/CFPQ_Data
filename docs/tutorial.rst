@@ -94,7 +94,7 @@ Now the labels ``a`` have changed to ``b``.
 Grammars
 --------
 
-You can create your own grammar or use a predefined one.
+Also, we can create our own grammar or use a predefined one.
 
 Regular grammars
 ^^^^^^^^^^^^^^^^
@@ -105,7 +105,7 @@ Currently, we have one representation of regular grammars documented on the :ref
 Create a regular expression
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can create a regular expression by using function `regex_from_text <cfpq_data.grammars.readwrite.regex.regex_from_text>`
+A regular expression can be created by using function `regex_from_text <cfpq_data.grammars.readwrite.regex.regex_from_text>`
 from :ref:`grammars_readwrite`.
 
 .. nbplot::
@@ -125,7 +125,7 @@ Currently, we have three representations of context-free grammars (CFGs) documen
 Create a context-free grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can create a context-free grammar by using function `cfg_from_text <cfpq_data.grammars.readwrite.cfg.cfg_from_text>`
+A context-free grammar can be created by using function `cfg_from_text <cfpq_data.grammars.readwrite.cfg.cfg_from_text>`
 from :ref:`grammars_readwrite`.
 
 .. nbplot::
@@ -137,8 +137,8 @@ from :ref:`grammars_readwrite`.
 Benchmarks
 ----------
 
-You can download one of the prepared benchmarks that contains graphs, queries, other input data, and results for
-a particular formal-language-constrained path querying problem.
+In addition, one of the prepared benchmarks that contains graphs, queries, other input data, and results for
+a particular formal-language-constrained path querying problem can be downloaded.
 
 Currently, we provide the following benchmarks documented on the :ref:`benchmarks` page:
 
@@ -161,13 +161,13 @@ formal-language-constrained reachability problem. This benchmark is described on
 
 For this benchmark we provide some useful functions from
 :ref:`multiple_source_utils <cfpq_data.graphs.utils.multiple_source_utils>`.
-For example, you can save the list of source vertices to the TXT file or read it from loaded benchmark by using
+For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
 functions `multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
 `multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
 
 .. nbplot::
 
-    l = [1, 2, 5, 10]
-    path = multiple_source_to_txt(l, "test.txt")
-    source_vertices = multiple_source_from_txt(path)
+    s = {1, 2, 5, 10}
+    path = cfpq_data.multiple_source_to_txt(s, "test.txt")
+    source_vertices = cfpq_data.multiple_source_from_txt(path)
 .. code-links::
