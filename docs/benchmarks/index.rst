@@ -20,4 +20,4 @@ Benchmarks content
    * - Benchmark
      - Download
    * - :ref:`msreachability`
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/4.0.0/benchmark/MS_Reachability.tar.gz>`_ 📥
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/benchmark/MS_Reachability.tar.gz>`_ 📥

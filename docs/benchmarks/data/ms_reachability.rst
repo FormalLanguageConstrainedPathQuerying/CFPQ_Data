@@ -17,7 +17,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/4.0.0/benchmark/MS_Reachability.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/benchmark/MS_Reachability.tar.gz>`_
 
 Description
 -----------
@@ -45,19 +45,19 @@ Graphs Used
    * - :ref:`core`
      - 1323
      - 2752
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/2.0.0/core.tar.gz>`_ 📥
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz>`_ 📥
    * - :ref:`enzyme`
      - 48815
      - 86543
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/2.0.0/enzyme.tar.gz>`_ 📥
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz>`_ 📥
    * - :ref:`eclass`
      - 239111
      - 360248
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/2.0.0/eclass.tar.gz>`_ 📥
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz>`_ 📥
    * - :ref:`go`
      - 582929
      - 1437437
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/2.0.0/go.tar.gz>`_ 📥
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz>`_ 📥
 
 Query Examples
 --------------
@@ -87,4 +87,14 @@ Query Examples
 Useful utilities
 ----------------
 For this benchmark we provide some useful functions from
-:ref:`multiple_source_utils <cfpq_data.graphs.utils.multiple_source_utils>`.
+:ref:`graphs_utils`.
+For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
+functions `multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
+`multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
+
+.. nbplot::
+
+    s = {1, 2, 5, 10}
+    path = cfpq_data.multiple_source_to_txt(s, "test.txt")
+    source_vertices = cfpq_data.multiple_source_from_txt(path)
+.. code-links::

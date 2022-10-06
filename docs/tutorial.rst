@@ -160,7 +160,7 @@ MS_Reachability benchmark can be used for the experimental study of the algorith
 formal-language-constrained reachability problem. This benchmark is described on the :ref:`msreachability` page.
 
 For this benchmark we provide some useful functions from
-:ref:`multiple_source_utils <cfpq_data.graphs.utils.multiple_source_utils>`.
+:ref:`graphs_utils`.
 For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
 functions `multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
 `multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.

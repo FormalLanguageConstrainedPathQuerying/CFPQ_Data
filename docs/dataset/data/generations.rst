@@ -18,7 +18,7 @@ Info
    * - Version
      - 2.0.0
    * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/2.0.0/generations.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/generations.tar.gz>`_
    * - Origin
      - `link <http://www.owl-ontologies.com/generations.owl>`_
 

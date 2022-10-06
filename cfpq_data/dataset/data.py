@@ -17,10 +17,8 @@ __all__ = [
     "download_benchmark",
 ]
 
-DATASET_URL = f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/graph/"
-BENCHMARK_URL = (
-    f"https://cfpq-data.s3.us-east-2.amazonaws.com/{VERSION[0]}.0.0/benchmark/"
-)
+DATASET_URL = f"https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/graph/"
+BENCHMARK_URL = f"https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/benchmark/"
 
 DATASET = [
     "skos",

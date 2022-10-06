@@ -18,7 +18,7 @@ Info
    * - Version
      - 2.0.0
    * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/2.0.0/go.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz>`_
    * - Origin
      - `.owl <http://purl.obolibrary.org/obo/go.owl>`_
 

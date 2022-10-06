@@ -18,7 +18,7 @@ Info
    * - Version
      - 2.0.0
    * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/2.0.0/skos.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/skos.tar.gz>`_
    * - Origin
      - `.rdf <https://www.w3.org/2009/08/skos-reference/skos.rdf>`_
 
