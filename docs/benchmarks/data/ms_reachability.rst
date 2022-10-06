@@ -1,5 +1,7 @@
 .. _msreachability:
 
+.. currentmodule:: cfpq_data
+
 MS_Reachability
 ===============
 
@@ -93,6 +95,8 @@ functions `multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_util
 `multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
 
 .. nbplot::
+
+    import cfpq_data
 
     s = {1, 2, 5, 10}
     path = cfpq_data.multiple_source_to_txt(s, "test.txt")
