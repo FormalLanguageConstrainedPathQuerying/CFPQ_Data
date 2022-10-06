@@ -14,9 +14,9 @@ Info
    * -
      -
    * - Full Name
-     - biomedical_mesure_primitive
+     - biomedical_measure_primitive
    * - Version
-     - 2.0.0
+     - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/biomedical.tar.gz>`_
    * - Origin
