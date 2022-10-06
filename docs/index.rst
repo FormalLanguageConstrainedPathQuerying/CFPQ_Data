@@ -24,6 +24,7 @@ Documentation
    :maxdepth: 1
 
    dataset/index
+   benchmarks/index
    install
    tutorial
    reference/index

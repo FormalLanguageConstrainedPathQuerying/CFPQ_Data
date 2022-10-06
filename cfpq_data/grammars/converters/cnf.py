@@ -2,12 +2,14 @@
 import logging
 
 from pyformlang.cfg import CFG, Epsilon
+from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
-from cfpq_data.grammars.converters.cfg import cfg_from_rsa
+from cfpq_data.grammars.converters.cfg import cfg_from_rsa, cfg_from_regex
 
 __all__ = [
     "cnf_from_cfg",
+    "cnf_from_regex",
     "cnf_from_rsa",
 ]
 
@@ -55,6 +57,41 @@ def cnf_from_cfg(cfg: CFG) -> CFG:
     )
 
     logging.info(f"Create {cnf=} from {cfg=}")
+
+    return cnf
+
+
+def cnf_from_regex(regex: Regex) -> CFG:
+    """Create a context-free grammar in Chomsky normal form [1]_
+    from given regular expression [2]_.
+
+    Parameters
+    ----------
+    regex : Regex
+        Regular expression.
+
+    Examples
+    --------
+    >>> from cfpq_data import *
+    >>> expr = regex_from_text("a*")
+    >>> cnf = cfpq_data.cnf_from_regex(expr)
+    >>> cfg_to_text(cnf)
+    'S -> \\nS -> S S\\nS -> a'
+
+    Returns
+    -------
+    cnf : CFG
+        Context-free grammar in Chomsky normal form.
+
+    References
+    ----------
+    .. [1] https://en.wikipedia.org/wiki/Chomsky_normal_form
+    .. [2] https://en.wikipedia.org/wiki/Regular_expression#Formal_definition
+    """
+
+    cnf = cnf_from_cfg(cfg_from_regex(regex))
+
+    logging.info(f"Create {cnf=} from {regex=}")
 
     return cnf
 

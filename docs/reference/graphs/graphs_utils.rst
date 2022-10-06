@@ -18,3 +18,4 @@ Graph utilities
    change_edges
    filter_edges
    nodes_to_integers
+   multiple_source_utils

@@ -14,6 +14,12 @@ exp_cnf_1 = cfpq_data.cnf_from_text("S -> b")
 cnf_2 = cfpq_data.cnf_from_text("S -> b")
 exp_cnf_2 = cfpq_data.cnf_from_text("S -> c")
 
+regex_1 = cfpq_data.regex_from_text("(abc|(d)*)")
+exp_regex_1 = cfpq_data.regex_from_text("(bcc|(d)*)")
+
+regex_2 = cfpq_data.regex_from_text("(a (bc|(d)*))")
+exp_regex_2 = cfpq_data.regex_from_text("(b (cc|(d)*))")
+
 rsa_1 = cfpq_data.rsa_from_text("S -> a b\n")
 exp_rsa_1 = cfpq_data.rsa_from_text("S -> b c\n")
 
@@ -47,6 +53,18 @@ def test_change_terminals_in_cnf(cnf, exp_cnf):
     assert set(cfpq_data.cfg_to_text(exp_cnf).split("\n")) == set(
         cfpq_data.cfg_to_text(act_cnf).split("\n")
     )
+
+
+@pytest.mark.parametrize(
+    "regex, exp_regex",
+    [
+        (regex_1, exp_regex_1),
+        (regex_2, exp_regex_2),
+    ],
+)
+def test_change_terminals_in_reg(regex, exp_regex):
+    act_regex = cfpq_data.change_terminals_in_regex(regex, {"a": "b", "b": "c"})
+    assert cfpq_data.regex_to_text(exp_regex) == cfpq_data.regex_to_text(act_regex)
 
 
 @pytest.mark.parametrize(

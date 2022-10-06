@@ -18,9 +18,9 @@ Info
    * - Version
      - 2.0.0
    * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.s3.us-east-2.amazonaws.com/2.0.0/ls.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ls.tar.gz>`_
    * - Origin
-     - `.xml <https://cfpq-data.s3.us-east-2.amazonaws.com/1.0.0/MemoryAliases/ls.xml.tar.gz>`_
+     - `.xml.tar.gz <https://drive.google.com/file/d/1GsYzenIY5ejPSQCtnJ1JNSdhsBAMVPEw/view?usp=sharing>`_
 
 
 CSV File Structure

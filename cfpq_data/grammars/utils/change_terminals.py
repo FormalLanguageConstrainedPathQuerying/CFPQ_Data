@@ -4,15 +4,18 @@ import re
 from typing import Dict
 
 from pyformlang.cfg import CFG
+from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
 from cfpq_data.grammars.readwrite.cfg import cfg_to_text, cfg_from_text
 from cfpq_data.grammars.readwrite.cnf import cnf_from_text
+from cfpq_data.grammars.readwrite.regex import regex_to_text, regex_from_text
 from cfpq_data.grammars.readwrite.rsa import rsa_to_text, rsa_from_text
 
 __all__ = [
     "change_terminals_in_cfg",
     "change_terminals_in_cnf",
+    "change_terminals_in_regex",
     "change_terminals_in_rsa",
 ]
 
@@ -92,6 +95,44 @@ def change_terminals_in_cnf(cnf: CFG, mapping: Dict[str, str]) -> CFG:
     logging.info(f"Change terminals in {cnf=} with {mapping=} to {new_cnf=}")
 
     return new_cnf
+
+
+def change_terminals_in_regex(regex: Regex, mapping: Dict[str, str]) -> Regex:
+    """Change terminals of a regular expression [1]_.
+
+    Parameters
+    ----------
+    regex : Regex
+        Regular expression.
+
+    mapping: Dict[str, str]
+        Terminals mapping.
+
+    Examples
+    --------
+    >>> from cfpq_data import *
+    >>> regex = regex_from_text("a (bc|d*)")
+    >>> new_regex = change_terminals_in_regex(regex, {"a": "b", "b": "c"})
+    >>> regex_to_text(new_regex)
+    '(b (cc|(d)*))'
+
+    Returns
+    -------
+    regex : Regex
+        Regular expression with changed terminals.
+
+    References
+    ----------
+    .. [1] https://en.wikipedia.org/wiki/Regular_expression#Formal_definition
+    """
+    expr = re.compile("|".join(map(re.escape, mapping.keys())))
+    text = expr.sub(lambda match: mapping[match.group(0)], regex_to_text(regex))
+
+    new_regex = regex_from_text(text)
+
+    logging.info(f"Change terminals in {regex=} with {mapping=} to {new_regex=}")
+
+    return new_regex
 
 
 def change_terminals_in_rsa(rsa: RSA, mapping: Dict[str, str]) -> RSA:
