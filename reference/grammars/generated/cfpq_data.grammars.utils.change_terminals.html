@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.grammars.utils.change_terminals &#8212; CFPQ_Data 3.0.0 documentation</title>
+    <title>cfpq_data.grammars.utils.change_terminals &#8212; CFPQ_Data 4.0.0 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -38,7 +38,7 @@
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 3.0.0 documentation"
+          title="Search within CFPQ_Data 4.0.0 documentation"
           href="../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -122,6 +122,12 @@
     <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../dataset/index.html">
   Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../benchmarks/index.html">
+  Benchmarks
  </a>
 </li>
 
@@ -271,15 +277,18 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf" title="cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_terminals_in_cnf</span></code></a>(cnf, mapping)</p></td>
 <td><p>Change terminals of a context-free grammar <a class="reference internal" href="#r163063ea841a-1" id="id2">[1]</a> in Chomsky normal form.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsa" title="cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_terminals_in_rsa</span></code></a>(rsa, mapping)</p></td>
-<td><p>Change terminals of a Recursive State Automaton <a class="reference internal" href="#rd53077cb09f1-1" id="id3">[1]</a>.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_regex" title="cfpq_data.grammars.utils.change_terminals.change_terminals_in_regex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_terminals_in_regex</span></code></a>(regex, mapping)</p></td>
+<td><p>Change terminals of a regular expression <a class="reference internal" href="#r439ced3e8919-1" id="id3">[1]</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsa" title="cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_terminals_in_rsa</span></code></a>(rsa, mapping)</p></td>
+<td><p>Change terminals of a Recursive State Automaton <a class="reference internal" href="#rd53077cb09f1-1" id="id4">[1]</a>.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg">
 <span class="sig-name descname"><span class="pre">change_terminals_in_cfg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html#pyformlang.cfg.CFG" title="(in pyformlang v0.1.3)"><span class="pre">pyformlang.cfg.cfg.CFG</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html#pyformlang.cfg.CFG" title="(in pyformlang v0.1.3)"><span class="pre">pyformlang.cfg.cfg.CFG</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_cfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cfg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change terminals of a context-free grammar <a class="reference internal" href="#rc48c1866b337-1" id="id4">[1]</a>.</p>
+<dd><p>Change terminals of a context-free grammar <a class="reference internal" href="#rc48c1866b337-1" id="id5">[1]</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -306,7 +315,7 @@
 </dl>
 <p class="rubric">References</p>
 <dl class="citation">
-<dt class="label" id="rc48c1866b337-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id4">2</a>)</span></dt>
+<dt class="label" id="rc48c1866b337-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id5">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions">https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions</a></p>
 </dd>
 </dl>
@@ -315,7 +324,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf">
 <span class="sig-name descname"><span class="pre">change_terminals_in_cnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnf</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html#pyformlang.cfg.CFG" title="(in pyformlang v0.1.3)"><span class="pre">pyformlang.cfg.cfg.CFG</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html#pyformlang.cfg.CFG" title="(in pyformlang v0.1.3)"><span class="pre">pyformlang.cfg.cfg.CFG</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_cnf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_cnf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change terminals of a context-free grammar <a class="reference internal" href="#r163063ea841a-1" id="id5">[1]</a> in Chomsky normal form.</p>
+<dd><p>Change terminals of a context-free grammar <a class="reference internal" href="#r163063ea841a-1" id="id6">[1]</a> in Chomsky normal form.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -343,16 +352,52 @@ in Chomsky normal form.</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="citation">
-<dt class="label" id="r163063ea841a-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id5">2</a>)</span></dt>
+<dt class="label" id="r163063ea841a-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id6">2</a>)</span></dt>
 <dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Chomsky_normal_form">https://en.wikipedia.org/wiki/Chomsky_normal_form</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_regex">
+<span class="sig-name descname"><span class="pre">change_terminals_in_regex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/regular_expression.html#pyformlang.regular_expression.Regex" title="(in pyformlang v0.1.3)"><span class="pre">pyformlang.regular_expression.regex.Regex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/regular_expression.html#pyformlang.regular_expression.Regex" title="(in pyformlang v0.1.3)"><span class="pre">pyformlang.regular_expression.regex.Regex</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_regex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change terminals of a regular expression <a class="reference internal" href="#r439ced3e8919-1" id="id7">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>regex</strong> (<em>Regex</em>) -- Regular expression.</p></li>
+<li><p><strong>mapping</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) -- Terminals mapping.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cfpq_data</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regex</span> <span class="o">=</span> <span class="n">regex_from_text</span><span class="p">(</span><span class="s2">&quot;a (bc|d*)&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_regex</span> <span class="o">=</span> <span class="n">change_terminals_in_regex</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regex_to_text</span><span class="p">(</span><span class="n">new_regex</span><span class="p">)</span>
+<span class="go">&#39;(b (cc|(d)*))&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>regex</strong> -- Regular expression with changed terminals.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Regex</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r439ced3e8919-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id7">2</a>)</span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Regular_expression#Formal_definition">https://en.wikipedia.org/wiki/Regular_expression#Formal_definition</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsa">
-<span class="sig-name descname"><span class="pre">change_terminals_in_rsa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rsa</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyformlang.rsa.recursive_automaton.RecursiveAutomaton</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyformlang.rsa.recursive_automaton.RecursiveAutomaton</span></span></span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_rsa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsa" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change terminals of a Recursive State Automaton <a class="reference internal" href="#rd53077cb09f1-1" id="id6">[1]</a>.</p>
+<span class="sig-name descname"><span class="pre">change_terminals_in_rsa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rsa</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/rsa.html#pyformlang.rsa.RecursiveAutomaton" title="(in pyformlang v0.1.3)"><span class="pre">pyformlang.rsa.recursive_automaton.RecursiveAutomaton</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/rsa.html#pyformlang.rsa.RecursiveAutomaton" title="(in pyformlang v0.1.3)"><span class="pre">pyformlang.rsa.recursive_automaton.RecursiveAutomaton</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/grammars/utils/change_terminals.html#change_terminals_in_rsa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change terminals of a Recursive State Automaton <a class="reference internal" href="#rd53077cb09f1-1" id="id8">[1]</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -379,7 +424,7 @@ in Chomsky normal form.</p></li>
 </dl>
 <p class="rubric">References</p>
 <dl class="citation">
-<dt class="label" id="rd53077cb09f1-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id6">2</a>)</span></dt>
+<dt class="label" id="rd53077cb09f1-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id8">2</a>)</span></dt>
 <dd><p>Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines.
 In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
 Lecture Notes in Computer Science, vol 2102.

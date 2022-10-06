@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.grammars.converters.cfg &#8212; CFPQ_Data 3.0.0 documentation</title>
+    <title>cfpq_data.grammars.converters.cfg &#8212; CFPQ_Data 4.0.0 documentation</title>
     
   <link href="../../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -38,7 +38,7 @@
     <script src="../../../../_static/clipboard.min.js"></script>
     <script src="../../../../_static/copybutton.js"></script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 3.0.0 documentation"
+          title="Search within CFPQ_Data 4.0.0 documentation"
           href="../../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../../about.html" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -120,6 +120,12 @@
     <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../../dataset/index.html">
   Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../benchmarks/index.html">
+  Benchmarks
  </a>
 </li>
 
@@ -218,10 +224,12 @@
 <span class="kn">import</span> <span class="nn">re</span>
 
 <span class="kn">from</span> <span class="nn">pyformlang.cfg</span> <span class="kn">import</span> <span class="n">CFG</span><span class="p">,</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">Production</span><span class="p">,</span> <span class="n">Terminal</span>
+<span class="kn">from</span> <span class="nn">pyformlang.regular_expression</span> <span class="kn">import</span> <span class="n">Regex</span>
 <span class="kn">from</span> <span class="nn">pyformlang.rsa</span> <span class="kn">import</span> <span class="n">RecursiveAutomaton</span> <span class="k">as</span> <span class="n">RSA</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;cfg_from_cnf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cfg_from_regex&quot;</span><span class="p">,</span>
     <span class="s2">&quot;cfg_from_rsa&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
@@ -256,6 +264,42 @@
     <span class="n">cfg</span> <span class="o">=</span> <span class="n">CFG</span><span class="o">.</span><span class="n">from_text</span><span class="p">(</span><span class="n">cnf</span><span class="o">.</span><span class="n">to_text</span><span class="p">(),</span> <span class="n">cnf</span><span class="o">.</span><span class="n">start_symbol</span><span class="p">)</span>
 
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Create </span><span class="si">{</span><span class="n">cfg</span><span class="si">=}</span><span class="s2"> from </span><span class="si">{</span><span class="n">cnf</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cfg</span></div>
+
+
+<div class="viewcode-block" id="cfg_from_regex"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.converters.cfg.html#cfpq_data.grammars.converters.cfg.cfg_from_regex">[docs]</a><span class="k">def</span> <span class="nf">cfg_from_regex</span><span class="p">(</span><span class="n">regex</span><span class="p">:</span> <span class="n">Regex</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">start_symbol</span><span class="p">:</span> <span class="n">Variable</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create a context-free grammar [1]_ from given regular expression [2]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    regex : Regex</span>
+<span class="sd">        Regular expression.</span>
+
+<span class="sd">    start_symbol : string</span>
+<span class="sd">        Start symbol of a context-free grammar.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; expr = regex_from_text(&quot;a*&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; cfg = cfg_from_regex(expr)</span>
+<span class="sd">    &gt;&gt;&gt; cfg_to_text(cfg)</span>
+<span class="sd">    &#39;S -&gt; \\nS -&gt; A0\\nS -&gt; S S\\nA0 -&gt; a&#39;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cfg : CFG</span>
+<span class="sd">        Context-free grammar.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions</span>
+<span class="sd">    .. [2] https://en.wikipedia.org/wiki/Regular_expression#Formal_definition</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">to_cfg</span><span class="p">(</span><span class="n">start_symbol</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Create </span><span class="si">{</span><span class="n">cfg</span><span class="si">=}</span><span class="s2"> from </span><span class="si">{</span><span class="n">regex</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">cfg</span></div>
 

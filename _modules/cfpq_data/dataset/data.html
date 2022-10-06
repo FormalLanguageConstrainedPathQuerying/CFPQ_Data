@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.dataset.data &#8212; CFPQ_Data 3.0.0 documentation</title>
+    <title>cfpq_data.dataset.data &#8212; CFPQ_Data 4.0.0 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -38,7 +38,7 @@
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 3.0.0 documentation"
+          title="Search within CFPQ_Data 4.0.0 documentation"
           href="../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -120,6 +120,12 @@
     <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../dataset/index.html">
   Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../benchmarks/index.html">
+  Benchmarks
  </a>
 </li>
 
@@ -223,9 +229,17 @@
 
 <span class="kn">from</span> <span class="nn">cfpq_data.config</span> <span class="kn">import</span> <span class="n">DATA</span><span class="p">,</span> <span class="n">VERSION</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DATASET&quot;</span><span class="p">,</span> <span class="s2">&quot;DATASET_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;download&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;DATASET_URL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;BENCHMARK_URL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DATASET&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;BENCHMARK&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;download&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;download_benchmark&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
-<span class="n">DATASET_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://cfpq-data.s3.us-east-2.amazonaws.com/</span><span class="si">{</span><span class="n">VERSION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">.0.0/&quot;</span>
+<span class="n">DATASET_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://cfpq-data.storage.yandexcloud.net/</span><span class="si">{</span><span class="n">VERSION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">.0.0/graph/&quot;</span>
+<span class="n">BENCHMARK_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://cfpq-data.storage.yandexcloud.net/</span><span class="si">{</span><span class="n">VERSION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">.0.0/benchmark/&quot;</span>
 
 <span class="n">DATASET</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;skos&quot;</span><span class="p">,</span>
@@ -285,6 +299,11 @@
 <span class="p">]</span>
 
 
+<span class="n">BENCHMARK</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;MS_Reachability&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
 <div class="viewcode-block" id="download"><a class="viewcode-back" href="../../../reference/dataset/generated/cfpq_data.dataset.download.html#cfpq_data.dataset.download">[docs]</a><span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Download graph data from dataset.</span>
 
@@ -331,6 +350,54 @@
         <span class="k">return</span> <span class="n">graph</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No graph with </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2"> found&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="download_benchmark"><a class="viewcode-back" href="../../../reference/dataset/generated/cfpq_data.dataset.download_benchmark.html#cfpq_data.dataset.download_benchmark">[docs]</a><span class="k">def</span> <span class="nf">download_benchmark</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Download benchmark data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        The name of the benchmark.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; path = download_benchmark(&quot;MS_Reachability&quot;)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : Path</span>
+<span class="sd">        Path to the directory with benchmark data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">BENCHMARK</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found benchmark with </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">DATA</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">benchmark_archive</span> <span class="o">=</span> <span class="n">DATA</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+        <span class="n">benchmark</span> <span class="o">=</span> <span class="n">DATA</span> <span class="o">/</span> <span class="n">name</span>
+
+        <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">BENCHMARK_URL</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span><span class="p">,</span>
+            <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">benchmark_archive</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Load archive </span><span class="si">{</span><span class="n">benchmark_archive</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">benchmark_archive</span><span class="p">,</span> <span class="n">DATA</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unzip benchmark </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2"> to directory </span><span class="si">{</span><span class="n">benchmark</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">benchmark_archive</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Remove archive </span><span class="si">{</span><span class="n">benchmark_archive</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">benchmark</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No benchmark with </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2"> found&quot;</span><span class="p">)</span></div>
 </pre></div>
 
               </div>

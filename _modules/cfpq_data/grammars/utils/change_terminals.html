@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.grammars.utils.change_terminals &#8212; CFPQ_Data 3.0.0 documentation</title>
+    <title>cfpq_data.grammars.utils.change_terminals &#8212; CFPQ_Data 4.0.0 documentation</title>
     
   <link href="../../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -38,7 +38,7 @@
     <script src="../../../../_static/clipboard.min.js"></script>
     <script src="../../../../_static/copybutton.js"></script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 3.0.0 documentation"
+          title="Search within CFPQ_Data 4.0.0 documentation"
           href="../../../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../../../about.html" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -120,6 +120,12 @@
     <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="../../../../dataset/index.html">
   Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../benchmarks/index.html">
+  Benchmarks
  </a>
 </li>
 
@@ -219,15 +225,18 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
 <span class="kn">from</span> <span class="nn">pyformlang.cfg</span> <span class="kn">import</span> <span class="n">CFG</span>
+<span class="kn">from</span> <span class="nn">pyformlang.regular_expression</span> <span class="kn">import</span> <span class="n">Regex</span>
 <span class="kn">from</span> <span class="nn">pyformlang.rsa</span> <span class="kn">import</span> <span class="n">RecursiveAutomaton</span> <span class="k">as</span> <span class="n">RSA</span>
 
 <span class="kn">from</span> <span class="nn">cfpq_data.grammars.readwrite.cfg</span> <span class="kn">import</span> <span class="n">cfg_to_text</span><span class="p">,</span> <span class="n">cfg_from_text</span>
 <span class="kn">from</span> <span class="nn">cfpq_data.grammars.readwrite.cnf</span> <span class="kn">import</span> <span class="n">cnf_from_text</span>
+<span class="kn">from</span> <span class="nn">cfpq_data.grammars.readwrite.regex</span> <span class="kn">import</span> <span class="n">regex_to_text</span><span class="p">,</span> <span class="n">regex_from_text</span>
 <span class="kn">from</span> <span class="nn">cfpq_data.grammars.readwrite.rsa</span> <span class="kn">import</span> <span class="n">rsa_to_text</span><span class="p">,</span> <span class="n">rsa_from_text</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;change_terminals_in_cfg&quot;</span><span class="p">,</span>
     <span class="s2">&quot;change_terminals_in_cnf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;change_terminals_in_regex&quot;</span><span class="p">,</span>
     <span class="s2">&quot;change_terminals_in_rsa&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
@@ -307,6 +316,44 @@
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Change terminals in </span><span class="si">{</span><span class="n">cnf</span><span class="si">=}</span><span class="s2"> with </span><span class="si">{</span><span class="n">mapping</span><span class="si">=}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_cnf</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">new_cnf</span></div>
+
+
+<div class="viewcode-block" id="change_terminals_in_regex"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_regex">[docs]</a><span class="k">def</span> <span class="nf">change_terminals_in_regex</span><span class="p">(</span><span class="n">regex</span><span class="p">:</span> <span class="n">Regex</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Regex</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Change terminals of a regular expression [1]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    regex : Regex</span>
+<span class="sd">        Regular expression.</span>
+
+<span class="sd">    mapping: Dict[str, str]</span>
+<span class="sd">        Terminals mapping.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; regex = regex_from_text(&quot;a (bc|d*)&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; new_regex = change_terminals_in_regex(regex, {&quot;a&quot;: &quot;b&quot;, &quot;b&quot;: &quot;c&quot;})</span>
+<span class="sd">    &gt;&gt;&gt; regex_to_text(new_regex)</span>
+<span class="sd">    &#39;(b (cc|(d)*))&#39;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    regex : Regex</span>
+<span class="sd">        Regular expression with changed terminals.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] https://en.wikipedia.org/wiki/Regular_expression#Formal_definition</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">expr</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">mapping</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">regex_to_text</span><span class="p">(</span><span class="n">regex</span><span class="p">))</span>
+
+    <span class="n">new_regex</span> <span class="o">=</span> <span class="n">regex_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Change terminals in </span><span class="si">{</span><span class="n">regex</span><span class="si">=}</span><span class="s2"> with </span><span class="si">{</span><span class="n">mapping</span><span class="si">=}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_regex</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_regex</span></div>
 
 
 <div class="viewcode-block" id="change_terminals_in_rsa"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.utils.change_terminals.html#cfpq_data.grammars.utils.change_terminals.change_terminals_in_rsa">[docs]</a><span class="k">def</span> <span class="nf">change_terminals_in_rsa</span><span class="p">(</span><span class="n">rsa</span><span class="p">:</span> <span class="n">RSA</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">RSA</span><span class="p">:</span>

@@ -2,11 +2,11 @@
 #
 # Release
 #
-# :   3.0.0
+# :   4.0.0
 #
 # Date
 #
-# :   May 24, 2022
+# :   Oct 06, 2022
 #
 # This guide can help you start working with CFPQ_Data.
 #
@@ -55,8 +55,24 @@ new_cycle = cfpq_data.change_edges(cycle, {"a": "b"})
 #
 # # Grammars
 #
-# You can create your own context-free grammar (CFG) or use a predefined one.
-# Now we have three representations of CFG documented on the Grammars page:
+# Also, we can create our own grammar or use a predefined one.
+#
+# ## Regular grammars
+#
+# Currently, we have one representation of regular grammars documented on the Grammars page:
+#
+# 1. [Regular expression](https://en.wikipedia.org/wiki/Regular_expression#Formal_definition)
+#
+# ## Create a regular expression
+#
+# A regular expression can be created by using function `regex_from_text`
+# from Reading and writing grammars.
+
+regex = cfpq_data.regex_from_text("a (bc|d*)")
+
+# # Сontext-free grammars
+#
+# Currently, we have three representations of context-free grammars (CFGs) documented on the Grammars page:
 #
 # 1. [Classic](https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions)
 #
@@ -64,9 +80,39 @@ new_cycle = cfpq_data.change_edges(cycle, {"a": "b"})
 #
 # 1. [Recursive State Machine](https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6#Sec2)
 #
-# ## Create a context-free grammar
+# # Create a context-free grammar
 #
-# You can create context-free grammar by using function `cfg_from_text`
+# A context-free grammar can be created by using function `cfg_from_text`
 # from Reading and writing grammars.
 
 cfg = cfpq_data.cfg_from_text("S -> a S b S | a b")
+
+# Benchmarks
+#
+# In addition, one of the prepared benchmarks that contains graphs, queries, other input data, and results for
+# a particular formal-language-constrained path querying problem can be downloaded.
+#
+# Currently, we provide the following benchmarks documented on the Benchmarks page:
+#
+# 1. MS_Reachability
+#
+# # Load benchmark archive
+#
+# You can load the archive with the benchmark using function `download_benchmark`.
+
+ms_reachability_path = cfpq_data.download_benchmark("MS_Reachability")
+
+# # MS_Reachability benchmark
+#
+# MS_Reachability benchmark can be used for the experimental study of the algorithms that solve the multiple-source
+# formal-language-constrained reachability problem. This benchmark is described on the MS_Reachability page.
+#
+# For this benchmark we provide some useful functions from
+# Graph utilities.
+# For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
+# functions `multiple_source_from_txt` and
+# `multiple_source_to_txt`.
+
+s = {1, 2, 5, 10}
+path = cfpq_data.multiple_source_to_txt(s, "test.txt")
+source_vertices = cfpq_data.multiple_source_from_txt(path)

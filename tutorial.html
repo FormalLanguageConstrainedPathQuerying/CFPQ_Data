@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial &#8212; CFPQ_Data 3.0.0 documentation</title>
+    <title>Tutorial &#8212; CFPQ_Data 4.0.0 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -38,7 +38,7 @@
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 3.0.0 documentation"
+          title="Search within CFPQ_Data 4.0.0 documentation"
           href="_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -122,6 +122,12 @@
     <li class="toctree-l1 nav-item">
  <a class="reference internal nav-link" href="dataset/index.html">
   Dataset
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="benchmarks/index.html">
+  Benchmarks
  </a>
 </li>
 
@@ -214,10 +220,10 @@
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release</dt>
-<dd class="field-odd"><p>3.0.0</p>
+<dd class="field-odd"><p>4.0.0</p>
 </dd>
 <dt class="field-even">Date</dt>
-<dd class="field-even"><p>May 24, 2022</p>
+<dd class="field-even"><p>Oct 06, 2022</p>
 </dd>
 </dl>
 <p>This guide can help you start working with CFPQ_Data.</p>
@@ -284,18 +290,67 @@ from <a class="reference internal" href="reference/graphs/graphs_utils.html#grap
 </div>
 <div class="section" id="grammars">
 <h2>Grammars<a class="headerlink" href="#grammars" title="Permalink to this headline">¶</a></h2>
-<p>You can create your own context-free grammar (CFG) or use a predefined one.
-Now we have three representations of CFG documented on the <a class="reference internal" href="reference/grammars/index.html#grammars"><span class="std std-ref">Grammars</span></a> page:</p>
+<p>Also, we can create our own grammar or use a predefined one.</p>
+<div class="section" id="regular-grammars">
+<h3>Regular grammars<a class="headerlink" href="#regular-grammars" title="Permalink to this headline">¶</a></h3>
+<p>Currently, we have one representation of regular grammars documented on the <a class="reference internal" href="reference/grammars/index.html#grammars"><span class="std std-ref">Grammars</span></a> page:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Regular_expression#Formal_definition">Regular expression</a></p></li>
+</ol>
+</div>
+<div class="section" id="create-a-regular-expression">
+<h3>Create a regular expression<a class="headerlink" href="#create-a-regular-expression" title="Permalink to this headline">¶</a></h3>
+<p>A regular expression can be created by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.regex.html#cfpq_data.grammars.readwrite.regex.regex_from_text" title="cfpq_data.grammars.readwrite.regex.regex_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex_from_text</span></code></a>
+from <a class="reference internal" href="reference/grammars/grammars_readwrite.html#grammars-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">regex</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">regex_from_text</span><span class="p">(</span><span class="s2">&quot;a (bc|d*)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ontext-free-grammars">
+<h3>Сontext-free grammars<a class="headerlink" href="#ontext-free-grammars" title="Permalink to this headline">¶</a></h3>
+<p>Currently, we have three representations of context-free grammars (CFGs) documented on the <a class="reference internal" href="reference/grammars/index.html#grammars"><span class="std std-ref">Grammars</span></a> page:</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions">Classic</a></p></li>
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Chomsky_normal_form">Chomsky Normal Form</a></p></li>
 <li><p><a class="reference external" href="https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6#Sec2">Recursive State Machine</a></p></li>
 </ol>
+</div>
 <div class="section" id="create-a-context-free-grammar">
 <h3>Create a context-free grammar<a class="headerlink" href="#create-a-context-free-grammar" title="Permalink to this headline">¶</a></h3>
-<p>You can create context-free grammar by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="cfpq_data.grammars.readwrite.cfg.cfg_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_text</span></code></a>
+<p>A context-free grammar can be created by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="cfpq_data.grammars.readwrite.cfg.cfg_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_text</span></code></a>
 from <a class="reference internal" href="reference/grammars/grammars_readwrite.html#grammars-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">cfg_from_text</span><span class="p">(</span><span class="s2">&quot;S -&gt; a S b S | a b&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="benchmarks">
+<h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h2>
+<p>In addition, one of the prepared benchmarks that contains graphs, queries, other input data, and results for
+a particular formal-language-constrained path querying problem can be downloaded.</p>
+<p>Currently, we provide the following benchmarks documented on the <a class="reference internal" href="benchmarks/index.html#benchmarks"><span class="std std-ref">Benchmarks</span></a> page:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="benchmarks/data/ms_reachability.html#msreachability"><span class="std std-ref">MS_Reachability</span></a></p></li>
+</ol>
+<div class="section" id="load-benchmark-archive">
+<h3>Load benchmark archive<a class="headerlink" href="#load-benchmark-archive" title="Permalink to this headline">¶</a></h3>
+<p>You can load the archive with the benchmark using function <a class="reference internal" href="reference/dataset/generated/cfpq_data.dataset.download_benchmark.html#cfpq_data.dataset.download_benchmark" title="cfpq_data.dataset.download_benchmark"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_benchmark</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ms_reachability_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">download_benchmark</span><span class="p">(</span><span class="s2">&quot;MS_Reachability&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ms-reachability-benchmark">
+<h3>MS_Reachability benchmark<a class="headerlink" href="#ms-reachability-benchmark" title="Permalink to this headline">¶</a></h3>
+<p>MS_Reachability benchmark can be used for the experimental study of the algorithms that solve the multiple-source
+formal-language-constrained reachability problem. This benchmark is described on the <a class="reference internal" href="benchmarks/data/ms_reachability.html#msreachability"><span class="std std-ref">MS_Reachability</span></a> page.</p>
+<p>For this benchmark we provide some useful functions from
+<a class="reference internal" href="reference/graphs/graphs_utils.html#graphs-utils"><span class="std std-ref">Graph utilities</span></a>.
+For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
+functions <a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.multiple_source_utils.html#cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt" title="cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiple_source_from_txt</span></code></a> and
+<a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.multiple_source_utils.html#cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt" title="cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiple_source_to_txt</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">}</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">multiple_source_to_txt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
+<span class="n">source_vertices</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">multiple_source_from_txt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
