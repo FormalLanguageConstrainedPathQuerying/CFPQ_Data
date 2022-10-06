@@ -16,7 +16,7 @@ Info
    * - Full Name
      - pizza
    * - Version
-     - 2.0.0
+     - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pizza.tar.gz>`_
    * - Origin

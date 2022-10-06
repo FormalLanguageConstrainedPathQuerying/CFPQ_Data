@@ -16,7 +16,7 @@ Info
    * - Full Name
      - bzip2
    * - Version
-     - 2.0.0
+     - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/bzip2.tar.gz>`_
    * - Origin
