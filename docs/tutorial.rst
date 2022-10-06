@@ -112,8 +112,6 @@ from :ref:`grammars_readwrite`.
 
     regex = cfpq_data.regex_from_text("a (bc|d*)")
 
-.. code-links::
-
 Сontext-free grammars
 ^^^^^^^^^^^^^^^^^^^^^
 Currently, we have three representations of context-free grammars (CFGs) documented on the :ref:`grammars` page:
@@ -131,8 +129,6 @@ from :ref:`grammars_readwrite`.
 .. nbplot::
 
     cfg = cfpq_data.cfg_from_text("S -> a S b S | a b")
-
-.. code-links::
 
 Benchmarks
 ----------
