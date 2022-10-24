@@ -98,14 +98,70 @@ Dataset content
      - 6238
      - 12363
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pathways.tar.gz>`_ 📥
+   * - :ref:`lusearch`
+     - 15774
+     - 14994
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz>`_ 📥
+   * - :ref:`sunflow`
+     - 15464
+     - 15957
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sunflow.tar.gz>`_ 📥
+   * - :ref:`luindex`
+     - 18532
+     - 17375
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/luindex.tar.gz>`_ 📥
+   * - :ref:`avrora`
+     - 24690
+     - 25196
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/avrora.tar.gz>`_ 📥
+   * - :ref:`eclipse`
+     - 41383
+     - 40200
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclipse.tar.gz>`_ 📥
+   * - :ref:`h2`
+     - 44717
+     - 56683
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/h2.tar.gz>`_ 📥
+   * - :ref:`pmd`
+     - 54444
+     - 59329
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pmd.tar.gz>`_ 📥
+   * - :ref:`xalan`
+     - 58476
+     - 62758
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xalan.tar.gz>`_ 📥
+   * - :ref:`batik`
+     - 60175
+     - 63089
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/batik.tar.gz>`_ 📥
+   * - :ref:`fop`
+     - 86183
+     - 83016
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fop.tar.gz>`_ 📥
    * - :ref:`enzyme`
      - 48815
      - 86543
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz>`_ 📥
+   * - :ref:`tomcat`
+     - 111327
+     - 110884
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tomcat.tar.gz>`_ 📥
+   * - :ref:`jython`
+     - 191895
+     - 260034
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jython.tar.gz>`_ 📥
    * - :ref:`eclass`
      - 239111
      - 360248
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz>`_ 📥
+   * - :ref:`tradebeans`
+     - 439693
+     - 466969
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradebeans.tar.gz>`_ 📥
+   * - :ref:`tradesoap`
+     - 440680
+     - 468263
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz>`_ 📥
    * - :ref:`go_hierarchy`
      - 45007
      - 490109
