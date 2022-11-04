@@ -24,6 +24,7 @@ Documentation
    :maxdepth: 1
 
    dataset/index
+   grammars/index
    benchmarks/index
    install
    tutorial
