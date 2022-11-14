@@ -1,9 +1,8 @@
-"""Returns a Dyck grammar that generates a Dyck language of the balanced strings with parentheses of different types."""
+"""Returns a C Alias grammar that generates a language for the flow-insensitive alias analysis of C programs."""
 import logging
-from typing import List, Tuple
-from pyformlang.cfg import CFG, Production, Variable, Terminal
+from typing import Tuple
+from pyformlang.cfg import CFG, Variable
 
-import networkx as nx
 import cfpq_data
 
 __all__ = ["c_alias_grammar"]
@@ -15,7 +14,7 @@ def c_alias_grammar(
     dereference_labels: Tuple[str, str] = ("d", "d_r"),
     start_symbol: Variable = Variable("S"),
 ) -> CFG:
-    """Returns a C Alias grammar generates language for the flow-insensitive alias analysis of C programs [1]_.
+    """Returns a C Alias grammar that generates a language for the flow-insensitive alias analysis of C programs [1]_.
 
     Parameters
     ----------

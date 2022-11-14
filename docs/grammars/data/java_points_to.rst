@@ -34,7 +34,7 @@ Grammar Parameters
    * - Parameter
      - Description
    * - :math:`\textit{fields}`
-     - List of fields :math:`f` used in Java program for load / store operations
+     - List of fields :math:`f` used in Java program for load/store operations
 
 
 Grammar Template
@@ -66,7 +66,7 @@ The Java points-to analysis grammar with :math:`\textit{fields} = [0, 1]`.
 
 .. code-block:: python
 
-   PT -> PTh alloc
+   S -> PTh alloc
    PTh -> epsilon
    PTh -> assign PTh
    PTh -> load_0 Al store_0 PTh
@@ -76,5 +76,5 @@ The Java points-to analysis grammar with :math:`\textit{fields} = [0, 1]`.
    FTh -> assign_r FTh
    FTh -> store_0_r Al load_0_r FTh
    FTh -> store_1_r Al load_1_r FTh
-   Al -> PT FT
+   Al -> S FT
 ----
