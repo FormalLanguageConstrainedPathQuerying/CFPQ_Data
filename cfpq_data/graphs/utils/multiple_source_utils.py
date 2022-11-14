@@ -3,7 +3,7 @@ import random
 import logging
 import pathlib
 import shlex
-from typing import List, Set, Tuple, Union
+from typing import Set, Tuple, Union
 
 import networkx as nx
 
