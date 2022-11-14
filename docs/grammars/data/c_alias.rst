@@ -25,6 +25,20 @@ Info
      - `link <https://dl.acm.org/doi/10.1145/1328897.1328464>`_
 
 
+Grammar Parameters
+------------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - :math:`\textit{assigment_labels}`
+     - Pair :math:`(a, \overline{a})` where label :math:`a` represents the assignment operation and :math:`a_r` is reverse to it
+   * - :math:`\textit{dereference_labels}`
+     - Pair :math:`(d, \overline{d})` where label :math:`d` represents pointer dereference relation and :math:`d_r` is reverse to it
+
+
 Grammar Template
 ----------------
 
@@ -44,13 +58,14 @@ of the assignments :math:`a` and pointer dereference relations :math:`d` in a pr
 
 Example Grammars
 ----------------
+C Alias grammar with :math:`\textit{assigment_labels} = \{(\textit{a}, \textit{a_r})\}` and :math:`\textit{dereference_labels} = \{(\textit{d}, \textit{d_r})\}`.
 
 .. math::
 
-   S \, \rightarrow \, \overline{d} \, V \, d \, \\
+   S \, \rightarrow \, \textit{d_r} \, V \, d \, \\
    V \, \rightarrow \, V_1 \, V_2 \, V_3 \, \\
    V_1 \, \rightarrow \, \varepsilon \, \\
-   V_1 \, \rightarrow \, V_2 \, \overline{a} \, V_1 \, \\
+   V_1 \, \rightarrow \, V_2 \, \textit{a_r} \, V_1 \, \\
    V_2 \, \rightarrow \, \varepsilon \, \\
    V_2 \, \rightarrow \, S \, \\
    V_3 \, \rightarrow \, \varepsilon \, \\
@@ -73,8 +88,8 @@ Example Grammars
 
 .. math::
 
-   S \, \rightarrow \, \overline{d} \, V \, d \, \\
-   V \, \rightarrow \, ((S \, \mid \, \varepsilon) \, \overline{a})^{*} \, (S \, \mid \, \varepsilon) \, (a \, (S \, \mid \, \varepsilon))^{*} \, \\
+   S \, \rightarrow \, \textit{d_r} \, V \, d \, \\
+   V \, \rightarrow \, ((S \, \mid \, \varepsilon) \, \textit{a_r})^{*} \, (S \, \mid \, \varepsilon) \, (a \, (S \, \mid \, \varepsilon))^{*} \, \\
 
 `Pyformlang RSA <https://github.com/Aunsiels/pyformlang/tree/master/pyformlang/rsa>`_:
 
