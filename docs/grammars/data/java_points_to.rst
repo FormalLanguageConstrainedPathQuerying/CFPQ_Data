@@ -17,6 +17,8 @@ Info
      - Java Points-to Analysis Grammar
    * - Class
      - Context-Free
+   * - Kind
+     - Static Analysis
    * - Version
      - 4.0.0
    * - Example download (.txt + .md)
