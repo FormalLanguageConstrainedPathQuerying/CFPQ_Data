@@ -1,7 +1,7 @@
 .. _contents:
 
-Data for Context-Free Path Quering Evaluation
-=============================================
+Data for Context-Free Path Querying Evaluation
+==============================================
 
 CFPQ_Data is a Python package for the creation, manipulation, and study of the
 structure, dynamics, and functions of complex Graphs and Grammars used for
@@ -23,7 +23,7 @@ Documentation
 .. toctree::
    :maxdepth: 1
 
-   dataset/index
+   graphs/index
    grammars/index
    benchmarks/index
    install
