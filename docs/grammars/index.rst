@@ -1,4 +1,4 @@
-.. _grammars:
+.. _grammar_templates:
 
 ********
 Grammars
