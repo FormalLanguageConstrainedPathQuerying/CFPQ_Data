@@ -4,6 +4,9 @@ __all__ = [
     "VERSION",
     "ROOT",
     "DATA",
+    "GRAPHS_DIR",
+    "GRAMMARS_DIR",
+    "BENCHMARKS_DIR",
 ]
 
 VERSION = "4.0.0"
