@@ -192,12 +192,9 @@ def download_grammars(
         stream=True,
     ) as r:
         if r.status_code == 404:
-            if graph_name is None:
-                logging.info(f"No example grammars with {template=} found")
-            else:
-                logging.info(
-                    f"No grammars with {template=} for graph with {graph_name=} found"
-                )
+            logging.info(
+                f"No grammars with {template=} for graph with {graph_name=} found"
+            )
             return None
         else:
             with open(grammar_archive, "wb") as f:
@@ -207,14 +204,9 @@ def download_grammars(
 
     shutil.unpack_archive(grammar_archive, GRAMMARS_DIR)
 
-    if graph_name is None:
-        logging.info(
-            f"Unzip example grammars with {template=} to directory {grammars=}"
-        )
-    else:
-        logging.info(
-            f"Unzip grammars with {template=} for graph with {graph_name=} to directory {grammars=}"
-        )
+    logging.info(
+        f"Unzip grammars with {template=} for graph with {graph_name=} to directory {grammars=}"
+    )
 
     os.remove(grammar_archive)
 
