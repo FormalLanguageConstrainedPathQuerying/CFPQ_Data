@@ -15,5 +15,6 @@ Grammars
    :maxdepth: 1
 
    grammars_converters
+   grammars_generators
    grammars_readwrite
    grammars_utils

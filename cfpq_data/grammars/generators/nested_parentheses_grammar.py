@@ -16,8 +16,7 @@ def nested_parentheses_grammar(
     eps: bool = True,
     start_symbol: Variable = Variable("S"),
 ) -> CFG:
-    """Returns a Nested Parentheses grammar that generates a language of the strings with nested parentheses of given
-     types.
+    """Returns a Nested Parentheses grammar that generates a language of the strings with nested parentheses of given types.
 
     Parameters
     ----------

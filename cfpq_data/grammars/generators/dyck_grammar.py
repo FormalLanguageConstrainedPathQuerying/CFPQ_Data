@@ -15,8 +15,7 @@ def dyck_grammar(
     eps: bool = True,
     start_symbol: Variable = Variable("S"),
 ) -> CFG:
-    """Returns a Dyck grammar that generates a Dyck language [1]_ of the balanced strings with parentheses of given
-     types.
+    """Returns a Dyck grammar that generates a Dyck language [1]_ of the balanced strings with parentheses of given types.
 
     Parameters
     ----------

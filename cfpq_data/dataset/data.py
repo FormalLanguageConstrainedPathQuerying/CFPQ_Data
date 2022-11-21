@@ -165,7 +165,7 @@ def download_grammars(
 
     Returns
     -------
-    path : Path
+    path : Union[Path, None]
         Path to the directory with grammars data or None if there is no such grammars in dataset.
     """
     if template not in GRAMMAR_TEMPLATES:
