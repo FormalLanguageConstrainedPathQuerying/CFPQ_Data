@@ -19,7 +19,7 @@ Info
      - Context-Free
    * - Version
      - 4.0.0
-   * - Example download (.txt)
+   * - Example download (.txt + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points-to.tar.gz>`_
    * - Origin
      - `link <https://dl.acm.org/doi/10.1145/2858965.2814307>`_
@@ -54,7 +54,7 @@ of Java programs, which tracks the dataflow between heap objects that are stored
 and loaded from fields :math:`f \in \textit{fields}`. Introduced in
 `"Giga-scale exhaustive points-to analysis for Java in under a minute" <https://dl.acm.org/doi/10.1145/2858965.2814307>`_.
 The dataflow of the program is constructed from object creations, variable assignments,
-and load / store operations on fields.
+and load/store operations on fields.
 
 
 Example Grammars

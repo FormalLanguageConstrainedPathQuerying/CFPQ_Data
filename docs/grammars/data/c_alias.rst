@@ -19,7 +19,7 @@ Info
      - Context-Free
    * - Version
      - 4.0.0
-   * - Example download (.txt)
+   * - Example download (.txt + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/c_alias.tar.gz>`_
    * - Origin
      - `link <https://dl.acm.org/doi/10.1145/1328897.1328464>`_
