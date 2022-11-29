@@ -2,8 +2,8 @@
 name: ADD NEW GRAPH
 about: Suggest new graph to this project
 title: "[NEW GRAPH] <Graph brief description>"
-labels: new graph
-assignees: vdshk
+labels: new data
+assignees: rustam-azimov, vadyushkins
 
 ---
 
