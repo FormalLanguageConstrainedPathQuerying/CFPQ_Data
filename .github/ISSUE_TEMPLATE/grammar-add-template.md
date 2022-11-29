@@ -3,7 +3,7 @@ name: ADD NEW GRAMMAR
 about: Suggest new grammar template to this project
 title: "[NEW GRAMMAR] <Grammar brief description>"
 labels: new data
-assignees: rustam-azimov, vdshk
+assignees: rustam-azimov, vadyushkins
 
 ---
 
