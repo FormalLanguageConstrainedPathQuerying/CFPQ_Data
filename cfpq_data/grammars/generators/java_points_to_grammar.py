@@ -1,6 +1,6 @@
 """Returns a Java Points-to grammar that generates a language for the field-sensitive analysis of Java programs."""
 import logging
-from typing import List, Tuple
+from typing import List
 from pyformlang.cfg import CFG, Production, Variable, Terminal
 
 import networkx as nx

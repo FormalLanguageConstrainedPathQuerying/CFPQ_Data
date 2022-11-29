@@ -18,4 +18,5 @@ Grammar generators
    c_alias_grammar
    dyck_grammar
    java_points_to_grammar
+   java_points_to_grammar_from_graph
    nested_parentheses_grammar

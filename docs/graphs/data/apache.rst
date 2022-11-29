@@ -63,9 +63,9 @@ Edges Statistics
 
    * - Edge Label
      - Num Edge Label
-   * - D
+   * - d
      - 1147612
-   * - A
+   * - a
      - 362799
 
 Canonical grammars
@@ -73,7 +73,7 @@ Canonical grammars
 
 .. note::
 
-   You must apply function `cfpq_data.change_edges` with `mapping={"A": "a", "D": "d"}` to the graph in order to use these grammars.
+   In order to get the original graph you must apply function `cfpq_data.change_edges` with `mapping={"a": "A", "d": "D"}` to this graph. In this case these grammars must be updated.
 
 Grammars for the alias analysis of C programs introduced in `"Demand-driven alias analysis for C" <https://dl.acm.org/doi/10.1145/1328897.1328464>`_.
 Template for these grammars is described on the :ref:`c_alias` page.
