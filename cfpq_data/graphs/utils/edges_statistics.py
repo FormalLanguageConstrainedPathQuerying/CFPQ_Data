@@ -1,13 +1,14 @@
 """Returns an edge statistics."""
 import logging
-from typing import Dict, List, Any
+from collections import defaultdict
+from typing import List, Any, DefaultDict
 
 import networkx as nx
 
 __all__ = ["get_labels_frequency", "get_sorted_labels"]
 
 
-def get_labels_frequency(graph: nx.MultiDiGraph) -> Dict[Any, int]:
+def get_labels_frequency(graph: nx.MultiDiGraph) -> DefaultDict[Any, int]:
     """Returns a dictionary with the number of edge labels used in the graph.
 
     Parameters
@@ -23,18 +24,18 @@ def get_labels_frequency(graph: nx.MultiDiGraph) -> Dict[Any, int]:
     [(1, 0, {'label': 'a'}), (0, 1, {'label': 'a'}), (0, 2, {'label': 'b'}), (2, 0, {'label': 'b'})]
     >>> labels_frequency = get_labels_frequency(g)
     >>> labels_frequency
-    {'a': 2, 'b': 2}
+    defaultdict(<class 'int'>, {'a': 2, 'b': 2})
 
     Returns
     -------
-    labels_frequency : Dict[Any, int]
+    labels_frequency : DefaultDict[Any, int]
         Dictionary with edge labels usage frequency.
     """
-    labels_frequency = dict()
+    labels_frequency = defaultdict(int)
 
     for u, v, edge_labels in graph.edges(data=True):
         for key, value in edge_labels.items():
-            labels_frequency[value] = labels_frequency.get(value, 0) + 1
+            labels_frequency[value] += 1
 
     logging.info(f"Construct {labels_frequency=} for {graph=}")
 
@@ -44,7 +45,7 @@ def get_labels_frequency(graph: nx.MultiDiGraph) -> Dict[Any, int]:
 def get_sorted_labels(
     graph: nx.MultiDiGraph,
     *,
-    ascending: bool = False,
+    reverse: bool = False,
 ) -> List[Any]:
     """Returns a list of edge labels sorted by the number of uses in the graph. The labels with equal number of uses are
     sorted lexicographically.
@@ -54,8 +55,8 @@ def get_sorted_labels(
     graph : MultiDiGraph
         Given graph.
 
-    ascending: bool
-        If set to True, then the labels are sorted in ascending order.
+    reverse: bool
+        If set to True, then the labels are sorted in reverse (ascending) order.
 
     Examples
     --------
@@ -73,7 +74,7 @@ def get_sorted_labels(
     sorted_pairs = sorted(
         get_labels_frequency(graph).items(),
         key=lambda x: (-x[1], x[0]),
-        reverse=ascending,
+        reverse=reverse,
     )
 
     labels = []
