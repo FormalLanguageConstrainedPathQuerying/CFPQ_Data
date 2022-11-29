@@ -120,8 +120,14 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="dataset/index.html">
-  Dataset
+ <a class="reference internal nav-link" href="graphs/index.html">
+  Graphs
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="grammars/index.html">
+  Grammars
  </a>
 </li>
 
@@ -223,7 +229,7 @@
 <dd class="field-odd"><p>4.0.1</p>
 </dd>
 <dt class="field-even">Date</dt>
-<dd class="field-even"><p>Nov 17, 2022</p>
+<dd class="field-even"><p>Nov 29, 2022</p>
 </dd>
 </dl>
 <p>This guide can help you start working with CFPQ_Data.</p>
@@ -235,9 +241,9 @@ To familiarize yourself with this representation and find useful functions, see 
 </div>
 <div class="topic">
 <p class="topic-title">Pyformlang</p>
-<p>We use the Pyformlang <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html">CFG</a> to represent
-the context-free grammar.
-To familiarize yourself with this representation and find useful functions, see <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/usage.html#context-free-grammar">Pyformlang usage</a>.</p>
+<p>We use the Pyformlang <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/regular_expression.html">Regex</a> to represent regular grammars.
+Also, we use the Pyformlang <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html">CFG</a> and <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/rsa.html">RSA</a> to represent context-free grammars.
+To familiarize yourself with this representations and find useful functions, see <a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/usage.html">Pyformlang usage</a>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -288,38 +294,86 @@ from <a class="reference internal" href="reference/graphs/graphs_utils.html#grap
 </div>
 <p>Now the labels <code class="docutils literal notranslate"><span class="pre">a</span></code> have changed to <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
 </div>
-<div class="section" id="grammars">
-<h2>Grammars<a class="headerlink" href="#grammars" title="Permalink to this headline">¶</a></h2>
-<p>Also, we can create our own grammar or use a predefined one.</p>
+<div class="section" id="load-grammar">
+<h2>Load grammar<a class="headerlink" href="#load-grammar" title="Permalink to this headline">¶</a></h2>
+<p>Also, we can load the grammars generated from grammar templates that are described on the <a class="reference internal" href="grammars/index.html#grammar-templates"><span class="std std-ref">Grammars</span></a> page.</p>
+<div class="section" id="load-grammars-archive-from-dataset">
+<h3>Load grammars archive from Dataset<a class="headerlink" href="#load-grammars-archive-from-dataset" title="Permalink to this headline">¶</a></h3>
+<p>We can load the archive with the grammars for the specified template using function <a class="reference internal" href="reference/dataset/generated/cfpq_data.dataset.download_grammars.html#cfpq_data.dataset.download_grammars" title="cfpq_data.dataset.download_grammars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_grammars</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c_alias_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">download_grammars</span><span class="p">(</span><span class="s2">&quot;c_alias&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="load-grammars-archive-for-specified-graph">
+<h3>Load grammars archive for specified graph<a class="headerlink" href="#load-grammars-archive-for-specified-graph" title="Permalink to this headline">¶</a></h3>
+<p>For some grammar templates we also can load the archive with the grammars for specific graphs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">java_pt_avrora_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">download_grammars</span><span class="p">(</span><span class="s2">&quot;java_points_to&quot;</span><span class="p">,</span> <span class="n">graph_name</span><span class="o">=</span><span class="s2">&quot;avrora&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="regular-grammars">
-<h3>Regular grammars<a class="headerlink" href="#regular-grammars" title="Permalink to this headline">¶</a></h3>
-<p>Currently, we have one representation of regular grammars documented on the <a class="reference internal" href="reference/grammars/index.html#grammars"><span class="std std-ref">Grammars</span></a> page:</p>
+<h2>Regular grammars<a class="headerlink" href="#regular-grammars" title="Permalink to this headline">¶</a></h2>
+<p>Currently, we have one representation of regular grammars:</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Regular_expression#Formal_definition">Regular expression</a></p></li>
 </ol>
-</div>
 <div class="section" id="create-a-regular-expression">
 <h3>Create a regular expression<a class="headerlink" href="#create-a-regular-expression" title="Permalink to this headline">¶</a></h3>
-<p>A regular expression can be created by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.regex.html#cfpq_data.grammars.readwrite.regex.regex_from_text" title="cfpq_data.grammars.readwrite.regex.regex_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex_from_text</span></code></a>
+<p>For example, a regular expression can be created by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.regex.html#cfpq_data.grammars.readwrite.regex.regex_from_text" title="cfpq_data.grammars.readwrite.regex.regex_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex_from_text</span></code></a>
 from <a class="reference internal" href="reference/grammars/grammars_readwrite.html#grammars-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">regex</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">regex_from_text</span><span class="p">(</span><span class="s2">&quot;a (bc|d*)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="section" id="load-regular-expression-by-path">
+<h3>Load regular expression by path<a class="headerlink" href="#load-regular-expression-by-path" title="Permalink to this headline">¶</a></h3>
+<p>We can load the regular expression along the specified path using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.regex.html#cfpq_data.grammars.readwrite.regex.regex_from_txt" title="cfpq_data.grammars.readwrite.regex.regex_from_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex_from_txt</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">regex_to_txt</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
+<span class="n">regex_by_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">regex_from_txt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="ontext-free-grammars">
-<h3>Сontext-free grammars<a class="headerlink" href="#ontext-free-grammars" title="Permalink to this headline">¶</a></h3>
-<p>Currently, we have three representations of context-free grammars (CFGs) documented on the <a class="reference internal" href="reference/grammars/index.html#grammars"><span class="std std-ref">Grammars</span></a> page:</p>
+<h2>Сontext-free grammars<a class="headerlink" href="#ontext-free-grammars" title="Permalink to this headline">¶</a></h2>
+<p>Currently, we have three representations of context-free grammars (CFGs):</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions">Classic</a></p></li>
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Chomsky_normal_form">Chomsky Normal Form</a></p></li>
 <li><p><a class="reference external" href="https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6#Sec2">Recursive State Machine</a></p></li>
 </ol>
-</div>
-<div class="section" id="create-a-context-free-grammar">
-<h3>Create a context-free grammar<a class="headerlink" href="#create-a-context-free-grammar" title="Permalink to this headline">¶</a></h3>
-<p>A context-free grammar can be created by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="cfpq_data.grammars.readwrite.cfg.cfg_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_text</span></code></a>
+<div class="section" id="create-a-classic-context-free-grammar">
+<h3>Create a classic context-free grammar<a class="headerlink" href="#create-a-classic-context-free-grammar" title="Permalink to this headline">¶</a></h3>
+<p>A classic context-free grammar can be created by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="cfpq_data.grammars.readwrite.cfg.cfg_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_text</span></code></a>
 from <a class="reference internal" href="reference/grammars/grammars_readwrite.html#grammars-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">cfg_from_text</span><span class="p">(</span><span class="s2">&quot;S -&gt; a S b S | a b&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="load-context-free-grammar-by-path">
+<h3>Load context-free grammar by path<a class="headerlink" href="#load-context-free-grammar-by-path" title="Permalink to this headline">¶</a></h3>
+<p>We can load the classic context-free grammar along the specified path using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_txt" title="cfpq_data.grammars.readwrite.cfg.cfg_from_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_txt</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">cfg_to_txt</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
+<span class="n">cfg_by_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">cfg_from_txt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="generate-grammar">
+<h2>Generate grammar<a class="headerlink" href="#generate-grammar" title="Permalink to this headline">¶</a></h2>
+<p>We can also generate a grammar for specified template using one of the generators in module <a class="reference internal" href="reference/grammars/grammars_generators.html#grammars-generators"><span class="std std-ref">Grammar generators</span></a>.</p>
+<div class="section" id="generate-a-dyck-grammar">
+<h3>Generate a Dyck grammar<a class="headerlink" href="#generate-a-dyck-grammar" title="Permalink to this headline">¶</a></h3>
+<p>For example, let's generate a <a class="reference internal" href="grammars/data/dyck.html#dyck"><span class="std std-ref">Dyck</span></a> grammar of the balanced strings with <code class="docutils literal notranslate"><span class="pre">a</span></code> as an opening parenthesis, <code class="docutils literal notranslate"><span class="pre">b</span></code> as a closing parenthesis, and without the empty string.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dyck_cfg</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">dyck_grammar</span><span class="p">([(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">)],</span> <span class="n">eps</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generate-a-java-points-to-grammar">
+<h3>Generate a Java Points-to grammar<a class="headerlink" href="#generate-a-java-points-to-grammar" title="Permalink to this headline">¶</a></h3>
+<p>Also, let's generate a <a class="reference internal" href="grammars/data/java_points_to.html#java-points-to"><span class="std std-ref">Java Points-to</span></a> grammar for the field-sensitive analysis of Java programs with field names <code class="docutils literal notranslate"><span class="pre">f0</span></code> and <code class="docutils literal notranslate"><span class="pre">f1</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">java_pt_cfg</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">java_points_to_grammar</span><span class="p">([</span><span class="s2">&quot;f0&quot;</span><span class="p">,</span> <span class="s2">&quot;f1&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

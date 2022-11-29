@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+
+<html lang="English">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cfpq_data.grammars.generators.java_points_to_grammar &#8212; CFPQ_Data 4.0.1 documentation</title>
+    
+  <link href="../../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/about.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 4.0.1 documentation"
+          href="../../../../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "CFPQ_Data",
+        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "CONTEXT-FREE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://research.jetbrains.org/",
+                "name": "JetBrains Research"
+            },
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../../../index.html">
+  <img src="../../../../_static/JetbrainsResearchLogo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../graphs/index.html">
+  Graphs
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../grammars/index.html">
+  Grammars
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../benchmarks/index.html">
+  Benchmarks
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../tutorial.html">
+  Tutorial
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../reference/index.html">
+  Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../about.html">
+  About
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../license.html">
+  License
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/JetBrains-Research/CFPQ_Data" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/cfpq-data/" rel="noopener" target="_blank" title="PyPI">
+            <span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for cfpq_data.grammars.generators.java_points_to_grammar</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Returns a Java Points-to grammar that generates a language for the field-sensitive analysis of Java programs.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">pyformlang.cfg</span> <span class="kn">import</span> <span class="n">CFG</span><span class="p">,</span> <span class="n">Production</span><span class="p">,</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">Terminal</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;java_points_to_grammar&quot;</span><span class="p">,</span> <span class="s2">&quot;java_points_to_grammar_from_graph&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="java_points_to_grammar"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.generators.java_points_to_grammar.html#cfpq_data.grammars.generators.java_points_to_grammar">[docs]</a><span class="k">def</span> <span class="nf">java_points_to_grammar</span><span class="p">(</span>
+    <span class="n">fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">start_symbol</span><span class="p">:</span> <span class="n">Variable</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns a Java Points-to grammar that generates a language for the field-sensitive analysis of Java programs [1]_</span>
+<span class="sd">    with given fields labels.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fields : List[str]</span>
+<span class="sd">        List of labels that represent the fields used in Java program.</span>
+
+<span class="sd">    start_symbol : Variable</span>
+<span class="sd">        Start symbol of the grammar.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; cfg = java_points_to_grammar([&quot;0&quot;, &quot;1&quot;])</span>
+<span class="sd">    &gt;&gt;&gt; len(cfg.productions)</span>
+<span class="sd">    11</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cfg : CFG</span>
+<span class="sd">        Java Points-to context-free grammar.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] https://dl.acm.org/doi/10.1145/2858965.2814307</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">PTh</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;PTh&quot;</span><span class="p">)</span>
+    <span class="n">Al</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;Al&quot;</span><span class="p">)</span>
+    <span class="n">FT</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;FT&quot;</span><span class="p">)</span>
+    <span class="n">FTh</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;FTh&quot;</span><span class="p">)</span>
+
+    <span class="n">alloc</span> <span class="o">=</span> <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;alloc&quot;</span><span class="p">)</span>
+    <span class="n">alloc_r</span> <span class="o">=</span> <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;alloc_r&quot;</span><span class="p">)</span>
+    <span class="n">assign</span> <span class="o">=</span> <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;assign&quot;</span><span class="p">)</span>
+    <span class="n">assign_r</span> <span class="o">=</span> <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;assign_r&quot;</span><span class="p">)</span>
+
+    <span class="n">variables</span> <span class="o">=</span> <span class="p">{</span><span class="n">start_symbol</span><span class="p">,</span> <span class="n">PTh</span><span class="p">,</span> <span class="n">Al</span><span class="p">,</span> <span class="n">FT</span><span class="p">,</span> <span class="n">FTh</span><span class="p">}</span>
+    <span class="n">productions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">terminals</span> <span class="o">=</span> <span class="p">{</span><span class="n">alloc</span><span class="p">,</span> <span class="n">alloc_r</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">assign_r</span><span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+        <span class="n">terminals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;load_&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">),</span>
+                <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;load_&quot;</span> <span class="o">+</span> <span class="n">f</span> <span class="o">+</span> <span class="s2">&quot;_r&quot;</span><span class="p">),</span>
+                <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;store_&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">),</span>
+                <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;store_&quot;</span> <span class="o">+</span> <span class="n">f</span> <span class="o">+</span> <span class="s2">&quot;_r&quot;</span><span class="p">),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="n">productions</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">Production</span><span class="p">(</span><span class="n">start_symbol</span><span class="p">,</span> <span class="p">[</span><span class="n">PTh</span><span class="p">,</span> <span class="n">alloc</span><span class="p">]),</span>
+            <span class="n">Production</span><span class="p">(</span><span class="n">PTh</span><span class="p">,</span> <span class="p">[]),</span>
+            <span class="n">Production</span><span class="p">(</span><span class="n">PTh</span><span class="p">,</span> <span class="p">[</span><span class="n">assign</span><span class="p">,</span> <span class="n">PTh</span><span class="p">]),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+        <span class="n">productions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">Production</span><span class="p">(</span><span class="n">PTh</span><span class="p">,</span> <span class="p">[</span><span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;load_&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">),</span> <span class="n">Al</span><span class="p">,</span> <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;store_&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">),</span> <span class="n">PTh</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="n">terminals</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;load_&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">),</span> <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;store_&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">)])</span>
+
+    <span class="n">productions</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">Production</span><span class="p">(</span><span class="n">FT</span><span class="p">,</span> <span class="p">[</span><span class="n">alloc_r</span><span class="p">,</span> <span class="n">FTh</span><span class="p">]),</span>
+            <span class="n">Production</span><span class="p">(</span><span class="n">FTh</span><span class="p">,</span> <span class="p">[]),</span>
+            <span class="n">Production</span><span class="p">(</span><span class="n">FTh</span><span class="p">,</span> <span class="p">[</span><span class="n">assign_r</span><span class="p">,</span> <span class="n">FTh</span><span class="p">]),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+        <span class="n">productions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">Production</span><span class="p">(</span>
+                <span class="n">FTh</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;store_&quot;</span> <span class="o">+</span> <span class="n">f</span> <span class="o">+</span> <span class="s2">&quot;_r&quot;</span><span class="p">),</span> <span class="n">Al</span><span class="p">,</span> <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;load_&quot;</span> <span class="o">+</span> <span class="n">f</span> <span class="o">+</span> <span class="s2">&quot;_r&quot;</span><span class="p">),</span> <span class="n">FTh</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">terminals</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;store_&quot;</span> <span class="o">+</span> <span class="n">f</span> <span class="o">+</span> <span class="s2">&quot;_r&quot;</span><span class="p">),</span> <span class="n">Terminal</span><span class="p">(</span><span class="s2">&quot;load_&quot;</span> <span class="o">+</span> <span class="n">f</span> <span class="o">+</span> <span class="s2">&quot;_r&quot;</span><span class="p">)])</span>
+
+    <span class="n">productions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Production</span><span class="p">(</span><span class="n">Al</span><span class="p">,</span> <span class="p">[</span><span class="n">start_symbol</span><span class="p">,</span> <span class="n">FT</span><span class="p">]))</span>
+
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">CFG</span><span class="p">(</span>
+        <span class="n">variables</span><span class="o">=</span><span class="n">variables</span><span class="p">,</span>
+        <span class="n">terminals</span><span class="o">=</span><span class="n">terminals</span><span class="p">,</span>
+        <span class="n">productions</span><span class="o">=</span><span class="n">productions</span><span class="p">,</span>
+        <span class="n">start_symbol</span><span class="o">=</span><span class="n">start_symbol</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Create a Java Points-to </span><span class="si">{</span><span class="n">cfg</span><span class="si">=}</span><span class="s2"> with </span><span class="si">{</span><span class="n">fields</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cfg</span></div>
+
+
+<div class="viewcode-block" id="java_points_to_grammar_from_graph"><a class="viewcode-back" href="../../../../reference/grammars/generated/cfpq_data.grammars.generators.java_points_to_grammar_from_graph.html#cfpq_data.grammars.generators.java_points_to_grammar_from_graph">[docs]</a><span class="k">def</span> <span class="nf">java_points_to_grammar_from_graph</span><span class="p">(</span>
+    <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">start_symbol</span><span class="p">:</span> <span class="n">Variable</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CFG</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns a Java Points-to grammar that generates a language for the field-sensitive analysis of Java programs [1]_</span>
+<span class="sd">    with fields corresponding to the load and store edge labels of the given graph.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    graph: nx.MultiDiGraph</span>
+<span class="sd">        The graph to be analyzed using the grammar.</span>
+
+<span class="sd">    start_symbol : Variable</span>
+<span class="sd">        Start symbol of the grammar.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; path = download(&quot;avrora&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; g = cfpq_data.graph_from_csv(path)</span>
+<span class="sd">    &gt;&gt;&gt; cfg = java_points_to_grammar_from_graph(g)</span>
+<span class="sd">    &gt;&gt;&gt; len(cfg.productions)</span>
+<span class="sd">    1723</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cfg : CFG</span>
+<span class="sd">        Java Points-to context-free grammar.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] https://dl.acm.org/doi/10.1145/2858965.2814307</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">load_pattern</span> <span class="o">=</span> <span class="s2">&quot;(^load_[^r].*)|(^load_r.+)&quot;</span>
+    <span class="n">store_pattern</span> <span class="o">=</span> <span class="s2">&quot;(^store_[^r].*)|(^store_r.+)&quot;</span>
+
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">edge_labels</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">edge_labels</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">load_pattern</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+                <span class="n">field</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;load_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">store_pattern</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+                <span class="n">field</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;store_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">field</span> <span class="ow">and</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+                <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">java_points_to_grammar</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="n">start_symbol</span><span class="o">=</span><span class="n">start_symbol</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Create a Java Points-to </span><span class="si">{</span><span class="n">cfg</span><span class="si">=}</span><span class="s2"> for </span><span class="si">{</span><span class="n">graph</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cfg</span></div>
+</pre></div>
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2019-2022, vdshk.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

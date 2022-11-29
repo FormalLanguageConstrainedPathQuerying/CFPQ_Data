@@ -118,8 +118,14 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../../../dataset/index.html">
-  Dataset
+ <a class="reference internal nav-link" href="../../../graphs/index.html">
+  Graphs
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../grammars/index.html">
+  Grammars
  </a>
 </li>
 
@@ -227,18 +233,24 @@
 
 <span class="kn">import</span> <span class="nn">requests</span>
 
-<span class="kn">from</span> <span class="nn">cfpq_data.config</span> <span class="kn">import</span> <span class="n">DATA</span><span class="p">,</span> <span class="n">VERSION</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">cfpq_data.config</span> <span class="kn">import</span> <span class="n">DATA</span><span class="p">,</span> <span class="n">GRAPHS_DIR</span><span class="p">,</span> <span class="n">GRAMMARS_DIR</span><span class="p">,</span> <span class="n">BENCHMARKS_DIR</span><span class="p">,</span> <span class="n">VERSION</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;DATASET_URL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GRAMMARS_URL&quot;</span><span class="p">,</span>
     <span class="s2">&quot;BENCHMARK_URL&quot;</span><span class="p">,</span>
     <span class="s2">&quot;DATASET&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;BENCHMARK&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GRAMMAR_TEMPLATES&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;BENCHMARKS&quot;</span><span class="p">,</span>
     <span class="s2">&quot;download&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;download_grammars&quot;</span><span class="p">,</span>
     <span class="s2">&quot;download_benchmark&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">DATASET_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://cfpq-data.storage.yandexcloud.net/</span><span class="si">{</span><span class="n">VERSION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">.0.0/graph/&quot;</span>
+<span class="n">GRAMMARS_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://cfpq-data.storage.yandexcloud.net/</span><span class="si">{</span><span class="n">VERSION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">.0.0/grammar/&quot;</span>
 <span class="n">BENCHMARK_URL</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://cfpq-data.storage.yandexcloud.net/</span><span class="si">{</span><span class="n">VERSION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">.0.0/benchmark/&quot;</span>
 
 <span class="n">DATASET</span> <span class="o">=</span> <span class="p">[</span>
@@ -299,7 +311,15 @@
 <span class="p">]</span>
 
 
-<span class="n">BENCHMARK</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">GRAMMAR_TEMPLATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;c_alias&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dyck&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;java_points_to&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nested_parentheses&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="n">BENCHMARKS</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;MS_Reachability&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
@@ -325,10 +345,10 @@
     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">DATASET</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found graph with </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">DATA</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">GRAPHS_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="n">graph_archive</span> <span class="o">=</span> <span class="n">DATA</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
-        <span class="n">graph</span> <span class="o">=</span> <span class="n">DATA</span> <span class="o">/</span> <span class="n">name</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+        <span class="n">graph_archive</span> <span class="o">=</span> <span class="n">GRAPHS_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">GRAPHS_DIR</span> <span class="o">/</span> <span class="n">name</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.csv&quot;</span>
 
         <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">url</span><span class="o">=</span><span class="n">DATASET_URL</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span><span class="p">,</span>
@@ -339,7 +359,7 @@
 
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Load archive </span><span class="si">{</span><span class="n">graph_archive</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">graph_archive</span><span class="p">,</span> <span class="n">DATA</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">graph_archive</span><span class="p">,</span> <span class="n">GRAPHS_DIR</span><span class="p">)</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unzip graph </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2"> to file </span><span class="si">{</span><span class="n">graph</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -350,6 +370,76 @@
         <span class="k">return</span> <span class="n">graph</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No graph with </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2"> found&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="download_grammars"><a class="viewcode-back" href="../../../reference/dataset/generated/cfpq_data.dataset.download_grammars.html#cfpq_data.dataset.download_grammars">[docs]</a><span class="k">def</span> <span class="nf">download_grammars</span><span class="p">(</span>
+    <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Download grammars of the given template.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    template : str</span>
+<span class="sd">        The name of the grammar template from the dataset.</span>
+
+<span class="sd">    graph_name : Union[str, None]</span>
+<span class="sd">        The name of the specified graph from the dataset or None for downloading example grammars.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from cfpq_data import *</span>
+<span class="sd">    &gt;&gt;&gt; path = download_grammars(&quot;java_points_to&quot;, graph_name=&quot;avrora&quot;)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    path : Union[Path, None]</span>
+<span class="sd">        Path to the directory with grammars data or None if there is no such grammars in dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">template</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">GRAMMAR_TEMPLATES</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No grammar </span><span class="si">{</span><span class="n">template</span><span class="si">=}</span><span class="s2"> found&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">graph_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found grammar </span><span class="si">{</span><span class="n">template</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">grammars_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">template</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">GRAMMARS_URL</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;example/</span><span class="si">{</span><span class="n">grammars_name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+    <span class="k">elif</span> <span class="n">graph_name</span> <span class="ow">in</span> <span class="n">DATASET</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found graph with </span><span class="si">{</span><span class="n">graph_name</span><span class="si">=}</span><span class="s2"> and grammar </span><span class="si">{</span><span class="n">template</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">grammars_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">template</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">graph_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">GRAMMARS_URL</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">grammars_name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No graph with </span><span class="si">{</span><span class="n">graph_name</span><span class="si">=}</span><span class="s2"> found&quot;</span><span class="p">)</span>
+
+    <span class="n">GRAMMARS_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">grammar_archive</span> <span class="o">=</span> <span class="n">GRAMMARS_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">grammars_name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+    <span class="n">grammars</span> <span class="o">=</span> <span class="n">GRAMMARS_DIR</span> <span class="o">/</span> <span class="n">grammars_name</span>
+
+    <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+        <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;No grammars with </span><span class="si">{</span><span class="n">template</span><span class="si">=}</span><span class="s2"> for graph with </span><span class="si">{</span><span class="n">graph_name</span><span class="si">=}</span><span class="s2"> found&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">grammar_archive</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Load archive </span><span class="si">{</span><span class="n">grammar_archive</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">grammar_archive</span><span class="p">,</span> <span class="n">GRAMMARS_DIR</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Unzip grammars with </span><span class="si">{</span><span class="n">template</span><span class="si">=}</span><span class="s2"> for graph with </span><span class="si">{</span><span class="n">graph_name</span><span class="si">=}</span><span class="s2"> to directory </span><span class="si">{</span><span class="n">grammars</span><span class="si">=}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">grammar_archive</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Remove archive </span><span class="si">{</span><span class="n">grammar_archive</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">grammars</span></div>
 
 
 <div class="viewcode-block" id="download_benchmark"><a class="viewcode-back" href="../../../reference/dataset/generated/cfpq_data.dataset.download_benchmark.html#cfpq_data.dataset.download_benchmark">[docs]</a><span class="k">def</span> <span class="nf">download_benchmark</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
@@ -370,13 +460,13 @@
 <span class="sd">    path : Path</span>
 <span class="sd">        Path to the directory with benchmark data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">BENCHMARK</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">BENCHMARKS</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found benchmark with </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">DATA</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">BENCHMARKS_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="n">benchmark_archive</span> <span class="o">=</span> <span class="n">DATA</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
-        <span class="n">benchmark</span> <span class="o">=</span> <span class="n">DATA</span> <span class="o">/</span> <span class="n">name</span>
+        <span class="n">benchmark_archive</span> <span class="o">=</span> <span class="n">BENCHMARKS_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+        <span class="n">benchmark</span> <span class="o">=</span> <span class="n">BENCHMARKS_DIR</span> <span class="o">/</span> <span class="n">name</span>
 
         <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">url</span><span class="o">=</span><span class="n">BENCHMARK_URL</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span><span class="p">,</span>
@@ -387,7 +477,7 @@
 
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Load archive </span><span class="si">{</span><span class="n">benchmark_archive</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">benchmark_archive</span><span class="p">,</span> <span class="n">DATA</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">benchmark_archive</span><span class="p">,</span> <span class="n">BENCHMARKS_DIR</span><span class="p">)</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unzip benchmark </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2"> to directory </span><span class="si">{</span><span class="n">benchmark</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 
