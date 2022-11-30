@@ -15,7 +15,9 @@ Graph utilities
 .. autosummary::
    :toctree: generated/
 
+   add_reverse_edges
    change_edges
+   edge_statistics
    filter_edges
-   nodes_to_integers
    multiple_source_utils
+   nodes_to_integers
