@@ -93,6 +93,18 @@ from :ref:`graphs_utils`.
 
 Now the labels ``a`` have changed to ``b``.
 
+Add reverse edges
+-----------------
+
+In addition, we can add reverse edges to the graph by using function `add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`
+from :ref:`graphs_utils`. This is extremely useful if graph analysis is formulated using such reverse edges.
+
+.. nbplot::
+
+    new_cycle_with_reversed = cfpq_data.add_reverse_edges(new_cycle)
+
+Now, for each edge with label ``a`` this graph contains the reversed edge with label ``a_r``.
+
 Load grammar
 ------------
 
