@@ -229,7 +229,7 @@
 <dd class="field-odd"><p>4.0.1</p>
 </dd>
 <dt class="field-even">Date</dt>
-<dd class="field-even"><p>Nov 29, 2022</p>
+<dd class="field-even"><p>Nov 30, 2022</p>
 </dd>
 </dl>
 <p>This guide can help you start working with CFPQ_Data.</p>
@@ -293,6 +293,15 @@ from <a class="reference internal" href="reference/graphs/graphs_utils.html#grap
 </pre></div>
 </div>
 <p>Now the labels <code class="docutils literal notranslate"><span class="pre">a</span></code> have changed to <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+</div>
+<div class="section" id="add-reverse-edges">
+<h2>Add reverse edges<a class="headerlink" href="#add-reverse-edges" title="Permalink to this headline">¶</a></h2>
+<p>In addition, we can add reverse edges to the graph by using function <a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.add_reverse_edges.html#cfpq_data.graphs.utils.add_reverse_edges" title="cfpq_data.graphs.utils.add_reverse_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_reverse_edges</span></code></a>
+from <a class="reference internal" href="reference/graphs/graphs_utils.html#graphs-utils"><span class="std std-ref">Graph utilities</span></a>. This is extremely useful if graph analysis is formulated using such reverse edges.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_cycle_with_reversed</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">add_reverse_edges</span><span class="p">(</span><span class="n">new_cycle</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, for each edge with label <code class="docutils literal notranslate"><span class="pre">a</span></code> this graph contains the reversed edge with label <code class="docutils literal notranslate"><span class="pre">a_r</span></code>.</p>
 </div>
 <div class="section" id="load-grammar">
 <h2>Load grammar<a class="headerlink" href="#load-grammar" title="Permalink to this headline">¶</a></h2>

@@ -6,7 +6,7 @@
 #
 # Date
 #
-# :   Nov 29, 2022
+# :   Nov 30, 2022
 #
 # This guide can help you start working with CFPQ_Data.
 #
@@ -52,6 +52,15 @@ cycle = cfpq_data.labeled_cycle_graph(5, label="a")
 new_cycle = cfpq_data.change_edges(cycle, {"a": "b"})
 
 # Now the labels `a` have changed to `b`.
+#
+# # Add reverse edges
+#
+# In addition, we can add reverse edges to the graph by using function `add_reverse_edges`
+# from Graph utilities. This is extremely useful if graph analysis is formulated using such reverse edges.
+
+new_cycle_with_reversed = cfpq_data.add_reverse_edges(new_cycle)
+
+# Now, for each edge with label `a` this graph contains the reversed edge with label `a_r`.
 #
 # # Load grammar
 #

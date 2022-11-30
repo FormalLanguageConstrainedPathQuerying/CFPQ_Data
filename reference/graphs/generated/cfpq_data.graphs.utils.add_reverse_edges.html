@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.graphs.utils.filter_edges &#8212; CFPQ_Data 4.0.1 documentation</title>
+    <title>cfpq_data.graphs.utils.add_reverse_edges &#8212; CFPQ_Data 4.0.1 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -43,8 +43,8 @@
     <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="cfpq_data.graphs.utils.multiple_source_utils" href="cfpq_data.graphs.utils.multiple_source_utils.html" />
-    <link rel="prev" title="cfpq_data.graphs.utils.change_edges" href="cfpq_data.graphs.utils.change_edges.html" />
+    <link rel="next" title="cfpq_data.graphs.utils.change_edges" href="cfpq_data.graphs.utils.change_edges.html" />
+    <link rel="prev" title="Graph utilities" href="../graphs_utils.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -267,33 +267,33 @@
               
               <div>
                 
-  <div class="section" id="cfpq-data-graphs-utils-filter-edges">
-<h1>cfpq_data.graphs.utils.filter_edges<a class="headerlink" href="#cfpq-data-graphs-utils-filter-edges" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="cfpq-data-graphs-utils-add-reverse-edges">
+<h1>cfpq_data.graphs.utils.add_reverse_edges<a class="headerlink" href="#cfpq-data-graphs-utils-add-reverse-edges" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="cfpq_data.graphs.utils.filter_edges">
-<span class="sig-name descname"><span class="pre">filter_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.8.8)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.8.8)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/utils/filter_edges.html#filter_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.utils.filter_edges" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a graph with filtered edges.</p>
+<dt class="sig sig-object py" id="cfpq_data.graphs.utils.add_reverse_edges">
+<span class="sig-name descname"><span class="pre">add_reverse_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.8.8)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.8.8)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/utils/add_reverse_edges.html#add_reverse_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.utils.add_reverse_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a graph with added reverse edges (with suffix '_r' by default).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<em>MultiDiGraph</em>) -- Initial graph.</p></li>
-<li><p><strong>labels</strong> (<em>Iterable</em><em>[</em><em>Any</em><em>]</em>) -- Graph edge labels to be preserved.</p></li>
+<li><p><strong>mapping</strong> (<em>Dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em>) -- Edge labels mapping for reverse edges that must be added.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cfpq_data</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">labeled_two_cycles_graph</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">labeled_cycle_graph</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[(1, 0, {&#39;label&#39;: &#39;a&#39;}), (0, 1, {&#39;label&#39;: &#39;a&#39;}), (0, 2, {&#39;label&#39;: &#39;b&#39;}), (2, 0, {&#39;label&#39;: &#39;b&#39;})]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_g</span> <span class="o">=</span> <span class="n">filter_edges</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">])</span>
+<span class="go">[(0, 1, {&#39;label&#39;: &#39;a&#39;}), (1, 0, {&#39;label&#39;: &#39;a&#39;})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_g</span> <span class="o">=</span> <span class="n">add_reverse_edges</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">new_g</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-<span class="go">[(1, 0, {&#39;label&#39;: &#39;a&#39;}), (0, 1, {&#39;label&#39;: &#39;a&#39;})]</span>
+<span class="go">[(0, 1, {&#39;label&#39;: &#39;a&#39;}), (0, 1, {&#39;label&#39;: &#39;a_r&#39;}), (1, 0, {&#39;label&#39;: &#39;a_r&#39;}), (1, 0, {&#39;label&#39;: &#39;a&#39;})]</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>g</strong> -- Graph with filtered edges.</p>
+<dd class="field-odd"><p><strong>g</strong> -- A graph with added reverse edges.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>MultiDiGraph</p>
