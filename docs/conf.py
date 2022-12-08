@@ -136,7 +136,7 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/JetBrains-Research/CFPQ_Data",
+            "url": "https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data",
             "icon": "fab fa-github",
         },
         {
@@ -149,7 +149,7 @@ html_theme_options = {
     "page_sidebar_items": [],
 }
 
-html_logo = "_static/img/JetbrainsResearchLogo.svg"
+html_logo = "_static/img/CFPQDataLogo.svg"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -187,7 +187,7 @@ html_sidebars = {
 # If true, the reST sources are included in the HTML build as _sources/<name>.
 html_copy_source = False
 
-html_use_opensearch = "https://jetbrains-research.github.io/CFPQ_Data/"
+html_use_opensearch = "https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/"
 
 
 # -- Options for HTMLHelp output ---------------------------------------------

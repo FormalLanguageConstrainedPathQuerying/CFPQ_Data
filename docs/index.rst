@@ -10,7 +10,7 @@ experimental analysis of Context-Free Path Querying algorithms.
 CFPQ_Data is free software; you can redistribute it and/or modify it under the
 terms of the :doc:`Apache-2.0 License </license>`.
 
-We welcome contributions. Join us on `GitHub <https://github.com/JetBrains-Research/CFPQ_Data>`_.
+We welcome contributions. Join us on `GitHub <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data>`_.
 
 Documentation
 =============

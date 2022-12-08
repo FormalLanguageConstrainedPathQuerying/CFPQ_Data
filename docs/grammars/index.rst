@@ -12,7 +12,7 @@ Grammars
 How to add a new grammar?
 -------------------------
 
-Just create a PR (Pull Request) corresponding to the `"Template for adding a new grammar" <https://github.com/JetBrains-Research/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_grammar.md>`_.
+Just create a PR (Pull Request) corresponding to the `"Template for adding a new grammar" <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_grammar.md>`_.
 
 ----
 

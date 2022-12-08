@@ -1,4 +1,4 @@
-"""Returns an edge statistics."""
+"""Returns statistics of graph edges."""
 import logging
 from collections import defaultdict
 from typing import List, Any, DefaultDict

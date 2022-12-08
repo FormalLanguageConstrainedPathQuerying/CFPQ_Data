@@ -25,12 +25,12 @@ authors = {
     "Yakonick": ("Nikita Kovalev", "Nikitoskova123@gmail.com"),
 }
 
-url = "https://jetbrains-research.github.io/CFPQ_Data/"
+url = "https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/"
 
 project_urls = {
-    "Documentation": "https://jetbrains-research.github.io/CFPQ_Data",
-    "Source Code": "https://github.com/JetBrains-Research/CFPQ_Data",
-    "Bug Tracker": "https://github.com/JetBrains-Research/CFPQ_Data/issues",
+    "Documentation": "https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data",
+    "Source Code": "https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data",
+    "Bug Tracker": "https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/issues",
 }
 
 platforms = ["Linux", "Mac OSX", "Unix", "Windows"]

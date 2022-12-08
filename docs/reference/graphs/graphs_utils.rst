@@ -17,7 +17,7 @@ Graph utilities
 
    add_reverse_edges
    change_edges
-   edge_statistics
+   edges_statistics
    filter_edges
    multiple_source_utils
    nodes_to_integers
