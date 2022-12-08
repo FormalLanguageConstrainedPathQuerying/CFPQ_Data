@@ -187,7 +187,9 @@ html_sidebars = {
 # If true, the reST sources are included in the HTML build as _sources/<name>.
 html_copy_source = False
 
-html_use_opensearch = "https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/"
+html_use_opensearch = (
+    "https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/"
+)
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
