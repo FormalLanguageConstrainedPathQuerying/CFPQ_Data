@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cfpq_data.graphs.readwrite.csv &#8212; CFPQ_Data 4.0.2 documentation</title>
+    <title>cfpq_data.graphs.utils.edges_statistics &#8212; CFPQ_Data 4.0.2 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -43,8 +43,8 @@
     <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="cfpq_data.graphs.readwrite.txt" href="cfpq_data.graphs.readwrite.txt.html" />
-    <link rel="prev" title="Reading and writing graphs" href="../graphs_readwrite.html" />
+    <link rel="next" title="cfpq_data.graphs.utils.filter_edges" href="cfpq_data.graphs.utils.filter_edges.html" />
+    <link rel="prev" title="cfpq_data.graphs.utils.change_edges" href="cfpq_data.graphs.utils.change_edges.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -221,12 +221,12 @@
      Graph generators
     </a>
    </li>
-   <li class="toctree-l2 current active">
+   <li class="toctree-l2">
     <a class="reference internal" href="../graphs_readwrite.html">
      Reading and writing graphs
     </a>
    </li>
-   <li class="toctree-l2">
+   <li class="toctree-l2 current active">
     <a class="reference internal" href="../graphs_utils.html">
      Graph utilities
     </a>
@@ -262,9 +262,9 @@
               
               <div>
                 
-  <div class="section" id="module-cfpq_data.graphs.readwrite.csv">
-<span id="cfpq-data-graphs-readwrite-csv"></span><h1>cfpq_data.graphs.readwrite.csv<a class="headerlink" href="#module-cfpq_data.graphs.readwrite.csv" title="Permalink to this headline">¶</a></h1>
-<p>Read (and write) a graph from (and to) CSV file.</p>
+  <div class="section" id="module-cfpq_data.graphs.utils.edges_statistics">
+<span id="cfpq-data-graphs-utils-edges-statistics"></span><h1>cfpq_data.graphs.utils.edges_statistics<a class="headerlink" href="#module-cfpq_data.graphs.utils.edges_statistics" title="Permalink to this headline">¶</a></h1>
+<p>Returns statistics of graph edges.</p>
 <p class="rubric">Functions</p>
 <table class="longtable table autosummary">
 <colgroup>
@@ -272,69 +272,70 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#cfpq_data.graphs.readwrite.csv.graph_from_csv" title="cfpq_data.graphs.readwrite.csv.graph_from_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_from_csv</span></code></a>(path)</p></td>
-<td><p>Loads a graph from CSV file.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cfpq_data.graphs.utils.edges_statistics.get_labels_frequency" title="cfpq_data.graphs.utils.edges_statistics.get_labels_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_labels_frequency</span></code></a>(graph)</p></td>
+<td><p>Returns a dictionary with the number of edge labels used in the graph.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#cfpq_data.graphs.readwrite.csv.graph_to_csv" title="cfpq_data.graphs.readwrite.csv.graph_to_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_to_csv</span></code></a>(graph, path)</p></td>
-<td><p>Saves the <code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code> to the CSV file by <code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code>.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#cfpq_data.graphs.utils.edges_statistics.get_sorted_labels" title="cfpq_data.graphs.utils.edges_statistics.get_sorted_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sorted_labels</span></code></a>(graph, *[, reverse])</p></td>
+<td><p>Returns a list of edge labels sorted by the number of uses in the graph.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
-<dt class="sig sig-object py" id="cfpq_data.graphs.readwrite.csv.graph_from_csv">
-<span class="sig-name descname"><span class="pre">graph_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.8.8)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/readwrite/csv.html#graph_from_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.readwrite.csv.graph_from_csv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads a graph from CSV file.</p>
+<dt class="sig sig-object py" id="cfpq_data.graphs.utils.edges_statistics.get_labels_frequency">
+<span class="sig-name descname"><span class="pre">get_labels_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.8.8)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DefaultDict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/utils/edges_statistics.html#get_labels_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.utils.edges_statistics.get_labels_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary with the number of edge labels used in the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) -- The path to the CSV file with which
-the graph will be created.</p>
+<dd class="field-odd"><p><strong>graph</strong> (<em>MultiDiGraph</em>) -- Given graph.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cfpq_data</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_csv</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
-<span class="go">129</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
-<span class="go">273</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">labeled_two_cycles_graph</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">[(1, 0, {&#39;label&#39;: &#39;a&#39;}), (0, 1, {&#39;label&#39;: &#39;a&#39;}), (0, 2, {&#39;label&#39;: &#39;b&#39;}), (2, 0, {&#39;label&#39;: &#39;b&#39;})]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_frequency</span> <span class="o">=</span> <span class="n">get_labels_frequency</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_frequency</span>
+<span class="go">defaultdict(&lt;class &#39;int&#39;&gt;, {&#39;a&#39;: 2, &#39;b&#39;: 2})</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>g</strong> -- Loaded graph.</p>
+<dd class="field-odd"><p><strong>labels_frequency</strong> -- Dictionary with edge labels usage frequency.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>MultiDiGraph</p>
+<dd class="field-even"><p>DefaultDict[Any, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="cfpq_data.graphs.readwrite.csv.graph_to_csv">
-<span class="sig-name descname"><span class="pre">graph_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.8.8)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">pathlib.Path</span></a></span></span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/readwrite/csv.html#graph_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.readwrite.csv.graph_to_csv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves the <code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code> to the CSV file by <code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<dt class="sig sig-object py" id="cfpq_data.graphs.utils.edges_statistics.get_sorted_labels">
+<span class="sig-name descname"><span class="pre">get_sorted_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/multidigraph.html#networkx.MultiDiGraph" title="(in NetworkX v2.8.8)"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/cfpq_data/graphs/utils/edges_statistics.html#get_sorted_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cfpq_data.graphs.utils.edges_statistics.get_sorted_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of edge labels sorted by the number of uses in the graph. The labels with equal number of uses are
+sorted lexicographically.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<em>MultiDiGraph</em>) -- Graph to save.</p></li>
-<li><p><strong>path</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) -- The path to the CSV file where the graph will be saved.</p></li>
+<li><p><strong>graph</strong> (<em>MultiDiGraph</em>) -- Given graph.</p></li>
+<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) -- If set to True, then the labels are sorted in reverse (ascending) order.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cfpq_data</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">download</span><span class="p">(</span><span class="s2">&quot;generations&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">graph_from_csv</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="n">graph_to_csv</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;test.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">labeled_two_cycles_graph</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_labels</span> <span class="o">=</span> <span class="n">get_sorted_labels</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_labels</span>
+<span class="go">[&#39;a&#39;, &#39;b&#39;]</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>path</strong> -- Path to the CSV file where the graph will be saved.</p>
+<dd class="field-odd"><p><strong>labels</strong> -- Sorted list of graph edge labels.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Path</p>
+<dd class="field-even"><p>List[Any]</p>
 </dd>
 </dl>
 </dd></dl>

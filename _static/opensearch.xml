@@ -4,7 +4,7 @@
   <Description>Search CFPQ_Data 4.0.2 documentation</Description>
   <InputEncoding>utf-8</InputEncoding>
   <Url type="text/html" method="get"
-       template="https://jetbrains-research.github.io/CFPQ_Data//search.html?q={searchTerms}"/>
+       template="https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data//search.html?q={searchTerms}"/>
   <LongName>CFPQ_Data 4.0.2 documentation</LongName>
   
 </OpenSearchDescription>
