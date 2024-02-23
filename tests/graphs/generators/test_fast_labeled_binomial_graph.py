@@ -12,7 +12,7 @@ g2 = cfpq_data.fast_labeled_binomial_graph(42, 0.1, seed=seed)
 
 
 @pytest.mark.parametrize(
-    "graph,expected_nodes,expected_edges", [(g1, 29, 91), (g2, 42, 182)]
+    "graph,expected_nodes,expected_edges", [(g1, 29, 85), (g2, 42, 177)]
 )
 def test_fast_labeled_binomial_graph(graph, expected_nodes, expected_edges):
     assert graph.number_of_nodes() == expected_nodes

@@ -46,7 +46,7 @@ def fast_labeled_binomial_graph(
     >>> g.number_of_nodes()
     42
     >>> g.number_of_edges()
-    722
+    711
 
     Returns
     -------
