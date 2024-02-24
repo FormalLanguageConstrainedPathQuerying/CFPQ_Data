@@ -29,7 +29,7 @@
 #
 # [Pyformlang Regex](https://pyformlang.readthedocs.io/en/latest/modules/regular_expression.html#pyformlang.regular_expression.Regex):
 #
-# ```
+# ```python
 # type isDefinedBy* type
 # ```
 #
@@ -42,7 +42,7 @@
 #
 # [Pyformlang Regex](https://pyformlang.readthedocs.io/en/latest/modules/regular_expression.html#pyformlang.regular_expression.Regex):
 #
-# ```
+# ```python
 # (rest | label | range | type | comment) seeAlso*
 # ```
 #
