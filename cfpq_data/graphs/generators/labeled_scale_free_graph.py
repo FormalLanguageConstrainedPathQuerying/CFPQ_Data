@@ -90,7 +90,6 @@ def labeled_scale_free_graph(
         delta_in=delta_in,
         delta_out=delta_out,
         seed=seed,
-        create_using=nx.MultiDiGraph,
     )
 
     random.seed(seed)

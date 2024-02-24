@@ -16,8 +16,6 @@ import os
 import sys
 from datetime import date
 
-from pydata_sphinx_theme import get_html_theme_path
-
 sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
@@ -123,7 +121,6 @@ doctest_global_setup = "import cfpq_data"
 # a list of builtin themes.
 #
 html_theme = "pydata_sphinx_theme"
-html_theme_path = get_html_theme_path()
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
