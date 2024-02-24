@@ -9,7 +9,7 @@ __all__ = [
     "BENCHMARKS_DIR",
 ]
 
-VERSION = "4.0.2"
+VERSION = "4.0.3"
 
 ROOT = pathlib.Path(__file__).parent
 DATA = ROOT / "data"
