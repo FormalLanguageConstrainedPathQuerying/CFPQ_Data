@@ -1,0 +1,13 @@
+{
+  "db": {
+    "user": "",
+    "host": "",
+    "database": "",
+    "password": "",
+    "port": 5432
+  },
+  "apiUrl": "",
+  "repoOwner": "",
+  "repoName": "",
+  "githubToken": ""
+}
