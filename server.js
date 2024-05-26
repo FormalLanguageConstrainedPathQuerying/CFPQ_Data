@@ -30,7 +30,7 @@ const configPath = path.join(__dirname, 'config', 'config.json');
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 const clientId = config.clientId;
 const clientSecret = config.clientSecret;
-const redirectUri = encodeURIComponent('http://localhost:8080/auth/callback');
+const redirectUri = config.redirectUri;
 const oauth2 = new oauth(clientId, clientSecret, 'https://github.com/', 'login/oauth/authorize', 'login/oauth/access_token');
 
 app.get('/auth/github', (req, res) => {
