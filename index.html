@@ -675,10 +675,8 @@
                                 <input type="text" class="form-control" id="graphOrigin" required>
                             </div>
                              <div class="mb-3">
-                                <!-- Replace the CSV file input with directory input -->
-                                <label for="directoryInput" class="form-label">Select Directory</label>
-                                <input type="file" id="directoryInput" webkitdirectory directory multiple style="display:none;">
-                                <button type="button" class="btn btn-primary mt-2" id="selectDirectoryBtn">Select Directory</button>
+                                <label for="graphUrl" class="form-label">CSV URL</label>
+                                <input type="url" class="form-control" id="graphUrl" required>
                             </div>
                         </form>
                     </div>
@@ -712,11 +710,29 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="createGitHubIssue()">Send</button>
+                <button type="button" class="btn btn-primary" onclick="sendIssue()">Send</button>
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="modal" id="issueCreatedModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Issue Created</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>You have successfully created an issue in the repository. <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/issues">Link to the issue</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
@@ -767,6 +783,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -908,75 +925,152 @@
     }
 </script>
 
+
 <script>
     $(document).ready(function () {
-        $('#addNewButton').click(function () {
-            $('#addNewModal').modal('show');
-        });
-    });
-</script>
+        $.getJSON('/config')
+            .done(function(data) {
+                config = data;
+                console.log('Config loaded:', config);
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var directoryInput = document.getElementById('directoryInput');
-        var selectDirectoryBtn = document.getElementById('selectDirectoryBtn');
-
-        if (directoryInput && selectDirectoryBtn) {
-            selectDirectoryBtn.addEventListener('click', function() {
-                directoryInput.click();
-            });
-
-            directoryInput.addEventListener('change', function(event) {
-                var files = event.target.files;
-                if (files.length > 0) {
-                    console.log('Selected files:', files);
+                const token = getQueryParam('access_token');
+                if (token) {
+                    sessionStorage.setItem('github_access_token', token);
+                    clearAccessTokenFromUrl();
+                    sendStoredIssue();
                 }
+
+                $('#addNewButton').click(function () {
+                    const token = sessionStorage.getItem('github_access_token');
+                    if (!token) {
+                        window.location.href = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&redirect_uri=${config.redirectUri}&scope=repo&prompt=login`;
+                    } else {
+                        $('#addNewModal').modal('show');
+                    }
+                });
+
+                $('#addNewModal').on('click', '.btn-primary', function() {
+                    const issueDescription = getIssueDescription();
+                    if (issueDescription) {
+                        const issueTitle = 'Add new data';
+                        authenticateAndSendIssue(issueTitle, issueDescription);
+                        $('#addNewModal').modal('hide');
+                    } else {
+                        alert('Please fill out all required fields.');
+                    }
+                });
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                console.error('Error loading config file:', textStatus, error);
             });
+    });
+
+    function getIssueDescription() {
+        const graphFullName = $('#graphFullName').val();
+        const graphVersion = $('#graphVersion').val();
+        const graphOrigin = $('#graphOrigin').val();
+        const graphUrl = $('#graphUrl').val();
+
+        const grammarFullName = $('#grammarFullName').val();
+        const grammarVersion = $('#grammarVersion').val();
+        const grammarClass = $('#grammarClass').val();
+        const grammarKind = $('#grammarKind').val();
+        const grammarOrigin = $('#grammarOrigin').val();
+
+        let issueDescription = '';
+
+        if (graphFullName || graphVersion || graphOrigin || graphUrl) {
+            issueDescription += `
+                ## Graph Information
+                ${graphFullName ? `**Full Name:** ${graphFullName}\n` : ''}
+                ${graphVersion ? `**Version:** ${graphVersion}\n` : ''}
+                ${graphOrigin ? `**Origin:** ${graphOrigin}\n` : ''}
+                ${graphUrl ? `**CSV URL:** ${graphUrl}\n` : ''}
+            `;
+        }
+
+        if (grammarFullName || grammarVersion || grammarClass || grammarKind || grammarOrigin) {
+            issueDescription += `
+                ## Grammar Information
+                ${grammarFullName ? `**Full Name:** ${grammarFullName}\n` : ''}
+                ${grammarVersion ? `**Version:** ${grammarVersion}\n` : ''}
+                ${grammarClass ? `**Class:** ${grammarClass}\n` : ''}
+                ${grammarKind ? `**Kind:** ${grammarKind}\n` : ''}
+                ${grammarOrigin ? `**Origin:** ${grammarOrigin}\n` : ''}
+            `;
+        }
+
+        return issueDescription.trim() ? issueDescription.trim() : null;
+    }
+
+    function authenticateAndSendIssue(title, body) {
+        const token = sessionStorage.getItem('github_access_token');
+        if (!token) {
+            sessionStorage.setItem('pending_issue_title', title);
+            sessionStorage.setItem('pending_issue_body', body);
+
+            window.location.href = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&redirect_uri=${config.redirectUri}&scope=repo&prompt=login`;
         } else {
-            console.error('Directory input or button not found');
+            sendIssue(title, body);
         }
-    });
-</script>
+    }
 
-<script>
-    $(document).ready(function () {
-        $('#addNewButton').click(function () {
-            $('#addNewModal').modal('show');
-        });
+    function sendStoredIssue() {
+        const title = sessionStorage.getItem('pending_issue_title');
+        const body = sessionStorage.getItem('pending_issue_body');
 
-        function createGitHubIssue(title, body) {
-            const config = require('./config/config.json');
+        if (title && body) {
+            sendIssue(title, body);
+            sessionStorage.removeItem('pending_issue_title');
+            sessionStorage.removeItem('pending_issue_body');
+        }
+    }
 
-            $.ajax({
-                url: `https://api.github.com/repos/${config.repoOwner}/${config.repoName}/issues`,
-                type: 'POST',
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('Authorization', `token ${config.githubToken}`);
-                },
-                contentType: 'application/json',
-                data: JSON.stringify({ title: title, body: body }),
-                success: function(response) {
-                    console.log('Issue created successfully:', response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error creating issue:', error);
-                }
-            });
+    function sendIssue(title, body) {
+        if (!config) {
+            console.error('Config is not loaded');
+            return;
         }
 
-        $('#addNewModal').on('click', '.btn-primary', function() {
-            const issueTitle = $('#graphFullName').val();
-            const issueDescription = $('#graphOrigin').val();
+        const token = sessionStorage.getItem('github_access_token');
+        console.log('Access token:', token);
 
-            if (issueTitle && issueDescription) {
-                createGitHubIssue(issueTitle, issueDescription);
-                $('#addNewModal').modal('hide');
-            } else {
-                alert('Please fill out all required fields.');
+        $.ajax({
+            url: `https://api.github.com/repos/${config.repoOwner}/${config.repoName}/issues`,
+            type: 'POST',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', `token ${token}`);
+            },
+            contentType: 'application/json',
+            data: JSON.stringify({ title: title, body: body }),
+            success: function(response) {
+                console.log('Issue created successfully:', response);
+                $('#issueCreatedModal').modal('show');
+                setTimeout(function() {
+                    $('#issueCreatedModal').modal('hide');
+                    sessionStorage.removeItem('github_access_token');
+                    window.location.reload();
+                }, 5000);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error creating issue:', error);
+                console.error('Response:', xhr.responseText);
             }
         });
-    });
+    }
+
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function clearAccessTokenFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.delete('access_token');
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
 </script>
+
 
 </body>
 
