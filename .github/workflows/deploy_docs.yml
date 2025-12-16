@@ -26,19 +26,15 @@ jobs:
         run: |
           poetry install --no-interaction --no-ansi --with docs
 
-      - name: Register ipykernel
-        run: |
-          poetry run python -m ipykernel install --user --name=python3 --display-name "Python 3"
-
       - name: Show installed packages
         run: poetry show
 
       - name: Install packages
         run: |
-          python -m pip install .
+          poetry run pip install .
 
       - name: Build
-        run: poetry run make -C docs/ html
+        run: make -C docs/ html
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3
