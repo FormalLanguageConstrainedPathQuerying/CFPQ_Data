@@ -1,3 +1,36 @@
+[tool.poetry]
+authors = [
+  "Vadim Abzalov vadim.i.abzalov@gmail.com",
+  "Nikita Kovalev Nikitoskova123@gmail.com",
+]
+description = "Python package containing Graphs and Grammars for experimental analysis of Context-Free Path Querying algorithms"
+name = "cfpq_data"
+package-mode = false
+version = "4.0.3"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.14"
+networkx = "^3.6.1"
+pandas = "^2.3.3"
+rdflib = "^7.5.0"
+requests = "^2.32.5"
+pyformlang = "1.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+black = "^25.12.0"
+pre-commit = "^4.5.1"
+
+
+[tool.poetry.group.test.dependencies]
+codecov = "^2.1.13"
+pytest = "^9.0.2"
+pytest-cov = "^7.0.0"
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules -vv -s"
+testpaths = ["cfpq_data", "tests"]
+
 [build-system]
 requires = [
     "setuptools>=42",

@@ -1,5 +1,5 @@
-networkx==3.2.1
-pandas==2.2.1
-pyformlang==1.0.7
-rdflib==7.0.0
-requests==2.31.0
+networkx==3.6.1
+pandas==2.3.3
+pyformlang==1.0.1
+rdflib==7.5.0
+requests==2.32.5

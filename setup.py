@@ -87,6 +87,6 @@ if __name__ == "__main__":
         classifiers=classifiers,
         install_requires=install_requires,
         extras_require=extras_require,
-        python_requires=">=3.8",
+        python_requires=">=3.11",
         zip_safe=False,
     )
