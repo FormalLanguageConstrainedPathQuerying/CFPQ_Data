@@ -27,6 +27,13 @@ codecov = "^2.1.13"
 pytest = "^9.0.2"
 pytest-cov = "^7.0.0"
 
+[tool.poetry.group.docs.dependencies]
+nb2plots = "^0.7.2"
+numpydoc = "^1.10.0"
+pydata-sphinx-theme = "^0.16.1"
+sphinx = "^9.0.4"
+sphinx-copybutton = "^0.5.2"
+
 [tool.pytest.ini_options]
 addopts = "--doctest-modules -vv -s"
 testpaths = ["cfpq_data", "tests"]

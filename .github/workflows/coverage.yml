@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ 3.9 ]
+        python-version: [ 3.11 ]
     steps:
       - uses: actions/checkout@v3
 
@@ -16,15 +16,25 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install Poetry
+        run: |
+          pip install poetry
+
+      - name: Install dependencies with Poetry
+        run: |
+          poetry install --no-interaction --no-ansi --with dev,test
+
+      - name: Show installed packages
+        run: poetry show
+
       - name: Install packages
         run: |
-          python -m pip install --upgrade pip wheel setuptools
-          python -m pip install -r requirements.txt
-          python -m pip install -r requirements/tests.txt
           python -m pip install .
-          python -m pip list
+
 
       - name: Test CFPQ_Data with coverage
         run: |
-          pytest --cov=cfpq_data --doctest-modules -vv -s cfpq_data tests
-          codecov
+          poetry run pytest --cov=cfpq_data --doctest-modules -vv -s cfpq_data tests
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
