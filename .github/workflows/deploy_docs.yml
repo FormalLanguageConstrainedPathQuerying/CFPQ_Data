@@ -28,7 +28,7 @@ jobs:
 
       - name: Register ipykernel
         run: |
-          python -m ipykernel install --user --name=python3 --display-name "Python 3"
+          poetry run python -m ipykernel install --user --name=python3 --display-name "Python 3"
 
       - name: Show installed packages
         run: poetry show
