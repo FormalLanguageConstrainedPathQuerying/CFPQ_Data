@@ -4,3 +4,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "pyformlang"
+        versions:
+          - ">=1.0.0"
