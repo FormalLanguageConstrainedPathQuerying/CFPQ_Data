@@ -33,6 +33,8 @@ numpydoc = "^1.10.0"
 pydata-sphinx-theme = "^0.16.1"
 sphinx = "^9.0.4"
 sphinx-copybutton = "^0.5.2"
+ipykernel = "^7.1.0"
+jupyter-client = "^8.7.0"
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules -vv -s"
