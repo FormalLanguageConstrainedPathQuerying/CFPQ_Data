@@ -255,43 +255,43 @@ Graphs
      - Num Nodes
      - Num Edges
      - Download
-   * - :ref:`unigraph_1`
+   * - unigraph_1
      - 3082
      - 11966
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1iNDQ04N1A9D94whhfWaDEdjioPUQLXR8>`_ 📥
-	 * - :ref:`unigraph_2`
+   * - unigraph_2
      - 36468
      - 168344
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1dli_1CfeVMZ81ZVUzX51RrkIu7vg58JO>`_ 📥
-	 * - :ref:`unigraph_3`
+   * - unigraph_3
      - 41333
      - 193866
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1LYU-INIDw562laqO79pbXoKGRjEJQzbf>`_ 📥
-	 * - :ref:`unigraph_4`
+   * - unigraph_4
      - 215481
      - 1346130
      - `.tar.gz <https://drive.google.com/uc?export=download&id=11bLP_1eyPXGYs9brpGrsxJfw6psiWY7N>`_ 📥
-	 * - :ref:`unigraph_5`
+   * - unigraph_5
      - 243839
      - 1818404
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1h4Vv2SHogbeqwIGFfMfjE48zG7kT04sQ>`_ 📥
-	 * - :ref:`unigraph_6`
+   * - unigraph_6
      - 286645
      - 1708910
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1KJ0F5Qmou6gT3k1HunIRhF3xLFjrbqYS>`_ 📥
-	 * - :ref:`unigraph_7`
+   * - unigraph_7
      - 285577
      - 2073268
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1HHrkCyiCY84hjSa5W9mupfYd2619faqQ>`_ 📥
-	 * - :ref:`unigraph_8`
+   * - unigraph_8
      - 449237
      - 3385168
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1AAbvfMmjGkialHkukg9dAZbcIMwFX0Sf>`_ 📥
-	 * - :ref:`unigraph_9`
+   * - unigraph_9
      - 475479
      - 3579034
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1v27oSwzkS_Z35QkzIlO5KD6XqrHjL_vU>`_ 📥
-	 * - :ref:`unigraph_10`
+   * - unigraph_10
      - 2055882
      - 17223588
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1vdmXHv8se2PNRJ_Moxbgt3jBXfAy8gP9>`_ 📥
