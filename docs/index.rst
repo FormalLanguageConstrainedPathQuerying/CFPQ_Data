@@ -31,6 +31,7 @@ Documentation
    reference/index
    about
    license
+   old_graphs/index
 
 Indices and tables
 ==================

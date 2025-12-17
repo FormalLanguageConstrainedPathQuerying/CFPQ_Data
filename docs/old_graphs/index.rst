@@ -1,7 +1,7 @@
 .. _graphs:
 
 ******
-Graphs
+Old graphs
 ******
 
 .. only:: html
@@ -9,16 +9,8 @@ Graphs
    :Release: |release|
    :Date: |today|
 
-How to add a new graph?
------------------------
-
-Just create a PR (Pull Request) corresponding to the `"Template for adding a new graph" <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md>`_.
-
-----
-
-Graphs
+Old graphs
 ------
-:Old graphs:
 
 .. list-table::
    :header-rows: 1
@@ -243,19 +235,3 @@ Graphs
      - 2112625
      - 32876289
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy_hierarchy.tar.gz>`_ 📥
-
-
-
-:New graphs:
-
-.. list-table::
-   :header-rows: 1
-
-   * - Graph
-     - Num Nodes
-     - Num Edges
-     - Download
-   * - :ref:`mockito`
-     - 25436
-     - 62388
-     - `.tar.gz <https:google.com>`_ 📥
