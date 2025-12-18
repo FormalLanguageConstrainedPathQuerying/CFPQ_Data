@@ -75,11 +75,11 @@ The grammar file is attached to the archive.
 
 .. math::
 
-   S &\to Seq\,  IsAssociated\,  IsSimilar \\
-   Seq &\to IsSimilar\, (codes\_for\,  IsSimilar)? \\
-   & IsSimilar \to \varepsilon \\
-   &\mid has\, IsSimilar\, has\_r \\
-   &\mid is\_homologous\_to\, IsSimilar\, is\_homologous\_to\_r\, IsSimilar \\
-   &\mid belongs\_to\, IsSimilar\, belongs\_to\_r \\
-   &\mid participate\_in\, IsSimilar\, participate\_in\_r \\
-   & IsAssociated \to refers\_to\, refers\_to
+   S &\to Seq \quad IsAssociated \quad IsSimilar \\
+   Seq &\to IsSimilar \quad (codes\_for \quad IsSimilar)? \\
+   IsSimilar &\to \varepsilon \\
+             &\mid has \quad IsSimilar \quad has\_r \\
+             &\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to\_r \quad IsSimilar \\
+             &\mid belongs\_to \quad IsSimilar \quad belongs\_to\_r \\
+             &\mid participate\_in \quad IsSimilar \quad participate\_in\_r \\
+   IsAssociated &\to refers\_to \quad refers\_to
