@@ -52,7 +52,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 582929
-     - 1437437
+     - 2874874
 
 
 Edges Statistics
@@ -65,98 +65,193 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 226481
+   * - type_r
+     - 226481
    * - hasDbXref
      - 199191
-   * - annotatedTarget
+   * - hasDbXref_r
+     - 199191
+   * - annotatedProperty
+     - 132678
+   * - annotatedProperty_r
      - 132678
    * - annotatedSource
      - 132678
-   * - annotatedProperty
+   * - annotatedSource_r
+     - 132678
+   * - annotatedTarget
+     - 132678
+   * - annotatedTarget_r
      - 132678
    * - subClassOf
      - 94514
+   * - subClassOf_r
+     - 94514
    * - hasExactSynonym
+     - 90485
+   * - hasExactSynonym_r
      - 90485
    * - label
      - 53100
+   * - label_r
+     - 53100
    * - hasOBONamespace
+     - 47427
+   * - hasOBONamespace_r
      - 47427
    * - id
      - 47427
-   * - IAO_0000115
+   * - id_r
+     - 47427
+   * - IAO_i_0000115
      - 47417
-   * - someValuesFrom
-     - 31568
+   * - IAO_r_i_0000115
+     - 47417
    * - onProperty
      - 31568
+   * - onProperty_r
+     - 31568
+   * - someValuesFrom
+     - 31568
+   * - someValuesFrom_r
+     - 31568
+   * - first
+     - 24186
+   * - first_r
+     - 24186
    * - rest
      - 24186
-   * - first
+   * - rest_r
      - 24186
    * - hasNarrowSynonym
      - 18849
+   * - hasNarrowSynonym_r
+     - 18849
    * - creation_date
+     - 17873
+   * - creation_date_r
      - 17873
    * - created_by
      - 17834
+   * - created_by_r
+     - 17834
    * - hasRelatedSynonym
+     - 14912
+   * - hasRelatedSynonym_r
      - 14912
    * - equivalentClass
      - 12051
+   * - equivalentClass_r
+     - 12051
    * - intersectionOf
+     - 12051
+   * - intersectionOf_r
      - 12051
    * - comment
      - 5874
+   * - comment_r
+     - 5874
    * - deprecated
+     - 5419
+   * - deprecated_r
      - 5419
    * - hasBroadSynonym
      - 3865
-   * - IAO_0100001
+   * - hasBroadSynonym_r
+     - 3865
+   * - IAO_i_0100001
      - 3220
+   * - IAO_r_i_0100001
+     - 3220
+   * - IAO_i_0000231
+     - 2702
+   * - IAO_r_i_0000231
+     - 2702
    * - hasAlternativeId
      - 2702
-   * - IAO_0000231
+   * - hasAlternativeId_r
      - 2702
    * - inSubset
      - 2452
+   * - inSubset_r
+     - 2452
    * - consider
+     - 1862
+   * - consider_r
      - 1862
    * - hasSynonymType
      - 111
+   * - hasSynonymType_r
+     - 111
    * - disjointWith
+     - 30
+   * - disjointWith_r
      - 30
    * - subPropertyOf
      - 21
+   * - subPropertyOf_r
+     - 21
    * - shorthand
+     - 10
+   * - shorthand_r
      - 10
    * - propertyChainAxiom
      - 2
-   * - inverseOf
+   * - propertyChainAxiom_r
+     - 2
+   * - IAO_i_0000425
      - 1
-   * - hasScope
+   * - IAO_i_0000589
+     - 1
+   * - IAO_r_i_0000425
+     - 1
+   * - IAO_r_i_0000589
      - 1
    * - SynonymTypeProperty
      - 1
-   * - IAO_0000589
-     - 1
-   * - hasOBOFormatVersion
-     - 1
-   * - default-namespace
-     - 1
-   * - license
-     - 1
-   * - versionIRI
+   * - SynonymTypeProperty_r
      - 1
    * - creator
      - 1
+   * - creator_r
+     - 1
    * - date
      - 1
-   * - IAO_0000425
+   * - date_r
      - 1
-   * - is_metadata_tag
+   * - default-namespace
+     - 1
+   * - default-namespace_r
+     - 1
+   * - hasOBOFormatVersion
+     - 1
+   * - hasOBOFormatVersion_r
+     - 1
+   * - hasScope
+     - 1
+   * - hasScope_r
+     - 1
+   * - inverseOf
+     - 1
+   * - inverseOf_r
      - 1
    * - is_class_level
      - 1
+   * - is_class_level_r
+     - 1
+   * - is_metadata_tag
+     - 1
+   * - is_metadata_tag_r
+     - 1
+   * - license
+     - 1
+   * - license_r
+     - 1
+   * - versionIRI
+     - 1
+   * - versionIRI_r
+     - 1
+
 
 Canonical grammars
 ------------------

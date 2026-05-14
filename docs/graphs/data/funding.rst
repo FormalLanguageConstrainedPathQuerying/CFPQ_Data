@@ -52,7 +52,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 778
-     - 1086
+     - 2172
 
 
 Edges Statistics
@@ -65,44 +65,85 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 304
+   * - type_r
+     - 304
    * - label
+     - 231
+   * - label_r
      - 231
    * - comment
      - 229
+   * - comment_r
+     - 229
    * - subClassOf
+     - 90
+   * - subClassOf_r
      - 90
    * - subPropertyOf
      - 76
+   * - subPropertyOf_r
+     - 76
    * - range
+     - 40
+   * - range_r
      - 40
    * - description
      - 39
+   * - description_r
+     - 39
    * - domain
+     - 37
+   * - domain_r
      - 37
    * - inverseOf
      - 17
+   * - inverseOf_r
+     - 17
+   * - first
+     - 6
+   * - first_r
+     - 6
    * - rest
      - 6
-   * - first
+   * - rest_r
      - 6
    * - unionOf
      - 3
-   * - rights
+   * - unionOf_r
+     - 3
+   * - contributor
      - 1
-   * - date
-     - 1
-   * - imports
-     - 1
-   * - title
+   * - contributor_r
      - 1
    * - creator
      - 1
-   * - contributor
+   * - creator_r
      - 1
-   * - versionInfo
+   * - date
+     - 1
+   * - date_r
+     - 1
+   * - imports
+     - 1
+   * - imports_r
+     - 1
+   * - rights
+     - 1
+   * - rights_r
      - 1
    * - seeAlso
      - 1
+   * - seeAlso_r
+     - 1
+   * - title
+     - 1
+   * - title_r
+     - 1
+   * - versionInfo
+     - 1
+   * - versionInfo_r
+     - 1
+
 
 Canonical grammars
 ------------------

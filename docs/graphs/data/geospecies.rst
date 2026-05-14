@@ -52,7 +52,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 450609
-     - 2201532
+     - 4384690
 
 
 Edges Statistics
@@ -63,322 +63,479 @@ Edges Statistics
 
    * - Edge Label
      - Num Edge Label
+   * - other
+     - 680822
+   * - other_r
+     - 680822
    * - isNotUSDA_ExpectedIn
+     - 127098
+   * - isNotUSDA_ExpectedIn_r
      - 127098
    * - hasNoUSDA_ExpectationOf
      - 127055
-   * - topic
-     - 109608
+   * - hasNoUSDA_ExpectationOf_r
+     - 127055
    * - closeMatch
-     - 97088
-   * - isPrimaryTopicOf
-     - 96572
+     - 96779
+   * - closeMatch_r
+     - 96779
    * - type
-     - 89065
+     - 89062
+   * - type_r
+     - 89062
    * - hasUSDA_ExpectationOf
+     - 65724
+   * - hasUSDA_ExpectationOf_r
      - 65724
    * - isUSDA_ExpectedIn
      - 65681
+   * - isUSDA_ExpectedIn_r
+     - 65681
    * - seeAlso
      - 64717
-   * - title
-     - 60777
-   * - identifier
-     - 60728
-   * - isPartOf
-     - 60725
-   * - modified
-     - 60712
-   * - isUnknownAboutIn
-     - 58850
+   * - seeAlso_r
+     - 64717
    * - hasUnknownExpectationOf
      - 58850
-   * - primaryTopic
-     - 43673
-   * - publisher
-     - 41566
-   * - creator
-     - 41556
+   * - hasUnknownExpectationOf_r
+     - 58850
+   * - isUnknownAboutIn
+     - 58850
+   * - isUnknownAboutIn_r
+     - 58850
    * - attributionName
+     - 39820
+   * - attributionName_r
      - 39820
    * - attributionURL
      - 39820
-   * - language
-     - 39813
-   * - description
-     - 39812
+   * - attributionURL_r
+     - 39820
    * - morePermissions
      - 39812
+   * - morePermissions_r
+     - 39812
    * - license
-     - 39808
+     - 39807
+   * - license_r
+     - 39807
    * - isExpectedIn
+     - 24814
+   * - isExpectedIn_r
      - 24814
    * - hasExpectationOf
      - 24801
+   * - hasExpectationOf_r
+     - 24801
    * - hasLowExpectationOf
+     - 21665
+   * - hasLowExpectationOf_r
      - 21665
    * - isUnexpectedIn
      - 21665
+   * - isUnexpectedIn_r
+     - 21665
    * - prefLabel
+     - 20941
+   * - prefLabel_r
      - 20941
    * - hasGeoSpeciesPage
      - 20875
-   * - rank
+   * - hasGeoSpeciesPage_r
      - 20875
+   * - broaderTransitive
+     - 20867
+   * - broaderTransitive_r
+     - 20867
    * - inKingdom
      - 20867
-   * - broaderTransitive
+   * - inKingdom_r
      - 20867
    * - narrowerTransitive
      - 20830
+   * - narrowerTransitive_r
+     - 20830
    * - inPhylum
+     - 20789
+   * - inPhylum_r
      - 20789
    * - hasOrderName
      - 20739
+   * - hasOrderName_r
+     - 20739
    * - inClass
+     - 20739
+   * - inClass_r
      - 20739
    * - hasFamilyName
      - 20522
+   * - hasFamilyName_r
+     - 20522
    * - inOrder
+     - 20522
+   * - inOrder_r
      - 20522
    * - hasPhylumName
      - 18956
+   * - hasPhylumName_r
+     - 18956
    * - hasClassName
+     - 18928
+   * - hasClassName_r
      - 18928
    * - hasUUID
      - 18891
+   * - hasUUID_r
+     - 18891
    * - hasKingdomName
      - 18886
-   * - hasSpecificEpithet
-     - 18878
-   * - hasScientificName
-     - 18878
-   * - inFamily
-     - 18878
+   * - hasKingdomName_r
+     - 18886
    * - hasCanonicalName
+     - 18878
+   * - hasCanonicalName_r
      - 18878
    * - hasGenusName
      - 18878
+   * - hasGenusName_r
+     - 18878
+   * - hasScientificName
+     - 18878
+   * - hasScientificName_r
+     - 18878
+   * - hasSpecificEpithet
+     - 18878
+   * - hasSpecificEpithet_r
+     - 18878
+   * - inFamily
+     - 18878
+   * - inFamily_r
+     - 18878
    * - hasITIS
+     - 15903
+   * - hasITIS_r
      - 15903
    * - hasNomenclaturalCode
      - 15504
+   * - hasNomenclaturalCode_r
+     - 15504
    * - hasScientificNameAuthorship
+     - 14592
+   * - hasScientificNameAuthorship_r
      - 14592
    * - hasWikipediaArticle
      - 12933
-   * - hasPhotoCollection
-     - 12629
+   * - hasWikipediaArticle_r
+     - 12933
    * - hasCommonName
+     - 12618
+   * - hasCommonName_r
      - 12618
    * - hasWikispeciesArticle
      - 11754
+   * - hasWikispeciesArticle_r
+     - 11754
    * - hasNCBI
+     - 10898
+   * - hasNCBI_r
      - 10898
    * - hasSubfamilyName
      - 9144
+   * - hasSubfamilyName_r
+     - 9144
    * - hasUSDA_Growth
+     - 4565
+   * - hasUSDA_Growth_r
      - 4565
    * - hasBugGuidePage
      - 3833
+   * - hasBugGuidePage_r
+     - 3833
    * - isBugGuidePageOf
+     - 3833
+   * - isBugGuidePageOf_r
      - 3833
    * - relatedMatch
      - 1996
+   * - relatedMatch_r
+     - 1996
    * - sameAs
+     - 1861
+   * - sameAs_r
      - 1861
    * - hasGBIF
      - 1685
+   * - hasGBIF_r
+     - 1685
    * - altLabel
+     - 1608
+   * - altLabel_r
      - 1608
    * - hasSubgenusName
      - 1155
+   * - hasSubgenusName_r
+     - 1155
    * - hasGBIFPage
      - 1115
+   * - hasGBIFPage_r
+     - 1115
    * - hasBBCPage
+     - 309
+   * - hasBBCPage_r
      - 309
    * - hasBioLib
      - 267
    * - hasBioLibPage
      - 267
+   * - hasBioLibPage_r
+     - 267
+   * - hasBioLib_r
+     - 267
    * - speciesReference
+     - 229
+   * - speciesReference_r
      - 229
    * - hasProject
      - 72
+   * - hasProject_r
+     - 72
    * - hasToLPage
      - 72
-   * - created
-     - 67
-   * - isPossibleMosquitoVectorOfVirus
-     - 65
+   * - hasToLPage_r
+     - 72
    * - humanVirusHasPossibleMosquitoVector
      - 65
-   * - depiction
-     - 63
+   * - humanVirusHasPossibleMosquitoVector_r
+     - 65
+   * - isPossibleMosquitoVectorOfVirus
+     - 65
+   * - isPossibleMosquitoVectorOfVirus_r
+     - 65
    * - hasCounty
+     - 54
+   * - hasCounty_r
      - 54
    * - hasContinent
      - 52
-   * - lat
+   * - hasContinent_r
      - 52
-   * - long
+   * - hasCountry
+     - 52
+   * - hasCountry_r
      - 52
    * - hasCountyName
+     - 52
+   * - hasCountyName_r
      - 52
    * - hasStateProvince
      - 52
    * - hasStateProvinceName
      - 52
-   * - hasCountry
+   * - hasStateProvinceName_r
+     - 52
+   * - hasStateProvince_r
+     - 52
+   * - lat
+     - 52
+   * - lat_r
+     - 52
+   * - long
+     - 52
+   * - long_r
      - 52
    * - hasSpecies
      - 51
+   * - hasSpecies_r
+     - 51
    * - isAligned
+     - 49
+   * - isAligned_r
      - 49
    * - hasTreeBaseID
      - 46
+   * - hasTreeBaseID_r
+     - 46
    * - hasSubspeciesName
      - 43
-   * - coverage
-     - 41
-   * - hasObservation
-     - 39
-   * - stateProvince
-     - 39
-   * - continent
-     - 39
-   * - hasContinentName
-     - 39
-   * - hasCountryName
-     - 39
-   * - country
-     - 39
-   * - georeferenceVerificationStatus
-     - 39
-   * - hasLocationName
-     - 39
-   * - locality
-     - 39
-   * - hasLocalityName
-     - 39
-   * - hasOmernik_4_Ecozone
-     - 39
-   * - hasOmernik_3_Ecozone
-     - 39
+   * - hasSubspeciesName_r
+     - 43
    * - hasBBC_Ecozone
      - 39
    * - hasBBC_EcozoneName
      - 39
-   * - decimalLatitude
+   * - hasBBC_EcozoneName_r
      - 39
-   * - county
+   * - hasBBC_Ecozone_r
      - 39
-   * - countryCode
+   * - hasContinentName
      - 39
-   * - coordinateUncertaintyInMeters
+   * - hasContinentName_r
      - 39
-   * - parentFeature
+   * - hasCountryName
+     - 39
+   * - hasCountryName_r
      - 39
    * - hasGeodeticDatum
      - 39
-   * - geodeticDatum
+   * - hasGeodeticDatum_r
      - 39
-   * - decimalLongitude
+   * - hasLocalityName
+     - 39
+   * - hasLocalityName_r
+     - 39
+   * - hasLocationName
+     - 39
+   * - hasLocationName_r
+     - 39
+   * - hasObservation
+     - 39
+   * - hasObservation_r
+     - 39
+   * - hasOmernik_3_Ecozone
+     - 39
+   * - hasOmernik_3_Ecozone_r
+     - 39
+   * - hasOmernik_4_Ecozone
+     - 39
+   * - hasOmernik_4_Ecozone_r
+     - 39
+   * - parentFeature
+     - 39
+   * - parentFeature_r
      - 39
    * - wasObservedIn
      - 37
+   * - wasObservedIn_r
+     - 37
    * - hasLocation
+     - 34
+   * - hasLocation_r
      - 34
    * - hasDateRange
      - 26
+   * - hasDateRange_r
+     - 26
    * - hasDayOfYear
+     - 26
+   * - hasDayOfYear_r
      - 26
    * - humanMalarialParasiteHasPossibleMosquitoVector
      - 25
+   * - humanMalarialParasiteHasPossibleMosquitoVector_r
+     - 25
    * - hasObservationOf
+     - 24
+   * - hasObservationOf_r
      - 24
    * - hasGNI
      - 22
+   * - hasGNI_r
+     - 22
    * - hasGNIPage
+     - 21
+   * - hasGNIPage_r
      - 21
    * - vocabulary
      - 16
-   * - uri
-     - 15
+   * - vocabulary_r
+     - 16
    * - target
+     - 14
+   * - target_r
      - 14
    * - License
      - 13
-   * - hasEndDayOfYear
-     - 13
-   * - hasStartDayOfYear
-     - 13
-   * - hasObservationMethod
+   * - License_r
      - 13
    * - hasCollector
      - 13
+   * - hasCollector_r
+     - 13
+   * - hasEndDayOfYear
+     - 13
+   * - hasEndDayOfYear_r
+     - 13
+   * - hasObservationMethod
+     - 13
+   * - hasObservationMethod_r
+     - 13
+   * - hasStartDayOfYear
+     - 13
+   * - hasStartDayOfYear_r
+     - 13
    * - exampleResource
+     - 12
+   * - exampleResource_r
      - 12
    * - hasWisconsinHerbariumHabitatAssociation
      - 12
-   * - homepage
-     - 10
+   * - hasWisconsinHerbariumHabitatAssociation_r
+     - 12
    * - comment
+     - 8
+   * - comment_r
      - 8
    * - hasEOL
      - 8
-   * - date
+   * - hasEOL_r
      - 8
    * - subset
      - 7
+   * - subset_r
+     - 7
    * - hasSite
      - 6
+   * - hasSite_r
+     - 6
+   * - siteFamily
+     - 3
+   * - siteFamily_r
+     - 3
    * - siteOrder
      - 3
-   * - siteFamily
+   * - siteOrder_r
      - 3
    * - hasFamilyInfoContributor
      - 2
-   * - Organization
+   * - hasFamilyInfoContributor_r
      - 2
    * - hasWI_Herbarium_Habitat
      - 2
-   * - name
-     - 2
-   * - primaryTopicOf
-     - 2
-   * - location
-     - 2
-   * - enddate
+   * - hasWI_Herbarium_Habitat_r
      - 2
    * - summary
      - 2
-   * - startdate
+   * - summary_r
      - 2
-   * - uriRegexPattern
-     - 1
    * - dataDumpLocation
      - 1
-   * - subject
-     - 1
-   * - statItem
-     - 1
-   * - isPossibleMosquitoVectorOfHumanMalaria
-     - 1
-   * - page
-     - 1
-   * - source
-     - 1
-   * - value
+   * - dataDumpLocation_r
      - 1
    * - dimension
      - 1
-   * - isReferencedBy
+   * - dimension_r
      - 1
    * - hasArticle
      - 1
-   * - maker
+   * - hasArticle_r
      - 1
+   * - isPossibleMosquitoVectorOfHumanMalaria
+     - 1
+   * - isPossibleMosquitoVectorOfHumanMalaria_r
+     - 1
+   * - statItem
+     - 1
+   * - statItem_r
+     - 1
+   * - uriRegexPattern
+     - 1
+   * - uriRegexPattern_r
+     - 1
+   * - value
+     - 1
+   * - value_r
+     - 1
+
 
 Canonical grammars
 ------------------

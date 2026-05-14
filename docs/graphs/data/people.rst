@@ -52,7 +52,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 337
-     - 640
+     - 1280
 
 
 Edges Statistics
@@ -65,54 +65,105 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 161
-   * - label
-     - 95
+   * - type_r
+     - 161
    * - comment
      - 95
-   * - rest
-     - 57
+   * - comment_r
+     - 95
+   * - label
+     - 95
+   * - label_r
+     - 95
    * - first
      - 57
+   * - first_r
+     - 57
+   * - rest
+     - 57
+   * - rest_r
+     - 57
+   * - onProperty
+     - 33
+   * - onProperty_r
+     - 33
    * - subClassOf
      - 33
-   * - onProperty
+   * - subClassOf_r
      - 33
    * - someValuesFrom
      - 25
+   * - someValuesFrom_r
+     - 25
    * - intersectionOf
+     - 22
+   * - intersectionOf_r
      - 22
    * - equivalentClass
      - 21
+   * - equivalentClass_r
+     - 21
    * - allValuesFrom
+     - 6
+   * - allValuesFrom_r
      - 6
    * - has_pet
      - 6
+   * - has_pet_r
+     - 6
    * - range
      - 5
-   * - unionOf
-     - 4
+   * - range_r
+     - 5
    * - disjointWith
      - 4
-   * - subPropertyOf
-     - 3
+   * - disjointWith_r
+     - 4
+   * - unionOf
+     - 4
+   * - unionOf_r
+     - 4
    * - inverseOf
      - 3
-   * - domain
-     - 2
+   * - inverseOf_r
+     - 3
+   * - subPropertyOf
+     - 3
+   * - subPropertyOf_r
+     - 3
    * - complementOf
      - 2
-   * - service_number
-     - 1
-   * - maxCardinality
-     - 1
+   * - complementOf_r
+     - 2
+   * - domain
+     - 2
+   * - domain_r
+     - 2
    * - drives
      - 1
-   * - reads
-     - 1
-   * - minCardinality
+   * - drives_r
      - 1
    * - is_pet_of
      - 1
+   * - is_pet_of_r
+     - 1
+   * - maxCardinality
+     - 1
+   * - maxCardinality_r
+     - 1
+   * - minCardinality
+     - 1
+   * - minCardinality_r
+     - 1
+   * - reads
+     - 1
+   * - reads_r
+     - 1
+   * - service_number
+     - 1
+   * - service_number_r
+     - 1
+
 
 Canonical grammars
 ------------------

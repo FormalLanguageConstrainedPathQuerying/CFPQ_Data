@@ -52,7 +52,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 733
-     - 1839
+     - 3678
 
 
 Edges Statistics
@@ -65,74 +65,145 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 485
+   * - type_r
+     - 485
+   * - first
+     - 252
+   * - first_r
+     - 252
    * - rest
      - 252
-   * - first
+   * - rest_r
      - 252
    * - onProperty
      - 174
+   * - onProperty_r
+     - 174
    * - subClassOf
+     - 126
+   * - subClassOf_r
      - 126
    * - hasValue
      - 115
+   * - hasValue_r
+     - 115
    * - locatedIn
+     - 65
+   * - locatedIn_r
      - 65
    * - intersectionOf
      - 56
+   * - intersectionOf_r
+     - 56
    * - hasMaker
+     - 52
+   * - hasMaker_r
      - 52
    * - hasFlavor
      - 43
+   * - hasFlavor_r
+     - 43
    * - hasBody
+     - 41
+   * - hasBody_r
      - 41
    * - hasSugar
      - 40
+   * - hasSugar_r
+     - 40
    * - oneOf
+     - 31
+   * - oneOf_r
      - 31
    * - allValuesFrom
      - 28
+   * - allValuesFrom_r
+     - 28
    * - maxCardinality
+     - 22
+   * - maxCardinality_r
      - 22
    * - range
      - 10
+   * - range_r
+     - 10
    * - domain
+     - 7
+   * - domain_r
      - 7
    * - cardinality
      - 6
-   * - subPropertyOf
-     - 5
+   * - cardinality_r
+     - 6
    * - distinctMembers
      - 5
-   * - label
+   * - distinctMembers_r
+     - 5
+   * - subPropertyOf
+     - 5
+   * - subPropertyOf_r
+     - 5
+   * - comment
+     - 3
+   * - comment_r
      - 3
    * - differentFrom
      - 3
-   * - comment
+   * - differentFrom_r
      - 3
-   * - minCardinality
+   * - label
+     - 3
+   * - label_r
+     - 3
+   * - inverseOf
+     - 2
+   * - inverseOf_r
      - 2
    * - madeFromGrape
      - 2
-   * - inverseOf
+   * - madeFromGrape_r
      - 2
-   * - someValuesFrom
+   * - minCardinality
+     - 2
+   * - minCardinality_r
+     - 2
+   * - adjacentRegion
+     - 1
+   * - adjacentRegion_r
      - 1
    * - disjointWith
      - 1
-   * - imports
-     - 1
-   * - priorVersion
+   * - disjointWith_r
      - 1
    * - hasColor
      - 1
-   * - yearValue
-     - 1
-   * - adjacentRegion
-     - 1
-   * - unionOf
+   * - hasColor_r
      - 1
    * - hasVintageYear
      - 1
+   * - hasVintageYear_r
+     - 1
+   * - imports
+     - 1
+   * - imports_r
+     - 1
+   * - priorVersion
+     - 1
+   * - priorVersion_r
+     - 1
+   * - someValuesFrom
+     - 1
+   * - someValuesFrom_r
+     - 1
+   * - unionOf
+     - 1
+   * - unionOf_r
+     - 1
+   * - yearValue
+     - 1
+   * - yearValue_r
+     - 1
+
 
 Canonical grammars
 ------------------

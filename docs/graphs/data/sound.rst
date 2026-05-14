@@ -52,7 +52,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 3528861
-     - 3049732
+     - 6099464
 
 
 Edges Statistics
@@ -65,8 +65,13 @@ Edges Statistics
      - Num Edge Label
    * - d
      - 2352573
+   * - d_r
+     - 2352573
    * - a
      - 697159
+   * - a_r
+     - 697159
+
 
 Canonical grammars
 ------------------

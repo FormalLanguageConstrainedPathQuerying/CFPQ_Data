@@ -82,4 +82,4 @@ The grammar file is attached to the archive.
              &\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to\_r \quad IsSimilar \\
              &\mid belongs\_to \quad IsSimilar \quad belongs\_to\_r \\
              &\mid participate\_in \quad IsSimilar \quad participate\_in\_r \\
-   IsAssociated &\to refers\_to \quad refers\_to
+   IsAssociated &\to refers\_to \quad refers\_to\_r

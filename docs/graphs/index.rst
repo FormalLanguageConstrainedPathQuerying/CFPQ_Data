@@ -19,7 +19,7 @@ Just create a PR (Pull Request) corresponding to the `"Template for adding a new
 Graphs
 ------
 
-:Old graphs:
+:CFPQ old collection:
 
 .. list-table::
    :header-rows: 1
@@ -30,219 +30,219 @@ Graphs
      - Download
    * - :ref:`generations`
      - 129
-     - 273
+     - 546
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/generations.tar.gz>`_ 📥
    * - :ref:`travel`
      - 131
-     - 277
+     - 554
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/travel.tar.gz>`_ 📥
    * - :ref:`skos`
      - 144
-     - 252
+     - 504
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/skos.tar.gz>`_ 📥
    * - :ref:`univ`
      - 179
-     - 293
+     - 586
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/univ.tar.gz>`_ 📥
    * - :ref:`foaf`
      - 256
-     - 631
+     - 1262
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/foaf.tar.gz>`_ 📥
    * - :ref:`atom`
      - 291
-     - 425
+     - 850
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/atom.tar.gz>`_ 📥
    * - :ref:`wc`
      - 332
-     - 269
+     - 538
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wc.tar.gz>`_ 📥
    * - :ref:`people`
      - 337
-     - 640
+     - 1280
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/people.tar.gz>`_ 📥
    * - :ref:`biomedical`
      - 341
-     - 459
+     - 918
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/biomedical.tar.gz>`_ 📥
    * - :ref:`bzip`
      - 632
-     - 556
+     - 1112
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/bzip.tar.gz>`_ 📥
    * - :ref:`pizza`
      - 671
-     - 1980
+     - 3960
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pizza.tar.gz>`_ 📥
    * - :ref:`wine`
      - 733
-     - 1839
+     - 3678
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wine.tar.gz>`_ 📥
    * - :ref:`funding`
      - 778
-     - 1086
+     - 2172
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/funding.tar.gz>`_ 📥
    * - :ref:`pr`
      - 815
-     - 692
+     - 1384
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pr.tar.gz>`_ 📥
    * - :ref:`core`
      - 1323
-     - 2752
+     - 5504
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz>`_ 📥
    * - :ref:`ls`
      - 1687
-     - 1453
+     - 2906
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ls.tar.gz>`_ 📥
    * - :ref:`gzip`
      - 2687
-     - 2293
+     - 4586
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gzip.tar.gz>`_ 📥
    * - :ref:`pathways`
      - 6238
-     - 12363
+     - 24726
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pathways.tar.gz>`_ 📥
    * - :ref:`sunflow`
      - 15464
-     - 15957
+     - 31914
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sunflow.tar.gz>`_ 📥
    * - :ref:`lusearch`
      - 15774
-     - 14994
+     - 29988
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz>`_ 📥
    * - :ref:`luindex`
      - 18532
-     - 17375
+     - 34750
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/luindex.tar.gz>`_ 📥
    * - :ref:`avrora`
      - 24690
-     - 25196
+     - 50392
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/avrora.tar.gz>`_ 📥
    * - :ref:`eclipse`
      - 41383
-     - 40200
+     - 80400
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclipse.tar.gz>`_ 📥
    * - :ref:`h2`
      - 44717
-     - 56683
+     - 113366
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/h2.tar.gz>`_ 📥
    * - :ref:`go_hierarchy`
      - 45007
-     - 490109
+     - 980218
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go_hierarchy.tar.gz>`_ 📥
    * - :ref:`enzyme`
      - 48815
-     - 86543
+     - 173086
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz>`_ 📥
    * - :ref:`pmd`
      - 54444
-     - 59329
+     - 118658
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pmd.tar.gz>`_ 📥
    * - :ref:`xalan`
      - 58476
-     - 62758
+     - 125516
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xalan.tar.gz>`_ 📥
    * - :ref:`batik`
      - 60175
-     - 63089
+     - 126178
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/batik.tar.gz>`_ 📥
    * - :ref:`fop`
      - 86183
-     - 83016
+     - 166032
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fop.tar.gz>`_ 📥
    * - :ref:`tomcat`
      - 111327
-     - 110884
+     - 221768
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tomcat.tar.gz>`_ 📥
    * - :ref:`jython`
      - 191895
-     - 260034
+     - 520068
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jython.tar.gz>`_ 📥
    * - :ref:`eclass`
      - 239111
-     - 360248
+     - 720496
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz>`_ 📥
    * - :ref:`tradebeans`
      - 439693
-     - 466969
+     - 933938
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradebeans.tar.gz>`_ 📥
    * - :ref:`tradesoap`
      - 440680
-     - 468263
+     - 936526
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz>`_ 📥
    * - :ref:`geospecies`
      - 450609
-     - 2201532
+     - 4384690
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/geospecies.tar.gz>`_ 📥
    * - :ref:`go`
      - 582929
-     - 1437437
+     - 2874874
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz>`_ 📥
    * - :ref:`apache`
      - 1721418
-     - 1510411
+     - 3020822
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/apache.tar.gz>`_ 📥
    * - :ref:`taxonomy_hierarchy`
      - 2112625
-     - 32876289
+     - 65752578
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy_hierarchy.tar.gz>`_ 📥
    * - :ref:`init`
      - 2446224
-     - 2112809
+     - 4225618
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/init.tar.gz>`_ 📥
    * - :ref:`mm`
      - 2538243
-     - 2191079
+     - 4382158
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/mm.tar.gz>`_ 📥
    * - :ref:`ipc`
      - 3401022
-     - 2931498
+     - 5862996
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ipc.tar.gz>`_ 📥
    * - :ref:`lib`
      - 3401355
-     - 2931880
+     - 5863760
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lib.tar.gz>`_ 📥
    * - :ref:`block`
      - 3423234
-     - 2951393
+     - 5902786
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/block.tar.gz>`_ 📥
    * - :ref:`arch`
      - 3448422
-     - 2970242
+     - 5940484
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/arch.tar.gz>`_ 📥
    * - :ref:`crypto`
      - 3464970
-     - 2988387
+     - 5976774
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/crypto.tar.gz>`_ 📥
    * - :ref:`security`
      - 3479982
-     - 3003326
+     - 6006652
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/security.tar.gz>`_ 📥
    * - :ref:`sound`
      - 3528861
-     - 3049732
+     - 6099464
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sound.tar.gz>`_ 📥
    * - :ref:`net`
      - 4039470
-     - 3500141
+     - 7000282
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/net.tar.gz>`_ 📥
    * - :ref:`fs`
      - 4177416
-     - 3609373
+     - 7218746
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fs.tar.gz>`_ 📥
    * - :ref:`drivers`
      - 4273803
-     - 3707769
+     - 7415538
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/drivers.tar.gz>`_ 📥
    * - :ref:`postgre`
      - 5203419
-     - 4678543
+     - 9357086
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/postgre.tar.gz>`_ 📥
    * - :ref:`taxonomy`
      - 5728398
-     - 14922125
+     - 29844250
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy.tar.gz>`_ 📥
    * - :ref:`kernel`
      - 11254434
-     - 9484213
+     - 18968426
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/kernel.tar.gz>`_ 📥
 
 :Java points-to graphs:
@@ -292,6 +292,18 @@ Graphs
      - Num Nodes
      - Num Edges
      - Download
+   * - :ref:`xz <aa_xz_field_sensitive_alias>`
+     - 2808
+     - 6604
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`nab <aa_nab_field_sensitive_alias>`
+     - 3444
+     - 7982
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`leela <aa_leela_field_sensitive_alias>`
+     - 8090
+     - 19888
+     - `.tar.gz <TODO>`_ 📥
    * - :ref:`povray_field_sensitive_alias`
      - 15137
      - 38886

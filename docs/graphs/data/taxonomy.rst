@@ -52,7 +52,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 5728398
-     - 14922125
+     - 29844250
 
 
 Edges Statistics
@@ -65,46 +65,89 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 2508635
+   * - type_r
+     - 2508635
    * - partOfLineage
      - 2441076
+   * - partOfLineage_r
+     - 2441076
+   * - scientificName
+     - 2112637
+   * - scientificName_r
+     - 2112637
    * - subClassOf
      - 2112637
-   * - scientificName
+   * - subClassOf_r
      - 2112637
    * - narrowerTransitive
      - 2112633
+   * - narrowerTransitive_r
+     - 2112633
    * - rank
+     - 1882006
+   * - rank_r
      - 1882006
    * - otherName
      - 889344
+   * - otherName_r
+     - 889344
    * - obsolete
+     - 328439
+   * - obsolete_r
      - 328439
    * - seeAlso
      - 145407
+   * - seeAlso_r
+     - 145407
    * - depiction
+     - 56228
+   * - depiction_r
      - 56228
    * - height
      - 56169
+   * - height_r
+     - 56169
    * - width
      - 56169
+   * - width_r
+     - 56169
+   * - replacedBy
+     - 53962
+   * - replacedBy_r
+     - 53962
    * - replaces
      - 53962
-   * - replacedBy
+   * - replaces_r
      - 53962
    * - commonName
      - 41607
+   * - commonName_r
+     - 41607
    * - mnemonic
+     - 26101
+   * - mnemonic_r
      - 26101
    * - name
      - 17833
+   * - name_r
+     - 17833
    * - strain
+     - 11389
+   * - strain_r
      - 11389
    * - synonym
      - 9457
+   * - synonym_r
+     - 9457
    * - host
+     - 6433
+   * - host_r
      - 6433
    * - imports
      - 1
+   * - imports_r
+     - 1
+
 
 Canonical grammars
 ------------------
