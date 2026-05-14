@@ -18,6 +18,7 @@ Just create a PR (Pull Request) corresponding to the `"Template for adding a new
 
 Graphs
 ------
+
 :Old graphs:
 
 .. list-table::
@@ -27,14 +28,6 @@ Graphs
      - Num Nodes
      - Num Edges
      - Download
-   * - :ref:`skos`
-     - 144
-     - 252
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/skos.tar.gz>`_ 📥
-   * - :ref:`wc`
-     - 332
-     - 269
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wc.tar.gz>`_ 📥
    * - :ref:`generations`
      - 129
      - 273
@@ -43,14 +36,30 @@ Graphs
      - 131
      - 277
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/travel.tar.gz>`_ 📥
+   * - :ref:`skos`
+     - 144
+     - 252
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/skos.tar.gz>`_ 📥
    * - :ref:`univ`
      - 179
      - 293
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/univ.tar.gz>`_ 📥
+   * - :ref:`foaf`
+     - 256
+     - 631
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/foaf.tar.gz>`_ 📥
    * - :ref:`atom`
      - 291
      - 425
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/atom.tar.gz>`_ 📥
+   * - :ref:`wc`
+     - 332
+     - 269
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wc.tar.gz>`_ 📥
+   * - :ref:`people`
+     - 337
+     - 640
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/people.tar.gz>`_ 📥
    * - :ref:`biomedical`
      - 341
      - 459
@@ -59,54 +68,46 @@ Graphs
      - 632
      - 556
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/bzip.tar.gz>`_ 📥
-   * - :ref:`foaf`
-     - 256
-     - 631
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/foaf.tar.gz>`_ 📥
-   * - :ref:`people`
-     - 337
-     - 640
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/people.tar.gz>`_ 📥
-   * - :ref:`pr`
-     - 815
-     - 692
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pr.tar.gz>`_ 📥
-   * - :ref:`funding`
-     - 778
-     - 1086
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/funding.tar.gz>`_ 📥
-   * - :ref:`ls`
-     - 1687
-     - 1453
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ls.tar.gz>`_ 📥
-   * - :ref:`wine`
-     - 733
-     - 1839
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wine.tar.gz>`_ 📥
    * - :ref:`pizza`
      - 671
      - 1980
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pizza.tar.gz>`_ 📥
-   * - :ref:`gzip`
-     - 2687
-     - 2293
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gzip.tar.gz>`_ 📥
+   * - :ref:`wine`
+     - 733
+     - 1839
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wine.tar.gz>`_ 📥
+   * - :ref:`funding`
+     - 778
+     - 1086
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/funding.tar.gz>`_ 📥
+   * - :ref:`pr`
+     - 815
+     - 692
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pr.tar.gz>`_ 📥
    * - :ref:`core`
      - 1323
      - 2752
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz>`_ 📥
+   * - :ref:`ls`
+     - 1687
+     - 1453
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ls.tar.gz>`_ 📥
+   * - :ref:`gzip`
+     - 2687
+     - 2293
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gzip.tar.gz>`_ 📥
    * - :ref:`pathways`
      - 6238
      - 12363
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pathways.tar.gz>`_ 📥
-   * - :ref:`lusearch`
-     - 15774
-     - 14994
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz>`_ 📥
    * - :ref:`sunflow`
      - 15464
      - 15957
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sunflow.tar.gz>`_ 📥
+   * - :ref:`lusearch`
+     - 15774
+     - 14994
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz>`_ 📥
    * - :ref:`luindex`
      - 18532
      - 17375
@@ -123,6 +124,14 @@ Graphs
      - 44717
      - 56683
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/h2.tar.gz>`_ 📥
+   * - :ref:`go_hierarchy`
+     - 45007
+     - 490109
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go_hierarchy.tar.gz>`_ 📥
+   * - :ref:`enzyme`
+     - 48815
+     - 86543
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz>`_ 📥
    * - :ref:`pmd`
      - 54444
      - 59329
@@ -139,10 +148,6 @@ Graphs
      - 86183
      - 83016
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fop.tar.gz>`_ 📥
-   * - :ref:`enzyme`
-     - 48815
-     - 86543
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz>`_ 📥
    * - :ref:`tomcat`
      - 111327
      - 110884
@@ -163,10 +168,10 @@ Graphs
      - 440680
      - 468263
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz>`_ 📥
-   * - :ref:`go_hierarchy`
-     - 45007
-     - 490109
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go_hierarchy.tar.gz>`_ 📥
+   * - :ref:`geospecies`
+     - 450609
+     - 2201532
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/geospecies.tar.gz>`_ 📥
    * - :ref:`go`
      - 582929
      - 1437437
@@ -175,6 +180,10 @@ Graphs
      - 1721418
      - 1510411
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/apache.tar.gz>`_ 📥
+   * - :ref:`taxonomy_hierarchy`
+     - 2112625
+     - 32876289
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy_hierarchy.tar.gz>`_ 📥
    * - :ref:`init`
      - 2446224
      - 2112809
@@ -183,10 +192,6 @@ Graphs
      - 2538243
      - 2191079
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/mm.tar.gz>`_ 📥
-   * - :ref:`geospecies`
-     - 450609
-     - 2201532
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/geospecies.tar.gz>`_ 📥
    * - :ref:`ipc`
      - 3401022
      - 2931498
@@ -231,20 +236,190 @@ Graphs
      - 5203419
      - 4678543
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/postgre.tar.gz>`_ 📥
-   * - :ref:`kernel`
-     - 11254434
-     - 9484213
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/kernel.tar.gz>`_ 📥
    * - :ref:`taxonomy`
      - 5728398
      - 14922125
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy.tar.gz>`_ 📥
-   * - :ref:`taxonomy_hierarchy`
-     - 2112625
-     - 32876289
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy_hierarchy.tar.gz>`_ 📥
+   * - :ref:`kernel`
+     - 11254434
+     - 9484213
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/kernel.tar.gz>`_ 📥
 
+:Java points-to graphs:
 
+.. list-table::
+   :header-rows: 1
+
+   * - Graph
+     - Num Nodes
+     - Num Edges
+     - Download
+   * - :ref:`gson`
+     - 14114
+     - 34934
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`mockito`
+     - 25436
+     - 62388
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`commons_io`
+     - 26188
+     - 62428
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`commons_lang3`
+     - 40970
+     - 96854
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`junit5`
+     - 59818
+     - 149370
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`guava`
+     - 129562
+     - 336232
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`jackson`
+     - 149404
+     - 395356
+     - `.tar.gz <TODO>`_ 📥
+
+:Field-Sensitive Alias:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Graph
+     - Num Nodes
+     - Num Edges
+     - Download
+   * - :ref:`povray_field_sensitive_alias`
+     - 15137
+     - 38886
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`x264_field_sensitive_alias`
+     - 18051
+     - 44780
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`cactus_field_sensitive_alias`
+     - 22350
+     - 56636
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`parest_field_sensitive_alias`
+     - 29788
+     - 64528
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`perlbench_field_sensitive_alias`
+     - 38091
+     - 110874
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`imagick_field_sensitive_alias`
+     - 41652
+     - 111550
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`omnetpp_field_sensitive_alias`
+     - 49962
+     - 119064
+     - `.tar.gz <TODO>`_ 📥
+
+:Context-Sensitive Data-Flow:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Graph
+     - Num Nodes
+     - Num Edges
+     - Download
+   * - :ref:`xz`
+     - 30492
+     - 37173
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`nab`
+     - 31215
+     - 37484
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`leela`
+     - 47665
+     - 63996
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`x264`
+     - 138702
+     - 201034
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`parest`
+     - 233900
+     - 307850
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`imagick`
+     - 331177
+     - 445544
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`povray`
+     - 346034
+     - 581210
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`cactus`
+     - 359200
+     - 580297
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`omnetpp`
+     - 463454
+     - 958487
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`perlbench`
+     - 605864
+     - 1114892
+     - `.tar.gz <TODO>`_ 📥
+
+:Data Provenance:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Graph
+     - Num Nodes
+     - Num Edges
+     - Download
+   * - :ref:`sampleproject <provenance_sampleproject>`
+     - 148
+     - 632
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`wikipedia-provenance <provenance_wikipedia_provenance>`
+     - 316
+     - 972
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`pluggy <provenance_pluggy>`
+     - 353
+     - 1476
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`itsdangerous <provenance_itsdangerous>`
+     - 425
+     - 1790
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`requests <provenance_requests>`
+     - 682
+     - 2708
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`httpx <provenance_httpx>`
+     - 826
+     - 3460
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`click <provenance_click>`
+     - 944
+     - 3740
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`jinja <provenance_jinja>`
+     - 1202
+     - 5110
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`flask <provenance_flask>`
+     - 1517
+     - 6234
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`fastapi <provenance_fastapi>`
+     - 6455
+     - 20082
+     - `.tar.gz <TODO>`_ 📥
 
 :Biological graphs from `UniProt <https://www.uniprot.org/>`_:
 
@@ -275,14 +450,14 @@ Graphs
      - 243839
      - 1818404
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1h4Vv2SHogbeqwIGFfMfjE48zG7kT04sQ>`_ 📥
-   * - :ref:`unigraph_6`
-     - 286645
-     - 1708910
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1KJ0F5Qmou6gT3k1HunIRhF3xLFjrbqYS>`_ 📥
    * - :ref:`unigraph_7`
      - 285577
      - 2073268
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1HHrkCyiCY84hjSa5W9mupfYd2619faqQ>`_ 📥
+   * - :ref:`unigraph_6`
+     - 286645
+     - 1708910
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1KJ0F5Qmou6gT3k1HunIRhF3xLFjrbqYS>`_ 📥
    * - :ref:`unigraph_8`
      - 449237
      - 3385168
