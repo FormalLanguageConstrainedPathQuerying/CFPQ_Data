@@ -1,7 +1,7 @@
-.. _provenance_wikipedia_provenance:
+.. _provenance_airflow:
 
-wikipedia-provenance
-====================
+airflow
+=======
 
 .. contents:: Table of Contents
 
@@ -14,11 +14,11 @@ Info
    * -
      -
    * - Full Name
-     - wikipedia-provenance
+     - airflow
    * - Direct download
      - `.tar.gz <TODO>`_
    * - Source
-     - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
+     - `airflow <https://github.com/apache/airflow>`_
 
 
 Graph Statistics
@@ -29,8 +29,8 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 316
-     - 1284
+   * - 90673
+     - 454738
 
 
 Edges Statistics
@@ -42,32 +42,32 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - Entity
-     - 294
+     - 55968
    * - Activity
-     - 18
+     - 4956
    * - wasDerivedFrom
-     - 59
+     - 29337
    * - wasDerivedFrom_r
-     - 59
+     - 29337
    * - specializationOf
-     - 125
+     - 42997
    * - specializationOf_r
-     - 125
+     - 42997
    * - wasGeneratedBy
-     - 100
+     - 42327
    * - wasGeneratedBy_r
-     - 100
+     - 42327
    * - used
-     - 59
+     - 29337
    * - used_r
-     - 59
+     - 29337
    * - wasAssociatedWith
-     - 18
+     - 9912
    * - wasAssociatedWith_r
-     - 18
+     - 9912
    * - wasAttributedTo
-     - 125
+     - 42997
    * - wasAttributedTo_r
-     - 125
+     - 42997
 
 .. include:: grammar_data_provenance.inc

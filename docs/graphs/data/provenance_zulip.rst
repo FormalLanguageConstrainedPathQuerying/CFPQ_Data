@@ -1,7 +1,7 @@
-.. _provenance_wikipedia_provenance:
+.. _provenance_zulip:
 
-wikipedia-provenance
-====================
+zulip
+=====
 
 .. contents:: Table of Contents
 
@@ -14,11 +14,11 @@ Info
    * -
      -
    * - Full Name
-     - wikipedia-provenance
+     - zulip
    * - Direct download
      - `.tar.gz <TODO>`_
    * - Source
-     - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
+     - `zulip <https://github.com/zulip/zulip>`_
 
 
 Graph Statistics
@@ -29,8 +29,8 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 316
-     - 1284
+   * - 59854
+     - 310032
 
 
 Edges Statistics
@@ -42,32 +42,32 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - Entity
-     - 294
+     - 39194
    * - Activity
-     - 18
+     - 4910
    * - wasDerivedFrom
-     - 59
+     - 18297
    * - wasDerivedFrom_r
-     - 59
+     - 18297
    * - specializationOf
-     - 125
+     - 29409
    * - specializationOf_r
-     - 125
+     - 29409
    * - wasGeneratedBy
-     - 100
+     - 28083
    * - wasGeneratedBy_r
-     - 100
+     - 28083
    * - used
-     - 59
+     - 18297
    * - used_r
-     - 59
+     - 18297
    * - wasAssociatedWith
-     - 18
+     - 9469
    * - wasAssociatedWith_r
-     - 18
+     - 9469
    * - wasAttributedTo
-     - 125
+     - 29409
    * - wasAttributedTo_r
-     - 125
+     - 29409
 
 .. include:: grammar_data_provenance.inc

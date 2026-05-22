@@ -394,43 +394,101 @@ Graphs
      - Download
    * - :ref:`sampleproject <provenance_sampleproject>`
      - 148
-     - 632
+     - 763
      - `.tar.gz <TODO>`_ 📥
    * - :ref:`wikipedia-provenance <provenance_wikipedia_provenance>`
      - 316
-     - 972
+     - 1284
      - `.tar.gz <TODO>`_ 📥
    * - :ref:`pluggy <provenance_pluggy>`
      - 353
-     - 1476
+     - 1818
      - `.tar.gz <TODO>`_ 📥
    * - :ref:`itsdangerous <provenance_itsdangerous>`
      - 425
-     - 1790
+     - 2210
      - `.tar.gz <TODO>`_ 📥
    * - :ref:`requests <provenance_requests>`
      - 682
-     - 2708
+     - 3369
      - `.tar.gz <TODO>`_ 📥
    * - :ref:`httpx <provenance_httpx>`
      - 826
-     - 3460
+     - 4247
      - `.tar.gz <TODO>`_ 📥
    * - :ref:`click <provenance_click>`
      - 944
-     - 3740
+     - 4654
      - `.tar.gz <TODO>`_ 📥
    * - :ref:`jinja <provenance_jinja>`
      - 1202
-     - 5110
+     - 6277
      - `.tar.gz <TODO>`_ 📥
    * - :ref:`flask <provenance_flask>`
      - 1517
-     - 6234
+     - 7728
      - `.tar.gz <TODO>`_ 📥
    * - :ref:`fastapi <provenance_fastapi>`
      - 6455
-     - 20082
+     - 26528
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`celery <provenance_celery>`
+     - 6880
+     - 35874
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`scikit-learn <provenance_scikit_learn>`
+     - 11706
+     - 60181
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`sphinx <provenance_sphinx>`
+     - 13431
+     - 72692
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`pandas <provenance_pandas>`
+     - 13696
+     - 70959
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`django <provenance_django>`
+     - 23749
+     - 113137
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`zulip <provenance_zulip>`
+     - 59854
+     - 310032
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`superset <provenance_superset>`
+     - 76348
+     - 394708
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`airflow <provenance_airflow>`
+     - 90673
+     - 454738
+     - `.tar.gz <TODO>`_ 📥
+
+:Name Resolution:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Graph
+     - Num Nodes
+     - Num Edges
+     - Download
+   * - :ref:`jiaozi <name_resolution_jiaozi>`
+     - 54952
+     - 46322
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`jsonpath <name_resolution_jsonpath>`
+     - 185421
+     - 161488
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`shattered_pixel_dungeon <name_resolution_shattered_pixel_dungeon>`
+     - 1179205
+     - 1017798
+     - `.tar.gz <TODO>`_ 📥
+   * - :ref:`libgdx <name_resolution_libgdx>`
+     - 2571363
+     - 2321366
      - `.tar.gz <TODO>`_ 📥
 
 :Biological graphs from `UniProt <https://www.uniprot.org/>`_:

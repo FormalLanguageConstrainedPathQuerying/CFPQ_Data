@@ -1,7 +1,7 @@
-.. _provenance_wikipedia_provenance:
+.. _provenance_superset:
 
-wikipedia-provenance
-====================
+superset
+========
 
 .. contents:: Table of Contents
 
@@ -14,11 +14,11 @@ Info
    * -
      -
    * - Full Name
-     - wikipedia-provenance
+     - superset
    * - Direct download
      - `.tar.gz <TODO>`_
    * - Source
-     - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
+     - `superset <https://github.com/apache/superset>`_
 
 
 Graph Statistics
@@ -29,8 +29,8 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 316
-     - 1284
+   * - 76348
+     - 394708
 
 
 Edges Statistics
@@ -42,32 +42,32 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - Entity
-     - 294
+     - 45602
    * - Activity
-     - 18
+     - 4840
    * - wasDerivedFrom
-     - 59
+     - 26615
    * - wasDerivedFrom_r
-     - 59
+     - 26615
    * - specializationOf
-     - 125
+     - 37077
    * - specializationOf_r
-     - 125
+     - 37077
    * - wasGeneratedBy
-     - 100
+     - 35069
    * - wasGeneratedBy_r
-     - 100
+     - 35069
    * - used
-     - 59
+     - 26615
    * - used_r
-     - 59
+     - 26615
    * - wasAssociatedWith
-     - 18
+     - 9680
    * - wasAssociatedWith_r
-     - 18
+     - 9680
    * - wasAttributedTo
-     - 125
+     - 37077
    * - wasAttributedTo_r
-     - 125
+     - 37077
 
 .. include:: grammar_data_provenance.inc

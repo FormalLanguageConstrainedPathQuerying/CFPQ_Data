@@ -1,7 +1,7 @@
-.. _provenance_wikipedia_provenance:
+.. _provenance_django:
 
-wikipedia-provenance
-====================
+django
+======
 
 .. contents:: Table of Contents
 
@@ -14,11 +14,11 @@ Info
    * -
      -
    * - Full Name
-     - wikipedia-provenance
+     - django
    * - Direct download
      - `.tar.gz <TODO>`_
    * - Source
-     - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
+     - `django <https://github.com/django/django>`_
 
 
 Graph Statistics
@@ -29,8 +29,8 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 316
-     - 1284
+   * - 23749
+     - 113137
 
 
 Edges Statistics
@@ -42,32 +42,32 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - Entity
-     - 294
+     - 22523
    * - Activity
-     - 18
+     - 996
    * - wasDerivedFrom
-     - 59
+     - 4365
    * - wasDerivedFrom_r
-     - 59
+     - 4365
    * - specializationOf
-     - 125
+     - 11427
    * - specializationOf_r
-     - 125
+     - 11427
    * - wasGeneratedBy
-     - 100
+     - 11414
    * - wasGeneratedBy_r
-     - 100
+     - 11414
    * - used
-     - 59
+     - 4365
    * - used_r
-     - 59
+     - 4365
    * - wasAssociatedWith
-     - 18
+     - 1811
    * - wasAssociatedWith_r
-     - 18
+     - 1811
    * - wasAttributedTo
-     - 125
+     - 11427
    * - wasAttributedTo_r
-     - 125
+     - 11427
 
 .. include:: grammar_data_provenance.inc

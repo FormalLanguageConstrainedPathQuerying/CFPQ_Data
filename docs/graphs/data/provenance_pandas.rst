@@ -1,7 +1,7 @@
-.. _provenance_wikipedia_provenance:
+.. _provenance_pandas:
 
-wikipedia-provenance
-====================
+pandas
+======
 
 .. contents:: Table of Contents
 
@@ -14,11 +14,11 @@ Info
    * -
      -
    * - Full Name
-     - wikipedia-provenance
+     - pandas
    * - Direct download
      - `.tar.gz <TODO>`_
    * - Source
-     - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
+     - `pandas <https://github.com/pandas-dev/pandas>`_
 
 
 Graph Statistics
@@ -29,8 +29,8 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 316
-     - 1284
+   * - 13696
+     - 70959
 
 
 Edges Statistics
@@ -42,32 +42,32 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - Entity
-     - 294
+     - 12551
    * - Activity
-     - 18
+     - 1000
    * - wasDerivedFrom
-     - 59
+     - 3739
    * - wasDerivedFrom_r
-     - 59
+     - 3739
    * - specializationOf
-     - 125
+     - 6416
    * - specializationOf_r
-     - 125
+     - 6416
    * - wasGeneratedBy
-     - 100
+     - 6394
    * - wasGeneratedBy_r
-     - 100
+     - 6394
    * - used
-     - 59
+     - 3739
    * - used_r
-     - 59
+     - 3739
    * - wasAssociatedWith
-     - 18
+     - 2000
    * - wasAssociatedWith_r
-     - 18
+     - 2000
    * - wasAttributedTo
-     - 125
+     - 6416
    * - wasAttributedTo_r
-     - 125
+     - 6416
 
 .. include:: grammar_data_provenance.inc

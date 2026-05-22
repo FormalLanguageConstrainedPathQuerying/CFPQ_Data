@@ -78,8 +78,8 @@ The grammar file is attached to the archive.
    S &\to Seq \quad IsAssociated \quad IsSimilar \\
    Seq &\to IsSimilar \quad (codes\_for \quad IsSimilar)? \\
    IsSimilar &\to \varepsilon \\
-             &\mid has \quad IsSimilar \quad has\_r \\
-             &\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to\_r \quad IsSimilar \\
-             &\mid belongs\_to \quad IsSimilar \quad belongs\_to\_r \\
-             &\mid participate\_in \quad IsSimilar \quad participate\_in\_r \\
-   IsAssociated &\to refers\_to \quad refers\_to\_r
+             &\mid has \quad IsSimilar \quad has^{r} \\
+             &\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to^{r} \quad IsSimilar \\
+             &\mid belongs\_to \quad IsSimilar \quad belongs\_to^{r} \\
+             &\mid participate\_in \quad IsSimilar \quad participate\_in^{r} \\
+   IsAssociated &\to refers\_to \quad refers\_to^{r}

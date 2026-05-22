@@ -1,7 +1,7 @@
-.. _provenance_wikipedia_provenance:
+.. _provenance_sphinx:
 
-wikipedia-provenance
-====================
+sphinx
+======
 
 .. contents:: Table of Contents
 
@@ -14,11 +14,11 @@ Info
    * -
      -
    * - Full Name
-     - wikipedia-provenance
+     - sphinx
    * - Direct download
      - `.tar.gz <TODO>`_
    * - Source
-     - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
+     - `sphinx <https://github.com/sphinx-doc/sphinx>`_
 
 
 Graph Statistics
@@ -29,8 +29,8 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 316
-     - 1284
+   * - 13431
+     - 72692
 
 
 Edges Statistics
@@ -42,32 +42,32 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - Entity
-     - 294
+     - 12337
    * - Activity
-     - 18
+     - 999
    * - wasDerivedFrom
-     - 59
+     - 4344
    * - wasDerivedFrom_r
-     - 59
+     - 4344
    * - specializationOf
-     - 125
+     - 6515
    * - specializationOf_r
-     - 125
+     - 6515
    * - wasGeneratedBy
-     - 100
+     - 6423
    * - wasGeneratedBy_r
-     - 100
+     - 6423
    * - used
-     - 59
+     - 4344
    * - used_r
-     - 59
+     - 4344
    * - wasAssociatedWith
-     - 18
+     - 1537
    * - wasAssociatedWith_r
-     - 18
+     - 1537
    * - wasAttributedTo
-     - 125
+     - 6515
    * - wasAttributedTo_r
-     - 125
+     - 6515
 
 .. include:: grammar_data_provenance.inc

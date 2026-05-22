@@ -1,7 +1,7 @@
-.. _provenance_wikipedia_provenance:
+.. _provenance_scikit_learn:
 
-wikipedia-provenance
-====================
+scikit-learn
+============
 
 .. contents:: Table of Contents
 
@@ -14,11 +14,11 @@ Info
    * -
      -
    * - Full Name
-     - wikipedia-provenance
+     - scikit-learn
    * - Direct download
      - `.tar.gz <TODO>`_
    * - Source
-     - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
+     - `scikit-learn <https://github.com/scikit-learn/scikit-learn>`_
 
 
 Graph Statistics
@@ -29,8 +29,8 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 316
-     - 1284
+   * - 11706
+     - 60181
 
 
 Edges Statistics
@@ -42,32 +42,32 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - Entity
-     - 294
+     - 10524
    * - Activity
-     - 18
+     - 967
    * - wasDerivedFrom
-     - 59
+     - 3236
    * - wasDerivedFrom_r
-     - 59
+     - 3236
    * - specializationOf
-     - 125
+     - 5368
    * - specializationOf_r
-     - 125
+     - 5368
    * - wasGeneratedBy
-     - 100
+     - 5203
    * - wasGeneratedBy_r
-     - 100
+     - 5203
    * - used
-     - 59
+     - 3236
    * - used_r
-     - 59
+     - 3236
    * - wasAssociatedWith
-     - 18
+     - 1934
    * - wasAssociatedWith_r
-     - 18
+     - 1934
    * - wasAttributedTo
-     - 125
+     - 5368
    * - wasAttributedTo_r
-     - 125
+     - 5368
 
 .. include:: grammar_data_provenance.inc

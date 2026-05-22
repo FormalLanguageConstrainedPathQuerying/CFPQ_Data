@@ -30,7 +30,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 682
-     - 2708
+     - 3369
 
 
 Edges Statistics
@@ -41,10 +41,22 @@ Edges Statistics
 
    * - Edge Label
      - Num Edge Label
+   * - Entity
+     - 581
+   * - Activity
+     - 80
+   * - wasDerivedFrom
+     - 153
+   * - wasDerivedFrom_r
+     - 153
    * - specializationOf
      - 300
    * - specializationOf_r
      - 300
+   * - wasGeneratedBy
+     - 291
+   * - wasGeneratedBy_r
+     - 291
    * - used
      - 153
    * - used_r
@@ -57,13 +69,5 @@ Edges Statistics
      - 300
    * - wasAttributedTo_r
      - 300
-   * - wasDerivedFrom
-     - 153
-   * - wasDerivedFrom_r
-     - 153
-   * - wasGeneratedBy
-     - 291
-   * - wasGeneratedBy_r
-     - 291
 
 .. include:: grammar_data_provenance.inc

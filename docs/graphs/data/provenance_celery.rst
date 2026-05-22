@@ -1,7 +1,7 @@
-.. _provenance_wikipedia_provenance:
+.. _provenance_celery:
 
-wikipedia-provenance
-====================
+celery
+======
 
 .. contents:: Table of Contents
 
@@ -14,11 +14,11 @@ Info
    * -
      -
    * - Full Name
-     - wikipedia-provenance
+     - celery
    * - Direct download
      - `.tar.gz <TODO>`_
    * - Source
-     - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
+     - `celery <https://github.com/celery/celery>`_
 
 
 Graph Statistics
@@ -29,8 +29,8 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 316
-     - 1284
+   * - 6880
+     - 35874
 
 
 Edges Statistics
@@ -42,32 +42,32 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - Entity
-     - 294
+     - 5625
    * - Activity
-     - 18
+     - 991
    * - wasDerivedFrom
-     - 59
+     - 2022
    * - wasDerivedFrom_r
-     - 59
+     - 2022
    * - specializationOf
-     - 125
+     - 2897
    * - specializationOf_r
-     - 125
+     - 2897
    * - wasGeneratedBy
-     - 100
+     - 2864
    * - wasGeneratedBy_r
-     - 100
+     - 2864
    * - used
-     - 59
+     - 2022
    * - used_r
-     - 59
+     - 2022
    * - wasAssociatedWith
-     - 18
+     - 1927
    * - wasAssociatedWith_r
-     - 18
+     - 1927
    * - wasAttributedTo
-     - 125
+     - 2897
    * - wasAttributedTo_r
-     - 125
+     - 2897
 
 .. include:: grammar_data_provenance.inc
