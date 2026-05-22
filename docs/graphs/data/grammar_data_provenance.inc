@@ -5,18 +5,18 @@ The grammar file is attached to the archive.
 
 .. math::
 
-   S &\to \texttt{Entity} \quad Core \quad \texttt{Entity} \\
-   Core &\to \texttt{wasDerivedFrom} \\
-        &\mid \texttt{wasDerivedFrom\_r} \\
-        &\mid \texttt{specializationOf} \\
-        &\mid \texttt{specializationOf\_r} \\
-        &\mid \texttt{wasGeneratedBy} \quad \texttt{Activity} \quad \texttt{used} \\
-        &\mid \texttt{used\_r} \quad \texttt{Activity} \quad \texttt{wasGeneratedBy\_r} \\
-        &\mid \texttt{wasGeneratedBy} \quad \texttt{Activity} \quad Core \\
-        &\quad \texttt{Activity} \quad \texttt{wasGeneratedBy\_r} \\
-        &\mid \texttt{used\_r} \quad \texttt{Activity} \quad Core \\
-        &\quad \texttt{Activity} \quad \texttt{used} \\
-        &\mid \texttt{wasDerivedFrom} \quad \texttt{Entity} \quad Core \\
-        &\quad \texttt{Entity} \quad \texttt{wasDerivedFrom\_r} \\
-        &\mid \texttt{specializationOf} \quad \texttt{Entity} \quad Core \\
-        &\quad \texttt{Entity} \quad \texttt{specializationOf\_r}
+   S &\to Entity \quad Core \quad Entity \\
+   Core &\to wasDerivedFrom \\
+        &\mid wasDerivedFrom_{r} \\
+        &\mid specializationOf \\
+        &\mid specializationOf_{r} \\
+        &\mid wasGeneratedBy \quad Activity \quad used \\
+        &\mid used_{r} \quad Activity \quad wasGeneratedBy_{r} \\
+        &\mid wasGeneratedBy \quad Activity \quad Core \\
+        &\quad Activity \quad wasGeneratedBy_{r} \\
+        &\mid used_{r} \quad Activity \quad Core \\
+        &\quad Activity \quad used \\
+        &\mid wasDerivedFrom \quad Entity \quad Core \\
+        &\quad Entity \quad wasDerivedFrom_{r} \\
+        &\mid specializationOf \quad Entity \quad Core \\
+        &\quad Entity \quad specializationOf_{r}
