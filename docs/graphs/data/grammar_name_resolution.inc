@@ -1,17 +1,15 @@
 Grammar
 -------
 
-This grammar is taken from ``grammar/kotgll/name_resolution.cfg`` in the graph archive.
-The start nonterminal is :math:`Q`.
+The grammar file is attached to the archive.
 
 .. math::
 
    S &\to \varepsilon \\
-   S &\to \mathit{eps} \; S \\
-   S &\to Q \; S \\
-   S &\to V \; S \\
-   S_{\mathit{psh}_i} &\to \mathit{psh}_i \; S \\
-   S_{\mathit{vpsh}_i} &\to \mathit{vpsh}_i \; S \\
-   V &\to S_{\mathit{vpsh}_i} \; \mathit{vpp}_i \\
-   Q &\to S_{\mathit{psh}_i} \; \mathit{pp}_i \\
-   &\forall i
+     &\mid \texttt{eps} \quad S \\
+     &\mid Q \quad S \\
+     &\mid V \quad S \\
+   S\#psh\_i &\to \texttt{psh\_i} \quad S \\
+   S\#vpsh\_i &\to \texttt{vpsh\_i} \quad S \\
+   V &\to S\#vpsh\_i \quad \texttt{vpp\_i} \\
+   Q &\to S\#psh\_i \quad \texttt{pp\_i}

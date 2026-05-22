@@ -1,7 +1,7 @@
 .. _unigraph_7:
 
 unigraph_7
-======
+==========
 
 .. contents:: Table of Contents
 
@@ -78,8 +78,8 @@ The grammar file is attached to the archive.
    S &\to Seq \quad IsAssociated \quad IsSimilar \\
    Seq &\to IsSimilar \quad (codes\_for \quad IsSimilar)? \\
    IsSimilar &\to \varepsilon \\
-             &\mid has \quad IsSimilar \quad has^{r} \\
-             &\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to^{r} \quad IsSimilar \\
-             &\mid belongs\_to \quad IsSimilar \quad belongs\_to^{r} \\
-             &\mid participate\_in \quad IsSimilar \quad participate\_in^{r} \\
-   IsAssociated &\to refers\_to \quad refers\_to^{r}
+             &\mid has \quad IsSimilar \quad has_{r} \\
+             &\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to_{r} \quad IsSimilar \\
+             &\mid belongs\_to \quad IsSimilar \quad belongs\_to_{r} \\
+             &\mid participate\_in \quad IsSimilar \quad participate\_in_{r} \\
+   IsAssociated &\to refers\_to \quad refers\_to_{r}
