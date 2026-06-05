@@ -1,4 +1,4 @@
-.. _eclass:
+.. _old_eclass:
 
 eclass
 ======

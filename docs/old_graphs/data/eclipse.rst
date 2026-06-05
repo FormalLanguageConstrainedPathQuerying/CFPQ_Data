@@ -1,7 +1,7 @@
-.. _eclipse:
+.. _old_eclipse:
 
 eclipse
-=====
+=======
 
 .. contents:: Table of Contents
 

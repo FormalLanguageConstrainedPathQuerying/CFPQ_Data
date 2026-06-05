@@ -1,4 +1,4 @@
-.. _gzip:
+.. _old_gzip:
 
 gzip
 ====

@@ -1,4 +1,4 @@
-.. _core:
+.. _old_core:
 
 core
 ====

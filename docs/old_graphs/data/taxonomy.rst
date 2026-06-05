@@ -1,4 +1,4 @@
-.. _taxonomy:
+.. _old_taxonomy:
 
 taxonomy
 ========

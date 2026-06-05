@@ -1,4 +1,4 @@
-.. _enzyme:
+.. _old_enzyme:
 
 enzyme
 ======

@@ -1,4 +1,4 @@
-.. _arch:
+.. _old_arch:
 
 arch
 ====

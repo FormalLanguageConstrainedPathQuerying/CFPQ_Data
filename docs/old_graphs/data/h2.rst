@@ -1,7 +1,7 @@
-.. _h2:
+.. _old_h2:
 
 h2
-=====
+==
 
 .. contents:: Table of Contents
 

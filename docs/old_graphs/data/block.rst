@@ -1,4 +1,4 @@
-.. _block:
+.. _old_block:
 
 block
 =====

@@ -1,7 +1,7 @@
-.. _pmd:
+.. _old_pmd:
 
 pmd
-=====
+===
 
 .. contents:: Table of Contents
 

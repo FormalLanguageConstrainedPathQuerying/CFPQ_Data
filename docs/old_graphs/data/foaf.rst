@@ -1,4 +1,4 @@
-.. _foaf:
+.. _old_foaf:
 
 foaf
 ====

@@ -1,7 +1,7 @@
-.. _tradesoap:
+.. _old_tradesoap:
 
 tradesoap
-=====
+=========
 
 .. contents:: Table of Contents
 

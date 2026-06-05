@@ -1,7 +1,7 @@
-.. _lusearch:
+.. _old_lusearch:
 
 lusearch
-=====
+========
 
 .. contents:: Table of Contents
 

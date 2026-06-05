@@ -1,4 +1,4 @@
-.. _batik:
+.. _old_batik:
 
 batik
 =====

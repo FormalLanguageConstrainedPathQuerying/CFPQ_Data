@@ -1,4 +1,4 @@
-.. _skos:
+.. _old_skos:
 
 skos
 ====

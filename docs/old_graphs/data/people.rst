@@ -1,4 +1,4 @@
-.. _people:
+.. _old_people:
 
 people
 ======

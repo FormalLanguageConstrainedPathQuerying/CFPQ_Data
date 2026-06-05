@@ -1,7 +1,7 @@
-.. _bzip:
+.. _old_bzip:
 
 bzip
-=====
+====
 
 .. contents:: Table of Contents
 

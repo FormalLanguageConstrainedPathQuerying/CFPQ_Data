@@ -1,4 +1,4 @@
-.. _ipc:
+.. _old_ipc:
 
 ipc
 ===

@@ -1,4 +1,4 @@
-.. _pizza:
+.. _old_pizza:
 
 pizza
 =====

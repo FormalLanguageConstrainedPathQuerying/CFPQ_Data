@@ -1,4 +1,4 @@
-.. _taxonomy_hierarchy:
+.. _old_taxonomy_hierarchy:
 
 taxonomy_hierarchy
 ==================

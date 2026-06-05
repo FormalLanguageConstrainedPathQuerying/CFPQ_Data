@@ -1,4 +1,4 @@
-.. _net:
+.. _old_net:
 
 net
 ===

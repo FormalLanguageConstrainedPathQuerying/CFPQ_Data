@@ -1,4 +1,4 @@
-.. _lib:
+.. _old_lib:
 
 lib
 ===

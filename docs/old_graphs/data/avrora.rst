@@ -1,7 +1,7 @@
-.. _avrora:
+.. _old_avrora:
 
 avrora
-=====
+======
 
 .. contents:: Table of Contents
 

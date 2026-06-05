@@ -1,4 +1,4 @@
-.. _atom:
+.. _old_atom:
 
 atom
 ====

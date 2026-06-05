@@ -1,4 +1,4 @@
-.. _pathways:
+.. _old_pathways:
 
 pathways
 ========

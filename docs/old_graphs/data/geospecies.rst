@@ -1,4 +1,4 @@
-.. _geospecies:
+.. _old_geospecies:
 
 geospecies
 ==========

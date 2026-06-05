@@ -1,7 +1,7 @@
-.. _luindex:
+.. _old_luindex:
 
 luindex
-=====
+=======
 
 .. contents:: Table of Contents
 

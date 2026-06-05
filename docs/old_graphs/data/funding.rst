@@ -1,4 +1,4 @@
-.. _funding:
+.. _old_funding:
 
 funding
 =======

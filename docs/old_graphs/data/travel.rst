@@ -1,4 +1,4 @@
-.. _travel:
+.. _old_travel:
 
 travel
 ======

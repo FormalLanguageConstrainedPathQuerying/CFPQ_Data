@@ -1,7 +1,7 @@
-.. _tomcat:
+.. _old_tomcat:
 
 tomcat
-=====
+======
 
 .. contents:: Table of Contents
 

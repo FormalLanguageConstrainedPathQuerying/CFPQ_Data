@@ -1,4 +1,4 @@
-.. _wine:
+.. _old_wine:
 
 wine
 ====

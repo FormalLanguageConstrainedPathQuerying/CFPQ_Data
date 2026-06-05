@@ -1,7 +1,7 @@
-.. _tradebeans:
+.. _old_tradebeans:
 
 tradebeans
-=====
+==========
 
 .. contents:: Table of Contents
 

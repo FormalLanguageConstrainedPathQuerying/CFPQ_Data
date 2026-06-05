@@ -1,4 +1,4 @@
-.. _init:
+.. _old_init:
 
 init
 ====

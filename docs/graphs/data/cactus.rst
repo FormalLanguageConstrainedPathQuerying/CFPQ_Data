@@ -40,10 +40,10 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - :math:`a`
-     - 301258
+     - 393126
    * - :math:`call_i`
-     - 4301
+     - 123500
    * - :math:`ret_i`
-     - 2291
+     - 63671
 
 .. include:: grammar_cpu17_context_sensitive_data_flow.inc

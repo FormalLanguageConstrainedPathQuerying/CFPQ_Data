@@ -1,4 +1,4 @@
-.. _univ:
+.. _old_univ:
 
 univ
 ====

@@ -1,4 +1,4 @@
-.. _go_hierarchy:
+.. _old_go_hierarchy:
 
 go_hierarchy
 ============

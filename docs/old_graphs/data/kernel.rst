@@ -1,4 +1,4 @@
-.. _kernel:
+.. _old_kernel:
 
 kernel
 ======

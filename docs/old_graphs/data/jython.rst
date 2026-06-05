@@ -1,7 +1,7 @@
-.. _jython:
+.. _old_jython:
 
 jython
-=====
+======
 
 .. contents:: Table of Contents
 

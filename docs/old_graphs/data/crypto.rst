@@ -1,4 +1,4 @@
-.. _crypto:
+.. _old_crypto:
 
 crypto
 ======

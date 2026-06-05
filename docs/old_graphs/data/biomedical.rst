@@ -1,4 +1,4 @@
-.. _biomedical:
+.. _old_biomedical:
 
 biomedical
 ==========

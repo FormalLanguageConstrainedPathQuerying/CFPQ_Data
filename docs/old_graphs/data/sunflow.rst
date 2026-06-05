@@ -1,7 +1,7 @@
-.. _sunflow:
+.. _old_sunflow:
 
 sunflow
-=====
+=======
 
 .. contents:: Table of Contents
 
