@@ -16,7 +16,7 @@ Info
    * - Full Name
      - zulip
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1dfZK9aeLEC7x0J7IW89bADoBtSfzU4E0>`_
    * - Source
      - `zulip <https://github.com/zulip/zulip>`_
 

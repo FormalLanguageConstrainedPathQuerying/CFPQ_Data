@@ -16,7 +16,7 @@ Info
    * - Full Name
      - scikit-learn
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1OLroSM_Vgf-mFa1O94VvIHwV5Wt76nK_>`_
    * - Source
      - `scikit-learn <https://github.com/scikit-learn/scikit-learn>`_
 

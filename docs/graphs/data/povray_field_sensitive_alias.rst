@@ -16,7 +16,7 @@ Info
    * - Full Name
      - povray
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1-QzW5QGdnR_U9IVySg7FwuoJJCFUo91e>`_
 
 
 Graph Statistics

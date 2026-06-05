@@ -16,7 +16,7 @@ Info
    * - Full Name
      - shattered_pixel_dungeon
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1AZzAKHyaRQ0AANAvkvwDPMF15TnL4Z-S>`_
    * - Source
      - `shattered_pixel_dungeon <https://github.com/00-Evan/shattered-pixel-dungeon>`_
 

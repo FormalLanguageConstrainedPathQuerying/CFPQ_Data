@@ -16,7 +16,7 @@ Info
    * - Full Name
      - fastapi
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1sOCVQs-jLzT9p7wERNAqLHM4tyJNy5gt>`_
    * - Source
      - `fastapi <https://github.com/fastapi/fastapi>`_
 

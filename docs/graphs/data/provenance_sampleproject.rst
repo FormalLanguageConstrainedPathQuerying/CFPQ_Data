@@ -16,7 +16,7 @@ Info
    * - Full Name
      - sampleproject
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=19fI6A6q4FInjN_sBnJ1f-7Y1i7l789xS>`_
    * - Source
      - `sampleproject <https://github.com/pypa/sampleproject>`_
 

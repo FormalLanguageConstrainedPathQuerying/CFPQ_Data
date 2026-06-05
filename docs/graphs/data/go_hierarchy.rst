@@ -17,30 +17,10 @@ Info
      - go_hierarchy
    * - Version
      - 4.0.0
-   * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go_hierarchy.tar.gz>`_
+   * - Direct download
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1jvbxsvnlnJT058BgQREVr6rEn9nhOcHs>`_
    * - Origin
      - `.owl.xz <https://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf/go-hierarchy.owl.xz>`_
-
-
-CSV File Structure
-------------------
-
-.. list-table::
-   :header-rows: 1
-
-   * - Column Number
-     - Column Type
-     - Column Description
-   * - 1
-     - int
-     - The tail of the edge
-   * - 2
-     - int
-     - The head of the edge
-   * - 3
-     - str
-     - The label of the edge
 
 
 Graph Statistics

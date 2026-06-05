@@ -16,7 +16,7 @@ Info
    * - Full Name
      - django
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1EcOsi4okbXNzQoX1Ln8FaJfDjyZ4qBvF>`_
    * - Source
      - `django <https://github.com/django/django>`_
 

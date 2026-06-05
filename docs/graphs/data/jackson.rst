@@ -16,7 +16,7 @@ Info
    * - Full Name
      - jackson
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1D9OiEPXHTfvYix0D1c76hFf9v4ArQtfI>`_
    * - Source
      - `jackson <https://github.com/FasterXML/jackson>`_
 

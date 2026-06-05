@@ -16,7 +16,7 @@ Info
    * - Full Name
      - imagick
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1Wb2UXVpLN7UeX-n-pxq0oGKAN05KBV5p>`_
 
 
 Graph Statistics

@@ -16,7 +16,7 @@ Info
    * - Full Name
      - gson
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1rSQi6ZzDEu85deVghJ7GFtM4lV6l4642>`_
    * - Source
      - `gson <https://google.github.io/gson/>`_
 

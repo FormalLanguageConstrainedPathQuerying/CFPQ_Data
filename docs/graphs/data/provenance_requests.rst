@@ -16,7 +16,7 @@ Info
    * - Full Name
      - requests
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1jlthWvH4NXTY8yhK8tusfMtCOfvydw0o>`_
    * - Source
      - `requests <https://github.com/psf/requests>`_
 

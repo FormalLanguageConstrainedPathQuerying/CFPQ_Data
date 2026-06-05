@@ -16,7 +16,7 @@ Info
    * - Full Name
      - jinja
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1perIfofgAA4LAxGAYSyq2_nHUqII8YpM>`_
    * - Source
      - `jinja <https://github.com/pallets/jinja>`_
 

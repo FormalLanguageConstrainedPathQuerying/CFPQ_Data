@@ -17,30 +17,10 @@ Info
      - drivers_after_inline
    * - Version
      - 4.0.0
-   * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/drivers.tar.gz>`_
+   * - Direct download
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1fWU2-9GxumutcryW9ZfxGyjdTg0abnQY>`_
    * - Origin
      - `.txt <https://drive.google.com/uc?export=download&id=0B8bQanV_QfNkSThLQ3lxMzVQMjA>`_
-
-
-CSV File Structure
-------------------
-
-.. list-table::
-   :header-rows: 1
-
-   * - Column Number
-     - Column Type
-     - Column Description
-   * - 1
-     - int
-     - The tail of the edge
-   * - 2
-     - int
-     - The head of the edge
-   * - 3
-     - str
-     - The label of the edge
 
 
 Graph Statistics

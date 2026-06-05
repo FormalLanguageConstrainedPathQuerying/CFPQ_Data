@@ -16,7 +16,7 @@ Info
    * - Full Name
      - guava
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1yyviViskXaxh6K0uC4f6z3fM2KjXWIVr>`_
    * - Source
      - `guava <https://guava.dev/>`_
 

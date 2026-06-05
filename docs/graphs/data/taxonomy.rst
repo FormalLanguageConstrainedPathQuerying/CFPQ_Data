@@ -17,30 +17,10 @@ Info
      - taxonomy
    * - Version
      - 4.0.0
-   * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy.tar.gz>`_
+   * - Direct download
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1spRUicn0pZ9MbyiidA5A9XEP_qfrbFet>`_
    * - Origin
      - `.rdf.xz <https://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf/taxonomy.rdf.xz>`_
-
-
-CSV File Structure
-------------------
-
-.. list-table::
-   :header-rows: 1
-
-   * - Column Number
-     - Column Type
-     - Column Description
-   * - 1
-     - int
-     - The tail of the edge
-   * - 2
-     - int
-     - The head of the edge
-   * - 3
-     - str
-     - The label of the edge
 
 
 Graph Statistics

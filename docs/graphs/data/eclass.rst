@@ -17,30 +17,10 @@ Info
      - eclass_514en
    * - Version
      - 4.0.0
-   * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz>`_
+   * - Direct download
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1BTTVazX2pn7DuNiGotMvBrgQOzUjfF7a>`_
    * - Origin
      - `link <http://www.ebusiness-unibw.org/ontologies/eclass/5.1.4>`_
-
-
-CSV File Structure
-------------------
-
-.. list-table::
-   :header-rows: 1
-
-   * - Column Number
-     - Column Type
-     - Column Description
-   * - 1
-     - int
-     - The tail of the edge
-   * - 2
-     - int
-     - The head of the edge
-   * - 3
-     - str
-     - The label of the edge
 
 
 Graph Statistics

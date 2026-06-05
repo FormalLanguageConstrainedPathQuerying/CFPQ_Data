@@ -17,30 +17,10 @@ Info
      - univ_bench
    * - Version
      - 4.0.0
-   * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/univ.tar.gz>`_
+   * - Direct download
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1qgxXDHjadmSWsTeJnEHACrBkxUPNBHKu>`_
    * - Origin
      - `.owl <http://swat.cse.lehigh.edu/onto/univ-bench.owl>`_
-
-
-CSV File Structure
-------------------
-
-.. list-table::
-   :header-rows: 1
-
-   * - Column Number
-     - Column Type
-     - Column Description
-   * - 1
-     - int
-     - The tail of the edge
-   * - 2
-     - int
-     - The head of the edge
-   * - 3
-     - str
-     - The label of the edge
 
 
 Graph Statistics

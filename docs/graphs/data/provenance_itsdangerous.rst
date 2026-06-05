@@ -16,7 +16,7 @@ Info
    * - Full Name
      - itsdangerous
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1PYiRRjp_i3jm78BRxfbkF2srrmQ1fiYE>`_
    * - Source
      - `itsdangerous <https://github.com/pallets/itsdangerous>`_
 

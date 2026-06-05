@@ -16,7 +16,7 @@ Info
    * - Full Name
      - sphinx
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1zq8fXSPietuBnpQuIr_uy8X_lGBFFu1P>`_
    * - Source
      - `sphinx <https://github.com/sphinx-doc/sphinx>`_
 

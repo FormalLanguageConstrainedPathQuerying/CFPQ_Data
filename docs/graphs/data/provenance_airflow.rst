@@ -16,7 +16,7 @@ Info
    * - Full Name
      - airflow
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1-CztZovl2KWywL94nu3b3ltZ4LvKAhXT>`_
    * - Source
      - `airflow <https://github.com/apache/airflow>`_
 

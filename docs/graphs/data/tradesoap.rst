@@ -1,7 +1,7 @@
 .. _tradesoap:
 
 tradesoap
-=====
+=========
 
 .. contents:: Table of Contents
 
@@ -17,30 +17,10 @@ Info
      - tradesoap
    * - Version
      - 4.0.0
-   * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz>`_
+   * - Direct download
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1TEbaIar6QOuOSQ6QW-quilshKCGeDzQv>`_
    * - Origin
      - `link <https://dacapobench.sourceforge.net>`_
-
-
-CSV File Structure
-------------------
-
-.. list-table::
-   :header-rows: 1
-
-   * - Column Number
-     - Column Type
-     - Column Description
-   * - 1
-     - int
-     - The tail of the edge
-   * - 2
-     - int
-     - The head of the edge
-   * - 3
-     - str
-     - The label of the edge
 
 
 Graph Statistics

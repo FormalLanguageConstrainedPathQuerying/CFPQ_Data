@@ -16,7 +16,7 @@ Info
    * - Full Name
      - omnetpp
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1yS2uK2H_Am9k8dJ9ShnEm4NBaAB2Gf26>`_
 
 
 Graph Statistics

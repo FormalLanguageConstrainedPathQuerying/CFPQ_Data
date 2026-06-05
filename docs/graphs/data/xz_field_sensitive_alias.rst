@@ -1,4 +1,4 @@
-.. _aa_xz_field_sensitive_alias:
+.. _xz_field_sensitive_alias:
 
 xz
 ==
@@ -16,7 +16,7 @@ Info
    * - Full Name
      - xz
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1kl5krt-_RYLghDXMlB1fb2K9drg875Tw>`_
 
 
 Graph Statistics

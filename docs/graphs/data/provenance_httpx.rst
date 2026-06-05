@@ -16,7 +16,7 @@ Info
    * - Full Name
      - httpx
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1HsIEjs4rKQqpP2oMiHgM29M3AsBOYjPn>`_
    * - Source
      - `httpx <https://github.com/encode/httpx>`_
 

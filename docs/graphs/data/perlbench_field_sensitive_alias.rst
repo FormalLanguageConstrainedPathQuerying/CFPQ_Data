@@ -16,7 +16,7 @@ Info
    * - Full Name
      - perlbench
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1QynigQUmNQdo-grWAiPImko5Pdyff0ep>`_
 
 
 Graph Statistics

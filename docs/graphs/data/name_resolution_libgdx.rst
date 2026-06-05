@@ -16,7 +16,7 @@ Info
    * - Full Name
      - libgdx
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1yuFcX9YmKVdb7oQV4IrU6GqFlNjF3Rl4>`_
    * - Source
      - `libgdx <https://github.com/libgdx/libgdx>`_
 

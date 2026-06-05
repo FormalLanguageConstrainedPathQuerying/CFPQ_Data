@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.3
    * - Direct download (.mtx files)
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1vdmXHv8se2PNRJ_Moxbgt3jBXfAy8gP9>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1SWTFV2olNB9zlmEJ9PjD-0UYo6XF2fxo>`_
 
 
 Graph Statistics

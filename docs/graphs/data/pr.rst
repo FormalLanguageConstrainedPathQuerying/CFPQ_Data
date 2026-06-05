@@ -17,30 +17,10 @@ Info
      - pr
    * - Version
      - 4.0.0
-   * - Direct download (.csv + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pr.tar.gz>`_
+   * - Direct download
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1h2bjLB1vt_7eHczBvGaC8KBnXkpBBH8z>`_
    * - Origin
      - `.xml.tar.gz <https://drive.google.com/file/d/1P3nMD93_9k8ZkflIrnbjBzyNbwSHvHCu/view?usp=sharing>`_
-
-
-CSV File Structure
-------------------
-
-.. list-table::
-   :header-rows: 1
-
-   * - Column Number
-     - Column Type
-     - Column Description
-   * - 1
-     - int
-     - The tail of the edge
-   * - 2
-     - int
-     - The head of the edge
-   * - 3
-     - str
-     - The label of the edge
 
 
 Graph Statistics

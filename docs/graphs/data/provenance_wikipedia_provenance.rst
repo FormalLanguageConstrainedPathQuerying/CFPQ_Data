@@ -16,7 +16,7 @@ Info
    * - Full Name
      - wikipedia-provenance
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1FSOtaHPphLghT20f3xoD4NaRuzeR5h7c>`_
    * - Source
      - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
 

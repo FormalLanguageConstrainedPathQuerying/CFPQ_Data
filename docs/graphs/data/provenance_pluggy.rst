@@ -16,7 +16,7 @@ Info
    * - Full Name
      - pluggy
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1fuDIBtf75XcjQMYbNCrcqso9nJ_u2tn->`_
    * - Source
      - `pluggy <https://github.com/pytest-dev/pluggy>`_
 

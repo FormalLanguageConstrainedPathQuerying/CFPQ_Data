@@ -16,7 +16,7 @@ Info
    * - Full Name
      - jiaozi
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1cQuXFlOkcq-D-1RP-MKsA7-0AG7MYeQL>`_
    * - Source
      - `jiaozi <https://github.com/Jzvd/JiaoZiVideoPlayer>`_
 

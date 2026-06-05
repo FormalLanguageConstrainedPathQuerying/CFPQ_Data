@@ -16,7 +16,7 @@ Info
    * - Full Name
      - commons_lang3
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1_x4rlxjIsK-vqSkTJ_kk9-NJoS9OENO4>`_
    * - Source
      - `commons_lang3 <https://commons.apache.org/lang/>`_
 

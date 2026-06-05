@@ -16,7 +16,7 @@ Info
    * - Full Name
      - click
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1BXI37vjJNK05oTwa2uJKSYxx35G0MbL5>`_
    * - Source
      - `click <https://github.com/pallets/click>`_
 

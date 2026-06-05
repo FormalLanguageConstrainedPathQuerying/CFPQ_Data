@@ -16,7 +16,7 @@ Info
    * - Full Name
      - parest
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1Quv4-gUYq9bYhmYudlRXHwyLHs_KO38a>`_
 
 
 Graph Statistics

@@ -16,7 +16,7 @@ Info
    * - Full Name
      - mockito
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1ZjDWZ2R46PAHzhXfmkXfObkm2dQbutYL>`_
    * - Source
      - `mockito <https://site.mockito.org/>`_
 

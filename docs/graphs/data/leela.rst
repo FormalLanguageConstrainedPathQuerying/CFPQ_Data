@@ -16,7 +16,7 @@ Info
    * - Full Name
      - leela
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1QVjlvuki4e1zlFF6HqN1g-udfsXBIPj4>`_
 
 
 Graph Statistics

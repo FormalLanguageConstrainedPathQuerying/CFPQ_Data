@@ -16,7 +16,7 @@ Info
    * - Full Name
      - superset
    * - Direct download
-     - `.tar.gz <TODO>`_
+     - `.tar.gz <https://drive.google.com/uc?export=download&id=1KVlah5Ll81zlbl_dSSLmQiF2lw7omU0M>`_
    * - Source
      - `superset <https://github.com/apache/superset>`_
 
