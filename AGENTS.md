@@ -5,6 +5,13 @@ Grammars for experimental analysis of Context-Free Path Querying (CFPQ)
 algorithms. This file is an entrypoint/TOC only — details live in the skills
 linked below.
 
+## Start here
+
+At the start of every session, load the `workflow-management` skill
+(`.opencode/skills/workflow-management/SKILL.md`) first, before doing anything
+else. It drives the loop: plan → feature branch → subtasks → review → quality
+gate → merge, and points to the other workflow skills below.
+
 ## Main Principles
 
 * Documentation is about "What" and "Why". Skills are about "How".
@@ -12,12 +19,6 @@ linked below.
 * Only one source of truth. No duplicates. Each thing (in doth code and documentation) described exactly once. Use generalization (especially for code), cross-references, links, other similar techniques to avoid duplicates and reuse staff.
 * Tools, not instructions. If you can do something with existing tool --- do it. No thinking, no long instructions, no manual analysis. You want to analyze code coverage? Just run coverage tool and analyze report. 
 * Always learn, never forget — encode patterns before session ends
-
-## Workflow
-
-For any non-trivial task, start with the `workflow-management` skill
-(`.opencode/skills/workflow-management/SKILL.md`). It orchestrates the other
-workflow skills listed below.
 
 ## Package layout
 

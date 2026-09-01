@@ -1,6 +1,6 @@
 ---
 name: workflow-management
-description: Use to drive the overall working loop for a task or set of tasks: global plan, one task at a time, feature branch, detailed plan, subtask execution, code review, quality gate, merge. Load first when starting any non-trivial work.
+description: Load first at the start of every session, before doing anything else. Drives the overall working loop for a task or set of tasks: global plan, one task at a time, feature branch, detailed plan, subtask execution, code review, quality gate, merge.
 ---
 
 # Workflow Management
