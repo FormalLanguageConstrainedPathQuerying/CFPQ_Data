@@ -2,4 +2,4 @@ networkx==3.6.1
 pandas==2.3.3
 pyformlang==1.0.1
 rdflib==7.6.0
-requests==2.32.5
+requests==2.33.0
