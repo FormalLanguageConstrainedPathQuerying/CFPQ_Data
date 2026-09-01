@@ -18,7 +18,7 @@ pyformlang = "1.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^9.0.2"
-black = "^25.12.0"
+black = ">=25.12,<27.0"
 pre-commit = "^4.5.1"
 
 
