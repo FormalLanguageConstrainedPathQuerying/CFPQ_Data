@@ -19,7 +19,33 @@ Just create a PR (Pull Request) corresponding to the `"Template for adding a new
 Graphs
 ------
 
-:CFPQ old collection:
+Contents
+^^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Source area
+     - Number of graphs
+   * - :ref:`graphs_cfpq_old_collection`
+     - 54
+   * - :ref:`graphs_java_points_to`
+     - 7
+   * - :ref:`graphs_field_sensitive_alias`
+     - 10
+   * - :ref:`graphs_context_sensitive_data_flow`
+     - 10
+   * - :ref:`graphs_data_provenance`
+     - 18
+   * - :ref:`graphs_name_resolution`
+     - 4
+   * - :ref:`graphs_biological_uniprot`
+     - 10
+
+.. _graphs_cfpq_old_collection:
+
+CFPQ old collection
+^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -245,7 +271,10 @@ Graphs
      - 18968426
      - `.tar.gz <https://drive.google.com/uc?export=download&id=19sBD1CHzSwOTTYLXSx2kuQ327ZkTkS52>`_ 📥
 
-:Java points-to graphs:
+.. _graphs_java_points_to:
+
+Java points-to graphs
+^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -283,7 +312,10 @@ Graphs
      - 395356
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1D9OiEPXHTfvYix0D1c76hFf9v4ArQtfI>`_ 📥
 
-:Field-Sensitive Alias:
+.. _graphs_field_sensitive_alias:
+
+Field-Sensitive Alias
+^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -333,7 +365,10 @@ Graphs
      - 119064
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1yS2uK2H_Am9k8dJ9ShnEm4NBaAB2Gf26>`_ 📥
 
-:Context-Sensitive Data-Flow:
+.. _graphs_context_sensitive_data_flow:
+
+Context-Sensitive Data-Flow
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -383,7 +418,10 @@ Graphs
      - 1114892
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1SKS_W7LNy7eiuRAgc88CJLmJT_LyQOUq>`_ 📥
 
-:Data Provenance:
+.. _graphs_data_provenance:
+
+Data Provenance
+^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -465,7 +503,10 @@ Graphs
      - 454738
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1-CztZovl2KWywL94nu3b3ltZ4LvKAhXT>`_ 📥
 
-:Name Resolution:
+.. _graphs_name_resolution:
+
+Name Resolution
+^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -491,7 +532,10 @@ Graphs
      - 2321366
      - `.tar.gz <https://drive.google.com/uc?export=download&id=1yuFcX9YmKVdb7oQV4IrU6GqFlNjF3Rl4>`_ 📥
 
-:Biological graphs from `UniProt <https://www.uniprot.org/>`_:
+.. _graphs_biological_uniprot:
+
+Biological graphs from UniProt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
