@@ -11,7 +11,7 @@ version = "4.0.3"
 [tool.poetry.dependencies]
 python = ">=3.11,<3.14"
 networkx = "^3.6.1"
-pandas = "^2.3.3"
+pandas = ">=2.3.3,<4.0.0"
 rdflib = "^7.5.0"
 requests = "^2.32.5"
 pyformlang = "1.0.1"
