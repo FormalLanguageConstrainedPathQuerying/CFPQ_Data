@@ -14,34 +14,37 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=7ede516a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d9aafeaa" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/css/copybutton.css?v=b2a5787b" />
     <link rel="stylesheet" type="text/css" href="../_static/css/about.css?v=48cf5573" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=5fd50285" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../_static/documentation_options.js?v=d5272207"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'graphs/index';</script>
@@ -99,31 +102,16 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -131,7 +119,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -139,20 +126,27 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <label class="sidebar-toggle primary-toggle" for="__primary">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
-  </label>
+  </button>
   
   
   <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
 
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -167,7 +161,7 @@
     
     
     <img src="../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 4.0.3 documentation - Home"/>
-    <script>document.write(`<img src="../_static/CFPQDataLogo.svg" class="logo__image only-dark" alt="CFPQ_Data 4.0.3 documentation - Home"/>`);</script>
+    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 4.0.3 documentation - Home"/>
   
   
 </a></div>
@@ -179,69 +173,78 @@
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
-<nav class="navbar-nav">
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
-                        Graphs
-                      </a>
-                    </li>
-                
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Graphs
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../grammars/index.html">
-                        Grammars
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../benchmarks/index.html">
-                        Benchmarks
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../grammars/index.html">
+    Grammars
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../install.html">
-                        Install
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../tutorial.html">
-                        Tutorial
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../benchmarks/index.html">
+    Benchmarks
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorial.html">
+    Tutorial
+  </a>
+</li>
+
             <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
                     More
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
-                    <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../reference/index.html">
-                        Reference
-                      </a>
-                    </li>
-                
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../about.html">
-                        About
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../license.html">
-                        License
-                      </a>
-                    </li>
-                
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    About
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../license.html">
+    License
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../old_graphs/index.html">
+    Old graphs
+  </a>
+</li>
+
                 </ul>
             </li>
             
@@ -256,19 +259,15 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
-        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+        <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
           
@@ -279,7 +278,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github fa-lg" aria-hidden="true"></i></span>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -291,7 +290,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-box fa-lg" aria-hidden="true"></i></span>
+          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i>
             <span class="sr-only">PyPI</span></a>
         </li>
 </ul></div>
@@ -303,22 +302,18 @@
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
-    </label>
+    </button>
   
 </div>
 
@@ -330,7 +325,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -339,75 +335,77 @@
     
       <div class="sidebar-header-items__center">
         
-          <div class="navbar-item">
-<nav class="navbar-nav">
+          
+          
+            <div class="navbar-item">
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
-                        Graphs
-                      </a>
-                    </li>
-                
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Graphs
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../grammars/index.html">
-                        Grammars
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../benchmarks/index.html">
-                        Benchmarks
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../grammars/index.html">
+    Grammars
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../install.html">
-                        Install
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../tutorial.html">
-                        Tutorial
-                      </a>
-                    </li>
-                
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links-2">
-                    More
-                </button>
-                <ul id="pst-nav-more-links-2" class="dropdown-menu">
-                    
-                    <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../reference/index.html">
-                        Reference
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../benchmarks/index.html">
+    Benchmarks
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../about.html">
-                        About
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link dropdown-item nav-internal" href="../license.html">
-                        License
-                      </a>
-                    </li>
-                
-                </ul>
-            </li>
-            
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorial.html">
+    Tutorial
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../license.html">
+    License
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../old_graphs/index.html">
+    Old graphs
+  </a>
+</li>
+
   </ul>
 </nav></div>
+          
         
       </div>
     
@@ -415,7 +413,7 @@
     
       <div class="sidebar-header-items__end">
         
-          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+          <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
           
@@ -426,7 +424,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github fa-lg" aria-hidden="true"></i></span>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -438,7 +436,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-box fa-lg" aria-hidden="true"></i></span>
+          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i>
             <span class="sr-only">PyPI</span></a>
         </li>
 </ul></div>
@@ -458,29 +456,32 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
         <div class="header-article-item">
 
-
-
-<nav aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
@@ -488,7 +489,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Graphs</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Graphs</span></li>
   </ul>
 </nav>
 </div>
@@ -512,7 +513,7 @@
 <dd class="field-odd"><p>4.0.3</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Feb 24, 2024</p>
+<dd class="field-even"><p>Sep 01, 2026</p>
 </dd>
 </dl>
 <section id="how-to-add-a-new-graph">
@@ -522,6 +523,10 @@
 <hr class="docutils" />
 <section id="id2">
 <h2>Graphs<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">CFPQ old collection<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Graph</p></th>
@@ -531,275 +536,660 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="data/skos.html#skos"><span class="std std-ref">skos</span></a></p></td>
-<td><p>144</p></td>
-<td><p>252</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/skos.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/wc.html#wc"><span class="std std-ref">wc</span></a></p></td>
-<td><p>332</p></td>
-<td><p>269</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wc.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/generations.html#generations"><span class="std std-ref">generations</span></a></p></td>
 <td><p>129</p></td>
-<td><p>273</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/generations.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>546</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1g1hRX2J3WdoWXJDfzt1MlPIPezLZDVze">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/travel.html#travel"><span class="std std-ref">travel</span></a></p></td>
 <td><p>131</p></td>
-<td><p>277</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/travel.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>554</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1oJXPK2AEFS3twkpxQ1rqRxnJVxYzmRsh">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/univ.html#univ"><span class="std std-ref">univ</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/skos.html#skos"><span class="std std-ref">skos</span></a></p></td>
+<td><p>144</p></td>
+<td><p>504</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1tGmSFneqpOJx8yl2qxlG9JoDlTttlcKd">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/univ.html#univ"><span class="std std-ref">univ</span></a></p></td>
 <td><p>179</p></td>
-<td><p>293</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/univ.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/atom.html#atom"><span class="std std-ref">atom</span></a></p></td>
-<td><p>291</p></td>
-<td><p>425</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/atom.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/biomedical.html#biomedical"><span class="std std-ref">biomedical</span></a></p></td>
-<td><p>341</p></td>
-<td><p>459</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/biomedical.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/bzip.html#bzip"><span class="std std-ref">bzip</span></a></p></td>
-<td><p>632</p></td>
-<td><p>556</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/bzip.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>586</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1qgxXDHjadmSWsTeJnEHACrBkxUPNBHKu">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/foaf.html#foaf"><span class="std std-ref">foaf</span></a></p></td>
 <td><p>256</p></td>
-<td><p>631</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/foaf.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>1262</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1ijC6VUoHxyfCNC0ZaZzTRmLH1dzWqw-o">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/atom.html#atom"><span class="std std-ref">atom</span></a></p></td>
+<td><p>291</p></td>
+<td><p>850</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1q-OhOXW3za7fXpH0KfVCB-MrXmSAUhb2">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/wc.html#wc"><span class="std std-ref">wc</span></a></p></td>
+<td><p>332</p></td>
+<td><p>538</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=10YuJZRVkf1KaJx1P7Mx3X4iIQEHKEbg2">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/people.html#people"><span class="std std-ref">people</span></a></p></td>
 <td><p>337</p></td>
-<td><p>640</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/people.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>1280</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1uIFg-JRXY6I6lvmRdXEXksdoYiVet4Pi">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/pr.html#pr"><span class="std std-ref">pr</span></a></p></td>
-<td><p>815</p></td>
-<td><p>692</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pr.tar.gz">.tar.gz</a> 📥</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/biomedical.html#biomedical"><span class="std std-ref">biomedical</span></a></p></td>
+<td><p>341</p></td>
+<td><p>918</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=18Si12BN426qzFwA4wruLZrR9ZFGYiASW">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/funding.html#funding"><span class="std std-ref">funding</span></a></p></td>
-<td><p>778</p></td>
-<td><p>1086</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/funding.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/ls.html#ls"><span class="std std-ref">ls</span></a></p></td>
-<td><p>1687</p></td>
-<td><p>1453</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ls.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/wine.html#wine"><span class="std std-ref">wine</span></a></p></td>
-<td><p>733</p></td>
-<td><p>1839</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wine.tar.gz">.tar.gz</a> 📥</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/bzip.html#bzip"><span class="std std-ref">bzip</span></a></p></td>
+<td><p>632</p></td>
+<td><p>1112</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1iJoervUrajUtLa6rvTHQYTlHGVWs3vZ1">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/pizza.html#pizza"><span class="std std-ref">pizza</span></a></p></td>
 <td><p>671</p></td>
-<td><p>1980</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pizza.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>3960</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1o4AndWLngpTLoA3JAmo6MQeRIzG3bggg">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/gzip.html#gzip"><span class="std std-ref">gzip</span></a></p></td>
-<td><p>2687</p></td>
-<td><p>2293</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gzip.tar.gz">.tar.gz</a> 📥</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/wine.html#wine"><span class="std std-ref">wine</span></a></p></td>
+<td><p>733</p></td>
+<td><p>3678</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1S1ATLcrcsPZ1tjRys0tfsITei5t74o98">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/funding.html#funding"><span class="std std-ref">funding</span></a></p></td>
+<td><p>778</p></td>
+<td><p>2172</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1XBfpLTbs_KuTmN9BNX2hRrbYlawKPH7B">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/pr.html#pr"><span class="std std-ref">pr</span></a></p></td>
+<td><p>815</p></td>
+<td><p>1384</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1h2bjLB1vt_7eHczBvGaC8KBnXkpBBH8z">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/core.html#core"><span class="std std-ref">core</span></a></p></td>
 <td><p>1323</p></td>
-<td><p>2752</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>5504</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1iauv_uNwEqeZ0wLYt-q0DemaKlf0Eokl">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/ls.html#ls"><span class="std std-ref">ls</span></a></p></td>
+<td><p>1687</p></td>
+<td><p>2906</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=17BXRR5sRqQMDI6XPVnzaQv1sfkMTj8nn">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/gzip.html#gzip"><span class="std std-ref">gzip</span></a></p></td>
+<td><p>2687</p></td>
+<td><p>4586</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1U8wxcf_N3amOtEyehL-_EbG_yn9oxb3j">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/pathways.html#pathways"><span class="std std-ref">pathways</span></a></p></td>
 <td><p>6238</p></td>
-<td><p>12363</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pathways.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>24726</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1uJd38gyu19-AHD-jzrEYrolYBPIzwLby">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/lusearch.html#lusearch"><span class="std std-ref">lusearch</span></a></p></td>
-<td><p>15774</p></td>
-<td><p>14994</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/sunflow.html#sunflow"><span class="std std-ref">sunflow</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/sunflow.html#sunflow"><span class="std std-ref">sunflow</span></a></p></td>
 <td><p>15464</p></td>
-<td><p>15957</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sunflow.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>31914</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1ZfqQrkOp_yPAAFjy-7zASZWNoCJTFgw8">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/lusearch.html#lusearch"><span class="std std-ref">lusearch</span></a></p></td>
+<td><p>15774</p></td>
+<td><p>29988</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1LcBJvWkANjgq9hMfATVubqXRwhBLejzV">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/luindex.html#luindex"><span class="std std-ref">luindex</span></a></p></td>
 <td><p>18532</p></td>
-<td><p>17375</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/luindex.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>34750</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1hiz2hOg47qhgNgCCJQsDXAAW04CmI06I">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/avrora.html#avrora"><span class="std std-ref">avrora</span></a></p></td>
 <td><p>24690</p></td>
-<td><p>25196</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/avrora.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>50392</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1Wrd7Cm34u4ybwoNiZ1WgRbLGMVvGPH-T">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/eclipse.html#eclipse"><span class="std std-ref">eclipse</span></a></p></td>
 <td><p>41383</p></td>
-<td><p>40200</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclipse.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>80400</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1my8LSffItJS6n5MQoYINUyuhVrMXDOYl">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/h2.html#h2"><span class="std std-ref">h2</span></a></p></td>
 <td><p>44717</p></td>
-<td><p>56683</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/h2.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/pmd.html#pmd"><span class="std std-ref">pmd</span></a></p></td>
-<td><p>54444</p></td>
-<td><p>59329</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pmd.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/xalan.html#xalan"><span class="std std-ref">xalan</span></a></p></td>
-<td><p>58476</p></td>
-<td><p>62758</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xalan.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/batik.html#batik"><span class="std std-ref">batik</span></a></p></td>
-<td><p>60175</p></td>
-<td><p>63089</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/batik.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/fop.html#fop"><span class="std std-ref">fop</span></a></p></td>
-<td><p>86183</p></td>
-<td><p>83016</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fop.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/enzyme.html#enzyme"><span class="std std-ref">enzyme</span></a></p></td>
-<td><p>48815</p></td>
-<td><p>86543</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/tomcat.html#tomcat"><span class="std std-ref">tomcat</span></a></p></td>
-<td><p>111327</p></td>
-<td><p>110884</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tomcat.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/jython.html#jython"><span class="std std-ref">jython</span></a></p></td>
-<td><p>191895</p></td>
-<td><p>260034</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jython.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/eclass.html#eclass"><span class="std std-ref">eclass</span></a></p></td>
-<td><p>239111</p></td>
-<td><p>360248</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/tradebeans.html#tradebeans"><span class="std std-ref">tradebeans</span></a></p></td>
-<td><p>439693</p></td>
-<td><p>466969</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradebeans.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/tradesoap.html#tradesoap"><span class="std std-ref">tradesoap</span></a></p></td>
-<td><p>440680</p></td>
-<td><p>468263</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>113366</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1bTrYuloBTuK5dzCu5QHhQDp_z-v-NUR8">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/go_hierarchy.html#go-hierarchy"><span class="std std-ref">go_hierarchy</span></a></p></td>
 <td><p>45007</p></td>
-<td><p>490109</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go_hierarchy.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>980218</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1jvbxsvnlnJT058BgQREVr6rEn9nhOcHs">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/go.html#go"><span class="std std-ref">go</span></a></p></td>
-<td><p>582929</p></td>
-<td><p>1437437</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz">.tar.gz</a> 📥</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/enzyme.html#enzyme"><span class="std std-ref">enzyme</span></a></p></td>
+<td><p>48815</p></td>
+<td><p>173086</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1G4R2susqQeUsFbC8oUNXzmdMbHNI8sDE">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/apache.html#apache"><span class="std std-ref">apache</span></a></p></td>
-<td><p>1721418</p></td>
-<td><p>1510411</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/apache.tar.gz">.tar.gz</a> 📥</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/pmd.html#pmd"><span class="std std-ref">pmd</span></a></p></td>
+<td><p>54444</p></td>
+<td><p>118658</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1sgkRMV-PykU6pQ3sFxIuw4dVqNBhptg5">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/init.html#init"><span class="std std-ref">init</span></a></p></td>
-<td><p>2446224</p></td>
-<td><p>2112809</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/init.tar.gz">.tar.gz</a> 📥</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/xalan.html#xalan"><span class="std std-ref">xalan</span></a></p></td>
+<td><p>58476</p></td>
+<td><p>125516</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=10wHIUhECB-9a-Jit3K28iMhPmCSeOqfU">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/mm.html#mm"><span class="std std-ref">mm</span></a></p></td>
-<td><p>2538243</p></td>
-<td><p>2191079</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/mm.tar.gz">.tar.gz</a> 📥</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/batik.html#batik"><span class="std std-ref">batik</span></a></p></td>
+<td><p>60175</p></td>
+<td><p>126178</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1-lu0T9T8mYa8Hnn8YNjW4NEIAZErUNsH">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/fop.html#fop"><span class="std std-ref">fop</span></a></p></td>
+<td><p>86183</p></td>
+<td><p>166032</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1oXvDWrGGS85d9F22vpiV3kDgMrde7rex">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/tomcat.html#tomcat"><span class="std std-ref">tomcat</span></a></p></td>
+<td><p>111327</p></td>
+<td><p>221768</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1bd6fjsLT4JAX5BFC4jryW7kOIx1OCs4I">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/jython.html#jython"><span class="std std-ref">jython</span></a></p></td>
+<td><p>191895</p></td>
+<td><p>520068</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1188-4xT1jJD48Zah_mHp4lwn3y3Cupn9">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/eclass.html#eclass"><span class="std std-ref">eclass</span></a></p></td>
+<td><p>239111</p></td>
+<td><p>720496</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1BTTVazX2pn7DuNiGotMvBrgQOzUjfF7a">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/tradebeans.html#tradebeans"><span class="std std-ref">tradebeans</span></a></p></td>
+<td><p>439693</p></td>
+<td><p>933938</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1xdo7bCrbcLRGKdbDTlTAUwbdkq_Y2-js">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/tradesoap.html#tradesoap"><span class="std std-ref">tradesoap</span></a></p></td>
+<td><p>440680</p></td>
+<td><p>936526</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1TEbaIar6QOuOSQ6QW-quilshKCGeDzQv">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/geospecies.html#geospecies"><span class="std std-ref">geospecies</span></a></p></td>
 <td><p>450609</p></td>
-<td><p>2201532</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/geospecies.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>4384690</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1VG6nifKzMPuvQq1yG_-3tfoti-ndsFr3">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/ipc.html#ipc"><span class="std std-ref">ipc</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/go.html#go"><span class="std std-ref">go</span></a></p></td>
+<td><p>582929</p></td>
+<td><p>2874874</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1PmYTOqwLVHxduUmaq7VpWKtn0S6KeSBH">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/apache.html#apache"><span class="std std-ref">apache</span></a></p></td>
+<td><p>1721418</p></td>
+<td><p>3020822</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1HIfOYq_XYIb1G69ApSHYleWYA5SPUI6A">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/taxonomy_hierarchy.html#taxonomy-hierarchy"><span class="std std-ref">taxonomy_hierarchy</span></a></p></td>
+<td><p>2112625</p></td>
+<td><p>65752578</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=17LBpEi247Z1rPvoi-IcMgbx78i_Jo8Ux">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/init.html#init"><span class="std std-ref">init</span></a></p></td>
+<td><p>2446224</p></td>
+<td><p>4225618</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1Ur5DdxffPHx4mn_12n8xJ5DzN2YE6Qxq">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/mm.html#mm"><span class="std std-ref">mm</span></a></p></td>
+<td><p>2538243</p></td>
+<td><p>4382158</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1Ph9C90iCMdF8L3wXMsLkvaPGKGz0ErZ5">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/ipc.html#ipc"><span class="std std-ref">ipc</span></a></p></td>
 <td><p>3401022</p></td>
-<td><p>2931498</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ipc.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>5862996</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1uqxjloEpPRcbyRTEMk5qKyArZpxhxEo3">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/lib.html#lib"><span class="std std-ref">lib</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/lib.html#lib"><span class="std std-ref">lib</span></a></p></td>
 <td><p>3401355</p></td>
-<td><p>2931880</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lib.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>5863760</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1Zk7BR10Vu6ZRoO9-daXsmRn0EE317MuM">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/block.html#block"><span class="std std-ref">block</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/block.html#block"><span class="std std-ref">block</span></a></p></td>
 <td><p>3423234</p></td>
-<td><p>2951393</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/block.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>5902786</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1_AugTctypZeYvQDmunyWfXECOY9nEMda">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/arch.html#arch"><span class="std std-ref">arch</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/arch.html#arch"><span class="std std-ref">arch</span></a></p></td>
 <td><p>3448422</p></td>
-<td><p>2970242</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/arch.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>5940484</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1ExNfE0po3he_0QJpQS1BlsZbckexg5Ww">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/crypto.html#crypto"><span class="std std-ref">crypto</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/crypto.html#crypto"><span class="std std-ref">crypto</span></a></p></td>
 <td><p>3464970</p></td>
-<td><p>2988387</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/crypto.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>5976774</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1XeiVZ2Zq4Vo4wmsT7GMWQJgfe9m9JkT2">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/security.html#security"><span class="std std-ref">security</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/security.html#security"><span class="std std-ref">security</span></a></p></td>
 <td><p>3479982</p></td>
-<td><p>3003326</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/security.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>6006652</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1NXffLDKwX7uVbGmULGti5HvkPVaJaBuV">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/sound.html#sound"><span class="std std-ref">sound</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/sound.html#sound"><span class="std std-ref">sound</span></a></p></td>
 <td><p>3528861</p></td>
-<td><p>3049732</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sound.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>6099464</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=15B5pAWMhnXB8vr3qZAYffAt7o40ISrCZ">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/net.html#net"><span class="std std-ref">net</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/net.html#net"><span class="std std-ref">net</span></a></p></td>
 <td><p>4039470</p></td>
-<td><p>3500141</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/net.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>7000282</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=19KEJzf53NLyjx5qTkpCNWE1NPC_dNMeZ">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/fs.html#fs"><span class="std std-ref">fs</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/fs.html#fs"><span class="std std-ref">fs</span></a></p></td>
 <td><p>4177416</p></td>
-<td><p>3609373</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fs.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>7218746</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=10oDxq9ahaiS6ISVz8bR-fJQdg2sYmXNl">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/drivers.html#drivers"><span class="std std-ref">drivers</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="data/drivers.html#drivers"><span class="std std-ref">drivers</span></a></p></td>
 <td><p>4273803</p></td>
-<td><p>3707769</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/drivers.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>7415538</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1fWU2-9GxumutcryW9ZfxGyjdTg0abnQY">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data/postgre.html#postgre"><span class="std std-ref">postgre</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/postgre.html#postgre"><span class="std std-ref">postgre</span></a></p></td>
 <td><p>5203419</p></td>
-<td><p>4678543</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/postgre.tar.gz">.tar.gz</a> 📥</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/kernel.html#kernel"><span class="std std-ref">kernel</span></a></p></td>
-<td><p>11254434</p></td>
-<td><p>9484213</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/kernel.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>9357086</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1c9shV9F6QVnCyUfaI0Ee3TrPw2HTvqWG">.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/taxonomy.html#taxonomy"><span class="std std-ref">taxonomy</span></a></p></td>
 <td><p>5728398</p></td>
-<td><p>14922125</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p>29844250</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1spRUicn0pZ9MbyiidA5A9XEP_qfrbFet">.tar.gz</a> 📥</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data/taxonomy_hierarchy.html#taxonomy-hierarchy"><span class="std std-ref">taxonomy_hierarchy</span></a></p></td>
-<td><p>2112625</p></td>
-<td><p>32876289</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy_hierarchy.tar.gz">.tar.gz</a> 📥</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/kernel.html#kernel"><span class="std std-ref">kernel</span></a></p></td>
+<td><p>11254434</p></td>
+<td><p>18968426</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=19sBD1CHzSwOTTYLXSx2kuQ327ZkTkS52">.tar.gz</a> 📥</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Java points-to graphs<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Graph</p></th>
+<th class="head"><p>Num Nodes</p></th>
+<th class="head"><p>Num Edges</p></th>
+<th class="head"><p>Download</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="data/gson.html#gson"><span class="std std-ref">gson</span></a></p></td>
+<td><p>14114</p></td>
+<td><p>34934</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1rSQi6ZzDEu85deVghJ7GFtM4lV6l4642">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/mockito.html#mockito"><span class="std std-ref">mockito</span></a></p></td>
+<td><p>25436</p></td>
+<td><p>62388</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1ZjDWZ2R46PAHzhXfmkXfObkm2dQbutYL">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/commons_io.html#commons-io"><span class="std std-ref">commons_io</span></a></p></td>
+<td><p>26188</p></td>
+<td><p>62428</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1ngre5pezDZj-PbjEmMs1pdABYQuSn3dv">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/commons_lang3.html#commons-lang3"><span class="std std-ref">commons_lang3</span></a></p></td>
+<td><p>40970</p></td>
+<td><p>96854</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1_x4rlxjIsK-vqSkTJ_kk9-NJoS9OENO4">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/junit5.html#junit5"><span class="std std-ref">junit5</span></a></p></td>
+<td><p>59818</p></td>
+<td><p>149370</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1WGMX5jVR-cdkyp0UJaL4yn_BjYITcWKO">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/guava.html#guava"><span class="std std-ref">guava</span></a></p></td>
+<td><p>129562</p></td>
+<td><p>336232</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1yyviViskXaxh6K0uC4f6z3fM2KjXWIVr">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/jackson.html#jackson"><span class="std std-ref">jackson</span></a></p></td>
+<td><p>149404</p></td>
+<td><p>395356</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1D9OiEPXHTfvYix0D1c76hFf9v4ArQtfI">.tar.gz</a> 📥</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Field-Sensitive Alias<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Graph</p></th>
+<th class="head"><p>Num Nodes</p></th>
+<th class="head"><p>Num Edges</p></th>
+<th class="head"><p>Download</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="data/xz_field_sensitive_alias.html#xz-field-sensitive-alias"><span class="std std-ref">xz</span></a></p></td>
+<td><p>2808</p></td>
+<td><p>6604</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1kl5krt-_RYLghDXMlB1fb2K9drg875Tw">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/nab_field_sensitive_alias.html#nab-field-sensitive-alias"><span class="std std-ref">nab</span></a></p></td>
+<td><p>3444</p></td>
+<td><p>7982</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1glFBCK7v9_U6LCNHeDsOmSFmAUu7Odpv">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/leela_field_sensitive_alias.html#leela-field-sensitive-alias"><span class="std std-ref">leela</span></a></p></td>
+<td><p>8090</p></td>
+<td><p>19888</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1g7-ZR4oplJ-fW0pTJcUKaNz-EMrzfJN9">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/povray_field_sensitive_alias.html#povray-field-sensitive-alias"><span class="std std-ref">povray</span></a></p></td>
+<td><p>15137</p></td>
+<td><p>38886</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1-QzW5QGdnR_U9IVySg7FwuoJJCFUo91e">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/x264_field_sensitive_alias.html#x264-field-sensitive-alias"><span class="std std-ref">x264</span></a></p></td>
+<td><p>18051</p></td>
+<td><p>44780</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1MreKqvFUjIX49oZHu8p45PZmfJ3PCEN4">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/cactus_field_sensitive_alias.html#cactus-field-sensitive-alias"><span class="std std-ref">cactus</span></a></p></td>
+<td><p>22350</p></td>
+<td><p>56636</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1q12MGm1Z-9R_sMEhc29N3LWpKsDc4RIX">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/parest_field_sensitive_alias.html#parest-field-sensitive-alias"><span class="std std-ref">parest</span></a></p></td>
+<td><p>29788</p></td>
+<td><p>64528</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1Quv4-gUYq9bYhmYudlRXHwyLHs_KO38a">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/perlbench_field_sensitive_alias.html#perlbench-field-sensitive-alias"><span class="std std-ref">perlbench</span></a></p></td>
+<td><p>38091</p></td>
+<td><p>110874</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1QynigQUmNQdo-grWAiPImko5Pdyff0ep">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/imagick_field_sensitive_alias.html#imagick-field-sensitive-alias"><span class="std std-ref">imagick</span></a></p></td>
+<td><p>41652</p></td>
+<td><p>111550</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1Wb2UXVpLN7UeX-n-pxq0oGKAN05KBV5p">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/omnetpp_field_sensitive_alias.html#omnetpp-field-sensitive-alias"><span class="std std-ref">omnetpp</span></a></p></td>
+<td><p>49962</p></td>
+<td><p>119064</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1yS2uK2H_Am9k8dJ9ShnEm4NBaAB2Gf26">.tar.gz</a> 📥</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Context-Sensitive Data-Flow<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Graph</p></th>
+<th class="head"><p>Num Nodes</p></th>
+<th class="head"><p>Num Edges</p></th>
+<th class="head"><p>Download</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="data/xz.html#xz"><span class="std std-ref">xz</span></a></p></td>
+<td><p>30492</p></td>
+<td><p>37173</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1zOpQ6PxG4f5139YygBG5JIN2noup4oBE">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/nab.html#nab"><span class="std std-ref">nab</span></a></p></td>
+<td><p>31215</p></td>
+<td><p>37484</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=11d11w4FVDDCGSZLBNIYoXi4NFlP0IldO">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/leela.html#leela"><span class="std std-ref">leela</span></a></p></td>
+<td><p>47665</p></td>
+<td><p>63996</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1QVjlvuki4e1zlFF6HqN1g-udfsXBIPj4">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/x264.html#x264"><span class="std std-ref">x264</span></a></p></td>
+<td><p>138702</p></td>
+<td><p>201034</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1zwtZi2gwp4JZ9Emnm2TfUWVg5yG1ykyn">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/parest.html#parest"><span class="std std-ref">parest</span></a></p></td>
+<td><p>233900</p></td>
+<td><p>307850</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1Xloafx0TUgf6gjP7zt0tYRmAryrza1yK">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/imagick.html#imagick"><span class="std std-ref">imagick</span></a></p></td>
+<td><p>331177</p></td>
+<td><p>445544</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1OMXNF-TzqrV1TNcc5AcFQYoqfAZWwvb9">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/povray.html#povray"><span class="std std-ref">povray</span></a></p></td>
+<td><p>346034</p></td>
+<td><p>581210</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1TheXcwurtZIdtxx9i8hhj1iMRfhaxWwl">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/cactus.html#cactus"><span class="std std-ref">cactus</span></a></p></td>
+<td><p>359200</p></td>
+<td><p>580297</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1F9SGmwAPcHsaPYeZuJVCaMV2I8zM7o0b">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/omnetpp.html#omnetpp"><span class="std std-ref">omnetpp</span></a></p></td>
+<td><p>463454</p></td>
+<td><p>958487</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1aSScObtx5LJwUl2T2pFNihZVCNTULz5A">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/perlbench.html#perlbench"><span class="std std-ref">perlbench</span></a></p></td>
+<td><p>605864</p></td>
+<td><p>1114892</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1SKS_W7LNy7eiuRAgc88CJLmJT_LyQOUq">.tar.gz</a> 📥</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Data Provenance<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Graph</p></th>
+<th class="head"><p>Num Nodes</p></th>
+<th class="head"><p>Num Edges</p></th>
+<th class="head"><p>Download</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="data/provenance_sampleproject.html#provenance-sampleproject"><span class="std std-ref">sampleproject</span></a></p></td>
+<td><p>148</p></td>
+<td><p>763</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=19fI6A6q4FInjN_sBnJ1f-7Y1i7l789xS">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_wikipedia_provenance.html#provenance-wikipedia-provenance"><span class="std std-ref">wikipedia-provenance</span></a></p></td>
+<td><p>316</p></td>
+<td><p>1284</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1FSOtaHPphLghT20f3xoD4NaRuzeR5h7c">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/provenance_pluggy.html#provenance-pluggy"><span class="std std-ref">pluggy</span></a></p></td>
+<td><p>353</p></td>
+<td><p>1818</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1fuDIBtf75XcjQMYbNCrcqso9nJ_u2tn-">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_itsdangerous.html#provenance-itsdangerous"><span class="std std-ref">itsdangerous</span></a></p></td>
+<td><p>425</p></td>
+<td><p>2210</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1PYiRRjp_i3jm78BRxfbkF2srrmQ1fiYE">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/provenance_requests.html#provenance-requests"><span class="std std-ref">requests</span></a></p></td>
+<td><p>682</p></td>
+<td><p>3369</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1jlthWvH4NXTY8yhK8tusfMtCOfvydw0o">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_httpx.html#provenance-httpx"><span class="std std-ref">httpx</span></a></p></td>
+<td><p>826</p></td>
+<td><p>4247</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1HsIEjs4rKQqpP2oMiHgM29M3AsBOYjPn">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/provenance_click.html#provenance-click"><span class="std std-ref">click</span></a></p></td>
+<td><p>944</p></td>
+<td><p>4654</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1BXI37vjJNK05oTwa2uJKSYxx35G0MbL5">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_jinja.html#provenance-jinja"><span class="std std-ref">jinja</span></a></p></td>
+<td><p>1202</p></td>
+<td><p>6277</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1perIfofgAA4LAxGAYSyq2_nHUqII8YpM">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/provenance_flask.html#provenance-flask"><span class="std std-ref">flask</span></a></p></td>
+<td><p>1517</p></td>
+<td><p>7728</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1EMPEZEtAqy0L5Wq1LEpVnBl22xrATYBH">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_fastapi.html#provenance-fastapi"><span class="std std-ref">fastapi</span></a></p></td>
+<td><p>6455</p></td>
+<td><p>26528</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1sOCVQs-jLzT9p7wERNAqLHM4tyJNy5gt">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/provenance_celery.html#provenance-celery"><span class="std std-ref">celery</span></a></p></td>
+<td><p>6880</p></td>
+<td><p>35874</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1aQtrFEXMYjPyXhP950Z9M2BcPUbxu-Hw">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_scikit_learn.html#provenance-scikit-learn"><span class="std std-ref">scikit-learn</span></a></p></td>
+<td><p>11706</p></td>
+<td><p>60181</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1OLroSM_Vgf-mFa1O94VvIHwV5Wt76nK_">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/provenance_sphinx.html#provenance-sphinx"><span class="std std-ref">sphinx</span></a></p></td>
+<td><p>13431</p></td>
+<td><p>72692</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1zq8fXSPietuBnpQuIr_uy8X_lGBFFu1P">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_pandas.html#provenance-pandas"><span class="std std-ref">pandas</span></a></p></td>
+<td><p>13696</p></td>
+<td><p>70959</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1-nPGFLkDWUANCjl9V8UwbsCmmZ86ZI50">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/provenance_django.html#provenance-django"><span class="std std-ref">django</span></a></p></td>
+<td><p>23749</p></td>
+<td><p>113137</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1EcOsi4okbXNzQoX1Ln8FaJfDjyZ4qBvF">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_zulip.html#provenance-zulip"><span class="std std-ref">zulip</span></a></p></td>
+<td><p>59854</p></td>
+<td><p>310032</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1dfZK9aeLEC7x0J7IW89bADoBtSfzU4E0">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/provenance_superset.html#provenance-superset"><span class="std std-ref">superset</span></a></p></td>
+<td><p>76348</p></td>
+<td><p>394708</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1KVlah5Ll81zlbl_dSSLmQiF2lw7omU0M">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_airflow.html#provenance-airflow"><span class="std std-ref">airflow</span></a></p></td>
+<td><p>90673</p></td>
+<td><p>454738</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1-CztZovl2KWywL94nu3b3ltZ4LvKAhXT">.tar.gz</a> 📥</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Name Resolution<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Graph</p></th>
+<th class="head"><p>Num Nodes</p></th>
+<th class="head"><p>Num Edges</p></th>
+<th class="head"><p>Download</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="data/name_resolution_jiaozi.html#name-resolution-jiaozi"><span class="std std-ref">jiaozi</span></a></p></td>
+<td><p>54952</p></td>
+<td><p>46322</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1cQuXFlOkcq-D-1RP-MKsA7-0AG7MYeQL">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/name_resolution_jsonpath.html#name-resolution-jsonpath"><span class="std std-ref">jsonpath</span></a></p></td>
+<td><p>185421</p></td>
+<td><p>161488</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1C9NMj1zRj4OziSf7IZ-pH0ta3N3sU8-7">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/name_resolution_shattered_pixel_dungeon.html#name-resolution-shattered-pixel-dungeon"><span class="std std-ref">shattered_pixel_dungeon</span></a></p></td>
+<td><p>1179205</p></td>
+<td><p>1017798</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1AZzAKHyaRQ0AANAvkvwDPMF15TnL4Z-S">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/name_resolution_libgdx.html#name-resolution-libgdx"><span class="std std-ref">libgdx</span></a></p></td>
+<td><p>2571363</p></td>
+<td><p>2321366</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1yuFcX9YmKVdb7oQV4IrU6GqFlNjF3Rl4">.tar.gz</a> 📥</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Biological graphs from <a class="reference external" href="https://www.uniprot.org/">UniProt</a><span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Graph</p></th>
+<th class="head"><p>Num Nodes</p></th>
+<th class="head"><p>Num Edges</p></th>
+<th class="head"><p>Download</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_1.html#unigraph-1"><span class="std std-ref">unigraph_1</span></a></p></td>
+<td><p>3081</p></td>
+<td><p>11966</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=194YaJjfWAOjKL6Rv0OW0aKsASTsgZtiA">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_2.html#unigraph-2"><span class="std std-ref">unigraph_2</span></a></p></td>
+<td><p>36467</p></td>
+<td><p>168344</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1-H-4ZBZ5JjD4YegYx241iltyWqPon6Fz">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_3.html#unigraph-3"><span class="std std-ref">unigraph_3</span></a></p></td>
+<td><p>41332</p></td>
+<td><p>193866</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=14tXHvR3IzGVKEjjtzFpkUSRPCH5vlqUM">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_4.html#unigraph-4"><span class="std std-ref">unigraph_4</span></a></p></td>
+<td><p>215480</p></td>
+<td><p>1346130</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1J4nwpA4GdCGw0psmiFNMZCgtTOjMgcjh">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_5.html#unigraph-5"><span class="std std-ref">unigraph_5</span></a></p></td>
+<td><p>243838</p></td>
+<td><p>1818404</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1FNTlOs3nqFbgV_Mkr_MEaH4SpifugPos">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_6.html#unigraph-6"><span class="std std-ref">unigraph_6</span></a></p></td>
+<td><p>286644</p></td>
+<td><p>1708910</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1ej-mkr0PotwHJhUy3OZXDYoJb55WshE8">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_7.html#unigraph-7"><span class="std std-ref">unigraph_7</span></a></p></td>
+<td><p>285576</p></td>
+<td><p>2073268</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1WtQr2530-iy8OqMvhKd6E4Q32cJpD8p5">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_8.html#unigraph-8"><span class="std std-ref">unigraph_8</span></a></p></td>
+<td><p>449236</p></td>
+<td><p>3385168</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1PhFZx-TUMlOFcY5UbvAONIZV1ql2KPMV">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_9.html#unigraph-9"><span class="std std-ref">unigraph_9</span></a></p></td>
+<td><p>475478</p></td>
+<td><p>3579034</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1NW4vB_ZSJu2jCh_jxR-ffHx4clP-dA2x">.tar.gz</a> 📥</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_10.html#unigraph-10"><span class="std std-ref">unigraph_10</span></a></p></td>
+<td><p>2055881</p></td>
+<td><p>17223588</p></td>
+<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1SWTFV2olNB9zlmEJ9PjD-0UYo6XF2fxo">.tar.gz</a> 📥</p></td>
 </tr>
 </tbody>
 </table>
@@ -817,7 +1207,8 @@
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -846,8 +1237,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -858,7 +1249,7 @@
 
   <p class="copyright">
     
-      © Copyright 2019-2024, vdshk.
+      © Copyright 2019-2026, vdshk.
       <br/>
     
   </p>
@@ -867,7 +1258,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
     <br/>
   </p>
 </div>
@@ -880,7 +1271,8 @@
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>
