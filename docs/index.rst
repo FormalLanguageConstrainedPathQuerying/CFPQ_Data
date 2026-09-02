@@ -29,6 +29,7 @@ Documentation
    install
    tutorial
    reference/index
+   utils
    about
    license
    old_graphs/index

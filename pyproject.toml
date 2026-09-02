@@ -20,6 +20,7 @@ pyformlang = "1.0.1"
 pytest = "^9.0.2"
 black = ">=25.12,<27.0"
 pre-commit = "^4.5.1"
+boto3 = "^1.43.86"
 
 
 [tool.poetry.group.test.dependencies]
