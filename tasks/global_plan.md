@@ -47,17 +47,19 @@ Execution order: 1 → 2 → 3 (strict; Task 3 imports the upload core of Task 2
   `docs/old_graphs/data/*.rst`, and the index tables
   (`docs/graphs/index.rst`, `docs/old_graphs/index.rst`). **No grammar is on
   Drive** — all grammars are already on Yandex S3.
-- 131 unique Drive file IDs in docs. Per-file check against the public bucket
-  (HEAD requests) shows:
-  - 93 items fully present on Yandex already (old collection `.tar.gz`).
-  - **74 files are Drive-only**: 59 `.tar.gz` from the new collections
-    (java_points_to, field_sensitive_alias, provenance, name_resolution,
-    unigraph) + 15 legacy `.txt` origin files of the old collection.
-- Name collisions: `cactus`, `nab`, `omnetpp`, `parest`, `perlbench`,
-  `povray`, `x264`, `xz` each appear in both java_points_to and
-  field_sensitive_alias with **different Drive file IDs** (verified). Per the
-  user, equal names mean the same graph; content identity must be rechecked
-  (see Design Decisions).
+- 131 unique Drive file IDs in docs, of which 113 are "Direct download"
+  archives (the rest are legacy `.txt`/`.xml.tar.gz` origin files). Per-file
+  check against the public bucket (HEAD requests) shows:
+  - 54 direct-download archives fully present on Yandex already (old
+    collection).
+  - **59 direct-download archives are Drive-only** — the migration scope:
+    graphs from the new collections (java_points_to, field_sensitive_alias,
+    provenance, name_resolution, unigraph).
+- Name collisions: `cactus`, `imagick`, `leela`, `nab`, `omnetpp`, `parest`,
+  `perlbench`, `povray`, `x264`, `xz` (10 names) each appear in both
+  java_points_to and field_sensitive_alias with **different Drive file IDs**
+  (verified). Per the user, equal names mean the same graph; content identity
+  must be rechecked (see Design Decisions).
 - Verified Drive download protocol from this network:
   - small files: `GET https://drive.google.com/uc?export=download&id=<fid>`
     returns `application/octet-stream` directly;
@@ -85,8 +87,8 @@ From user guidance (verbatim in `tasks/tasks.md`) and verified facts:
 2. **Key layout**: flat, same as existing objects —
    `4.0.0/graph/<name>.tar.gz`. No per-collection subdirectories.
 3. **Name uniqueness rule** (user): "Name is an unique identifier. If names
-   are equal, graphs are the same. It must not be stored twice." The 8
-   colliding names have different Drive file IDs, so the migration tool
+    are equal, graphs are the same. It must not be stored twice." The 10
+    colliding names have different Drive file IDs, so the migration tool
    rechecks content identity by SHA-256 of the downloaded bytes: equal hash →
    upload once; different hash → stop with an error for that item (no silent
    overwrite).
