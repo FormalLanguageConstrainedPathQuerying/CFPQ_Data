@@ -82,8 +82,14 @@ Execution order: 1 → 2 → 3 (strict; Task 3 imports the upload core of Task 2
 
 From user guidance (verbatim in `tasks/tasks.md`) and verified facts:
 
-1. **S3 endpoint**: `https://s3.ru-central1.storage.yandexcloud.net`
-   (user: "ru-central1"). Bucket: `cfpq-data`.
+1. **S3 endpoint**: `https://s3.yandexcloud.net` (bucket: `cfpq-data`). The
+   user answered "ru-central1" for the region, but the regional hostname form
+   `s3.ru-central1.storage.yandexcloud.net` fails TLS validation from this
+   network (certificate SANs cover `s3.yandexcloud.net`,
+   `*.s3.yandexcloud.net`, `*.storage.yandexcloud.net` — no
+   `s3.<region>.storage.yandexcloud.net`). Verified working: anonymous
+   ListBucket and authenticated head_object against `https://s3.yandexcloud.net`
+   (task 4). `--endpoint-url` remains overridable.
 2. **Key layout**: flat, same as existing objects —
    `4.0.0/graph/<name>.tar.gz`. No per-collection subdirectories.
 3. **Name uniqueness rule** (user): "Name is an unique identifier. If names

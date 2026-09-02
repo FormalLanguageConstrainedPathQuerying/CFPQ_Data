@@ -27,8 +27,9 @@ Upload to Yandex S3
 - ``--access-key-id``, ``--secret-access-key`` — Yandex Cloud IAM service
   account credentials. They are always taken from the command line and are
   never read from environment variables or config files.
-- ``--endpoint-url`` — S3 API endpoint of the bucket's region; default
-  ``https://s3.ru-central1.storage.yandexcloud.net``.
+- ``--endpoint-url`` — S3 API endpoint; default
+  ``https://s3.yandexcloud.net`` (the verified working endpoint for the
+  cfpq-data bucket).
 - ``--bucket`` — target bucket; default ``cfpq-data``.
 - ``--key`` — object key in the bucket; default is the file name (e.g.
   ``4.0.0/graph/NAME.tar.gz`` to follow the dataset layout).

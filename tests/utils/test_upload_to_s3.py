@@ -43,7 +43,8 @@ def test_create_s3_client_default_endpoint(monkeypatch):
 
     create_s3_client("key-id", "secret")
 
-    assert calls["endpoint_url"] == DEFAULT_ENDPOINT_URL
+    # Pin the verified working endpoint for the cfpq-data bucket.
+    assert calls["endpoint_url"] == DEFAULT_ENDPOINT_URL == "https://s3.yandexcloud.net"
 
 
 def test_upload_file_uploads_and_returns_key(tmp_path):

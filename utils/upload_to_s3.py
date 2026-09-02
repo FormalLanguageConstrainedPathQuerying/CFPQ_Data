@@ -16,7 +16,7 @@ __all__ = [
     "main",
 ]
 
-DEFAULT_ENDPOINT_URL = "https://s3.ru-central1.storage.yandexcloud.net"
+DEFAULT_ENDPOINT_URL = "https://s3.yandexcloud.net"
 DEFAULT_BUCKET = "cfpq-data"
 
 
@@ -35,7 +35,7 @@ def create_s3_client(
         Yandex Cloud IAM service account secret key (provided from the CLI).
     endpoint_url : str, optional
         S3 API endpoint of the bucket's region.
-        Default: ``DEFAULT_ENDPOINT_URL`` (ru-central1).
+        Default: ``DEFAULT_ENDPOINT_URL``.
 
     Returns
     -------
