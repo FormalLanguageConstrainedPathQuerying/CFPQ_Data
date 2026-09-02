@@ -373,6 +373,65 @@ def test_migrate_duplicate_name_different_content_stops(tmp_path, monkeypatch):
     assert (workdir / "cactus.tar.gz").exists()
 
 
+def test_migrate_rerun_hashless_entry_still_on_yandex(tmp_path, monkeypatch):
+    docs = tmp_path / "docs"
+    _make_docs(docs, "airflow", "FID_A")
+    workdir = tmp_path / "work"
+    mapping_path = tmp_path / "mapping.json"
+    save_mapping(
+        mapping_path,
+        {
+            "airflow": {
+                "url": NEW_AIRFLOW_URL,
+                "drive_file_id": "FID_A",
+                "sha256": None,
+            }
+        },
+    )
+    download = _fake_download({"FID_A": b"payload-a"})
+    upload = mock.Mock()
+    monkeypatch.setattr("migrate_gdrive_to_s3.download_from_drive", download)
+    monkeypatch.setattr("migrate_gdrive_to_s3.is_on_yandex", lambda name: True)
+    monkeypatch.setattr("migrate_gdrive_to_s3.upload_file", upload)
+
+    items = [MigrationItem(name="airflow", file_id="FID_A", source="s.rst")]
+    summary = migrate(items, mock.Mock(), "cfpq-data", docs, workdir, mapping_path)
+
+    assert summary == {"uploaded": 0, "skipped_existing": 1, "skipped_duplicate": 0}
+    download.assert_not_called()
+    upload.assert_not_called()
+
+
+def test_migrate_rerun_hashless_entry_gone_from_bucket(tmp_path, monkeypatch):
+    docs = tmp_path / "docs"
+    _make_docs(docs, "airflow", "FID_A")
+    workdir = tmp_path / "work"
+    mapping_path = tmp_path / "mapping.json"
+    save_mapping(
+        mapping_path,
+        {
+            "airflow": {
+                "url": NEW_AIRFLOW_URL,
+                "drive_file_id": "FID_A",
+                "sha256": None,
+            }
+        },
+    )
+    download = _fake_download({"FID_A": b"payload-a"})
+    upload = mock.Mock()
+    monkeypatch.setattr("migrate_gdrive_to_s3.download_from_drive", download)
+    monkeypatch.setattr("migrate_gdrive_to_s3.is_on_yandex", lambda name: False)
+    monkeypatch.setattr("migrate_gdrive_to_s3.upload_file", upload)
+
+    items = [MigrationItem(name="airflow", file_id="FID_A", source="s.rst")]
+    summary = migrate(items, mock.Mock(), "cfpq-data", docs, workdir, mapping_path)
+
+    assert summary == {"uploaded": 1, "skipped_existing": 0, "skipped_duplicate": 0}
+    upload.assert_called_once()
+    mapping = json.loads(mapping_path.read_text(encoding="utf-8"))
+    assert mapping["airflow"]["sha256"] == hashlib.sha256(b"payload-a").hexdigest()
+
+
 def test_migrate_limit_stops_after_n_items(tmp_path, monkeypatch):
     docs = tmp_path / "docs"
     _make_docs(docs, "airflow", "FID_A")

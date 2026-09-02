@@ -295,12 +295,14 @@ def migrate(
 
     For each item (at most one local file on disk at any time):
 
-    - if the name is already in the mapping, the archive is downloaded and
-      its SHA-256 compared with the recorded one: equal means the same graph
-      (must not be stored twice) so the upload is skipped; different raises
-      :class:`MigrationError` and keeps the local copy for inspection;
+    - if the name is already in the mapping with a recorded SHA-256, the
+      archive is downloaded and its digest compared with the recorded one:
+      equal means the same graph (must not be stored twice) so the upload is
+      skipped; different raises :class:`MigrationError` and keeps the local
+      copy for inspection;
     - else if the object already exists on Yandex (public HEAD check), the
-      item is skipped without downloading;
+      item is skipped without downloading — this also covers re-runs of
+      entries recorded without a hash by a previous skip;
     - else the archive is downloaded, uploaded via ``upload_file`` (verified
       upload) and recorded in the mapping.
 
@@ -327,10 +329,10 @@ def migrate(
         local_path = workdir / f"{item.name}.tar.gz"
 
         try:
-            if item.name in mapping:
+            recorded = mapping.get(item.name, {}).get("sha256")
+            if recorded is not None:
                 download_from_drive(item.file_id, local_path)
                 digest = sha256_of(local_path)
-                recorded = mapping[item.name].get("sha256")
                 if digest != recorded:
                     raise MigrationError(
                         f"Content mismatch for graph {item.name!r}: Drive file "
