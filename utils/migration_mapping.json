@@ -1,0 +1,567 @@
+{
+  "airflow": {
+    "drive_file_id": "1-CztZovl2KWywL94nu3b3ltZ4LvKAhXT",
+    "sha256": "ce0b4d2d43dca886ca1383c1fa1eb8e5f0485ffc42db01418e9a83672cd1a267",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/airflow.tar.gz"
+  },
+  "apache": {
+    "drive_file_id": "1HIfOYq_XYIb1G69ApSHYleWYA5SPUI6A",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/apache.tar.gz"
+  },
+  "arch": {
+    "drive_file_id": "1ExNfE0po3he_0QJpQS1BlsZbckexg5Ww",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/arch.tar.gz"
+  },
+  "atom": {
+    "drive_file_id": "1q-OhOXW3za7fXpH0KfVCB-MrXmSAUhb2",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/atom.tar.gz"
+  },
+  "avrora": {
+    "drive_file_id": "1Wrd7Cm34u4ybwoNiZ1WgRbLGMVvGPH-T",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/avrora.tar.gz"
+  },
+  "batik": {
+    "drive_file_id": "1-lu0T9T8mYa8Hnn8YNjW4NEIAZErUNsH",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/batik.tar.gz"
+  },
+  "biomedical": {
+    "drive_file_id": "18Si12BN426qzFwA4wruLZrR9ZFGYiASW",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/biomedical.tar.gz"
+  },
+  "block": {
+    "drive_file_id": "1_AugTctypZeYvQDmunyWfXECOY9nEMda",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/block.tar.gz"
+  },
+  "bzip": {
+    "drive_file_id": "1iJoervUrajUtLa6rvTHQYTlHGVWs3vZ1",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/bzip.tar.gz"
+  },
+  "cactus": {
+    "drive_file_id": "1F9SGmwAPcHsaPYeZuJVCaMV2I8zM7o0b",
+    "sha256": "8e3baf4760d09f1ca0024a63bc2be5b22ddb6ce6ef6ccdd6016c7bf4be75f1db",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/cactus.tar.gz"
+  },
+  "cactus_field_sensitive_alias": {
+    "drive_file_id": "1q12MGm1Z-9R_sMEhc29N3LWpKsDc4RIX",
+    "sha256": "c379f5ef82568ad415650f15eeeca8650faab4586d8011009b4a7aa369c1fc2a",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/cactus_field_sensitive_alias.tar.gz"
+  },
+  "celery": {
+    "drive_file_id": "1aQtrFEXMYjPyXhP950Z9M2BcPUbxu-Hw",
+    "sha256": "d1784a07913f5d20ff2f21450874fecb53bc28df372db97c8dcd24076cf9b765",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/celery.tar.gz"
+  },
+  "click": {
+    "drive_file_id": "1BXI37vjJNK05oTwa2uJKSYxx35G0MbL5",
+    "sha256": "af811b6537d341d287e26b0a04af9adf004578e544e6f9475ce80f38549d784d",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/click.tar.gz"
+  },
+  "commons_io": {
+    "drive_file_id": "1ngre5pezDZj-PbjEmMs1pdABYQuSn3dv",
+    "sha256": "dbd763794ad042dd6f68a65c5094f8c8c3afd30f4ba1478ff9af9278fd53d6b1",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/commons_io.tar.gz"
+  },
+  "commons_lang3": {
+    "drive_file_id": "1_x4rlxjIsK-vqSkTJ_kk9-NJoS9OENO4",
+    "sha256": "97db4a7c366546ca8f15c2ddafb28f9a6e138c2b114b28f6a2671041f9e00c8b",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/commons_lang3.tar.gz"
+  },
+  "core": {
+    "drive_file_id": "1iauv_uNwEqeZ0wLYt-q0DemaKlf0Eokl",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz"
+  },
+  "crypto": {
+    "drive_file_id": "1XeiVZ2Zq4Vo4wmsT7GMWQJgfe9m9JkT2",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/crypto.tar.gz"
+  },
+  "django": {
+    "drive_file_id": "1EcOsi4okbXNzQoX1Ln8FaJfDjyZ4qBvF",
+    "sha256": "2cc7d6eeccdf15644996a7e68cf9ac6107b14f5262d043a62153150e2d9c435a",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/django.tar.gz"
+  },
+  "drivers": {
+    "drive_file_id": "1fWU2-9GxumutcryW9ZfxGyjdTg0abnQY",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/drivers.tar.gz"
+  },
+  "eclass": {
+    "drive_file_id": "1BTTVazX2pn7DuNiGotMvBrgQOzUjfF7a",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz"
+  },
+  "eclipse": {
+    "drive_file_id": "1my8LSffItJS6n5MQoYINUyuhVrMXDOYl",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclipse.tar.gz"
+  },
+  "enzyme": {
+    "drive_file_id": "1G4R2susqQeUsFbC8oUNXzmdMbHNI8sDE",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz"
+  },
+  "fastapi": {
+    "drive_file_id": "1sOCVQs-jLzT9p7wERNAqLHM4tyJNy5gt",
+    "sha256": "0cb93b79240a05cf867289855fb3508deb831c8197a141d24f1d23f17f52828c",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fastapi.tar.gz"
+  },
+  "flask": {
+    "drive_file_id": "1EMPEZEtAqy0L5Wq1LEpVnBl22xrATYBH",
+    "sha256": "157b4a31875a639124acc8c636306a7d60921471ec392d921daa284845e45d3f",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/flask.tar.gz"
+  },
+  "foaf": {
+    "drive_file_id": "1ijC6VUoHxyfCNC0ZaZzTRmLH1dzWqw-o",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/foaf.tar.gz"
+  },
+  "fop": {
+    "drive_file_id": "1oXvDWrGGS85d9F22vpiV3kDgMrde7rex",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fop.tar.gz"
+  },
+  "fs": {
+    "drive_file_id": "10oDxq9ahaiS6ISVz8bR-fJQdg2sYmXNl",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fs.tar.gz"
+  },
+  "funding": {
+    "drive_file_id": "1XBfpLTbs_KuTmN9BNX2hRrbYlawKPH7B",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/funding.tar.gz"
+  },
+  "generations": {
+    "drive_file_id": "1g1hRX2J3WdoWXJDfzt1MlPIPezLZDVze",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/generations.tar.gz"
+  },
+  "geospecies": {
+    "drive_file_id": "1VG6nifKzMPuvQq1yG_-3tfoti-ndsFr3",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/geospecies.tar.gz"
+  },
+  "go": {
+    "drive_file_id": "1PmYTOqwLVHxduUmaq7VpWKtn0S6KeSBH",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz"
+  },
+  "go_hierarchy": {
+    "drive_file_id": "1jvbxsvnlnJT058BgQREVr6rEn9nhOcHs",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go_hierarchy.tar.gz"
+  },
+  "gson": {
+    "drive_file_id": "1rSQi6ZzDEu85deVghJ7GFtM4lV6l4642",
+    "sha256": "5bd1630f43411acbe49c87e554678c42d582614524e07720fc2c923a15dfb6ce",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gson.tar.gz"
+  },
+  "guava": {
+    "drive_file_id": "1yyviViskXaxh6K0uC4f6z3fM2KjXWIVr",
+    "sha256": "3e346263c94c1180e4c126b9e48fe1641a1de45c7c1990f35bc1e8541ff98b06",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/guava.tar.gz"
+  },
+  "gzip": {
+    "drive_file_id": "1U8wxcf_N3amOtEyehL-_EbG_yn9oxb3j",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gzip.tar.gz"
+  },
+  "h2": {
+    "drive_file_id": "1bTrYuloBTuK5dzCu5QHhQDp_z-v-NUR8",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/h2.tar.gz"
+  },
+  "httpx": {
+    "drive_file_id": "1HsIEjs4rKQqpP2oMiHgM29M3AsBOYjPn",
+    "sha256": "cdd2c8132161e80ab15e77f8cab05220c51b963a3adca050a1e684000ac266ae",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/httpx.tar.gz"
+  },
+  "imagick": {
+    "drive_file_id": "1OMXNF-TzqrV1TNcc5AcFQYoqfAZWwvb9",
+    "sha256": "d1ad823aa30ca7909b5af21187fa0749c3db0988c5967319657ad09cf3a54569",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/imagick.tar.gz"
+  },
+  "imagick_field_sensitive_alias": {
+    "drive_file_id": "1Wb2UXVpLN7UeX-n-pxq0oGKAN05KBV5p",
+    "sha256": "6d1d7fbdeb9e994aaefa87d9bd796955e356e7bb220957137ee35b3426b6de09",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/imagick_field_sensitive_alias.tar.gz"
+  },
+  "init": {
+    "drive_file_id": "1Ur5DdxffPHx4mn_12n8xJ5DzN2YE6Qxq",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/init.tar.gz"
+  },
+  "ipc": {
+    "drive_file_id": "1uqxjloEpPRcbyRTEMk5qKyArZpxhxEo3",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ipc.tar.gz"
+  },
+  "itsdangerous": {
+    "drive_file_id": "1PYiRRjp_i3jm78BRxfbkF2srrmQ1fiYE",
+    "sha256": "b03878e57a993e649bf8b6ca8cdacf83cdbbf1220830f57dcd7a5f2cc1a1090d",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/itsdangerous.tar.gz"
+  },
+  "jackson": {
+    "drive_file_id": "1D9OiEPXHTfvYix0D1c76hFf9v4ArQtfI",
+    "sha256": "d0ed0d78eb065f756fee0e6b4924599f0f69086d70c711a74d1a2fa1f4e5588e",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jackson.tar.gz"
+  },
+  "jiaozi": {
+    "drive_file_id": "1cQuXFlOkcq-D-1RP-MKsA7-0AG7MYeQL",
+    "sha256": "dea6424059b109b1a8bfacb87488f8070df410fdca969e3aa4cb05467c1629e7",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jiaozi.tar.gz"
+  },
+  "jinja": {
+    "drive_file_id": "1perIfofgAA4LAxGAYSyq2_nHUqII8YpM",
+    "sha256": "7586ee5eab568210446a805e202660c9414a9999cc1f2311a2485ff04b02d79c",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jinja.tar.gz"
+  },
+  "jsonpath": {
+    "drive_file_id": "1C9NMj1zRj4OziSf7IZ-pH0ta3N3sU8-7",
+    "sha256": "a64c44224d1366c1a356a505cc5de27a46190da9306deca583bed85b57d937c9",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jsonpath.tar.gz"
+  },
+  "junit5": {
+    "drive_file_id": "1WGMX5jVR-cdkyp0UJaL4yn_BjYITcWKO",
+    "sha256": "eacb34cb3a4a5331b263bdaaaf31198c4fdffc376ea1fa8964796718efc7bfa1",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/junit5.tar.gz"
+  },
+  "jython": {
+    "drive_file_id": "1188-4xT1jJD48Zah_mHp4lwn3y3Cupn9",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jython.tar.gz"
+  },
+  "kernel": {
+    "drive_file_id": "19sBD1CHzSwOTTYLXSx2kuQ327ZkTkS52",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/kernel.tar.gz"
+  },
+  "leela": {
+    "drive_file_id": "1QVjlvuki4e1zlFF6HqN1g-udfsXBIPj4",
+    "sha256": "854f125b424c5041a021d5f7ee346dae5adc1fa91deadbff3f178074294ea7ce",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/leela.tar.gz"
+  },
+  "leela_field_sensitive_alias": {
+    "drive_file_id": "1g7-ZR4oplJ-fW0pTJcUKaNz-EMrzfJN9",
+    "sha256": "56a1297cea8920f45a0707c37313cfd77dc5e961c160f1e1d0f0aa6221641287",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/leela_field_sensitive_alias.tar.gz"
+  },
+  "lib": {
+    "drive_file_id": "1Zk7BR10Vu6ZRoO9-daXsmRn0EE317MuM",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lib.tar.gz"
+  },
+  "libgdx": {
+    "drive_file_id": "1yuFcX9YmKVdb7oQV4IrU6GqFlNjF3Rl4",
+    "sha256": "f35ea032fa98560b3879096e99c3abf7c02af1ebc2c6149a3b964ca71535e83f",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/libgdx.tar.gz"
+  },
+  "ls": {
+    "drive_file_id": "17BXRR5sRqQMDI6XPVnzaQv1sfkMTj8nn",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ls.tar.gz"
+  },
+  "luindex": {
+    "drive_file_id": "1hiz2hOg47qhgNgCCJQsDXAAW04CmI06I",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/luindex.tar.gz"
+  },
+  "lusearch": {
+    "drive_file_id": "1LcBJvWkANjgq9hMfATVubqXRwhBLejzV",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz"
+  },
+  "mm": {
+    "drive_file_id": "1Ph9C90iCMdF8L3wXMsLkvaPGKGz0ErZ5",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/mm.tar.gz"
+  },
+  "mockito": {
+    "drive_file_id": "1ZjDWZ2R46PAHzhXfmkXfObkm2dQbutYL",
+    "sha256": "8608afac1b888edb165d5de5a2094d4814d6263c2a6b5e24d6d734433cd09912",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/mockito.tar.gz"
+  },
+  "nab": {
+    "drive_file_id": "11d11w4FVDDCGSZLBNIYoXi4NFlP0IldO",
+    "sha256": "6ad96a0042aa9e540310321790007e3029d4b610ce480c0bfbf6d1252c4a379e",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/nab.tar.gz"
+  },
+  "nab_field_sensitive_alias": {
+    "drive_file_id": "1glFBCK7v9_U6LCNHeDsOmSFmAUu7Odpv",
+    "sha256": "c98e97fe9b916471b60f9c7a39d3cef2bfb53ac4eec561e6eaa597942fbea744",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/nab_field_sensitive_alias.tar.gz"
+  },
+  "net": {
+    "drive_file_id": "19KEJzf53NLyjx5qTkpCNWE1NPC_dNMeZ",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/net.tar.gz"
+  },
+  "omnetpp": {
+    "drive_file_id": "1aSScObtx5LJwUl2T2pFNihZVCNTULz5A",
+    "sha256": "dee1144ea717c9aacd6d21ac081ae1f3a326d683da3434dd8cd8412c44a565d9",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/omnetpp.tar.gz"
+  },
+  "omnetpp_field_sensitive_alias": {
+    "drive_file_id": "1yS2uK2H_Am9k8dJ9ShnEm4NBaAB2Gf26",
+    "sha256": "d705c3995e6826fd4b00fa6382b03d800ac0e0314ad61a0a5541d1cfef087cdc",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/omnetpp_field_sensitive_alias.tar.gz"
+  },
+  "pandas": {
+    "drive_file_id": "1-nPGFLkDWUANCjl9V8UwbsCmmZ86ZI50",
+    "sha256": "30d07985188ab821a44f27bb7239d9759d3ff18dafeaa688277b705d40ddecf4",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pandas.tar.gz"
+  },
+  "parest": {
+    "drive_file_id": "1Xloafx0TUgf6gjP7zt0tYRmAryrza1yK",
+    "sha256": "a8ccbaf464d93e39fdadc8a4d26b82b76b4d628758664acbf1bf6ac4743425b9",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/parest.tar.gz"
+  },
+  "parest_field_sensitive_alias": {
+    "drive_file_id": "1Quv4-gUYq9bYhmYudlRXHwyLHs_KO38a",
+    "sha256": "f946ef306c1b0cac3cca91995d68fe3490d99eb771172603e6d5bd31198138b1",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/parest_field_sensitive_alias.tar.gz"
+  },
+  "pathways": {
+    "drive_file_id": "1uJd38gyu19-AHD-jzrEYrolYBPIzwLby",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pathways.tar.gz"
+  },
+  "people": {
+    "drive_file_id": "1uIFg-JRXY6I6lvmRdXEXksdoYiVet4Pi",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/people.tar.gz"
+  },
+  "perlbench": {
+    "drive_file_id": "1SKS_W7LNy7eiuRAgc88CJLmJT_LyQOUq",
+    "sha256": "2ee0eab50181229b9c7e6440618e8a37c08539dca028da8479b10edb5dced226",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/perlbench.tar.gz"
+  },
+  "perlbench_field_sensitive_alias": {
+    "drive_file_id": "1QynigQUmNQdo-grWAiPImko5Pdyff0ep",
+    "sha256": "94e6e74e87b172cc746caca181c96b33af7491c3a68ca51d26e9d13e52aa46b4",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/perlbench_field_sensitive_alias.tar.gz"
+  },
+  "pizza": {
+    "drive_file_id": "1o4AndWLngpTLoA3JAmo6MQeRIzG3bggg",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pizza.tar.gz"
+  },
+  "pluggy": {
+    "drive_file_id": "1fuDIBtf75XcjQMYbNCrcqso9nJ_u2tn-",
+    "sha256": "7bcee87f78618558ddf30ca2f6b687bdc0ef8c71e81004e2360182a4aeb74be5",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pluggy.tar.gz"
+  },
+  "pmd": {
+    "drive_file_id": "1sgkRMV-PykU6pQ3sFxIuw4dVqNBhptg5",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pmd.tar.gz"
+  },
+  "postgre": {
+    "drive_file_id": "1c9shV9F6QVnCyUfaI0Ee3TrPw2HTvqWG",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/postgre.tar.gz"
+  },
+  "povray": {
+    "drive_file_id": "1TheXcwurtZIdtxx9i8hhj1iMRfhaxWwl",
+    "sha256": "d893ad0b3aa3a49711e97022b880a278501a97c3687bb0cd4260925c83f0f935",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/povray.tar.gz"
+  },
+  "povray_field_sensitive_alias": {
+    "drive_file_id": "1-QzW5QGdnR_U9IVySg7FwuoJJCFUo91e",
+    "sha256": "7096553a8649fcf6ac3cbae35f51658eb647126013b0d06b64ffcdca15874e4d",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/povray_field_sensitive_alias.tar.gz"
+  },
+  "pr": {
+    "drive_file_id": "1h2bjLB1vt_7eHczBvGaC8KBnXkpBBH8z",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pr.tar.gz"
+  },
+  "requests": {
+    "drive_file_id": "1jlthWvH4NXTY8yhK8tusfMtCOfvydw0o",
+    "sha256": "372ff38e8c993467cb280c63291ceb1ee4c9f09e66387ee2a8ece0a1e184f4fa",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/requests.tar.gz"
+  },
+  "sampleproject": {
+    "drive_file_id": "19fI6A6q4FInjN_sBnJ1f-7Y1i7l789xS",
+    "sha256": "38a81c7f974786e7e4985c7bc708e2125d3024e271ca998de6775a7899fec849",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sampleproject.tar.gz"
+  },
+  "scikit-learn": {
+    "drive_file_id": "1OLroSM_Vgf-mFa1O94VvIHwV5Wt76nK_",
+    "sha256": "1ab970b6ba774ec32a406f1751c7bbebc62e1526547c75a2a81884a26d84a290",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/scikit-learn.tar.gz"
+  },
+  "security": {
+    "drive_file_id": "1NXffLDKwX7uVbGmULGti5HvkPVaJaBuV",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/security.tar.gz"
+  },
+  "shattered_pixel_dungeon": {
+    "drive_file_id": "1AZzAKHyaRQ0AANAvkvwDPMF15TnL4Z-S",
+    "sha256": "46eaed28ca314f26418d3f8a2516bdece89b42346b62081ec4d5a94028e5b490",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/shattered_pixel_dungeon.tar.gz"
+  },
+  "skos": {
+    "drive_file_id": "1tGmSFneqpOJx8yl2qxlG9JoDlTttlcKd",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/skos.tar.gz"
+  },
+  "sound": {
+    "drive_file_id": "15B5pAWMhnXB8vr3qZAYffAt7o40ISrCZ",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sound.tar.gz"
+  },
+  "sphinx": {
+    "drive_file_id": "1zq8fXSPietuBnpQuIr_uy8X_lGBFFu1P",
+    "sha256": "f93eec502b0fa5b71eb2e3009564d90ce4abb4ceaf55233ce1fd378f46e09d80",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sphinx.tar.gz"
+  },
+  "sunflow": {
+    "drive_file_id": "1ZfqQrkOp_yPAAFjy-7zASZWNoCJTFgw8",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sunflow.tar.gz"
+  },
+  "superset": {
+    "drive_file_id": "1KVlah5Ll81zlbl_dSSLmQiF2lw7omU0M",
+    "sha256": "b0f9beb0a935612f89c2c7458ed935d2e9d548dede97724405908ea5807e3383",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/superset.tar.gz"
+  },
+  "taxonomy": {
+    "drive_file_id": "1spRUicn0pZ9MbyiidA5A9XEP_qfrbFet",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy.tar.gz"
+  },
+  "taxonomy_hierarchy": {
+    "drive_file_id": "17LBpEi247Z1rPvoi-IcMgbx78i_Jo8Ux",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy_hierarchy.tar.gz"
+  },
+  "tomcat": {
+    "drive_file_id": "1bd6fjsLT4JAX5BFC4jryW7kOIx1OCs4I",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tomcat.tar.gz"
+  },
+  "tradebeans": {
+    "drive_file_id": "1xdo7bCrbcLRGKdbDTlTAUwbdkq_Y2-js",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradebeans.tar.gz"
+  },
+  "tradesoap": {
+    "drive_file_id": "1TEbaIar6QOuOSQ6QW-quilshKCGeDzQv",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz"
+  },
+  "travel": {
+    "drive_file_id": "1oJXPK2AEFS3twkpxQ1rqRxnJVxYzmRsh",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/travel.tar.gz"
+  },
+  "unigraph_1": {
+    "drive_file_id": "194YaJjfWAOjKL6Rv0OW0aKsASTsgZtiA",
+    "sha256": "11bfdf7416eb6c8b4c1a4b25630c31ee9a982743e6ea43c46f2339d4409e7360",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_1.tar.gz"
+  },
+  "unigraph_10": {
+    "drive_file_id": "1SWTFV2olNB9zlmEJ9PjD-0UYo6XF2fxo",
+    "sha256": "58d4b5ec9d33dca72aff035b6bfe87c9429d94eedb8caaad5f254de5519d1d1b",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_10.tar.gz"
+  },
+  "unigraph_2": {
+    "drive_file_id": "1-H-4ZBZ5JjD4YegYx241iltyWqPon6Fz",
+    "sha256": "6373acfbb6a560293bacd12a889eecdb6ac41c358a588777a64bb705094554c6",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_2.tar.gz"
+  },
+  "unigraph_3": {
+    "drive_file_id": "14tXHvR3IzGVKEjjtzFpkUSRPCH5vlqUM",
+    "sha256": "f093476e72e24296f3271a3056cc20e29b194f26bed64810a6e35c6bb45b75dc",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_3.tar.gz"
+  },
+  "unigraph_4": {
+    "drive_file_id": "1J4nwpA4GdCGw0psmiFNMZCgtTOjMgcjh",
+    "sha256": "3e2cc39160e62be1830de4fa379a1147debf068b9e38e07ccbf6e4af97c07367",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_4.tar.gz"
+  },
+  "unigraph_5": {
+    "drive_file_id": "1FNTlOs3nqFbgV_Mkr_MEaH4SpifugPos",
+    "sha256": "160b0e665addc799163bdc3b6f3c678bcf7ce648863377ce9597eabe1ac21766",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_5.tar.gz"
+  },
+  "unigraph_6": {
+    "drive_file_id": "1ej-mkr0PotwHJhUy3OZXDYoJb55WshE8",
+    "sha256": "3140c86da24f106ab3e4bd544d7aa561a137c4ccd886be024793021dce9e4415",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_6.tar.gz"
+  },
+  "unigraph_7": {
+    "drive_file_id": "1WtQr2530-iy8OqMvhKd6E4Q32cJpD8p5",
+    "sha256": "598d39381bcd0cad9d821e1c945ec3e22987a0684774b06a9ae6a3fa1762a2f5",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_7.tar.gz"
+  },
+  "unigraph_8": {
+    "drive_file_id": "1PhFZx-TUMlOFcY5UbvAONIZV1ql2KPMV",
+    "sha256": "2af6f91475cb7143305e8893bb2ad2e0af374e0e3f635fd921853be465cb13a9",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_8.tar.gz"
+  },
+  "unigraph_9": {
+    "drive_file_id": "1NW4vB_ZSJu2jCh_jxR-ffHx4clP-dA2x",
+    "sha256": "0e2ae169bc6eef5feb050905adcc0bd5ff2eff733d527cc9e3ad946536bd03d7",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_9.tar.gz"
+  },
+  "univ": {
+    "drive_file_id": "1qgxXDHjadmSWsTeJnEHACrBkxUPNBHKu",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/univ.tar.gz"
+  },
+  "wc": {
+    "drive_file_id": "10YuJZRVkf1KaJx1P7Mx3X4iIQEHKEbg2",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wc.tar.gz"
+  },
+  "wikipedia-provenance": {
+    "drive_file_id": "1FSOtaHPphLghT20f3xoD4NaRuzeR5h7c",
+    "sha256": "2c984098916e09c6e90970dfc75300d2056629bcf0f02ebd804aa2202108abd4",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wikipedia-provenance.tar.gz"
+  },
+  "wine": {
+    "drive_file_id": "1S1ATLcrcsPZ1tjRys0tfsITei5t74o98",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wine.tar.gz"
+  },
+  "x264": {
+    "drive_file_id": "1zwtZi2gwp4JZ9Emnm2TfUWVg5yG1ykyn",
+    "sha256": "b5a0b805d667fc30e4d04dffc40a73671d941078d215d98d2c60013ef5c0f1e6",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/x264.tar.gz"
+  },
+  "x264_field_sensitive_alias": {
+    "drive_file_id": "1MreKqvFUjIX49oZHu8p45PZmfJ3PCEN4",
+    "sha256": "ea628798f440df96e07486b3ed5c3f6ad2583aaee1e94661f84b5811987bf7b2",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/x264_field_sensitive_alias.tar.gz"
+  },
+  "xalan": {
+    "drive_file_id": "10wHIUhECB-9a-Jit3K28iMhPmCSeOqfU",
+    "sha256": null,
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xalan.tar.gz"
+  },
+  "xz": {
+    "drive_file_id": "1zOpQ6PxG4f5139YygBG5JIN2noup4oBE",
+    "sha256": "6272083f066ba5613872c76dcab27129114dea790079e5fe504555edb9d0fee9",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xz.tar.gz"
+  },
+  "xz_field_sensitive_alias": {
+    "drive_file_id": "1kl5krt-_RYLghDXMlB1fb2K9drg875Tw",
+    "sha256": "19e71ce7ac94b4d1ecfc92d07ae11fac9d577b72503339794d9b4986b53bc75c",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xz_field_sensitive_alias.tar.gz"
+  },
+  "zulip": {
+    "drive_file_id": "1dfZK9aeLEC7x0J7IW89bADoBtSfzU4E0",
+    "sha256": "dd94271951210d4e40074669cb6fa3a2188b92d14d83e18c51a5363af43530d8",
+    "url": "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/zulip.tar.gz"
+  }
+}

@@ -16,7 +16,7 @@ Info
    * - Full Name
      - requests
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1jlthWvH4NXTY8yhK8tusfMtCOfvydw0o>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/requests.tar.gz>`_
    * - Source
      - `requests <https://github.com/psf/requests>`_
 

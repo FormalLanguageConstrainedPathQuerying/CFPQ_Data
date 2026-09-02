@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1ijC6VUoHxyfCNC0ZaZzTRmLH1dzWqw-o>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/foaf.tar.gz>`_
    * - Origin
      - `link <http://xmlns.com/foaf/0.1>`_
 

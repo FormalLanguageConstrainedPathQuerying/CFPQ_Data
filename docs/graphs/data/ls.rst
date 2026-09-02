@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=17BXRR5sRqQMDI6XPVnzaQv1sfkMTj8nn>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ls.tar.gz>`_
    * - Origin
      - `.xml.tar.gz <https://drive.google.com/file/d/1GsYzenIY5ejPSQCtnJ1JNSdhsBAMVPEw/view?usp=sharing>`_
 

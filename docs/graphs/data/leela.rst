@@ -16,7 +16,7 @@ Info
    * - Full Name
      - leela
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1QVjlvuki4e1zlFF6HqN1g-udfsXBIPj4>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/leela.tar.gz>`_
 
 
 Graph Statistics

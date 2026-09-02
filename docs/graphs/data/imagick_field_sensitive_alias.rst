@@ -16,7 +16,7 @@ Info
    * - Full Name
      - imagick
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1Wb2UXVpLN7UeX-n-pxq0oGKAN05KBV5p>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/imagick_field_sensitive_alias.tar.gz>`_
 
 
 Graph Statistics

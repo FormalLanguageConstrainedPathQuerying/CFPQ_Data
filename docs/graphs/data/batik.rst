@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1-lu0T9T8mYa8Hnn8YNjW4NEIAZErUNsH>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/batik.tar.gz>`_
    * - Origin
      - `link <https://dacapobench.sourceforge.net>`_
 

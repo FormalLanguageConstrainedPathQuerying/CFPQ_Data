@@ -18,7 +18,7 @@ from dataclasses import dataclass
 
 import requests
 
-from cfpq_data.dataset import DATASET, DATASET_URL
+from cfpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
 from upload_to_s3 import (
     DEFAULT_BUCKET,
     DEFAULT_ENDPOINT_URL,
@@ -345,7 +345,8 @@ def migrate(
     Each item's object key is its graph name (``<name>.tar.gz``), except
     when another Drive file claims the same name: that item is stored under
     its docs page stem instead (see :func:`_key_name_for`), keeping both
-    archives.
+    archives. Objects are stored under ``DATASET_KEY_PREFIX``
+    (``4.0.0/graph/``), matching :data:`cfpq_data.dataset.DATASET_URL`.
 
     For each item (at most one local file on disk at any time):
 
@@ -411,7 +412,12 @@ def migrate(
             else:
                 download_from_drive(item.file_id, local_path)
                 digest = sha256_of(local_path)
-                upload_file(client, local_path, bucket, key=f"{key_name}.tar.gz")
+                upload_file(
+                    client,
+                    local_path,
+                    bucket,
+                    key=f"{DATASET_KEY_PREFIX}/{key_name}.tar.gz",
+                )
                 mapping[key_name] = {
                     "url": url,
                     "drive_file_id": item.file_id,

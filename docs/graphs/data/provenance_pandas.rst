@@ -16,7 +16,7 @@ Info
    * - Full Name
      - pandas
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1-nPGFLkDWUANCjl9V8UwbsCmmZ86ZI50>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pandas.tar.gz>`_
    * - Source
      - `pandas <https://github.com/pandas-dev/pandas>`_
 

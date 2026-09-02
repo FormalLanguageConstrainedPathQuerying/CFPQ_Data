@@ -6,6 +6,7 @@ from unittest import mock
 
 import pytest
 
+from cfpq_data.dataset import DATASET_KEY_PREFIX
 from migrate_gdrive_to_s3 import (
     DRIVE_DOWNLOAD_URL,
     DriveDownloadError,
@@ -288,7 +289,7 @@ def test_migrate_uploads_new_item(tmp_path, monkeypatch):
     summary = migrate(items, client, "cfpq-data", docs, workdir, mapping_path)
 
     assert summary == {"uploaded": 1, "skipped_existing": 0, "skipped_duplicate": 0}
-    assert uploaded["key"] == "airflow.tar.gz"
+    assert uploaded["key"] == f"{DATASET_KEY_PREFIX}/airflow.tar.gz"
     assert not (workdir / "airflow.tar.gz").exists()
     for rst in (docs / "graphs/data/airflow.rst", docs / "graphs/index.rst"):
         text = rst.read_text(encoding="utf-8")
@@ -355,7 +356,10 @@ def test_migrate_shared_name_keeps_both_under_distinct_keys(tmp_path, monkeypatc
 
     assert summary == {"uploaded": 2, "skipped_existing": 0, "skipped_duplicate": 0}
     keys = [call.kwargs["key"] for call in upload.call_args_list]
-    assert keys == ["cactus.tar.gz", "cactus_field_sensitive_alias.tar.gz"]
+    assert keys == [
+        f"{DATASET_KEY_PREFIX}/cactus.tar.gz",
+        f"{DATASET_KEY_PREFIX}/cactus_field_sensitive_alias.tar.gz",
+    ]
     mapping = json.loads(mapping_path.read_text(encoding="utf-8"))
     assert set(mapping) == {"cactus", "cactus_field_sensitive_alias"}
     assert mapping["cactus"]["drive_file_id"] == "FID_1"
@@ -431,7 +435,10 @@ def test_migrate_rerun_twin_stored_under_stem_key(tmp_path, monkeypatch):
 
     assert summary == {"uploaded": 1, "skipped_existing": 0, "skipped_duplicate": 0}
     upload.assert_called_once()
-    assert upload.call_args.kwargs["key"] == "cactus_field_sensitive_alias.tar.gz"
+    assert (
+        upload.call_args.kwargs["key"]
+        == f"{DATASET_KEY_PREFIX}/cactus_field_sensitive_alias.tar.gz"
+    )
     mapping = json.loads(mapping_path.read_text(encoding="utf-8"))
     assert set(mapping) == {"cactus", "cactus_field_sensitive_alias"}
 

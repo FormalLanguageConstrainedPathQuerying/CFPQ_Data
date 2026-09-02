@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1U8wxcf_N3amOtEyehL-_EbG_yn9oxb3j>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gzip.tar.gz>`_
    * - Origin
      - `link <https://www.spec.org/cpu2000/CINT2000/164.gzip/docs/164.gzip.html>`_
 

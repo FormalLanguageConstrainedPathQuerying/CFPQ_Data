@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1hiz2hOg47qhgNgCCJQsDXAAW04CmI06I>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/luindex.tar.gz>`_
    * - Origin
      - `link <https://dacapobench.sourceforge.net>`_
 

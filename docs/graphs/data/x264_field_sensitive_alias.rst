@@ -16,7 +16,7 @@ Info
    * - Full Name
      - x264
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1MreKqvFUjIX49oZHu8p45PZmfJ3PCEN4>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/x264_field_sensitive_alias.tar.gz>`_
 
 
 Graph Statistics

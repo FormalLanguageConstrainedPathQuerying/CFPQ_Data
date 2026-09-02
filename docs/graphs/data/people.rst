@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1uIFg-JRXY6I6lvmRdXEXksdoYiVet4Pi>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/people.tar.gz>`_
    * - Origin
      - `.rdf <http://owl.man.ac.uk/tutorial/people+pets.rdf>`_
 

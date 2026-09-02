@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=18Si12BN426qzFwA4wruLZrR9ZFGYiASW>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/biomedical.tar.gz>`_
    * - Origin
      - `link <http://ontology.dumontierlab.com/biomedical-measure-primitive>`_
 

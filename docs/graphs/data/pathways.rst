@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1uJd38gyu19-AHD-jzrEYrolYBPIzwLby>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pathways.tar.gz>`_
    * - Origin
      - `.rdf.xz <https://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf/pathways.rdf.xz>`_
 

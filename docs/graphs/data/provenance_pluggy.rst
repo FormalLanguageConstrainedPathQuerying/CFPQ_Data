@@ -16,7 +16,7 @@ Info
    * - Full Name
      - pluggy
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1fuDIBtf75XcjQMYbNCrcqso9nJ_u2tn->`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pluggy.tar.gz>`_
    * - Source
      - `pluggy <https://github.com/pytest-dev/pluggy>`_
 

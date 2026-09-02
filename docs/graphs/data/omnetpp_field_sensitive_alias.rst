@@ -16,7 +16,7 @@ Info
    * - Full Name
      - omnetpp
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1yS2uK2H_Am9k8dJ9ShnEm4NBaAB2Gf26>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/omnetpp_field_sensitive_alias.tar.gz>`_
 
 
 Graph Statistics

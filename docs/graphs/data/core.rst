@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1iauv_uNwEqeZ0wLYt-q0DemaKlf0Eokl>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz>`_
    * - Origin
      - `.owl <https://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf/core.owl>`_
 

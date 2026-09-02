@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1my8LSffItJS6n5MQoYINUyuhVrMXDOYl>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclipse.tar.gz>`_
    * - Origin
      - `link <https://dacapobench.sourceforge.net>`_
 

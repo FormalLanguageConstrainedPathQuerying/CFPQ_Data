@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1qgxXDHjadmSWsTeJnEHACrBkxUPNBHKu>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/univ.tar.gz>`_
    * - Origin
      - `.owl <http://swat.cse.lehigh.edu/onto/univ-bench.owl>`_
 

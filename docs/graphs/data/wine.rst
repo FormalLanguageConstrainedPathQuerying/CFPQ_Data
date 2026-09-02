@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1S1ATLcrcsPZ1tjRys0tfsITei5t74o98>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wine.tar.gz>`_
    * - Origin
      - `.rdf <https://www.w3.org/TR/owl-guide/wine.rdf>`_
 

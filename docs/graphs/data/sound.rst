@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=15B5pAWMhnXB8vr3qZAYffAt7o40ISrCZ>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sound.tar.gz>`_
    * - Origin
      - `.txt <https://drive.google.com/uc?export=download&id=0B8bQanV_QfNkLTkzeXhNaVRwenM>`_
 

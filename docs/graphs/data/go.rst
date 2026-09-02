@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1PmYTOqwLVHxduUmaq7VpWKtn0S6KeSBH>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz>`_
    * - Origin
      - `.owl <http://purl.obolibrary.org/obo/go.owl>`_
 

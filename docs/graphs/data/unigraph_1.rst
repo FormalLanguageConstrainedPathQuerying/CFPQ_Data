@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.3
    * - Direct download (.mtx files)
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=194YaJjfWAOjKL6Rv0OW0aKsASTsgZtiA>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/unigraph_1.tar.gz>`_
 
 
 Graph Statistics

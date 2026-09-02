@@ -16,7 +16,7 @@ Info
    * - Full Name
      - libgdx
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1yuFcX9YmKVdb7oQV4IrU6GqFlNjF3Rl4>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/libgdx.tar.gz>`_
    * - Source
      - `libgdx <https://github.com/libgdx/libgdx>`_
 

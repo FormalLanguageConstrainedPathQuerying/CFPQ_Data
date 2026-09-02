@@ -16,7 +16,7 @@ Info
    * - Full Name
      - nab
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1glFBCK7v9_U6LCNHeDsOmSFmAUu7Odpv>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/nab_field_sensitive_alias.tar.gz>`_
 
 
 Graph Statistics

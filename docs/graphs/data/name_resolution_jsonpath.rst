@@ -16,7 +16,7 @@ Info
    * - Full Name
      - jsonpath
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1C9NMj1zRj4OziSf7IZ-pH0ta3N3sU8-7>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jsonpath.tar.gz>`_
    * - Source
      - `jsonpath <https://github.com/json-path/JsonPath>`_
 

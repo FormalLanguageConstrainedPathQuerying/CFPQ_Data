@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1oJXPK2AEFS3twkpxQ1rqRxnJVxYzmRsh>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/travel.tar.gz>`_
    * - Origin
      - `.owl <https://protege.stanford.edu/ontologies/travel.owl>`_
 

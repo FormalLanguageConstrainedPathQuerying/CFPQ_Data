@@ -11,6 +11,7 @@ from typing import Union
 from cfpq_data.config import DATA, GRAPHS_DIR, GRAMMARS_DIR, BENCHMARKS_DIR, VERSION
 
 __all__ = [
+    "DATASET_KEY_PREFIX",
     "DATASET_URL",
     "GRAMMARS_URL",
     "BENCHMARK_URL",
@@ -22,7 +23,8 @@ __all__ = [
     "download_benchmark",
 ]
 
-DATASET_URL = f"https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/graph/"
+DATASET_KEY_PREFIX = f"{VERSION[0]}.0.0/graph"
+DATASET_URL = f"https://cfpq-data.storage.yandexcloud.net/{DATASET_KEY_PREFIX}/"
 GRAMMARS_URL = f"https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/grammar/"
 BENCHMARK_URL = f"https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/benchmark/"
 

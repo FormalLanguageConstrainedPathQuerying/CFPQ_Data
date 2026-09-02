@@ -16,7 +16,7 @@ Info
    * - Full Name
      - xz
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1kl5krt-_RYLghDXMlB1fb2K9drg875Tw>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xz_field_sensitive_alias.tar.gz>`_
 
 
 Graph Statistics

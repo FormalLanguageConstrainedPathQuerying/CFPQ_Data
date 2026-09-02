@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1tGmSFneqpOJx8yl2qxlG9JoDlTttlcKd>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/skos.tar.gz>`_
    * - Origin
      - `.rdf <https://www.w3.org/2009/08/skos-reference/skos.rdf>`_
 

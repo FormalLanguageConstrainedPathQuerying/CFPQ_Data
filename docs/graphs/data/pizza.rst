@@ -18,7 +18,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1o4AndWLngpTLoA3JAmo6MQeRIzG3bggg>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pizza.tar.gz>`_
    * - Origin
      - `.owl <https://protege.stanford.edu/ontologies/pizza/pizza.owl>`_
 

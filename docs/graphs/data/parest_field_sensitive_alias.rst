@@ -16,7 +16,7 @@ Info
    * - Full Name
      - parest
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1Quv4-gUYq9bYhmYudlRXHwyLHs_KO38a>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/parest_field_sensitive_alias.tar.gz>`_
 
 
 Graph Statistics

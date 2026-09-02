@@ -16,7 +16,7 @@ Info
    * - Full Name
      - flask
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1EMPEZEtAqy0L5Wq1LEpVnBl22xrATYBH>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/flask.tar.gz>`_
    * - Source
      - `flask <https://github.com/pallets/flask>`_
 
