@@ -64,10 +64,13 @@ Behavior:
 - **Idempotent.** Before downloading, the tool checks the public bucket URL;
   items already on Yandex are skipped. Re-running after an interruption
   resumes where it stopped.
-- **Name collisions.** A graph name identifies the graph uniquely, so a name
-  is never stored twice. If two Drive files share a name, their contents are
-  compared by SHA-256: identical content is uploaded once, differing content
-  stops the run (the local copy is kept for inspection).
+- **Name collisions.** Ten graph names appear in two collections with
+  different content, so both archives are kept: the item whose docs page stem
+  equals the name keeps ``<name>.tar.gz``, the other is stored under its docs
+  page stem (e.g. ``cactus_field_sensitive_alias.tar.gz``). If two items
+  resolve to the same key the run stops with an error. Re-uploading an
+  existing key is guarded by a SHA-256 comparison of the downloaded bytes; a
+  mismatch stops the run and keeps the local copy for inspection.
 - **Mapping.** After every item the tool saves
   ``utils/migration_mapping.json`` with the mapping graph name → new Yandex
   URL (plus the Drive file ID and SHA-256) so the migration record survives

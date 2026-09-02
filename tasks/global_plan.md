@@ -58,8 +58,8 @@ Execution order: 1 → 2 → 3 (strict; Task 3 imports the upload core of Task 2
 - Name collisions: `cactus`, `imagick`, `leela`, `nab`, `omnetpp`, `parest`,
   `perlbench`, `povray`, `x264`, `xz` (10 names) each appear in both
   java_points_to and field_sensitive_alias with **different Drive file IDs**
-  (verified). Per the user, equal names mean the same graph; content identity
-  must be rechecked (see Design Decisions).
+  and different content (verified by SHA-256; resolved per Design Decision 3:
+  suffixed keys, keep both).
 - Verified Drive download protocol from this network:
   - small files: `GET https://drive.google.com/uc?export=download&id=<fid>`
     returns `application/octet-stream` directly;
@@ -92,12 +92,14 @@ From user guidance (verbatim in `tasks/tasks.md`) and verified facts:
    (task 4). `--endpoint-url` remains overridable.
 2. **Key layout**: flat, same as existing objects —
    `4.0.0/graph/<name>.tar.gz`. No per-collection subdirectories.
-3. **Name uniqueness rule** (user): "Name is an unique identifier. If names
-    are equal, graphs are the same. It must not be stored twice." The 10
-    colliding names have different Drive file IDs, so the migration tool
-   rechecks content identity by SHA-256 of the downloaded bytes: equal hash →
-   upload once; different hash → stop with an error for that item (no silent
-   overwrite).
+3. **Name collisions** (user): "Name is an unique identifier. If names are
+   equal, graphs are the same. It must not be stored twice." Verified by
+   SHA-256 of the downloaded archives: all 10 colliding names are different
+   graphs (java_points_to vs field_sensitive_alias), so the assumption does
+   not hold. User decision: "Suffixed keys, keep both (Recommended)" — the
+   item whose docs page stem equals the name keeps `<name>.tar.gz`, the twin
+   is stored under its docs page stem (`<name>_field_sensitive_alias.tar.gz`).
+   The per-key SHA-256 check still guards re-uploads of an existing key.
 4. **Scope**: only the 59 `.tar.gz` files (the 15 legacy `.txt` origin files
    are out of scope).
 5. **Docs update is part of the migration**: after each successful upload the

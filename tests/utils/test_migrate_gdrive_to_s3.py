@@ -325,52 +325,135 @@ def test_migrate_skips_item_already_on_yandex(tmp_path, monkeypatch):
     assert mapping["airflow"]["sha256"] is None
 
 
-def test_migrate_duplicate_name_same_content_uploaded_once(tmp_path, monkeypatch):
+NEW_CACTUS_URL = "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/cactus.tar.gz"
+
+
+def test_migrate_shared_name_keeps_both_under_distinct_keys(tmp_path, monkeypatch):
     docs = tmp_path / "docs"
     _make_docs(docs, "cactus", "FID_1")
-    (docs / "graphs/data/cactus_fsa.rst").write_text(
-        f"page\nhttps://drive.google.com/uc?export=download&id=FID_2\n",
+    (docs / "graphs/data/cactus_field_sensitive_alias.rst").write_text(
+        "page\nhttps://drive.google.com/uc?export=download&id=FID_2\n",
         encoding="utf-8",
     )
     workdir = tmp_path / "work"
     mapping_path = tmp_path / "mapping.json"
-    download = _fake_download({"FID_1": b"same", "FID_2": b"same"})
+    download = _fake_download({"FID_1": b"points-to", "FID_2": b"field-sensitive"})
     upload = mock.Mock()
     monkeypatch.setattr("migrate_gdrive_to_s3.download_from_drive", download)
     monkeypatch.setattr("migrate_gdrive_to_s3.is_on_yandex", lambda name: False)
     monkeypatch.setattr("migrate_gdrive_to_s3.upload_file", upload)
 
     items = [
-        MigrationItem(name="cactus", file_id="FID_1", source="s1.rst"),
-        MigrationItem(name="cactus", file_id="FID_2", source="s2.rst"),
+        MigrationItem(name="cactus", file_id="FID_1", source="graphs/data/cactus.rst"),
+        MigrationItem(
+            name="cactus",
+            file_id="FID_2",
+            source="graphs/data/cactus_field_sensitive_alias.rst",
+        ),
     ]
     summary = migrate(items, mock.Mock(), "cfpq-data", docs, workdir, mapping_path)
 
-    assert summary == {"uploaded": 1, "skipped_existing": 0, "skipped_duplicate": 1}
-    upload.assert_called_once()
-    assert download.call_count == 2
+    assert summary == {"uploaded": 2, "skipped_existing": 0, "skipped_duplicate": 0}
+    keys = [call.kwargs["key"] for call in upload.call_args_list]
+    assert keys == ["cactus.tar.gz", "cactus_field_sensitive_alias.tar.gz"]
+    mapping = json.loads(mapping_path.read_text(encoding="utf-8"))
+    assert set(mapping) == {"cactus", "cactus_field_sensitive_alias"}
+    assert mapping["cactus"]["drive_file_id"] == "FID_1"
+    assert mapping["cactus_field_sensitive_alias"]["drive_file_id"] == "FID_2"
 
 
-def test_migrate_duplicate_name_different_content_stops(tmp_path, monkeypatch):
+def test_migrate_rerun_uploaded_item_skips_upload(tmp_path, monkeypatch):
     docs = tmp_path / "docs"
     _make_docs(docs, "cactus", "FID_1")
     workdir = tmp_path / "work"
     mapping_path = tmp_path / "mapping.json"
-    download = _fake_download({"FID_1": b"aaa", "FID_2": b"bbb"})
+    save_mapping(
+        mapping_path,
+        {
+            "cactus": {
+                "url": NEW_CACTUS_URL,
+                "drive_file_id": "FID_1",
+                "sha256": hashlib.sha256(b"points-to").hexdigest(),
+            }
+        },
+    )
+    download = _fake_download({"FID_1": b"points-to"})
     upload = mock.Mock()
     monkeypatch.setattr("migrate_gdrive_to_s3.download_from_drive", download)
     monkeypatch.setattr("migrate_gdrive_to_s3.is_on_yandex", lambda name: False)
     monkeypatch.setattr("migrate_gdrive_to_s3.upload_file", upload)
 
     items = [
-        MigrationItem(name="cactus", file_id="FID_1", source="s1.rst"),
-        MigrationItem(name="cactus", file_id="FID_2", source="s2.rst"),
+        MigrationItem(name="cactus", file_id="FID_1", source="graphs/data/cactus.rst")
     ]
-    with pytest.raises(MigrationError, match="Content mismatch"):
+    summary = migrate(items, mock.Mock(), "cfpq-data", docs, workdir, mapping_path)
+
+    assert summary == {"uploaded": 0, "skipped_existing": 0, "skipped_duplicate": 1}
+    download.assert_called_once()
+    upload.assert_not_called()
+
+
+def test_migrate_rerun_twin_stored_under_stem_key(tmp_path, monkeypatch):
+    # Re-run after the first item was migrated: only the twin's Drive link
+    # remains in the docs, while the mapping still records the name entry.
+    docs = tmp_path / "docs"
+    (docs / "graphs/data").mkdir(parents=True)
+    (docs / "graphs/data/cactus_field_sensitive_alias.rst").write_text(
+        "page\nhttps://drive.google.com/uc?export=download&id=FID_2\n",
+        encoding="utf-8",
+    )
+    workdir = tmp_path / "work"
+    mapping_path = tmp_path / "mapping.json"
+    save_mapping(
+        mapping_path,
+        {
+            "cactus": {
+                "url": NEW_CACTUS_URL,
+                "drive_file_id": "FID_1",
+                "sha256": hashlib.sha256(b"points-to").hexdigest(),
+            }
+        },
+    )
+    download = _fake_download({"FID_2": b"field-sensitive"})
+    upload = mock.Mock()
+    monkeypatch.setattr("migrate_gdrive_to_s3.download_from_drive", download)
+    monkeypatch.setattr("migrate_gdrive_to_s3.is_on_yandex", lambda name: False)
+    monkeypatch.setattr("migrate_gdrive_to_s3.upload_file", upload)
+
+    items = [
+        MigrationItem(
+            name="cactus",
+            file_id="FID_2",
+            source="graphs/data/cactus_field_sensitive_alias.rst",
+        )
+    ]
+    summary = migrate(items, mock.Mock(), "cfpq-data", docs, workdir, mapping_path)
+
+    assert summary == {"uploaded": 1, "skipped_existing": 0, "skipped_duplicate": 0}
+    upload.assert_called_once()
+    assert upload.call_args.kwargs["key"] == "cactus_field_sensitive_alias.tar.gz"
+    mapping = json.loads(mapping_path.read_text(encoding="utf-8"))
+    assert set(mapping) == {"cactus", "cactus_field_sensitive_alias"}
+
+
+def test_migrate_same_name_and_stem_cannot_disambiguate(tmp_path, monkeypatch):
+    docs = tmp_path / "docs"
+    _make_docs(docs, "cactus", "FID_1")
+    workdir = tmp_path / "work"
+    mapping_path = tmp_path / "mapping.json"
+    download = _fake_download({"FID_1": b"a", "FID_2": b"b"})
+    monkeypatch.setattr("migrate_gdrive_to_s3.download_from_drive", download)
+    monkeypatch.setattr("migrate_gdrive_to_s3.is_on_yandex", lambda name: False)
+    monkeypatch.setattr("migrate_gdrive_to_s3.upload_file", mock.Mock())
+
+    items = [
+        MigrationItem(name="cactus", file_id="FID_1", source="graphs/data/cactus.rst"),
+        MigrationItem(name="cactus", file_id="FID_2", source="graphs/data/cactus.rst"),
+    ]
+    with pytest.raises(MigrationError, match="Cannot disambiguate"):
         migrate(items, mock.Mock(), "cfpq-data", docs, workdir, mapping_path)
 
-    upload.assert_called_once()
-    assert (workdir / "cactus.tar.gz").exists()
+    download.assert_not_called()
 
 
 def test_migrate_rerun_hashless_entry_still_on_yandex(tmp_path, monkeypatch):

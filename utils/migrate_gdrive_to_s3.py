@@ -64,7 +64,8 @@ class MigrationItem:
     Attributes
     ----------
     name : str
-        Graph name; also the S3 object key stem (``<name>.tar.gz``).
+        Graph name; normally the S3 object key (``<name>.tar.gz``), except
+        for colliding names, which are stored under their docs page stem.
     file_id : str
         Google Drive file ID of the archive.
     source : str
@@ -282,6 +283,54 @@ def save_mapping(path: pathlib.Path | str, mapping: dict[str, dict]) -> None:
         f.write("\n")
 
 
+def _key_name_for(
+    item: MigrationItem, items: list[MigrationItem], mapping: dict[str, dict]
+) -> str:
+    """Return the object key name for an item.
+
+    A graph name identifies a single archive only while no other Drive file
+    claims the same name. When another file (a different Drive ID) shares
+    the name — either among the discovered items or against an entry already
+    recorded in the mapping (the case on re-runs, where the first item's
+    docs link has already been rewritten) — each item is stored under its
+    docs page stem instead, except that the item whose stem equals the name
+    keeps ``<name>.tar.gz``: e.g. ``cactus`` keeps ``cactus.tar.gz`` while
+    its twin goes to ``cactus_field_sensitive_alias.tar.gz``, so both
+    archives are kept without overwriting each other.
+
+    Raises :class:`MigrationError` if two different files resolve to the
+    same key (no disambiguation possible).
+    """
+
+    def shared(entry: MigrationItem) -> bool:
+        recorded = mapping.get(entry.name)
+        return (
+            recorded is not None and recorded.get("drive_file_id") != entry.file_id
+        ) or any(
+            other.name == entry.name and other.file_id != entry.file_id
+            for other in items
+        )
+
+    if not shared(item):
+        return item.name
+
+    def key_of(entry: MigrationItem) -> str:
+        if not shared(entry):
+            return entry.name
+        stem = pathlib.PurePath(entry.source).stem
+        return entry.name if stem == entry.name else stem
+
+    key = key_of(item)
+    for other in items:
+        if other.file_id != item.file_id and key_of(other) == key:
+            raise MigrationError(
+                f"Cannot disambiguate graph {item.name!r}: Drive files "
+                f"{item.file_id} and {other.file_id} both resolve to the "
+                f"object key {key!r}."
+            )
+    return key
+
+
 def migrate(
     items: list[MigrationItem],
     client,
@@ -293,9 +342,14 @@ def migrate(
 ) -> dict[str, int]:
     """Migrate items from Google Drive to Yandex, one item at a time.
 
+    Each item's object key is its graph name (``<name>.tar.gz``), except
+    when another Drive file claims the same name: that item is stored under
+    its docs page stem instead (see :func:`_key_name_for`), keeping both
+    archives.
+
     For each item (at most one local file on disk at any time):
 
-    - if the name is already in the mapping with a recorded SHA-256, the
+    - if the key is already in the mapping with a recorded SHA-256, the
       archive is downloaded and its digest compared with the recorded one:
       equal means the same graph (must not be stored twice) so the upload is
       skipped; different raises :class:`MigrationError` and keeps the local
@@ -325,29 +379,30 @@ def migrate(
         if limit is not None and index >= limit:
             break
 
-        url = DATASET_URL + f"{item.name}.tar.gz"
-        local_path = workdir / f"{item.name}.tar.gz"
+        key_name = _key_name_for(item, items, mapping)
+        url = DATASET_URL + f"{key_name}.tar.gz"
+        local_path = workdir / f"{key_name}.tar.gz"
 
         try:
-            recorded = mapping.get(item.name, {}).get("sha256")
+            recorded = mapping.get(key_name, {}).get("sha256")
             if recorded is not None:
                 download_from_drive(item.file_id, local_path)
                 digest = sha256_of(local_path)
                 if digest != recorded:
                     raise MigrationError(
-                        f"Content mismatch for graph {item.name!r}: Drive file "
+                        f"Content mismatch for graph {key_name!r}: Drive file "
                         f"{item.file_id} has sha256 {digest}, but the stored copy "
                         f"was recorded as {recorded}. Local copy kept at "
                         f"{local_path} for inspection."
                     )
                 logging.info(
-                    f"{item.name}: content identical to the stored copy, "
+                    f"{key_name}: content identical to the stored copy, "
                     f"skipping upload"
                 )
                 summary["skipped_duplicate"] += 1
-            elif is_on_yandex(item.name):
-                logging.info(f"{item.name}: already on Yandex, skipping")
-                mapping[item.name] = {
+            elif is_on_yandex(key_name):
+                logging.info(f"{key_name}: already on Yandex, skipping")
+                mapping[key_name] = {
                     "url": url,
                     "drive_file_id": item.file_id,
                     "sha256": None,
@@ -356,8 +411,8 @@ def migrate(
             else:
                 download_from_drive(item.file_id, local_path)
                 digest = sha256_of(local_path)
-                upload_file(client, local_path, bucket, key=f"{item.name}.tar.gz")
-                mapping[item.name] = {
+                upload_file(client, local_path, bucket, key=f"{key_name}.tar.gz")
+                mapping[key_name] = {
                     "url": url,
                     "drive_file_id": item.file_id,
                     "sha256": digest,
@@ -370,7 +425,7 @@ def migrate(
 
             if local_path.exists():
                 local_path.unlink()
-                logging.info(f"{item.name}: removed local copy {local_path}")
+                logging.info(f"{key_name}: removed local copy {local_path}")
         except Exception:
             if local_path.exists():
                 logging.error(
@@ -458,12 +513,18 @@ def main(argv: list[str] | None = None) -> None:
         mapping = load_mapping(args.mapping)
         planned = items[: args.limit] if args.limit is not None else items
         for item in planned:
-            if item.name in mapping:
-                plan = "skip (name already migrated; content will be rechecked)"
-            elif is_on_yandex(item.name):
+            try:
+                key_name = _key_name_for(item, items, mapping)
+            except MigrationError as error:
+                print(f"{item.name}: ERROR {error} [{item.source}]")
+                continue
+            suffix = "" if key_name == item.name else f" as {key_name}.tar.gz"
+            if mapping.get(key_name, {}).get("sha256") is not None:
+                plan = "skip (already migrated; content will be rechecked)"
+            elif is_on_yandex(key_name):
                 plan = "skip (already on Yandex)"
             else:
-                plan = "upload"
+                plan = f"upload{suffix}"
             print(f"{item.name}: {plan} [{item.source}]")
         return
 
