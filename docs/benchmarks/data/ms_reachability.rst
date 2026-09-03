@@ -19,7 +19,7 @@ Info
    * - Version
      - 4.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/benchmark/MS_Reachability.tar.gz>`_
+     - `MS_Reachability.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/benchmark/MS_Reachability.tar.gz>`_
 
 Description
 -----------
@@ -47,19 +47,19 @@ Graphs Used
    * - :ref:`core`
      - 1323
      - 2752
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz>`_ 📥
+     - `core.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz>`_ 📥
    * - :ref:`enzyme`
      - 48815
      - 86543
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz>`_ 📥
+     - `enzyme.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz>`_ 📥
    * - :ref:`eclass`
      - 239111
      - 360248
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz>`_ 📥
+     - `eclass.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz>`_ 📥
    * - :ref:`go`
      - 582929
      - 1437437
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz>`_ 📥
+     - `go.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz>`_ 📥
 
 Query Examples
 --------------

@@ -155,7 +155,6 @@ html_theme_options = {
         },
     ],
     "navbar_end": ["navbar-icon-links"],
-    "page_sidebar_items": [],
 }
 
 html_logo = "_static/img/CFPQDataLogo.svg"
