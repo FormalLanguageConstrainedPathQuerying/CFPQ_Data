@@ -18,7 +18,7 @@ Info
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/mockito.tar.gz>`_
    * - Source
-     - `mockito <https://site.mockito.org/>`_
+     - `mockito homepage <https://site.mockito.org/>`_
 
 
 Graph Statistics

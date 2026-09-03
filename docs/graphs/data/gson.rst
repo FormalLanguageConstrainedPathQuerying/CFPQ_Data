@@ -18,7 +18,7 @@ Info
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gson.tar.gz>`_
    * - Source
-     - `gson <https://google.github.io/gson/>`_
+     - `gson homepage <https://google.github.io/gson/>`_
 
 
 Graph Statistics

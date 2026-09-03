@@ -18,7 +18,7 @@ Info
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/junit5.tar.gz>`_
    * - Source
-     - `junit5 <https://junit.org/junit5/>`_
+     - `junit5 homepage <https://junit.org/junit5/>`_
 
 
 Graph Statistics

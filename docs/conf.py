@@ -16,7 +16,19 @@ import os
 import sys
 from datetime import date
 
-sys.path.insert(0, os.path.abspath(".."))
+_REPO_ROOT = os.path.abspath("..")
+sys.path.insert(0, _REPO_ROOT)
+
+# nb2plots executes notebook cells in a separate Jupyter kernel process that
+# does not inherit the sys.path modification above. Expose the repository root
+# via PYTHONPATH so the kernel imports cfpq_data from this checkout instead of
+# a (possibly stale) copy installed in site-packages.
+_existing_pythonpath = os.environ.get("PYTHONPATH")
+os.environ["PYTHONPATH"] = (
+    _REPO_ROOT + os.pathsep + _existing_pythonpath
+    if _existing_pythonpath
+    else _REPO_ROOT
+)
 
 # -- Project information -----------------------------------------------------
 

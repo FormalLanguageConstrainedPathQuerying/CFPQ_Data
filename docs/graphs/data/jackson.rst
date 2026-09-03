@@ -18,7 +18,7 @@ Info
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jackson.tar.gz>`_
    * - Source
-     - `jackson <https://github.com/FasterXML/jackson>`_
+     - `jackson homepage <https://github.com/FasterXML/jackson>`_
 
 
 Graph Statistics

@@ -18,7 +18,7 @@ Info
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/commons_io.tar.gz>`_
    * - Source
-     - `commons_io <https://commons.apache.org/io/>`_
+     - `commons_io homepage <https://commons.apache.org/io/>`_
 
 
 Graph Statistics

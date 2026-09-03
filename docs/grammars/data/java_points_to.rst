@@ -79,4 +79,3 @@ The Java points-to analysis grammar with :math:`\textit{fields} = [0, 1]`.
    FTh -> store_0_r Al load_0_r FTh
    FTh -> store_1_r Al load_1_r FTh
    Al -> S FT
-----

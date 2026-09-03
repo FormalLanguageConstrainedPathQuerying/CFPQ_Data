@@ -18,7 +18,7 @@ Info
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/guava.tar.gz>`_
    * - Source
-     - `guava <https://guava.dev/>`_
+     - `guava homepage <https://guava.dev/>`_
 
 
 Graph Statistics

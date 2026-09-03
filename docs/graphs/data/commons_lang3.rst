@@ -18,7 +18,7 @@ Info
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/commons_lang3.tar.gz>`_
    * - Source
-     - `commons_lang3 <https://commons.apache.org/lang/>`_
+     - `commons_lang3 homepage <https://commons.apache.org/lang/>`_
 
 
 Graph Statistics
