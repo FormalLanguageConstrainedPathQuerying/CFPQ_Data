@@ -1187,7 +1187,8 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         python utils/convert_old_to_new.py [NAME|SECTION]... \\
             [--access-key-id KEY_ID --secret-access-key SECRET] \\
             [--endpoint-url URL] [--bucket BUCKET] [--key-prefix PREFIX] \\
-            [--record FILE] [--workdir DIR] [--dry-run] [--force]
+            [--record FILE] [--workdir DIR] [--dry-run] [--force] \\
+            [--report FILE]
 
     Each ``NAME|SECTION`` argument is a graph name or a section key
     (``rdf``, ``c_alias``, ``java_points_to``) expanding to all its graphs.

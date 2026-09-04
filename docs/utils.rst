@@ -96,7 +96,8 @@ line per edge) to the new mtx-per-label format (``<name>/README.md`` +
    python utils/convert_old_to_new.py [NAME|SECTION]... \
        [--access-key-id KEY_ID --secret-access-key SECRET] \
        [--endpoint-url URL] [--bucket BUCKET] [--key-prefix PREFIX] \
-       [--record FILE] [--workdir DIR] [--dry-run] [--force]
+       [--record FILE] [--workdir DIR] [--dry-run] [--force] \
+       [--report FILE]
 
 Each ``NAME|SECTION`` argument is a graph name or a section key (``rdf``,
 ``c_alias``, ``java_points_to``) expanding to all its graphs — the 54 old-
@@ -117,9 +118,10 @@ shared by all new-format java archives (indexed symbols ``load``, ``store``,
 package canonical grammars
 (:func:`cfpq_data.grammars.generators.c_alias_grammar`,
 :func:`cfpq_data.grammars.generators.nested_parentheses_grammar` with
-``eps=False`` — for RDF the three canonical grammars of the graph's docs
-page, plus broaderTransitive if the graph has such edges). Reversed ``_r`` edges are not stored; the README
-documents that they are derived by reversing the respective forward edges.
+ ``eps=False`` — for RDF the three canonical grammars of the graph's docs
+ page, plus broaderTransitive if the graph has such edges). Reversed ``_r``
+ edges are not stored; the README documents that they are derived by
+ reversing the respective forward edges.
 
 Behavior:
 
@@ -133,4 +135,5 @@ Behavior:
   ``--dry-run``) and are never persisted.
 
 Use ``--dry-run`` to convert and verify all graphs locally without uploading
-or recording anything.
+or recording anything, and ``--report FILE`` to write the per-graph results
+to a JSON file.
