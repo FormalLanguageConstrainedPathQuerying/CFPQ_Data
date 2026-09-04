@@ -10,4 +10,4 @@
 - [done] Task 8: Create new one group 'RDF' with the folloing graphs: generations travel skos univ foaf atom people biomedical pizza wine funding pathways enzyme go_hierarchy go geospecies taxonomy taxonomy_hierarchy .   Move these graphs from 'CFPQ old collection'. Update respective code and docs.
 - [done] Task 9: fix docs building.
 - [done] Task 10: fix the remaining docs build warnings (orphan documents, duplicate .tar.gz target names, duplicate graphs label, nb2plots/theme warnings).
-- [ ] Task 11: Propose splitting of 'CFPQ old collection' into classes. Use grammars related to the graph as a key for classification.
+- [done] Task 11: Propose splitting of 'CFPQ old collection' into classes. Use grammars related to the graph as a key for classification.
