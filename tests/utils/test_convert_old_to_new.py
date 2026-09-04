@@ -1,3 +1,4 @@
+import json
 import pathlib
 import random
 import shutil
@@ -842,3 +843,37 @@ def test_cli_requires_credentials_without_dry_run(tmp_path):
 
     with pytest.raises(SystemExit):
         conv.main(["generations", "--workdir", str(tmp_path)])
+
+
+def test_cli_writes_report(tmp_path, monkeypatch):
+    import convert_old_to_new as conv
+
+    seen = []
+
+    def fake_convert_one(name, section, **kwargs):
+        seen.append(name)
+        return {
+            "name": name,
+            "status": "dry_run",
+            "num_nodes": 1,
+            "num_edges": 2,
+            "num_labels": 1,
+            "sha256": "abc",
+        }
+
+    monkeypatch.setattr(conv, "convert_one", fake_convert_one)
+    report = tmp_path / "report.json"
+    conv.main(
+        ["generations", "--dry-run", "--workdir", str(tmp_path), "--report", str(report)]
+    )
+    assert seen == ["generations"]
+    assert json.loads(report.read_text()) == [
+        {
+            "name": "generations",
+            "status": "dry_run",
+            "num_nodes": 1,
+            "num_edges": 2,
+            "num_labels": 1,
+            "sha256": "abc",
+        }
+    ]

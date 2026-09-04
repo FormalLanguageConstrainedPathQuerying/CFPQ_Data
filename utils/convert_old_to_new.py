@@ -1245,6 +1245,11 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         action="store_true",
         help="re-convert graphs that are already in the record",
     )
+    parser.add_argument(
+        "--report",
+        default=None,
+        help="write the per-graph results to this JSON file",
+    )
     args = parser.parse_args(argv)
 
     names: List[str] = []
@@ -1280,6 +1285,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         )
 
     summary = {"uploaded": 0, "dry_run": 0, "skipped": 0}
+    results: List[dict] = []
     for name in names:
         result = convert_one(
             name,
@@ -1293,6 +1299,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             dry_run=args.dry_run,
             force=args.force,
         )
+        results.append(result)
         summary[result["status"]] += 1
         print(
             f"{name}: {result['status']}"
@@ -1303,6 +1310,11 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
                 else ""
             )
         )
+
+    if args.report:
+        with open(args.report, "w", encoding="utf-8") as f:
+            json.dump(results, f, indent=2, sort_keys=True)
+            f.write("\n")
 
     print(
         f"Done: {summary['uploaded']} uploaded, {summary['dry_run']} dry run, "
