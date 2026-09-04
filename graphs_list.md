@@ -4,40 +4,24 @@ All 113 graphs in the CFPQ dataset, grouped by source area.
 
 | Source area | Graphs |
 |---|---:|
-| CFPQ old collection | 36 |
-| RDF | 18 |
-| Java points-to graphs | 7 |
+| C alias analysis | 20 |
+| RDF | 20 |
+| Java points-to graphs | 21 |
 | Field-Sensitive Alias | 10 |
 | Context-Sensitive Data-Flow | 10 |
 | Data Provenance | 18 |
 | Name Resolution | 4 |
 | Biological graphs from UniProt | 10 |
 
-## CFPQ old collection
+## C alias analysis
 
 | Graph | Nodes | Edges | Download |
 |---|---:|---:|---|
 | wc | 332 | 538 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wc.tar.gz) |
 | bzip | 632 | 1112 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/bzip.tar.gz) |
 | pr | 815 | 1384 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pr.tar.gz) |
-| core | 1323 | 5504 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz) |
 | ls | 1687 | 2906 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ls.tar.gz) |
 | gzip | 2687 | 4586 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gzip.tar.gz) |
-| sunflow | 15464 | 31914 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sunflow.tar.gz) |
-| lusearch | 15774 | 29988 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz) |
-| luindex | 18532 | 34750 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/luindex.tar.gz) |
-| avrora | 24690 | 50392 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/avrora.tar.gz) |
-| eclipse | 41383 | 80400 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclipse.tar.gz) |
-| h2 | 44717 | 113366 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/h2.tar.gz) |
-| pmd | 54444 | 118658 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pmd.tar.gz) |
-| xalan | 58476 | 125516 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xalan.tar.gz) |
-| batik | 60175 | 126178 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/batik.tar.gz) |
-| fop | 86183 | 166032 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fop.tar.gz) |
-| tomcat | 111327 | 221768 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tomcat.tar.gz) |
-| jython | 191895 | 520068 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jython.tar.gz) |
-| eclass | 239111 | 720496 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz) |
-| tradebeans | 439693 | 933938 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradebeans.tar.gz) |
-| tradesoap | 440680 | 936526 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz) |
 | apache | 1721418 | 3020822 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/apache.tar.gz) |
 | init | 2446224 | 4225618 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/init.tar.gz) |
 | mm | 2538243 | 4382158 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/mm.tar.gz) |
@@ -69,11 +53,13 @@ All 113 graphs in the CFPQ dataset, grouped by source area.
 | pizza | 671 | 3960 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pizza.tar.gz) |
 | wine | 733 | 3678 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wine.tar.gz) |
 | funding | 778 | 2172 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/funding.tar.gz) |
+| core | 1323 | 5504 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz) |
 | pathways | 6238 | 24726 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pathways.tar.gz) |
 | go_hierarchy | 45007 | 980218 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go_hierarchy.tar.gz) |
 | enzyme | 48815 | 173086 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz) |
 | geospecies | 450609 | 4384690 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/geospecies.tar.gz) |
 | go | 582929 | 2874874 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz) |
+| eclass | 239111 | 720496 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz) |
 | taxonomy_hierarchy | 2112625 | 65752578 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy_hierarchy.tar.gz) |
 | taxonomy | 5728398 | 29844250 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/taxonomy.tar.gz) |
 
@@ -82,12 +68,26 @@ All 113 graphs in the CFPQ dataset, grouped by source area.
 | Graph | Nodes | Edges | Download |
 |---|---:|---:|---|
 | gson | 14114 | 34934 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gson.tar.gz) |
+| sunflow | 15464 | 31914 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sunflow.tar.gz) |
+| lusearch | 15774 | 29988 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz) |
+| luindex | 18532 | 34750 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/luindex.tar.gz) |
+| avrora | 24690 | 50392 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/avrora.tar.gz) |
 | mockito | 25436 | 62388 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/mockito.tar.gz) |
 | commons_io | 26188 | 62428 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/commons_io.tar.gz) |
 | commons_lang3 | 40970 | 96854 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/commons_lang3.tar.gz) |
+| eclipse | 41383 | 80400 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclipse.tar.gz) |
+| h2 | 44717 | 113366 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/h2.tar.gz) |
+| pmd | 54444 | 118658 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pmd.tar.gz) |
+| xalan | 58476 | 125516 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xalan.tar.gz) |
 | junit5 | 59818 | 149370 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/junit5.tar.gz) |
+| batik | 60175 | 126178 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/batik.tar.gz) |
+| fop | 86183 | 166032 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fop.tar.gz) |
+| tomcat | 111327 | 221768 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tomcat.tar.gz) |
 | guava | 129562 | 336232 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/guava.tar.gz) |
 | jackson | 149404 | 395356 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jackson.tar.gz) |
+| jython | 191895 | 520068 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jython.tar.gz) |
+| tradebeans | 439693 | 933938 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradebeans.tar.gz) |
+| tradesoap | 440680 | 936526 | [tar.gz](https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz) |
 
 ## Field-Sensitive Alias
 
