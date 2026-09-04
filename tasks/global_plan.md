@@ -153,3 +153,37 @@ From user guidance (verbatim in `tasks/tasks.md`) and verified facts:
 - Replacing stale Drive links of old-collection graphs that already exist on
   Yandex (their doc links predate the earlier migration).
 - Fixing `utils/fetch_dataset.py` (broken imports) — separate task if wanted.
+
+## Tasks 13-16 (old-format -> nab-like conversion)
+
+| ID | Task | Branch | Depends on |
+|----|------|--------|------------|
+| 13 | Convert old-format graphs (RDF x20, C alias analysis x20, Java points-to x14) to the nab-like mtx-per-label format; upload under the `5.0.0/graph/` prefix | `feature/013-convert-old-format-graphs` | — |
+| 14 | Package support for new-format graphs: `download()` + mtx-per-label readwrite + `.cnf` template read/write with indexed symbols and the `_r` reversed-edge convention | TBD | 13 |
+| 15 | Bump `VERSION`/`DATASET_URL` to the 5.0.0 prefix; re-point docs download links | TBD | 13 |
+| 16 | Fix stale docs stats (e.g. generations 546 vs 273 stored edges); document label conventions in the format docs | TBD | 13, 15 |
+
+Execution order: 13 -> {14, 15, 16}; 14/15/16 are independent of each other
+(16's link re-pointing part waits for 15).
+
+### Task 13 scope (verified against the bucket on 2026-09-04)
+
+- Convert (old CSV format -> new mtx-per-label format), 54 graphs:
+  - RDF (all 20): generations, travel, skos, univ, foaf, atom, people,
+    biomedical, pizza, wine, funding, core, pathways, go_hierarchy, enzyme,
+    geospecies, go, eclass, taxonomy_hierarchy, taxonomy.
+  - C alias analysis (all 20): wc, bzip, pr, ls, gzip, apache, init, mm, ipc,
+    lib, block, arch, crypto, security, sound, net, fs, drivers, postgre,
+    kernel.
+  - Java points-to (the 14 still in old format): sunflow, lusearch, luindex,
+    avrora, eclipse, h2, pmd, xalan, batik, fop, tomcat, jython, tradebeans,
+    tradesoap. (gson, mockito, commons_io, commons_lang3, junit5, guava,
+    jackson are already in the new format.)
+- Source: `4.0.0/graph/<name>.tar.gz`; destination: `5.0.0/graph/<name>.tar.gz`
+  (new version prefix per user decision; old archives kept).
+- Grammars come from the package's canonical generators
+  (`cfpq_data/grammars/generators/`) + label sets derived from each graph's
+  CSV; no grammar-archive downloads, no docs-page parsing.
+- Reused: `utils/upload_to_s3.py` (`create_s3_client`, `upload_file`),
+  `requests` streaming download pattern from `cfpq_data/dataset/data.py`,
+  record-file pattern from `utils/migration_mapping.json`.
