@@ -12,19 +12,33 @@ uploads the new archive under the ``5.0.0/graph/`` key prefix, and removes
 the local files. At most one graph is on disk at any time.
 """
 
+import argparse
 import datetime
+import json
 import logging
 import os
 import pathlib
 import re
 import shutil
 import tarfile
+import tempfile
 from dataclasses import dataclass, field
-from typing import Dict, IO, Iterator, List, Sequence, Set, Tuple, Union
+from typing import Dict, IO, Iterator, List, Optional, Sequence, Set, Tuple, Union
 
+import requests
+from botocore.client import BaseClient
+
+from cfpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL
 from cfpq_data.grammars.generators.c_alias_grammar import c_alias_grammar
 from cfpq_data.grammars.generators.nested_parentheses_grammar import (
     nested_parentheses_grammar,
+)
+from migrate_gdrive_to_s3 import sha256_of
+from upload_to_s3 import (
+    DEFAULT_BUCKET,
+    DEFAULT_ENDPOINT_URL,
+    create_s3_client,
+    upload_file,
 )
 
 __all__ = [
@@ -48,6 +62,14 @@ __all__ = [
     "build_archive",
     "verify_conversion",
     "make_tarball",
+    "SECTIONS",
+    "DEFAULT_KEY_PREFIX",
+    "download_graph",
+    "verify_public_read",
+    "load_record",
+    "save_record",
+    "convert_one",
+    "main",
 ]
 
 MTX_BANNER = "%%MatrixMarket matrix coordinate pattern general"
@@ -851,3 +873,442 @@ def make_tarball(
 
     logging.info(f"Packed {tree_dir=} into {dest_path=}")
     return dest_path
+
+
+# ---------------------------------------------------------------------------
+# S3 pipeline and CLI
+# ---------------------------------------------------------------------------
+
+#: The key prefix the converted archives are uploaded under (the new dataset
+#: version; the old archives stay under ``4.0.0/graph/``).
+DEFAULT_KEY_PREFIX = "5.0.0/graph"
+
+#: The base URL of the public bucket (derived from DATASET_URL, the single
+#: source of truth for the host and the old key prefix).
+STORAGE_BASE_URL = DATASET_URL[: DATASET_URL.index(DATASET_KEY_PREFIX)]
+
+SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
+DEFAULT_RECORD_PATH = SCRIPT_DIR / "conversion_record.json"
+
+#: The graphs to convert, by section (verified against the 4.0.0 bucket:
+#: exactly these archives are still in the old format).
+SECTIONS: Dict[str, List[str]] = {
+    "rdf": [
+        "generations",
+        "travel",
+        "skos",
+        "univ",
+        "foaf",
+        "atom",
+        "people",
+        "biomedical",
+        "pizza",
+        "wine",
+        "funding",
+        "core",
+        "pathways",
+        "go_hierarchy",
+        "enzyme",
+        "geospecies",
+        "go",
+        "eclass",
+        "taxonomy_hierarchy",
+        "taxonomy",
+    ],
+    "c_alias": [
+        "wc",
+        "bzip",
+        "pr",
+        "ls",
+        "gzip",
+        "apache",
+        "init",
+        "mm",
+        "ipc",
+        "lib",
+        "block",
+        "arch",
+        "crypto",
+        "security",
+        "sound",
+        "net",
+        "fs",
+        "drivers",
+        "postgre",
+        "kernel",
+    ],
+    "java_points_to": [
+        "sunflow",
+        "lusearch",
+        "luindex",
+        "avrora",
+        "eclipse",
+        "h2",
+        "pmd",
+        "xalan",
+        "batik",
+        "fop",
+        "tomcat",
+        "jython",
+        "tradebeans",
+        "tradesoap",
+    ],
+}
+
+#: Graph name -> section (inverse of :data:`SECTIONS`).
+NAME_SECTIONS: Dict[str, str] = {
+    name: section for section, names in SECTIONS.items() for name in names
+}
+
+
+def download_graph(name: str, dest_path: Union[pathlib.Path, str]) -> pathlib.Path:
+    """Download the old-format archive of a graph from the public bucket.
+
+    Parameters
+    ----------
+    name : str
+        The graph name (the archive is ``<DATASET_KEY_PREFIX>/<name>.tar.gz``).
+    dest_path : Union[Path, str]
+        Where the archive is written (parent directories created if needed).
+
+    Returns
+    -------
+    Path
+        The path of the downloaded archive.
+
+    Raises
+    ------
+    ConversionError
+        If the bucket has no such archive or the download fails.
+    """
+    url = DATASET_URL + f"{name}.tar.gz"
+    dest_path = pathlib.Path(dest_path)
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with requests.get(url, stream=True, timeout=600) as response:
+        if response.status_code == 404:
+            raise ConversionError(f"No archive for graph {name!r} at {url}")
+        response.raise_for_status()
+        with open(dest_path, "wb") as f:
+            shutil.copyfileobj(response.raw, f)
+
+    logging.info(f"Downloaded {url} to {dest_path=}")
+    return dest_path
+
+
+def verify_public_read(key: str) -> None:
+    """Check that a bucket object is anonymously readable.
+
+    Streams the whole object from the public URL and discards it; this
+    confirms the bucket policy covers the key (the new ``5.0.0/graph/``
+    prefix inherits the public-read policy of ``4.0.0/graph/``).
+
+    Parameters
+    ----------
+    key : str
+        The object key in the bucket (e.g. ``5.0.0/graph/generations.tar.gz``).
+
+    Raises
+    ------
+    ConversionError
+        If the object cannot be read anonymously or the body is empty.
+    """
+    url = STORAGE_BASE_URL + key
+    with requests.get(url, stream=True, timeout=600) as response:
+        if response.status_code != 200:
+            raise ConversionError(
+                f"Object {url} is not publicly readable "
+                f"(HTTP {response.status_code})"
+            )
+        total = 0
+        for chunk in response.iter_content(chunk_size=1024 * 1024):
+            total += len(chunk)
+    if total == 0:
+        raise ConversionError(f"Object {url} is empty")
+
+    logging.info(f"Verified public read of {url} ({total} bytes)")
+
+
+def load_record(path: Union[pathlib.Path, str]) -> Dict[str, dict]:
+    """Load the conversion record (``{}`` if the file does not exist)."""
+    path = pathlib.Path(path)
+    if not path.exists():
+        return {}
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_record(path: Union[pathlib.Path, str], record: Dict[str, dict]) -> None:
+    """Persist the conversion record after every graph (resumable runs)."""
+    path = pathlib.Path(path)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(record, f, indent=2, sort_keys=True)
+        f.write("\n")
+
+
+def convert_one(
+    name: str,
+    section: str,
+    *,
+    client: Optional[BaseClient],
+    bucket: str,
+    key_prefix: str,
+    record: Dict[str, dict],
+    record_path: Union[pathlib.Path, str],
+    workdir: Union[pathlib.Path, str],
+    dry_run: bool = False,
+    force: bool = False,
+) -> dict:
+    """Convert one graph from the old format to the new one.
+
+    Pipeline (at most one graph on disk at any time): skip if already
+    recorded and publicly readable (unless ``force``); download the old
+    archive; validate its old-format layout; build the new archive tree;
+    verify the conversion by round-trip; pack the tarball; then, unless
+    ``dry_run``, upload it under ``<key_prefix>/<name>.tar.gz`` (verified
+    upload), check anonymous public read, and record
+    ``{old_sha256, new_sha256, key, date}``. Local files are removed on
+    success and kept for inspection on error.
+
+    Parameters
+    ----------
+    name : str
+        The graph name.
+    section : str
+        One of the :data:`SECTIONS` keys — selects the grammar files.
+    client : BaseClient or None
+        S3 client for the upload (ignored in ``dry_run``).
+    bucket : str
+        Target bucket name.
+    key_prefix : str
+        The object key prefix (default ``5.0.0/graph``).
+    record : dict of str -> dict
+        The conversion record (shared across graphs of one run).
+    record_path : Union[Path, str]
+        Where the record is persisted after each graph.
+    workdir : Union[Path, str]
+        The directory for temporary files.
+    dry_run : bool, optional
+        Stop after verification: no upload, no record update.
+    force : bool, optional
+        Re-convert even if the graph is already recorded.
+
+    Returns
+    -------
+    dict
+        ``{"name", "status"}`` plus, for converted graphs, ``num_nodes``,
+        ``num_edges``, ``num_labels`` and the new tarball ``sha256``.
+
+    Raises
+    ------
+    ConversionError
+        If any step fails; local files are kept for inspection.
+    """
+    workdir = pathlib.Path(workdir)
+    workdir.mkdir(parents=True, exist_ok=True)
+    key = f"{key_prefix}/{name}.tar.gz"
+
+    if not force and name in record:
+        verify_public_read(record[name]["key"])
+        logging.info(f"{name}: already recorded and publicly readable, skipping")
+        return {"name": name, "status": "skipped"}
+
+    archive_path = download_graph(name, workdir / f"{name}_old.tar.gz")
+    extract_dir = workdir / f"{name}_extracted"
+    tree_dir = workdir / name
+    tarball_path = workdir / f"{name}.tar.gz"
+    succeeded = False
+
+    try:
+        if extract_dir.exists():
+            shutil.rmtree(extract_dir)
+        shutil.unpack_archive(archive_path, extract_dir)
+        csv_path = extract_dir / name / f"{name}.csv"
+        if not csv_path.is_file() or not (extract_dir / name / "README.md").is_file():
+            raise ConversionError(
+                f"Archive of {name!r} is not in the old format "
+                f"(expected {name}/{name}.csv and {name}/README.md)"
+            )
+
+        _, stats = build_archive(name, section, csv_path, workdir)
+        verify_conversion(csv_path, tree_dir)
+        make_tarball(tree_dir, tarball_path)
+
+        result = {
+            "name": name,
+            "num_nodes": stats.num_nodes,
+            "num_edges": stats.total_edges,
+            "num_labels": len(stats.edges_per_label),
+            "sha256": sha256_of(tarball_path),
+        }
+
+        if dry_run:
+            result["status"] = "dry_run"
+            logging.info(f"{name}: dry run, skipping upload")
+            succeeded = True
+            return result
+
+        if client is None:
+            raise ConversionError("No S3 client provided for the upload")
+        upload_file(client, tarball_path, bucket, key=key)
+        verify_public_read(key)
+
+        record[name] = {
+            "old_sha256": sha256_of(archive_path),
+            "new_sha256": result["sha256"],
+            "key": key,
+            "date": datetime.date.today().isoformat(),
+        }
+        save_record(record_path, record)
+        result["status"] = "uploaded"
+        succeeded = True
+        return result
+    except Exception:
+        logging.error(
+            f"{name}: conversion failed; keeping local files under {workdir} "
+            f"for inspection"
+        )
+        raise
+    finally:
+        if succeeded:
+            for path in (archive_path, extract_dir, tree_dir, tarball_path):
+                if path.is_dir():
+                    shutil.rmtree(path)
+                elif path.exists():
+                    path.unlink()
+            logging.info(f"{name}: removed local files")
+
+
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    """Command-line entry point.
+
+    Usage::
+
+        python utils/convert_old_to_new.py [NAME|SECTION]... \\
+            [--access-key-id KEY_ID --secret-access-key SECRET] \\
+            [--endpoint-url URL] [--bucket BUCKET] [--key-prefix PREFIX] \\
+            [--record FILE] [--workdir DIR] [--dry-run] [--force]
+
+    Each ``NAME|SECTION`` argument is a graph name or a section key
+    (``rdf``, ``c_alias``, ``java_points_to``) expanding to all its graphs.
+    Credentials are always taken from the command line and are never read
+    from environment variables or config files; they are required unless
+    ``--dry-run`` is set.
+    """
+    parser = argparse.ArgumentParser(
+        description=(
+            "Convert old-format graph archives to the nab-like "
+            "mtx-per-label format, one graph at a time."
+        )
+    )
+    parser.add_argument(
+        "names_or_sections",
+        nargs="+",
+        help="graph names or section keys (rdf, c_alias, java_points_to)",
+    )
+    parser.add_argument("--access-key-id", default=None, help="Yandex Cloud IAM key ID")
+    parser.add_argument(
+        "--secret-access-key", default=None, help="Yandex Cloud IAM secret key"
+    )
+    parser.add_argument(
+        "--endpoint-url",
+        default=DEFAULT_ENDPOINT_URL,
+        help=f"S3 API endpoint (default: {DEFAULT_ENDPOINT_URL})",
+    )
+    parser.add_argument(
+        "--bucket",
+        default=DEFAULT_BUCKET,
+        help=f"target bucket (default: {DEFAULT_BUCKET})",
+    )
+    parser.add_argument(
+        "--key-prefix",
+        default=DEFAULT_KEY_PREFIX,
+        help=f"object key prefix (default: {DEFAULT_KEY_PREFIX})",
+    )
+    parser.add_argument(
+        "--record",
+        default=str(DEFAULT_RECORD_PATH),
+        help=f"conversion record file (default: {DEFAULT_RECORD_PATH})",
+    )
+    parser.add_argument(
+        "--workdir",
+        default=None,
+        help="directory for temporary files (default: a new temp dir)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="convert and verify locally without uploading or recording",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="re-convert graphs that are already in the record",
+    )
+    args = parser.parse_args(argv)
+
+    names: List[str] = []
+    for token in args.names_or_sections:
+        if token in SECTIONS:
+            names.extend(SECTIONS[token])
+        elif token in NAME_SECTIONS:
+            names.append(token)
+        else:
+            parser.error(
+                f"unknown graph or section {token!r}; use one of the sections "
+                f"{sorted(SECTIONS)} or a graph name from them"
+            )
+
+    if not args.dry_run and (
+        args.access_key_id is None or args.secret_access_key is None
+    ):
+        parser.error(
+            "--access-key-id and --secret-access-key are required "
+            "unless --dry-run is set"
+        )
+
+    workdir = (
+        pathlib.Path(args.workdir)
+        if args.workdir
+        else pathlib.Path(tempfile.mkdtemp(prefix="cfpq_convert_"))
+    )
+    record = load_record(args.record)
+    client = None
+    if not args.dry_run:
+        client = create_s3_client(
+            args.access_key_id, args.secret_access_key, args.endpoint_url
+        )
+
+    summary = {"uploaded": 0, "dry_run": 0, "skipped": 0}
+    for name in names:
+        result = convert_one(
+            name,
+            NAME_SECTIONS[name],
+            client=client,
+            bucket=args.bucket,
+            key_prefix=args.key_prefix,
+            record=record,
+            record_path=args.record,
+            workdir=workdir,
+            dry_run=args.dry_run,
+            force=args.force,
+        )
+        summary[result["status"]] += 1
+        print(
+            f"{name}: {result['status']}"
+            + (
+                f" ({result['num_nodes']} nodes, {result['num_edges']} edges,"
+                f" {result['num_labels']} labels)"
+                if result["status"] in ("uploaded", "dry_run")
+                else ""
+            )
+        )
+
+    print(
+        f"Done: {summary['uploaded']} uploaded, {summary['dry_run']} dry run, "
+        f"{summary['skipped']} skipped."
+    )
+
+
+if __name__ == "__main__":
+    main()

@@ -1,5 +1,6 @@
 import pathlib
 import random
+import shutil
 import tarfile
 from collections import Counter
 
@@ -9,6 +10,7 @@ from pyformlang.cfg import CFG, Production, Terminal, Variable
 from convert_old_to_new import (
     MTX_BANNER,
     MTX_TYPE,
+    SECTIONS,
     ConversionError,
     GraphStats,
     JAVA_START,
@@ -20,9 +22,11 @@ from convert_old_to_new import (
     instantiate_template,
     iter_edges,
     java_points_to_cnf,
+    load_record,
     make_tarball,
     rdf_cnf_grammars,
     render_readme,
+    save_record,
     scan_csv,
     validate_labels,
     verify_conversion,
@@ -617,3 +621,224 @@ def test_make_tarball_roundtrip(tmp_path):
     assert (extract_dir / "g" / "README.md").read_text() == (
         tree_dir / "README.md"
     ).read_text()
+
+
+# ---------------------------------------------------------------------------
+# S3 pipeline and CLI
+# ---------------------------------------------------------------------------
+
+
+def test_sections_cover_dataset():
+    from cfpq_data.dataset import DATASET
+
+    all_names = [name for names in SECTIONS.values() for name in names]
+    assert len(all_names) == 54
+    assert len(set(all_names)) == 54  # sections are disjoint
+    assert set(all_names) == set(DATASET)
+    assert len(SECTIONS["rdf"]) == 20
+    assert len(SECTIONS["c_alias"]) == 20
+    assert len(SECTIONS["java_points_to"]) == 14
+
+
+def test_record_roundtrip(tmp_path):
+    record_path = tmp_path / "record.json"
+    assert load_record(record_path) == {}
+    record = {"g": {"old_sha256": "a", "new_sha256": "b", "key": "k", "date": "d"}}
+    save_record(record_path, record)
+    assert load_record(record_path) == record
+
+
+def make_old_archive(tmp_path, name, lines):
+    """A tarball with the old-format layout <name>/<name>.csv + README.md."""
+    src = tmp_path / f"{name}_src" / name
+    src.mkdir(parents=True)
+    (src / f"{name}.csv").write_text("\r\n".join(lines) + "\r\n")
+    (src / "README.md").write_text(f"# {name}\n")
+    archive = tmp_path / f"{name}.tar.gz"
+    with tarfile.open(archive, "w:gz") as tar:
+        tar.add(src, arcname=name)
+    return archive
+
+
+def test_convert_one_dry_run(tmp_path, monkeypatch):
+    import convert_old_to_new as conv
+
+    fixture = make_old_archive(tmp_path, "g", C_ALIAS_CSV)
+    workdir = tmp_path / "work"
+
+    def fake_download(name, dest_path):
+        dest = pathlib.Path(dest_path)
+        shutil.copy(fixture, dest)
+        return dest
+
+    uploads = []
+    monkeypatch.setattr(conv, "download_graph", fake_download)
+    monkeypatch.setattr(conv, "upload_file", lambda *a, **k: uploads.append((a, k)))
+    monkeypatch.setattr(conv, "verify_public_read", lambda key: None)
+
+    record = {}
+    result = conv.convert_one(
+        "g",
+        "c_alias",
+        client=None,
+        bucket="b",
+        key_prefix="5.0.0/graph",
+        record=record,
+        record_path=tmp_path / "record.json",
+        workdir=workdir,
+        dry_run=True,
+    )
+    assert result["status"] == "dry_run"
+    assert result["num_edges"] == len(C_ALIAS_CSV)
+    assert uploads == []
+    assert record == {}
+    assert not (workdir / "g.tar.gz").exists()  # local files cleaned up
+
+
+def test_convert_one_upload_record_and_skip(tmp_path, monkeypatch):
+    import convert_old_to_new as conv
+
+    fixture = make_old_archive(tmp_path, "g", C_ALIAS_CSV)
+    workdir = tmp_path / "work"
+    record_path = tmp_path / "record.json"
+
+    def fake_download(name, dest_path):
+        dest = pathlib.Path(dest_path)
+        shutil.copy(fixture, dest)
+        return dest
+
+    uploads = []
+
+    def fake_upload(client, local_path, bucket, key=None):
+        uploads.append(key)
+        return key
+
+    public_reads = []
+    monkeypatch.setattr(conv, "download_graph", fake_download)
+    monkeypatch.setattr(conv, "upload_file", fake_upload)
+    monkeypatch.setattr(
+        conv, "verify_public_read", lambda key: public_reads.append(key)
+    )
+
+    record = {}
+    result = conv.convert_one(
+        "g",
+        "c_alias",
+        client=object(),
+        bucket="cfpq-data",
+        key_prefix="5.0.0/graph",
+        record=record,
+        record_path=record_path,
+        workdir=workdir,
+    )
+    assert result["status"] == "uploaded"
+    assert uploads == ["5.0.0/graph/g.tar.gz"]
+    assert public_reads == ["5.0.0/graph/g.tar.gz"]
+    entry = record["g"]
+    assert entry["key"] == "5.0.0/graph/g.tar.gz"
+    assert entry["old_sha256"] == conv.sha256_of(fixture)
+    assert entry["new_sha256"] == result["sha256"]
+    assert load_record(record_path) == record
+
+    # Re-run: recorded + publicly readable -> skip without downloading.
+    downloads = []
+
+    def failing_download(name, dest_dir):
+        downloads.append(name)
+        raise AssertionError("must not download a recorded graph")
+
+    monkeypatch.setattr(conv, "download_graph", failing_download)
+    result2 = conv.convert_one(
+        "g",
+        "c_alias",
+        client=object(),
+        bucket="cfpq-data",
+        key_prefix="5.0.0/graph",
+        record=record,
+        record_path=record_path,
+        workdir=workdir,
+    )
+    assert result2["status"] == "skipped"
+    assert downloads == []
+
+    # --force re-converts.
+    monkeypatch.setattr(conv, "download_graph", fake_download)
+    uploads.clear()
+    result3 = conv.convert_one(
+        "g",
+        "c_alias",
+        client=object(),
+        bucket="cfpq-data",
+        key_prefix="5.0.0/graph",
+        record=record,
+        record_path=record_path,
+        workdir=workdir,
+        force=True,
+    )
+    assert result3["status"] == "uploaded"
+    assert len(uploads) == 1
+
+
+def test_convert_one_keeps_files_on_error(tmp_path, monkeypatch):
+    import convert_old_to_new as conv
+
+    fixture = make_old_archive(tmp_path, "g", C_ALIAS_CSV)
+    workdir = tmp_path / "work"
+
+    def fake_download(name, dest_path):
+        dest = pathlib.Path(dest_path)
+        shutil.copy(fixture, dest)
+        return dest
+
+    monkeypatch.setattr(conv, "download_graph", fake_download)
+    monkeypatch.setattr(
+        conv, "build_archive", lambda *a, **k: (_ for _ in ()).throw(ValueError)
+    )
+
+    with pytest.raises(ValueError):
+        conv.convert_one(
+            "g",
+            "c_alias",
+            client=None,
+            bucket="b",
+            key_prefix="5.0.0/graph",
+            record={},
+            record_path=tmp_path / "record.json",
+            workdir=workdir,
+        )
+    assert (workdir / "g_old.tar.gz").exists()  # kept for inspection
+
+
+def test_cli_expands_sections(tmp_path, monkeypatch):
+    import convert_old_to_new as conv
+
+    seen = []
+
+    def fake_convert_one(name, section, **kwargs):
+        seen.append((name, section))
+        return {
+            "name": name,
+            "status": "dry_run",
+            "num_nodes": 1,
+            "num_edges": 1,
+            "num_labels": 1,
+        }
+
+    monkeypatch.setattr(conv, "convert_one", fake_convert_one)
+    conv.main(["rdf", "--dry-run", "--workdir", str(tmp_path)])
+    assert [name for name, _ in seen] == SECTIONS["rdf"]
+    assert all(section == "rdf" for _, section in seen)
+
+
+def test_cli_unknown_name_errors():
+    import convert_old_to_new as conv
+
+    with pytest.raises(SystemExit):
+        conv.main(["nope", "--dry-run"])
+
+
+def test_cli_requires_credentials_without_dry_run(tmp_path):
+    import convert_old_to_new as conv
+
+    with pytest.raises(SystemExit):
+        conv.main(["generations", "--workdir", str(tmp_path)])
