@@ -11,3 +11,4 @@
 - [done] Task 9: fix docs building.
 - [done] Task 10: fix the remaining docs build warnings (orphan documents, duplicate .tar.gz target names, duplicate graphs label, nb2plots/theme warnings).
 - [done] Task 11: Propose splitting of 'CFPQ old collection' into classes. Use grammars related to the graph as a key for classification.
+- [ ] Task 12: Add instructions to run tests in appropriate environment.
