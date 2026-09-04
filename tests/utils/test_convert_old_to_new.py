@@ -864,7 +864,14 @@ def test_cli_writes_report(tmp_path, monkeypatch):
     monkeypatch.setattr(conv, "convert_one", fake_convert_one)
     report = tmp_path / "report.json"
     conv.main(
-        ["generations", "--dry-run", "--workdir", str(tmp_path), "--report", str(report)]
+        [
+            "generations",
+            "--dry-run",
+            "--workdir",
+            str(tmp_path),
+            "--report",
+            str(report),
+        ]
     )
     assert seen == ["generations"]
     assert json.loads(report.read_text()) == [
