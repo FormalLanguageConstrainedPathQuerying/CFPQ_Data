@@ -33,12 +33,12 @@ Contents
 
    * - Source area
      - Number of graphs
-   * - :ref:`graphs_cfpq_old_collection`
-     - 36
-   * - :ref:`graphs_rdf`
-     - 18
-   * - :ref:`graphs_java_points_to`
-     - 7
+    * - :ref:`graphs_c_alias_analysis`
+      - 20
+    * - :ref:`graphs_rdf`
+      - 20
+    * - :ref:`graphs_java_points_to`
+      - 21
    * - :ref:`graphs_field_sensitive_alias`
      - 10
    * - :ref:`graphs_context_sensitive_data_flow`
@@ -50,10 +50,10 @@ Contents
    * - :ref:`graphs_biological_uniprot`
      - 10
 
-.. _graphs_cfpq_old_collection:
+.. _graphs_c_alias_analysis:
 
-CFPQ old collection
-^^^^^^^^^^^^^^^^^^^
+C alias analysis
+^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -74,10 +74,6 @@ CFPQ old collection
      - 815
      - 1384
      - `pr.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pr.tar.gz>`_ 📥
-   * - :ref:`core`
-     - 1323
-     - 5504
-     - `core.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz>`_ 📥
    * - :ref:`ls`
      - 1687
      - 2906
@@ -86,66 +82,6 @@ CFPQ old collection
      - 2687
      - 4586
      - `gzip.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gzip.tar.gz>`_ 📥
-   * - :ref:`sunflow`
-     - 15464
-     - 31914
-     - `sunflow.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sunflow.tar.gz>`_ 📥
-   * - :ref:`lusearch`
-     - 15774
-     - 29988
-     - `lusearch.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz>`_ 📥
-   * - :ref:`luindex`
-     - 18532
-     - 34750
-     - `luindex.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/luindex.tar.gz>`_ 📥
-   * - :ref:`avrora`
-     - 24690
-     - 50392
-     - `avrora.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/avrora.tar.gz>`_ 📥
-   * - :ref:`eclipse`
-     - 41383
-     - 80400
-     - `eclipse.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclipse.tar.gz>`_ 📥
-   * - :ref:`h2`
-     - 44717
-     - 113366
-     - `h2.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/h2.tar.gz>`_ 📥
-   * - :ref:`pmd`
-     - 54444
-     - 118658
-     - `pmd.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pmd.tar.gz>`_ 📥
-   * - :ref:`xalan`
-     - 58476
-     - 125516
-     - `xalan.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xalan.tar.gz>`_ 📥
-   * - :ref:`batik`
-     - 60175
-     - 126178
-     - `batik.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/batik.tar.gz>`_ 📥
-   * - :ref:`fop`
-     - 86183
-     - 166032
-     - `fop.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fop.tar.gz>`_ 📥
-   * - :ref:`tomcat`
-     - 111327
-     - 221768
-     - `tomcat.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tomcat.tar.gz>`_ 📥
-   * - :ref:`jython`
-     - 191895
-     - 520068
-     - `jython.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jython.tar.gz>`_ 📥
-   * - :ref:`eclass`
-     - 239111
-     - 720496
-     - `eclass.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz>`_ 📥
-   * - :ref:`tradebeans`
-     - 439693
-     - 933938
-     - `tradebeans.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradebeans.tar.gz>`_ 📥
-   * - :ref:`tradesoap`
-     - 440680
-     - 936526
-     - `tradesoap.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz>`_ 📥
    * - :ref:`apache`
      - 1721418
      - 3020822
@@ -263,6 +199,10 @@ RDF
      - 778
      - 2172
      - `funding.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/funding.tar.gz>`_ 📥
+   * - :ref:`core`
+     - 1323
+     - 5504
+     - `core.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/core.tar.gz>`_ 📥
    * - :ref:`pathways`
      - 6238
      - 24726
@@ -283,6 +223,10 @@ RDF
      - 582929
      - 2874874
      - `go.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go.tar.gz>`_ 📥
+   * - :ref:`eclass`
+     - 239111
+     - 720496
+     - `eclass.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclass.tar.gz>`_ 📥
    * - :ref:`taxonomy_hierarchy`
      - 2112625
      - 65752578
@@ -308,6 +252,22 @@ Java points-to graphs
      - 14114
      - 34934
      - `gson.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gson.tar.gz>`_ 📥
+   * - :ref:`sunflow`
+     - 15464
+     - 31914
+     - `sunflow.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sunflow.tar.gz>`_ 📥
+   * - :ref:`lusearch`
+     - 15774
+     - 29988
+     - `lusearch.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/lusearch.tar.gz>`_ 📥
+   * - :ref:`luindex`
+     - 18532
+     - 34750
+     - `luindex.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/luindex.tar.gz>`_ 📥
+   * - :ref:`avrora`
+     - 24690
+     - 50392
+     - `avrora.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/avrora.tar.gz>`_ 📥
    * - :ref:`mockito`
      - 25436
      - 62388
@@ -320,10 +280,38 @@ Java points-to graphs
      - 40970
      - 96854
      - `commons_lang3.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/commons_lang3.tar.gz>`_ 📥
+   * - :ref:`eclipse`
+     - 41383
+     - 80400
+     - `eclipse.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/eclipse.tar.gz>`_ 📥
+   * - :ref:`h2`
+     - 44717
+     - 113366
+     - `h2.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/h2.tar.gz>`_ 📥
+   * - :ref:`pmd`
+     - 54444
+     - 118658
+     - `pmd.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pmd.tar.gz>`_ 📥
+   * - :ref:`xalan`
+     - 58476
+     - 125516
+     - `xalan.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/xalan.tar.gz>`_ 📥
    * - :ref:`junit5`
      - 59818
      - 149370
      - `junit5.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/junit5.tar.gz>`_ 📥
+   * - :ref:`batik`
+     - 60175
+     - 126178
+     - `batik.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/batik.tar.gz>`_ 📥
+   * - :ref:`fop`
+     - 86183
+     - 166032
+     - `fop.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/fop.tar.gz>`_ 📥
+   * - :ref:`tomcat`
+     - 111327
+     - 221768
+     - `tomcat.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tomcat.tar.gz>`_ 📥
    * - :ref:`guava`
      - 129562
      - 336232
@@ -332,6 +320,18 @@ Java points-to graphs
      - 149404
      - 395356
      - `jackson.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jackson.tar.gz>`_ 📥
+   * - :ref:`jython`
+     - 191895
+     - 520068
+     - `jython.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jython.tar.gz>`_ 📥
+   * - :ref:`tradebeans`
+     - 439693
+     - 933938
+     - `tradebeans.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradebeans.tar.gz>`_ 📥
+   * - :ref:`tradesoap`
+     - 440680
+     - 936526
+     - `tradesoap.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradesoap.tar.gz>`_ 📥
 
 .. _graphs_field_sensitive_alias:
 
