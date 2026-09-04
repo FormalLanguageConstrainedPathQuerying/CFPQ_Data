@@ -12,11 +12,15 @@ uploads the new archive under the ``5.0.0/graph/`` key prefix, and removes
 the local files. At most one graph is on disk at any time.
 """
 
+import datetime
 import logging
+import os
 import pathlib
 import re
+import shutil
+import tarfile
 from dataclasses import dataclass, field
-from typing import Dict, IO, Iterator, List, Set, Tuple, Union
+from typing import Dict, IO, Iterator, List, Sequence, Set, Tuple, Union
 
 from cfpq_data.grammars.generators.c_alias_grammar import c_alias_grammar
 from cfpq_data.grammars.generators.nested_parentheses_grammar import (
@@ -39,6 +43,11 @@ __all__ = [
     "c_alias_cnf",
     "rdf_cnf_grammars",
     "instantiate_template",
+    "ConversionError",
+    "render_readme",
+    "build_archive",
+    "verify_conversion",
+    "make_tarball",
 ]
 
 MTX_BANNER = "%%MatrixMarket matrix coordinate pattern general"
@@ -496,3 +505,349 @@ def instantiate_template(
                 (instantiate(lhs, k), tuple(instantiate(symbol, k) for symbol in rhs))
             )
     return result
+
+
+# ---------------------------------------------------------------------------
+# Archive assembly and verification
+# ---------------------------------------------------------------------------
+
+
+class ConversionError(Exception):
+    """The conversion of a graph failed verification."""
+
+
+#: The README boilerplate of the new-format archives (nab's README), with
+#: ``{name}``, ``{year}``, ``{num_nodes}``, ``{num_edges}`` and
+#: ``{label_conventions}`` placeholders.
+README_TEMPLATE = """\
+%%MatrixMarket matrix coordinate pattern general
+%-------------------------------------------------------------------------------
+% name: {name}
+% date: {year}
+% fields: title A name date kind
+% kind: Context-free path querying
+%
+% Graph Statistics:
+% Num Nodes: {num_nodes}
+% Num Edges: {num_edges}
+%
+% Terminology:
+% 1. A Boolean matrix is a matrix whose elements belong to the set {{0, 1}}.
+%
+% 2. A Boolean decomposition of a graph adjacency matrix is a set of Boolean
+% matrices matching the original matrix, where each matrix corresponds to a
+% particular label. Thus, each Boolean matrix contains units in those cells where
+% the original matrix contains its corresponding label.
+% Example:
+%
+% Graph:
+% (0) --[a]-> (1)
+%  |           ^
+% [b]    [a]--/
+%  |  --/
+%  v /
+% (2) --[b]-> (3)
+%
+% Adjacency matrix decomposition of this graph consists of:
+% * Adjacency matrix for the label a:
+%       0   1   2   3
+%   0 |   | t |   |   |
+%   1 |   |   |   |   |
+%   2 |   | t |   |   |
+%   3 |   |   |   |   |
+% * Adjacency matrix for the label b:
+%       0   1   2   3
+%   0 |   |   | t |   |
+%   1 |   |   |   |   |
+%   2 |   |   |   | t |
+%   3 |   |   |   |   |
+%
+% 3. Context-free path query is a query asking for pairs of endpoints in the graph
+% that are connected by a path deduced from the start non-terminal.
+%
+% All files in this directory are Boolean matrices in mtx
+% format, with the file name reflecting the label.
+% In addition to the graph itself, there is also a grammar in the cnf format
+% for this graph in the "grammar" directory.
+%
+% The cnf grammar file format:
+% - Each non-empty line represents a rule, except the last two lines.
+% - Complex rules are in the format: <NON_TERMINAL> <SYMBOL_1> <SYMBOL_2>
+% - Simple rules are in the format: <NON_TERMINAL> <SYMBOL_1>
+% - Epsilon rules are in the format: <NON_TERMINAL>
+% - Whitespace characters are used to separate values on one line
+% - The last two lines specify the starting non-terminal in the format:
+%   Count:
+%   <START_NON_TERMINAL>
+{label_conventions}
+%-------------------------------------------------------------------------------
+"""
+
+
+def render_readme(
+    name: str,
+    num_nodes: int,
+    num_edges: int,
+    *,
+    has_reversed_labels: bool = False,
+    indexed_symbols: Sequence[str] = (),
+) -> str:
+    """Render the README of a new-format graph archive.
+
+    The nab boilerplate with the graph statistics filled in, plus a
+    "Label conventions" section with only the lines that apply: the indexed
+    symbol line when ``indexed_symbols`` is non-empty and the ``_r``
+    reversed-edge line when ``has_reversed_labels`` is set.
+
+    Parameters
+    ----------
+    name : str
+        The graph name.
+    num_nodes : int
+        The number of distinct node IDs (README "Num Nodes").
+    num_edges : int
+        The number of stored edges (README "Num Edges"; reversed ``_r``
+        edges are not stored and not counted).
+    has_reversed_labels : bool, optional
+        Whether the grammars reference ``_r`` terminals whose edges are
+        derived by reversing the respective forward edges.
+    indexed_symbols : Sequence[str], optional
+        The indexed symbols of the grammars (e.g. ``load``, ``store_r``).
+
+    Returns
+    -------
+    str
+        The README text.
+    """
+    lines: List[str] = []
+    if indexed_symbols:
+        patterns = [
+            f"{symbol[:-2]}_<k>_r" if symbol.endswith("_r") else f"{symbol}_<k>"
+            for symbol in indexed_symbols
+        ]
+        lines.append(
+            "% - Indexed symbols " + ", ".join(indexed_symbols) + " match the labels"
+        )
+        lines.append("%   " + ", ".join(patterns) + " for each index k.")
+    if has_reversed_labels:
+        lines.append("% - Edges with the _r suffix are not stored; they are derived by")
+        lines.append("%   reversing the respective edges without the suffix.")
+    label_conventions = "\n% Label conventions:\n" + "\n".join(lines) if lines else ""
+    return README_TEMPLATE.format(
+        name=name,
+        year=datetime.date.today().year,
+        num_nodes=num_nodes,
+        num_edges=num_edges,
+        label_conventions=label_conventions,
+    )
+
+
+def _section_grammars(
+    section: str, labels: Set[str]
+) -> Tuple[Dict[str, Tuple[List[Tuple[str, Tuple[str, ...]]], str]], List[str]]:
+    """The grammar files and indexed symbols of a graph section.
+
+    Returns
+    -------
+    (grammars, indexed_symbols) :
+        file name -> (productions, start symbol), and the indexed symbols
+        referenced by the grammars.
+    """
+    if section == "java_points_to":
+        return (
+            {"java_points_to.cnf": java_points_to_cnf(labels)},
+            ["load", "store", "load_r", "store_r"],
+        )
+    if section == "c_alias":
+        return {"c_alias.cnf": c_alias_cnf()}, []
+    if section == "rdf":
+        return rdf_cnf_grammars(labels), []
+    raise ValueError(f"Unknown section {section!r}")
+
+
+def build_archive(
+    name: str,
+    section: str,
+    csv_path: Union[pathlib.Path, str],
+    workdir: Union[pathlib.Path, str],
+) -> Tuple[pathlib.Path, GraphStats]:
+    """Assemble the new-format archive tree of one graph.
+
+    Creates ``<workdir>/<name>/`` with ``README.md``, ``grammar/*.cnf`` (the
+    section's canonical grammars) and ``graph/<label>.mtx`` (one Boolean
+    matrix per stored edge label). An existing tree is replaced.
+
+    Parameters
+    ----------
+    name : str
+        The graph name (top-level directory of the archive).
+    section : str
+        One of ``java_points_to``, ``c_alias``, ``rdf`` — selects the
+        grammar files.
+    csv_path : Union[Path, str]
+        The old-format CSV file of the graph.
+    workdir : Union[Path, str]
+        The directory where the tree is created.
+
+    Returns
+    -------
+    (tree_dir, stats) : (Path, GraphStats)
+        The tree directory and the statistics collected from the CSV.
+    """
+    tree_dir = pathlib.Path(workdir) / name
+    if tree_dir.exists():
+        shutil.rmtree(tree_dir)
+    tree_dir.mkdir(parents=True)
+
+    stats = convert_csv_to_graph_dir(csv_path, tree_dir / "graph")
+
+    labels = set(stats.edges_per_label)
+    grammars, indexed_symbols = _section_grammars(section, labels)
+    grammar_dir = tree_dir / "grammar"
+    grammar_dir.mkdir()
+    for filename, (productions, start_symbol) in grammars.items():
+        write_cnf(productions, start_symbol, grammar_dir / filename)
+
+    has_reversed_labels = any(
+        symbol.endswith("_r")
+        for productions, _ in grammars.values()
+        for lhs, rhs in productions
+        for symbol in [lhs, *rhs]
+    )
+    (tree_dir / "README.md").write_text(
+        render_readme(
+            name,
+            stats.num_nodes,
+            stats.total_edges,
+            has_reversed_labels=has_reversed_labels,
+            indexed_symbols=indexed_symbols,
+        )
+    )
+
+    logging.info(f"Built archive tree {tree_dir=} for {name=}: {stats=}")
+    return tree_dir, stats
+
+
+def verify_conversion(
+    csv_path: Union[pathlib.Path, str],
+    tree_dir: Union[pathlib.Path, str],
+) -> None:
+    """Verify that a converted archive tree matches its source CSV.
+
+    Checks, with O(1) memory (streaming passes over the CSV):
+
+    - the ``.mtx`` file set equals the CSV label set;
+    - every ``.mtx`` file has the family banner and type line, a header
+      ``<N> <N> <nnz>`` with ``N = max_node_id + 1`` and ``nnz`` equal to
+      the number of edges of that label;
+    - the entries of every ``.mtx`` file equal the CSV edges of that label,
+      in order (duplicates included);
+    - no ``.mtx`` file has extra entries.
+
+    Parameters
+    ----------
+    csv_path : Union[Path, str]
+        The old-format CSV file the tree was converted from.
+    tree_dir : Union[Path, str]
+        The archive tree to verify (``<name>/graph/*.mtx``).
+
+    Raises
+    ------
+    ConversionError
+        If any check fails, with a message naming the offending label and
+        the mismatch.
+    """
+    graph_dir = pathlib.Path(tree_dir) / "graph"
+    stats = scan_csv(csv_path)
+    n = stats.max_node_id + 1
+
+    mtx_files = {path.stem for path in graph_dir.glob("*.mtx")}
+    if set(stats.edges_per_label) != mtx_files:
+        raise ConversionError(
+            f"MTX file set {sorted(mtx_files)} != label set "
+            f"{sorted(stats.edges_per_label)}"
+        )
+
+    handles: Dict[str, IO[str]] = {}
+    try:
+        for label, nnz in stats.edges_per_label.items():
+            handle = open(graph_dir / f"{label}.mtx")
+            if (banner := handle.readline().rstrip("\n")) != MTX_BANNER:
+                raise ConversionError(f"{label}: bad banner line {banner!r}")
+            if (type_line := handle.readline().rstrip("\n")) != MTX_TYPE:
+                raise ConversionError(f"{label}: bad type line {type_line!r}")
+            parts = handle.readline().split()
+            if len(parts) != 3:
+                raise ConversionError(f"{label}: bad header line")
+            rows, cols, header_nnz = (int(part) for part in parts)
+            if (rows, cols) != (n, n):
+                raise ConversionError(
+                    f"{label}: matrix dimension {rows}x{cols} != {n}x{n}"
+                )
+            if header_nnz != nnz:
+                raise ConversionError(
+                    f"{label}: header nnz {header_nnz} != {nnz} edges"
+                )
+            handles[label] = handle
+
+        for u, v, label in iter_edges(csv_path):
+            line = handles[label].readline()
+            if not line:
+                raise ConversionError(f"{label}: entry ({u}, {v}) missing")
+            entry_u, entry_v = (int(part) for part in line.split())
+            if (entry_u, entry_v) != (u, v):
+                raise ConversionError(
+                    f"{label}: entry ({entry_u}, {entry_v}) != CSV edge ({u}, {v})"
+                )
+
+        for label, handle in handles.items():
+            if extra := handle.readline():
+                raise ConversionError(f"{label}: extra entries after {extra!r}")
+    finally:
+        for handle in handles.values():
+            handle.close()
+
+    logging.info(f"Verified conversion of {csv_path=} to {tree_dir=}")
+
+
+def make_tarball(
+    tree_dir: Union[pathlib.Path, str], dest_path: Union[pathlib.Path, str]
+) -> pathlib.Path:
+    """Pack an archive tree into a ``.tar.gz`` with the family layout.
+
+    The top-level entry is the tree's own directory name (as in the bucket
+    archives); directory and file members are added in sorted order for a
+    deterministic layout.
+
+    Parameters
+    ----------
+    tree_dir : Union[Path, str]
+        The archive tree to pack (``<name>/README.md``, ...).
+    dest_path : Union[Path, str]
+        Where the ``.tar.gz`` file is written.
+
+    Returns
+    -------
+    Path
+        The path of the written tarball.
+    """
+    tree_dir = pathlib.Path(tree_dir)
+    members: List[pathlib.Path] = [tree_dir]
+    for dirpath, dirnames, filenames in os.walk(tree_dir):
+        dirnames.sort()
+        for dirname in dirnames:
+            members.append(pathlib.Path(dirpath) / dirname)
+        for filename in sorted(filenames):
+            members.append(pathlib.Path(dirpath) / filename)
+
+    dest_path = pathlib.Path(dest_path)
+    with tarfile.open(dest_path, "w:gz") as tarball:
+        for member in members:
+            tarball.add(
+                member,
+                arcname=member.relative_to(tree_dir.parent).as_posix(),
+                recursive=False,
+            )
+
+    logging.info(f"Packed {tree_dir=} into {dest_path=}")
+    return dest_path

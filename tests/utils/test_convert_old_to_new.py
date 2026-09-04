@@ -1,5 +1,6 @@
 import pathlib
 import random
+import tarfile
 from collections import Counter
 
 import pytest
@@ -8,18 +9,23 @@ from pyformlang.cfg import CFG, Production, Terminal, Variable
 from convert_old_to_new import (
     MTX_BANNER,
     MTX_TYPE,
+    ConversionError,
     GraphStats,
     JAVA_START,
     JAVA_TEMPLATE,
+    build_archive,
     c_alias_cnf,
     cnf_lite,
     convert_csv_to_graph_dir,
     instantiate_template,
     iter_edges,
     java_points_to_cnf,
+    make_tarball,
     rdf_cnf_grammars,
+    render_readme,
     scan_csv,
     validate_labels,
+    verify_conversion,
     write_cnf,
 )
 
@@ -454,3 +460,160 @@ def test_instantiate_template():
         ("Q_1", ("x",)),
         ("R", ("y", "z")),
     ]
+
+
+# ---------------------------------------------------------------------------
+# Archive assembly and verification
+# ---------------------------------------------------------------------------
+
+JAVA_CSV = ["0 1 alloc", "1 2 load_0", "2 3 store_0", "0 2 assign"]
+C_ALIAS_CSV = ["0 1 a", "1 2 d", "0 2 a"]
+RDF_CSV = ["0 1 subClassOf", "1 2 type", "0 2 subClassOf"]
+
+
+def test_render_readme_plain():
+    readme = render_readme("generations", 129, 273)
+    assert "% name: generations" in readme
+    assert "% Num Nodes: 129" in readme
+    assert "% Num Edges: 273" in readme
+    assert "Label conventions" not in readme
+
+
+def test_render_readme_reversed_labels():
+    readme = render_readme("wc", 10, 20, has_reversed_labels=True)
+    assert "% Label conventions:" in readme
+    assert "% - Edges with the _r suffix are not stored; they are derived by" in readme
+    assert "Indexed symbols" not in readme
+
+
+def test_render_readme_indexed_symbols():
+    readme = render_readme(
+        "avrora",
+        10,
+        20,
+        has_reversed_labels=True,
+        indexed_symbols=["load", "store", "load_r", "store_r"],
+    )
+    assert "% - Indexed symbols load, store, load_r, store_r match the labels" in readme
+    assert (
+        "%   load_<k>, store_<k>, load_<k>_r, store_<k>_r for each index k." in readme
+    )
+
+
+@pytest.mark.parametrize(
+    ("section", "lines", "grammar_files"),
+    [
+        ("java_points_to", JAVA_CSV, ["java_points_to.cnf"]),
+        ("c_alias", C_ALIAS_CSV, ["c_alias.cnf"]),
+        (
+            "rdf",
+            RDF_CSV,
+            [
+                "nested_parentheses_subClassOf.cnf",
+                "nested_parentheses_subClassOf_type.cnf",
+                "nested_parentheses_type.cnf",
+            ],
+        ),
+    ],
+)
+def test_build_archive_layout(tmp_path, section, lines, grammar_files):
+    csv = write_csv(tmp_path / "g.csv", lines)
+    tree_dir, stats = build_archive("g", section, csv, tmp_path / "work")
+
+    assert sorted(p.name for p in tree_dir.iterdir()) == [
+        "README.md",
+        "grammar",
+        "graph",
+    ]
+    assert sorted(p.name for p in (tree_dir / "grammar").iterdir()) == grammar_files
+    labels = {line.split()[2] for line in lines}
+    assert sorted(p.name for p in (tree_dir / "graph").iterdir()) == sorted(
+        f"{label}.mtx" for label in labels
+    )
+
+    readme = (tree_dir / "README.md").read_text()
+    assert "% name: g" in readme
+    assert f"% Num Edges: {len(lines)}" in readme
+    assert stats.total_edges == len(lines)
+
+
+def test_build_archive_replaces_existing_tree(tmp_path):
+    csv = write_csv(tmp_path / "g.csv", C_ALIAS_CSV)
+    workdir = tmp_path / "work"
+    tree_dir, _ = build_archive("g", "c_alias", csv, workdir)
+    (tree_dir / "stray.txt").write_text("stray")
+
+    tree_dir, _ = build_archive("g", "c_alias", csv, workdir)
+    assert not (tree_dir / "stray.txt").exists()
+
+
+def test_build_archive_unknown_section(tmp_path):
+    csv = write_csv(tmp_path / "g.csv", C_ALIAS_CSV)
+    with pytest.raises(ValueError):
+        build_archive("g", "nope", csv, tmp_path / "work")
+
+
+def test_verify_conversion_passes(tmp_path):
+    csv = write_csv(tmp_path / "g.csv", JAVA_CSV)
+    tree_dir, _ = build_archive("g", "java_points_to", csv, tmp_path / "work")
+    verify_conversion(csv, tree_dir)  # must not raise
+
+
+def test_verify_conversion_detects_corrupted_entry(tmp_path):
+    csv = write_csv(tmp_path / "g.csv", JAVA_CSV)
+    tree_dir, _ = build_archive("g", "java_points_to", csv, tmp_path / "work")
+    mtx = tree_dir / "graph" / "alloc.mtx"
+    mtx.write_text(mtx.read_text().replace("0 1\n", "0 2\n", 1))
+    with pytest.raises(ConversionError):
+        verify_conversion(csv, tree_dir)
+
+
+def test_verify_conversion_detects_missing_file(tmp_path):
+    csv = write_csv(tmp_path / "g.csv", JAVA_CSV)
+    tree_dir, _ = build_archive("g", "java_points_to", csv, tmp_path / "work")
+    (tree_dir / "graph" / "assign.mtx").unlink()
+    with pytest.raises(ConversionError):
+        verify_conversion(csv, tree_dir)
+
+
+def test_verify_conversion_detects_bad_nnz_header(tmp_path):
+    csv = write_csv(tmp_path / "g.csv", JAVA_CSV)
+    tree_dir, _ = build_archive("g", "java_points_to", csv, tmp_path / "work")
+    mtx = tree_dir / "graph" / "load_0.mtx"
+    mtx.write_text(mtx.read_text().replace("4 4 1\n", "4 4 2\n", 1))
+    with pytest.raises(ConversionError):
+        verify_conversion(csv, tree_dir)
+
+
+def test_verify_conversion_detects_extra_entries(tmp_path):
+    csv = write_csv(tmp_path / "g.csv", JAVA_CSV)
+    tree_dir, _ = build_archive("g", "java_points_to", csv, tmp_path / "work")
+    mtx = tree_dir / "graph" / "alloc.mtx"
+    mtx.write_text(mtx.read_text() + "0 1\n")
+    with pytest.raises(ConversionError):
+        verify_conversion(csv, tree_dir)
+
+
+def test_make_tarball_roundtrip(tmp_path):
+    csv = write_csv(tmp_path / "g.csv", C_ALIAS_CSV)
+    tree_dir, _ = build_archive("g", "c_alias", csv, tmp_path / "work")
+    tarball = make_tarball(tree_dir, tmp_path / "g.tar.gz")
+
+    with tarfile.open(tarball) as tar:
+        names = sorted(member.name for member in tar.getmembers())
+    assert names == [
+        "g",
+        "g/README.md",
+        "g/grammar",
+        "g/grammar/c_alias.cnf",
+        "g/graph",
+        "g/graph/a.mtx",
+        "g/graph/d.mtx",
+    ]
+
+    extract_dir = tmp_path / "extracted"
+    with tarfile.open(tarball) as tar:
+        tar.extractall(extract_dir)
+    assert (extract_dir / "g" / "README.md").read_text() == (
+        tree_dir / "README.md"
+    ).read_text()
