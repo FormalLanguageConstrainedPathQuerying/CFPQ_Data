@@ -33,12 +33,12 @@ Contents
 
    * - Source area
      - Number of graphs
-    * - :ref:`graphs_c_alias_analysis`
-      - 20
-    * - :ref:`graphs_rdf`
-      - 20
-    * - :ref:`graphs_java_points_to`
-      - 21
+   * - :ref:`graphs_c_alias_analysis`
+     - 20
+   * - :ref:`graphs_rdf`
+     - 20
+   * - :ref:`graphs_java_points_to`
+     - 21
    * - :ref:`graphs_field_sensitive_alias`
      - 10
    * - :ref:`graphs_context_sensitive_data_flow`
