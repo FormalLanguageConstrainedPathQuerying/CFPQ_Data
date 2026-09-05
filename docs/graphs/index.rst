@@ -14,6 +14,54 @@ How to add a new graph?
 
 Just create a PR (Pull Request) corresponding to the `"Template for adding a new graph" <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md>`_.
 
+File structure
+--------------
+
+A graph is distributed as an archive ``<name>.tar.gz`` that unpacks to a
+directory named after the graph:
+
+- ``README.md`` — the description of the graph and of its files;
+- ``grammar/`` — the grammars for this graph in the cnf format (if any);
+- ``graph/`` — one MatrixMarket file per edge label.
+
+The pre-migration graphs on the :ref:`old_graphs` page use the old CSV
+format instead.
+
+Each file ``graph/<label>.mtx`` is a Boolean pattern matrix that holds
+exactly the edges with that label::
+
+   %%MatrixMarket matrix coordinate pattern general
+   %%GraphBLAS type bool
+   <num_nodes> <num_nodes> <num_edges>
+   <tail> <head>
+   ...
+
+Node ids are 0-based integers, and the matrix dimensions equal the number of
+nodes. A whole directory is loaded by
+`graph_from_mtx_dir <cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`_.
+
+Indexed labels
+^^^^^^^^^^^^^^
+
+Some graphs have families of labels that differ only in a numeric suffix,
+e.g. ``load_0``, ``load_1``, ..., ``load_857``. In the per-graph pages and
+in grammars such a family is written once with a placeholder subscript
+(``load_f`` or ``load_i``) and a note that lists the index set. The file
+name reflects the label: either the label itself (``load_0.mtx``) or, in
+some archives, the ``_i`` placeholder for the real index (``load_i_5.mtx``
+holds the edges labeled ``load_5``).
+
+Reversed edges
+^^^^^^^^^^^^^^
+
+For every edge label ``L`` there is a reversed label ``L_r`` (written
+:math:`\overline{L}` in the per-graph pages): an edge ``(u, v)`` labeled
+``L`` corresponds to an edge ``(v, u)`` labeled ``L_r``. Reversed edges are
+not stored in the archives; they are derived by
+`add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`_, and the
+"Edges Statistics" tables of the per-graph pages list the stored labels
+only.
+
 ----
 
 .. toctree::
