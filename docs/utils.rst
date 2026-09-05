@@ -32,7 +32,7 @@ Upload to Yandex S3
   cfpq-data bucket).
 - ``--bucket`` — target bucket; default ``cfpq-data``.
 - ``--key`` — object key in the bucket; default is the file name (e.g.
-  ``4.0.0/graph/NAME.tar.gz`` to follow the dataset layout).
+  ``5.0.0/graph/NAME.tar.gz`` to follow the dataset layout).
 
 After the upload the tool verifies that the stored object size equals the
 local file size and reports an error otherwise.
@@ -55,7 +55,7 @@ The item list is discovered from the docs: every "Direct download" link in
 ``docs/graphs/data/*.rst`` and ``docs/old_graphs/data/*.rst`` that points to
 Google Drive becomes a migration item (the object key name is the graph
 name). For each item the tool downloads the archive, uploads it with the
-verified upload from :ref:`upload_to_s3` (``4.0.0/graph/<name>.tar.gz``),
+verified upload from :ref:`upload_to_s3` (``5.0.0/graph/<name>.tar.gz``),
 removes the local copy, and replaces the Drive link(s) in the docs with the
 new Yandex URL. At most one item is on disk at any time.
 

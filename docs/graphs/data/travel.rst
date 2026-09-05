@@ -16,9 +16,9 @@ Info
    * - Full Name
      - travel
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/travel.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/travel.tar.gz>`_
    * - Origin
      - `.owl <https://protege.stanford.edu/ontologies/travel.owl>`_
 

@@ -16,9 +16,9 @@ Info
    * - Full Name
      - pmd
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/pmd.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pmd.tar.gz>`_
    * - Origin
      - `link <https://dacapobench.sourceforge.net>`_
 

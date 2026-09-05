@@ -16,9 +16,9 @@ Info
    * - Full Name
      - gzip
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/gzip.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/gzip.tar.gz>`_
    * - Origin
      - `link <https://www.spec.org/cpu2000/CINT2000/164.gzip/docs/164.gzip.html>`_
 

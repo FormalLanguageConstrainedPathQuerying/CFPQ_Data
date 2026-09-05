@@ -16,9 +16,9 @@ Info
    * - Full Name
      - skos
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/skos.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/skos.tar.gz>`_
    * - Origin
      - `.rdf <https://www.w3.org/2009/08/skos-reference/skos.rdf>`_
 

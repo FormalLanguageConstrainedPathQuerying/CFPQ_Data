@@ -16,9 +16,9 @@ Info
    * - Full Name
      - enzyme
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/enzyme.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/enzyme.tar.gz>`_
    * - Origin
      - `link <http://purl.uniprot.org/core/Enzyme>`_
 

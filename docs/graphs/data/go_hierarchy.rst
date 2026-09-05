@@ -16,9 +16,9 @@ Info
    * - Full Name
      - go_hierarchy
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/go_hierarchy.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/go_hierarchy.tar.gz>`_
    * - Origin
      - `.owl.xz <https://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf/go-hierarchy.owl.xz>`_
 

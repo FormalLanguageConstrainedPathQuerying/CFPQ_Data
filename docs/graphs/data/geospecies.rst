@@ -16,9 +16,9 @@ Info
    * - Full Name
      - geospecies
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/geospecies.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/geospecies.tar.gz>`_
    * - Origin
      - `.rdf.gz <http://rdf.geospecies.org/geospecies.rdf.gz>`_
 

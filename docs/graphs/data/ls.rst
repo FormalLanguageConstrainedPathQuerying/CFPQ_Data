@@ -16,9 +16,9 @@ Info
    * - Full Name
      - ls
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/ls.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/ls.tar.gz>`_
    * - Origin
      - `.xml.tar.gz <https://drive.google.com/file/d/1GsYzenIY5ejPSQCtnJ1JNSdhsBAMVPEw/view?usp=sharing>`_
 

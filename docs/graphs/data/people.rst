@@ -16,9 +16,9 @@ Info
    * - Full Name
      - people_pets
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/people.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/people.tar.gz>`_
    * - Origin
      - `.rdf <http://owl.man.ac.uk/tutorial/people+pets.rdf>`_
 

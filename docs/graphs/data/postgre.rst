@@ -16,9 +16,9 @@ Info
    * - Full Name
      - postgre_sql_8_3_9_points_to_graph
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/postgre.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/postgre.tar.gz>`_
    * - Origin
      - `.txt <https://drive.google.com/uc?export=download&id=0B6sYZZ8HFBV1QW1QMGV0ejFtSFU>`_
 
