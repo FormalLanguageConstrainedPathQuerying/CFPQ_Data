@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 439693
-     - 933938
+     - 466969
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 8170\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,20 +49,13 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 69597
-   * - :math:`\overline{\textit{alloc}}`
-     - 69597
    * - :math:`\textit{assign}`
      - 335195
-   * - :math:`\overline{\textit{assign}}`
-     - 335195
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 49794
-   * - :math:`\overline{\textit{load}_i}`
-     - 49794
-   * - :math:`\textit{store}_i`
+   * - :math:`\textit{store}_f`
      - 12383
-   * - :math:`\overline{\textit{store}_i}`
-     - 12383
+
 
 Canonical grammars
 ------------------

@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 337
-     - 1280
+     - 640
 
 
 Edges Statistics
@@ -45,103 +45,53 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 161
-   * - type_r
-     - 161
-   * - comment
-     - 95
-   * - comment_r
-     - 95
    * - label
      - 95
-   * - label_r
+   * - comment
      - 95
-   * - first
-     - 57
-   * - first_r
-     - 57
    * - rest
      - 57
-   * - rest_r
+   * - first
      - 57
-   * - onProperty
-     - 33
-   * - onProperty_r
-     - 33
    * - subClassOf
      - 33
-   * - subClassOf_r
+   * - onProperty
      - 33
    * - someValuesFrom
      - 25
-   * - someValuesFrom_r
-     - 25
    * - intersectionOf
-     - 22
-   * - intersectionOf_r
      - 22
    * - equivalentClass
      - 21
-   * - equivalentClass_r
-     - 21
    * - allValuesFrom
-     - 6
-   * - allValuesFrom_r
      - 6
    * - has_pet
      - 6
-   * - has_pet_r
-     - 6
    * - range
      - 5
-   * - range_r
-     - 5
-   * - disjointWith
-     - 4
-   * - disjointWith_r
-     - 4
    * - unionOf
      - 4
-   * - unionOf_r
+   * - disjointWith
      - 4
-   * - inverseOf
-     - 3
-   * - inverseOf_r
-     - 3
    * - subPropertyOf
      - 3
-   * - subPropertyOf_r
+   * - inverseOf
      - 3
-   * - complementOf
-     - 2
-   * - complementOf_r
-     - 2
    * - domain
      - 2
-   * - domain_r
+   * - complementOf
      - 2
-   * - drives
-     - 1
-   * - drives_r
-     - 1
-   * - is_pet_of
-     - 1
-   * - is_pet_of_r
+   * - service_number
      - 1
    * - maxCardinality
      - 1
-   * - maxCardinality_r
-     - 1
-   * - minCardinality
-     - 1
-   * - minCardinality_r
+   * - drives
      - 1
    * - reads
      - 1
-   * - reads_r
+   * - minCardinality
      - 1
-   * - service_number
-     - 1
-   * - service_number_r
+   * - is_pet_of
      - 1
 
 

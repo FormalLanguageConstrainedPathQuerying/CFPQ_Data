@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 2112625
-     - 65752578
+     - 32876289
 
 
 Edges Statistics
@@ -44,8 +44,6 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - subClassOf
-     - 32876289
-   * - subClassOf_r
      - 32876289
 
 

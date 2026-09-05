@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 341
-     - 918
+     - 459
 
 
 Edges Statistics
@@ -45,43 +45,23 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 130
-   * - type_r
-     - 130
    * - label
-     - 123
-   * - label_r
      - 123
    * - subClassOf
      - 122
-   * - subClassOf_r
-     - 122
    * - comment
      - 78
-   * - comment_r
-     - 78
-   * - creator
-     - 1
-   * - creator_r
-     - 1
-   * - description
-     - 1
-   * - description_r
-     - 1
-   * - language
-     - 1
-   * - language_r
-     - 1
-   * - publisher
-     - 1
-   * - publisher_r
+   * - versionInfo
      - 1
    * - title
      - 1
-   * - title_r
+   * - language
      - 1
-   * - versionInfo
+   * - publisher
      - 1
-   * - versionInfo_r
+   * - description
+     - 1
+   * - creator
      - 1
 
 

@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 131
-     - 554
+     - 277
 
 
 Edges Statistics
@@ -45,91 +45,47 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 90
-   * - type_r
-     - 90
    * - subClassOf
-     - 30
-   * - subClassOf_r
      - 30
    * - first
      - 24
-   * - first_r
-     - 24
    * - rest
-     - 24
-   * - rest_r
      - 24
    * - disjointWith
      - 20
-   * - disjointWith_r
-     - 20
    * - onProperty
      - 15
-   * - onProperty_r
-     - 15
-   * - domain
+   * - someValuesFrom
      - 10
-   * - domain_r
+   * - domain
      - 10
    * - range
      - 10
-   * - range_r
-     - 10
-   * - someValuesFrom
-     - 10
-   * - someValuesFrom_r
-     - 10
    * - comment
-     - 9
-   * - comment_r
      - 9
    * - equivalentClass
      - 7
-   * - equivalentClass_r
-     - 7
    * - intersectionOf
-     - 7
-   * - intersectionOf_r
      - 7
    * - differentFrom
      - 6
-   * - differentFrom_r
-     - 6
    * - hasValue
      - 3
-   * - hasValue_r
-     - 3
-   * - hasPart
-     - 2
-   * - hasPart_r
-     - 2
-   * - inverseOf
-     - 2
-   * - inverseOf_r
+   * - oneOf
      - 2
    * - minCardinality
      - 2
-   * - minCardinality_r
+   * - inverseOf
      - 2
-   * - oneOf
+   * - hasPart
      - 2
-   * - oneOf_r
-     - 2
-   * - complementOf
-     - 1
-   * - complementOf_r
-     - 1
    * - hasAccommodation
-     - 1
-   * - hasAccommodation_r
      - 1
    * - unionOf
      - 1
-   * - unionOf_r
+   * - complementOf
      - 1
    * - versionInfo
-     - 1
-   * - versionInfo_r
      - 1
 
 

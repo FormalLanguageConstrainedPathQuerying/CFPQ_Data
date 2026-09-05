@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 3423234
-     - 5902786
+     - 2951393
 
 
 Edges Statistics
@@ -45,11 +45,7 @@ Edges Statistics
      - Num Edge Label
    * - d
      - 2282155
-   * - d_r
-     - 2282155
    * - a
-     - 669238
-   * - a_r
      - 669238
 
 
