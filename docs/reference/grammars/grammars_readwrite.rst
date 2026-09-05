@@ -17,5 +17,6 @@ Reading and writing grammars
 
    cfg
    cnf
+   cnf_template
    rsa
    regex
