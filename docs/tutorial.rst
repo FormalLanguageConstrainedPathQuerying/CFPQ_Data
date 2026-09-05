@@ -61,11 +61,14 @@ We can load the archive with the graph using function `download <cfpq_data.datas
 Load graph by path
 ^^^^^^^^^^^^^^^^^^
 
-We can load the graph along the specified path using function `graph_from_csv <cfpq_data.graphs.readwrite.csv.graph_from_csv>`.
+The archive unpacks to a directory with one MatrixMarket file per edge
+label in its ``graph`` subdirectory (see :ref:`graph_file_structure`). We
+can load the graph along the specified path using function
+`graph_from_mtx_dir <cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
 
 .. nbplot::
 
-   bzip = cfpq_data.graph_from_csv(bzip_path)
+   bzip = cfpq_data.graph_from_mtx_dir(bzip_path / "graph")
 
 Create graph
 ------------
