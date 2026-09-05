@@ -33,13 +33,13 @@ expected_cfg_2 = cfpq_data.cfg_from_text(
 
 avrora = cfpq_data.download("avrora")
 cfg_avrora = cfpq_data.java_points_to_grammar_from_graph(
-    cfpq_data.graph_from_csv(avrora)
+    cfpq_data.graph_from_mtx_dir(avrora / "graph")
 )
 expected_productions_count_avrora = 1723
 
 eclipse = cfpq_data.download("eclipse")
 cfg_eclipse = cfpq_data.java_points_to_grammar_from_graph(
-    cfpq_data.graph_from_csv(eclipse)
+    cfpq_data.graph_from_mtx_dir(eclipse / "graph")
 )
 expected_productions_count_eclipse = 1525
 

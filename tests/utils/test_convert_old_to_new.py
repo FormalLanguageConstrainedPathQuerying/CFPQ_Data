@@ -630,12 +630,12 @@ def test_make_tarball_roundtrip(tmp_path):
 
 
 def test_sections_cover_dataset():
-    from cfpq_data.dataset import DATASET
+    from cfpq_data.dataset import MIGRATED_DATASET
 
     all_names = [name for names in SECTIONS.values() for name in names]
     assert len(all_names) == 54
     assert len(set(all_names)) == 54  # sections are disjoint
-    assert set(all_names) == set(DATASET)
+    assert set(all_names) == set(MIGRATED_DATASET)
     assert len(SECTIONS["rdf"]) == 20
     assert len(SECTIONS["c_alias"]) == 20
     assert len(SECTIONS["java_points_to"]) == 14

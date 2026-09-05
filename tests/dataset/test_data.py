@@ -3,11 +3,15 @@ import pytest
 import cfpq_data
 from cfpq_data.dataset import (
     BENCHMARK_URL,
+    DATASET,
     DATASET_KEY_PREFIX,
     DATASET_URL,
     GRAMMARS_URL,
+    LEGACY_DATASET,
     LEGACY_DATASET_URL,
+    MIGRATED_DATASET,
 )
+from cfpq_data.dataset.data import _dataset_url
 
 
 def test_url_constants():
@@ -21,6 +25,27 @@ def test_url_constants():
     assert GRAMMARS_URL == "https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/"
     assert BENCHMARK_URL == "https://cfpq-data.storage.yandexcloud.net/4.0.0/benchmark/"
     assert cfpq_data.__version__ == "5.0.0"
+
+
+def test_dataset_split():
+    assert len(DATASET) == 113
+    assert len(MIGRATED_DATASET) == 54
+    assert len(LEGACY_DATASET) == 59
+    assert not set(MIGRATED_DATASET) & set(LEGACY_DATASET)
+    assert len(set(DATASET)) == len(DATASET)
+
+
+@pytest.mark.parametrize(
+    "name,expected_url",
+    [
+        ("generations", DATASET_URL),
+        ("avrora", DATASET_URL),
+        ("gson", LEGACY_DATASET_URL),
+        ("cactus_field_sensitive_alias", LEGACY_DATASET_URL),
+    ],
+)
+def test_dataset_url_selection(name, expected_url):
+    assert _dataset_url(name) == expected_url
 
 
 def test_download_rise():

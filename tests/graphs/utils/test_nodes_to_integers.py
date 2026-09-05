@@ -5,8 +5,8 @@ import cfpq_data
 foaf = cfpq_data.download("foaf")
 core = cfpq_data.download("core")
 
-g1 = cfpq_data.graph_from_csv(foaf)
-g2 = cfpq_data.graph_from_csv(core)
+g1 = cfpq_data.graph_from_mtx_dir(foaf / "graph")
+g2 = cfpq_data.graph_from_mtx_dir(core / "graph")
 
 
 @pytest.mark.parametrize(

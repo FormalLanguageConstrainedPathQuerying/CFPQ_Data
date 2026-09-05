@@ -3,6 +3,7 @@ import logging
 import os
 import pathlib
 import shutil
+import tempfile
 
 import requests
 
@@ -17,6 +18,8 @@ __all__ = [
     "LEGACY_DATASET_URL",
     "GRAMMARS_URL",
     "BENCHMARK_URL",
+    "MIGRATED_DATASET",
+    "LEGACY_DATASET",
     "DATASET",
     "GRAMMAR_TEMPLATES",
     "BENCHMARKS",
@@ -43,7 +46,9 @@ BENCHMARK_URL = (
     f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/benchmark/"
 )
 
-DATASET = [
+#: The graphs converted from the old format and served from ``DATASET_URL``
+#: (the current version prefix).
+MIGRATED_DATASET = [
     "skos",
     "wc",
     "generations",
@@ -100,6 +105,73 @@ DATASET = [
     "xalan",
 ]
 
+#: The pre-existing new-format graphs that stay under the legacy version
+#: prefix (``LEGACY_DATASET_URL``); their data is not migrated.
+LEGACY_DATASET = [
+    "airflow",
+    "cactus",
+    "cactus_field_sensitive_alias",
+    "celery",
+    "click",
+    "commons_io",
+    "commons_lang3",
+    "django",
+    "fastapi",
+    "flask",
+    "gson",
+    "guava",
+    "httpx",
+    "imagick",
+    "imagick_field_sensitive_alias",
+    "itsdangerous",
+    "jackson",
+    "jiaozi",
+    "jinja",
+    "jsonpath",
+    "junit5",
+    "leela",
+    "leela_field_sensitive_alias",
+    "libgdx",
+    "mockito",
+    "nab",
+    "nab_field_sensitive_alias",
+    "omnetpp",
+    "omnetpp_field_sensitive_alias",
+    "pandas",
+    "parest",
+    "parest_field_sensitive_alias",
+    "perlbench",
+    "perlbench_field_sensitive_alias",
+    "pluggy",
+    "povray",
+    "povray_field_sensitive_alias",
+    "requests",
+    "sampleproject",
+    "scikit-learn",
+    "shattered_pixel_dungeon",
+    "sphinx",
+    "superset",
+    "unigraph_1",
+    "unigraph_10",
+    "unigraph_2",
+    "unigraph_3",
+    "unigraph_4",
+    "unigraph_5",
+    "unigraph_6",
+    "unigraph_7",
+    "unigraph_8",
+    "unigraph_9",
+    "wikipedia-provenance",
+    "x264",
+    "x264_field_sensitive_alias",
+    "xz",
+    "xz_field_sensitive_alias",
+    "zulip",
+]
+
+#: All downloadable graphs: the migrated ones and the legacy ones.
+DATASET = MIGRATED_DATASET + LEGACY_DATASET
+
 
 GRAMMAR_TEMPLATES = [
     "c_alias",
@@ -114,8 +186,24 @@ BENCHMARKS = [
 ]
 
 
+def _dataset_url(name: str) -> str:
+    """The base URL serving the archive of ``name``.
+
+    The migrated graphs live under ``DATASET_URL`` (the current version
+    prefix); the legacy ones stay under ``LEGACY_DATASET_URL``.
+    """
+    if name in LEGACY_DATASET:
+        return LEGACY_DATASET_URL
+    return DATASET_URL
+
+
 def download(name: str) -> pathlib.Path:
     """Download graph data from dataset.
+
+    The archive is extracted to a directory named after the graph (the
+    internal directory of the archive is normalized to the graph name, so
+    archives with a different internal layout, e.g.
+    ``cactus_field_sensitive_alias``, extract cleanly).
 
     Parameters
     ----------
@@ -126,11 +214,13 @@ def download(name: str) -> pathlib.Path:
     --------
     >>> from cfpq_data import *
     >>> path = download("generations")
+    >>> sorted(p.name for p in path.iterdir())
+    ['README.md', 'grammar', 'graph']
 
     Returns
     -------
     path : Path
-        Path to the file with graph data.
+        Path to the directory with the graph data.
     """
     if name in DATASET:
         logging.info(f"Found graph with {name=}")
@@ -138,10 +228,9 @@ def download(name: str) -> pathlib.Path:
         GRAPHS_DIR.mkdir(exist_ok=True, parents=True)
 
         graph_archive = GRAPHS_DIR / f"{name}.tar.gz"
-        graph = GRAPHS_DIR / name / f"{name}.csv"
 
         with requests.get(
-            url=DATASET_URL + f"{name}.tar.gz",
+            url=_dataset_url(name) + f"{name}.tar.gz",
             stream=True,
         ) as r:
             with open(graph_archive, "wb") as f:
@@ -149,13 +238,26 @@ def download(name: str) -> pathlib.Path:
 
         logging.info(f"Load archive {graph_archive=}")
 
-        shutil.unpack_archive(graph_archive, GRAPHS_DIR)
+        extract_dir = pathlib.Path(tempfile.mkdtemp(dir=GRAPHS_DIR))
+        try:
+            shutil.unpack_archive(graph_archive, extract_dir)
 
-        logging.info(f"Unzip graph {name=} to file {graph=}")
+            entries = list(extract_dir.iterdir())
+            if len(entries) != 1 or not entries[0].is_dir():
+                raise ValueError(
+                    f"Archive {graph_archive=} must contain a single "
+                    f"top-level directory, found {entries=}"
+                )
 
-        os.remove(graph_archive)
+            graph = GRAPHS_DIR / name
+            if graph.exists():
+                shutil.rmtree(graph)
+            shutil.move(str(entries[0]), graph)
+        finally:
+            shutil.rmtree(extract_dir, ignore_errors=True)
+            os.remove(graph_archive)
 
-        logging.info(f"Remove archive {graph_archive=}")
+        logging.info(f"Unzip graph {name=} to directory {graph=}")
 
         return graph
     else:

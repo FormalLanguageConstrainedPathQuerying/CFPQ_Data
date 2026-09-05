@@ -15,16 +15,16 @@ import cfpq_data
     ],
 )
 def test_rdf(graph_name):
-    path_csv = cfpq_data.download(graph_name)
-    graph_csv = cfpq_data.graph_from_csv(path_csv)
+    graph_dir = cfpq_data.download(graph_name)
+    graph = cfpq_data.graph_from_mtx_dir(graph_dir / "graph")
 
-    path_rdf = cfpq_data.graph_to_rdf(graph_csv, "test.ttl")
+    path_rdf = cfpq_data.graph_to_rdf(graph, "test.ttl")
     graph_rdf = cfpq_data.graph_from_rdf(path_rdf)
 
     os.remove("test.ttl")
 
-    assert graph_csv.number_of_nodes() == graph_rdf.number_of_nodes()
-    assert graph_csv.number_of_edges() == graph_rdf.number_of_edges()
+    assert graph.number_of_nodes() == graph_rdf.number_of_nodes()
+    assert graph.number_of_edges() == graph_rdf.number_of_edges()
 
 
 def test_nodes():
