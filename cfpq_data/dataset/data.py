@@ -13,6 +13,8 @@ from cfpq_data.config import DATA, GRAPHS_DIR, GRAMMARS_DIR, BENCHMARKS_DIR, VER
 __all__ = [
     "DATASET_KEY_PREFIX",
     "DATASET_URL",
+    "LEGACY_VERSION_PREFIX",
+    "LEGACY_DATASET_URL",
     "GRAMMARS_URL",
     "BENCHMARK_URL",
     "DATASET",
@@ -25,8 +27,21 @@ __all__ = [
 
 DATASET_KEY_PREFIX = f"{VERSION[0]}.0.0/graph"
 DATASET_URL = f"https://cfpq-data.storage.yandexcloud.net/{DATASET_KEY_PREFIX}/"
-GRAMMARS_URL = f"https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/grammar/"
-BENCHMARK_URL = f"https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/benchmark/"
+
+#: The key prefix of the data that has not been migrated to the current
+#: dataset version: the old-format graph archives, the pre-existing
+#: new-format graphs, all per-graph grammars, and the benchmarks still live
+#: under ``4.0.0``.
+LEGACY_VERSION_PREFIX = "4.0.0"
+LEGACY_DATASET_URL = (
+    f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/graph/"
+)
+GRAMMARS_URL = (
+    f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/grammar/"
+)
+BENCHMARK_URL = (
+    f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/benchmark/"
+)
 
 DATASET = [
     "skos",

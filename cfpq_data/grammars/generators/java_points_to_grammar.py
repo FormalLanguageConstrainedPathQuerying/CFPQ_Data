@@ -129,11 +129,15 @@ def java_points_to_grammar_from_graph(
     Examples
     --------
     >>> from cfpq_data import *
-    >>> path = download("avrora")
-    >>> g = cfpq_data.graph_from_csv(path)
+    >>> import networkx as nx
+    >>> g = nx.MultiDiGraph()
+    >>> _ = g.add_edges_from(
+    ...     [(0, 1, {"label": "load_f1"}), (1, 2, {"label": "store_f1"}),
+    ...      (2, 3, {"label": "load_f2"}), (3, 4, {"label": "store_f2"})]
+    ... )
     >>> cfg = java_points_to_grammar_from_graph(g)
     >>> len(cfg.productions)
-    1723
+    11
 
     Returns
     -------

@@ -346,7 +346,7 @@ def migrate(
     when another Drive file claims the same name: that item is stored under
     its docs page stem instead (see :func:`_key_name_for`), keeping both
     archives. Objects are stored under ``DATASET_KEY_PREFIX``
-    (``4.0.0/graph/``), matching :data:`cfpq_data.dataset.DATASET_URL`.
+    (``5.0.0/graph/``), matching :data:`cfpq_data.dataset.DATASET_URL`.
 
     For each item (at most one local file on disk at any time):
 

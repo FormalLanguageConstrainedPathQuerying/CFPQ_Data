@@ -6,7 +6,7 @@ from unittest import mock
 
 import pytest
 
-from cfpq_data.dataset import DATASET_KEY_PREFIX
+from cfpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL
 from migrate_gdrive_to_s3 import (
     DRIVE_DOWNLOAD_URL,
     DriveDownloadError,
@@ -263,7 +263,9 @@ def _fake_download(payloads: dict) -> mock.Mock:
     return mock.Mock(side_effect=fake)
 
 
-NEW_AIRFLOW_URL = "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/airflow.tar.gz"
+# Derived from DATASET_URL (the single source of truth for the prefix the
+# migrate tool uploads under), not hard-coded.
+NEW_AIRFLOW_URL = f"{DATASET_URL}airflow.tar.gz"
 
 
 def test_migrate_uploads_new_item(tmp_path, monkeypatch):
@@ -326,7 +328,7 @@ def test_migrate_skips_item_already_on_yandex(tmp_path, monkeypatch):
     assert mapping["airflow"]["sha256"] is None
 
 
-NEW_CACTUS_URL = "https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/cactus.tar.gz"
+NEW_CACTUS_URL = f"{DATASET_URL}cactus.tar.gz"
 
 
 def test_migrate_shared_name_keeps_both_under_distinct_keys(tmp_path, monkeypatch):

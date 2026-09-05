@@ -6,10 +6,11 @@ stores one Boolean MatrixMarket matrix per edge label
 (``<name>/graph/<label>.mtx``) plus CNF grammar files
 (``<name>/grammar/*.cnf``) and a README.
 
-The tool processes graphs one by one: it downloads a single archive from the
-public bucket, converts it locally, verifies the conversion by round-trip,
-uploads the new archive under the ``5.0.0/graph/`` key prefix, and removes
-the local files. At most one graph is on disk at any time.
+The tool processes graphs one by one: it downloads a single old-format
+archive from the public bucket (``4.0.0/graph/``, where the old archives
+stay), converts it locally, verifies the conversion by round-trip, uploads
+the new archive under the ``5.0.0/graph/`` key prefix, and removes the local
+files. At most one graph is on disk at any time.
 """
 
 import argparse
@@ -28,7 +29,11 @@ from typing import Dict, IO, Iterator, List, Optional, Sequence, Set, Tuple, Uni
 import requests
 from botocore.client import BaseClient
 
-from cfpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL
+from cfpq_data.dataset import (
+    DATASET_KEY_PREFIX,
+    DATASET_URL,
+    LEGACY_DATASET_URL,
+)
 from cfpq_data.grammars.generators.c_alias_grammar import c_alias_grammar
 from cfpq_data.grammars.generators.nested_parentheses_grammar import (
     nested_parentheses_grammar,
@@ -884,7 +889,7 @@ def make_tarball(
 DEFAULT_KEY_PREFIX = "5.0.0/graph"
 
 #: The base URL of the public bucket (derived from DATASET_URL, the single
-#: source of truth for the host and the old key prefix).
+#: source of truth for the bucket host).
 STORAGE_BASE_URL = DATASET_URL[: DATASET_URL.index(DATASET_KEY_PREFIX)]
 
 SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
@@ -967,7 +972,8 @@ def download_graph(name: str, dest_path: Union[pathlib.Path, str]) -> pathlib.Pa
     Parameters
     ----------
     name : str
-        The graph name (the archive is ``<DATASET_KEY_PREFIX>/<name>.tar.gz``).
+        The graph name (the archive is ``4.0.0/graph/<name>.tar.gz``; the old
+        archives stay under the legacy prefix).
     dest_path : Union[Path, str]
         Where the archive is written (parent directories created if needed).
 
@@ -981,7 +987,7 @@ def download_graph(name: str, dest_path: Union[pathlib.Path, str]) -> pathlib.Pa
     ConversionError
         If the bucket has no such archive or the download fails.
     """
-    url = DATASET_URL + f"{name}.tar.gz"
+    url = LEGACY_DATASET_URL + f"{name}.tar.gz"
     dest_path = pathlib.Path(dest_path)
     dest_path.parent.mkdir(parents=True, exist_ok=True)
 

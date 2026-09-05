@@ -23,14 +23,17 @@ def graph_from_rdf(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
     Examples
     --------
     >>> from cfpq_data import *
-    >>> p = download("generations")
+    >>> import pathlib, tempfile
+    >>> d = pathlib.Path(tempfile.mkdtemp())
+    >>> p = d / "g.csv"
+    >>> _ = p.write_text("0 1 a\\n1 2 b\\n")
     >>> g = graph_from_csv(path=p)
-    >>> path = graph_to_rdf(g, "test.ttl")
+    >>> path = graph_to_rdf(g, d / "g.ttl")
     >>> generations = graph_from_rdf(path)
     >>> generations.number_of_nodes()
-    129
+    3
     >>> generations.number_of_edges()
-    273
+    2
 
     Returns
     -------
@@ -70,9 +73,12 @@ def graph_to_rdf(
     Examples
     --------
     >>> from cfpq_data import *
-    >>> p = download("generations")
+    >>> import pathlib, tempfile
+    >>> d = pathlib.Path(tempfile.mkdtemp())
+    >>> p = d / "g.csv"
+    >>> _ = p.write_text("0 1 a\\n1 2 b\\n")
     >>> g = graph_from_csv(p)
-    >>> path = graph_to_rdf(g, "test.ttl")
+    >>> path = graph_to_rdf(g, d / "g.ttl")
 
     Returns
     -------
