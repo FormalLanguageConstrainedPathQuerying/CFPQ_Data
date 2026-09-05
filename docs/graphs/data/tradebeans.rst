@@ -56,7 +56,6 @@ Edges Statistics
    * - :math:`\textit{store}_f`
      - 12383
 
-
 Canonical grammars
 ------------------
 
