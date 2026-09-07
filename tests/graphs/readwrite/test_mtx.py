@@ -17,8 +17,8 @@ from cfpq_data.graphs.readwrite.mtx import (
         ("type.mtx", "type"),
         ("alloc_r.mtx", "alloc_r"),
         ("load_5.mtx", "load_5"),
-        ("load_i_5.mtx", "load_5"),
-        ("load_r_i_5.mtx", "load_r_5"),
+        ("load_i_5.mtx", "load_i_5"),
+        ("load_r_i_5.mtx", "load_r_i_5"),
         ("a_i_b.mtx", "a_i_b"),
     ],
 )
@@ -75,7 +75,7 @@ def test_mtx_header_and_pairs(tmp_path):
     assert lines[3:] == ["0 1", "0 1", "1 2"]
 
 
-def test_mtx_reads_indexed_file_names(tmp_path):
+def test_mtx_reads_file_name_as_literal_label(tmp_path):
     (tmp_path / "load_i_5.mtx").write_text(
         "%%MatrixMarket matrix coordinate pattern general\n"
         "%%GraphBLAS type bool\n"
@@ -84,7 +84,7 @@ def test_mtx_reads_indexed_file_names(tmp_path):
     )
 
     g = graph_from_mtx_dir(tmp_path)
-    assert list(g.edges(data=True)) == [(0, 2, {"label": "load_5"})]
+    assert list(g.edges(data=True)) == [(0, 2, {"label": "load_i_5"})]
 
 
 def test_mtx_rejects_bad_header(tmp_path):

@@ -1,7 +1,6 @@
 """Read (and write) a graph from (and to) a directory of MatrixMarket files."""
 import logging
 import pathlib
-import re
 from typing import Dict, List, Tuple, Union
 
 import networkx as nx
@@ -19,17 +18,12 @@ MTX_HEADER = (
     "%%GraphBLAS type bool",
 )
 
-#: A file name of the form ``<base>_i_<k>``: ``_i`` is a placeholder for the
-#: real index ``<k>``, so the edge label is ``<base>_<k>``.
-_INDEXED_NAME_RE = re.compile(r"^(?P<base>.+)_i_(?P<k>\d+)$")
-
 
 def filename_to_label(filename: Union[pathlib.Path, str]) -> str:
     """Returns the edge label of a MatrixMarket file name.
 
-    The file name reflects the label: either it is the label itself (``type.mtx``)
-    or it uses the ``_i`` placeholder for the real index of an indexed label
-    (``load_i_5.mtx`` holds the edges labeled ``load_5``).
+    The file name is the label itself (``load_5.mtx`` holds the edges labeled
+    ``load_5``).
 
     Parameters
     ----------
@@ -42,22 +36,15 @@ def filename_to_label(filename: Union[pathlib.Path, str]) -> str:
     'type'
     >>> filename_to_label("alloc_r.mtx")
     'alloc_r'
-    >>> filename_to_label("load_i_5.mtx")
+    >>> filename_to_label("load_5.mtx")
     'load_5'
-    >>> filename_to_label("load_r_i_5.mtx")
-    'load_r_5'
 
     Returns
     -------
     label : str
         The edge label of the file.
     """
-    stem = pathlib.Path(filename).stem
-    match = _INDEXED_NAME_RE.match(stem)
-    if match:
-        label = f"{match['base']}_{match['k']}"
-    else:
-        label = stem
+    label = pathlib.Path(filename).stem
 
     logging.info(f"Map {filename=} to {label=}")
 
@@ -68,8 +55,7 @@ def label_to_filename(label: str) -> str:
     """Returns the canonical MatrixMarket file name of an edge label.
 
     The canonical style is ``<label>.mtx``; reading it back with
-    :func:`filename_to_label` returns the same label (labels never contain
-    the ``_i`` placeholder, which is reserved for indexed file names).
+    :func:`filename_to_label` returns the same label.
 
     Parameters
     ----------
@@ -112,7 +98,7 @@ def graph_from_mtx_dir(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
     ...     "%%MatrixMarket matrix coordinate pattern general\\n"
     ...     "%%GraphBLAS type bool\\n3 3 2\\n0 1\\n1 2\\n"
     ... )
-    >>> _ = (d / "b_i_5.mtx").write_text(
+    >>> _ = (d / "b_5.mtx").write_text(
     ...     "%%MatrixMarket matrix coordinate pattern general\\n"
     ...     "%%GraphBLAS type bool\\n3 3 1\\n2 0\\n"
     ... )
