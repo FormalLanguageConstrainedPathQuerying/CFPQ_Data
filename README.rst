@@ -28,6 +28,7 @@ experimental analysis of Context-Free Path Querying algorithms.
 - **Documentation:** https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/reference/index.html
 - **Source Code:** https://github.com/formallanguageconstrainedpathquerying/CFPQ_Data
 - **Bug Tracker:** https://github.com/formallanguageconstrainedpathquerying/CFPQ_Data/issues
+- **Changelog:** https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/blob/master/CHANGELOG.md
 
 Installation
 ************
