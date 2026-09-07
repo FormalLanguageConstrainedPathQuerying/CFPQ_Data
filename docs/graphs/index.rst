@@ -68,9 +68,156 @@ only.
 
 .. toctree::
    :hidden:
-   :glob:
+   :caption: C alias analysis
 
-   data/*
+   data/wc
+   data/bzip
+   data/pr
+   data/ls
+   data/gzip
+   data/apache
+   data/init
+   data/mm
+   data/ipc
+   data/lib
+   data/block
+   data/arch
+   data/crypto
+   data/security
+   data/sound
+   data/net
+   data/fs
+   data/drivers
+   data/postgre
+   data/kernel
+
+.. toctree::
+   :hidden:
+   :caption: RDF
+
+   data/generations
+   data/travel
+   data/skos
+   data/univ
+   data/foaf
+   data/atom
+   data/people
+   data/biomedical
+   data/pizza
+   data/wine
+   data/funding
+   data/core
+   data/pathways
+   data/go_hierarchy
+   data/enzyme
+   data/geospecies
+   data/go
+   data/eclass
+   data/taxonomy_hierarchy
+   data/taxonomy
+
+.. toctree::
+   :hidden:
+   :caption: Java points-to graphs
+
+   data/gson
+   data/sunflow
+   data/lusearch
+   data/luindex
+   data/avrora
+   data/mockito
+   data/commons_io
+   data/commons_lang3
+   data/eclipse
+   data/h2
+   data/pmd
+   data/xalan
+   data/junit5
+   data/batik
+   data/fop
+   data/tomcat
+   data/guava
+   data/jackson
+   data/jython
+   data/tradebeans
+   data/tradesoap
+
+.. toctree::
+   :hidden:
+   :caption: Field-Sensitive Alias
+
+   data/xz_field_sensitive_alias
+   data/nab_field_sensitive_alias
+   data/leela_field_sensitive_alias
+   data/povray_field_sensitive_alias
+   data/x264_field_sensitive_alias
+   data/cactus_field_sensitive_alias
+   data/parest_field_sensitive_alias
+   data/perlbench_field_sensitive_alias
+   data/imagick_field_sensitive_alias
+   data/omnetpp_field_sensitive_alias
+
+.. toctree::
+   :hidden:
+   :caption: Context-Sensitive Data-Flow
+
+   data/xz
+   data/nab
+   data/leela
+   data/x264
+   data/parest
+   data/imagick
+   data/povray
+   data/cactus
+   data/omnetpp
+   data/perlbench
+
+.. toctree::
+   :hidden:
+   :caption: Data Provenance
+
+   data/provenance_sampleproject
+   data/provenance_wikipedia_provenance
+   data/provenance_pluggy
+   data/provenance_itsdangerous
+   data/provenance_requests
+   data/provenance_httpx
+   data/provenance_click
+   data/provenance_jinja
+   data/provenance_flask
+   data/provenance_fastapi
+   data/provenance_celery
+   data/provenance_scikit_learn
+   data/provenance_sphinx
+   data/provenance_pandas
+   data/provenance_django
+   data/provenance_zulip
+   data/provenance_superset
+   data/provenance_airflow
+
+.. toctree::
+   :hidden:
+   :caption: Name Resolution
+
+   data/name_resolution_jiaozi
+   data/name_resolution_jsonpath
+   data/name_resolution_shattered_pixel_dungeon
+   data/name_resolution_libgdx
+
+.. toctree::
+   :hidden:
+   :caption: Biological graphs from UniProt
+
+   data/unigraph_1
+   data/unigraph_2
+   data/unigraph_3
+   data/unigraph_4
+   data/unigraph_5
+   data/unigraph_6
+   data/unigraph_7
+   data/unigraph_8
+   data/unigraph_9
+   data/unigraph_10
 
 Graphs
 ------
