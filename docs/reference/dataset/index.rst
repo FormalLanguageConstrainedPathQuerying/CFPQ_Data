@@ -19,7 +19,5 @@ Dataset utilities
    download_grammars
    download_benchmark
    DATASET
-   MIGRATED_DATASET
-   LEGACY_DATASET
    BENCHMARKS
    GRAMMAR_TEMPLATES

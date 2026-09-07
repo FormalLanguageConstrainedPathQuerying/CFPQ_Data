@@ -24,8 +24,7 @@ The archive layout and the label conventions are documented once in the
 
 ## Wiring a new graph into the code
 
-1. Add the graph name to `MIGRATED_DATASET` in `cfpq_data/dataset/data.py`
-   (the graphs served from `DATASET_URL`, the current version prefix).
+1. Add the graph name to `DATASET` in `cfpq_data/dataset/data.py`.
 2. The graph archive must be uploaded under the dataset URL
    `https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/graph/<name>.tar.gz`.
 3. Loading happens via `download(name)` (which returns the graph directory)

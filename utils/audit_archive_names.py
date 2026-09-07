@@ -17,7 +17,7 @@ from typing import Iterable, Optional, Sequence
 
 import requests
 
-from cfpq_data.dataset.data import DATASET, _dataset_url
+from cfpq_data.dataset.data import DATASET, DATASET_URL
 
 __all__ = [
     "INDEXED_NAME_RE",
@@ -76,7 +76,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     names = args.names or DATASET
     affected = []
     for name in names:
-        url = _dataset_url(name) + f"{name}.tar.gz"
+        url = DATASET_URL + f"{name}.tar.gz"
         indexed = find_indexed_names(list_members(url))
         if indexed:
             affected.append((name, len(indexed)))

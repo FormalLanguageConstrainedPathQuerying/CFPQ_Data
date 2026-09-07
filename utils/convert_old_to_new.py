@@ -32,7 +32,12 @@ from botocore.client import BaseClient
 from cfpq_data.dataset import (
     DATASET_KEY_PREFIX,
     DATASET_URL,
-    LEGACY_DATASET_URL,
+    LEGACY_VERSION_PREFIX,
+)
+
+#: The old-format graph archives still live under the legacy version prefix.
+OLD_FORMAT_GRAPH_URL = (
+    f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/graph/"
 )
 from cfpq_data.grammars.generators.c_alias_grammar import c_alias_grammar
 from cfpq_data.grammars.generators.nested_parentheses_grammar import (
@@ -987,7 +992,7 @@ def download_graph(name: str, dest_path: Union[pathlib.Path, str]) -> pathlib.Pa
     ConversionError
         If the bucket has no such archive or the download fails.
     """
-    url = LEGACY_DATASET_URL + f"{name}.tar.gz"
+    url = OLD_FORMAT_GRAPH_URL + f"{name}.tar.gz"
     dest_path = pathlib.Path(dest_path)
     dest_path.parent.mkdir(parents=True, exist_ok=True)
 

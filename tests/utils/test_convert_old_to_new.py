@@ -630,12 +630,18 @@ def test_make_tarball_roundtrip(tmp_path):
 
 
 def test_sections_cover_dataset():
-    from cfpq_data.dataset import MIGRATED_DATASET
+    import json
+    import pathlib
+
+    report_path = (
+        pathlib.Path(__file__).resolve().parents[2] / "utils" / "conversion_report.json"
+    )
+    converted = {entry["name"] for entry in json.loads(report_path.read_text())}
 
     all_names = [name for names in SECTIONS.values() for name in names]
     assert len(all_names) == 54
     assert len(set(all_names)) == 54  # sections are disjoint
-    assert set(all_names) == set(MIGRATED_DATASET)
+    assert set(all_names) == converted
     assert len(SECTIONS["rdf"]) == 20
     assert len(SECTIONS["c_alias"]) == 20
     assert len(SECTIONS["java_points_to"]) == 14

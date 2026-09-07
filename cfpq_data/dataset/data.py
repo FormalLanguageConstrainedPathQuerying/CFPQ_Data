@@ -15,11 +15,8 @@ __all__ = [
     "DATASET_KEY_PREFIX",
     "DATASET_URL",
     "LEGACY_VERSION_PREFIX",
-    "LEGACY_DATASET_URL",
     "GRAMMARS_URL",
     "BENCHMARK_URL",
-    "MIGRATED_DATASET",
-    "LEGACY_DATASET",
     "DATASET",
     "GRAMMAR_TEMPLATES",
     "BENCHMARKS",
@@ -32,13 +29,9 @@ DATASET_KEY_PREFIX = f"{VERSION[0]}.0.0/graph"
 DATASET_URL = f"https://cfpq-data.storage.yandexcloud.net/{DATASET_KEY_PREFIX}/"
 
 #: The key prefix of the data that has not been migrated to the current
-#: dataset version: the old-format graph archives, the pre-existing
-#: new-format graphs, all per-graph grammars, and the benchmarks still live
-#: under ``4.0.0``.
+#: dataset version: the old-format graph archives, all per-graph grammars,
+#: and the benchmarks still live under ``4.0.0``.
 LEGACY_VERSION_PREFIX = "4.0.0"
-LEGACY_DATASET_URL = (
-    f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/graph/"
-)
 GRAMMARS_URL = (
     f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/grammar/"
 )
@@ -46,9 +39,8 @@ BENCHMARK_URL = (
     f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/benchmark/"
 )
 
-#: The graphs converted from the old format and served from ``DATASET_URL``
-#: (the current version prefix).
-MIGRATED_DATASET = [
+#: All downloadable graphs, served from ``DATASET_URL``.
+DATASET = [
     "skos",
     "wc",
     "generations",
@@ -103,11 +95,6 @@ MIGRATED_DATASET = [
     "tradebeans",
     "tradesoap",
     "xalan",
-]
-
-#: The pre-existing new-format graphs that stay under the legacy version
-#: prefix (``LEGACY_DATASET_URL``); their data is not migrated.
-LEGACY_DATASET = [
     "airflow",
     "cactus",
     "cactus_field_sensitive_alias",
@@ -169,10 +156,6 @@ LEGACY_DATASET = [
     "zulip",
 ]
 
-#: All downloadable graphs: the migrated ones and the legacy ones.
-DATASET = MIGRATED_DATASET + LEGACY_DATASET
-
-
 GRAMMAR_TEMPLATES = [
     "c_alias",
     "dyck",
@@ -184,17 +167,6 @@ GRAMMAR_TEMPLATES = [
 BENCHMARKS = [
     "MS_Reachability",
 ]
-
-
-def _dataset_url(name: str) -> str:
-    """The base URL serving the archive of ``name``.
-
-    The migrated graphs live under ``DATASET_URL`` (the current version
-    prefix); the legacy ones stay under ``LEGACY_DATASET_URL``.
-    """
-    if name in LEGACY_DATASET:
-        return LEGACY_DATASET_URL
-    return DATASET_URL
 
 
 def download(name: str) -> pathlib.Path:
@@ -230,7 +202,7 @@ def download(name: str) -> pathlib.Path:
         graph_archive = GRAPHS_DIR / f"{name}.tar.gz"
 
         with requests.get(
-            url=_dataset_url(name) + f"{name}.tar.gz",
+            url=DATASET_URL + f"{name}.tar.gz",
             stream=True,
         ) as r:
             with open(graph_archive, "wb") as f:
