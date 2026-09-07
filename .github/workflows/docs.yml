@@ -1,0 +1,41 @@
+name: Docs build check
+
+on: [ push, pull_request ]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ 3.11 ]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+
+      - name: Install dependencies with Poetry
+        run: |
+          poetry install --no-interaction --no-ansi --with docs
+
+      - name: Show installed packages
+        run: poetry show
+
+      - name: Install packages
+        run: poetry run pip install .
+
+      - name: Build
+        run: |
+          poetry run make -C docs/ html > docs_build.log 2>&1
+          tail -n 40 docs_build.log
+          if grep -q ": ERROR:" docs_build.log; then
+            echo "The docs build reported ERROR lines:"
+            grep ": ERROR:" docs_build.log
+            exit 1
+          fi
