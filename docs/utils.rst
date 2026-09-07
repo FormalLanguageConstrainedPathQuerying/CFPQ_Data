@@ -118,10 +118,10 @@ shared by all new-format java archives (indexed symbols ``load``, ``store``,
 package canonical grammars
 (:func:`cfpq_data.grammars.generators.c_alias_grammar`,
 :func:`cfpq_data.grammars.generators.nested_parentheses_grammar` with
- ``eps=False`` — for RDF the three canonical grammars of the graph's docs
- page, plus broaderTransitive if the graph has such edges). Reversed ``_r``
- edges are not stored; the README documents that they are derived by
- reversing the respective forward edges.
+``eps=False`` — for RDF the three canonical grammars of the graph's docs
+page, plus broaderTransitive if the graph has such edges). Reversed ``_r``
+edges are not stored; the README documents that they are derived by
+reversing the respective forward edges.
 
 Behavior:
 
