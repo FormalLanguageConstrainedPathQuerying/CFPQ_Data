@@ -251,6 +251,11 @@ Contents
 C alias analysis
 ^^^^^^^^^^^^^^^^
 
+Points-to (alias) graphs for a suite of C programs, built by demand-driven
+alias analysis as in `"Demand-driven alias analysis for C" <https://dl.acm.org/doi/10.1145/1328897.1328464>`_.
+Nodes are program entities and edges are the aliasing and flow relations
+discovered for each program.
+
 .. list-table::
    :header-rows: 1
 
@@ -344,6 +349,10 @@ C alias analysis
 RDF
 ^^^
 
+Labeled directed graphs built from RDF / OWL datasets, where nodes are
+resources and edges are predicates; they support studying context-free path
+queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv.org/abs/1506.00743>`_.
+
 .. list-table::
    :header-rows: 1
 
@@ -436,6 +445,11 @@ RDF
 
 Java points-to graphs
 ^^^^^^^^^^^^^^^^^^^^^
+
+Exhaustive, field-sensitive points-to graphs for Java programs, produced by
+the analysis of `"Giga-scale exhaustive points-to analysis for Java in under a minute" <https://dl.acm.org/doi/10.1145/2858965.2814307>`_.
+Edges are the points-to relations (allocations, assignments, loads, stores,
+calls, returns) together with their reverses.
 
 .. list-table::
    :header-rows: 1
@@ -534,6 +548,10 @@ Java points-to graphs
 Field-Sensitive Alias
 ^^^^^^^^^^^^^^^^^^^^^
 
+Field-sensitive alias graphs for C programs: memory locations are
+distinguished by the struct field they occupy, so aliasing is tracked per
+field (the ``f_i`` family). *Draft description — to be refined.*
+
 .. list-table::
    :header-rows: 1
 
@@ -587,6 +605,10 @@ Field-Sensitive Alias
 Context-Sensitive Data-Flow
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Context-sensitive data-flow graphs for C programs, tracking how values flow
+through the program under a calling context (the ``call_i`` / ``ret_i``
+families). *Draft description — to be refined.*
+
 .. list-table::
    :header-rows: 1
 
@@ -639,6 +661,10 @@ Context-Sensitive Data-Flow
 
 Data Provenance
 ^^^^^^^^^^^^^^^
+
+Data-provenance graphs recording the lineage of data artifacts in a set of
+Python projects, following the W3C PROV model (``Entity``, ``Activity``,
+``wasDerivedFrom``) as studied in the IEEE paper 8731467.
 
 .. list-table::
    :header-rows: 1
@@ -725,6 +751,11 @@ Data Provenance
 Name Resolution
 ^^^^^^^^^^^^^^^
 
+Stack graphs capturing the scoping structure of source code for name
+resolution, as in *Stack graphs: Name resolution at scale*. Edges are the
+stack-graph transitions (push, pop, branch, epsilon) that carry names through
+scopes.
+
 .. list-table::
    :header-rows: 1
 
@@ -753,6 +784,11 @@ Name Resolution
 
 Biological graphs from UniProt
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Biological interaction graphs derived from the UniProt knowledgebase, where
+nodes are biological entities and edges are the relations between them (e.g.
+``belongs_to``, ``is_homologous_to``); they support subgraph and path queries
+as in *Subgraph queries by context-free grammars*.
 
 .. list-table::
    :header-rows: 1
