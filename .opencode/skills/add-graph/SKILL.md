@@ -1,6 +1,6 @@
 ---
 name: add-graph
-description: Use when adding a new graph to the CFPQ_Data dataset. Covers the CSV data format, the download()/DATASET wiring, and the PR/issue templates.
+description: Use when adding a new graph to CFPQ_Data. Covers the mtx-per-label archive format, the download()/DATASET wiring, and the PR/issue templates.
 ---
 
 # Add a graph to the dataset
@@ -17,22 +17,20 @@ Fill in every field in the triangle brackets (`<>`) of those templates.
 
 ## Data format
 
-A graph is a 3-column space-separated CSV with **no header**:
-
-| Column | Type | Meaning |
-|:---:|:---:|---|
-| 1 | int | tail of the edge |
-| 2 | int | head of the edge |
-| 3 | str | label of the edge |
+The archive layout and the label conventions are documented once in the
+"File structure" section of `docs/graphs/index.rst` — follow it exactly:
+`<name>.tar.gz` unpacks to `<name>/{README.md, grammar/, graph/}`, where
+`graph/` holds one Boolean MatrixMarket pattern file per edge label.
 
 ## Wiring a new graph into the code
 
-1. Add the graph name to `DATASET` in `cfpq_data/dataset/data.py`.
+1. Add the graph name to `MIGRATED_DATASET` in `cfpq_data/dataset/data.py`
+   (the graphs served from `DATASET_URL`, the current version prefix).
 2. The graph archive must be uploaded under the dataset URL
-   `https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/graph/<name>.tar.gz`
-   containing `<name>/<name>.csv`.
-3. Loading happens via `download(name)` -> `graph_from_csv(path)`
-   (`cfpq_data/graphs/readwrite/csv.py`).
+   `https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/graph/<name>.tar.gz`.
+3. Loading happens via `download(name)` (which returns the graph directory)
+   and `graph_from_mtx_dir(path / "graph")`
+   (`cfpq_data/graphs/readwrite/mtx.py`).
 
-See also `.opencode/skills/run-tests` to verify, and the `README.rst`
-"Dataset content" section for the full list of names.
+See also `.opencode/skills/run-tests` to verify, and the Graphs page of the
+docs for the full list of names.

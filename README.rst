@@ -38,8 +38,11 @@ Dataset content
 .. code-block:: python
 
    >>> import cfpq_data
-   >>> cfpq_data.DATASET
-   ['skos', 'wc', 'generations', 'travel', 'univ', 'atom', 'biomedical', 'bzip', 'foaf', 'people', 'pr', 'funding', 'ls', 'wine', 'pizza', 'gzip', 'core', 'pathways', 'enzyme', 'eclass', 'go_hierarchy', 'go', 'apache', 'init', 'mm', 'geospecies', 'ipc', 'lib', 'block', 'arch', 'crypto', 'security', 'sound', 'net', 'fs', 'drivers', 'postgre', 'kernel', 'taxonomy', 'taxonomy_hierarchy']
+   >>> cfpq_data.DATASET[:3]
+   ['skos', 'wc', 'generations']
+
+The full list of graphs, with statistics and download links, is on the
+`Graphs <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/graphs/index.html>`_ page.
 
 Load graph from Dataset
 -----------------------
@@ -47,7 +50,7 @@ Load graph from Dataset
 .. code-block:: python
 
    >>> bzip_path = cfpq_data.download("bzip")
-   >>> bzip = cfpq_data.graph_from_csv(bzip_path)
+   >>> bzip = cfpq_data.graph_from_mtx_dir(bzip_path / "graph")
 
 How to add a new graph?
 ***********************
