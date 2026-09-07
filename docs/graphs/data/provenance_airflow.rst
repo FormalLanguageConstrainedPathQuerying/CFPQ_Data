@@ -16,7 +16,7 @@ Info
    * - Full Name
      - airflow
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/airflow.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/airflow.tar.gz>`_
    * - Source
      - `airflow <https://github.com/apache/airflow>`_
 

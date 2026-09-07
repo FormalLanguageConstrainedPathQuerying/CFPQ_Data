@@ -16,7 +16,7 @@ Info
    * - Full Name
      - scikit-learn
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/scikit-learn.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/scikit-learn.tar.gz>`_
    * - Source
      - `scikit-learn <https://github.com/scikit-learn/scikit-learn>`_
 

@@ -16,7 +16,7 @@ Info
    * - Full Name
      - junit5
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/junit5.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/junit5.tar.gz>`_
    * - Source
      - `junit5 homepage <https://junit.org/junit5/>`_
 

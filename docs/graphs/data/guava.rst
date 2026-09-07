@@ -16,7 +16,7 @@ Info
    * - Full Name
      - guava
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/guava.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/guava.tar.gz>`_
    * - Source
      - `guava homepage <https://guava.dev/>`_
 

@@ -16,7 +16,7 @@ Info
    * - Full Name
      - jackson
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/jackson.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jackson.tar.gz>`_
    * - Source
      - `jackson homepage <https://github.com/FasterXML/jackson>`_
 

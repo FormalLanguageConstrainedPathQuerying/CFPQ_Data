@@ -16,7 +16,7 @@ Info
    * - Full Name
      - cactus
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/cactus.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/cactus.tar.gz>`_
 
 
 Graph Statistics

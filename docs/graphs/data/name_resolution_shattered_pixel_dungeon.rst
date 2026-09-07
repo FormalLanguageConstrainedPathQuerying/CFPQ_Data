@@ -16,7 +16,7 @@ Info
    * - Full Name
      - shattered_pixel_dungeon
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/shattered_pixel_dungeon.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/shattered_pixel_dungeon.tar.gz>`_
    * - Source
      - `shattered_pixel_dungeon <https://github.com/00-Evan/shattered-pixel-dungeon>`_
 

@@ -16,7 +16,7 @@ Info
    * - Full Name
      - httpx
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/httpx.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/httpx.tar.gz>`_
    * - Source
      - `httpx <https://github.com/encode/httpx>`_
 

@@ -16,7 +16,7 @@ Info
    * - Full Name
      - superset
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/superset.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/superset.tar.gz>`_
    * - Source
      - `superset <https://github.com/apache/superset>`_
 

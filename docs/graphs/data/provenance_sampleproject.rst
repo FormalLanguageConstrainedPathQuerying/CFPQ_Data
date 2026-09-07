@@ -16,7 +16,7 @@ Info
    * - Full Name
      - sampleproject
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/sampleproject.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/sampleproject.tar.gz>`_
    * - Source
      - `sampleproject <https://github.com/pypa/sampleproject>`_
 
