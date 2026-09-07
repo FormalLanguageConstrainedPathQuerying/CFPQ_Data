@@ -22,3 +22,4 @@
 - [done] Task 20: Serve the whole dataset from the 5.0.0 prefix: copy the unaffected legacy archives to 5.0.0/graph/, drop the dual-prefix logic, and re-point the docs download links.
 - [done] Task 21: Drop the _i placeholder file-name fallback from the package (the served archives are unified) and update the format docs.
 - [done] Task 22: Add an about-category paragraph to each graph category, a citation section (repo @misc + Lodygin paper template) on the About page, and installation/overview/citation sections to the README.
+- [done] Task 23: Normalize the per-graph Info tables to a single schema (Full Name, Version, Direct download, Source where known): add an audit tool and standardize all 113 pages.
