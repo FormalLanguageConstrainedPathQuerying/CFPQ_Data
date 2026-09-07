@@ -32,5 +32,19 @@ The archive layout and the label conventions are documented once in the
    and `graph_from_mtx_dir(path / "graph")`
    (`cfpq_data/graphs/readwrite/mtx.py`).
 
+## Documentation
+
+1. Create the per-graph page `docs/graphs/data/<name>.rst`, following the
+   structure of an existing page (description, statistics tables, canonical
+   grammars). Statistics conventions: the PR template is the source of truth.
+2. Register it in `docs/graphs/index.rst` **twice**: a row in the section
+   table of its source area, and an entry in the matching captioned toctree
+   (the left navigation bar is generated from those toctrees). Keep both in
+   the same order as the table.
+
+Note: a `data/*.rst` page missing from all toctrees produces only a Sphinx
+*warning*, not an error, so the docs quality gate will not catch it — check
+the build log for "not included in any toctree".
+
 See also `.opencode/skills/run-tests` to verify, and the Graphs page of the
 docs for the full list of names.
