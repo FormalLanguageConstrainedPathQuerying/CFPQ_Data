@@ -19,7 +19,7 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pizza.tar.gz>`_
-   * - Origin
+   * - Source
      - `.owl <https://protege.stanford.edu/ontologies/pizza/pizza.owl>`_
 
 

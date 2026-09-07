@@ -19,7 +19,7 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/go_hierarchy.tar.gz>`_
-   * - Origin
+   * - Source
      - `.owl.xz <https://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf/go-hierarchy.owl.xz>`_
 
 

@@ -19,7 +19,7 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/people.tar.gz>`_
-   * - Origin
+   * - Source
      - `.rdf <http://owl.man.ac.uk/tutorial/people+pets.rdf>`_
 
 

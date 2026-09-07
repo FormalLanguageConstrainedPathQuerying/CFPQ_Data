@@ -19,7 +19,7 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/funding.tar.gz>`_
-   * - Origin
+   * - Source
      - `link <http://purl.org/cerif/frapo/Funding>`_
 
 

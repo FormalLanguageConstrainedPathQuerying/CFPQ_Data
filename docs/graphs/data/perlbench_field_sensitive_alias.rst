@@ -15,6 +15,8 @@ Info
      -
    * - Full Name
      - perlbench
+   * - Version
+     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/perlbench_field_sensitive_alias.tar.gz>`_
 

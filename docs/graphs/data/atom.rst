@@ -19,7 +19,7 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/atom.tar.gz>`_
-   * - Origin
+   * - Source
      - `link <http://ontology.dumontierlab.com/atom-primitive>`_
 
 

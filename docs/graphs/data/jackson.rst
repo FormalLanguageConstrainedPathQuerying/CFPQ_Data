@@ -15,6 +15,8 @@ Info
      -
    * - Full Name
      - jackson
+   * - Version
+     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jackson.tar.gz>`_
    * - Source

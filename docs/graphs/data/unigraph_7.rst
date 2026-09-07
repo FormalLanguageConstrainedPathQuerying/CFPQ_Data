@@ -17,7 +17,7 @@ Info
      - unigraph_7
    * - Version
      - 5.0.0
-   * - Direct download (.mtx files)
+   * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_7.tar.gz>`_
 
 

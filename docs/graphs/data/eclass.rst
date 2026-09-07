@@ -19,7 +19,7 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/eclass.tar.gz>`_
-   * - Origin
+   * - Source
      - `link <http://www.ebusiness-unibw.org/ontologies/eclass/5.1.4>`_
 
 
