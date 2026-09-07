@@ -1,0 +1,223 @@
+{
+  "description": "Repacked legacy archives with indexed-label files renamed from the '_i' placeholder style (X_i_<k>.mtx) to the canonical bare style (X_<k>.mtx). Source: 4.0.0/graph/<name>.tar.gz (kept frozen); target: 5.0.0/graph/<name>.tar.gz. Verified: label sets identical, no '_i_' names remain, no name collisions.",
+  "date": "2026-09-07",
+  "archives": [
+    {
+      "name": "cactus",
+      "renamed_files": 19947,
+      "total_members": 19953,
+      "labels": 19948,
+      "unified_archive": "/tmp/opencode/repack/cactus_unified.tar.gz"
+    },
+    {
+      "name": "cactus_field_sensitive_alias",
+      "renamed_files": 92,
+      "total_members": 101,
+      "labels": 96,
+      "unified_archive": "/tmp/opencode/repack/cactus_field_sensitive_alias_unified.tar.gz"
+    },
+    {
+      "name": "commons_io",
+      "renamed_files": 2378,
+      "total_members": 2387,
+      "labels": 2382,
+      "unified_archive": "/tmp/opencode/repack/commons_io_unified.tar.gz"
+    },
+    {
+      "name": "commons_lang3",
+      "renamed_files": 3070,
+      "total_members": 3079,
+      "labels": 3074,
+      "unified_archive": "/tmp/opencode/repack/commons_lang3_unified.tar.gz"
+    },
+    {
+      "name": "gson",
+      "renamed_files": 1530,
+      "total_members": 1539,
+      "labels": 1534,
+      "unified_archive": "/tmp/opencode/repack/gson_unified.tar.gz"
+    },
+    {
+      "name": "guava",
+      "renamed_files": 11934,
+      "total_members": 11943,
+      "labels": 11938,
+      "unified_archive": "/tmp/opencode/repack/guava_unified.tar.gz"
+    },
+    {
+      "name": "imagick",
+      "renamed_files": 14991,
+      "total_members": 14997,
+      "labels": 14992,
+      "unified_archive": "/tmp/opencode/repack/imagick_unified.tar.gz"
+    },
+    {
+      "name": "imagick_field_sensitive_alias",
+      "renamed_files": 284,
+      "total_members": 293,
+      "labels": 288,
+      "unified_archive": "/tmp/opencode/repack/imagick_field_sensitive_alias_unified.tar.gz"
+    },
+    {
+      "name": "jackson",
+      "renamed_files": 11130,
+      "total_members": 11139,
+      "labels": 11134,
+      "unified_archive": "/tmp/opencode/repack/jackson_unified.tar.gz"
+    },
+    {
+      "name": "jiaozi",
+      "renamed_files": 1180,
+      "total_members": 1186,
+      "labels": 1181,
+      "unified_archive": "/tmp/opencode/repack/jiaozi_unified.tar.gz"
+    },
+    {
+      "name": "jsonpath",
+      "renamed_files": 2568,
+      "total_members": 2574,
+      "labels": 2569,
+      "unified_archive": "/tmp/opencode/repack/jsonpath_unified.tar.gz"
+    },
+    {
+      "name": "junit5",
+      "renamed_files": 5748,
+      "total_members": 5757,
+      "labels": 5752,
+      "unified_archive": "/tmp/opencode/repack/junit5_unified.tar.gz"
+    },
+    {
+      "name": "leela",
+      "renamed_files": 832,
+      "total_members": 838,
+      "labels": 833,
+      "unified_archive": "/tmp/opencode/repack/leela_unified.tar.gz"
+    },
+    {
+      "name": "leela_field_sensitive_alias",
+      "renamed_files": 100,
+      "total_members": 109,
+      "labels": 104,
+      "unified_archive": "/tmp/opencode/repack/leela_field_sensitive_alias_unified.tar.gz"
+    },
+    {
+      "name": "libgdx",
+      "renamed_files": 22719,
+      "total_members": 22725,
+      "labels": 22720,
+      "unified_archive": "/tmp/opencode/repack/libgdx_unified.tar.gz"
+    },
+    {
+      "name": "mockito",
+      "renamed_files": 2732,
+      "total_members": 2741,
+      "labels": 2736,
+      "unified_archive": "/tmp/opencode/repack/mockito_unified.tar.gz"
+    },
+    {
+      "name": "nab",
+      "renamed_files": 240,
+      "total_members": 246,
+      "labels": 241,
+      "unified_archive": "/tmp/opencode/repack/nab_unified.tar.gz"
+    },
+    {
+      "name": "nab_field_sensitive_alias",
+      "renamed_files": 108,
+      "total_members": 117,
+      "labels": 112,
+      "unified_archive": "/tmp/opencode/repack/nab_field_sensitive_alias_unified.tar.gz"
+    },
+    {
+      "name": "omnetpp",
+      "renamed_files": 108071,
+      "total_members": 108077,
+      "labels": 108072,
+      "unified_archive": "/tmp/opencode/repack/omnetpp_unified.tar.gz"
+    },
+    {
+      "name": "omnetpp_field_sensitive_alias",
+      "renamed_files": 144,
+      "total_members": 153,
+      "labels": 148,
+      "unified_archive": "/tmp/opencode/repack/omnetpp_field_sensitive_alias_unified.tar.gz"
+    },
+    {
+      "name": "parest",
+      "renamed_files": 1585,
+      "total_members": 1591,
+      "labels": 1586,
+      "unified_archive": "/tmp/opencode/repack/parest_unified.tar.gz"
+    },
+    {
+      "name": "parest_field_sensitive_alias",
+      "renamed_files": 156,
+      "total_members": 165,
+      "labels": 160,
+      "unified_archive": "/tmp/opencode/repack/parest_field_sensitive_alias_unified.tar.gz"
+    },
+    {
+      "name": "perlbench",
+      "renamed_files": 28880,
+      "total_members": 28886,
+      "labels": 28881,
+      "unified_archive": "/tmp/opencode/repack/perlbench_unified.tar.gz"
+    },
+    {
+      "name": "perlbench_field_sensitive_alias",
+      "renamed_files": 106,
+      "total_members": 115,
+      "labels": 110,
+      "unified_archive": "/tmp/opencode/repack/perlbench_field_sensitive_alias_unified.tar.gz"
+    },
+    {
+      "name": "povray",
+      "renamed_files": 11310,
+      "total_members": 11316,
+      "labels": 11311,
+      "unified_archive": "/tmp/opencode/repack/povray_unified.tar.gz"
+    },
+    {
+      "name": "povray_field_sensitive_alias",
+      "renamed_files": 88,
+      "total_members": 97,
+      "labels": 92,
+      "unified_archive": "/tmp/opencode/repack/povray_field_sensitive_alias_unified.tar.gz"
+    },
+    {
+      "name": "shattered_pixel_dungeon",
+      "renamed_files": 11497,
+      "total_members": 11503,
+      "labels": 11498,
+      "unified_archive": "/tmp/opencode/repack/shattered_pixel_dungeon_unified.tar.gz"
+    },
+    {
+      "name": "x264",
+      "renamed_files": 2559,
+      "total_members": 2565,
+      "labels": 2560,
+      "unified_archive": "/tmp/opencode/repack/x264_unified.tar.gz"
+    },
+    {
+      "name": "x264_field_sensitive_alias",
+      "renamed_files": 1212,
+      "total_members": 1221,
+      "labels": 1216,
+      "unified_archive": "/tmp/opencode/repack/x264_field_sensitive_alias_unified.tar.gz"
+    },
+    {
+      "name": "xz",
+      "renamed_files": 829,
+      "total_members": 835,
+      "labels": 830,
+      "unified_archive": "/tmp/opencode/repack/xz_unified.tar.gz"
+    },
+    {
+      "name": "xz_field_sensitive_alias",
+      "renamed_files": 54,
+      "total_members": 63,
+      "labels": 58,
+      "unified_archive": "/tmp/opencode/repack/xz_field_sensitive_alias_unified.tar.gz"
+    }
+  ]
+}
