@@ -48,10 +48,9 @@ Indexed labels
 Some graphs have families of labels that differ only in a numeric suffix,
 e.g. ``load_0``, ``load_1``, ..., ``load_857``. In the per-graph pages and
 in grammars such a family is written once with a placeholder subscript
-(``load_f`` or ``load_i``) and a note that lists the index set. The file
-name reflects the label: either the label itself (``load_0.mtx``) or, in
-some archives, the ``_i`` placeholder for the real index (``load_i_5.mtx``
-holds the edges labeled ``load_5``).
+(``load_f`` or ``load_i``) and a note that lists the index set. Each stored
+label has its own file named after the label itself (``load_5.mtx`` holds
+the edges labeled ``load_5``).
 
 Reversed edges
 ^^^^^^^^^^^^^^
