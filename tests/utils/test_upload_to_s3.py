@@ -5,6 +5,7 @@ import pytest
 from upload_to_s3 import (
     DEFAULT_BUCKET,
     DEFAULT_ENDPOINT_URL,
+    copy_object,
     create_s3_client,
     main,
     upload_file,
@@ -92,6 +93,39 @@ def test_upload_file_size_mismatch_raises(tmp_path):
 
     with pytest.raises(RuntimeError, match="verification failed"):
         upload_file(client, file, "cfpq-data")
+
+
+def test_copy_object_copies_and_returns_dest_key():
+    client = mock.Mock()
+    client.head_object.return_value = {"ContentLength": 7}
+
+    key = copy_object(
+        client, "cfpq-data", "4.0.0/graph/g.tar.gz", "5.0.0/graph/g.tar.gz"
+    )
+
+    assert key == "5.0.0/graph/g.tar.gz"
+    client.copy_object.assert_called_once_with(
+        Bucket="cfpq-data",
+        CopySource={"Bucket": "cfpq-data", "Key": "4.0.0/graph/g.tar.gz"},
+        Key="5.0.0/graph/g.tar.gz",
+    )
+
+
+def test_copy_object_default_dest_key_is_source_key():
+    client = mock.Mock()
+    client.head_object.return_value = {"ContentLength": 7}
+
+    key = copy_object(client, "cfpq-data", "4.0.0/graph/g.tar.gz")
+
+    assert key == "4.0.0/graph/g.tar.gz"
+
+
+def test_copy_object_size_mismatch_raises():
+    client = mock.Mock()
+    client.head_object.side_effect = [{"ContentLength": 7}, {"ContentLength": 3}]
+
+    with pytest.raises(RuntimeError, match="verification failed"):
+        copy_object(client, "cfpq-data", "a.tar.gz", "b.tar.gz")
 
 
 def test_main_uploads_file(tmp_path, monkeypatch, capsys):

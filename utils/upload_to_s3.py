@@ -13,6 +13,7 @@ __all__ = [
     "DEFAULT_BUCKET",
     "create_s3_client",
     "upload_file",
+    "copy_object",
     "main",
 ]
 
@@ -99,6 +100,51 @@ def upload_file(
 
     logging.info(f"Uploaded {local_path} to s3://{bucket}/{key}")
     return key
+
+
+def copy_object(
+    client: BaseClient,
+    bucket: str,
+    source_key: str,
+    dest_key: Optional[str] = None,
+) -> str:
+    """Copy an object within a bucket server-side and verify the stored size.
+
+    Parameters
+    ----------
+    client : S3 client (see :func:`create_s3_client`).
+    bucket : Bucket name (source and destination).
+    source_key : Key of the existing object to copy.
+    dest_key : Destination key. Default: ``source_key``.
+
+    Returns
+    -------
+    dest_key : str
+        The object key the copy was stored under.
+
+    Raises
+    ------
+    RuntimeError
+        If the stored size of the copy differs from the source size.
+    """
+    if dest_key is None:
+        dest_key = source_key
+
+    source_size = client.head_object(Bucket=bucket, Key=source_key)["ContentLength"]
+    client.copy_object(
+        Bucket=bucket,
+        CopySource={"Bucket": bucket, "Key": source_key},
+        Key=dest_key,
+    )
+    stored_size = client.head_object(Bucket=bucket, Key=dest_key)["ContentLength"]
+    if stored_size != source_size:
+        raise RuntimeError(
+            f"Copy verification failed for s3://{bucket}/{dest_key}: "
+            f"stored size {stored_size} != source size {source_size}"
+        )
+
+    logging.info(f"Copied s3://{bucket}/{source_key} to s3://{bucket}/{dest_key}")
+    return dest_key
 
 
 def main(argv: Optional[Sequence[str]] = None) -> None:
