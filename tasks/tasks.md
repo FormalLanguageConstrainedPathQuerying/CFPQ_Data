@@ -19,3 +19,4 @@
 - [done] Task 17: Fix the Sphinx ERROR in docs/utils.rst (unexpected indentation), prevent such errors from reaching dev/master, and update the add-graph skill and the graph PR/issue templates to the new mtx-per-label format. **[USER GUIDANCE]**: "Gate + CI job (Recommended)" — prevention = docs build in the pre-merge quality gate AND a CI job on push/PR.
 - [done] Task 18: Group the graphs in the docs left navigation bar the same way they are grouped on the Graphs page (8 captioned toctrees instead of one flat data/* glob).
 - [done] Task 19: Unify indexed-label file names to the bare <base>_<k> style (drop the _i placeholder): repack the affected legacy archives and serve them from the 5.0.0 prefix.
+- [done] Task 20: Serve the whole dataset from the 5.0.0 prefix: copy the unaffected legacy archives to 5.0.0/graph/, drop the dual-prefix logic, and re-point the docs download links.
