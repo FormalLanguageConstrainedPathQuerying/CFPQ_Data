@@ -29,6 +29,20 @@ experimental analysis of Context-Free Path Querying algorithms.
 - **Source Code:** https://github.com/formallanguageconstrainedpathquerying/CFPQ_Data
 - **Bug Tracker:** https://github.com/formallanguageconstrainedpathquerying/CFPQ_Data/issues
 
+Installation
+************
+
+Install from PyPI with ``pip``::
+
+   pip install cfpq-data
+
+Requires Python 3.11–3.13; see the `Install <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/install.html>`_ page for details.
+
+What's inside
+************
+
+CFPQ_Data bundles **113 labeled directed graphs** across eight families — C alias analysis, RDF/OWL datasets, Java points-to, field-sensitive aliasing, context-sensitive data-flow, data provenance, name resolution (stack graphs), and biological graphs from UniProt — together with the context-free grammars used to query them. Each graph ships as a per-label MatrixMarket archive; see the `Graphs <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/graphs/index.html>`_ page for statistics and download links.
+
 Examples
 ********
 
@@ -59,3 +73,8 @@ Just create
 
 - an ``Issue`` corresponding to the `"Issue template for adding a new graph" <https://github.com/formallanguageconstrainedpathquerying/CFPQ_Data/blob/master/.github/ISSUE_TEMPLATE/graph-add-template.md>`_.
 - a ``Pull Request`` corresponding to the `"Pull request template for adding a new graph" <https://github.com/formallanguageconstrainedpathquerying/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md>`_.
+
+Citation
+********
+
+If you use CFPQ_Data in your work, please cite it — see the `Citation <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/about.html#citation>`_ section on the About page for BibTeX entries.
