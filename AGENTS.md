@@ -54,6 +54,7 @@ gate → merge, and points to the other workflow skills below.
 | `.opencode/skills/documentation` | Mapping code changes to doc updates |
 | `.opencode/skills/quality-gates` | The pre-merge gate that must pass |
 | `.opencode/skills/code-review` | Whole-repo review before merge |
+| `.opencode/skills/release` | Cutting a release: version bump, changelog, tag, PyPI publish |
 
 Contribution templates (graphs/grammars) live under `.github/` and are the
 source of truth for the required fields.

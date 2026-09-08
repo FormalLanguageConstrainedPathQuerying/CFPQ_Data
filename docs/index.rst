@@ -27,6 +27,7 @@ Documentation
    grammars/index
    benchmarks/index
    install
+   release
    tutorial
    reference/index
    utils
