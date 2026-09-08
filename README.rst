@@ -79,3 +79,9 @@ Citation
 ********
 
 If you use CFPQ_Data in your work, please cite it — see the `Citation <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/about.html#citation>`_ section on the About page for BibTeX entries.
+
+Licensing
+*********
+
+The **code** (package source, documentation, and tooling) is licensed under
+Apache-2.0 (`LICENSE.txt <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/blob/master/LICENSE.txt>`_). The **dataset** (graphs, grammars, and benchmarks) is licensed under CC-BY 4.0 (`LICENSE-DATA.txt <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/blob/master/LICENSE-DATA.txt>`_).
