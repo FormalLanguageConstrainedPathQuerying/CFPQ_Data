@@ -23,3 +23,4 @@
 - [done] Task 21: Drop the _i placeholder file-name fallback from the package (the served archives are unified) and update the format docs.
 - [done] Task 22: Add an about-category paragraph to each graph category, a citation section (repo @misc + Lodygin paper template) on the About page, and installation/overview/citation sections to the README.
 - [done] Task 23: Normalize the per-graph Info tables to a single schema (Full Name, Version, Direct download, Source where known): add an audit tool and standardize all 113 pages.
+- [done] Task 24: Prepare an automated, documented release process for cutting v5.0.0 on demand: a Keep a Changelog changelog, a config.py/pyproject.toml version-sync guard (pre-commit + CI), a tag-triggered PyPI publish workflow (Trusted Publishing OIDC with token fallback), release docs + skill, and an atomic bump helper that also promotes the changelog.
