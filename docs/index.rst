@@ -25,10 +25,11 @@ Documentation
 .. toctree::
    :maxdepth: 1
 
-   graphs/index
-   grammars/index
-   indexed_grammars
-   benchmarks/index
+    graphs/index
+    grammars/index
+    indexed_grammars
+    reachable_pairs
+    benchmarks/index
    install
    release
    tutorial

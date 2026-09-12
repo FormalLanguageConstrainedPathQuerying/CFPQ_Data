@@ -908,6 +908,20 @@ Python projects, following the W3C PROV model (``Entity``, ``Activity``,
      - 454738
      - 91350
      - `airflow.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/airflow.tar.gz>`_ 📥
+
+.. _graphs_name_resolution:
+
+Name Resolution
+^^^^^^^^^^^^^^^
+
+Stack graphs capturing the scoping structure of source code for name
+resolution, as in *Stack graphs: Name resolution at scale*. Edges are the
+stack-graph transitions (push, pop, branch, epsilon) that carry names through
+scopes.
+
+.. list-table::
+   :header-rows: 1
+
    * - Graph
      - Num Nodes
      - Num Edges
@@ -933,6 +947,20 @@ Python projects, following the W3C PROV model (``Entity``, ``Activity``,
      - 2321366
      - not available
      - `libgdx.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/libgdx.tar.gz>`_ 📥
+
+.. _graphs_biological_uniprot:
+
+Biological graphs from UniProt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Biological interaction graphs derived from the UniProt knowledgebase, where
+nodes are biological entities and edges are the relations between them (e.g.
+``belongs_to``, ``is_homologous_to``); they support subgraph and path queries
+as in *Subgraph queries by context-free grammars*.
+
+.. list-table::
+   :header-rows: 1
+
    * - Graph
      - Num Nodes
      - Num Edges
