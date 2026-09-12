@@ -8,7 +8,9 @@ __all__ = [
     "reachable_pairs",
 ]
 
-REACHABLE_PAIRS_CSV: pathlib.Path = pathlib.Path(__file__).parent / "reachable_pairs.csv"
+REACHABLE_PAIRS_CSV: pathlib.Path = (
+    pathlib.Path(__file__).parent / "reachable_pairs.csv"
+)
 
 
 def reachable_pairs(

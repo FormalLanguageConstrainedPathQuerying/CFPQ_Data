@@ -22,14 +22,14 @@ Documentation
     :Release: |version|
     :Date: |today|
 
-.. toctree::
-   :maxdepth: 1
+ .. toctree::
+    :maxdepth: 1
 
-    graphs/index
-    grammars/index
-    indexed_grammars
-    reachable_pairs
-    benchmarks/index
+   graphs/index
+   grammars/index
+   indexed_grammars
+   reachable_pairs
+   benchmarks/index
    install
    release
    tutorial
