@@ -13,12 +13,15 @@ document.addEventListener("DOMContentLoaded", function () {
   var sidebar = document.querySelector(".bd-sidebar-primary");
   if (!sidebar) return;
 
+  var onIndex = /\/graphs\/index\.html$/.test(window.location.pathname);
+  var prefix = onIndex ? "#" : "../index.html#";
+
   sidebar.querySelectorAll(".caption-text").forEach(function (span) {
     var text = span.textContent.trim();
     var anchor = captionToAnchor[text];
     if (anchor) {
       var a = document.createElement("a");
-      a.href = "#" + anchor;
+      a.href = prefix + anchor;
       a.className = "reference internal";
       span.textContent = "";
       span.appendChild(a);
