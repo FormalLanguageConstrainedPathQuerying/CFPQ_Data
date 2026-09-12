@@ -224,6 +224,16 @@ Graphs
 Contents
 ^^^^^^^^
 
+The per-category tables below include one column per grammar language
+applicable to that category. Each cell shows the number of vertex pairs
+reachable with respect to the respective language (i.e. the number of
+pairs ``(u, v)`` for which some string in the language labels a path from
+:math:`u` to :math:`v`). The count depends on the language, not on a
+particular grammar: several grammars may generate the same language and
+yield the same count. A cell reading "not available" means the value has
+not been computed yet; an empty cell means the grammar does not apply to
+that graph.
+
 .. list-table::
    :header-rows: 1
 
