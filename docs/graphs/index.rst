@@ -684,7 +684,7 @@ Field-Sensitive Alias
 
 Field-sensitive alias graphs for C programs: memory locations are
 distinguished by the struct field they occupy, so aliasing is tracked per
-field (the ``f_i`` family). *Draft description — to be refined.*
+field (the ``f_i`` family), as in `"Taming Transitive Redundancy for Context-Free Language Reachability" <https://dl.acm.org/doi/10.1145/3563343>`_.
 
 .. list-table::
    :header-rows: 1
@@ -751,7 +751,7 @@ Context-Sensitive Data-Flow
 
 Context-sensitive data-flow graphs for C programs, tracking how values flow
 through the program under a calling context (the ``call_i`` / ``ret_i``
-families). *Draft description — to be refined.*
+families), as in `"Taming Transitive Redundancy for Context-Free Language Reachability" <https://dl.acm.org/doi/10.1145/3563343>`_.
 
 .. list-table::
    :header-rows: 1
@@ -818,7 +818,7 @@ Data Provenance
 
 Data-provenance graphs recording the lineage of data artifacts in a set of
 Python projects, following the W3C PROV model (``Entity``, ``Activity``,
-``wasDerivedFrom``) as studied in the IEEE paper 8731467.
+``wasDerivedFrom``) as studied in `"Understanding Data Science Lifecycle Provenance via Graph Segmentation and Summarization" <https://ieeexplore.ieee.org/document/8731467>`_.
 
 .. list-table::
    :header-rows: 1
@@ -925,7 +925,7 @@ Name Resolution
 ^^^^^^^^^^^^^^^
 
 Stack graphs capturing the scoping structure of source code for name
-resolution, as in *Stack graphs: Name resolution at scale*. Edges are the
+resolution, as in `"Stack Graphs: Name Resolution at Scale" <https://drops.dagstuhl.de/entities/document/10.4230/OASIcs.EVCS.2023.8>`_. Edges are the
 stack-graph transitions (push, pop, branch, epsilon) that carry names through
 scopes.
 
@@ -966,7 +966,7 @@ Biological graphs from UniProt
 Biological interaction graphs derived from the UniProt knowledgebase, where
 nodes are biological entities and edges are the relations between them (e.g.
 ``belongs_to``, ``is_homologous_to``); they support subgraph and path queries
-as in *Subgraph queries by context-free grammars*.
+as in `"Subgraph queries by context-free grammars" <https://researchportal.helsinki.fi/en/publications/subgraph-queries-by-context-free-grammars/>`_.
 
 .. list-table::
    :header-rows: 1
