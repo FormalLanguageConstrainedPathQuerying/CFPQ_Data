@@ -13,6 +13,7 @@ __all__ = [
     "cnf_template_from_cnf",
     "cnf_template_to_cnf",
     "materialize",
+    "materialize_grammar",
 ]
 
 
@@ -278,6 +279,53 @@ def materialize(cfg: CFG, graph: nx.MultiDiGraph) -> CFG:
     return result
 
 
+def materialize_grammar(
+    cnf_path: Union[pathlib.Path, str], graph: nx.MultiDiGraph
+) -> CFG:
+    """Load a ``.cnf`` grammar template and materialize it over a graph.
+
+    A convenience wrapper over :func:`cnf_template_from_cnf` +
+    :func:`materialize`: expands indexed symbols (e.g. ``load_i`` ->
+    ``load_0``, ``load_1``, ...) into explicit productions for each index
+    present in the graph edge labels. Non-indexed grammars pass through
+    unchanged.
+
+    Parameters
+    ----------
+    cnf_path : Union[Path, str]
+        Path to the ``.cnf`` grammar template file.
+    graph : MultiDiGraph
+        The graph whose edge labels determine which indices are instantiated.
+
+    Examples
+    --------
+    >>> from cfpq_data import *
+    >>> g = nx.MultiDiGraph()
+    >>> _ = g.add_edges_from(
+    ...     [(0, 1, {"label": "load_0"}), (1, 2, {"label": "store_0"}),
+    ...      (0, 3, {"label": "load_1"}), (3, 2, {"label": "store_1"}),
+    ...      (0, 4, {"label": "alloc"})]
+    ... )
+    >>> import pathlib, tempfile
+    >>> p = pathlib.Path(tempfile.mkdtemp()) / "g.cnf"
+    >>> _ = p.write_text(
+    ...     "PT\\tPTh\\talloc\\nPTh\\tassign\\n"
+    ...     "PTh\\tload_i\\tAl_st_PTh_i\\nAl_st_PTh_i\\tAl\\tst_PTh_i\\n"
+    ...     "st_PTh_i\\tstore_i\\tPTh\\nAl\\tPT\\n\\nCount:\\nPT"
+    ... )
+    >>> cfg = materialize_grammar(p, g)
+    >>> sorted(s.value for s in cfg.terminals)
+    ['alloc', 'assign', 'load_0', 'load_1', 'store_0', 'store_1']
+
+    Returns
+    -------
+    cfg : CFG
+        The explicitly-instantiated context-free grammar.
+    """
+    template = cnf_template_from_cnf(cnf_path)
+    return materialize(template, graph)
+
+
 def _cfg_from_productions(
     productions: List[Tuple[str, Tuple[str, ...]]], start_symbol: str
 ) -> CFG:
@@ -327,7 +375,12 @@ def _terminal_index_sets(
 
     index_sets: dict = {}
     for symbol in terminals:
-        if symbol.endswith("_i"):
+        if symbol.endswith("_r_i"):
+            base = symbol[:-4]
+            indices = _index_set(base, available, reversed_=True)
+            indices |= _index_set(base + "_r", available, reversed_=False)
+            index_sets[symbol] = indices
+        elif symbol.endswith("_i"):
             index_sets[symbol] = _index_set(symbol[:-2], available, reversed_=False)
         elif symbol.endswith("_r") and symbol not in available:
             index_sets[symbol] = _index_set(symbol[:-2], available, reversed_=True)
@@ -401,6 +454,8 @@ def _instantiate(symbol: str, k: int, index_sets: dict) -> str:
     """The concrete symbol of an indexed symbol at index k (else unchanged)."""
     if symbol not in index_sets:
         return symbol
+    if symbol.endswith("_r_i"):
+        return f"{symbol[:-4]}_{k}_r"
     if symbol.endswith("_i"):
         return f"{symbol[:-2]}_{k}"
     if symbol.endswith("_r"):

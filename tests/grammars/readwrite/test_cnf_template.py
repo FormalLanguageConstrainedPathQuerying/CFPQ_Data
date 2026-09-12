@@ -7,6 +7,7 @@ from cfpq_data.grammars.readwrite.cnf_template import (
     cnf_template_to_cnf,
     cnf_template_to_text,
     materialize,
+    materialize_grammar,
 )
 
 AVRORA_TEMPLATE = (
@@ -134,15 +135,15 @@ def test_materialize_i_style():
             (0, 1, {"label": "alloc"}),
             (0, 1, {"label": "load_5"}),
             (1, 2, {"label": "store_7"}),
-            (1, 0, {"label": "load_r_5"}),
+            (1, 0, {"label": "load_5_r"}),
             (2, 3, {"label": "assign"}),
         ]
     )
 
     cfg = materialize(cnf_template_from_text(template), g)
 
-    # load_r_i resolves to the stored reversed label load_r_5.
-    assert "load_r_5" in {t.value for t in cfg.terminals}
+    # load_r_i resolves to the derived reversed label load_5_r.
+    assert "load_5_r" in {t.value for t in cfg.terminals}
     # The families have different indices (5 vs 7): the union is expanded and
     # the productions referencing the absent labels are inert.
     assert {"load_5", "load_7", "store_5", "store_7"} <= {
@@ -169,3 +170,127 @@ def test_materialize_rejects_indexed_start_symbol():
 
     with pytest.raises(ValueError, match="must not be indexed"):
         materialize(cnf_template_from_text(template), _java_graph(["0"]))
+
+
+FSJPT_TEMPLATE = (
+    "PT\tPTh\talloc\n"
+    "PTh\tassign\tPTh\n"
+    "FT\talloc_r\tFTh\n"
+    "FTh\tassign_r\tFTh\n"
+    "Al\tPT\tFT\n"
+    "PT\talloc\n"
+    "FT\talloc_r\n"
+    "PTh\tassign\n"
+    "FTh\tassign_r\n"
+    "PTh\tload_i\tAl_st_PTh_i\n"
+    "FTh\tstore_r_i\tAl_ld_r_FTh_i\n"
+    "Al_st_PTh_i\tAl\tst_PTh_i\n"
+    "Al_ld_r_FTh_i\tAl\tld_r_FTh_i\n"
+    "st_PTh_i\tstore_i\tPTh\n"
+    "ld_r_FTh_i\tload_r_i\tFTh\n"
+    "PTh\tload_i\tAl_store_i\n"
+    "Al_store_i\tAl\tstore_i\n"
+    "FTh\tstore_r_i\tAl_load_r_i\n"
+    "Al_load_r_i\tAl\tload_r_i\n"
+    "\n"
+    "Count:\n"
+    "PT\n"
+)
+
+CSCVF_TEMPLATE = (
+    "A\n"
+    "A\tA\tB\n"
+    "A\tA\ta\n"
+    "B\tcall_i\tAR_i\n"
+    "AR_i\tA\tret_i\n"
+    "\n"
+    "Count:\n"
+    "A\n"
+)
+
+FSCA_TEMPLATE = (
+    "M\tDV\td\n"
+    "DV\tdbar\tV\n"
+    "V\tA_r\tV\n"
+    "V\tV\tA\n"
+    "V\tFV_i\tf_i\n"
+    "V\tM\n"
+    "V\n"
+    "FV_i\tfbar_i\tV\n"
+    "A\ta\tM\n"
+    "A\ta\n"
+    "A\n"
+    "A_r\tM\tabar\n"
+    "A_r\tabar\n"
+    "A_r\n"
+    "\n"
+    "Count:\n"
+    "V\n"
+)
+
+
+def test_materialize_fsjpt_indexed():
+    g = _java_graph(["0", "1"])
+    cfg = materialize(cnf_template_from_text(FSJPT_TEMPLATE), g)
+
+    assert cfg.start_symbol.value == "PT"
+    terminals = {t.value for t in cfg.terminals}
+    assert {"load_0", "load_1", "store_0", "store_1"} <= terminals
+    assert {"alloc", "assign", "alloc_r", "assign_r"} <= terminals
+    # Indexed nonterminals are expanded per index
+    variables = {v.value for v in cfg.variables}
+    assert {"Al_st_PTh_0", "Al_st_PTh_1", "st_PTh_0", "st_PTh_1"} <= variables
+
+
+def test_materialize_cscvf_indexed():
+    g = nx.MultiDiGraph()
+    g.add_edges_from(
+        [
+            (0, 1, {"label": "call_0"}),
+            (1, 2, {"label": "ret_0"}),
+            (0, 3, {"label": "call_1"}),
+            (3, 4, {"label": "ret_1"}),
+            (0, 5, {"label": "a"}),
+        ]
+    )
+    cfg = materialize(cnf_template_from_text(CSCVF_TEMPLATE), g)
+
+    assert cfg.start_symbol.value == "A"
+    terminals = {t.value for t in cfg.terminals}
+    assert {"call_0", "call_1", "ret_0", "ret_1", "a"} <= terminals
+    variables = {v.value for v in cfg.variables}
+    assert {"AR_0", "AR_1"} <= variables
+
+
+def test_materialize_fsca_indexed():
+    g = nx.MultiDiGraph()
+    g.add_edges_from(
+        [
+            (0, 1, {"label": "f_0"}),
+            (1, 2, {"label": "fbar_0"}),
+            (0, 3, {"label": "f_1"}),
+            (3, 4, {"label": "fbar_1"}),
+            (0, 5, {"label": "a"}),
+            (5, 6, {"label": "d"}),
+        ]
+    )
+    cfg = materialize(cnf_template_from_text(FSCA_TEMPLATE), g)
+
+    assert cfg.start_symbol.value == "V"
+    terminals = {t.value for t in cfg.terminals}
+    assert {"f_0", "f_1", "fbar_0", "fbar_1", "a", "d"} <= terminals
+    variables = {v.value for v in cfg.variables}
+    assert {"FV_0", "FV_1"} <= variables
+
+
+def test_materialize_grammar_convenience(tmp_path):
+    cnf_path = tmp_path / "test.cnf"
+    cnf_path.write_text(FSJPT_TEMPLATE)
+    g = _java_graph(["2"])
+
+    cfg = materialize_grammar(cnf_path, g)
+
+    assert cfg.start_symbol.value == "PT"
+    terminals = {t.value for t in cfg.terminals}
+    assert "load_2" in terminals
+    assert "store_2" in terminals

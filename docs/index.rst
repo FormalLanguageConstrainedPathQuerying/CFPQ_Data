@@ -27,6 +27,7 @@ Documentation
 
    graphs/index
    grammars/index
+   indexed_grammars
    benchmarks/index
    install
    release
