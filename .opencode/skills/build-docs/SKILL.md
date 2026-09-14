@@ -34,6 +34,11 @@ sphinx-build -b linkcheck docs docs/_build/linkcheck
 
 ## Notes
 
+- A config-only change (e.g. enabling `nitpicky`) does not re-resolve
+  references in documents whose content is unchanged — their doctrees are
+  reused from the cache, so unresolved-reference warnings stay hidden until
+  those pages are next edited. After changing reference-related config, do a
+  clean rebuild (`make clean && make html`) before trusting the warning log.
 - API reference pages use `.. automodule::` / `.. autosummary::`; generated
   stub files land under `docs/*/generated/` and are git-ignored.
 - Add new public functions to the matching `docs/reference/<sub>/...rst`
