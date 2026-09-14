@@ -39,3 +39,13 @@ jobs:
             grep ": ERROR:" docs_build.log
             exit 1
           fi
+
+      - name: Check links
+        run: |
+          poetry run sphinx-build -b linkcheck docs docs/_build/linkcheck > docs_linkcheck.log 2>&1
+          tail -n 40 docs_linkcheck.log
+          if grep -qE "broken|timeout" docs_linkcheck.log; then
+            echo "The link check reported broken or timed-out links:"
+            grep -E "broken|timeout" docs_linkcheck.log
+            exit 1
+          fi

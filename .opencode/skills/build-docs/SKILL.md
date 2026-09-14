@@ -24,6 +24,14 @@ make html
 
 Output goes to `docs/_build/html/` (git-ignored).
 
+Check all links (from the repo root; full check including external URLs —
+network-bound and slower than the html build; exits non-zero on broken or
+timed-out links, redirects do not fail it):
+
+```bash
+sphinx-build -b linkcheck docs docs/_build/linkcheck
+```
+
 ## Notes
 
 - API reference pages use `.. automodule::` / `.. autosummary::`; generated

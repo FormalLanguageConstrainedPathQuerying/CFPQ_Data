@@ -19,6 +19,9 @@ the docs build:
   exit 0 and print no `ERROR:` lines (Sphinx errors do not fail the build on
   their own, so check the log, not just the exit code). The pre-existing
   warnings are tolerated.
+- **Link check** — see the `build-docs` skill for the exact command. It must
+  report no broken or timed-out links (the builder exits non-zero on its
+  own; redirects are reported but do not fail the check).
 
 `run-tests`, `code-style`, and `build-docs` are the single source of truth
 for the commands; this skill only defines the gate semantics.
@@ -28,7 +31,9 @@ for the commands; this skill only defines the gate semantics.
 1. Run the full test suite (`run-tests`). It must show 0 failures and 0 skipped.
 2. Run the full style/lint pass (`code-style`). It must show no errors.
 3. Build the docs (`build-docs`). It must exit 0 with no `ERROR:` lines.
-4. Interpret the result:
+4. Run the link check (`build-docs`). It must report no broken or timed-out
+   links.
+5. Interpret the result:
    - All clean → **PASS**. Proceed to merge (see `git-workflow`).
    - Any failure → **BLOCKED**.
 
