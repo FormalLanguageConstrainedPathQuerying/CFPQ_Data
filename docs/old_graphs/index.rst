@@ -1,5 +1,7 @@
 .. _old_graphs:
 
+:orphan:
+
 **********
 Old graphs
 **********

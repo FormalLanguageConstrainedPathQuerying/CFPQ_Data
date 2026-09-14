@@ -22,22 +22,13 @@ Documentation
     :Release: |version|
     :Date: |today|
 
- .. toctree::
-    :maxdepth: 1
+.. toctree::
+   :maxdepth: 1
 
-   graphs/index
-   grammars/index
-   indexed_grammars
-   reachable_pairs
-   benchmarks/index
-   install
-   release
-   tutorial
+   getting_started
+   dataset
    reference/index
-   utils
-   about
-   license
-   old_graphs/index
+   project
 
 Indices and tables
 ==================
