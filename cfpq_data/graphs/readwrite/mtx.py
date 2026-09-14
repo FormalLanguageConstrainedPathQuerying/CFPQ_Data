@@ -13,7 +13,7 @@ __all__ = [
 ]
 
 #: The header lines of the Boolean MatrixMarket files of the dataset.
-MTX_HEADER = (
+_MTX_HEADER = (
     "%%MatrixMarket matrix coordinate pattern general",
     "%%GraphBLAS type bool",
 )
@@ -120,7 +120,7 @@ def graph_from_mtx_dir(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
         with open(mtx_file, "r") as f:
             lines = [line.strip() for line in f if line.strip()]
 
-        if tuple(lines[:2]) != MTX_HEADER:
+        if tuple(lines[:2]) != _MTX_HEADER:
             raise ValueError(f"Unexpected header in {mtx_file=}")
 
         rows, cols, nnz = map(int, lines[2].split())
@@ -189,7 +189,7 @@ def graph_to_mtx_dir(
 
     for label in sorted(by_label):
         pairs = by_label[label]
-        lines = [*MTX_HEADER, f"{dimension} {dimension} {len(pairs)}"]
+        lines = [*_MTX_HEADER, f"{dimension} {dimension} {len(pairs)}"]
         lines += [f"{i} {j}" for i, j in pairs]
         (dest / label_to_filename(label)).write_text("\n".join(lines) + "\n")
 
