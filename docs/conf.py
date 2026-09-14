@@ -102,8 +102,6 @@ linkcheck_ignore = [
     r"https?://dacapobench\.sourceforge\.net.*",
 ]
 
-suppress_warnings = ["ref.citation", "ref.footnote"]
-
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
