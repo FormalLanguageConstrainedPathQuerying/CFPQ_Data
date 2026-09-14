@@ -1,6 +1,6 @@
-.. _old_graphs:
-
 :orphan:
+
+.. _old_graphs:
 
 **********
 Old graphs
