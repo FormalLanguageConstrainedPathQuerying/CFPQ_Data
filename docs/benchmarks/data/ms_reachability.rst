@@ -101,4 +101,3 @@ functions `multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_util
     s = {1, 2, 5, 10}
     path = cfpq_data.multiple_source_to_txt(s, "test.txt")
     source_vertices = cfpq_data.multiple_source_from_txt(path)
-.. code-links::
