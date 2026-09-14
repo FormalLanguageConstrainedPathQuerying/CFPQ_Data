@@ -64,7 +64,6 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
     "sphinx.ext.autosummary",
-    "sphinx.ext.napoleon",
     "sphinx_copybutton",
     "numpydoc",
     "nb2plots",
@@ -235,5 +234,7 @@ intersphinx_mapping = {
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
 default_role = "obj"
+
+# -- Options for numpydoc extension ------------------------------------------
 
 numpydoc_show_class_members = False
