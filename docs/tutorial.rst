@@ -52,7 +52,7 @@ After the package is imported, we can load the graphs.
 Load graph archive from Dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the archive with the graph using function `download <cfpq_data.dataset.download>`.
+We can load the archive with the graph using function :obj:`download <cfpq_data.dataset.download>`.
 
 .. nbplot::
 
@@ -64,7 +64,7 @@ Load graph by path
 The archive unpacks to a directory with one MatrixMarket file per edge
 label in its ``graph`` subdirectory (see :ref:`graph_file_structure`). We
 can load the graph along the specified path using function
-`graph_from_mtx_dir <cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
+:obj:`graph_from_mtx_dir <cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
 
 .. nbplot::
 
@@ -87,7 +87,7 @@ For example, let's create a one cycle graph, with 5 nodes, the edges of which ar
 Change edges
 ------------
 
-We can change the specified graph labels by using function `change_edges <cfpq_data.graphs.utils.change_edges>`
+We can change the specified graph labels by using function :obj:`change_edges <cfpq_data.graphs.utils.change_edges>`
 from :ref:`graphs_utils`.
 
 .. nbplot::
@@ -99,7 +99,7 @@ Now the labels ``a`` have changed to ``b``.
 Add reverse edges
 -----------------
 
-In addition, we can add reverse edges to the graph by using function `add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`
+In addition, we can add reverse edges to the graph by using function :obj:`add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`
 from :ref:`graphs_utils`. This is extremely useful if graph analysis is formulated using such reverse edges.
 
 .. nbplot::
@@ -116,7 +116,7 @@ Also, we can load the grammars generated from grammar templates that are describ
 Load grammars archive from Dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the archive with the grammars for the specified template using function `download_grammars <cfpq_data.dataset.download_grammars>`.
+We can load the archive with the grammars for the specified template using function :obj:`download_grammars <cfpq_data.dataset.download_grammars>`.
 
 .. nbplot::
 
@@ -141,7 +141,7 @@ Currently, we have one representation of regular grammars:
 Create a regular expression
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For example, a regular expression can be created by using function `regex_from_text <cfpq_data.grammars.readwrite.regex.regex_from_text>`
+For example, a regular expression can be created by using function :obj:`regex_from_text <cfpq_data.grammars.readwrite.regex.regex_from_text>`
 from :ref:`grammars_readwrite`.
 
 .. nbplot::
@@ -151,7 +151,7 @@ from :ref:`grammars_readwrite`.
 Load regular expression by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the regular expression along the specified path using function `regex_from_txt <cfpq_data.grammars.readwrite.regex.regex_from_txt>`.
+We can load the regular expression along the specified path using function :obj:`regex_from_txt <cfpq_data.grammars.readwrite.regex.regex_from_txt>`.
 
 .. nbplot::
    path = cfpq_data.regex_to_txt(regex, "test.txt")
@@ -169,7 +169,7 @@ Currently, we have three representations of context-free grammars (CFGs):
 Create a classic context-free grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A classic context-free grammar can be created by using function `cfg_from_text <cfpq_data.grammars.readwrite.cfg.cfg_from_text>`
+A classic context-free grammar can be created by using function :obj:`cfg_from_text <cfpq_data.grammars.readwrite.cfg.cfg_from_text>`
 from :ref:`grammars_readwrite`.
 
 .. nbplot::
@@ -179,7 +179,7 @@ from :ref:`grammars_readwrite`.
 Load context-free grammar by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the classic context-free grammar along the specified path using function `cfg_from_txt <cfpq_data.grammars.readwrite.cfg.cfg_from_txt>`.
+We can load the classic context-free grammar along the specified path using function :obj:`cfg_from_txt <cfpq_data.grammars.readwrite.cfg.cfg_from_txt>`.
 
 .. nbplot::
    path = cfpq_data.cfg_to_txt(cfg, "test.txt")
@@ -221,7 +221,7 @@ Currently, we provide the following benchmarks documented on the :ref:`benchmark
 Load benchmark archive
 ^^^^^^^^^^^^^^^^^^^^^^
 
-You can load the archive with the benchmark using function `download_benchmark <cfpq_data.dataset.download_benchmark>`.
+You can load the archive with the benchmark using function :obj:`download_benchmark <cfpq_data.dataset.download_benchmark>`.
 
 .. nbplot::
 
@@ -236,8 +236,8 @@ formal-language-constrained reachability problem. This benchmark is described on
 For this benchmark we provide some useful functions from
 :ref:`graphs_utils`.
 For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
-functions `multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
-`multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
+functions :obj:`multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
+:obj:`multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
 
 .. nbplot::
 
