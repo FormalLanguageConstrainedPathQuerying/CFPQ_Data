@@ -85,6 +85,10 @@ autodoc_default_options = {
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
+# Treat every unresolved cross-reference (:obj:, :ref:, :doc:, intersphinx)
+# as a warning instead of silently emitting a broken link.
+nitpicky = True
+
 suppress_warnings = ["ref.citation", "ref.footnote"]
 
 # The suffix(es) of source filenames.
