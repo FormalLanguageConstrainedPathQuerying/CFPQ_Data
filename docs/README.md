@@ -18,6 +18,11 @@ To build the HTML documentation, enter::
 in the ``doc/`` directory.  This will generate a ``build/html`` subdirectory
 containing the built documentation.
 
+The build runs with the no-warnings policy (``-W --keep-going`` in
+``docs/Makefile``): any Sphinx warning — including an unresolved
+cross-reference under ``nitpicky = True`` — fails the build and lists every
+warning in one run. Fix the warnings; do not suppress them.
+
 ## Check links
 
 To check that all links in the documentation resolve (local targets against

@@ -34,6 +34,11 @@ sphinx-build -b linkcheck docs docs/_build/linkcheck
 
 ## Notes
 
+- No-warnings policy: the build runs with `-W --keep-going` (set in
+  `docs/Makefile`), so any Sphinx warning — including an unresolved
+  cross-reference under `nitpicky = True` — fails the build and every
+  warning is listed in one run. Fix warnings; do not suppress them
+  (`suppress_warnings`) or weaken the flag.
 - A config-only change (e.g. enabling `nitpicky`) does not re-resolve
   references in documents whose content is unchanged — their doctrees are
   reused from the cache, so unresolved-reference warnings stay hidden until

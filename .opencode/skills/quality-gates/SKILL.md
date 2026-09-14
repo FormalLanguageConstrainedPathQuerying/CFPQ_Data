@@ -16,12 +16,10 @@ the docs build:
 - **Tests** — see the `run-tests` skill for the exact command.
 - **Style/lint** — see the `code-style` skill for the exact command.
 - **Docs build** — see the `build-docs` skill for the exact command. It must
-  exit 0 and print no `ERROR:` lines (Sphinx errors do not fail the build on
-  their own, so check the log, not just the exit code) and no unresolved
-  cross-references (with `nitpicky = True`, a broken `:obj:`/`:ref:`/`:doc:`
-  reference is only a warning — grep the log for "reference target not
-  found", "undefined label", "unknown document"). The other pre-existing
-  warnings are tolerated.
+  exit 0. The build runs under the no-warnings policy (`-W --keep-going`, see
+  `docs/Makefile`): any warning — including an unresolved cross-reference
+  under `nitpicky = True` — fails the build, so the exit code is sufficient.
+  There are no tolerated warnings; fix them instead of suppressing.
 - **Link check** — see the `build-docs` skill for the exact command. It must
   report no broken or timed-out links (the builder exits non-zero on its
   own; redirects are reported but do not fail the check).
@@ -33,8 +31,8 @@ for the commands; this skill only defines the gate semantics.
 
 1. Run the full test suite (`run-tests`). It must show 0 failures and 0 skipped.
 2. Run the full style/lint pass (`code-style`). It must show no errors.
-3. Build the docs (`build-docs`). It must exit 0 with no `ERROR:` lines and
-   no unresolved cross-references.
+3. Build the docs (`build-docs`). It must exit 0 (no-warnings policy: any
+   warning fails the build).
 4. Run the link check (`build-docs`). It must report no broken or timed-out
    links.
 5. Interpret the result:

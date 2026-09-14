@@ -30,27 +30,12 @@ jobs:
       - name: Install packages
         run: poetry run pip install .
 
+      # No-warnings policy: the build runs with -W --keep-going (see
+      # docs/Makefile), so any warning — including an unresolved
+      # cross-reference under nitpicky — exits non-zero on its own.
       - name: Build
-        run: |
-          poetry run make -C docs/ html > docs_build.log 2>&1
-          tail -n 40 docs_build.log
-          if grep -q ": ERROR:" docs_build.log; then
-            echo "The docs build reported ERROR lines:"
-            grep ": ERROR:" docs_build.log
-            exit 1
-          fi
-          if grep -qE "reference target not found|undefined label|unknown document" docs_build.log; then
-            echo "The docs build reported unresolved cross-references (nitpicky):"
-            grep -E "reference target not found|undefined label|unknown document" docs_build.log
-            exit 1
-          fi
+        run: poetry run make -C docs/ html
 
+      # The linkcheck builder exits non-zero on broken or timed-out links.
       - name: Check links
-        run: |
-          poetry run sphinx-build -b linkcheck docs docs/_build/linkcheck > docs_linkcheck.log 2>&1
-          tail -n 40 docs_linkcheck.log
-          if grep -qE "broken|timeout" docs_linkcheck.log; then
-            echo "The link check reported broken or timed-out links:"
-            grep -E "broken|timeout" docs_linkcheck.log
-            exit 1
-          fi
+        run: poetry run sphinx-build -b linkcheck docs docs/_build/linkcheck
