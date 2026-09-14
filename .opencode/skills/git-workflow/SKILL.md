@@ -8,7 +8,7 @@ description: Use when doing git operations: branching, committing, merging, reba
 ## Branching
 
 - Stable development branch: `dev`
-- Protected main branch: `main`
+- Protected main branch: `master`
 - Feature branches: `feature/XXX-short-description` where `XXX` is the task ID
 - One task per branch — never combine multiple task IDs in a single branch
 
@@ -47,9 +47,22 @@ All checks MUST pass before merging. **This is absolute — no exceptions, no se
 
 ### Merge strategy
 
-- Use **Squash and Rebase** from feature branch to `dev`
-- History of `dev` must be linear
-- Merge commit message on `dev` must include the full detailed body from the feature branch commit(s) — a bare subject line is insufficient
+Rebase the feature branch onto `dev`, then fast-forward `dev` to it. The
+individual subtask commits are preserved and the history of `dev` stays
+linear. Never squash: squashing destroys the per-subtask commit structure
+that the commit message format is built around (each commit already carries
+its own detailed message, so no combined merge message is needed).
+
+```bash
+git checkout dev
+# only if dev has new commits since the branch was created:
+git checkout feature/XXX-short-description && git rebase dev && git checkout dev
+git merge --ff-only feature/XXX-short-description
+git branch -d feature/XXX-short-description
+```
+
+If `dev` has not moved, skip the rebase — the fast-forward alone is enough.
+Delete the merged feature branch (safe delete only).
 
 ## Rules
 
