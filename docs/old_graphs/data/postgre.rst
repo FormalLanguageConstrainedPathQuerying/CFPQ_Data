@@ -19,8 +19,6 @@ Info
      - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/postgre.tar.gz>`_
-   * - Origin
-     - `.txt <https://drive.google.com/uc?export=download&id=0B6sYZZ8HFBV1QW1QMGV0ejFtSFU>`_
 
 
 CSV File Structure

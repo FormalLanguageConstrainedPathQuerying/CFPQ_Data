@@ -19,8 +19,6 @@ Info
      - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/foaf.tar.gz>`_
-   * - Origin
-     - `link <http://xmlns.com/foaf/0.1>`_
 
 
 CSV File Structure

@@ -89,6 +89,20 @@ templates_path = ["_templates"]
 # as a warning instead of silently emitting a broken link.
 nitpicky = True
 
+# linkcheck: treat 401 responses as working (auth-required pages exist).
+linkcheck_allow_unauthorized = True
+
+# linkcheck: skip exactly these two hosts. Both answer 403 to datacenter
+# clients (verified 2026-09: a browser User-Agent still gets 403, so the
+# blocking is IP-based) while the pages remain valid for human readers —
+# dl.acm.org hosts cited papers, dacapobench.sourceforge.net is the source
+# of the avrora graph. Re-verify with a residential connection before
+# removing an entry; every other URL is checked in full.
+linkcheck_ignore = [
+    r"https?://dl\.acm\.org/.*",
+    r"https?://dacapobench\.sourceforge\.net.*",
+]
+
 suppress_warnings = ["ref.citation", "ref.footnote"]
 
 # The suffix(es) of source filenames.

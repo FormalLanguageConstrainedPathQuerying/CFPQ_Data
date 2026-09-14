@@ -47,4 +47,4 @@ Grammar templates
    * - :ref:`java_points-to`
      - Context-Free
      - Static Analysis
-     - `java_points-to.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points-to.tar.gz>`_ 📥
+     - `java_points_to.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points_to.tar.gz>`_ 📥

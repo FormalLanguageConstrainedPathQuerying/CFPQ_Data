@@ -22,7 +22,7 @@ Info
    * - Version
      - 4.0.0
    * - Example download (.txt + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points-to.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points_to.tar.gz>`_
    * - Origin
      - `link <https://dl.acm.org/doi/10.1145/2858965.2814307>`_
 

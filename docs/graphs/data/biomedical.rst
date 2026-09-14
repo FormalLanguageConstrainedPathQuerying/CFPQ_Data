@@ -19,8 +19,6 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/biomedical.tar.gz>`_
-   * - Source
-     - `link <http://ontology.dumontierlab.com/biomedical-measure-primitive>`_
 
 
 Graph Statistics

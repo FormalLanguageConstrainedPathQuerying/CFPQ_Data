@@ -19,8 +19,6 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/ipc.tar.gz>`_
-   * - Source
-     - `.txt <https://drive.google.com/uc?export=download&id=0B8bQanV_QfNkMkpzbVQ3ZlRzY1k>`_
 
 
 Graph Statistics

@@ -19,8 +19,6 @@ Info
      - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/biomedical.tar.gz>`_
-   * - Origin
-     - `link <http://ontology.dumontierlab.com/biomedical-measure-primitive>`_
 
 
 CSV File Structure

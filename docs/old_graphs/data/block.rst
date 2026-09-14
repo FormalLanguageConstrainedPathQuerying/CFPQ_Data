@@ -19,8 +19,6 @@ Info
      - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/block.tar.gz>`_
-   * - Origin
-     - `.txt <https://drive.google.com/uc?export=download&id=0B8bQanV_QfNkQWtzejgzYzVJRE0>`_
 
 
 CSV File Structure

@@ -19,8 +19,6 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/travel.tar.gz>`_
-   * - Source
-     - `.owl <https://protege.stanford.edu/ontologies/travel.owl>`_
 
 
 Graph Statistics

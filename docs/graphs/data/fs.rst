@@ -19,8 +19,6 @@ Info
      - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/fs.tar.gz>`_
-   * - Source
-     - `.txt <https://drive.google.com/uc?export=download&id=0B8bQanV_QfNkcFQxSzg2VzdrdXc>`_
 
 
 Graph Statistics

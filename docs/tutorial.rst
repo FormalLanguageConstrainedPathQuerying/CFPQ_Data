@@ -164,7 +164,7 @@ Currently, we have three representations of context-free grammars (CFGs):
 
 1. `Classic <https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions>`_
 2. `Chomsky Normal Form <https://en.wikipedia.org/wiki/Chomsky_normal_form>`_
-3. `Recursive State Machine <https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6#Sec2>`_
+3. `Recursive State Machine <https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6>`_
 
 Create a classic context-free grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
