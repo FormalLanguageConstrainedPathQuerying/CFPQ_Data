@@ -23,13 +23,6 @@ th, td {
     font-size: var(--pst-font-size-h4);
 }
 
-#navbar-icon-links i.fa, #navbar-icon-links i.fab, #navbar-icon-links i.far, #navbar-icon-links i.fas {
-    vertical-align: middle;
-    font-style: normal;
-    font-size: 3rem;
-    line-height: 1.25;
-}
-
 div.topic {
     border: 1px solid #eee;
     padding: 7px;

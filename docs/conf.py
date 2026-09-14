@@ -140,7 +140,10 @@ html_theme = "pydata_sphinx_theme"
 #
 html_theme_options = {
     "collapse_navigation": True,
-    "navigation_depth": 2,
+    # 3 levels: section (Dataset) -> category (C alias analysis) -> graph page.
+    # With the Dataset wrapper section, graph pages sit one level deeper than
+    # before; depth 3 keeps them directly reachable in the sidebar.
+    "navigation_depth": 3,
     "show_prev_next": False,
     "icon_links": [
         {
@@ -177,23 +180,10 @@ html_css_files = [
     "css/custom.css",
 ]
 
-html_js_files = [
-    "js/sidebar-captions.js",
-]
-# Custom sidebar templates, must be a dictionary that maps document names
-# to template names.
-#
-# The default sidebars (for documents that don't match any pattern) are
-# defined by theme itself.  Builtin themes are using these templates by
-# default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
-# 'searchbox.html']``.
-#
+# Every page (including the homepage) renders the same left sidebar: the
+# section links plus the active section's toctree. No per-page exceptions.
 html_sidebars = {
     "**": ["sidebar-nav-bs"],
-    "index": [],
-    "install": [],
-    "tutorial": [],
-    "auto_examples/index": [],
 }
 
 # If true, the reST sources are included in the HTML build as _sources/<name>.
