@@ -1,8 +1,8 @@
 """Returns a random graph according to the Barabási–Albert preferential attachment model
 With labeled edges.
 
-A graph of `n` nodes is grown by attaching new nodes each with
-`m` edges that are preferentially attached to existing nodes with high degree.
+A graph of ``n`` nodes is grown by attaching new nodes each with
+``m`` edges that are preferentially attached to existing nodes with high degree.
 """
 import logging
 import random
@@ -24,8 +24,8 @@ def labeled_barabasi_albert_graph(
     """Returns a random graph according to the Barabási–Albert preferential attachment model.
     With labeled edges.
 
-    A graph of `n` nodes is grown by attaching new nodes each with
-    `m` edges that are preferentially attached to existing nodes with high degree.
+    A graph of ``n`` nodes is grown by attaching new nodes each with
+    ``m`` edges that are preferentially attached to existing nodes with high degree.
 
     Parameters
     ----------
@@ -41,7 +41,7 @@ def labeled_barabasi_albert_graph(
     choice: Callable[[Iterable[str]], str]
         Function for marking edges.
 
-    seed : Union[int, RandomState, None]
+    seed : int or None
         Indicator of random number generation state.
 
     Examples
@@ -61,7 +61,7 @@ def labeled_barabasi_albert_graph(
     Raises
     ------
     NetworkXError
-        If `m` does not satisfy ``1 <= m < n``.
+        If ``m`` does not satisfy ``1 <= m < n``.
 
     References
     ----------

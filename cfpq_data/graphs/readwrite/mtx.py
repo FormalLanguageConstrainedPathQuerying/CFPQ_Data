@@ -140,7 +140,7 @@ def graph_from_mtx_dir(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
 def graph_to_mtx_dir(
     graph: nx.MultiDiGraph, path: Union[pathlib.Path, str]
 ) -> pathlib.Path:
-    """Saves the `graph` to a directory of MatrixMarket files by `path`.
+    """Saves the ``graph`` to a directory of MatrixMarket files by ``path``.
 
     One file per edge label (the canonical name from
     :func:`label_to_filename`); each file is a Boolean pattern matrix with

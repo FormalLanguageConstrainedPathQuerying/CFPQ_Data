@@ -20,12 +20,12 @@ def labeled_two_cycles_graph(
     ----------
     n : Union[int, Iterable[Any]]
         The number of nodes in the first cycle without a common node.
-        If n is an integer, nodes are from `range(n)`.
+        If n is an integer, nodes are from ``range(n)``.
         If n is a container of nodes, those nodes appear in the graph.
 
     m : Union[int, Iterable[Any]]
         The number of nodes in the second cycle without a common node.
-        If m is an integer, nodes are from `range(n)`.
+        If m is an integer, nodes are from ``range(n)``.
         If m is a container of nodes, those nodes appear in the graph.
 
     common_node : Union[int, Any]

@@ -62,7 +62,7 @@ def graph_from_csv(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
 def graph_to_csv(
     graph: nx.MultiDiGraph, path: Union[pathlib.Path, str]
 ) -> pathlib.Path:
-    """Saves the `graph` to the CSV file by `path`.
+    """Saves the ``graph`` to the CSV file by ``path``.
 
     Parameters
     ----------

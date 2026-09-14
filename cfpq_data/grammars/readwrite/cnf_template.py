@@ -148,7 +148,7 @@ def cnf_template_from_cnf(path: Union[pathlib.Path, str]) -> CFG:
 
 
 def cnf_template_to_cnf(cfg: CFG, path: Union[pathlib.Path, str]) -> pathlib.Path:
-    """Saves a grammar template to a ``.cnf`` file by `path`.
+    """Saves a grammar template to a ``.cnf`` file by ``path``.
 
     Parameters
     ----------

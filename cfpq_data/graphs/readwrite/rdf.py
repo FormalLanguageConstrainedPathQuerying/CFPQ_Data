@@ -60,7 +60,7 @@ def graph_from_rdf(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
 def graph_to_rdf(
     graph: nx.MultiDiGraph, path: Union[pathlib.Path, str]
 ) -> pathlib.Path:
-    """Saves the `graph` to the RDF file by `path`.
+    """Saves the ``graph`` to the RDF file by ``path``.
 
     Parameters
     ----------
