@@ -39,6 +39,11 @@ jobs:
             grep ": ERROR:" docs_build.log
             exit 1
           fi
+          if grep -qE "reference target not found|undefined label|unknown document" docs_build.log; then
+            echo "The docs build reported unresolved cross-references (nitpicky):"
+            grep -E "reference target not found|undefined label|unknown document" docs_build.log
+            exit 1
+          fi
 
       - name: Check links
         run: |
