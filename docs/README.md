@@ -4,12 +4,13 @@ We use Sphinx for generating the API and reference documentation.
 
 ## Instructions
 
-After installing NetworkX and its dependencies, install the Python
-packages needed to build the documentation by entering::
+Install the Python packages needed to build the documentation from the
+Poetry docs group — the same one the CI workflows use::
 
-    pip install -r requirements/docs.txt
+    poetry install --with docs
 
-in the root directory.
+in the root directory. (`requirements/docs.txt` is a pinned pip-only
+fallback; the Poetry groups in `pyproject.toml` are the source of truth.)
 
 To build the HTML documentation, enter::
 
