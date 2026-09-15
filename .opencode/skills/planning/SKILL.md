@@ -98,8 +98,9 @@ the **Docs** section of each subtask.
 ### Granularity
 
 If a subtask cannot be committed as a self-contained increment, it is too large
-— split it further. Commit rules live in the `git-workflow` skill (single
-source of truth).
+— split it further. The commit message format lives in the "Contribution
+guidelines" section of `docs/developer.rst`; the operational commit procedure
+lives in the `git-workflow` skill.
 
 ### Bounded uncommitted work
 

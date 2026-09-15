@@ -5,9 +5,9 @@ description: Use before committing to format and lint CFPQ_Data. Covers pre-comm
 
 # Code style
 
-Formatting and linting run through `pre-commit`. The hook list is the source
-of truth in `.pre-commit-config.yaml` (black, plus whitespace/yaml/requirements
-fixers) — do not duplicate it.
+What pre-commit enforces and how CI runs it is documented in the "Pre-commit"
+section of `docs/developer.rst` (single source of truth). The hook list lives
+in `.pre-commit-config.yaml`. This skill keeps only the local commands.
 
 ## Commands
 
@@ -28,6 +28,4 @@ black <path>
 
 ## Notes
 
-- CI runs the full pre-commit pass (`pre-commit run --all-files`) — see
-  `.github/workflows/lint.yml`.
 - Dev deps are in `requirements/developer.txt` (`black`, `pre-commit`, `pytest`).

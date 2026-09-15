@@ -5,15 +5,17 @@ description: Use when building the CFPQ_Data Sphinx documentation. Covers instal
 
 # Build docs
 
-Docs are built with Sphinx from the `docs/` directory. See `docs/README.md`
-for the canonical instructions — do not duplicate them.
+The model (no-warnings policy, CI checks, gh-pages deployment) is documented
+in the "Docs build and deploy" section of `docs/developer.rst`; the canonical
+local instructions live in `docs/README.md` — do not duplicate them here.
+This skill keeps only the commands and the agent-specific notes below.
 
 ## Commands
 
 Install doc dependencies (from the repo root):
 
 ```bash
-pip install -r requirements/docs.txt
+poetry install --with docs
 ```
 
 Build the HTML (from `docs/`):
@@ -34,11 +36,8 @@ sphinx-build -b linkcheck docs docs/_build/linkcheck
 
 ## Notes
 
-- No-warnings policy: the build runs with `-W --keep-going` (set in
-  `docs/Makefile`), so any Sphinx warning — including an unresolved
-  cross-reference under `nitpicky = True` — fails the build and every
-  warning is listed in one run. Fix warnings; do not suppress them
-  (`suppress_warnings`) or weaken the flag.
+- No-warnings policy (see the docs page): any Sphinx warning fails the build
+  — fix it, do not suppress it (`suppress_warnings`) or weaken the flag.
 - A config-only change (e.g. enabling `nitpicky`) does not re-resolve
   references in documents whose content is unchanged — their doctrees are
   reused from the cache, so unresolved-reference warnings stay hidden until

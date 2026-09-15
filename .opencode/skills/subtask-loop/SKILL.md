@@ -71,9 +71,9 @@ passes.
 
 ### 6. Commit
 
-**Load the `git-workflow` skill before committing.** Commit rules (message
-format, one commit per subtask, single SN identifier) live there — the single
-source of truth.
+**Load the `git-workflow` skill before committing.** The commit message
+format lives in the "Contribution guidelines" section of `docs/developer.rst`;
+the operational procedure (validation, merge) lives in the skill.
 
 ### 7. Mark Completed
 

@@ -1,12 +1,14 @@
 ---
 name: run-tests
-description: Use when running the CFPQ_Data test suite (pytest). Covers the exact pytest invocation in the Poetry environment, doctest coverage, and how tests mirror the package layout.
+description: Use when running the CFPQ_Data test suite (pytest). Covers the exact pytest invocation in the Poetry environment and the bare-pytest pitfall; the pipeline model lives in docs/developer.rst.
 ---
 
 # Run tests
 
-The suite is `pytest` with **doctests enabled** for both the package and the
-`tests/` directory.
+What the test pipeline is (doctest-enabled suite, CI matrix, coverage upload)
+is documented in the "Test pipeline" section of `docs/developer.rst` (single
+source of truth). This skill keeps only the local commands and the
+machine-specific pitfall below.
 
 ## Commands
 
@@ -36,10 +38,4 @@ in the Poetry environment (networkx 3.6.1).
 
 ## Notes
 
-- `testpaths` and `--doctest-modules` are configured in `pyproject.toml`
-  (`[tool.pytest.ini_options]`); the command above is the canonical CI command
-  (see `.github/workflows/tests.yml`).
-- `tests/` mirrors `cfpq_data/` (e.g., `tests/graphs/generators/`,
-  `tests/grammars/readwrite/`).
-- Doctests live in the docstrings of the public functions in `cfpq_data/`.
 - Test deps: `pytest`, `pytest-cov`, `codecov` (`requirements/tests.txt`).

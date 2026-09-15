@@ -32,7 +32,9 @@ step.
 1. Ensure user-defined tasks, the global plan, and project architecture are
    aligned.
 2. Choose exactly ONE task that is not yet done.
-3. Create a feature branch from `dev` for this single task (see `git-workflow`).
+3. Create a feature branch from `dev` for this single task (branching model:
+   the "Contribution guidelines" section of `docs/developer.rst`; procedure:
+   `git-workflow`).
 4. Generate a detailed plan in `tasks/detailed_plan.md`, decomposing the task
    into atomic subtasks (see `planning`).
 5. Load the `subtask-loop` skill, then execute each subtask using its cycle.

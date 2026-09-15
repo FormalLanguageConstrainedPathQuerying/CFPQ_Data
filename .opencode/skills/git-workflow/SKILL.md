@@ -1,34 +1,23 @@
 ---
 name: git-workflow
-description: Use when doing git operations: branching, committing, merging, rebasing. Covers branch naming convention, commit message format, merge strategy, and pre-commit/pre-merge checks for this project.
+description: Use when doing git operations: committing, merging, rebasing. Covers the operational procedure (commit validation, merge to dev, pre-merge checks); the branching/commit model lives in docs/developer.rst.
 ---
 
 # Git Workflow
 
-## Branching
-
-- Stable development branch: `dev`
-- Protected main branch: `master`
-- Feature branches: `feature/XXX-short-description` where `XXX` is the task ID
-- One task per branch — never combine multiple task IDs in a single branch
+The model (branching scheme, commit message format, merge strategy, quality
+gate) is documented in the "Contribution guidelines" section of
+`docs/developer.rst` (single source of truth). This skill keeps only the
+operational procedure.
 
 ## Commits
 
-### Message format
-
-Conventional Commits with **exactly one** subtask identifier:
-
-```
-feat(XXX-SN): description
-fix(XXX-SN): description
-docs(XXX-SN): description
-```
-
-- `XXX` — task ID from `tasks.md`
-- `SN` — a **single** atomic subtask identifier from `tasks/detailed_plan.md` (e.g., `S1`, `S4`). Ranges (`S1-S6`), lists (`S1,S3`), or commas are forbidden
-- One commit per completed atomic subtask — never combine subtasks in one commit
-
-**Pre-commit validation**: before running `git commit`, verify the message contains exactly one `SN` by checking the prepared message. If the message mentions multiple subtask identifiers, STOP — split the changes into individual commits.
+**Pre-commit validation**: before running `git commit`, verify the prepared
+message follows the format from the docs — Conventional Commits with exactly
+one subtask identifier (`feat(XXX-SN): ...`; ranges, lists, or commas are
+forbidden). If the message mentions multiple subtask identifiers, STOP —
+split the changes into individual commits. One commit per completed atomic
+subtask.
 
 ### Pre-commit checklist
 
@@ -43,7 +32,8 @@ docs(XXX-SN): description
 
 ### Pre-merge checks
 
-All checks MUST pass before merging. **This is absolute — no exceptions, no self-assessment.**
+Run the quality gate (see the `quality-gates` skill). All checks MUST pass
+before merging. **This is absolute — no exceptions, no self-assessment.**
 
 ### Merge strategy
 
