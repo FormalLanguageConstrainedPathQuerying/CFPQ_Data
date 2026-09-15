@@ -9,8 +9,9 @@ Poetry docs group — the same one the CI workflows use::
 
     poetry install --with docs
 
-in the root directory. (`requirements/docs.txt` is a pinned pip-only
-fallback; the Poetry groups in `pyproject.toml` are the source of truth.)
+in the root directory. (`requirements/*.txt` are read by `setup.py` to
+declare the distribution's install requirements on PyPI; the Poetry groups
+in `pyproject.toml` drive the development environment and CI.)
 
 To build the HTML documentation, enter::
 

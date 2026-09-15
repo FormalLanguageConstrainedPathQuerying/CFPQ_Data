@@ -1,28 +1,14 @@
 ---
 name: run-tests
-description: Use when running the CFPQ_Data test suite (pytest). Covers the exact pytest invocation in the Poetry environment and the bare-pytest pitfall; the pipeline model lives in docs/developer.rst.
+description: Use when running the CFPQ_Data test suite (pytest). Thin pointer to the "Test pipeline" section of docs/developer.rst, which holds the model and the exact commands; keeps the machine-specific bare-pytest pitfall.
 ---
 
 # Run tests
 
 What the test pipeline is (doctest-enabled suite, CI matrix, coverage upload)
-is documented in the "Test pipeline" section of `docs/developer.rst` (single
-source of truth). This skill keeps only the local commands and the
-machine-specific pitfall below.
-
-## Commands
-
-Always run tests inside the Poetry environment (as CI does):
-
-```bash
-poetry run pytest --doctest-modules -vv -s cfpq_data tests
-```
-
-A single module/function:
-
-```bash
-poetry run pytest tests/graphs/utils/test_add_reverse_edges.py
-```
+and the exact local commands are documented in the "Test pipeline" section of
+`docs/developer.rst` — the single source of truth. Read that section before
+running anything. This skill keeps only the machine-specific pitfall below.
 
 ## Do not run bare pytest
 

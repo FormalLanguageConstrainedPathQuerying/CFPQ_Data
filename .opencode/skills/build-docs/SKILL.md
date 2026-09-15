@@ -1,38 +1,15 @@
 ---
 name: build-docs
-description: Use when building the CFPQ_Data Sphinx documentation. Covers installing doc deps and running the make target.
+description: Use when building the CFPQ_Data Sphinx documentation. Thin pointer to the "Docs build and deploy" section of docs/developer.rst and docs/README.md, which hold the model and the exact commands; keeps the agent-specific notes.
 ---
 
 # Build docs
 
-The model (no-warnings policy, CI checks, gh-pages deployment) is documented
-in the "Docs build and deploy" section of `docs/developer.rst`; the canonical
-local instructions live in `docs/README.md` — do not duplicate them here.
-This skill keeps only the commands and the agent-specific notes below.
-
-## Commands
-
-Install doc dependencies (from the repo root):
-
-```bash
-poetry install --with docs
-```
-
-Build the HTML (from `docs/`):
-
-```bash
-make html
-```
-
-Output goes to `docs/_build/html/` (git-ignored).
-
-Check all links (from the repo root; full check including external URLs —
-network-bound and slower than the html build; exits non-zero on broken or
-timed-out links, redirects do not fail it):
-
-```bash
-sphinx-build -b linkcheck docs docs/_build/linkcheck
-```
+The model (no-warnings policy, CI checks, gh-pages deployment) and the exact
+local commands are documented in the "Docs build and deploy" section of
+`docs/developer.rst`; the canonical local instructions live in
+`docs/README.md` — do not duplicate them here. Read those before running
+anything. This skill keeps only the agent-specific notes below.
 
 ## Notes
 

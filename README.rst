@@ -75,7 +75,8 @@ To work on CFPQ_Data itself, set up the development environment (Poetry)::
    poetry install --with dev,test,docs
    poetry run pip install .
 
-and run the local checks that CI enforces on every push and pull request::
+and run the main local checks that CI enforces — tests, style, and the docs
+build::
 
    poetry run pytest --doctest-modules -vv -s cfpq_data tests
    pre-commit run --all-files

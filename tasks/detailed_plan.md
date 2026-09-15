@@ -58,7 +58,7 @@ re-describing the model.
 
 ---
 
-### S1: Record task 33 and write this detailed plan
+### S1: Record task 33 and write this detailed plan [done]
 
 **Code:** N/A (no code).
 **Tests:** N/A (docs-only task; verified by the docs build + linkcheck gate).
@@ -70,7 +70,7 @@ GUIDANCE), `tasks/detailed_plan.md` (this file).
   GUIDANCE annotation.
 - Branch `feature/33-developer-docs` created from `dev`.
 
-### S2: Create docs/developer.rst covering all five issue items
+### S2: Create docs/developer.rst covering all five issue items [done]
 
 **Code:** N/A (no code).
 **Tests:** N/A (docs-only; the no-warnings docs build + linkcheck are the
@@ -122,7 +122,7 @@ verification — every cross-reference and external URL must resolve).
 - All cross-references must resolve under `nitpicky = True`; all external
   URLs must pass linkcheck.
 
-### S3: Add "For developers" section to README.rst
+### S3: Add "For developers" section to README.rst [done]
 
 **Code:** N/A.
 **Tests:** N/A (README is RST rendered on GitHub/PyPI; no doctests added —
@@ -140,7 +140,7 @@ keep existing examples untouched).
 - Keep it short — the docs page is the source of truth; the README section
   must not re-describe the model.
 
-### S4: Fix stale install instructions
+### S4: Fix stale install instructions [done]
 
 **Code:** N/A.
 **Tests:** N/A (docs-only).
@@ -157,7 +157,7 @@ keep existing examples untouched).
   ^9.0.4 — re-point it to the Poetry docs group (`poetry install --with docs`)
   so the canonical instructions match what CI and the quality gate use.
 
-### S5: Slim overlapping skills to thin pointers
+### S5: Slim overlapping skills to thin pointers [done]
 
 **Code:** N/A (skill markdown only).
 **Tests:** N/A.
@@ -186,7 +186,7 @@ keep existing examples untouched).
 - Do not touch `quality-gates` (it references the command skills, which stay
   command-bearing) or `release` (already a thin pointer).
 
-### S6: Add the docs-as-source-of-truth principle to AGENTS.md
+### S6: Add the docs-as-source-of-truth principle to AGENTS.md [done]
 
 **Code:** N/A.
 **Tests:** N/A.
@@ -197,6 +197,30 @@ keep existing examples untouched).
   about 'How'.": docs are the source of truth for the project model; skills
   are thin pointers that keep only agent-specific operational details and
   reference the docs page instead of re-describing it.
+
+### S7: Resolve code-review findings (whole-repo review of the task diff) [done]
+
+**Code:** N/A.
+**Tests:** N/A (docs-only; verified by the no-warnings docs build).
+**Docs:** `docs/developer.rst`, `docs/README.md`, `README.rst`,
+`.opencode/skills/{code-style,run-tests,build-docs,quality-gates}/SKILL.md`.
+
+**Spec (findings from the whole-repo review):**
+- Duplication: the exact commands were duplicated between
+  `docs/developer.rst` and the three slimmed skills — the drift risk the
+  thin-pointer principle exists to remove. Commands now live only in the
+  docs (added the `black <path>` and single-module pytest examples to
+  `docs/developer.rst`); `code-style`, `run-tests`, and `build-docs` become
+  pure pointers keeping only agent-specific content (the bare-pytest
+  pitfall, the cached-doctree pitfall, deps notes). `quality-gates` no
+  longer names those skills as the command source of truth — it points at
+  `docs/developer.rst`. `git-workflow` keeps its merge-procedure commands:
+  they are not in the public docs (genuine how/what split).
+- Correctness: `requirements/*.txt` are not "pip-only fallbacks" —
+  `setup.py` reads them for the PyPI distribution metadata; fixed in
+  `docs/developer.rst` and `docs/README.md`.
+- Accuracy: the README listed three of the four gate checks under "the
+  local checks that CI enforces"; the prose now names what it lists.
 
 ---
 

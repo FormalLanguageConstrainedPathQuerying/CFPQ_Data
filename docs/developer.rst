@@ -33,8 +33,9 @@ CI workflows install their dependencies through it:
 - The project is declared with ``package-mode = false``, so Poetry installs
   only the dependencies; ``poetry run pip install .`` then installs
   ``cfpq_data`` itself from :file:`setup.py`.
-- ``requirements/*.txt`` hold pinned lists for pip-only installs; the Poetry
-  groups in ``pyproject.toml`` are the source of truth.
+- ``requirements/*.txt`` are read by :file:`setup.py` to declare the
+  distribution's install requirements on PyPI; the Poetry groups in
+  ``pyproject.toml`` drive the development environment and CI.
 
 .. _developer-precommit:
 
@@ -56,6 +57,10 @@ Run the full pass manually (this is what CI does)::
 
    pre-commit run --all-files --color always --verbose --show-diff-on-failure
 
+Format a single file with black directly::
+
+   black <path>
+
 CI runs this full pass on every push and pull request
 (:file:`.github/workflows/lint.yml`).
 
@@ -70,6 +75,10 @@ behavior and the tested behavior are the same code. The canonical local
 command (the one CI runs)::
 
    poetry run pytest --doctest-modules -vv -s cfpq_data tests
+
+A single module or function::
+
+   poetry run pytest tests/graphs/utils/test_add_reverse_edges.py
 
 - Doctest discovery and test paths are configured in ``pyproject.toml``
   (``[tool.pytest.ini_options]``).

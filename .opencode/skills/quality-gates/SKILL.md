@@ -1,6 +1,6 @@
 ---
 name: quality-gates
-description: Use before merging a task to dev. Defines the hard gate that must pass (tests + style + docs build) and how to interpret its result. References the run-tests, code-style, and build-docs skills for the exact commands.
+description: Use before merging a task to dev. Defines the hard gate that must pass (tests + style + docs build) and how to interpret its result. References docs/developer.rst for the exact commands.
 ---
 
 # Quality Gates
@@ -13,28 +13,34 @@ states: **PASS** or **BLOCKED**. There is no "pass with exceptions".
 The gate is the combination of the test suite, the style/lint checks, and
 the docs build:
 
-- **Tests** — see the `run-tests` skill for the exact command.
-- **Style/lint** — see the `code-style` skill for the exact command.
-- **Docs build** — see the `build-docs` skill for the exact command. It must
+- **Tests** — see the "Test pipeline" section of `docs/developer.rst` for
+  the exact command.
+- **Style/lint** — see the "Pre-commit" section of `docs/developer.rst` for
+  the exact command.
+- **Docs build** — see the "Docs build and deploy" section of
+  `docs/developer.rst` (and `docs/README.md`) for the exact command. It must
   exit 0. The build runs under the no-warnings policy (`-W --keep-going`, see
   `docs/Makefile`): any warning — including an unresolved cross-reference
   under `nitpicky = True` — fails the build, so the exit code is sufficient.
   There are no tolerated warnings; fix them instead of suppressing.
-- **Link check** — see the `build-docs` skill for the exact command. It must
+- **Link check** — see the "Docs build and deploy" section of
+  `docs/developer.rst` (and `docs/README.md`) for the exact command. It must
   report no broken or timed-out links (the builder exits non-zero on its
   own; redirects are reported but do not fail the check).
 
-`run-tests`, `code-style`, and `build-docs` are the single source of truth
-for the commands; this skill only defines the gate semantics.
+`docs/developer.rst` is the single source of truth for the commands; this
+skill only defines the gate semantics.
 
 ## Procedure
 
-1. Run the full test suite (`run-tests`). It must show 0 failures and 0 skipped.
-2. Run the full style/lint pass (`code-style`). It must show no errors.
-3. Build the docs (`build-docs`). It must exit 0 (no-warnings policy: any
-   warning fails the build).
-4. Run the link check (`build-docs`). It must report no broken or timed-out
-   links.
+1. Run the full test suite ("Test pipeline" section of `docs/developer.rst`).
+   It must show 0 failures and 0 skipped.
+2. Run the full style/lint pass ("Pre-commit" section of
+   `docs/developer.rst`). It must show no errors.
+3. Build the docs ("Docs build and deploy" section of `docs/developer.rst`).
+   It must exit 0 (no-warnings policy: any warning fails the build).
+4. Run the link check ("Docs build and deploy" section of
+   `docs/developer.rst`). It must report no broken or timed-out links.
 5. Interpret the result:
    - All clean → **PASS**. Proceed to merge (see `git-workflow`).
    - Any failure → **BLOCKED**.
