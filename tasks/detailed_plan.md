@@ -224,6 +224,19 @@ keep existing examples untouched).
 
 ---
 
+### S8: Mark task 33 done in the task log [done]
+
+**Code:** N/A.
+**Tests:** N/A.
+**Docs:** `tasks/tasks.md` (prepend `[done]` to the task 33 line only).
+
+**Spec:**
+- Task Completion Verification passed: every issue #76 clause is traceable
+  to a committed change (pre-commit/test pipeline/docs deploy/package
+  deploy/guideline → docs/developer.rst sections; README developer section;
+  user guidance → S5/S6); no subtask reverted or skipped; quality gate PASS
+  (no-warnings docs build + linkcheck, code gates skipped as docs-only).
+
 ## Post-subtask gate (task level)
 
 Docs-only task: code-specific gates (tests, lint, format) are skipped per the
