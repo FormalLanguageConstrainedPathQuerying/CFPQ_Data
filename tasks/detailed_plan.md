@@ -1,182 +1,209 @@
-# Task 32: No-warnings policy for the docs build (fix all Sphinx warnings, no suppressions)
+# Task 33: Developer documentation for issue #76 + README developer section
 
 ## Context
 
-A clean docs build (`make clean && make html`, Sphinx 9.0.4) produced 247
-warnings in 6 classes:
+Issue #76 ([FEATURE] Developer docs) asks for developer documentation covering
+five items: **Pre-commit, Test pipeline, Docs deploy, Package deploy,
+Guideline**. The user also asked to verify the README carries the necessary
+parts.
 
-1. 84× `Invalid Babel locale: 'English'` — `language = "English"` is not a
-   valid Babel locale code.
-2. ~150× `py:class reference target not found: <Name>` for bare type names
-   (`Path`, `MultiDiGraph`, `CFG`, `Variable`, `RSA`, `Regex`, `Symbol`,
-   `integer`, `random_state`, `default`, ...) in API docstrings, plus one
-   `py:exc ... NetworkXError`.
-3. ~24× `py:obj reference target not found: <word>` for single-backticked
-   prose in docstrings (`path`, `graph`, `range(n)`, `alpha`, `n`, `m`, ...).
-4. 1× `py:func reference target not found: cfpq_data.materialize_grammar`
-   (docs/indexed_grammars.rst:91 — wrong object path).
-5. 1× autosummary ref to `cfpq_data.graphs.readwrite.mtx.MTX_HEADER`.
-6. 4× `The topic/note element not yet supported in Markdown` (tutorial.rst,
-   from nb2plots' notebook generation).
+Gap analysis on `dev` (before this task):
 
-Additionally `suppress_warnings = ["ref.citation", "ref.footnote"]` hid two
-warning classes whose origin had to be established.
+| Issue item | Where it was documented | Gap |
+|---|---|---|
+| Pre-commit | `.pre-commit-config.yaml` (hook list), CI `lint.yml`, agent skill `code-style` | No human-facing page; no README mention |
+| Test pipeline | CI `tests.yml` (3 OS × py3.11), `coverage.yml` (→ Codecov), agent skill `run-tests` | No human-facing page; no README mention |
+| Docs deploy | `deploy_docs.yml` (push to `master` → gh-pages); `docs/README.md` covers the *local* build only | Deployment mechanism undocumented anywhere for humans |
+| Package deploy | `publish.yml`, `docs/release.rst` (versioning, Trusted Publishing, TestPyPI, dataset publishing) | Already documented — cross-links only |
+| Guideline | Agent skills `git-workflow`, `quality-gates`; `AGENTS.md` (agent-facing) | No human-facing contribution guidelines anywhere |
 
 ## User decisions (verbatim)
 
-"Cool. Yes, fix Babel warnings. Analyze rest warnings. E.g. why you suppress
-aernings refs.citations and ref.footnote? Can we fix it and other warnings? I
-want to set warings as errors and go to 'no warnings policy'. Without
-suppresuins if possible."
+"Let use docs as the source of truth, skills as thin pointers. Add this to
+main pronciples for future skills design and update."
 
-"Well. Try to find solution that does not require workarounds or checkers
-modification. If site o code refactoring required for this way, propose it to
-me. It may be easier to do smoll refactoring, rather than add workaround. If
-refactoring improve and simplify site and code, it is better that wotkaround
-or tooling patching."
+Scope decisions confirmed with the user:
 
-"9 approved. Go." (approval of the proposed plan incl. item 9: replace
-tutorial.rst admonitions with plain paragraphs)
+- Contribution guideline lives in the docs page + README only — **no**
+  root-level `CONTRIBUTING.md`.
+- The stale `docs/install.rst` ("Python 3.7 or later" while
+  `pyproject.toml`/`setup.py` require >=3.11) is fixed as part of this task.
 
-## Root causes (verified in Sphinx 9.0.4 / numpydoc 1.10.0 source and doctrees)
+## Reuse (no duplication)
 
-- **R1 (class 2):** both `sphinx.ext.napoleon` and `numpydoc` were enabled.
-  Napoleon converted each numpy-style docstring to `:param:`/`:type:` fields;
-  Sphinx's Python domain registers `type` as a *typed field*
-  (`PyTypedField`, typerolename='class') and `rtype` with bodyrolename='class'
-  (`sphinx/domains/python/_object.py`), so every type token became a
-  `:py:class:` cross-reference. Bare names in docstrings (`Path`, `CFG`, ...)
-  are not resolvable objects → warnings. Napoleon's own type conversion
-  (`_convert_type_spec`) was not even active (`napoleon_preprocess_types`
-  defaults to False) — the refs came from the domain's field handling of
-  napoleon's output.
-- **R2 (class 3):** single-backticked words in docstring prose are parsed
-  with `default_role = "obj"` → `py:obj` references to non-objects.
-- **R3 (class 5):** autosummary stubs under `docs/*/generated/` are
-  build-generated and git-ignored (`autosummary_generate = True` regenerates
-  them from module contents on every build). `MTX_HEADER` is a public-named
-  module attribute not in `__all__`, so the generated stub listed it and
-  referenced an object autodoc does not document. Editing the .rst is futile
-  — the build overwrites it.
-- **R4 (class 6):** nb2plots generates the downloadable notebook by
-  converting the doctree to Markdown (`nb2plots/doctree2md.py`); its writer
-  has no visitors for `topic`/`note` nodes → warning + content silently
-  dropped from the notebook. Latest release is 0.7.2 (2023) — no upstream
-  fix, so patching/vendoring nb2plots was rejected per user decision.
-- **R5 (suppressions):** with napoleon removed and all refs fixed, removing
-  `suppress_warnings` resurfaces nothing — the docstring footnote
-  definitions (`.. [1]`) and references (`[1]_`) resolve within their own
-  docstrings. The suppression was a leftover.
+- Package deploy: cross-reference existing `docs/release.rst` — do not
+  duplicate its content.
+- Local docs build: cross-reference existing `docs/README.md` (canonical for
+  the local build) — do not duplicate.
+- Pre-commit hook list: reference `.pre-commit-config.yaml` as the source of
+  truth — do not enumerate hooks in prose.
+- pytest configuration: reference `[tool.pytest.ini_options]` in
+  `pyproject.toml`.
+- CI facts: reference the workflow files under `.github/workflows/` by name;
+  the files are the source of truth for exact versions/flags.
+- Skills `code-style`, `run-tests`, `build-docs`, `git-workflow`: slim to thin
+  pointers to the new page (same pattern as the `release` skill →
+  `docs/release.rst`): keep agent-specific operational details (commands,
+  pitfalls), drop re-descriptions of the model.
+- New material: `docs/developer.rst` (no existing page covers these topics),
+  README "For developers" section, `install.rst` fix, `AGENTS.md` principle.
 
-## Design decisions
+## Division of labor (docs vs skills)
 
-### D1: Root-cause config fixes, no workarounds (per user decision)
+Per the new Main Principle: docs hold the **what/why** (model: what each
+pipeline does, what CI enforces, how deployment works, contribution rules);
+skills hold the **how** for agents (exact commands, agent/machine-specific
+pitfalls, operational procedures) and point at the docs page instead of
+re-describing the model.
 
-- `language = "en"` (valid Babel code).
-- Remove `sphinx.ext.napoleon`: numpydoc alone processes the numpy-style
-  docstrings; with its default `numpydoc_xref_param_type = False`, docstring
-  types render as plain text and create no references. Signature annotations
-  are rendered by autodoc from the real code and still link via the existing
-  intersphinx inventories (python, networkx, pyformlang). No alias tables,
-  no second source of truth for type names. (An earlier alias-map variant was
-  rejected as a workaround and reverted.)
-- Remove `suppress_warnings = ["ref.citation", "ref.footnote"]` (R5).
+---
 
-### D2: Content fixes are the fix — no checker modification
+### S1: Record task 33 and write this detailed plan
 
-Every remaining warning is a real content bug, fixed in place: literal
-markup for prose (double backticks), a docstring type line corrected to match
-the code, a private constant renamed private, a wrong object path corrected,
-and admonitions replaced by plain RST that round-trips through nb2plots.
+**Code:** N/A (no code).
+**Tests:** N/A (docs-only task; verified by the docs build + linkcheck gate).
+**Docs:** `tasks/tasks.md` (append task 33 line, user text verbatim + USER
+GUIDANCE), `tasks/detailed_plan.md` (this file).
 
-### D3: No-warnings policy = `-W --keep-going`, enforced by exit code
+**Spec:**
+- Task line uses the user's description verbatim plus the verbatim USER
+  GUIDANCE annotation.
+- Branch `feature/33-developer-docs` created from `dev`.
 
-`docs/Makefile` sets `SPHINXOPTS = -W --keep-going`: any warning (including
-unresolved refs under nitpicky) fails the build and all warnings are listed
-in one run. CI drops its grep-based log inspection and relies on the exit
-code; quality-gates/build-docs skills updated accordingly (no "tolerated
-warnings").
+### S2: Create docs/developer.rst covering all five issue items
 
-## Subtasks
+**Code:** N/A (no code).
+**Tests:** N/A (docs-only; the no-warnings docs build + linkcheck are the
+verification — every cross-reference and external URL must resolve).
+**Docs:** New `docs/developer.rst`; add it to the toctree in
+`docs/project.rst` (after `about`) and extend that page's intro line.
 
-### S1: Fix the Babel locale [done]
+**Spec:**
+- Page label `.. _developer:`, title "Developer guide", standard
+  `.. only:: html` Release/Date block, sections underlined with `-`.
+- Sections, in order:
+  1. *Development setup* — Python 3.11–3.13 (per `pyproject.toml`
+     `>=3.11,<3.14`); Poetry is the canonical environment (what all CI
+     workflows use): `poetry install --with dev,test,docs` then
+     `pip install .` (`package-mode = false`, so the package itself is
+     installed via `setup.py`); note that `requirements/*.txt` are pip-only
+     fallbacks.
+  2. *Pre-commit* — what it enforces (formatting + hygiene + version sync),
+     hook list referenced from `.pre-commit-config.yaml` (not enumerated);
+     `pre-commit install` for the git hook; manual full run command; CI
+     enforcement via `lint.yml` on every push/PR.
+  3. *Test pipeline* — local canonical command
+     `poetry run pytest --doctest-modules -vv -s cfpq_data tests`; doctests in
+     docstrings are part of the suite (`--doctest-modules`, `testpaths` in
+     `pyproject.toml`); `tests/` mirrors `cfpq_data/`; CI: `tests.yml` matrix
+     (ubuntu/macos/windows × Python 3.11) on push/PR, `coverage.yml`
+     (pytest-cov → Codecov).
+  4. *Docs build and deploy* — local build cross-referenced to
+     `docs/README.md` (canonical; no-warnings policy `-W --keep-going` in
+     `docs/Makefile`; linkcheck command); **new content**: deployment — push
+     to `master` triggers `deploy_docs.yml`, which builds the HTML and deploys
+     `docs/_build/html` to the `gh-pages` branch (GitHub Pages) via
+     `JamesIves/github-pages-deploy-action`; forks are skipped
+     (`repository_owner` guard); site URL.
+  5. *Package deploy* — one short paragraph cross-referencing
+     `:doc:`release`` (versioning, tag-triggered PyPI publish via Trusted
+     Publishing, TestPyPI dry run, dataset publishing). No duplication.
+  6. *Contribution guidelines* — branching model (`dev` stable development
+     branch; `master` protected release branch; releases merge `dev` →
+     `master` via PR then push a `vX.Y.Z` tag matching the package version);
+     one task per `feature/XXX-short-description` branch, never combine tasks;
+     Conventional Commits with exactly one subtask identifier
+     (`feat(XXX-SN): ...`), one commit per atomic subtask; pre-merge quality
+     gate — all of: full test suite (0 failures, 0 skipped), full pre-commit
+     pass, docs build exit 0 under the no-warnings policy, linkcheck with no
+     broken/timed-out links; merge strategy rebase + fast-forward (linear
+     history, no squash); pointer to the graph/grammar contribution templates
+     in `.github/` (reuse, do not duplicate).
+- All cross-references must resolve under `nitpicky = True`; all external
+  URLs must pass linkcheck.
 
-`docs/conf.py`: `language = "English"` → `language = "en"`. Removes all 84
-`Invalid Babel locale` warnings. Verified by clean rebuild.
+### S3: Add "For developers" section to README.rst
 
-### S2: Remove the redundant napoleon extension [done]
+**Code:** N/A.
+**Tests:** N/A (README is RST rendered on GitHub/PyPI; no doctests added —
+keep existing examples untouched).
+**Docs:** `README.rst` — new "For developers" section between "Examples" and
+"How to add a new graph?".
 
-`docs/conf.py`: drop `"sphinx.ext.napoleon"` from `extensions`. Napoleon
-double-processed every docstring together with numpydoc and its `:type:`
-fields are what made the Python domain create ~150 broken `py:class` refs
-(R1). With numpydoc alone, docstring types are plain text (its default) and
-signature annotations still link via intersphinx. Verified by clean rebuild:
-all class-2 warnings gone.
+**Spec:**
+- Content: dev setup (Poetry, two commands), the three local checks CI
+  enforces (tests / pre-commit / docs build) with their one-line commands,
+  and a link to the full developer guide page
+  (`https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/developer.html`)
+  naming what it covers (setup, pre-commit, test pipeline, docs build and
+  deployment, package release, contribution guidelines).
+- Keep it short — the docs page is the source of truth; the README section
+  must not re-describe the model.
 
-### S3: Remove the leftover warning suppressions [done]
+### S4: Fix stale install instructions
 
-`docs/conf.py`: delete `suppress_warnings = ["ref.citation", "ref.footnote"]`.
-Verified by clean rebuild: no citation/footnote warnings resurface (R5) —
-docstring footnotes resolve within their own docstrings.
+**Code:** N/A.
+**Tests:** N/A (docs-only).
+**Docs:** `docs/install.rst`; `docs/README.md` (install line only).
 
-### S4: Fix literal markup and a wrong type line in docstrings [done]
+**Spec:**
+- `docs/install.rst`: "requires Python 3.7 or later" → Python 3.11–3.13
+  (matching `pyproject.toml` `>=3.11,<3.14` and the README); pip commands use
+  the PyPI distribution name `cfpq-data` (consistent with the README), while
+  prose about the importable module keeps `cfpq_data`.
+- `docs/README.md`: the install instruction points at
+  `requirements/docs.txt`, which pins sphinx 7.2.6 while the canonical Poetry
+  docs group (used by CI and by the no-warnings validation) allows sphinx
+  ^9.0.4 — re-point it to the Poetry docs group (`poetry install --with docs`)
+  so the canonical instructions match what CI and the quality gate use.
 
-- Double backticks (literal, not cross-reference) for prose words that were
-  single-backticked and thus became broken `py:obj` refs under
-  `default_role = "obj"`: `cfpq_data/graphs/readwrite/{rdf,mtx,csv}.py`
-  (`graph`, `path`), `cfpq_data/grammars/readwrite/cnf_template.py` (`path`),
-  `cfpq_data/graphs/generators/labeled_two_cycles_graph.py` and
-  `labeled_cycle_graph.py` (`range(n)`), `labeled_scale_free_graph.py`
-  (`alpha`, `beta`, `gamma`), `labeled_barabasi_albert_graph.py` (`n`, `m`).
-- `labeled_barabasi_albert_graph.py`: docstring said
-  `seed : Union[int, RandomState, None]` but the code uses stdlib
-  `random.seed(seed)` and the signature is `seed: Union[int, None]` →
-  corrected to `seed : int or None`.
+### S5: Slim overlapping skills to thin pointers
 
-### S5: Make MTX_HEADER private [done]
+**Code:** N/A (skill markdown only).
+**Tests:** N/A.
+**Docs:** `.opencode/skills/code-style/SKILL.md`,
+`.opencode/skills/run-tests/SKILL.md`,
+`.opencode/skills/build-docs/SKILL.md`,
+`.opencode/skills/git-workflow/SKILL.md`.
 
-`cfpq_data/graphs/readwrite/mtx.py`: rename `MTX_HEADER` → `_MTX_HEADER`
-(definition + 2 uses). It is not in `__all__` — an internal constant. The
-autosummary stub (build-generated, git-ignored) listed it because it was
-public-named; the private name removes it from the generated reference and
-the broken autosummary ref (R3).
+**Spec (same pattern as the `release` skill → `docs/release.rst`):**
+- Each skill: one pointer line at the top — the model is documented in the
+  named section of `docs/developer.rst` (single source of truth, do not
+  duplicate) — then keep only agent-specific operational content.
+- `code-style`: drop the inline hook-list description (it re-describes the
+  config file); keep the commands (`pre-commit run --all-files ...`,
+  `pre-commit install`, `black <path>`) and the `requirements/developer.txt`
+  note.
+- `run-tests`: keep the canonical command, the single-module example, and the
+  bare-pytest/networkx pitfall (machine-specific, agent-only); drop the
+  re-description of CI coverage in favor of the pointer.
+- `build-docs`: keep local build + linkcheck commands and the cached-doctree
+  pitfall; add the pointer for the deployment model (new docs section).
+- `git-workflow`: keep the operational merge procedure (rebase +
+  `--ff-only`), the pre-commit message validation step, and the no-push rule;
+  point at the docs Guidelines section for the branching/commit model instead
+  of re-stating it.
+- Do not touch `quality-gates` (it references the command skills, which stay
+  command-bearing) or `release` (already a thin pointer).
 
-### S6: Fix the broken materialize_grammar reference [done]
+### S6: Add the docs-as-source-of-truth principle to AGENTS.md
 
-`docs/indexed_grammars.rst`: `:func:`cfpq_data.materialize_grammar`` →
-`:func:`cfpq_data.grammars.readwrite.cnf_template.materialize_grammar``
-(the function's real location).
+**Code:** N/A.
+**Tests:** N/A.
+**Docs:** `AGENTS.md` — Main Principles list.
 
-### S7: Replace tutorial admonitions with plain paragraphs [done]
+**Spec:**
+- New bullet right after "Documentation is about 'What' and 'Why'. Skills are
+  about 'How'.": docs are the source of truth for the project model; skills
+  are thin pointers that keep only agent-specific operational details and
+  reference the docs page instead of re-describing it.
 
-`docs/tutorial.rst`: the 2× `.. topic::` + 1× `.. note::` blocks became plain
-paragraphs with bold lead-ins. nb2plots cannot represent admonitions in the
-generated notebook's Markdown (R4) — it warned and dropped the content; plain
-RST round-trips, so the text now appears in both the HTML page and the
-downloadable notebook.
+---
 
-### S8: Enforce the no-warnings policy [done]
+## Post-subtask gate (task level)
 
-- `docs/Makefile`: `SPHINXOPTS = -W --keep-going` (any warning fails the
-  build; all warnings reported in one run).
-- `.github/workflows/docs.yml`: Build and Check links steps now rely on the
-  exit code; the grep-based log inspection is removed.
-- `docs/README.md`, `.opencode/skills/build-docs/SKILL.md`,
-  `.opencode/skills/quality-gates/SKILL.md`: document the policy — no
-  tolerated warnings, fix instead of suppress.
-
-Verified: a deliberately broken `:obj:` ref makes `make html` exit 1; a clean
-tree exits 0 with zero warnings.
-
-### S9: Update task records [done]
-
-`tasks/tasks.md` (task logged) and this plan.
-
-## Verification (quality gate, all PASS)
-
-- Tests: `poetry run pytest --doctest-modules -q cfpq_data tests` → 342 passed.
-- Style: `pre-commit run --all-files` → all hooks passed.
-- Docs build: `make -C docs/ clean && make -C docs/ html` (with `-W
-  --keep-going`) → exit 0, zero warnings.
-- Link check: `sphinx-build -b linkcheck docs docs/_build/linkcheck` → exit 0,
-  no broken links (one transient github.com 504 passed on retry).
+Docs-only task: code-specific gates (tests, lint, format) are skipped per the
+workflow rules. The quality gate for this task is: docs build exit 0 under
+the no-warnings policy (`make clean && make html`) + linkcheck with no broken
+or timed-out links. Then whole-repo code review, merge to `dev` (rebase +
+fast-forward), mark the task `[done]`.
