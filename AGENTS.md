@@ -15,6 +15,11 @@ gate → merge, and points to the other workflow skills below.
 ## Main Principles
 
 * Documentation is about "What" and "Why". Skills are about "How".
+* Docs are the source of truth; skills are thin pointers. A skill references
+  the docs page for the model and keeps only agent-specific operational
+  details (commands, pitfalls, procedures) — it never re-describes what the
+  docs already say. When a topic gains a docs page, slim the overlapping
+  skills to pointers (see `release` → `docs/release.rst`).
 * This file is a short entry point for fast cold errors-free start.
 * Only one source of truth. No duplicates. Each thing (in doth code and documentation) described exactly once. Use generalization (especially for code), cross-references, links, other similar techniques to avoid duplicates and reuse staff.
 * Tools, not instructions. If you can do something with existing tool --- do it. No thinking, no long instructions, no manual analysis. You want to analyze code coverage? Just run coverage tool and analyze report.
