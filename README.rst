@@ -40,7 +40,7 @@ Install from PyPI with ``pip``::
 Requires Python 3.11–3.13; see the `Install <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/install.html>`_ page for details.
 
 What's inside
-************
+**************
 
 CFPQ_Data bundles **113 labeled directed graphs** across eight families — C alias analysis, RDF/OWL datasets, Java points-to, field-sensitive aliasing, context-sensitive data-flow, data provenance, name resolution (stack graphs), and biological graphs from UniProt — together with the context-free grammars used to query them. Each graph ships as a per-label MatrixMarket archive; see the `Graphs <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/graphs/index.html>`_ page for statistics and download links.
 
@@ -66,6 +66,24 @@ Load graph from Dataset
 
    >>> bzip_path = cfpq_data.download("bzip")
    >>> bzip = cfpq_data.graph_from_mtx_dir(bzip_path / "graph")
+
+For developers
+**************
+
+To work on CFPQ_Data itself, set up the development environment (Poetry)::
+
+   poetry install --with dev,test,docs
+   poetry run pip install .
+
+and run the local checks that CI enforces on every push and pull request::
+
+   poetry run pytest --doctest-modules -vv -s cfpq_data tests
+   pre-commit run --all-files
+   poetry run make -C docs html
+
+The full developer guide — development setup, pre-commit, the test pipeline,
+docs build and deployment, the package release process, and contribution
+guidelines — is on the `Developer <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/developer.html>`_ page.
 
 How to add a new graph?
 ***********************
