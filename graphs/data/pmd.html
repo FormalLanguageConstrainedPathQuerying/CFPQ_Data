@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="English" data-content_root="../../" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pmd &#8212; CFPQ_Data 4.0.3 documentation</title>
+    <title>pmd &#8212; CFPQ_Data 5.0.0 documentation</title>
   
   
   
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/copybutton.css?v=b2a5787b" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/about.css?v=48cf5573" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=5fd50285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=fdb814aa" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../_static/documentation_options.js?v=d5272207"></script>
+    <script src="../../_static/documentation_options.js?v=b1b76d9c"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -51,11 +51,13 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'graphs/data/pmd';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 4.0.3 documentation"
+          title="Search within CFPQ_Data 5.0.0 documentation"
           href="../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="xalan" href="xalan.html" />
+    <link rel="prev" title="h2" href="h2.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -160,8 +162,8 @@
       
     
     
-    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 4.0.3 documentation - Home"/>
-    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 4.0.3 documentation - Home"/>
+    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -177,77 +179,32 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../index.html">
-    Graphs
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../dataset.html">
+    Dataset
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../grammars/index.html">
-    Grammars
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../benchmarks/index.html">
-    Benchmarks
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../install.html">
-    Install
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../tutorial.html">
-    Tutorial
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false"
-                aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../reference/index.html">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
     Reference
   </a>
 </li>
 
 
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../about.html">
-    About
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../project.html">
+    Project
   </a>
 </li>
 
-
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../license.html">
-    License
-  </a>
-</li>
-
-
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../old_graphs/index.html">
-    Old graphs
-  </a>
-</li>
-
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -323,10 +280,8 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -342,36 +297,15 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../index.html">
-    Graphs
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Getting started
   </a>
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../grammars/index.html">
-    Grammars
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../benchmarks/index.html">
-    Benchmarks
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../install.html">
-    Install
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../tutorial.html">
-    Tutorial
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../dataset.html">
+    Dataset
   </a>
 </li>
 
@@ -384,22 +318,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../about.html">
-    About
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../license.html">
-    License
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../old_graphs/index.html">
-    Old graphs
+  <a class="nav-link nav-internal" href="../../project.html">
+    Project
   </a>
 </li>
 
@@ -443,6 +363,56 @@
     
   </div>
   
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Graphs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../c_alias_analysis.html">C alias analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rdf.html">RDF</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../java_points_to.html">Java points-to graphs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gson.html">gson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sunflow.html">sunflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lusearch.html">lusearch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="luindex.html">luindex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="avrora.html">avrora</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mockito.html">mockito</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commons_io.html">commons_io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commons_lang3.html">commons_lang3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eclipse.html">eclipse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="h2.html">h2</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">pmd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="xalan.html">xalan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="junit5.html">junit5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="batik.html">batik</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fop.html">fop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tomcat.html">tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guava.html">guava</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jackson.html">jackson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="jython.html">jython</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tradebeans.html">tradebeans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tradesoap.html">tradesoap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../field_sensitive_alias.html">Field-Sensitive Alias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../context_sensitive_data_flow.html">Context-Sensitive Data-Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_provenance.html">Data Provenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../name_resolution.html">Name Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../biological_uniprot.html">Biological graphs from UniProt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../grammars/index.html">Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../indexed_grammars.html">Indexed Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reachable_pairs.html">Reachable Pair Counts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../benchmarks/index.html">Benchmarks</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
       <div class="sidebar-primary-item">
@@ -478,6 +448,15 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
+    
+    <li class="breadcrumb-item"><a href="../../dataset.html" class="nav-link">Dataset</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Graphs</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../java_points_to.html" class="nav-link">Java points-to graphs</a></li>
+    
     <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pmd</span></li>
   </ul>
 </nav>
@@ -523,12 +502,12 @@
 <td><p>pmd</p></td>
 </tr>
 <tr class="row-odd"><td><p>Version</p></td>
-<td><p>4.0.0</p></td>
+<td><p>5.0.0</p></td>
 </tr>
 <tr class="row-even"><td><p>Direct download</p></td>
-<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1sgkRMV-PykU6pQ3sFxIuw4dVqNBhptg5">.tar.gz</a></p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pmd.tar.gz">.tar.gz</a></p></td>
 </tr>
-<tr class="row-odd"><td><p>Origin</p></td>
+<tr class="row-odd"><td><p>Source</p></td>
 <td><p><a class="reference external" href="https://dacapobench.sourceforge.net">link</a></p></td>
 </tr>
 </tbody>
@@ -544,13 +523,17 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>54444</p></td>
-<td><p>118658</p></td>
+<td><p>59329</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="edges-statistics">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">Edges Statistics</a><a class="headerlink" href="#edges-statistics" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This graph has edges with labels <span class="math notranslate nohighlight">\(\textit{load}_f\)</span> and <span class="math notranslate nohighlight">\(\textit{store}_f\)</span> for all <span class="math notranslate nohighlight">\(f \in \textit{Fields} = \{0, \ldots, 1033\}\)</span>.</p>
+</div>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Edge Label</p></th>
@@ -561,25 +544,13 @@
 <tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\textit{alloc}\)</span></p></td>
 <td><p>7552</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\overline{\textit{alloc}}\)</span></p></td>
-<td><p>7552</p></td>
-</tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\textit{assign}\)</span></p></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\textit{assign}\)</span></p></td>
 <td><p>38676</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\overline{\textit{assign}}\)</span></p></td>
-<td><p>38676</p></td>
-</tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\textit{load}_i\)</span></p></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\textit{load}_f\)</span></p></td>
 <td><p>11109</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\overline{\textit{load}_i}\)</span></p></td>
-<td><p>11109</p></td>
-</tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\textit{store}_i\)</span></p></td>
-<td><p>1992</p></td>
-</tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\overline{\textit{store}_i}\)</span></p></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\textit{store}_f\)</span></p></td>
 <td><p>1992</p></td>
 </tr>
 </tbody>
@@ -587,7 +558,7 @@
 </section>
 <section id="canonical-grammars">
 <h2><a class="toc-backref" href="#id6" role="doc-backlink">Canonical grammars</a><a class="headerlink" href="#canonical-grammars" title="Link to this heading">#</a></h2>
-<p>Grammars for the field-sensitive analysis of Java programs introduced in <a class="reference external" href="https://dl.acm.org/doi/10.1145/2858965.2814307">&quot;Giga-scale exhaustive points-to analysis for Java in under a minute&quot;</a>.
+<p>Grammars for the field-sensitive analysis of Java programs introduced in <a class="reference external" href="https://dl.acm.org/doi/10.1145/2858965.2814307">“Giga-scale exhaustive points-to analysis for Java in under a minute”</a>.
 Template for these grammars is described on the <a class="reference internal" href="../../grammars/data/java_points_to.html#java-points-to"><span class="std std-ref">Java Points-to</span></a> page.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\textit{PointsTo} \, \rightarrow \, (\textit{assign} \mid \textit{load}_f \, \textit{Alias} \, \textit{store}_f)^{*} \, \textit{alloc} \, \\

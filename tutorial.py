@@ -2,15 +2,24 @@
 #
 # Release
 #
-# :   4.0.3
+# :   5.0.0
 #
 # Date
 #
-# :   Sep 03, 2026
+# :   Sep 16, 2026
 #
 # This guide can help you start working with CFPQ_Data.
 #
 # **You can download this tutorial as a Jupyter Notebook from the link at the end of the page.**
+#
+# **NetworkX.** We use the NetworkX [MultiDiGraph](https://networkx.org/documentation/latest/reference/classes/multidigraph.html) to represent the labeled graph.
+# To familiarize yourself with this representation and find useful functions, see [NetworkX tutorial](https://networkx.org/documentation/latest/tutorial.html).
+#
+# **Pyformlang.** We use the Pyformlang [Regex](https://pyformlang.readthedocs.io/en/latest/modules/regular_expression.html) to represent regular grammars.
+# Also, we use the Pyformlang [CFG](https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html) and [RSA](https://pyformlang.readthedocs.io/en/latest/modules/rsa.html) to represent context-free grammars.
+# To familiarize yourself with this representations and find useful functions, see [Pyformlang usage](https://pyformlang.readthedocs.io/en/latest/usage.html).
+#
+# All functions are documented on the Reference page.
 #
 # ### Import
 #
@@ -30,9 +39,12 @@ bzip_path = cfpq_data.download("bzip")
 
 # # Load graph by path
 #
-# We can load the graph along the specified path using function `graph_from_csv`.
+# The archive unpacks to a directory with one MatrixMarket file per edge
+# label in its `graph` subdirectory (see File structure). We
+# can load the graph along the specified path using function
+# `graph_from_mtx_dir`.
 
-bzip = cfpq_data.graph_from_csv(bzip_path)
+bzip = cfpq_data.graph_from_mtx_dir(bzip_path / "graph")
 
 # Create graph
 #
@@ -40,7 +52,7 @@ bzip = cfpq_data.graph_from_csv(bzip_path)
 #
 # # Create a one cycle graph
 #
-# For example, let's create a one cycle graph, with 5 nodes, the edges of which are marked with the letter `a`.
+# For example, let’s create a one cycle graph, with 5 nodes, the edges of which are marked with the letter `a`.
 
 cycle = cfpq_data.labeled_cycle_graph(5, label="a")
 
@@ -106,7 +118,7 @@ regex_by_path = cfpq_data.regex_from_txt(path)
 #
 # 1. [Chomsky Normal Form](https://en.wikipedia.org/wiki/Chomsky_normal_form)
 #
-# 1. [Recursive State Machine](https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6#Sec2)
+# 1. [Recursive State Machine](https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6)
 #
 # # Create a classic context-free grammar
 #
@@ -128,13 +140,13 @@ cfg_by_path = cfpq_data.cfg_from_txt(path)
 #
 # # Generate a Dyck grammar
 #
-# For example, let's generate a Dyck grammar of the balanced strings with `a` as an opening parenthesis, `b` as a closing parenthesis, and without the empty string.
+# For example, let’s generate a Dyck grammar of the balanced strings with `a` as an opening parenthesis, `b` as a closing parenthesis, and without the empty string.
 
 dyck_cfg = cfpq_data.dyck_grammar([("a", "b")], eps=False)
 
 # # Generate a Java Points-to grammar
 #
-# Also, let's generate a Java Points-to grammar for the field-sensitive analysis of Java programs with field names `f0` and `f1`.
+# Also, let’s generate a Java Points-to grammar for the field-sensitive analysis of Java programs with field names `f0` and `f1`.
 
 java_pt_cfg = cfpq_data.java_points_to_grammar(["f0", "f1"])
 

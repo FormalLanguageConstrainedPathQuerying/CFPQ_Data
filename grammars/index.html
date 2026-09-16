@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="English" data-content_root="../" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Grammars &#8212; CFPQ_Data 4.0.3 documentation</title>
+    <title>Grammars &#8212; CFPQ_Data 5.0.0 documentation</title>
   
   
   
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/css/copybutton.css?v=b2a5787b" />
     <link rel="stylesheet" type="text/css" href="../_static/css/about.css?v=48cf5573" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=5fd50285" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=fdb814aa" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=d5272207"></script>
+    <script src="../_static/documentation_options.js?v=b1b76d9c"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -50,13 +50,13 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'grammars/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 4.0.3 documentation"
+          title="Search within CFPQ_Data 5.0.0 documentation"
           href="../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Benchmarks" href="../benchmarks/index.html" />
-    <link rel="prev" title="Graphs" href="../graphs/index.html" />
+    <link rel="next" title="C Alias" href="data/c_alias.html" />
+    <link rel="prev" title="unigraph_10" href="../graphs/data/unigraph_10.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -161,8 +161,8 @@
       
     
     
-    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 4.0.3 documentation - Home"/>
-    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 4.0.3 documentation - Home"/>
+    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -178,77 +178,32 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../graphs/index.html">
-    Graphs
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    Getting started
   </a>
 </li>
 
 
 <li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
-    Grammars
+  <a class="nav-link nav-internal" href="../dataset.html">
+    Dataset
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../benchmarks/index.html">
-    Benchmarks
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../install.html">
-    Install
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../tutorial.html">
-    Tutorial
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false"
-                aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../reference/index.html">
+  <a class="nav-link nav-internal" href="../reference/index.html">
     Reference
   </a>
 </li>
 
 
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../about.html">
-    About
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../project.html">
+    Project
   </a>
 </li>
 
-
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../license.html">
-    License
-  </a>
-</li>
-
-
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../old_graphs/index.html">
-    Old graphs
-  </a>
-</li>
-
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -341,36 +296,15 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../graphs/index.html">
-    Graphs
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    Getting started
   </a>
 </li>
 
 
 <li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#">
-    Grammars
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../benchmarks/index.html">
-    Benchmarks
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../install.html">
-    Install
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../tutorial.html">
-    Tutorial
+  <a class="nav-link nav-internal" href="../dataset.html">
+    Dataset
   </a>
 </li>
 
@@ -383,22 +317,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../about.html">
-    About
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../license.html">
-    License
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../old_graphs/index.html">
-    Old graphs
+  <a class="nav-link nav-internal" href="../project.html">
+    Project
   </a>
 </li>
 
@@ -448,7 +368,20 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"></div>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphs/index.html">Graphs</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Grammars</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="data/c_alias.html">C Alias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/dyck.html">Dyck</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/java_points_to.html">Java Points-to</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/nested_parentheses.html">Nested Parentheses</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../indexed_grammars.html">Indexed Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reachable_pairs.html">Reachable Pair Counts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../benchmarks/index.html">Benchmarks</a></li>
+</ul>
+</div>
 </nav></div>
     </div>
   
@@ -487,6 +420,9 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
+    
+    <li class="breadcrumb-item"><a href="../dataset.html" class="nav-link">Dataset</a></li>
+    
     <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Grammars</span></li>
   </ul>
 </nav>
@@ -508,17 +444,19 @@
 <span id="grammar-templates"></span><h1>Grammars<a class="headerlink" href="#grammars" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>4.0.3</p>
+<dd class="field-odd"><p>5.0.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sep 03, 2026</p>
+<dd class="field-even"><p>Sep 16, 2026</p>
 </dd>
 </dl>
 <section id="how-to-add-a-new-grammar">
 <h2>How to add a new grammar?<a class="headerlink" href="#how-to-add-a-new-grammar" title="Link to this heading">#</a></h2>
-<p>Just create a PR (Pull Request) corresponding to the <a class="reference external" href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_grammar.md">&quot;Template for adding a new grammar&quot;</a>.</p>
-</section>
+<p>Just create a PR (Pull Request) corresponding to the <a class="reference external" href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_grammar.md">“Template for adding a new grammar”</a>.</p>
 <hr class="docutils" />
+<div class="toctree-wrapper compound">
+</div>
+</section>
 <section id="id1">
 <h2>Grammar templates<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <table class="docutils align-default">
@@ -533,22 +471,22 @@
 <tr class="row-even"><td><p><a class="reference internal" href="data/nested_parentheses.html#nested-parentheses"><span class="std std-ref">Nested Parentheses</span></a></p></td>
 <td><p>Context-Free</p></td>
 <td><p>Hierarchical</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/nested_parentheses.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/nested_parentheses.tar.gz">nested_parentheses.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/dyck.html#dyck"><span class="std std-ref">Dyck</span></a></p></td>
 <td><p>Context-Free</p></td>
 <td><p>Hierarchical</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/dyck.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/dyck.tar.gz">dyck.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/c_alias.html#c-alias"><span class="std std-ref">C Alias</span></a></p></td>
 <td><p>Context-Free</p></td>
 <td><p>Static Analysis</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/c_alias.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/c_alias.tar.gz">c_alias.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/java_points_to.html#java-points-to"><span class="std std-ref">Java Points-to</span></a></p></td>
 <td><p>Context-Free</p></td>
 <td><p>Static Analysis</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points-to.tar.gz">.tar.gz</a> 📥</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points_to.tar.gz">java_points_to.tar.gz</a> 📥</p></td>
 </tr>
 </tbody>
 </table>

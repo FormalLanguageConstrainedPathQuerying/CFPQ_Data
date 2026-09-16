@@ -1,0 +1,1180 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Reachable Pair Counts &#8212; CFPQ_Data 5.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d9aafeaa" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/copybutton.css?v=b2a5787b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/about.css?v=48cf5573" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=fdb814aa" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="_static/documentation_options.js?v=b1b76d9c"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reachable_pairs';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 5.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Benchmarks" href="benchmarks/index.html" />
+    <link rel="prev" title="Indexed Grammars" href="indexed_grammars.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "CFPQ_Data",
+        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "CONTEXT-FREE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="graphs/index.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grammars/index.html">Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexed_grammars.html">Indexed Grammars</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Reachable Pair Counts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks/index.html">Benchmarks</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="dataset.html" class="nav-link">Dataset</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Reachable Pair Counts</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="reachable-pair-counts">
+<span id="reachable-pairs"></span><h1>Reachable Pair Counts<a class="headerlink" href="#reachable-pair-counts" title="Link to this heading">#</a></h1>
+<p>Reference counts of reachable vertex pairs for every graph x grammar pair
+in the dataset. A pair <span class="math notranslate nohighlight">\((u, v)\)</span> is reachable if there exists a path
+from <span class="math notranslate nohighlight">\(u\)</span> to <span class="math notranslate nohighlight">\(v\)</span> labeled by a string in the language of the
+grammar’s start symbol.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Values marked “not available” have not been computed yet. The count is
+a property of the graph and grammar only; it does not depend on the
+algorithm or environment used to compute it.</p>
+</div>
+<section id="download">
+<h2>Download<a class="headerlink" href="#download" title="Link to this heading">#</a></h2>
+<p>The full table is available as a CSV file:</p>
+<ul class="simple">
+<li><p><strong>Package API</strong>: <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">cfpq_data.dataset</span> <span class="pre">import</span> <span class="pre">reachable_pairs,</span> <span class="pre">REACHABLE_PAIRS_CSV</span></code></p></li>
+<li><p><strong>CSV file</strong>: <a class="reference external" href="https://raw.githubusercontent.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/dev/cfpq_data/dataset/reachable_pairs.csv">reachable_pairs.csv</a></p></li>
+</ul>
+<p>Columns: <code class="docutils literal notranslate"><span class="pre">graph</span></code>, <code class="docutils literal notranslate"><span class="pre">grammar</span></code>, <code class="docutils literal notranslate"><span class="pre">num_reachable_pairs</span></code> (empty when not
+yet available).</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<table class="docutils align-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Graph</p></th>
+<th class="head"><p>Grammar</p></th>
+<th class="head"><p>Reachable pairs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>airflow</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>91350</p></td>
+</tr>
+<tr class="row-odd"><td><p>apache</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>92806768</p></td>
+</tr>
+<tr class="row-even"><td><p>arch</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>5339563</p></td>
+</tr>
+<tr class="row-odd"><td><p>atom</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>atom</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-odd"><td><p>atom</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>avrora</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>192790</p></td>
+</tr>
+<tr class="row-odd"><td><p>batik</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>868368</p></td>
+</tr>
+<tr class="row-even"><td><p>biomedical</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>43</p></td>
+</tr>
+<tr class="row-odd"><td><p>biomedical</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>47</p></td>
+</tr>
+<tr class="row-even"><td><p>biomedical</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>block</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>5351409</p></td>
+</tr>
+<tr class="row-even"><td><p>bzip</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>315</p></td>
+</tr>
+<tr class="row-odd"><td><p>cactus</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>47806209</p></td>
+</tr>
+<tr class="row-even"><td><p>cactus_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>37625324</p></td>
+</tr>
+<tr class="row-odd"><td><p>celery</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>25306</p></td>
+</tr>
+<tr class="row-even"><td><p>click</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>2710</p></td>
+</tr>
+<tr class="row-odd"><td><p>commons_io</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>24020</p></td>
+</tr>
+<tr class="row-even"><td><p>commons_lang3</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>27553</p></td>
+</tr>
+<tr class="row-odd"><td><p>core</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>143</p></td>
+</tr>
+<tr class="row-even"><td><p>core</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>204</p></td>
+</tr>
+<tr class="row-odd"><td><p>core</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>61</p></td>
+</tr>
+<tr class="row-even"><td><p>crypto</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>5428237</p></td>
+</tr>
+<tr class="row-odd"><td><p>django</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>615946</p></td>
+</tr>
+<tr class="row-even"><td><p>drivers</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>18825025</p></td>
+</tr>
+<tr class="row-odd"><td><p>eclass</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>90988</p></td>
+</tr>
+<tr class="row-even"><td><p>eclass</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>90994</p></td>
+</tr>
+<tr class="row-odd"><td><p>eclass</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-even"><td><p>eclipse</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>378989</p></td>
+</tr>
+<tr class="row-odd"><td><p>enzyme</p></td>
+<td><p>nested_parentheses_broaderTransitive.cnf</p></td>
+<td><p>14267542</p></td>
+</tr>
+<tr class="row-even"><td><p>enzyme</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>394</p></td>
+</tr>
+<tr class="row-odd"><td><p>enzyme</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>396</p></td>
+</tr>
+<tr class="row-even"><td><p>enzyme</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>fastapi</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>8814</p></td>
+</tr>
+<tr class="row-even"><td><p>flask</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>8062</p></td>
+</tr>
+<tr class="row-odd"><td><p>foaf</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-even"><td><p>foaf</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>36</p></td>
+</tr>
+<tr class="row-odd"><td><p>foaf</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>29</p></td>
+</tr>
+<tr class="row-even"><td><p>fop</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>1984072</p></td>
+</tr>
+<tr class="row-odd"><td><p>fs</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>9646475</p></td>
+</tr>
+<tr class="row-even"><td><p>funding</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>27</p></td>
+</tr>
+<tr class="row-odd"><td><p>funding</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>58</p></td>
+</tr>
+<tr class="row-even"><td><p>funding</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>31</p></td>
+</tr>
+<tr class="row-odd"><td><p>generations</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>generations</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-odd"><td><p>generations</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-even"><td><p>geospecies</p></td>
+<td><p>nested_parentheses_broaderTransitive.cnf</p></td>
+<td><p>226669749</p></td>
+</tr>
+<tr class="row-odd"><td><p>geospecies</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>geospecies</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>85</p></td>
+</tr>
+<tr class="row-odd"><td><p>geospecies</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>85</p></td>
+</tr>
+<tr class="row-even"><td><p>go</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>640305</p></td>
+</tr>
+<tr class="row-odd"><td><p>go</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>640316</p></td>
+</tr>
+<tr class="row-even"><td><p>go</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>9</p></td>
+</tr>
+<tr class="row-odd"><td><p>go_hierarchy</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>588976</p></td>
+</tr>
+<tr class="row-even"><td><p>go_hierarchy</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>588976</p></td>
+</tr>
+<tr class="row-odd"><td><p>go_hierarchy</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>gson</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>56325</p></td>
+</tr>
+<tr class="row-odd"><td><p>guava</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>26384496</p></td>
+</tr>
+<tr class="row-even"><td><p>gzip</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>1458</p></td>
+</tr>
+<tr class="row-odd"><td><p>h2</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>2611022</p></td>
+</tr>
+<tr class="row-even"><td><p>httpx</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>4408</p></td>
+</tr>
+<tr class="row-odd"><td><p>imagick</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>12687034</p></td>
+</tr>
+<tr class="row-even"><td><p>imagick_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>369956094</p></td>
+</tr>
+<tr class="row-odd"><td><p>init</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>3783769</p></td>
+</tr>
+<tr class="row-even"><td><p>ipc</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>5249389</p></td>
+</tr>
+<tr class="row-odd"><td><p>itsdangerous</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>2912</p></td>
+</tr>
+<tr class="row-even"><td><p>jackson</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>3108775</p></td>
+</tr>
+<tr class="row-odd"><td><p>jiaozi</p></td>
+<td><p>name_resolution.cnf</p></td>
+<td><p>14435</p></td>
+</tr>
+<tr class="row-even"><td><p>jinja</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>7436</p></td>
+</tr>
+<tr class="row-odd"><td><p>jsonpath</p></td>
+<td><p>name_resolution.cnf</p></td>
+<td><p>59764</p></td>
+</tr>
+<tr class="row-even"><td><p>junit5</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>129598</p></td>
+</tr>
+<tr class="row-odd"><td><p>jython</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>561720</p></td>
+</tr>
+<tr class="row-even"><td><p>kernel</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>16747731</p></td>
+</tr>
+<tr class="row-odd"><td><p>leela</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>662466</p></td>
+</tr>
+<tr class="row-even"><td><p>leela_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>3968276</p></td>
+</tr>
+<tr class="row-odd"><td><p>lib</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>5276303</p></td>
+</tr>
+<tr class="row-even"><td><p>libgdx</p></td>
+<td><p>name_resolution.cnf</p></td>
+<td><p>not available</p></td>
+</tr>
+<tr class="row-odd"><td><p>ls</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>854</p></td>
+</tr>
+<tr class="row-even"><td><p>luindex</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>176051</p></td>
+</tr>
+<tr class="row-odd"><td><p>lusearch</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>43719</p></td>
+</tr>
+<tr class="row-even"><td><p>mm</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>3990305</p></td>
+</tr>
+<tr class="row-odd"><td><p>mockito</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>16169</p></td>
+</tr>
+<tr class="row-even"><td><p>nab</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>739646</p></td>
+</tr>
+<tr class="row-odd"><td><p>nab_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>262566</p></td>
+</tr>
+<tr class="row-even"><td><p>net</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>8833403</p></td>
+</tr>
+<tr class="row-odd"><td><p>omnetpp</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>8424500</p></td>
+</tr>
+<tr class="row-even"><td><p>omnetpp_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>158255766</p></td>
+</tr>
+<tr class="row-odd"><td><p>pandas</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>154646</p></td>
+</tr>
+<tr class="row-even"><td><p>parest</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>1342540</p></td>
+</tr>
+<tr class="row-odd"><td><p>parest_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>49415038</p></td>
+</tr>
+<tr class="row-even"><td><p>pathways</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>883</p></td>
+</tr>
+<tr class="row-odd"><td><p>pathways</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>884</p></td>
+</tr>
+<tr class="row-even"><td><p>pathways</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>people</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>24</p></td>
+</tr>
+<tr class="row-even"><td><p>people</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>51</p></td>
+</tr>
+<tr class="row-odd"><td><p>people</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>29</p></td>
+</tr>
+<tr class="row-even"><td><p>perlbench</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>297504186</p></td>
+</tr>
+<tr class="row-odd"><td><p>perlbench_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>851737865</p></td>
+</tr>
+<tr class="row-even"><td><p>pizza</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>1334</p></td>
+</tr>
+<tr class="row-odd"><td><p>pizza</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>1356</p></td>
+</tr>
+<tr class="row-even"><td><p>pizza</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>pluggy</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>880</p></td>
+</tr>
+<tr class="row-even"><td><p>pmd</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>137120</p></td>
+</tr>
+<tr class="row-odd"><td><p>postgre</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>90661446</p></td>
+</tr>
+<tr class="row-even"><td><p>povray</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>34599413</p></td>
+</tr>
+<tr class="row-odd"><td><p>povray_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>27219043</p></td>
+</tr>
+<tr class="row-even"><td><p>pr</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>385</p></td>
+</tr>
+<tr class="row-odd"><td><p>requests</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>2524</p></td>
+</tr>
+<tr class="row-even"><td><p>sampleproject</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>342</p></td>
+</tr>
+<tr class="row-odd"><td><p>scikit-learn</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>217728</p></td>
+</tr>
+<tr class="row-even"><td><p>security</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>5593387</p></td>
+</tr>
+<tr class="row-odd"><td><p>shattered_pixel_dungeon</p></td>
+<td><p>name_resolution.cnf</p></td>
+<td><p>971998</p></td>
+</tr>
+<tr class="row-even"><td><p>skos</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>skos</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-even"><td><p>skos</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>29</p></td>
+</tr>
+<tr class="row-odd"><td><p>sound</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>6085269</p></td>
+</tr>
+<tr class="row-even"><td><p>sphinx</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>304084</p></td>
+</tr>
+<tr class="row-odd"><td><p>sunflow</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>35209</p></td>
+</tr>
+<tr class="row-even"><td><p>superset</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>97460</p></td>
+</tr>
+<tr class="row-odd"><td><p>taxonomy</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>151703</p></td>
+</tr>
+<tr class="row-even"><td><p>taxonomy</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>151706</p></td>
+</tr>
+<tr class="row-odd"><td><p>taxonomy</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>taxonomy_hierarchy</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>5351657</p></td>
+</tr>
+<tr class="row-odd"><td><p>taxonomy_hierarchy</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>5351657</p></td>
+</tr>
+<tr class="row-even"><td><p>taxonomy_hierarchy</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>tomcat</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>3792543</p></td>
+</tr>
+<tr class="row-even"><td><p>tradebeans</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>34370090</p></td>
+</tr>
+<tr class="row-odd"><td><p>tradesoap</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>34451130</p></td>
+</tr>
+<tr class="row-even"><td><p>travel</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>33</p></td>
+</tr>
+<tr class="row-odd"><td><p>travel</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>52</p></td>
+</tr>
+<tr class="row-even"><td><p>travel</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>19</p></td>
+</tr>
+<tr class="row-odd"><td><p>unigraph_1</p></td>
+<td><p>unigraph_1.cnf</p></td>
+<td><p>376578</p></td>
+</tr>
+<tr class="row-even"><td><p>unigraph_10</p></td>
+<td><p>unigraph_10.cnf</p></td>
+<td><p>not available</p></td>
+</tr>
+<tr class="row-odd"><td><p>unigraph_2</p></td>
+<td><p>unigraph_2.cnf</p></td>
+<td><p>39888347</p></td>
+</tr>
+<tr class="row-even"><td><p>unigraph_3</p></td>
+<td><p>unigraph_3.cnf</p></td>
+<td><p>52471840</p></td>
+</tr>
+<tr class="row-odd"><td><p>unigraph_4</p></td>
+<td><p>unigraph_4.cnf</p></td>
+<td><p>808091802</p></td>
+</tr>
+<tr class="row-even"><td><p>unigraph_5</p></td>
+<td><p>unigraph_5.cnf</p></td>
+<td><p>2303590109</p></td>
+</tr>
+<tr class="row-odd"><td><p>unigraph_6</p></td>
+<td><p>unigraph_6.cnf</p></td>
+<td><p>1722963921</p></td>
+</tr>
+<tr class="row-even"><td><p>unigraph_7</p></td>
+<td><p>unigraph_7.cnf</p></td>
+<td><p>2320964134</p></td>
+</tr>
+<tr class="row-odd"><td><p>unigraph_8</p></td>
+<td><p>unigraph_8.cnf</p></td>
+<td><p>not available</p></td>
+</tr>
+<tr class="row-even"><td><p>unigraph_9</p></td>
+<td><p>unigraph_9.cnf</p></td>
+<td><p>not available</p></td>
+</tr>
+<tr class="row-odd"><td><p>univ</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>17</p></td>
+</tr>
+<tr class="row-even"><td><p>univ</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>25</p></td>
+</tr>
+<tr class="row-odd"><td><p>univ</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-even"><td><p>wc</p></td>
+<td><p>c_alias.cnf</p></td>
+<td><p>156</p></td>
+</tr>
+<tr class="row-odd"><td><p>wikipedia-provenance</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>1732</p></td>
+</tr>
+<tr class="row-even"><td><p>wine</p></td>
+<td><p>nested_parentheses_subClassOf.cnf</p></td>
+<td><p>499</p></td>
+</tr>
+<tr class="row-odd"><td><p>wine</p></td>
+<td><p>nested_parentheses_subClassOf_type.cnf</p></td>
+<td><p>565</p></td>
+</tr>
+<tr class="row-even"><td><p>wine</p></td>
+<td><p>nested_parentheses_type.cnf</p></td>
+<td><p>65</p></td>
+</tr>
+<tr class="row-odd"><td><p>x264</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>20259480</p></td>
+</tr>
+<tr class="row-even"><td><p>x264_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>5246565</p></td>
+</tr>
+<tr class="row-odd"><td><p>xalan</p></td>
+<td><p>java_points_to.cnf</p></td>
+<td><p>1138776</p></td>
+</tr>
+<tr class="row-even"><td><p>xz</p></td>
+<td><p>vf.cnf</p></td>
+<td><p>358834</p></td>
+</tr>
+<tr class="row-odd"><td><p>xz_field_sensitive_alias</p></td>
+<td><p>aa.cnf</p></td>
+<td><p>205164</p></td>
+</tr>
+<tr class="row-even"><td><p>zulip</p></td>
+<td><p>prov_derivation.cnf</p></td>
+<td><p>209908</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download">Download</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2019-2026, vdshk.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

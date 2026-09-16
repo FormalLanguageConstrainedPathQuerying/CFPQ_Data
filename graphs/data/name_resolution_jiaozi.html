@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="English" data-content_root="../../" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>jiaozi &#8212; CFPQ_Data 4.0.3 documentation</title>
+    <title>jiaozi &#8212; CFPQ_Data 5.0.0 documentation</title>
   
   
   
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/copybutton.css?v=b2a5787b" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/about.css?v=48cf5573" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=5fd50285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=fdb814aa" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../_static/documentation_options.js?v=d5272207"></script>
+    <script src="../../_static/documentation_options.js?v=b1b76d9c"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -51,11 +51,13 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'graphs/data/name_resolution_jiaozi';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 4.0.3 documentation"
+          title="Search within CFPQ_Data 5.0.0 documentation"
           href="../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="jsonpath" href="name_resolution_jsonpath.html" />
+    <link rel="prev" title="Name Resolution" href="../name_resolution.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
@@ -160,8 +162,8 @@
       
     
     
-    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 4.0.3 documentation - Home"/>
-    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 4.0.3 documentation - Home"/>
+    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -177,77 +179,32 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../index.html">
-    Graphs
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../dataset.html">
+    Dataset
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../grammars/index.html">
-    Grammars
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../benchmarks/index.html">
-    Benchmarks
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../install.html">
-    Install
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../tutorial.html">
-    Tutorial
-  </a>
-</li>
-
-            <li class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false"
-                aria-controls="pst-nav-more-links">
-                    More
-                </button>
-                <ul id="pst-nav-more-links" class="dropdown-menu">
-                    
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../reference/index.html">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
     Reference
   </a>
 </li>
 
 
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../about.html">
-    About
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../project.html">
+    Project
   </a>
 </li>
 
-
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../license.html">
-    License
-  </a>
-</li>
-
-
-<li class=" ">
-  <a class="nav-link dropdown-item nav-internal" href="../../old_graphs/index.html">
-    Old graphs
-  </a>
-</li>
-
-                </ul>
-            </li>
-            
   </ul>
 </nav></div>
       
@@ -323,10 +280,8 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -342,36 +297,15 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../index.html">
-    Graphs
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Getting started
   </a>
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../grammars/index.html">
-    Grammars
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../benchmarks/index.html">
-    Benchmarks
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../install.html">
-    Install
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../tutorial.html">
-    Tutorial
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../dataset.html">
+    Dataset
   </a>
 </li>
 
@@ -384,22 +318,8 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../about.html">
-    About
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../license.html">
-    License
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../old_graphs/index.html">
-    Old graphs
+  <a class="nav-link nav-internal" href="../../project.html">
+    Project
   </a>
 </li>
 
@@ -443,6 +363,39 @@
     
   </div>
   
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Graphs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../c_alias_analysis.html">C alias analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rdf.html">RDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../java_points_to.html">Java points-to graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../field_sensitive_alias.html">Field-Sensitive Alias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../context_sensitive_data_flow.html">Context-Sensitive Data-Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_provenance.html">Data Provenance</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../name_resolution.html">Name Resolution</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">jiaozi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="name_resolution_jsonpath.html">jsonpath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="name_resolution_shattered_pixel_dungeon.html">shattered_pixel_dungeon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="name_resolution_libgdx.html">libgdx</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../biological_uniprot.html">Biological graphs from UniProt</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../grammars/index.html">Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../indexed_grammars.html">Indexed Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reachable_pairs.html">Reachable Pair Counts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../benchmarks/index.html">Benchmarks</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
       <div class="sidebar-primary-item">
@@ -478,6 +431,15 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
+    
+    <li class="breadcrumb-item"><a href="../../dataset.html" class="nav-link">Dataset</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Graphs</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../name_resolution.html" class="nav-link">Name Resolution</a></li>
+    
     <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">jiaozi</span></li>
   </ul>
 </nav>
@@ -522,10 +484,13 @@
 <tr class="row-even"><td><p>Full Name</p></td>
 <td><p>jiaozi</p></td>
 </tr>
-<tr class="row-odd"><td><p>Direct download</p></td>
-<td><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=1cQuXFlOkcq-D-1RP-MKsA7-0AG7MYeQL">.tar.gz</a></p></td>
+<tr class="row-odd"><td><p>Version</p></td>
+<td><p>5.0.0</p></td>
 </tr>
-<tr class="row-even"><td><p>Source</p></td>
+<tr class="row-even"><td><p>Direct download</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jiaozi.tar.gz">.tar.gz</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Source</p></td>
 <td><p><a class="reference external" href="https://github.com/Jzvd/JiaoZiVideoPlayer">jiaozi</a></p></td>
 </tr>
 </tbody>

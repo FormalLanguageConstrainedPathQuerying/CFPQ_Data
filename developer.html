@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Developer guide &#8212; CFPQ_Data 5.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d9aafeaa" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/copybutton.css?v=b2a5787b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/about.css?v=48cf5573" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=fdb814aa" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="_static/documentation_options.js?v=b1b76d9c"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'developer';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within CFPQ_Data 5.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release process" href="release.html" />
+    <link rel="prev" title="About" href="about.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "CFPQ_Data",
+        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "CONTEXT-FREE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Developer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Release process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Maintainer tools</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="project.html" class="nav-link">Project</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Developer guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="developer-guide">
+<span id="developer"></span><h1>Developer guide<a class="headerlink" href="#developer-guide" title="Link to this heading">#</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Release<span class="colon">:</span></dt>
+<dd class="field-odd"><p>5.0.0</p>
+</dd>
+<dt class="field-even">Date<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sep 16, 2026</p>
+</dd>
+</dl>
+<p>How to set up a development environment, run the checks that continuous
+integration runs, and contribute to CFPQ_Data. If you only want to <em>use</em> the
+package, start with <a class="reference internal" href="getting_started.html"><span class="doc">Getting started</span></a> instead.</p>
+<section id="development-setup">
+<span id="developer-setup"></span><h2>Development setup<a class="headerlink" href="#development-setup" title="Link to this heading">#</a></h2>
+<p>CFPQ_Data requires Python 3.11–3.13 (<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> declares
+<code class="docutils literal notranslate"><span class="pre">&gt;=3.11,&lt;3.14</span></code>). The canonical development environment is <strong>Poetry</strong> — all
+CI workflows install their dependencies through it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>install<span class="w"> </span>--with<span class="w"> </span>dev,test,docs
+poetry<span class="w"> </span>run<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--with</span> <span class="pre">dev,test,docs</span></code> pulls the three dependency groups from
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>: developer tools (<code class="docutils literal notranslate"><span class="pre">black</span></code>, <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>,
+<code class="docutils literal notranslate"><span class="pre">boto3</span></code>), test extras (<code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code>, <code class="docutils literal notranslate"><span class="pre">codecov</span></code>), and the Sphinx docs
+stack.</p></li>
+<li><p>The project is declared with <code class="docutils literal notranslate"><span class="pre">package-mode</span> <span class="pre">=</span> <span class="pre">false</span></code>, so Poetry installs
+only the dependencies; <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">run</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> then installs
+<code class="docutils literal notranslate"><span class="pre">cfpq_data</span></code> itself from <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requirements/*.txt</span></code> are read by <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> to declare the
+distribution’s install requirements on PyPI; the Poetry groups in
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> drive the development environment and CI.</p></li>
+</ul>
+</section>
+<section id="pre-commit">
+<span id="developer-precommit"></span><h2>Pre-commit<a class="headerlink" href="#pre-commit" title="Link to this heading">#</a></h2>
+<p>Formatting and hygiene checks run through <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>. The hook list —
+black formatting plus whitespace, YAML, and requirements-file fixers, and a
+version-sync check that fails when <code class="file docutils literal notranslate"><span class="pre">cfpq_data/config.py</span></code> and
+<code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code> declare different versions — is defined in
+<code class="file docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>, which is the source of truth; do not
+maintain a copy of it elsewhere.</p>
+<p>Install the git hook once so the checks run on every commit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pre</span><span class="o">-</span><span class="n">commit</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>Run the full pass manually (this is what CI does):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pre</span><span class="o">-</span><span class="n">commit</span> <span class="n">run</span> <span class="o">--</span><span class="nb">all</span><span class="o">-</span><span class="n">files</span> <span class="o">--</span><span class="n">color</span> <span class="n">always</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">--</span><span class="n">show</span><span class="o">-</span><span class="n">diff</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">failure</span>
+</pre></div>
+</div>
+<p>Format a single file with black directly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">black</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>CI runs this full pass on every push and pull request
+(<code class="file docutils literal notranslate"><span class="pre">.github/workflows/lint.yml</span></code>).</p>
+</section>
+<section id="test-pipeline">
+<span id="developer-tests"></span><h2>Test pipeline<a class="headerlink" href="#test-pipeline" title="Link to this heading">#</a></h2>
+<p>The test suite is <code class="docutils literal notranslate"><span class="pre">pytest</span></code> with <strong>doctests enabled</strong>: the <code class="docutils literal notranslate"><span class="pre">Examples</span></code>
+sections of public docstrings are executed as tests, so the documented
+behavior and the tested behavior are the same code. The canonical local
+command (the one CI runs):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">run</span> <span class="n">pytest</span> <span class="o">--</span><span class="n">doctest</span><span class="o">-</span><span class="n">modules</span> <span class="o">-</span><span class="n">vv</span> <span class="o">-</span><span class="n">s</span> <span class="n">cfpq_data</span> <span class="n">tests</span>
+</pre></div>
+</div>
+<p>A single module or function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">run</span> <span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span><span class="n">graphs</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">test_add_reverse_edges</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Doctest discovery and test paths are configured in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>
+(<code class="docutils literal notranslate"><span class="pre">[tool.pytest.ini_options]</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/</span></code> mirrors the package layout (e.g. <code class="docutils literal notranslate"><span class="pre">tests/graphs/generators/</span></code>
+for <code class="docutils literal notranslate"><span class="pre">cfpq_data/graphs/generators/</span></code>).</p></li>
+</ul>
+<p>Continuous integration:</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">.github/workflows/tests.yml</span></code> — runs the suite on every push and pull
+request across a matrix of Linux, macOS, and Windows with Python 3.11.</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">.github/workflows/coverage.yml</span></code> — runs the same suite with
+<code class="docutils literal notranslate"><span class="pre">--cov=cfpq_data</span></code> and uploads the report to Codecov.</p></li>
+</ul>
+</section>
+<section id="docs-build-and-deploy">
+<span id="developer-docs"></span><h2>Docs build and deploy<a class="headerlink" href="#docs-build-and-deploy" title="Link to this heading">#</a></h2>
+<p>The documentation is built with Sphinx from the <code class="file docutils literal notranslate"><span class="pre">docs/</span></code> directory; the
+canonical local instructions (installing the docs dependencies, building the
+HTML, checking links) live in <code class="file docutils literal notranslate"><span class="pre">docs/README.md</span></code>. Two policies matter:</p>
+<ul class="simple">
+<li><p><strong>No-warnings policy.</strong> The build runs with <code class="docutils literal notranslate"><span class="pre">-W</span> <span class="pre">--keep-going</span></code> (set in
+<code class="file docutils literal notranslate"><span class="pre">docs/Makefile</span></code>), so any Sphinx warning — including an unresolved
+cross-reference under <code class="docutils literal notranslate"><span class="pre">nitpicky</span> <span class="pre">=</span> <span class="pre">True</span></code> — fails the build. Fix warnings;
+do not suppress them.</p></li>
+<li><p><strong>Full link check.</strong> <code class="docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-b</span> <span class="pre">linkcheck</span></code> verifies every local
+target and external URL (two documented exceptions in
+<code class="file docutils literal notranslate"><span class="pre">docs/conf.py</span></code>); it exits non-zero on broken or timed-out links.</p></li>
+<li><p><strong>Resilient inventory fetches.</strong> Intersphinx inventories are fetched with
+retries on transient connection errors (<code class="file docutils literal notranslate"><span class="pre">docs/conf.py</span></code>); a persistent
+failure still warns and fails the build.</p></li>
+</ul>
+<p>Both the build and the link check run in CI on every push and pull request
+(<code class="file docutils literal notranslate"><span class="pre">.github/workflows/docs.yml</span></code>).</p>
+<p><strong>Deployment.</strong> Pushing to <code class="docutils literal notranslate"><span class="pre">master</span></code> deploys the site:
+<code class="file docutils literal notranslate"><span class="pre">.github/workflows/deploy_docs.yml</span></code> builds the HTML and publishes
+<code class="file docutils literal notranslate"><span class="pre">docs/_build/html</span></code> to the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch, which GitHub serves as
+the project website (<a class="reference external" href="https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data">https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data</a>).
+The workflow skips forks — it runs only for the owning repository.</p>
+</section>
+<section id="package-deploy">
+<span id="developer-release"></span><h2>Package deploy<a class="headerlink" href="#package-deploy" title="Link to this heading">#</a></h2>
+<p>Cutting a release — version bump, changelog, <code class="docutils literal notranslate"><span class="pre">vX.Y.Z</span></code> tag, and the
+automated PyPI publish (Trusted Publishing) plus dataset publishing — is
+documented in <a class="reference internal" href="release.html"><span class="doc">Release process</span></a>.</p>
+</section>
+<section id="contribution-guidelines">
+<span id="developer-guidelines"></span><h2>Contribution guidelines<a class="headerlink" href="#contribution-guidelines" title="Link to this heading">#</a></h2>
+<section id="branching-model">
+<h3>Branching model<a class="headerlink" href="#branching-model" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dev</span></code> — the stable development branch; all work merges here first.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> — the protected release branch. A release merges <code class="docutils literal notranslate"><span class="pre">dev</span></code> into
+<code class="docutils literal notranslate"><span class="pre">master</span></code> via a pull request and then pushes a <code class="docutils literal notranslate"><span class="pre">vX.Y.Z</span></code> tag matching the
+package version (see <a class="reference internal" href="release.html"><span class="doc">Release process</span></a>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">feature/XXX-short-description</span></code> — one feature branch per task; never
+combine multiple tasks in a single branch.</p></li>
+</ul>
+</section>
+<section id="commits">
+<h3>Commits<a class="headerlink" href="#commits" title="Link to this heading">#</a></h3>
+<p>Conventional Commits with exactly one subtask identifier, one commit per
+atomic subtask:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">feat</span><span class="p">(</span><span class="n">XXX</span><span class="o">-</span><span class="n">SN</span><span class="p">):</span> <span class="n">description</span>
+<span class="n">fix</span><span class="p">(</span><span class="n">XXX</span><span class="o">-</span><span class="n">SN</span><span class="p">):</span> <span class="n">description</span>
+<span class="n">docs</span><span class="p">(</span><span class="n">XXX</span><span class="o">-</span><span class="n">SN</span><span class="p">):</span> <span class="n">description</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">XXX</span></code> is the task ID and <code class="docutils literal notranslate"><span class="pre">SN</span></code> a single subtask identifier (ranges or
+lists are not allowed). Commit messages must explain <em>why</em> the change was
+made, not only what it does.</p>
+</section>
+<section id="quality-gate">
+<h3>Quality gate<a class="headerlink" href="#quality-gate" title="Link to this heading">#</a></h3>
+<p>Before a feature branch merges to <code class="docutils literal notranslate"><span class="pre">dev</span></code>, all of the following must pass —
+no exceptions:</p>
+<ol class="arabic simple">
+<li><p>The full test suite: 0 failures, 0 skipped.</p></li>
+<li><p>The full pre-commit pass: no errors.</p></li>
+<li><p>The docs build: exit 0 under the no-warnings policy.</p></li>
+<li><p>The link check: no broken or timed-out links.</p></li>
+</ol>
+</section>
+<section id="merge-strategy">
+<h3>Merge strategy<a class="headerlink" href="#merge-strategy" title="Link to this heading">#</a></h3>
+<p>Rebase the feature branch onto <code class="docutils literal notranslate"><span class="pre">dev</span></code> and fast-forward <code class="docutils literal notranslate"><span class="pre">dev</span></code> to it —
+linear history, no squash, so every subtask commit keeps its own message.</p>
+</section>
+<section id="adding-graphs-and-grammars">
+<h3>Adding graphs and grammars<a class="headerlink" href="#adding-graphs-and-grammars" title="Link to this heading">#</a></h3>
+<p>New dataset entries follow the contribution templates in <code class="file docutils literal notranslate"><span class="pre">.github/</span></code>
+(issue and pull-request templates for graphs and grammars); see the “How to
+add a new graph?” section of the README.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-setup">Development setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-commit">Pre-commit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-pipeline">Test pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docs-build-and-deploy">Docs build and deploy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-deploy">Package deploy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contribution-guidelines">Contribution guidelines</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#branching-model">Branching model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commits">Commits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quality-gate">Quality gate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-strategy">Merge strategy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-graphs-and-grammars">Adding graphs and grammars</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2019-2026, vdshk.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
