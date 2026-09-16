@@ -470,8 +470,14 @@ package version — the publish workflow verifies this before building.</p></li>
 <code class="docutils literal notranslate"><span class="pre">PYPI_API_TOKEN</span></code> secret is supported as a fallback.</p></li>
 <li><p>Creates a GitHub Release with the matching changelog section.</p></li>
 </ol>
-<p>A manual <strong>TestPyPI</strong> run is available from <em>Actions → Publish → Run workflow</em>
-(uses a <code class="docutils literal notranslate"><span class="pre">TEST_PYPI_API_TOKEN</span></code> secret) to validate before a real release.</p>
+<p>On every pull request targeting <code class="docutils literal notranslate"><span class="pre">master</span></code>, the same build step runs and the
+artifacts are published to <strong>TestPyPI</strong> via Trusted Publishing (OIDC — the
+publisher’s subject claim must be
+<code class="docutils literal notranslate"><span class="pre">repo:FormalLanguageConstrainedPathQuerying/CFPQ_Data:pull_request</span></code>), with
+<code class="docutils literal notranslate"><span class="pre">skip-existing</span></code> so concurrent PRs sharing a version do not collide. This is
+a packaging check that fails the PR before a release tag is cut; since a tag
+always points at a merged PR’s head, it validates exactly the code that will
+be released.</p>
 </section>
 <section id="prerequisites-one-time-owner-action">
 <h2>Prerequisites (one-time, owner action)<a class="headerlink" href="#prerequisites-one-time-owner-action" title="Link to this heading">#</a></h2>
