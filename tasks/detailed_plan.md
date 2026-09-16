@@ -130,8 +130,18 @@ same as CI); sdist contains all four requirements files and the wheel builds.
 Added 2026-09-16 at the merge gate (user request: validate publishing
 automatically before the human merge). The `publish` workflow gains a
 `pull_request: branches: [master]` trigger; the `publish-testpypi` job runs on
-PRs and manual dispatch, with `skip-existing: true` because concurrent PRs
-share one package version and TestPyPI rejects re-uploads of existing files.
+PRs with `skip-existing: true` because concurrent PRs share one package
+version and TestPyPI rejects re-uploads of existing files.
+
+Final design (after the first PR run failed): TestPyPI uses **OIDC Trusted
+Publishing**, not a token — the first run proved the pypi-publish action
+silently falls back to OIDC when no token secret exists, and the user prefers
+no long-lived secrets (consistent with the PyPI setup). The publisher's
+subject claim is `repo:FormalLanguageConstrainedPathQuerying/CFPQ_Data:pull_request`
+(the documented sub for pull_request events; confirmed in the failed run's
+claims dump). The manual `workflow_dispatch` TestPyPI path was removed: its
+sub claim cannot match the PR publisher, and the PR check fully covers
+pre-release validation (a tag always points at a merged PR's head).
 
 **Code:** `.github/workflows/publish.yml`
 **Tests:** skip — workflow-only; the build step is the check itself

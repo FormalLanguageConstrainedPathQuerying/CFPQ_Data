@@ -7,7 +7,6 @@ on:
   # sdist/wheel and publish to TestPyPI before a release tag is cut.
   pull_request:
     branches: [master]
-  workflow_dispatch: {}
 
 permissions:
   contents: write
@@ -48,32 +47,21 @@ jobs:
 
   publish-testpypi:
     needs: build
-    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      # Without a token the pypi-publish action silently falls back to OIDC
-      # Trusted Publishing, which fails with an opaque "invalid-publisher"
-      # error; fail fast with an actionable message instead.
-      - name: Check TestPyPI token is configured
-        env:
-          TEST_PYPI_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
-        run: |
-          if [ -z "$TEST_PYPI_API_TOKEN" ]; then
-            echo "::error::The TEST_PYPI_API_TOKEN secret is not set. Create a token at https://test.pypi.org/manage/account/#api-tokens and add it as a repository secret named TEST_PYPI_API_TOKEN."
-            exit 1
-          fi
-
       - name: Download dist
         uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist/
 
-      - name: Publish to TestPyPI
+      - name: Publish to TestPyPI (Trusted Publishing / OIDC)
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          # No `password`: uses OIDC Trusted Publishing configured on
+          # TestPyPI for the pull_request subject claim.
           # Concurrent PRs share the same package version and TestPyPI
           # rejects re-uploads of existing files; skip instead of failing.
           skip-existing: true

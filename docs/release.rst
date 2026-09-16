@@ -36,10 +36,13 @@ The ``publish`` workflow (``.github/workflows/publish.yml``) runs when a
 4. Creates a GitHub Release with the matching changelog section.
 
 On every pull request targeting ``master``, the same build step runs and the
-artifacts are published to **TestPyPI** (``TEST_PYPI_API_TOKEN`` secret, with
-``skip-existing`` so concurrent PRs sharing a version do not collide) — a
-packaging check that fails the PR before a release tag is cut. A manual
-TestPyPI run is also available from *Actions → Publish → Run workflow*.
+artifacts are published to **TestPyPI** via Trusted Publishing (OIDC — the
+publisher's subject claim must be
+``repo:FormalLanguageConstrainedPathQuerying/CFPQ_Data:pull_request``), with
+``skip-existing`` so concurrent PRs sharing a version do not collide. This is
+a packaging check that fails the PR before a release tag is cut; since a tag
+always points at a merged PR's head, it validates exactly the code that will
+be released.
 
 Prerequisites (one-time, owner action)
 --------------------------------------
