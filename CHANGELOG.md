@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- The publish workflow now runs on every pull request targeting `master`: it
+  builds the sdist and wheel and publishes them to TestPyPI (`skip-existing`),
+  validating packaging before a release tag is cut.
+
 ## [5.0.0] - 2026-09-16
 
 ### Added
