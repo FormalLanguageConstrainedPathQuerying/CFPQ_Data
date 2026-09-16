@@ -13,6 +13,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   builds the sdist and wheel and publishes them to TestPyPI (`skip-existing`),
   validating packaging before a release tag is cut.
 
+### Changed
+
+- Development tooling migrated from Poetry to [uv](https://docs.astral.sh/uv/):
+  PEP 621 project metadata with hatchling as the build backend, PEP 735
+  dependency groups (`dev`, `test`, `docs`) instead of Poetry groups and the
+  `setup.py` extras, a committed `uv.lock`, and all CI workflows on
+  `astral-sh/setup-uv`.
+
+### Removed
+
+- The legacy packaging layer: `setup.py`, `MANIFEST.in`, `requirements.txt`,
+  and `requirements/` (dependencies now live in `pyproject.toml`).
+- The unused `codecov` dev dependency (CI uploads coverage via the Codecov
+  GitHub Action).
+- The broken utility scripts `utils/fetch_dataset.py` and
+  `utils/update_dataset_tables.py` (both failed at import time against the
+  5.0.0 package layout).
+
 ## [5.0.0] - 2026-09-16
 
 ### Added

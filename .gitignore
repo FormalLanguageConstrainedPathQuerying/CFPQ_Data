@@ -84,11 +84,11 @@ docs/*/*/generated/*
 # PyBuilder
 target/
 
+# Node
+node_modules/
+
 # Jupyter Notebook
 .ipynb_checkpoints
-
-# pyenv
-.python-version
 
 # celery beat schedule file
 celerybeat-schedule
