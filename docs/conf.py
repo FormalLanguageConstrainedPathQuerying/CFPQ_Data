@@ -229,6 +229,32 @@ intersphinx_mapping = {
     "pyformlang": ("https://pyformlang.readthedocs.io/en/latest/", None),
 }
 
+# CI runners occasionally drop outbound connections mid-fetch (2026-09-16:
+# networkx.org reset the connection, leaving every networkx cross-reference
+# unresolved and failing the build under the no-warnings policy). Retry
+# transient connection errors; when all attempts fail, the error propagates
+# and the build still fails.
+import time as _time
+
+from requests.exceptions import ConnectionError as _RequestsConnectionError
+from requests.exceptions import Timeout as _RequestsTimeout
+from sphinx.util import requests as _sphinx_requests
+
+_orig_intersphinx_get = _sphinx_requests.get
+
+
+def _get_with_retries(url, *args, retries=3, backoff=2.0, **kwargs):
+    for attempt in range(retries + 1):
+        try:
+            return _orig_intersphinx_get(url, *args, **kwargs)
+        except (_RequestsConnectionError, _RequestsTimeout):
+            if attempt == retries:
+                raise
+            _time.sleep(backoff * (attempt + 1))
+
+
+_sphinx_requests.get = _get_with_retries
+
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
 default_role = "obj"

@@ -89,3 +89,24 @@ plan records only what is specific to this run.
   `[5.0.0]` changelog section.
 - Prepend `[done] ` to the task 35 line in `tasks/tasks.md` (local commit on
   `dev`; pushed with the next dev push — the release itself is already out).
+
+### S6: Make intersphinx inventory fetches resilient to transient network errors
+
+Added 2026-09-16 at the merge gate (user: "CI report set of warnings ... Fix
+it"). The first CI run on `20a181a` failed its Docs build because the runner's
+connection to `networkx.org` was reset while fetching the intersphinx
+inventory; with the inventory missing, every `nx.MultiDiGraph` cross-reference
+went unresolved and failed the build under the no-warnings policy. A second
+run of the same commit passed — the failure was a transient network flake, not
+a docs defect.
+
+**Code:** `docs/conf.py` (retry wrapper around `sphinx.util.requests.get`)
+**Tests:** skip — build configuration only; verified by a clean docs build
+**Docs:** `docs/developer.rst` ("Docs build and deploy" section)
+
+**Spec:**
+- Retry only transient connection errors (`ConnectionError`, `Timeout`); a
+  final failure propagates, so the warning still fires and the build still
+  fails — no suppression.
+- Note the behavior in the "Docs build and deploy" section of
+  `docs/developer.rst`.

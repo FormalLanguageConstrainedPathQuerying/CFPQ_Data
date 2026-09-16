@@ -108,6 +108,9 @@ HTML, checking links) live in :file:`docs/README.md`. Two policies matter:
 - **Full link check.** ``sphinx-build -b linkcheck`` verifies every local
   target and external URL (two documented exceptions in
   :file:`docs/conf.py`); it exits non-zero on broken or timed-out links.
+- **Resilient inventory fetches.** Intersphinx inventories are fetched with
+  retries on transient connection errors (:file:`docs/conf.py`); a persistent
+  failure still warns and fails the build.
 
 Both the build and the link check run in CI on every push and pull request
 (:file:`.github/workflows/docs.yml`).
