@@ -1,9 +1,10 @@
 """Returns a $G_{n,p}$ random graph, also known as an Erdős-Rényi graph or
 a binomial graph. With labeled edges.
 """
+
 import logging
 import random
-from typing import Union, List, Callable
+from typing import Callable, List, Union
 
 import networkx as nx
 

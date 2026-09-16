@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The publish workflow now runs on every pull request targeting `master`: it
   builds the sdist and wheel and publishes them to TestPyPI (`skip-existing`),
   validating packaging before a release tag is cut.
+- Ruff as the linting and formatting gate (rules `E`, `F`, `W`, `I` plus
+  `ruff format`), replacing black; the codebase was brought in line in a
+  one-time pass.
 
 ### Changed
 

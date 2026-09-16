@@ -1,4 +1,5 @@
 """Read (and write) a regular expression from (and to) different sources."""
+
 import logging
 import pathlib
 from typing import Union

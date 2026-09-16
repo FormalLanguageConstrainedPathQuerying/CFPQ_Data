@@ -24,31 +24,31 @@ import shutil
 import tarfile
 import tempfile
 from dataclasses import dataclass, field
-from typing import Dict, IO, Iterator, List, Optional, Sequence, Set, Tuple, Union
+from typing import IO, Dict, Iterator, List, Optional, Sequence, Set, Tuple, Union
 
 import requests
 from botocore.client import BaseClient
-
-from cfpq_data.dataset import (
-    DATASET_KEY_PREFIX,
-    DATASET_URL,
-    LEGACY_VERSION_PREFIX,
-)
-
-#: The old-format graph archives still live under the legacy version prefix.
-OLD_FORMAT_GRAPH_URL = (
-    f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/graph/"
-)
-from cfpq_data.grammars.generators.c_alias_grammar import c_alias_grammar
-from cfpq_data.grammars.generators.nested_parentheses_grammar import (
-    nested_parentheses_grammar,
-)
 from migrate_gdrive_to_s3 import sha256_of
 from upload_to_s3 import (
     DEFAULT_BUCKET,
     DEFAULT_ENDPOINT_URL,
     create_s3_client,
     upload_file,
+)
+
+from cfpq_data.dataset import (
+    DATASET_KEY_PREFIX,
+    DATASET_URL,
+    LEGACY_VERSION_PREFIX,
+)
+from cfpq_data.grammars.generators.c_alias_grammar import c_alias_grammar
+from cfpq_data.grammars.generators.nested_parentheses_grammar import (
+    nested_parentheses_grammar,
+)
+
+#: The old-format graph archives still live under the legacy version prefix.
+OLD_FORMAT_GRAPH_URL = (
+    f"https://cfpq-data.storage.yandexcloud.net/{LEGACY_VERSION_PREFIX}/graph/"
 )
 
 __all__ = [
@@ -1028,8 +1028,7 @@ def verify_public_read(key: str) -> None:
     with requests.get(url, stream=True, timeout=600) as response:
         if response.status_code != 200:
             raise ConversionError(
-                f"Object {url} is not publicly readable "
-                f"(HTTP {response.status_code})"
+                f"Object {url} is not publicly readable (HTTP {response.status_code})"
             )
         total = 0
         for chunk in response.iter_content(chunk_size=1024 * 1024):

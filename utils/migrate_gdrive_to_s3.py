@@ -17,14 +17,14 @@ import tempfile
 from dataclasses import dataclass
 
 import requests
-
-from cfpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
 from upload_to_s3 import (
     DEFAULT_BUCKET,
     DEFAULT_ENDPOINT_URL,
     create_s3_client,
     upload_file,
 )
+
+from cfpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
 
 __all__ = [
     "MigrationItem",
@@ -397,8 +397,7 @@ def migrate(
                         f"{local_path} for inspection."
                     )
                 logging.info(
-                    f"{key_name}: content identical to the stored copy, "
-                    f"skipping upload"
+                    f"{key_name}: content identical to the stored copy, skipping upload"
                 )
                 summary["skipped_duplicate"] += 1
             elif is_on_yandex(key_name):
@@ -504,8 +503,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="report the plan without downloading, uploading or modifying "
-        "docs/mapping",
+        help="report the plan without downloading, uploading or modifying docs/mapping",
     )
     args = parser.parse_args(argv)
 

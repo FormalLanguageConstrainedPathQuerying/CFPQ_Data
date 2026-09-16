@@ -1,9 +1,6 @@
-import pathlib
-
-import pytest
-
 import bump_version
 import check_version_sync
+import pytest
 
 
 @pytest.fixture

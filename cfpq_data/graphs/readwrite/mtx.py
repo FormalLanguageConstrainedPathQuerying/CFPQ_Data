@@ -1,4 +1,5 @@
 """Read (and write) a graph from (and to) a directory of MatrixMarket files."""
+
 import logging
 import pathlib
 from typing import Dict, List, Tuple, Union

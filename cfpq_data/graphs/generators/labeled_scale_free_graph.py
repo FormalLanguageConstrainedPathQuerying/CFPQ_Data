@@ -1,7 +1,8 @@
 """Returns a scale-free directed graph. With labeled edges."""
+
 import logging
 import random
-from typing import Union, Iterable, Callable
+from typing import Callable, Iterable, Union
 
 import networkx as nx
 

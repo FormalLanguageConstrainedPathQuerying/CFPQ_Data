@@ -1,5 +1,6 @@
 """Read (and write) grammar templates in the ``.cnf`` format of the new-format
 graph archives, and materialize them over a concrete graph."""
+
 import logging
 import pathlib
 from typing import List, Optional, Set, Tuple, Union

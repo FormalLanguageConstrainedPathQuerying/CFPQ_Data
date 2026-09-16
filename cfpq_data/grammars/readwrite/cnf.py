@@ -1,10 +1,11 @@
 """Read (and write) a context-free grammar in Chomsky normal form
 from (and to) different sources."""
+
 import logging
 import pathlib
 from typing import Union
 
-from pyformlang.cfg import Variable, CFG
+from pyformlang.cfg import CFG, Variable
 
 from cfpq_data.grammars.converters.cnf import cnf_from_cfg
 from cfpq_data.grammars.readwrite.cfg import cfg_from_text

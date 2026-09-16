@@ -6,16 +6,14 @@ import tarfile
 from collections import Counter
 
 import pytest
-from pyformlang.cfg import CFG, Production, Terminal, Variable
-
 from convert_old_to_new import (
+    JAVA_START,
+    JAVA_TEMPLATE,
     MTX_BANNER,
     MTX_TYPE,
     SECTIONS,
     ConversionError,
     GraphStats,
-    JAVA_START,
-    JAVA_TEMPLATE,
     build_archive,
     c_alias_cnf,
     cnf_lite,
@@ -33,6 +31,7 @@ from convert_old_to_new import (
     verify_conversion,
     write_cnf,
 )
+from pyformlang.cfg import CFG, Production, Terminal, Variable
 
 
 def write_csv(path: pathlib.Path, lines) -> pathlib.Path:
@@ -123,14 +122,14 @@ def test_convert_roundtrip_property(tmp_path):
         for _ in range(2000)
     ]
     csv = tmp_path / "g.csv"
-    csv.write_text("\n".join(f"{u} {v} {l}" for u, v, l in edges) + "\n")
+    csv.write_text("\n".join(f"{u} {v} {label}" for u, v, label in edges) + "\n")
 
     graph_dir = tmp_path / "graph"
     stats = convert_csv_to_graph_dir(csv, graph_dir)
 
     assert stats.total_edges == len(edges)
     assert Counter(stats.edges_per_label.values()) == Counter(
-        Counter(l for _, _, l in edges).values()
+        Counter(label for _, _, label in edges).values()
     )
 
     restored = Counter()
@@ -383,17 +382,10 @@ EXPECTED_RDF_COMBINED_CNf = (
 )
 
 EXPECTED_RDF_SUBCLASSOF_CNf = (
-    "S\tsubClassOf_r\tN1\n"
-    "N1\tS\tsubClassOf\n"
-    "S\tsubClassOf_r\tsubClassOf\n"
-    "\n"
-    "Count:\n"
-    "S\n"
+    "S\tsubClassOf_r\tN1\nN1\tS\tsubClassOf\nS\tsubClassOf_r\tsubClassOf\n\nCount:\nS\n"
 )
 
-EXPECTED_RDF_TYPE_CNf = (
-    "S\ttype_r\tN1\n" "N1\tS\ttype\n" "S\ttype_r\ttype\n" "\n" "Count:\n" "S\n"
-)
+EXPECTED_RDF_TYPE_CNf = "S\ttype_r\tN1\nN1\tS\ttype\nS\ttype_r\ttype\n\nCount:\nS\n"
 
 EXPECTED_RDF_BROADER_TRANSITIVE_CNf = (
     "S\tbroaderTransitive\tN1\n"

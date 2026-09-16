@@ -4,9 +4,10 @@ With labeled edges.
 A graph of ``n`` nodes is grown by attaching new nodes each with
 ``m`` edges that are preferentially attached to existing nodes with high degree.
 """
+
 import logging
 import random
-from typing import List, Union, Callable
+from typing import Callable, List, Union
 
 import networkx as nx
 
@@ -21,8 +22,8 @@ def labeled_barabasi_albert_graph(
     choice: Callable[[List[str]], str] = random.choice,
     seed: Union[int, None] = None,
 ) -> nx.MultiDiGraph:
-    """Returns a random graph according to the Barabási–Albert preferential attachment model.
-    With labeled edges.
+    """Returns a random graph according to the Barabási–Albert
+    preferential attachment model. With labeled edges.
 
     A graph of ``n`` nodes is grown by attaching new nodes each with
     ``m`` edges that are preferentially attached to existing nodes with high degree.

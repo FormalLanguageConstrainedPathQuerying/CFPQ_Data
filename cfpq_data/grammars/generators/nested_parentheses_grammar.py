@@ -1,8 +1,10 @@
-"""Returns a Nested Parentheses grammar that generates a language of the strings with nested parentheses of different
-types. """
+"""Returns a Nested Parentheses grammar that generates a language of the
+strings with nested parentheses of different types."""
+
 import logging
 from typing import List, Tuple
-from pyformlang.cfg import CFG, Production, Variable, Terminal
+
+from pyformlang.cfg import CFG, Production, Terminal, Variable
 
 __all__ = ["nested_parentheses_grammar"]
 
@@ -13,7 +15,8 @@ def nested_parentheses_grammar(
     eps: bool = True,
     start_symbol: Variable = Variable("S"),
 ) -> CFG:
-    """Returns a Nested Parentheses grammar that generates a language of the strings with nested parentheses of given types.
+    """Returns a Nested Parentheses grammar that generates a language of the
+    strings with nested parentheses of given types.
 
     Parameters
     ----------

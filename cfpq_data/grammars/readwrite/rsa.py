@@ -1,13 +1,15 @@
 """Read (and write) a Recursive State Automaton from (and to) different sources."""
+
 import logging
 import pathlib
 from typing import Union
 
-from pyformlang.cfg import Epsilon, Variable, Production
+from pyformlang.cfg import Epsilon
 from pyformlang.finite_automaton import Symbol
 from pyformlang.finite_automaton.finite_automaton import to_symbol
 from pyformlang.regular_expression import Regex
-from pyformlang.rsa import Box, RecursiveAutomaton as RSA
+from pyformlang.rsa import Box
+from pyformlang.rsa import RecursiveAutomaton as RSA
 
 __all__ = [
     "rsa_from_text",
@@ -42,7 +44,8 @@ def rsa_from_text(text: str, *, start_symbol: Symbol = Symbol("S")) -> RSA:
 
     References
     ----------
-    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines.
+    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+       State Machines.
        In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
@@ -98,7 +101,8 @@ def rsa_to_text(rsa: RSA) -> str:
 
     References
     ----------
-    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines.
+    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+       State Machines.
        In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
@@ -150,7 +154,8 @@ def rsa_from_txt(
 
     References
     ----------
-    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines.
+    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+       State Machines.
        In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
@@ -191,7 +196,8 @@ def rsa_to_txt(rsa: RSA, path: Union[pathlib.Path, str]) -> pathlib.Path:
 
     References
     ----------
-    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines.
+    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+       State Machines.
        In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18

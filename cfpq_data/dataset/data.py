@@ -1,15 +1,15 @@
 """Download graph data from dataset."""
+
 import logging
 import os
 import pathlib
 import shutil
 import tempfile
+from typing import Union
 
 import requests
 
-from typing import Union
-
-from cfpq_data.config import DATA, GRAPHS_DIR, GRAMMARS_DIR, BENCHMARKS_DIR, VERSION
+from cfpq_data.config import BENCHMARKS_DIR, GRAMMARS_DIR, GRAPHS_DIR, VERSION
 
 __all__ = [
     "DATASET_KEY_PREFIX",
@@ -247,7 +247,8 @@ def download_grammars(
         The name of the grammar template from the dataset.
 
     graph_name : Union[str, None]
-        The name of the specified graph from the dataset or None for downloading example grammars.
+        The name of the specified graph from the dataset or None for
+        downloading example grammars.
 
     Examples
     --------
@@ -257,7 +258,8 @@ def download_grammars(
     Returns
     -------
     path : Union[Path, None]
-        Path to the directory with grammars data or None if there is no such grammars in dataset.
+        Path to the directory with grammars data or None if there is no such
+        grammars in dataset.
     """
     if template not in GRAMMAR_TEMPLATES:
         raise FileNotFoundError(f"No grammar {template=} found")
@@ -296,7 +298,8 @@ def download_grammars(
     shutil.unpack_archive(grammar_archive, GRAMMARS_DIR)
 
     logging.info(
-        f"Unzip grammars with {template=} for graph with {graph_name=} to directory {grammars=}"
+        f"Unzip grammars with {template=} for graph with {graph_name=} "
+        f"to directory {grammars=}"
     )
 
     os.remove(grammar_archive)

@@ -1,4 +1,5 @@
 """Change terminals of a context-free grammar in different formats."""
+
 import logging
 import re
 from typing import Dict
@@ -7,10 +8,10 @@ from pyformlang.cfg import CFG
 from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
-from cfpq_data.grammars.readwrite.cfg import cfg_to_text, cfg_from_text
+from cfpq_data.grammars.readwrite.cfg import cfg_from_text, cfg_to_text
 from cfpq_data.grammars.readwrite.cnf import cnf_from_text
-from cfpq_data.grammars.readwrite.regex import regex_to_text, regex_from_text
-from cfpq_data.grammars.readwrite.rsa import rsa_to_text, rsa_from_text
+from cfpq_data.grammars.readwrite.regex import regex_from_text, regex_to_text
+from cfpq_data.grammars.readwrite.rsa import rsa_from_text, rsa_to_text
 
 __all__ = [
     "change_terminals_in_cfg",
@@ -161,7 +162,8 @@ def change_terminals_in_rsa(rsa: RSA, mapping: Dict[str, str]) -> RSA:
 
     References
     ----------
-    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines.
+    .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+       State Machines.
        In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18

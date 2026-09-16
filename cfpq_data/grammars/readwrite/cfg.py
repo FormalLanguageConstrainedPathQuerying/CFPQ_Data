@@ -1,9 +1,10 @@
 """Read (and write) a context-free grammar from (and to) different sources."""
+
 import logging
 import pathlib
 from typing import Union
 
-from pyformlang.cfg import Variable, CFG
+from pyformlang.cfg import CFG, Variable
 
 __all__ = [
     "cfg_from_text",

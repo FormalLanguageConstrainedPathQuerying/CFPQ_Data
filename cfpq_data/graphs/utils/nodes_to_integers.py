@@ -1,4 +1,5 @@
 """Returns a graph with nodes converted to integers."""
+
 import logging
 
 import networkx as nx

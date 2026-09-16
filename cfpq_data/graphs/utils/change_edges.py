@@ -1,4 +1,5 @@
 """Returns a graph with changed edges by specified edge labels mapping."""
+
 import logging
 from typing import Any, Dict
 

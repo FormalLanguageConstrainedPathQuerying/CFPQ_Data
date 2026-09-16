@@ -1,11 +1,12 @@
 """Create a context-free grammar in Chomsky normal form from different formats."""
+
 import logging
 
 from pyformlang.cfg import CFG, Epsilon
 from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
-from cfpq_data.grammars.converters.cfg import cfg_from_rsa, cfg_from_regex
+from cfpq_data.grammars.converters.cfg import cfg_from_regex, cfg_from_rsa
 
 __all__ = [
     "cnf_from_cfg",
@@ -27,7 +28,7 @@ def cnf_from_cfg(cfg: CFG) -> CFG:
     --------
     >>> from cfpq_data import *
     >>> gr = cfg_from_text("S -> a b")
-    >>> cnf = cfpq_data.cnf_from_cfg(gr)
+    >>> cnf = cnf_from_cfg(gr)
     >>> cfg_to_text(cnf)
     'S -> a#CNF# b#CNF#\\na#CNF# -> a\\nb#CNF# -> b'
 
@@ -74,7 +75,7 @@ def cnf_from_regex(regex: Regex) -> CFG:
     --------
     >>> from cfpq_data import *
     >>> expr = regex_from_text("a*")
-    >>> cnf = cfpq_data.cnf_from_regex(expr)
+    >>> cnf = cnf_from_regex(expr)
     >>> cfg_to_text(cnf)
     'S -> \\nS -> S S\\nS -> a'
 
@@ -121,7 +122,8 @@ def cnf_from_rsa(rsa: RSA) -> CFG:
     References
     ----------
     .. [1] https://en.wikipedia.org/wiki/Chomsky_normal_form
-    .. [2] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines.
+    .. [2] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+       State Machines.
        In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18

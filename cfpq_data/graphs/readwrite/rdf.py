@@ -1,4 +1,5 @@
 """Read (and write) a graph from (and to) RDF file."""
+
 import logging
 import pathlib
 from typing import Union

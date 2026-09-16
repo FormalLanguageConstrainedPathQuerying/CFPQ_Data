@@ -7,21 +7,14 @@ structure, dynamics, and functions of complex Graphs and Grammars used for
 experimental analysis of context-free path querying algorithms
 """
 
-import cfpq_data.config
+import logging
+
 from cfpq_data.config import *
-
-__version__ = VERSION
-
-import cfpq_data.dataset
 from cfpq_data.dataset import *
-
-import cfpq_data.graphs
+from cfpq_data.grammars import *
 from cfpq_data.graphs import *
 
-import cfpq_data.grammars
-from cfpq_data.grammars import *
-
-import logging
+__version__ = VERSION
 
 logging.basicConfig(
     level=logging.INFO,

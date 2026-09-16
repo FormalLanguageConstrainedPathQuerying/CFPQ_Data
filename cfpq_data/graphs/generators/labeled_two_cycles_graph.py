@@ -1,6 +1,7 @@
 """Returns a graph with two cycles connected by one node. With labeled edges."""
+
 import logging
-from typing import Union, Iterable, Any, Tuple
+from typing import Any, Iterable, Tuple, Union
 
 import networkx as nx
 

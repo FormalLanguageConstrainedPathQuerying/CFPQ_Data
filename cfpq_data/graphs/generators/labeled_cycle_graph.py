@@ -2,8 +2,9 @@
 
 $C_n$ is a path with its two end-nodes connected.
 """
+
 import logging
-from typing import Union, Iterable, Any
+from typing import Any, Iterable, Union
 
 import networkx as nx
 

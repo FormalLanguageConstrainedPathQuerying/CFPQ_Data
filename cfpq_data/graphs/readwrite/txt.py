@@ -1,8 +1,9 @@
 """Read (and write) a graph from (and to) TXT file."""
+
 import logging
 import pathlib
 import shlex
-from typing import Union, Iterable, Iterator
+from typing import Iterable, Iterator, Union
 
 import networkx as nx
 

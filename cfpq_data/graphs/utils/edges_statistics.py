@@ -1,7 +1,8 @@
 """Returns statistics of graph edges."""
+
 import logging
 from collections import defaultdict
-from typing import List, Any, DefaultDict
+from typing import Any, DefaultDict, List
 
 import networkx as nx
 
@@ -20,8 +21,6 @@ def get_labels_frequency(graph: nx.MultiDiGraph) -> DefaultDict[Any, int]:
     --------
     >>> from cfpq_data import *
     >>> g = labeled_two_cycles_graph(1, 1, labels=("a", "b"))
-    >>> list(g.edges(data=True))
-    [(1, 0, {'label': 'a'}), (0, 1, {'label': 'a'}), (0, 2, {'label': 'b'}), (2, 0, {'label': 'b'})]
     >>> labels_frequency = get_labels_frequency(g)
     >>> labels_frequency
     defaultdict(<class 'int'>, {'a': 2, 'b': 2})
@@ -47,8 +46,8 @@ def get_sorted_labels(
     *,
     reverse: bool = False,
 ) -> List[Any]:
-    """Returns a list of edge labels sorted by the number of uses in the graph. The labels with equal number of uses are
-    sorted lexicographically.
+    """Returns a list of edge labels sorted by the number of uses in the
+    graph. The labels with equal number of uses are sorted lexicographically.
 
     Parameters
     ----------

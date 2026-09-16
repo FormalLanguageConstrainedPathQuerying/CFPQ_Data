@@ -1,4 +1,5 @@
 """Reference reachable-pair counts for graph x grammar pairs."""
+
 import csv
 import pathlib
 from typing import Optional

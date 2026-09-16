@@ -1,8 +1,7 @@
-from itertools import product
 import os
 import random
+from itertools import product
 
-import networkx as nx
 import pytest
 
 import cfpq_data

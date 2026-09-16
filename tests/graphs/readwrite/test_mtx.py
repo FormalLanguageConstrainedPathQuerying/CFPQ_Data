@@ -1,5 +1,3 @@
-import pathlib
-
 import networkx as nx
 import pytest
 

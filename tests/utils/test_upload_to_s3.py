@@ -1,7 +1,6 @@
 from unittest import mock
 
 import pytest
-
 from upload_to_s3 import (
     DEFAULT_BUCKET,
     DEFAULT_ENDPOINT_URL,

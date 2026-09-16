@@ -1,8 +1,9 @@
 """Create a context-free grammar from different formats."""
+
 import logging
 import re
 
-from pyformlang.cfg import CFG, Variable, Production, Terminal
+from pyformlang.cfg import CFG, Production, Terminal, Variable
 from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
@@ -107,7 +108,8 @@ def cfg_from_rsa(rsa: RSA) -> CFG:
     References
     ----------
     .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
-    .. [2] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive State Machines.
+    .. [2] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+       State Machines.
        In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
        Lecture Notes in Computer Science, vol 2102.
        Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18

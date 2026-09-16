@@ -1,10 +1,12 @@
-"""Returns a Java Points-to grammar that generates a language for the field-sensitive analysis of Java programs."""
+"""Returns a Java Points-to grammar that generates a language for the
+field-sensitive analysis of Java programs."""
+
 import logging
+import re
 from typing import List
-from pyformlang.cfg import CFG, Production, Variable, Terminal
 
 import networkx as nx
-import re
+from pyformlang.cfg import CFG, Production, Terminal, Variable
 
 __all__ = ["java_points_to_grammar", "java_points_to_grammar_from_graph"]
 
@@ -14,8 +16,8 @@ def java_points_to_grammar(
     *,
     start_symbol: Variable = Variable("S"),
 ) -> CFG:
-    """Returns a Java Points-to grammar that generates a language for the field-sensitive analysis of Java programs [1]_
-    with given fields labels.
+    """Returns a Java Points-to grammar that generates a language for the
+    field-sensitive analysis of Java programs [1]_ with given fields labels.
 
     Parameters
     ----------
@@ -115,8 +117,9 @@ def java_points_to_grammar_from_graph(
     *,
     start_symbol: Variable = Variable("S"),
 ) -> CFG:
-    """Returns a Java Points-to grammar that generates a language for the field-sensitive analysis of Java programs [1]_
-    with fields corresponding to the load and store edge labels of the given graph.
+    """Returns a Java Points-to grammar that generates a language for the
+    field-sensitive analysis of Java programs [1]_ with fields corresponding
+    to the load and store edge labels of the given graph.
 
     Parameters
     ----------

@@ -152,9 +152,7 @@ def test_materialize_i_style():
 
 
 def test_materialize_inert_symbols():
-    template = (
-        "S\tsubClassOf\tN1\n" "N1\tS\ttype\n" "S\ttype_r\ttype\n" "\n" "Count:\n" "S\n"
-    )
+    template = "S\tsubClassOf\tN1\nN1\tS\ttype\nS\ttype_r\ttype\n\nCount:\nS\n"
     g = nx.MultiDiGraph()
     g.add_edge(0, 1, label="type")
 
@@ -166,7 +164,7 @@ def test_materialize_inert_symbols():
 
 
 def test_materialize_rejects_indexed_start_symbol():
-    template = "load_i\tPTh\n" "PTh\talloc\n" "\n" "Count:\n" "load_i\n"
+    template = "load_i\tPTh\nPTh\talloc\n\nCount:\nload_i\n"
 
     with pytest.raises(ValueError, match="must not be indexed"):
         materialize(cnf_template_from_text(template), _java_graph(["0"]))
@@ -197,16 +195,7 @@ FSJPT_TEMPLATE = (
     "PT\n"
 )
 
-CSCVF_TEMPLATE = (
-    "A\n"
-    "A\tA\tB\n"
-    "A\tA\ta\n"
-    "B\tcall_i\tAR_i\n"
-    "AR_i\tA\tret_i\n"
-    "\n"
-    "Count:\n"
-    "A\n"
-)
+CSCVF_TEMPLATE = "A\nA\tA\tB\nA\tA\ta\nB\tcall_i\tAR_i\nAR_i\tA\tret_i\n\nCount:\nA\n"
 
 FSCA_TEMPLATE = (
     "M\tDV\td\n"

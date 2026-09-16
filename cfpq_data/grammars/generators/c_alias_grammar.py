@@ -1,6 +1,9 @@
-"""Returns a C Alias grammar that generates a language for the flow-insensitive alias analysis of C programs."""
+"""Returns a C Alias grammar that generates a language for the
+flow-insensitive alias analysis of C programs."""
+
 import logging
 from typing import Tuple
+
 from pyformlang.cfg import CFG, Variable
 
 import cfpq_data
@@ -14,15 +17,18 @@ def c_alias_grammar(
     dereference_labels: Tuple[str, str] = ("d", "d_r"),
     start_symbol: Variable = Variable("S"),
 ) -> CFG:
-    """Returns a C Alias grammar that generates a language for the flow-insensitive alias analysis of C programs [1]_.
+    """Returns a C Alias grammar that generates a language for the
+    flow-insensitive alias analysis of C programs [1]_.
 
     Parameters
     ----------
     assigment_labels : Tuple[str, str]
-        Pair $(a, a_r)$ where label $a$ represents the assignment operation and $a_r$ is reverse to it.
+        Pair $(a, a_r)$ where label $a$ represents the assignment operation
+        and $a_r$ is reverse to it.
 
     dereference_labels : Tuple[str, str]
-        Pair $(d, d_r)$ where label $d$ represents pointer dereference relation and $d_r$ is reverse to it.
+        Pair $(d, d_r)$ where label $d$ represents pointer dereference
+        relation and $d_r$ is reverse to it.
 
     start_symbol : Variable
         Start symbol of the grammar.
@@ -31,8 +37,15 @@ def c_alias_grammar(
     --------
     >>> from cfpq_data import *
     >>> cfg = c_alias_grammar()
-    >>> cfg_to_text(cfg)
-    'S -> d_r V d\\nV -> V1 V2 V3\\nV1 -> \\nV1 -> V2 a_r V1\\nV2 -> \\nV2 -> S\\nV3 -> \\nV3 -> a V2 V3'
+    >>> print(cfg_to_text(cfg))  # doctest: +NORMALIZE_WHITESPACE
+    S -> d_r V d
+    V -> V1 V2 V3
+    V1 ->
+    V1 -> V2 a_r V1
+    V2 ->
+    V2 -> S
+    V3 ->
+    V3 -> a V2 V3
 
     Returns
     -------

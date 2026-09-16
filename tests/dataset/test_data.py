@@ -42,7 +42,7 @@ def test_download_grammars_none():
 
 @pytest.mark.parametrize("template,graph_name", [("dyck", None)])
 def test_download_grammars_success(template, graph_name):
-    assert not cfpq_data.download_grammars(template, graph_name=graph_name) is None
+    assert cfpq_data.download_grammars(template, graph_name=graph_name) is not None
 
 
 def test_download_benchmark_rise():

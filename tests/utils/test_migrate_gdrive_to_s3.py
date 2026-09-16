@@ -5,8 +5,6 @@ import pathlib
 from unittest import mock
 
 import pytest
-
-from cfpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL
 from migrate_gdrive_to_s3 import (
     DRIVE_DOWNLOAD_URL,
     DriveDownloadError,
@@ -14,7 +12,6 @@ from migrate_gdrive_to_s3 import (
     MigrationItem,
     discover_items,
     download_from_drive,
-    is_on_yandex,
     load_mapping,
     main,
     migrate,
@@ -22,6 +19,8 @@ from migrate_gdrive_to_s3 import (
     sha256_of,
     update_docs,
 )
+
+from cfpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL
 
 
 def _rst_page(full_name: str, direct_fid: str, origin_fid: str | None = None) -> str:

@@ -1,7 +1,10 @@
-"""Returns a Dyck grammar that generates a Dyck language of the balanced strings with parentheses of different types."""
+"""Returns a Dyck grammar that generates a Dyck language of the balanced
+strings with parentheses of different types."""
+
 import logging
 from typing import List, Tuple
-from pyformlang.cfg import CFG, Production, Variable, Terminal
+
+from pyformlang.cfg import CFG, Production, Terminal, Variable
 
 __all__ = ["dyck_grammar"]
 
@@ -12,7 +15,8 @@ def dyck_grammar(
     eps: bool = True,
     start_symbol: Variable = Variable("S"),
 ) -> CFG:
-    """Returns a Dyck grammar that generates a Dyck language [1]_ of the balanced strings with parentheses of given types.
+    """Returns a Dyck grammar that generates a Dyck language [1]_ of the
+    balanced strings with parentheses of given types.
 
     Parameters
     ----------

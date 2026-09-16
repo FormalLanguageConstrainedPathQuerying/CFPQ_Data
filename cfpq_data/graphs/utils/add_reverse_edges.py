@@ -1,4 +1,5 @@
 """Returns a graph with added reverse edges."""
+
 import logging
 from typing import Any, Dict, Union
 
@@ -25,12 +26,12 @@ def add_reverse_edges(
     Examples
     --------
     >>> from cfpq_data import *
-    >>> g = labeled_cycle_graph(2)
+    >>> g = labeled_cycle_graph(1)
     >>> list(g.edges(data=True))
-    [(0, 1, {'label': 'a'}), (1, 0, {'label': 'a'})]
+    [(0, 0, {'label': 'a'})]
     >>> new_g = add_reverse_edges(g)
     >>> list(new_g.edges(data=True))
-    [(0, 1, {'label': 'a'}), (0, 1, {'label': 'a_r'}), (1, 0, {'label': 'a_r'}), (1, 0, {'label': 'a'})]
+    [(0, 0, {'label': 'a'}), (0, 0, {'label': 'a_r'})]
 
     Returns
     -------

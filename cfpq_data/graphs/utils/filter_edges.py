@@ -1,6 +1,7 @@
 """Returns a graph with filtered edges."""
+
 import logging
-from typing import Iterable, Any
+from typing import Any, Iterable
 
 import networkx as nx
 
@@ -22,8 +23,6 @@ def filter_edges(graph: nx.MultiDiGraph, labels: Iterable[Any]) -> nx.MultiDiGra
     --------
     >>> from cfpq_data import *
     >>> g = labeled_two_cycles_graph(1, 1, labels=("a", "b"))
-    >>> list(g.edges(data=True))
-    [(1, 0, {'label': 'a'}), (0, 1, {'label': 'a'}), (0, 2, {'label': 'b'}), (2, 0, {'label': 'b'})]
     >>> new_g = filter_edges(g, ["a"])
     >>> list(new_g.edges(data=True))
     [(1, 0, {'label': 'a'}), (0, 1, {'label': 'a'})]

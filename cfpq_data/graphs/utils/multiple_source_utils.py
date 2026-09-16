@@ -1,7 +1,8 @@
 """Utilities for the multiple-source query evaluation."""
-import random
+
 import logging
 import pathlib
+import random
 import shlex
 from typing import Set, Tuple, Union
 
@@ -40,8 +41,8 @@ def generate_multiple_source(
     --------
     >>> from cfpq_data import *
     >>> seed = 42
-    >>> g = cfpq_data.labeled_two_cycles_graph(42, 29)
-    >>> source_vertices = cfpq_data.generate_multiple_source(g, 10, seed=seed)
+    >>> g = labeled_two_cycles_graph(42, 29)
+    >>> source_vertices = generate_multiple_source(g, 10, seed=seed)
     >>> source_vertices
     {32, 3, 4, 36, 12, 14, 15, 18, 54, 29}
 
@@ -63,7 +64,8 @@ def generate_multiple_source(
     source_vertices = set(random.sample(list(graph.nodes), set_size))
 
     logging.info(
-        f"Generate set of source vertices of {set_size} nodes for {graph=} for multiple-source evaluation"
+        f"Generate set of source vertices of {set_size} nodes for {graph=} "
+        f"for multiple-source evaluation"
     )
 
     return source_vertices
@@ -75,7 +77,8 @@ def generate_multiple_source_percent(
     *,
     seed: Union[int, None] = None,
 ) -> Set[int]:
-    """Returns a set of graph vertices with the given percent of vertices for multiple-source evaluation.
+    """Returns a set of graph vertices with the given percent of vertices
+    for multiple-source evaluation.
 
     Parameters
     ----------
@@ -91,11 +94,11 @@ def generate_multiple_source_percent(
     Examples
     --------
     >>> from cfpq_data import *
-    >>> g = cfpq_data.labeled_two_cycles_graph(42, 29)
+    >>> g = labeled_two_cycles_graph(42, 29)
     >>> g.number_of_nodes()
     72
     >>> seed = 42
-    >>> source_vertices = cfpq_data.generate_multiple_source_percent(g, 10.0, seed=seed)
+    >>> source_vertices = generate_multiple_source_percent(g, 10.0, seed=seed)
     >>> source_vertices
     {32, 4, 36, 14, 15, 18, 29}
 
@@ -187,9 +190,10 @@ def multiple_source_to_txt(
 
 
 def multiple_source_result_from_txt(
-    path: Union[pathlib.Path, str]
+    path: Union[pathlib.Path, str],
 ) -> Set[Tuple[int, int]]:
-    """Returns a set with the result of multiple-source query evaluation loaded from a TXT file.
+    """Returns a set with the result of multiple-source query evaluation
+    loaded from a TXT file.
 
     Parameters
     ----------
@@ -229,7 +233,8 @@ def multiple_source_result_from_txt(
 def multiple_source_result_to_txt(
     reachable_pairs: Set[Tuple[int, int]], path: Union[pathlib.Path, str]
 ) -> pathlib.Path:
-    """Returns a path to the TXT file where the multiple-source query evaluation result will be saved.
+    """Returns a path to the TXT file where the multiple-source query
+    evaluation result will be saved.
 
     Parameters
     ----------
@@ -237,7 +242,8 @@ def multiple_source_result_to_txt(
         The multiple-source query evaluation result to save.
 
     path: Union[Path, str]
-        The path to the file where the multiple-source query evaluation result will be saved.
+        The path to the file where the multiple-source query evaluation
+        result will be saved.
 
     Examples
     --------
@@ -248,7 +254,8 @@ def multiple_source_result_to_txt(
     Returns
     -------
     path : Path
-        Path to a TXT file where the multiple-source query evaluation result will be saved.
+        Path to a TXT file where the multiple-source query evaluation
+        result will be saved.
     """
     with open(path, "w") as f:
         for u, v in reachable_pairs:
