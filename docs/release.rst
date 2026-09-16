@@ -44,6 +44,20 @@ a packaging check that fails the PR before a release tag is cut; since a tag
 always points at a merged PR's head, it validates exactly the code that will
 be released.
 
+Two packaging constraints matter:
+
+- ``python -m build`` builds the wheel *from the sdist*, so the sdist must
+  contain everything :file:`setup.py` reads at build time — in particular
+  ``requirements/*.txt``, included via :file:`MANIFEST.in`. The PR's Publish
+  check catches a missing file before a tag is cut.
+- PyPI and TestPyPI reject re-uploads of files that already exist for a
+  version. The PR check uses ``skip-existing`` to stay green; the real
+  publish does not — if a tag push reaches PyPI and then fails, an owner must
+  delete the release on PyPI before the tag can be re-pushed.
+
+Merging a pull request into ``master`` never publishes: the workflow runs
+only on ``v*`` tag pushes (the merge does redeploy the docs site).
+
 Prerequisites (one-time, owner action)
 --------------------------------------
 
