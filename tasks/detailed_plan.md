@@ -1,246 +1,92 @@
-# Task 33: Developer documentation for issue #76 + README developer section
+# Task 34: Add issue references to the v5.0.0 changelog
 
 ## Context
 
-Issue #76 ([FEATURE] Developer docs) asks for developer documentation covering
-five items: **Pre-commit, Test pipeline, Docs deploy, Package deploy,
-Guideline**. The user also asked to verify the README carries the necessary
-parts.
+The user is preparing the v5.0.0 release and asked to verify whether eight
+GitHub issues are resolved and to add references for the resolved ones to the
+Changelog. The resolution analysis (2026-09-16, on `dev`) is recorded in
+`tasks/global_plan.md` ("Issue resolution status" table). Summary:
 
-Gap analysis on `dev` (before this task):
+- Resolved: #122, #76, #75 (manual-TestPyPI nuance), #74, #26, #16.
+- Partial: #2 (Zheng & Rugina C alias data in; Vedurada "Batch Alias Analysis"
+  missing) and, consequently, umbrella #28 (7 of 8 sub-items).
 
-| Issue item | Where it was documented | Gap |
-|---|---|---|
-| Pre-commit | `.pre-commit-config.yaml` (hook list), CI `lint.yml`, agent skill `code-style` | No human-facing page; no README mention |
-| Test pipeline | CI `tests.yml` (3 OS × py3.11), `coverage.yml` (→ Codecov), agent skill `run-tests` | No human-facing page; no README mention |
-| Docs deploy | `deploy_docs.yml` (push to `master` → gh-pages); `docs/README.md` covers the *local* build only | Deployment mechanism undocumented anywhere for humans |
-| Package deploy | `publish.yml`, `docs/release.rst` (versioning, Trusted Publishing, TestPyPI, dataset publishing) | Already documented — cross-links only |
-| Guideline | Agent skills `git-workflow`, `quality-gates`; `AGENTS.md` (agent-facing) | No human-facing contribution guidelines anywhere |
+User decisions (verbatim, see tasks.md):
 
-## User decisions (verbatim)
-
-"Let use docs as the source of truth, skills as thin pointers. Add this to
-main pronciples for future skills design and update."
-
-Scope decisions confirmed with the user:
-
-- Contribution guideline lives in the docs page + README only — **no**
-  root-level `CONTRIBUTING.md`.
-- The stale `docs/install.rst` ("Python 3.7 or later" while
-  `pyproject.toml`/`setup.py` require >=3.11) is fixed as part of this task.
+- #2: "Reference partial, no close claim".
+- #28: "Reference resolved sub-items only".
 
 ## Reuse (no duplication)
 
-- Package deploy: cross-reference existing `docs/release.rst` — do not
-  duplicate its content.
-- Local docs build: cross-reference existing `docs/README.md` (canonical for
-  the local build) — do not duplicate.
-- Pre-commit hook list: reference `.pre-commit-config.yaml` as the source of
-  truth — do not enumerate hooks in prose.
-- pytest configuration: reference `[tool.pytest.ini_options]` in
-  `pyproject.toml`.
-- CI facts: reference the workflow files under `.github/workflows/` by name;
-  the files are the source of truth for exact versions/flags.
-- Skills `code-style`, `run-tests`, `build-docs`, `git-workflow`: slim to thin
-  pointers to the new page (same pattern as the `release` skill →
-  `docs/release.rst`): keep agent-specific operational details (commands,
-  pitfalls), drop re-descriptions of the model.
-- New material: `docs/developer.rst` (no existing page covers these topics),
-  README "For developers" section, `install.rst` fix, `AGENTS.md` principle.
+- The `[Unreleased]` section already describes the 5.0.0 changes; this task
+  **amends** those entries with issue references and adds entries for changes
+  not yet listed (developer guide, release pipeline, docs prebuild, reference
+  values, link fixes). No new changelog sections are invented.
+- Keep a Changelog format (Added/Changed/Fixed) as declared in the file header.
+- Issue numbers are cited as `(#NNN)` at the end of the entry they describe;
+  an entry may carry several references.
 
-## Division of labor (docs vs skills)
+## Subtasks
 
-Per the new Main Principle: docs hold the **what/why** (model: what each
-pipeline does, what CI enforces, how deployment works, contribution rules);
-skills hold the **how** for agents (exact commands, agent/machine-specific
-pitfalls, operational procedures) and point at the docs page instead of
-re-describing the model.
+### S1: Record task 34 in the task log and write the plans
 
----
-
-### S1: Record task 33 and write this detailed plan [done]
-
-**Code:** N/A (no code).
-**Tests:** N/A (docs-only task; verified by the docs build + linkcheck gate).
-**Docs:** `tasks/tasks.md` (append task 33 line, user text verbatim + USER
-GUIDANCE), `tasks/detailed_plan.md` (this file).
+**Code:** none (documentation-only task)
+**Tests:** skip — no code to test
+**Docs:** `tasks/tasks.md` (task 34 + task 35 lines with user guidance),
+         `tasks/global_plan.md` (rewritten for tasks 34-35),
+         `tasks/detailed_plan.md` (this plan)
 
 **Spec:**
-- Task line uses the user's description verbatim plus the verbatim USER
-  GUIDANCE annotation.
-- Branch `feature/33-developer-docs` created from `dev`.
+- Append task 34 and task 35 to `tasks/tasks.md` with the user's wording and
+  verbatim `[USER GUIDANCE]` annotations.
+- Rewrite `tasks/global_plan.md` for tasks 34-35: dependency (34 -> 35),
+  verified facts (issue status table, release mechanics, Trusted Publishing
+  configured), human gates (manual PR merge; tag on `origin/master` after
+  fetch), execution order.
+- Write this detailed plan.
 
-### S2: Create docs/developer.rst covering all five issue items [done]
+### S2: Add issue references to the `[Unreleased]` changelog section
 
-**Code:** N/A (no code).
-**Tests:** N/A (docs-only; the no-warnings docs build + linkcheck are the
-verification — every cross-reference and external URL must resolve).
-**Docs:** New `docs/developer.rst`; add it to the toctree in
-`docs/project.rst` (after `about`) and extend that page's intro line.
-
-**Spec:**
-- Page label `.. _developer:`, title "Developer guide", standard
-  `.. only:: html` Release/Date block, sections underlined with `-`.
-- Sections, in order:
-  1. *Development setup* — Python 3.11–3.13 (per `pyproject.toml`
-     `>=3.11,<3.14`); Poetry is the canonical environment (what all CI
-     workflows use): `poetry install --with dev,test,docs` then
-     `pip install .` (`package-mode = false`, so the package itself is
-     installed via `setup.py`); note that `requirements/*.txt` are pip-only
-     fallbacks.
-  2. *Pre-commit* — what it enforces (formatting + hygiene + version sync),
-     hook list referenced from `.pre-commit-config.yaml` (not enumerated);
-     `pre-commit install` for the git hook; manual full run command; CI
-     enforcement via `lint.yml` on every push/PR.
-  3. *Test pipeline* — local canonical command
-     `poetry run pytest --doctest-modules -vv -s cfpq_data tests`; doctests in
-     docstrings are part of the suite (`--doctest-modules`, `testpaths` in
-     `pyproject.toml`); `tests/` mirrors `cfpq_data/`; CI: `tests.yml` matrix
-     (ubuntu/macos/windows × Python 3.11) on push/PR, `coverage.yml`
-     (pytest-cov → Codecov).
-  4. *Docs build and deploy* — local build cross-referenced to
-     `docs/README.md` (canonical; no-warnings policy `-W --keep-going` in
-     `docs/Makefile`; linkcheck command); **new content**: deployment — push
-     to `master` triggers `deploy_docs.yml`, which builds the HTML and deploys
-     `docs/_build/html` to the `gh-pages` branch (GitHub Pages) via
-     `JamesIves/github-pages-deploy-action`; forks are skipped
-     (`repository_owner` guard); site URL.
-  5. *Package deploy* — one short paragraph cross-referencing
-     `:doc:`release`` (versioning, tag-triggered PyPI publish via Trusted
-     Publishing, TestPyPI dry run, dataset publishing). No duplication.
-  6. *Contribution guidelines* — branching model (`dev` stable development
-     branch; `master` protected release branch; releases merge `dev` →
-     `master` via PR then push a `vX.Y.Z` tag matching the package version);
-     one task per `feature/XXX-short-description` branch, never combine tasks;
-     Conventional Commits with exactly one subtask identifier
-     (`feat(XXX-SN): ...`), one commit per atomic subtask; pre-merge quality
-     gate — all of: full test suite (0 failures, 0 skipped), full pre-commit
-     pass, docs build exit 0 under the no-warnings policy, linkcheck with no
-     broken/timed-out links; merge strategy rebase + fast-forward (linear
-     history, no squash); pointer to the graph/grammar contribution templates
-     in `.github/` (reuse, do not duplicate).
-- All cross-references must resolve under `nitpicky = True`; all external
-  URLs must pass linkcheck.
-
-### S3: Add "For developers" section to README.rst [done]
-
-**Code:** N/A.
-**Tests:** N/A (README is RST rendered on GitHub/PyPI; no doctests added —
-keep existing examples untouched).
-**Docs:** `README.rst` — new "For developers" section between "Examples" and
-"How to add a new graph?".
+**Code:** none (documentation-only task)
+**Tests:** skip — no code to test
+**Docs:** `CHANGELOG.md` only
 
 **Spec:**
-- Content: dev setup (Poetry, two commands), the three local checks CI
-  enforces (tests / pre-commit / docs build) with their one-line commands,
-  and a link to the full developer guide page
-  (`https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/developer.html`)
-  naming what it covers (setup, pre-commit, test pipeline, docs build and
-  deployment, package release, contribution guidelines).
-- Keep it short — the docs page is the source of truth; the README section
-  must not re-describe the model.
+- Amend the existing "Expanded the graph dataset" entry: cite (#2) on the C
+  alias analysis family (noting it comes from "Demand-driven Alias Analysis
+  for C"), (#16) on the data provenance family, (#26) on the UniProt biological
+  family. No claim that #2 or #28 are closed.
+- Add to *Added*:
+  - developer guide covering pre-commit, test pipeline, docs build/deploy,
+    package deploy, contribution guidelines (#76);
+  - release process documentation and the tag-triggered PyPI publish workflow
+    (Trusted Publishing) with a manual TestPyPI validation run (#75, #33);
+  - docs prebuild for pull requests: no-warnings docs build plus full link
+    check on every push and PR (#74);
+  - reference reachable-pair counts for graph x grammar pairs exposed via
+    `reachable_pairs()` and a downloadable CSV (#32).
+- Add to *Changed*: networkx-based labeled graph generators replacing the
+  legacy GTgraph ones (#27, #30); node/edge size columns on all per-category
+  graph tables (#20).
+- Add a *Fixed* section: broken function documentation links on the Graphs
+  page; unresolved cross-references now fail the docs build (nitpicky mode,
+  no-warnings policy) and the full link check runs in CI and the pre-merge
+  quality gate (#122).
 
-### S4: Fix stale install instructions [done]
+### S3: Mark task 34 done in the task log
 
-**Code:** N/A.
-**Tests:** N/A (docs-only).
-**Docs:** `docs/install.rst`; `docs/README.md` (install line only).
-
-**Spec:**
-- `docs/install.rst`: "requires Python 3.7 or later" → Python 3.11–3.13
-  (matching `pyproject.toml` `>=3.11,<3.14` and the README); pip commands use
-  the PyPI distribution name `cfpq-data` (consistent with the README), while
-  prose about the importable module keeps `cfpq_data`.
-- `docs/README.md`: the install instruction points at
-  `requirements/docs.txt`, which pins sphinx 7.2.6 while the canonical Poetry
-  docs group (used by CI and by the no-warnings validation) allows sphinx
-  ^9.0.4 — re-point it to the Poetry docs group (`poetry install --with docs`)
-  so the canonical instructions match what CI and the quality gate use.
-
-### S5: Slim overlapping skills to thin pointers [done]
-
-**Code:** N/A (skill markdown only).
-**Tests:** N/A.
-**Docs:** `.opencode/skills/code-style/SKILL.md`,
-`.opencode/skills/run-tests/SKILL.md`,
-`.opencode/skills/build-docs/SKILL.md`,
-`.opencode/skills/git-workflow/SKILL.md`.
-
-**Spec (same pattern as the `release` skill → `docs/release.rst`):**
-- Each skill: one pointer line at the top — the model is documented in the
-  named section of `docs/developer.rst` (single source of truth, do not
-  duplicate) — then keep only agent-specific operational content.
-- `code-style`: drop the inline hook-list description (it re-describes the
-  config file); keep the commands (`pre-commit run --all-files ...`,
-  `pre-commit install`, `black <path>`) and the `requirements/developer.txt`
-  note.
-- `run-tests`: keep the canonical command, the single-module example, and the
-  bare-pytest/networkx pitfall (machine-specific, agent-only); drop the
-  re-description of CI coverage in favor of the pointer.
-- `build-docs`: keep local build + linkcheck commands and the cached-doctree
-  pitfall; add the pointer for the deployment model (new docs section).
-- `git-workflow`: keep the operational merge procedure (rebase +
-  `--ff-only`), the pre-commit message validation step, and the no-push rule;
-  point at the docs Guidelines section for the branching/commit model instead
-  of re-stating it.
-- Do not touch `quality-gates` (it references the command skills, which stay
-  command-bearing) or `release` (already a thin pointer).
-
-### S6: Add the docs-as-source-of-truth principle to AGENTS.md [done]
-
-**Code:** N/A.
-**Tests:** N/A.
-**Docs:** `AGENTS.md` — Main Principles list.
+**Code:** none (documentation-only task)
+**Tests:** skip — no code to test
+**Docs:** `tasks/tasks.md`
 
 **Spec:**
-- New bullet right after "Documentation is about 'What' and 'Why'. Skills are
-  about 'How'.": docs are the source of truth for the project model; skills
-  are thin pointers that keep only agent-specific operational details and
-  reference the docs page instead of re-describing it.
+- Prepend `[done] ` to the task 34 line only; never rewrite the description.
 
-### S7: Resolve code-review findings (whole-repo review of the task diff) [done]
+## Post-subtask steps (not subtasks)
 
-**Code:** N/A.
-**Tests:** N/A (docs-only; verified by the no-warnings docs build).
-**Docs:** `docs/developer.rst`, `docs/README.md`, `README.rst`,
-`.opencode/skills/{code-style,run-tests,build-docs,quality-gates}/SKILL.md`.
-
-**Spec (findings from the whole-repo review):**
-- Duplication: the exact commands were duplicated between
-  `docs/developer.rst` and the three slimmed skills — the drift risk the
-  thin-pointer principle exists to remove. Commands now live only in the
-  docs (added the `black <path>` and single-module pytest examples to
-  `docs/developer.rst`); `code-style`, `run-tests`, and `build-docs` become
-  pure pointers keeping only agent-specific content (the bare-pytest
-  pitfall, the cached-doctree pitfall, deps notes). `quality-gates` no
-  longer names those skills as the command source of truth — it points at
-  `docs/developer.rst`. `git-workflow` keeps its merge-procedure commands:
-  they are not in the public docs (genuine how/what split).
-- Correctness: `requirements/*.txt` are not "pip-only fallbacks" —
-  `setup.py` reads them for the PyPI distribution metadata; fixed in
-  `docs/developer.rst` and `docs/README.md`.
-- Accuracy: the README listed three of the four gate checks under "the
-  local checks that CI enforces"; the prose now names what it lists.
-
----
-
-### S8: Mark task 33 done in the task log [done]
-
-**Code:** N/A.
-**Tests:** N/A.
-**Docs:** `tasks/tasks.md` (prepend `[done]` to the task 33 line only).
-
-**Spec:**
-- Task Completion Verification passed: every issue #76 clause is traceable
-  to a committed change (pre-commit/test pipeline/docs deploy/package
-  deploy/guideline → docs/developer.rst sections; README developer section;
-  user guidance → S5/S6); no subtask reverted or skipped; quality gate PASS
-  (no-warnings docs build + linkcheck, code gates skipped as docs-only).
-
-## Post-subtask gate (task level)
-
-Docs-only task: code-specific gates (tests, lint, format) are skipped per the
-workflow rules. The quality gate for this task is: docs build exit 0 under
-the no-warnings policy (`make clean && make html`) + linkcheck with no broken
-or timed-out links. Then whole-repo code review, merge to `dev` (rebase +
-fast-forward), mark the task `[done]`.
+- Whole-repo code review per the `code-review` skill (docs-only: focus on
+  changelog accuracy against the verified evidence).
+- Quality gate per the `quality-gates` skill (docs build + linkcheck; code
+  gates skipped for a documentation-only task).
+- Merge to `dev` per the `git-workflow` skill (rebase + ff-only), delete the
+  feature branch.
