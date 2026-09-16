@@ -146,3 +146,19 @@ pre-release validation (a tag always points at a merged PR's head).
 **Code:** `.github/workflows/publish.yml`
 **Tests:** skip — workflow-only; the build step is the check itself
 **Docs:** `docs/release.rst` (Package publishing section), `CHANGELOG.md`
+
+### S9: Check out the repo in the publish-pypi job
+
+Added 2026-09-16 at the publish gate. The real tag push published to PyPI
+successfully, but "Create GitHub Release" failed with
+`awk: fatal: cannot open file 'CHANGELOG.md'`: the `publish-pypi` job never
+checked out the repository (it only downloads the dist artifact), so the
+changelog was absent from its working directory. Latent bug — the step had
+never run before because every earlier attempt died upstream. The v5.0.0
+GitHub Release was created manually (same notes + the exact PyPI artifacts as
+assets) while this fix lands via PR for future releases.
+
+**Code:** `.github/workflows/publish.yml` (`actions/checkout@v7` in
+`publish-pypi`)
+**Tests:** skip — workflow-only
+**Docs:** none
