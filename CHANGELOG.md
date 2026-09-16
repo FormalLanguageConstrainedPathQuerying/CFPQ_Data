@@ -30,12 +30,6 @@ The changes below make up the upcoming **5.0.0** release.
   FastMatrixCFPQ reference implementation and exposed via `reachable_pairs()`
   and a downloadable CSV (#32).
 
-### Fixed
-
-- Broken function documentation links on the Graphs page; unresolved
-  cross-references now fail the docs build (nitpicky mode, no-warnings policy),
-  and the full link check runs in CI and the pre-merge quality gate (#122).
-
 ### Changed
 
 - **Breaking:** graph archives are now distributed in the **mtx-per-label**
@@ -47,6 +41,12 @@ The changes below make up the upcoming **5.0.0** release.
   indexed-label files use the bare `<label>.mtx` name.
 - Updated dependencies: networkx 3.6, pandas 2.3, rdflib 7.6, pyformlang 1.0.1,
   requests 2.33.
+
+### Fixed
+
+- Broken function documentation links on the Graphs page; unresolved
+  cross-references now fail the docs build (nitpicky mode, no-warnings policy),
+  and the full link check runs in CI and the pre-merge quality gate (#122).
 
 ### Notes
 
