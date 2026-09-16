@@ -1,164 +1,116 @@
-# Task 35: Cut the v5.0.0 release
+# Task 36: Document the release experience (global → docs, local → skill)
 
 ## Context
 
-Task 34 finalized the `[Unreleased]` changelog section with issue references.
-This task cuts the release. The procedure is codified in the `release` skill
-and `docs/release.rst` (single source of truth — not re-described here); this
-plan records only what is specific to this run.
+Task 35 cut v5.0.0 and surfaced a series of release-flow incidents (intersphinx
+network flake, missing MANIFEST.in, TestPyPI PR check via OIDC Trusted
+Publishing, the `/legacy/` TestPyPI upload URL, the missing checkout in the
+`publish-pypi` job). The user asks that all experience and knowledge on
+releases be documented so the next release is fast and smooth, and requires a
+strict split:
 
-## Verified facts (2026-09-16, on `dev`)
+- **Global knowledge** — useful for all developers — lives in `docs/`
+  (the model: "What" and "Why").
+- **Local knowledge** — agent-specific operational details (commands,
+  pitfalls, procedures) — lives in the `release` skill (the "How"), which
+  stays a thin pointer to the docs.
 
-- Version is already `5.0.0` in `cfpq_data/config.py` and `pyproject.toml`;
-  `utils/bump_version.py 5.0.0` only promotes the changelog section.
-- The dataset is already served from `5.0.0/graph/` — no re-upload needed.
-- Trusted Publishing for PyPI was configured by the user (repository
-  `FormalLanguageConstrainedPathQuerying/CFPQ_Data`, workflow `publish.yml`).
-- The changelog line "The changes below make up the upcoming **5.0.0**
-  release." must be dropped before promotion: after the bump it would sit
-  under the released `[5.0.0]` heading and leak into the GitHub Release notes
-  (extracted by `publish.yml` from the `## [5.0.0]` section).
+## Knowledge split (decision record)
 
-## Human gates (user guidance, verbatim in tasks.md)
+Global → `docs/release.rst` (facts any developer of the project needs):
 
-1. The user reviews and merges the `dev` -> `master` PR manually. No tag is
-   created and nothing is pushed to `master` before the user confirms the
-   merge.
-2. The tag is created on `origin/master` after a fresh `git fetch origin`, so
-   it points at the merged commit.
+- The sdist-completeness constraint: `python -m build` builds the wheel from
+  the sdist, so the sdist must contain everything `setup.py` reads at build
+  time (`requirements/*.txt`, included via `MANIFEST.in`).
+- PyPI and TestPyPI reject re-uploads of files that already exist for a
+  version; the PR check uses `skip-existing`; if a tag push reaches PyPI and
+  then fails, an owner must delete the release before the tag can be
+  re-pushed.
+- Merging a pull request into `master` never publishes: the workflow runs
+  only on `v*` tag pushes (the merge does redeploy the docs site).
+
+Local → `.opencode/skills/release/SKILL.md` (agent operations only):
+
+- Pre-tag gate: wait for the PR's Publish check (TestPyPI pre-publish) to pass
+  before asking the user to merge and before tagging.
+- Human merge gate: the user reviews and merges the PR manually; tag + push
+  only after the user confirms the merge (tag on `origin/master` after a fresh
+  `git fetch origin`).
+- Verification of both PyPI and the GitHub Release page (changelog notes +
+  dist assets).
+- Recovery procedures: workflow failure before the PyPI publish (delete the
+  tag, fix, merge, re-tag) and after it (an owner deletes the PyPI release
+  first — the fact lives in the docs; create the GitHub Release manually via
+  the API, including the `upload_url` asset-upload quirk).
+- Machine notes: no `gh` CLI on this machine — use curl + the GitHub API with
+  the token extracted from the remote URL (never echoed).
+
+Not documented here (implementation details readable in
+`.github/workflows/publish.yml` itself): the checkout step of `publish-pypi`,
+the `/legacy/` TestPyPI repository URL, action versions.
 
 ## Subtasks
 
-### S1: Write this detailed plan
+### S1: Record task 36 in the task log and write this detailed plan
 
 **Code:** none (documentation-only)
 **Tests:** skip — no code to test
-**Docs:** `tasks/detailed_plan.md`
-
-**Spec:** Record context, verified facts, human gates, and subtasks S2-S5.
-
-### S2: Finalize the changelog and promote it to [5.0.0]
-
-**Code:** none (runs the existing `utils/bump_version.py`)
-**Tests:** skip — no code changes; the version guard is verified explicitly
-**Docs:** `CHANGELOG.md` (drop the "upcoming" line; section promoted by the
-         helper)
+**Docs:** `tasks/tasks.md` (task 36 line; the session's user guidance appended
+         verbatim to the task 35 line), `tasks/detailed_plan.md`
 
 **Spec:**
-- Remove the "The changes below make up the upcoming **5.0.0** release." line.
-- Run `python utils/bump_version.py 5.0.0`; it promotes `[Unreleased]` to
-  `## [5.0.0] - <today>` and inserts a fresh empty `[Unreleased]`.
-- Verify `poetry run pre-commit run check-version-sync --all-files` passes.
-- Commit on `dev` with the release-skill message: `chore: release 5.0.0`.
+- Add the task 36 line with the user's exact wording and the split
+  instruction as `[USER GUIDANCE]`.
+- Append, verbatim, the five user-guidance quotes given during task 35
+  (actions update, CI warning fix, TestPyPI-on-PR request, trusted-publisher
+  question, safe-to-merge question) to the task 35 line.
+- Replace `tasks/detailed_plan.md` with this plan.
 
-### S3: Push dev and open the release PR (human gate after)
+### S2: Record the global release knowledge in docs/release.rst
+
+**Code:** none
+**Tests:** skip — docs only; verified by the clean docs build and link check
+         in the quality gate
+**Docs:** `docs/release.rst` ("Package publishing (automated)" section)
+
+**Spec:**
+- Commit the drafted additions already present in the working tree: the two
+  packaging constraints (sdist completeness via `MANIFEST.in`; re-upload
+  rejection and its consequence for re-pushing a tag) and the "merging never
+  publishes" paragraph.
+- Review them against the actual `publish.yml` behavior before committing; do
+  not restate agent procedures here — those belong to the skill.
+
+### S3: Record the local release knowledge in the release skill
+
+**Code:** none
+**Tests:** skip — skill only
+**Docs:** `.opencode/skills/release/SKILL.md`
+
+**Spec:**
+- Procedure: step 4 gains the pre-tag gate (the PR's Publish check must pass)
+  and the human merge gate (the user merges manually; proceed only after
+  confirmation); step 6's verification extends to the GitHub Release page
+  (changelog notes + dist assets), not just PyPI.
+- New "Recovery" section: (a) workflow failure before the PyPI publish —
+  delete the tag, fix, merge the fix, re-tag on the new `origin/master`;
+  (b) failure after the PyPI publish — an owner deletes the PyPI release
+  first (reference `docs/release.rst` for the fact, do not re-describe it),
+  then create the GitHub Release manually via the API with the exact working
+  commands: token from the remote URL (never echoed), `awk` extraction of the
+  `[X.Y.Z]` changelog section, `POST /releases`, asset upload via the
+  created release's `upload_url` (`uploads.github.com`) — posting to
+  `api.github.com/.../releases/{id}/assets` returns 404.
+- Notes: the `gh` CLI is not installed on this machine — use curl + the
+  GitHub API.
+- Keep the skill a thin pointer: facts already in `docs/release.rst` are
+  referenced, never re-described.
+
+### S4: Mark task 36 done in the task log
 
 **Code:** none
 **Tests:** skip
-**Docs:** none
+**Docs:** `tasks/tasks.md`
 
-**Spec:**
-- `git push origin dev` (release exception to the no-push convention).
-- Open a PR `dev` -> `master` via `gh pr create` with a title/body describing
-  the v5.0.0 release; do not merge it.
-- STOP and ask the user to review and merge the PR manually. Do not proceed
-  to S4 before the user confirms the merge.
-
-### S4: Tag the merged commit and push the tag
-
-**Code:** none
-**Tests:** skip
-**Docs:** none
-
-**Spec:**
-- Only after the user confirms the PR is merged: `git fetch origin`.
-- `git tag -a v5.0.0 -m "Release v5.0.0" origin/master` — the tag points at
-  the merged commit on `origin/master`, never at a local ref.
-- `git push origin v5.0.0`. This triggers the `publish` workflow.
-
-### S5: Verify the publish and mark the task done
-
-**Code:** none
-**Tests:** skip
-**Docs:** `tasks/tasks.md` (mark task 35 done)
-
-**Spec:**
-- Watch the `publish` workflow run (tag verification, build, PyPI publish via
-  Trusted Publishing, GitHub Release creation).
-- Verify the package is live on PyPI and the GitHub Release carries the
-  `[5.0.0]` changelog section.
-- Prepend `[done] ` to the task 35 line in `tasks/tasks.md` (local commit on
-  `dev`; pushed with the next dev push — the release itself is already out).
-
-### S6: Make intersphinx inventory fetches resilient to transient network errors
-
-Added 2026-09-16 at the merge gate (user: "CI report set of warnings ... Fix
-it"). The first CI run on `20a181a` failed its Docs build because the runner's
-connection to `networkx.org` was reset while fetching the intersphinx
-inventory; with the inventory missing, every `nx.MultiDiGraph` cross-reference
-went unresolved and failed the build under the no-warnings policy. A second
-run of the same commit passed — the failure was a transient network flake, not
-a docs defect.
-
-**Code:** `docs/conf.py` (retry wrapper around `sphinx.util.requests.get`)
-**Tests:** skip — build configuration only; verified by a clean docs build
-**Docs:** `docs/developer.rst` ("Docs build and deploy" section)
-
-**Spec:**
-- Retry only transient connection errors (`ConnectionError`, `Timeout`); a
-  final failure propagates, so the warning still fires and the build still
-  fails — no suppression.
-- Note the behavior in the "Docs build and deploy" section of
-  `docs/developer.rst`.
-
-### S7: Fix sdist packaging so `python -m build` succeeds
-
-Added 2026-09-16 at the publish gate. The first real `python -m build` run
-(publish workflow on tag `v5.0.0`) failed: `setup.py` reads
-`requirements/*.txt`, but no MANIFEST.in existed, so the files were missing
-from the sdist and the sdist→wheel step raised FileNotFoundError. This is the
-first packaging build in the project's history — it was never exercised
-before.
-
-**Code:** `MANIFEST.in` (new: `include requirements/*.txt`)
-**Tests:** skip — verified with an isolated `python -m build` (clean venv,
-same as CI); sdist contains all four requirements files and the wheel builds.
-**Docs:** none
-
-### S8: Publish to TestPyPI on every PR targeting master
-
-Added 2026-09-16 at the merge gate (user request: validate publishing
-automatically before the human merge). The `publish` workflow gains a
-`pull_request: branches: [master]` trigger; the `publish-testpypi` job runs on
-PRs with `skip-existing: true` because concurrent PRs share one package
-version and TestPyPI rejects re-uploads of existing files.
-
-Final design (after the first PR run failed): TestPyPI uses **OIDC Trusted
-Publishing**, not a token — the first run proved the pypi-publish action
-silently falls back to OIDC when no token secret exists, and the user prefers
-no long-lived secrets (consistent with the PyPI setup). The publisher's
-subject claim is `repo:FormalLanguageConstrainedPathQuerying/CFPQ_Data:pull_request`
-(the documented sub for pull_request events; confirmed in the failed run's
-claims dump). The manual `workflow_dispatch` TestPyPI path was removed: its
-sub claim cannot match the PR publisher, and the PR check fully covers
-pre-release validation (a tag always points at a merged PR's head).
-
-**Code:** `.github/workflows/publish.yml`
-**Tests:** skip — workflow-only; the build step is the check itself
-**Docs:** `docs/release.rst` (Package publishing section), `CHANGELOG.md`
-
-### S9: Check out the repo in the publish-pypi job
-
-Added 2026-09-16 at the publish gate. The real tag push published to PyPI
-successfully, but "Create GitHub Release" failed with
-`awk: fatal: cannot open file 'CHANGELOG.md'`: the `publish-pypi` job never
-checked out the repository (it only downloads the dist artifact), so the
-changelog was absent from its working directory. Latent bug — the step had
-never run before because every earlier attempt died upstream. The v5.0.0
-GitHub Release was created manually (same notes + the exact PyPI artifacts as
-assets) while this fix lands via PR for future releases.
-
-**Code:** `.github/workflows/publish.yml` (`actions/checkout@v7` in
-`publish-pypi`)
-**Tests:** skip — workflow-only
-**Docs:** none
+**Spec:** After code review, the quality gate, and the merge to `dev`,
+prepend `[done] ` to the task 36 line (commit on `dev`).
