@@ -59,7 +59,7 @@ jobs:
       - name: Publish to TestPyPI (Trusted Publishing / OIDC)
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          repository-url: https://test.pypi.org/
+          repository-url: https://test.pypi.org/legacy/
           # No `password`: uses OIDC Trusted Publishing configured on
           # TestPyPI for the pull_request subject claim.
           # Concurrent PRs share the same package version and TestPyPI
