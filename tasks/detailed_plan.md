@@ -110,3 +110,29 @@ a docs defect.
   fails — no suppression.
 - Note the behavior in the "Docs build and deploy" section of
   `docs/developer.rst`.
+
+### S7: Fix sdist packaging so `python -m build` succeeds
+
+Added 2026-09-16 at the publish gate. The first real `python -m build` run
+(publish workflow on tag `v5.0.0`) failed: `setup.py` reads
+`requirements/*.txt`, but no MANIFEST.in existed, so the files were missing
+from the sdist and the sdist→wheel step raised FileNotFoundError. This is the
+first packaging build in the project's history — it was never exercised
+before.
+
+**Code:** `MANIFEST.in` (new: `include requirements/*.txt`)
+**Tests:** skip — verified with an isolated `python -m build` (clean venv,
+same as CI); sdist contains all four requirements files and the wheel builds.
+**Docs:** none
+
+### S8: Publish to TestPyPI on every PR targeting master
+
+Added 2026-09-16 at the merge gate (user request: validate publishing
+automatically before the human merge). The `publish` workflow gains a
+`pull_request: branches: [master]` trigger; the `publish-testpypi` job runs on
+PRs and manual dispatch, with `skip-existing: true` because concurrent PRs
+share one package version and TestPyPI rejects re-uploads of existing files.
+
+**Code:** `.github/workflows/publish.yml`
+**Tests:** skip — workflow-only; the build step is the check itself
+**Docs:** `docs/release.rst` (Package publishing section), `CHANGELOG.md`
