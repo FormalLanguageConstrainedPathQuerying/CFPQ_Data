@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - shattered_pixel_dungeon
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1AZzAKHyaRQ0AANAvkvwDPMF15TnL4Z-S>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/shattered_pixel_dungeon.tar.gz>`_
    * - Source
      - `shattered_pixel_dungeon <https://github.com/00-Evan/shattered-pixel-dungeon>`_
 

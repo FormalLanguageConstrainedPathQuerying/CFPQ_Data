@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - httpx
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1HsIEjs4rKQqpP2oMiHgM29M3AsBOYjPn>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/httpx.tar.gz>`_
    * - Source
      - `httpx <https://github.com/encode/httpx>`_
 

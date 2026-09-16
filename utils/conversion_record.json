@@ -1,0 +1,326 @@
+{
+  "apache": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/apache.tar.gz",
+    "new_sha256": "51276672bf25e077e5e9672682fa3b614f7cdc0f3cef19a075c88bd44563c4a7",
+    "old_sha256": "7422638cbbc7614f2530217ab9176c7764ee409bf8be08a59f18d6b05466822a"
+  },
+  "arch": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/arch.tar.gz",
+    "new_sha256": "b43fd6f302264f26ecb96a06887c0ae98c82dfe3da79a492ea40dde52184a7e4",
+    "old_sha256": "4de29ea03fa0e5d419b6816e5f2d5f3bee64c990e8417959dc09624a3268f227"
+  },
+  "atom": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/atom.tar.gz",
+    "new_sha256": "804f186d1898ffd31825020391b2a4b224a3906d93f68209cfe655891092961b",
+    "old_sha256": "50bfbff3f92f53165b577cdb2769d8f5db54dd042e1a48fffeb7d707c74682bd"
+  },
+  "avrora": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/avrora.tar.gz",
+    "new_sha256": "819dc423d13ea08520766fd70aee3af0c3498b709c253bf125dda1c8a7ca1981",
+    "old_sha256": "ace223e9bdb7f37344dfb44161a965acebf182936670560f3335e96ed1fda5f1"
+  },
+  "batik": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/batik.tar.gz",
+    "new_sha256": "0552f5829bbf288352d8841d7fb9ec5c09731ce7ee9d3daefc169a260be97f51",
+    "old_sha256": "eec01aa8d08cfe464e915ee71923b766cb6f4b0719310ff314ac3d9ce10f9cee"
+  },
+  "biomedical": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/biomedical.tar.gz",
+    "new_sha256": "25f5b8abe09d7d678e25bcd17ace275e63443a1dc3a0e377ebd661ea463e19d6",
+    "old_sha256": "8263d2ba48a5eddbbb9dd16b76c7398681097ae8a83b7aebe003bdf02ce942ef"
+  },
+  "block": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/block.tar.gz",
+    "new_sha256": "6273b108bfcdc5e545e142ae48e15098baab31918428006274e6028c4b1970a7",
+    "old_sha256": "22b68509b02bfb8b99e9e7f4330b42bd81d611ba172c4ab8c5010c54c6da437a"
+  },
+  "bzip": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/bzip.tar.gz",
+    "new_sha256": "ddcbedd547ab7a292edc244ff1a27b25bf30f42af452e00b39b8f1abef7a6502",
+    "old_sha256": "b62b31e2715dbe4d1a25eb665dbd1a9ab5b50852e10909c10e3f31f65f299c07"
+  },
+  "core": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/core.tar.gz",
+    "new_sha256": "a0cdafa5e4130d0b756fb8c1f0088364e600d6b85fa53572dc496cf0ae078ea2",
+    "old_sha256": "efb0424c3d4ea3e62d41b4324e94d4212f09b6cebecc8b54119cd7116ffc737b"
+  },
+  "crypto": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/crypto.tar.gz",
+    "new_sha256": "3ee95d0be20e0aa383d84b6ae32e1b9a887c788086fd0167e319fa3a7e0bdb73",
+    "old_sha256": "a817f61c4e0be805b85b6ea57caf31195e12cb8e65af0027bc629b1b5a5ba318"
+  },
+  "drivers": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/drivers.tar.gz",
+    "new_sha256": "c4c79e6eecc17a7d78dc46095e8fc740d4cd93c7bf931d2b70bdfa86b4be232f",
+    "old_sha256": "99ee94eb52bbca686f630f8897f1428be35fe143d31e2931480dbf607e4441a1"
+  },
+  "eclass": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/eclass.tar.gz",
+    "new_sha256": "a172a58482c37e2fd39baaeff0dbf99f49006a18887b776e0e8956ae5ff11006",
+    "old_sha256": "c90a577b0f11988fd3d663a210db905485e2f2a8b5d75f8f01e43d7f8ca68fd1"
+  },
+  "eclipse": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/eclipse.tar.gz",
+    "new_sha256": "1da68f674cb360985ce28660a059ed2bd271e24efef0010ee27cd0a99e7b5902",
+    "old_sha256": "73b321b8b43e22f28b8fb6e8e8fc533e272d28d3edc0e3fcd1cb3871c55b9901"
+  },
+  "enzyme": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/enzyme.tar.gz",
+    "new_sha256": "b71a398f4dbdb92dfed9854fc8f22deaed4e04dc5e0002130dd65c48b657e625",
+    "old_sha256": "5e4ca77059631b06e1d6d805136d57d766551aa16977b04aae44052fb70c9b47"
+  },
+  "foaf": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/foaf.tar.gz",
+    "new_sha256": "655fdc8f80b99f0ccec6f58b849feb538b212a95e8da4523151082e341983286",
+    "old_sha256": "e1b5bc7de14ad472675c4bb2c86be0d312cd179803523162337a23bcc05c16ec"
+  },
+  "fop": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/fop.tar.gz",
+    "new_sha256": "b29639a55b896989f12c18a9e924e0e9bde3fe7ac75fbe850536236319bd446a",
+    "old_sha256": "d8166d04523ec9de2ac939315c0c2b38f4fecce28f3bd12a1cc29266cf1a8f0d"
+  },
+  "fs": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/fs.tar.gz",
+    "new_sha256": "97b80a9fc92552c08d97e2c1b7f0b364a75ef28f54a6dc9e7387548a6ff75116",
+    "old_sha256": "bf09af52780692c0c958673d3541d042397030b0496868bc3c04e430bbb19d07"
+  },
+  "funding": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/funding.tar.gz",
+    "new_sha256": "d9360a70c8d557b78b34a0bffe62046dec0d3c79bae3496ecdcb1e790bbdba46",
+    "old_sha256": "eaba008c40e615522a3f3f72aac6e1decbf1cfe074f30f98510ca8881741f25a"
+  },
+  "generations": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/generations.tar.gz",
+    "new_sha256": "1b1b62222c874d2ebbff3daa50a7d953f61e2677695527627e2a7bb22c85255d",
+    "old_sha256": "86ba9c29102a24a2faccd8f66b36de1a926cb4a99d14c7ede8ba269998c68f47"
+  },
+  "geospecies": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/geospecies.tar.gz",
+    "new_sha256": "2cba1a8d6d66851d1defd62df77e02bd7268b9b5ec6b0bcef9705d63ad90b28c",
+    "old_sha256": "f90c11b1f0c46a135296cdf0ff0a2c37c897663eb05e625659f39a3ce47bd44f"
+  },
+  "go": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/go.tar.gz",
+    "new_sha256": "68fdea454be18cac80256a739cfb7137e4ed4d1b329aec7e4fe524b1f3929f4d",
+    "old_sha256": "08768499b3ce6aa4d979036360323595c6c7bb3e385408781c125b10df1b28e3"
+  },
+  "go_hierarchy": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/go_hierarchy.tar.gz",
+    "new_sha256": "ad100f1360ee8c9fd3298f6933ebefbf4eeea4b75349396e1ac095dae9a3b828",
+    "old_sha256": "fe5a3d6b0681b1c8737922986d5a49ff94b4c5f08d33e13ce8dfc882317bcf1f"
+  },
+  "gzip": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/gzip.tar.gz",
+    "new_sha256": "2b554f0e2371326c7da41b860c440eb77991cd04493027af550abd130196c52c",
+    "old_sha256": "5e42cfe62f11e3a554b75a7e92b024f5cffe9501922cd6436fdf39177842b476"
+  },
+  "h2": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/h2.tar.gz",
+    "new_sha256": "7124a4f32fb42d8d0db3afc28ec0455fd306d498642f322a48f6e1c1ac536672",
+    "old_sha256": "729ff7e28decfd8f548575fd871c2f3cb71bf7db8bb776ba17eed38a310a698c"
+  },
+  "init": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/init.tar.gz",
+    "new_sha256": "5bce8274a7b5e63dd657d2843a22cd25516d787bf07feb62ab1ad3884d85b975",
+    "old_sha256": "83735416a5703d9364257ea9bbc3338df9f2076a3339824b801b14276e1dec80"
+  },
+  "ipc": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/ipc.tar.gz",
+    "new_sha256": "d48430597765c22c1ca2c1503c7b217c5a73132d40b8327a39e88659ce1756c2",
+    "old_sha256": "cc07b4feefe5f87ff9e37f93d264de6b0a175bd28a0544caa74d93b3b49d25f1"
+  },
+  "jython": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/jython.tar.gz",
+    "new_sha256": "e665cd0dcc1c5ee57a826eb980772bd0ac0682929b0ed16aa85ebea85c9d462a",
+    "old_sha256": "296e9ad93208bf2e5e6448058a8647981ea1486bdb999d7b1dadeed33c81857e"
+  },
+  "kernel": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/kernel.tar.gz",
+    "new_sha256": "0f513a8bf096768b8e8b26423ee189236b5cc9c3bea71b3f08a6bedf4316506f",
+    "old_sha256": "c0e3d00d0c0eceb4818f16755d4ab73064acf8d7058e2c419a0b9a6dcbcafc69"
+  },
+  "lib": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/lib.tar.gz",
+    "new_sha256": "16a402ad2ef12bacc94e6a1ad3bd2c46c4ccfac9b2f8995c019920706cb9b0c0",
+    "old_sha256": "623f63be7aab5a46486752443dcc4c7163417bd3ae8e08ee4857f4a1274ae43e"
+  },
+  "ls": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/ls.tar.gz",
+    "new_sha256": "8f507bf0bd2076a7c0728d76c6d90797abe68a6553544c2808f6424940f89a4d",
+    "old_sha256": "d9bc6ba5141965703ec1733588c55d5758e2385f8145553a5ff272cc15d07af6"
+  },
+  "luindex": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/luindex.tar.gz",
+    "new_sha256": "147924c2b3d48d666f7ef99b502dab9300e6bfa199984640814c687b8207d990",
+    "old_sha256": "efe682d1ed37e9c39aa0274eec191e870ac9227fcd778b08bf932743fbb0adab"
+  },
+  "lusearch": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/lusearch.tar.gz",
+    "new_sha256": "bcc8cf275f28b967478da3a7126fcd5d6392f7fbba3b98fb9c419717ec294f3c",
+    "old_sha256": "9ec0ba8bf8f923cde2213d3f5f93407377267832123171305be04744270ad91a"
+  },
+  "mm": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/mm.tar.gz",
+    "new_sha256": "d213c6d6365a27bab2460150dcfadd6ddd9fb94afc416f302c45b5d60502f7ca",
+    "old_sha256": "64b419430efc4e59dc92a3978c4320e10b1fa3754ee17bf12ed5faf622332eb5"
+  },
+  "net": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/net.tar.gz",
+    "new_sha256": "474d98d9c776802cdfa2fe7c5c313a836c8008a4e99547ce030e1d4752494340",
+    "old_sha256": "f851801cef452d476bef5ccac14cef10c0cf97b9da6765de74d72888f965cd4e"
+  },
+  "pathways": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/pathways.tar.gz",
+    "new_sha256": "6d171987272c30b0b0aac8e5bcc6c371f6bb316785fde4d8b5e176cffe010024",
+    "old_sha256": "ad6820162b91862a5be42dad19ba729a35896a5d19171009fcecbd8b2ff635c1"
+  },
+  "people": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/people.tar.gz",
+    "new_sha256": "3d0afa007774d35e08417cb616e5857cf2a1ba4e45f6cf1dad8d84d0274f7eb5",
+    "old_sha256": "c2c47b39139181770a06640e518396fd070d66a896ed9f65680f7a38ddb5b5af"
+  },
+  "pizza": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/pizza.tar.gz",
+    "new_sha256": "1a15578f2dd4e997a214bb0e6f425a5460180ad9ae926cfc9313f7b3a2baccd4",
+    "old_sha256": "ad52f1df2cb73d0352aff28a562735a48794af2e7f266c6aca55ff3344ae4af2"
+  },
+  "pmd": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/pmd.tar.gz",
+    "new_sha256": "012c71da855d12ba5980dcc16dc6363800ff9456b9dcb792b8ecbb0c491a5f61",
+    "old_sha256": "1d2d45d965b3250adec73cfdac965711c78a5d13428fcced2f6a799cf65f26e9"
+  },
+  "postgre": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/postgre.tar.gz",
+    "new_sha256": "5c1ed1042b1e35ab914d8f9f5c4bf05bacda8030966d51459d5ad99ec521b09b",
+    "old_sha256": "c231ff065f48f9c4d6ba6e20680ab042d5b6e2ca09b6aeb384a7a95ee393f431"
+  },
+  "pr": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/pr.tar.gz",
+    "new_sha256": "c12eb2b173ea020f40af159af3e4b03a01f71285b39ef1fda3167bdcf19c6820",
+    "old_sha256": "76fef47041e930c25e8c91284488abb072ecbba30072961a5294a261817ae0db"
+  },
+  "security": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/security.tar.gz",
+    "new_sha256": "bdb93fc07bd1a926ae35f4b6fbce1cbbec60fe986c96683de595071bf6752d17",
+    "old_sha256": "5e6b9732f7c75ba6c5f6cebfa0726e04331f3108d13c2de914887ad69aff3f18"
+  },
+  "skos": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/skos.tar.gz",
+    "new_sha256": "9c1af2596782dcbe4b77037c1b9280119683c4f1804c403af186beb6ae9c7218",
+    "old_sha256": "556a9a6c138084e2c34e1deea3ec4ab715c2e39989068b2762601de6e15a44e7"
+  },
+  "sound": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/sound.tar.gz",
+    "new_sha256": "22e460bb6abe5cdc23740b1b7f82dc85e6d969a5d123288608257a1d694a46d2",
+    "old_sha256": "c1f0762031e39570c3157dd1a911e76d9030038f7404204a572f71bae8836520"
+  },
+  "sunflow": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/sunflow.tar.gz",
+    "new_sha256": "a8e9380ba688b4def78de273f9591356607287c696602354a9822b95d742392b",
+    "old_sha256": "2277c14b4ef49c2f00a002cbe5d7ff5cdc9f8288f9644fe14ea80f2db4c971e3"
+  },
+  "taxonomy": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/taxonomy.tar.gz",
+    "new_sha256": "b30f081eed4f103ff18291b4b12cae0f553e20c3addb0f72e6602201f54db200",
+    "old_sha256": "3f46acf0b28f8e537587836d32557b5990d977c6ba06e2c28f4f667591e6e0ca"
+  },
+  "taxonomy_hierarchy": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/taxonomy_hierarchy.tar.gz",
+    "new_sha256": "ef30e0cb22b2ea86489cf6cd67bc04c64846194bb2b7d6b8a74daf7baeefca7a",
+    "old_sha256": "2ba1e66cd38c78763c4d1a01828ef75ce8957601ec726118c5f1e32864babf2f"
+  },
+  "tomcat": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/tomcat.tar.gz",
+    "new_sha256": "4197113ea232179f747946d8886ada836ef1aed28c3821193c0b857bb54e2d53",
+    "old_sha256": "2972fd47f5209753489ebbed1c64514603387ef865e39ebedaa7ec1e291da490"
+  },
+  "tradebeans": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/tradebeans.tar.gz",
+    "new_sha256": "0899d1112a2e65dedf4deacb692ccd54ce62be8e7c0ec0a93660bf69822259b8",
+    "old_sha256": "cd20ea03cd33aad06db57c337dc40a79d70a16f3435851cb345e47412ee6e493"
+  },
+  "tradesoap": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/tradesoap.tar.gz",
+    "new_sha256": "334f5b50c9d13e4a88bd9a9c4b750e73ad720a1b163b2abfe50327062aa4391a",
+    "old_sha256": "df6b6c0d45366a78ab45d9d61f8a2204cd80f3deb56aaa7a1729e42caccfc1a7"
+  },
+  "travel": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/travel.tar.gz",
+    "new_sha256": "3d5fbe06a6416be95a29f1d3f311539bbba8e1cdf7b68714bd69f8d92ee55e13",
+    "old_sha256": "dd4eb83e34d48ab7553a19f9efd69b72cc042e657c2f84e047ecb834fa758f9e"
+  },
+  "univ": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/univ.tar.gz",
+    "new_sha256": "10fe15557c8274acd6363a74a14dc694c4ca62ca133cd93ae652756c62fa8be2",
+    "old_sha256": "7c1387b7f66161edbe7a44228516807b1dad3a2222f131b7b51ca3582951413b"
+  },
+  "wc": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/wc.tar.gz",
+    "new_sha256": "6a041af21554a91e23040dc8df2fd65352cf616a8f369d14a797410d453e176c",
+    "old_sha256": "1e1f6717fdc3936f983c562ca98e2538164d6efc5130afb7ba261d5dce183dbc"
+  },
+  "wine": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/wine.tar.gz",
+    "new_sha256": "bfa0e7bc3213737df4c3e6eba5be45bd49f3122d8d1fbcc7f2d124cfbe7183b3",
+    "old_sha256": "008e402c804ed8255955eb4d7dd859f5ce1f62287baf1be629e7ca00af20cccb"
+  },
+  "xalan": {
+    "date": "2026-09-04",
+    "key": "5.0.0/graph/xalan.tar.gz",
+    "new_sha256": "1b9795d832f48ea68deb0d10cf79a31358fe4b5aa2819a3c7a4e34e7b274fa18",
+    "old_sha256": "b070d0edc21565a836ef4eeab800e9f0c7526d922d00a403597524f59debee6a"
+  }
+}

@@ -8,7 +8,7 @@ Install
    :Release: |release|
    :Date: |today|
 
-CFPQ_Data requires Python 3.7 or later.  If you do not already
+CFPQ_Data requires Python 3.11–3.13.  If you do not already
 have a Python environment configured on your computer, please see the
 instructions for installing the full `scientific Python stack
 <https://scipy.org/install.html>`_.
@@ -28,16 +28,16 @@ Install the released version
 
 Install the current release of ``cfpq_data`` with ``pip``::
 
-    pip install cfpq_data
+    pip install cfpq-data
 
 To upgrade to a newer release use the ``--upgrade`` flag::
 
-    pip install --upgrade cfpq_data
+    pip install --upgrade cfpq-data
 
 If you do not have permission to install software systemwide, you can
 install into your user directory using the ``--user`` flag::
 
-    pip install --user cfpq_data
+    pip install --user cfpq-data
 
 Alternatively, you can manually download ``cfpq_data`` from
 `GitHub <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/releases>`_  or

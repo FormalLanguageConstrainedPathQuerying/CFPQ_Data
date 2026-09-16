@@ -16,10 +16,10 @@ Info
    * - Full Name
      - h2
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1bTrYuloBTuK5dzCu5QHhQDp_z-v-NUR8>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/h2.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 44717
-     - 113366
+     - 56683
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 837\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 7339
-   * - :math:`\overline{\textit{alloc}}`
-     - 7339
    * - :math:`\textit{assign}`
      - 41392
-   * - :math:`\overline{\textit{assign}}`
-     - 41392
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 6709
-   * - :math:`\overline{\textit{load}_i}`
-     - 6709
-   * - :math:`\textit{store}_i`
-     - 1243
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 1243
 
 Canonical grammars

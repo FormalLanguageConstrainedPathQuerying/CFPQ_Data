@@ -24,12 +24,14 @@ def graph_from_csv(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
     Examples
     --------
     >>> from cfpq_data import *
-    >>> p = cfpq_data.download("generations")
-    >>> g = cfpq_data.graph_from_csv(p)
+    >>> import pathlib, tempfile
+    >>> p = pathlib.Path(tempfile.mkdtemp()) / "g.csv"
+    >>> _ = p.write_text("0 1 a\\n1 2 b\\n")
+    >>> g = graph_from_csv(p)
     >>> g.number_of_nodes()
-    129
+    3
     >>> g.number_of_edges()
-    273
+    2
 
     Returns
     -------
@@ -60,7 +62,7 @@ def graph_from_csv(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
 def graph_to_csv(
     graph: nx.MultiDiGraph, path: Union[pathlib.Path, str]
 ) -> pathlib.Path:
-    """Saves the `graph` to the CSV file by `path`.
+    """Saves the ``graph`` to the CSV file by ``path``.
 
     Parameters
     ----------
@@ -73,9 +75,16 @@ def graph_to_csv(
     Examples
     --------
     >>> from cfpq_data import *
-    >>> p = download("generations")
+    >>> import pathlib, tempfile
+    >>> d = pathlib.Path(tempfile.mkdtemp())
+    >>> p = d / "g.csv"
+    >>> _ = p.write_text("0 1 a\\n1 2 b\\n")
     >>> g = graph_from_csv(p)
-    >>> path = graph_to_csv(g, "test.csv")
+    >>> path = graph_to_csv(g, d / "out.csv")
+    >>> g2 = graph_from_csv(path)
+    >>> sorted((u, v, e["label"]) for u, v, e in g2.edges(data=True)) == \\
+    ...     sorted((u, v, e["label"]) for u, v, e in g.edges(data=True))
+    True
 
     Returns
     -------

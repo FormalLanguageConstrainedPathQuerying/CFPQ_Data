@@ -16,10 +16,10 @@ Info
    * - Full Name
      - batik
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1-lu0T9T8mYa8Hnn8YNjW4NEIAZErUNsH>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/batik.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 60175
-     - 126178
+     - 63089
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 1005\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 10322
-   * - :math:`\overline{\textit{alloc}}`
-     - 10322
    * - :math:`\textit{assign}`
      - 43905
-   * - :math:`\overline{\textit{assign}}`
-     - 43905
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 7176
-   * - :math:`\overline{\textit{load}_i}`
-     - 7176
-   * - :math:`\textit{store}_i`
-     - 1686
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 1686
 
 Canonical grammars

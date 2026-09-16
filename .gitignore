@@ -4,6 +4,9 @@
 # Data
 cfpq_data/data
 
+# Temporal CFPQ reference-answer tool (local-only, not part of the package)
+temporal_cfpq/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

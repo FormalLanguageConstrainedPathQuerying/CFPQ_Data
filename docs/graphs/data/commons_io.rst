@@ -15,10 +15,12 @@ Info
      -
    * - Full Name
      - commons_io
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1ngre5pezDZj-PbjEmMs1pdABYQuSn3dv>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/commons_io.tar.gz>`_
    * - Source
-     - `commons_io <https://commons.apache.org/io/>`_
+     - `commons_io homepage <https://commons.apache.org/io/>`_
 
 
 Graph Statistics

@@ -55,5 +55,34 @@ CFPQ_Data development is guided by the following core team:
         </div>
         Semyon Grigorev
      </a>
-     <div class="team-member-handle">@gsvgit</div>
-   </div>
+      <div class="team-member-handle">@gsvgit</div>
+    </div>
+
+
+Citation
+--------
+
+If you use CFPQ_Data in your work, please cite the repository:
+
+.. code-block:: bibtex
+
+   @misc{cfpq_data,
+     title  = {CFPQ\_Data: Graphs and Grammars for Context-Free Path Querying},
+     author = {Abzalov, Vadim and Kovalev, Nikita and Grigorev, Semyon},
+     year   = {2026},
+     url    = {https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data},
+     note   = {Software and dataset},
+   }
+
+The context-free path querying algorithms studied with this dataset are
+described in the following paper (BibTeX entry to be completed):
+
+.. code-block:: bibtex
+
+   @article{lodygin_cfpq_performance,
+     title   = {Анализ производительности алгоритмов достижимости
+                с ограничениями в виде формальных языков},
+     author  = {Lodygin, <FIRSTNAME>},
+     journal = {<JOURNAL>},
+     year    = {<YEAR>},
+   }

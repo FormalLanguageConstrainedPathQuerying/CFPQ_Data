@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - superset
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1KVlah5Ll81zlbl_dSSLmQiF2lw7omU0M>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/superset.tar.gz>`_
    * - Source
      - `superset <https://github.com/apache/superset>`_
 

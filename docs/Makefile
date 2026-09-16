@@ -2,7 +2,9 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+# No-warnings policy: any Sphinx warning fails the build; --keep-going
+# reports all of them in one run instead of stopping at the first.
+SPHINXOPTS    = -W --keep-going
 SPHINXBUILD   = sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build

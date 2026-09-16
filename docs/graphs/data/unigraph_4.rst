@@ -16,9 +16,9 @@ Info
    * - Full Name
      - unigraph_4
    * - Version
-     - 4.0.3
-   * - Direct download (.mtx files)
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1J4nwpA4GdCGw0psmiFNMZCgtTOjMgcjh>`_
+     - 5.0.0
+   * - Direct download
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_4.tar.gz>`_
 
 
 Graph Statistics

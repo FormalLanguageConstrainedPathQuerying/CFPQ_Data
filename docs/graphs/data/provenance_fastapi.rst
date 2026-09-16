@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - fastapi
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1sOCVQs-jLzT9p7wERNAqLHM4tyJNy5gt>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/fastapi.tar.gz>`_
    * - Source
      - `fastapi <https://github.com/fastapi/fastapi>`_
 

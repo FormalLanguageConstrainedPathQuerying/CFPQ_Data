@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - jinja
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1perIfofgAA4LAxGAYSyq2_nHUqII8YpM>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jinja.tar.gz>`_
    * - Source
      - `jinja <https://github.com/pallets/jinja>`_
 

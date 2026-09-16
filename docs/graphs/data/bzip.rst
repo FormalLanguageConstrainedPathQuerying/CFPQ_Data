@@ -16,10 +16,10 @@ Info
    * - Full Name
      - bzip2
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1iJoervUrajUtLa6rvTHQYTlHGVWs3vZ1>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/bzip.tar.gz>`_
+   * - Source
      - `link <https://www.spec.org/cpu2000/CINT2000/256.bzip2/docs/256.bzip2.html>`_
 
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 632
-     - 1112
+     - 556
 
 
 Edges Statistics
@@ -45,11 +45,7 @@ Edges Statistics
      - Num Edge Label
    * - d
      - 297
-   * - d_r
-     - 297
    * - a
-     - 259
-   * - a_r
      - 259
 
 
@@ -58,7 +54,7 @@ Canonical grammars
 
 .. note::
 
-   In order to get the original graph you must apply function `cfpq_data.change_edges` with `mapping={"a": "A", "d": "D"}` to this graph. In this case these grammars must be updated.
+   In order to get the original graph you must apply function :obj:`change_edges <cfpq_data.graphs.utils.change_edges>` with ``mapping={"a": "A", "d": "D"}`` to this graph. In this case these grammars must be updated.
 
 Grammars for the alias analysis of C programs introduced in `"Demand-driven alias analysis for C" <https://dl.acm.org/doi/10.1145/1328897.1328464>`_.
 Template for these grammars is described on the :ref:`c_alias` page.

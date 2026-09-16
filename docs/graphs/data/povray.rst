@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - povray
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1TheXcwurtZIdtxx9i8hhj1iMRfhaxWwl>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/povray.tar.gz>`_
 
 
 Graph Statistics

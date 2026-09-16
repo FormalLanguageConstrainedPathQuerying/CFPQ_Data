@@ -15,10 +15,12 @@ Info
      -
    * - Full Name
      - jackson
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1D9OiEPXHTfvYix0D1c76hFf9v4ArQtfI>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jackson.tar.gz>`_
    * - Source
-     - `jackson <https://github.com/FasterXML/jackson>`_
+     - `jackson homepage <https://github.com/FasterXML/jackson>`_
 
 
 Graph Statistics

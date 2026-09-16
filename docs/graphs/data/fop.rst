@@ -16,10 +16,10 @@ Info
    * - Full Name
      - fop
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1oXvDWrGGS85d9F22vpiV3kDgMrde7rex>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/fop.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 86183
-     - 166032
+     - 83016
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 1470\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 20462
-   * - :math:`\overline{\textit{alloc}}`
-     - 20462
    * - :math:`\textit{assign}`
      - 53350
-   * - :math:`\overline{\textit{assign}}`
-     - 53350
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 7212
-   * - :math:`\overline{\textit{load}_i}`
-     - 7212
-   * - :math:`\textit{store}_i`
-     - 1992
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 1992
 
 Canonical grammars

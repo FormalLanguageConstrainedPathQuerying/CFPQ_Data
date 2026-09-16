@@ -16,10 +16,10 @@ Info
    * - Full Name
      - taxonomy_hierarchy
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=17LBpEi247Z1rPvoi-IcMgbx78i_Jo8Ux>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/taxonomy_hierarchy.tar.gz>`_
+   * - Source
      - `.rdf.xz <https://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf/taxonomy-hierarchy.rdf.xz>`_
 
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 2112625
-     - 65752578
+     - 32876289
 
 
 Edges Statistics
@@ -44,8 +44,6 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - subClassOf
-     - 32876289
-   * - subClassOf_r
      - 32876289
 
 

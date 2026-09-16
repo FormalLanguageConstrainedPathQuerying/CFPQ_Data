@@ -16,10 +16,10 @@ Info
    * - Full Name
      - pmd
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1sgkRMV-PykU6pQ3sFxIuw4dVqNBhptg5>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pmd.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 54444
-     - 118658
+     - 59329
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 1033\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 7552
-   * - :math:`\overline{\textit{alloc}}`
-     - 7552
    * - :math:`\textit{assign}`
      - 38676
-   * - :math:`\overline{\textit{assign}}`
-     - 38676
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 11109
-   * - :math:`\overline{\textit{load}_i}`
-     - 11109
-   * - :math:`\textit{store}_i`
-     - 1992
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 1992
 
 Canonical grammars

@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - omnetpp
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1aSScObtx5LJwUl2T2pFNihZVCNTULz5A>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/omnetpp.tar.gz>`_
 
 
 Graph Statistics

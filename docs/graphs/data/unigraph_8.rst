@@ -16,9 +16,9 @@ Info
    * - Full Name
      - unigraph_8
    * - Version
-     - 4.0.3
-   * - Direct download (.mtx files)
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1PhFZx-TUMlOFcY5UbvAONIZV1ql2KPMV>`_
+     - 5.0.0
+   * - Direct download
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_8.tar.gz>`_
 
 
 Graph Statistics

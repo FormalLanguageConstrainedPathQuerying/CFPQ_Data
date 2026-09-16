@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - sphinx
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1zq8fXSPietuBnpQuIr_uy8X_lGBFFu1P>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/sphinx.tar.gz>`_
    * - Source
      - `sphinx <https://github.com/sphinx-doc/sphinx>`_
 

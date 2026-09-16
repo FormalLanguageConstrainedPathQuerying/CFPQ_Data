@@ -16,10 +16,10 @@ Info
    * - Full Name
      - avrora
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1Wrd7Cm34u4ybwoNiZ1WgRbLGMVvGPH-T>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/avrora.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 24690
-     - 50392
+     - 25196
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 857\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 4526
-   * - :math:`\overline{\textit{alloc}}`
-     - 4526
    * - :math:`\textit{assign}`
      - 16009
-   * - :math:`\overline{\textit{assign}}`
-     - 16009
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 3684
-   * - :math:`\overline{\textit{load}_i}`
-     - 3684
-   * - :math:`\textit{store}_i`
-     - 977
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 977
 
 Canonical grammars

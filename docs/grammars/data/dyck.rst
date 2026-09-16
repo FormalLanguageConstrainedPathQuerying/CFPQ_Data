@@ -86,5 +86,3 @@ The Dyck grammar with :math:`\textit{types} = \{(a, b)\}` and :math:`\textit{eps
 .. code-block:: python
 
    S -> a b | a S b S
-
-----

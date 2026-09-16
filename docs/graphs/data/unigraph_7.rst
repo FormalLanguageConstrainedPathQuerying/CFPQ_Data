@@ -16,9 +16,9 @@ Info
    * - Full Name
      - unigraph_7
    * - Version
-     - 4.0.3
-   * - Direct download (.mtx files)
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1WtQr2530-iy8OqMvhKd6E4Q32cJpD8p5>`_
+     - 5.0.0
+   * - Direct download
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_7.tar.gz>`_
 
 
 Graph Statistics

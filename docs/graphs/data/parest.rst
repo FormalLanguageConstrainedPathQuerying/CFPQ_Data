@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - parest
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1Xloafx0TUgf6gjP7zt0tYRmAryrza1yK>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/parest.tar.gz>`_
 
 
 Graph Statistics

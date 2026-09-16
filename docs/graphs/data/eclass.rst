@@ -16,10 +16,10 @@ Info
    * - Full Name
      - eclass_514en
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1BTTVazX2pn7DuNiGotMvBrgQOzUjfF7a>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/eclass.tar.gz>`_
+   * - Source
      - `link <http://www.ebusiness-unibw.org/ontologies/eclass/5.1.4>`_
 
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 239111
-     - 720496
+     - 360248
 
 
 Edges Statistics
@@ -45,43 +45,23 @@ Edges Statistics
      - Num Edge Label
    * - subClassOf
      - 90962
-   * - subClassOf_r
-     - 90962
    * - type
      - 72517
-   * - type_r
-     - 72517
-   * - comment
-     - 72515
-   * - comment_r
-     - 72515
    * - label
      - 72515
-   * - label_r
+   * - comment
      - 72515
    * - hierarchyCode
      - 30329
-   * - hierarchyCode_r
-     - 30329
-   * - domain
-     - 7136
-   * - domain_r
-     - 7136
    * - range
-     - 7136
-   * - range_r
      - 7136
    * - subPropertyOf
      - 7136
-   * - subPropertyOf_r
+   * - domain
      - 7136
    * - creator
      - 1
-   * - creator_r
-     - 1
    * - imports
-     - 1
-   * - imports_r
      - 1
 
 

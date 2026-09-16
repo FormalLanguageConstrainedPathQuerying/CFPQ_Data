@@ -16,10 +16,10 @@ Info
    * - Full Name
      - sunflow
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1ZfqQrkOp_yPAAFjy-7zASZWNoCJTFgw8>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/sunflow.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 15464
-     - 31914
+     - 15957
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 231\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 3306
-   * - :math:`\overline{\textit{alloc}}`
-     - 3306
    * - :math:`\textit{assign}`
      - 9972
-   * - :math:`\overline{\textit{assign}}`
-     - 9972
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 2305
-   * - :math:`\overline{\textit{load}_i}`
-     - 2305
-   * - :math:`\textit{store}_i`
-     - 374
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 374
 
 Canonical grammars

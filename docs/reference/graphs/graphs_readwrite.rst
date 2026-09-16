@@ -18,3 +18,4 @@ Reading and writing graphs
    csv
    txt
    rdf
+   mtx

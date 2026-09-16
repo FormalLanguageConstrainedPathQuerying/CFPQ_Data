@@ -16,11 +16,9 @@ Info
    * - Full Name
      - init_after_inline
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1Ur5DdxffPHx4mn_12n8xJ5DzN2YE6Qxq>`_
-   * - Origin
-     - `.txt <https://drive.google.com/uc?export=download&id=0B8bQanV_QfNkZGpZbG1BcWNnQlE>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/init.tar.gz>`_
 
 
 Graph Statistics
@@ -32,7 +30,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 2446224
-     - 4225618
+     - 2112809
 
 
 Edges Statistics
@@ -45,11 +43,7 @@ Edges Statistics
      - Num Edge Label
    * - d
      - 1630815
-   * - d_r
-     - 1630815
    * - a
-     - 481994
-   * - a_r
      - 481994
 
 
@@ -58,7 +52,7 @@ Canonical grammars
 
 .. note::
 
-   In order to get the original graph you must apply function `cfpq_data.change_edges` with `mapping={"a": "A", "d": "D"}` to this graph. In this case these grammars must be updated.
+   In order to get the original graph you must apply function :obj:`change_edges <cfpq_data.graphs.utils.change_edges>` with ``mapping={"a": "A", "d": "D"}`` to this graph. In this case these grammars must be updated.
 
 Grammars for the alias analysis of C programs introduced in `"Demand-driven alias analysis for C" <https://dl.acm.org/doi/10.1145/1328897.1328464>`_.
 Template for these grammars is described on the :ref:`c_alias` page.

@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - nab
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=11d11w4FVDDCGSZLBNIYoXi4NFlP0IldO>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/nab.tar.gz>`_
 
 
 Graph Statistics

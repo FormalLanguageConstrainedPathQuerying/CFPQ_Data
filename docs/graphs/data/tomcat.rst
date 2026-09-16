@@ -16,10 +16,10 @@ Info
    * - Full Name
      - tomcat
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1bd6fjsLT4JAX5BFC4jryW7kOIx1OCs4I>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/tomcat.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 111327
-     - 221768
+     - 110884
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 2210\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 22962
-   * - :math:`\overline{\textit{alloc}}`
-     - 22962
    * - :math:`\textit{assign}`
      - 69473
-   * - :math:`\overline{\textit{assign}}`
-     - 69473
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 15198
-   * - :math:`\overline{\textit{load}_i}`
-     - 15198
-   * - :math:`\textit{store}_i`
-     - 3251
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 3251
 
 Canonical grammars

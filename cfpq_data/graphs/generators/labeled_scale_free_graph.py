@@ -72,7 +72,7 @@ def labeled_scale_free_graph(
 
     Notes
     -----
-    The sum of `alpha`, `beta`, and `gamma` must be 1.
+    The sum of ``alpha``, ``beta``, and ``gamma`` must be 1.
 
     References
     ----------

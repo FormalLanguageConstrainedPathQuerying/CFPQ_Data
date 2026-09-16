@@ -16,10 +16,10 @@ Info
    * - Full Name
      - lusearch
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1LcBJvWkANjgq9hMfATVubqXRwhBLejzV>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/lusearch.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 15774
-     - 29988
+     - 14994
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 347\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 2633
-   * - :math:`\overline{\textit{alloc}}`
-     - 2633
    * - :math:`\textit{assign}`
      - 9266
-   * - :math:`\overline{\textit{assign}}`
-     - 9266
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 2515
-   * - :math:`\overline{\textit{load}_i}`
-     - 2515
-   * - :math:`\textit{store}_i`
-     - 580
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 580
 
 Canonical grammars

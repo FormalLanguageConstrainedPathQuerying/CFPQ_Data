@@ -11,6 +11,12 @@ Benchmarks
 
 ----
 
+.. toctree::
+   :hidden:
+   :glob:
+
+   data/*
+
 Benchmarks content
 ------------------
 

@@ -16,6 +16,12 @@ Just create a PR (Pull Request) corresponding to the `"Template for adding a new
 
 ----
 
+.. toctree::
+   :hidden:
+   :glob:
+
+   data/*
+
 Grammar templates
 -----------------
 
@@ -29,16 +35,16 @@ Grammar templates
    * - :ref:`nested_parentheses`
      - Context-Free
      - Hierarchical
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/nested_parentheses.tar.gz>`_ 📥
+     - `nested_parentheses.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/nested_parentheses.tar.gz>`_ 📥
    * - :ref:`dyck`
      - Context-Free
      - Hierarchical
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/dyck.tar.gz>`_ 📥
+     - `dyck.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/dyck.tar.gz>`_ 📥
    * - :ref:`c_alias`
      - Context-Free
      - Static Analysis
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/c_alias.tar.gz>`_ 📥
+     - `c_alias.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/c_alias.tar.gz>`_ 📥
    * - :ref:`java_points-to`
      - Context-Free
      - Static Analysis
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points-to.tar.gz>`_ 📥
+     - `java_points_to.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points_to.tar.gz>`_ 📥

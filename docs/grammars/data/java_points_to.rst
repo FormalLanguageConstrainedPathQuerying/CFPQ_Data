@@ -22,7 +22,7 @@ Info
    * - Version
      - 4.0.0
    * - Example download (.txt + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points-to.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points_to.tar.gz>`_
    * - Origin
      - `link <https://dl.acm.org/doi/10.1145/2858965.2814307>`_
 
@@ -79,4 +79,3 @@ The Java points-to analysis grammar with :math:`\textit{fields} = [0, 1]`.
    FTh -> store_0_r Al load_0_r FTh
    FTh -> store_1_r Al load_1_r FTh
    Al -> S FT
-----

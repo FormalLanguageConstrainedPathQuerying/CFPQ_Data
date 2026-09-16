@@ -16,10 +16,10 @@ Info
    * - Full Name
      - pathways
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1uJd38gyu19-AHD-jzrEYrolYBPIzwLby>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pathways.tar.gz>`_
+   * - Source
      - `.rdf.xz <https://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf/pathways.rdf.xz>`_
 
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 6238
-     - 24726
+     - 12363
 
 
 Edges Statistics
@@ -45,23 +45,13 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 3118
-   * - type_r
-     - 3118
-   * - label
-     - 3117
-   * - label_r
-     - 3117
    * - subClassOf
      - 3117
-   * - subClassOf_r
+   * - label
      - 3117
    * - narrower
      - 3010
-   * - narrower_r
-     - 3010
    * - imports
-     - 1
-   * - imports_r
      - 1
 
 

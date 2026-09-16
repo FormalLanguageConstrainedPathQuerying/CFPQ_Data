@@ -10,3 +10,11 @@ repos:
     rev: 22.10.0
     hooks:
       - id: black
+  - repo: local
+    hooks:
+      - id: check-version-sync
+        name: Check config.py and pyproject.toml versions match
+        entry: python3 utils/check_version_sync.py
+        language: system
+        pass_filenames: false
+        always_run: true

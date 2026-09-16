@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - cactus
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1F9SGmwAPcHsaPYeZuJVCaMV2I8zM7o0b>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/cactus.tar.gz>`_
 
 
 Graph Statistics

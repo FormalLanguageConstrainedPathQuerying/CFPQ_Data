@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - itsdangerous
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1PYiRRjp_i3jm78BRxfbkF2srrmQ1fiYE>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/itsdangerous.tar.gz>`_
    * - Source
      - `itsdangerous <https://github.com/pallets/itsdangerous>`_
 

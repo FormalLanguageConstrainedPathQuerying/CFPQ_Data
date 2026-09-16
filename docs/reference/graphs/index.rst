@@ -1,4 +1,4 @@
-.. _graphs:
+.. _reference_graphs:
 
 .. currentmodule:: cfpq_data
 

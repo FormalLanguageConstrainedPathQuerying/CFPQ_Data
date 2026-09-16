@@ -15,10 +15,12 @@ Info
      -
    * - Full Name
      - commons_lang3
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1_x4rlxjIsK-vqSkTJ_kk9-NJoS9OENO4>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/commons_lang3.tar.gz>`_
    * - Source
-     - `commons_lang3 <https://commons.apache.org/lang/>`_
+     - `commons_lang3 homepage <https://commons.apache.org/lang/>`_
 
 
 Graph Statistics

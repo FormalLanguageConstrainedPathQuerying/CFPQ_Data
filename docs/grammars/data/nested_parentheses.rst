@@ -86,5 +86,3 @@ The nested parentheses grammar with :math:`\textit{types} = \{(a, b)\}` and :mat
 .. code-block:: python
 
    S -> a b | a S b
-
-----

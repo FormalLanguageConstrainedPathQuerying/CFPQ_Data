@@ -16,10 +16,10 @@ Info
    * - Full Name
      - generations
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1g1hRX2J3WdoWXJDfzt1MlPIPezLZDVze>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/generations.tar.gz>`_
+   * - Source
      - `link <http://www.owl-ontologies.com/generations.owl>`_
 
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 129
-     - 546
+     - 273
 
 
 Edges Statistics
@@ -45,71 +45,37 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 78
-   * - type_r
-     - 78
-   * - first
-     - 45
-   * - first_r
-     - 45
    * - rest
      - 45
-   * - rest_r
+   * - first
      - 45
    * - onProperty
      - 27
-   * - onProperty_r
-     - 27
    * - intersectionOf
-     - 18
-   * - intersectionOf_r
      - 18
    * - equivalentClass
      - 17
-   * - equivalentClass_r
-     - 17
    * - someValuesFrom
-     - 15
-   * - someValuesFrom_r
      - 15
    * - hasValue
      - 12
-   * - hasValue_r
-     - 12
    * - hasSex
      - 4
-   * - hasSex_r
-     - 4
-   * - hasChild
-     - 2
-   * - hasChild_r
-     - 2
-   * - hasParent
-     - 2
-   * - hasParent_r
-     - 2
    * - inverseOf
-     - 2
-   * - inverseOf_r
      - 2
    * - sameAs
      - 2
-   * - sameAs_r
+   * - hasParent
      - 2
-   * - hasSibling
-     - 1
-   * - hasSibling_r
-     - 1
-   * - oneOf
-     - 1
-   * - oneOf_r
-     - 1
+   * - hasChild
+     - 2
    * - range
      - 1
-   * - range_r
+   * - hasSibling
      - 1
    * - versionInfo
      - 1
-   * - versionInfo_r
+   * - oneOf
      - 1
 
 

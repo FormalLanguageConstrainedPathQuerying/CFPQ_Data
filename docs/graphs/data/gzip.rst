@@ -16,10 +16,10 @@ Info
    * - Full Name
      - gzip
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1U8wxcf_N3amOtEyehL-_EbG_yn9oxb3j>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/gzip.tar.gz>`_
+   * - Source
      - `link <https://www.spec.org/cpu2000/CINT2000/164.gzip/docs/164.gzip.html>`_
 
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 2687
-     - 4586
+     - 2293
 
 
 Edges Statistics
@@ -45,11 +45,7 @@ Edges Statistics
      - Num Edge Label
    * - d
      - 1218
-   * - d_r
-     - 1218
    * - a
-     - 1075
-   * - a_r
      - 1075
 
 
@@ -58,7 +54,7 @@ Canonical grammars
 
 .. note::
 
-   In order to get the original graph you must apply function `cfpq_data.change_edges` with `mapping={"a": "A", "d": "D"}` to this graph. In this case these grammars must be updated.
+   In order to get the original graph you must apply function :obj:`change_edges <cfpq_data.graphs.utils.change_edges>` with ``mapping={"a": "A", "d": "D"}`` to this graph. In this case these grammars must be updated.
 
 Grammars for the alias analysis of C programs introduced in `"Demand-driven alias analysis for C" <https://dl.acm.org/doi/10.1145/1328897.1328464>`_.
 Template for these grammars is described on the :ref:`c_alias` page.

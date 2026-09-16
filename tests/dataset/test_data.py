@@ -1,6 +1,28 @@
 import pytest
 
 import cfpq_data
+from cfpq_data.dataset import (
+    BENCHMARK_URL,
+    DATASET,
+    DATASET_KEY_PREFIX,
+    DATASET_URL,
+    GRAMMARS_URL,
+)
+
+
+def test_url_constants():
+    # The whole dataset lives under the current version prefix; grammars
+    # and benchmarks stay under 4.0.0.
+    assert DATASET_KEY_PREFIX == "5.0.0/graph"
+    assert DATASET_URL == "https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/"
+    assert GRAMMARS_URL == "https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/"
+    assert BENCHMARK_URL == "https://cfpq-data.storage.yandexcloud.net/4.0.0/benchmark/"
+    assert cfpq_data.__version__ == "5.0.0"
+
+
+def test_dataset():
+    assert len(DATASET) == 113
+    assert len(set(DATASET)) == len(DATASET)
 
 
 def test_download_rise():

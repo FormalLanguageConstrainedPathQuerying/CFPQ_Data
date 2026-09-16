@@ -16,10 +16,10 @@ Info
    * - Full Name
      - go_hierarchy
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1jvbxsvnlnJT058BgQREVr6rEn9nhOcHs>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/go_hierarchy.tar.gz>`_
+   * - Source
      - `.owl.xz <https://ftp.uniprot.org/pub/databases/uniprot/current_release/rdf/go-hierarchy.owl.xz>`_
 
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 45007
-     - 980218
+     - 490109
 
 
 Edges Statistics
@@ -44,8 +44,6 @@ Edges Statistics
    * - Edge Label
      - Num Edge Label
    * - subClassOf
-     - 490109
-   * - subClassOf_r
      - 490109
 
 

@@ -1,0 +1,434 @@
+[
+  {
+    "name": "generations",
+    "num_edges": 273,
+    "num_labels": 17,
+    "num_nodes": 129,
+    "sha256": "1b1b62222c874d2ebbff3daa50a7d953f61e2677695527627e2a7bb22c85255d",
+    "status": "uploaded"
+  },
+  {
+    "name": "travel",
+    "num_edges": 277,
+    "num_labels": 22,
+    "num_nodes": 131,
+    "sha256": "3d5fbe06a6416be95a29f1d3f311539bbba8e1cdf7b68714bd69f8d92ee55e13",
+    "status": "uploaded"
+  },
+  {
+    "name": "skos",
+    "num_edges": 252,
+    "num_labels": 21,
+    "num_nodes": 144,
+    "sha256": "9c1af2596782dcbe4b77037c1b9280119683c4f1804c403af186beb6ae9c7218",
+    "status": "uploaded"
+  },
+  {
+    "name": "univ",
+    "num_edges": 293,
+    "num_labels": 14,
+    "num_nodes": 179,
+    "sha256": "10fe15557c8274acd6363a74a14dc694c4ca62ca133cd93ae652756c62fa8be2",
+    "status": "uploaded"
+  },
+  {
+    "name": "foaf",
+    "num_edges": 631,
+    "num_labels": 15,
+    "num_nodes": 256,
+    "sha256": "655fdc8f80b99f0ccec6f58b849feb538b212a95e8da4523151082e341983286",
+    "status": "uploaded"
+  },
+  {
+    "name": "atom",
+    "num_edges": 425,
+    "num_labels": 17,
+    "num_nodes": 291,
+    "sha256": "804f186d1898ffd31825020391b2a4b224a3906d93f68209cfe655891092961b",
+    "status": "uploaded"
+  },
+  {
+    "name": "people",
+    "num_edges": 640,
+    "num_labels": 25,
+    "num_nodes": 337,
+    "sha256": "3d0afa007774d35e08417cb616e5857cf2a1ba4e45f6cf1dad8d84d0274f7eb5",
+    "status": "uploaded"
+  },
+  {
+    "name": "biomedical",
+    "num_edges": 459,
+    "num_labels": 10,
+    "num_nodes": 341,
+    "sha256": "25f5b8abe09d7d678e25bcd17ace275e63443a1dc3a0e377ebd661ea463e19d6",
+    "status": "uploaded"
+  },
+  {
+    "name": "pizza",
+    "num_edges": 1980,
+    "num_labels": 23,
+    "num_nodes": 671,
+    "sha256": "1a15578f2dd4e997a214bb0e6f425a5460180ad9ae926cfc9313f7b3a2baccd4",
+    "status": "uploaded"
+  },
+  {
+    "name": "wine",
+    "num_edges": 1839,
+    "num_labels": 35,
+    "num_nodes": 733,
+    "sha256": "bfa0e7bc3213737df4c3e6eba5be45bd49f3122d8d1fbcc7f2d124cfbe7183b3",
+    "status": "uploaded"
+  },
+  {
+    "name": "funding",
+    "num_edges": 1086,
+    "num_labels": 20,
+    "num_nodes": 778,
+    "sha256": "d9360a70c8d557b78b34a0bffe62046dec0d3c79bae3496ecdcb1e790bbdba46",
+    "status": "uploaded"
+  },
+  {
+    "name": "core",
+    "num_edges": 2752,
+    "num_labels": 31,
+    "num_nodes": 1323,
+    "sha256": "a0cdafa5e4130d0b756fb8c1f0088364e600d6b85fa53572dc496cf0ae078ea2",
+    "status": "uploaded"
+  },
+  {
+    "name": "pathways",
+    "num_edges": 12363,
+    "num_labels": 5,
+    "num_nodes": 6238,
+    "sha256": "6d171987272c30b0b0aac8e5bcc6c371f6bb316785fde4d8b5e176cffe010024",
+    "status": "uploaded"
+  },
+  {
+    "name": "go_hierarchy",
+    "num_edges": 490109,
+    "num_labels": 1,
+    "num_nodes": 45007,
+    "sha256": "ad100f1360ee8c9fd3298f6933ebefbf4eeea4b75349396e1ac095dae9a3b828",
+    "status": "uploaded"
+  },
+  {
+    "name": "enzyme",
+    "num_edges": 86543,
+    "num_labels": 14,
+    "num_nodes": 48815,
+    "sha256": "b71a398f4dbdb92dfed9854fc8f22deaed4e04dc5e0002130dd65c48b657e625",
+    "status": "uploaded"
+  },
+  {
+    "name": "geospecies",
+    "num_edges": 2201532,
+    "num_labels": 118,
+    "num_nodes": 450609,
+    "sha256": "2cba1a8d6d66851d1defd62df77e02bd7268b9b5ec6b0bcef9705d63ad90b28c",
+    "status": "uploaded"
+  },
+  {
+    "name": "go",
+    "num_edges": 1437437,
+    "num_labels": 47,
+    "num_nodes": 582929,
+    "sha256": "68fdea454be18cac80256a739cfb7137e4ed4d1b329aec7e4fe524b1f3929f4d",
+    "status": "uploaded"
+  },
+  {
+    "name": "eclass",
+    "num_edges": 360248,
+    "num_labels": 10,
+    "num_nodes": 239111,
+    "sha256": "a172a58482c37e2fd39baaeff0dbf99f49006a18887b776e0e8956ae5ff11006",
+    "status": "uploaded"
+  },
+  {
+    "name": "taxonomy_hierarchy",
+    "num_edges": 32876289,
+    "num_labels": 1,
+    "num_nodes": 2112625,
+    "sha256": "ef30e0cb22b2ea86489cf6cd67bc04c64846194bb2b7d6b8a74daf7baeefca7a",
+    "status": "uploaded"
+  },
+  {
+    "name": "taxonomy",
+    "num_edges": 14922125,
+    "num_labels": 21,
+    "num_nodes": 5728398,
+    "sha256": "b30f081eed4f103ff18291b4b12cae0f553e20c3addb0f72e6602201f54db200",
+    "status": "uploaded"
+  },
+  {
+    "name": "wc",
+    "num_edges": 269,
+    "num_labels": 2,
+    "num_nodes": 332,
+    "sha256": "6a041af21554a91e23040dc8df2fd65352cf616a8f369d14a797410d453e176c",
+    "status": "uploaded"
+  },
+  {
+    "name": "bzip",
+    "num_edges": 556,
+    "num_labels": 2,
+    "num_nodes": 632,
+    "sha256": "ddcbedd547ab7a292edc244ff1a27b25bf30f42af452e00b39b8f1abef7a6502",
+    "status": "uploaded"
+  },
+  {
+    "name": "pr",
+    "num_edges": 692,
+    "num_labels": 2,
+    "num_nodes": 815,
+    "sha256": "c12eb2b173ea020f40af159af3e4b03a01f71285b39ef1fda3167bdcf19c6820",
+    "status": "uploaded"
+  },
+  {
+    "name": "ls",
+    "num_edges": 1453,
+    "num_labels": 2,
+    "num_nodes": 1687,
+    "sha256": "8f507bf0bd2076a7c0728d76c6d90797abe68a6553544c2808f6424940f89a4d",
+    "status": "uploaded"
+  },
+  {
+    "name": "gzip",
+    "num_edges": 2293,
+    "num_labels": 2,
+    "num_nodes": 2687,
+    "sha256": "2b554f0e2371326c7da41b860c440eb77991cd04493027af550abd130196c52c",
+    "status": "uploaded"
+  },
+  {
+    "name": "apache",
+    "num_edges": 1510411,
+    "num_labels": 2,
+    "num_nodes": 1721418,
+    "sha256": "51276672bf25e077e5e9672682fa3b614f7cdc0f3cef19a075c88bd44563c4a7",
+    "status": "uploaded"
+  },
+  {
+    "name": "init",
+    "num_edges": 2112809,
+    "num_labels": 2,
+    "num_nodes": 2446224,
+    "sha256": "5bce8274a7b5e63dd657d2843a22cd25516d787bf07feb62ab1ad3884d85b975",
+    "status": "uploaded"
+  },
+  {
+    "name": "mm",
+    "num_edges": 2191079,
+    "num_labels": 2,
+    "num_nodes": 2538243,
+    "sha256": "d213c6d6365a27bab2460150dcfadd6ddd9fb94afc416f302c45b5d60502f7ca",
+    "status": "uploaded"
+  },
+  {
+    "name": "ipc",
+    "num_edges": 2931498,
+    "num_labels": 2,
+    "num_nodes": 3401022,
+    "sha256": "d48430597765c22c1ca2c1503c7b217c5a73132d40b8327a39e88659ce1756c2",
+    "status": "uploaded"
+  },
+  {
+    "name": "lib",
+    "num_edges": 2931880,
+    "num_labels": 2,
+    "num_nodes": 3401355,
+    "sha256": "16a402ad2ef12bacc94e6a1ad3bd2c46c4ccfac9b2f8995c019920706cb9b0c0",
+    "status": "uploaded"
+  },
+  {
+    "name": "block",
+    "num_edges": 2951393,
+    "num_labels": 2,
+    "num_nodes": 3423234,
+    "sha256": "6273b108bfcdc5e545e142ae48e15098baab31918428006274e6028c4b1970a7",
+    "status": "uploaded"
+  },
+  {
+    "name": "arch",
+    "num_edges": 2970242,
+    "num_labels": 2,
+    "num_nodes": 3448422,
+    "sha256": "b43fd6f302264f26ecb96a06887c0ae98c82dfe3da79a492ea40dde52184a7e4",
+    "status": "uploaded"
+  },
+  {
+    "name": "crypto",
+    "num_edges": 2988387,
+    "num_labels": 2,
+    "num_nodes": 3464970,
+    "sha256": "3ee95d0be20e0aa383d84b6ae32e1b9a887c788086fd0167e319fa3a7e0bdb73",
+    "status": "uploaded"
+  },
+  {
+    "name": "security",
+    "num_edges": 3003326,
+    "num_labels": 2,
+    "num_nodes": 3479982,
+    "sha256": "bdb93fc07bd1a926ae35f4b6fbce1cbbec60fe986c96683de595071bf6752d17",
+    "status": "uploaded"
+  },
+  {
+    "name": "sound",
+    "num_edges": 3049732,
+    "num_labels": 2,
+    "num_nodes": 3528861,
+    "sha256": "22e460bb6abe5cdc23740b1b7f82dc85e6d969a5d123288608257a1d694a46d2",
+    "status": "uploaded"
+  },
+  {
+    "name": "net",
+    "num_edges": 3500141,
+    "num_labels": 2,
+    "num_nodes": 4039470,
+    "sha256": "474d98d9c776802cdfa2fe7c5c313a836c8008a4e99547ce030e1d4752494340",
+    "status": "uploaded"
+  },
+  {
+    "name": "fs",
+    "num_edges": 3609373,
+    "num_labels": 2,
+    "num_nodes": 4177416,
+    "sha256": "97b80a9fc92552c08d97e2c1b7f0b364a75ef28f54a6dc9e7387548a6ff75116",
+    "status": "uploaded"
+  },
+  {
+    "name": "drivers",
+    "num_edges": 3707769,
+    "num_labels": 2,
+    "num_nodes": 4273803,
+    "sha256": "c4c79e6eecc17a7d78dc46095e8fc740d4cd93c7bf931d2b70bdfa86b4be232f",
+    "status": "uploaded"
+  },
+  {
+    "name": "postgre",
+    "num_edges": 4678543,
+    "num_labels": 2,
+    "num_nodes": 5203419,
+    "sha256": "5c1ed1042b1e35ab914d8f9f5c4bf05bacda8030966d51459d5ad99ec521b09b",
+    "status": "uploaded"
+  },
+  {
+    "name": "kernel",
+    "num_edges": 9484213,
+    "num_labels": 2,
+    "num_nodes": 11254434,
+    "sha256": "0f513a8bf096768b8e8b26423ee189236b5cc9c3bea71b3f08a6bedf4316506f",
+    "status": "uploaded"
+  },
+  {
+    "name": "sunflow",
+    "num_edges": 15957,
+    "num_labels": 455,
+    "num_nodes": 15464,
+    "sha256": "a8e9380ba688b4def78de273f9591356607287c696602354a9822b95d742392b",
+    "status": "uploaded"
+  },
+  {
+    "name": "lusearch",
+    "num_edges": 14994,
+    "num_labels": 680,
+    "num_nodes": 15774,
+    "sha256": "bcc8cf275f28b967478da3a7126fcd5d6392f7fbba3b98fb9c419717ec294f3c",
+    "status": "uploaded"
+  },
+  {
+    "name": "luindex",
+    "num_edges": 17375,
+    "num_labels": 870,
+    "num_nodes": 18532,
+    "sha256": "147924c2b3d48d666f7ef99b502dab9300e6bfa199984640814c687b8207d990",
+    "status": "uploaded"
+  },
+  {
+    "name": "avrora",
+    "num_edges": 25196,
+    "num_labels": 1568,
+    "num_nodes": 24690,
+    "sha256": "819dc423d13ea08520766fd70aee3af0c3498b709c253bf125dda1c8a7ca1981",
+    "status": "uploaded"
+  },
+  {
+    "name": "eclipse",
+    "num_edges": 40200,
+    "num_labels": 1477,
+    "num_nodes": 41383,
+    "sha256": "1da68f674cb360985ce28660a059ed2bd271e24efef0010ee27cd0a99e7b5902",
+    "status": "uploaded"
+  },
+  {
+    "name": "h2",
+    "num_edges": 56683,
+    "num_labels": 1660,
+    "num_nodes": 44717,
+    "sha256": "7124a4f32fb42d8d0db3afc28ec0455fd306d498642f322a48f6e1c1ac536672",
+    "status": "uploaded"
+  },
+  {
+    "name": "pmd",
+    "num_edges": 59329,
+    "num_labels": 1975,
+    "num_nodes": 54444,
+    "sha256": "012c71da855d12ba5980dcc16dc6363800ff9456b9dcb792b8ecbb0c491a5f61",
+    "status": "uploaded"
+  },
+  {
+    "name": "xalan",
+    "num_edges": 62758,
+    "num_labels": 2439,
+    "num_nodes": 58476,
+    "sha256": "1b9795d832f48ea68deb0d10cf79a31358fe4b5aa2819a3c7a4e34e7b274fa18",
+    "status": "uploaded"
+  },
+  {
+    "name": "batik",
+    "num_edges": 63089,
+    "num_labels": 1956,
+    "num_nodes": 60175,
+    "sha256": "0552f5829bbf288352d8841d7fb9ec5c09731ce7ee9d3daefc169a260be97f51",
+    "status": "uploaded"
+  },
+  {
+    "name": "fop",
+    "num_edges": 83016,
+    "num_labels": 2873,
+    "num_nodes": 86183,
+    "sha256": "b29639a55b896989f12c18a9e924e0e9bde3fe7ac75fbe850536236319bd446a",
+    "status": "uploaded"
+  },
+  {
+    "name": "tomcat",
+    "num_edges": 110884,
+    "num_labels": 4221,
+    "num_nodes": 111327,
+    "sha256": "4197113ea232179f747946d8886ada836ef1aed28c3821193c0b857bb54e2d53",
+    "status": "uploaded"
+  },
+  {
+    "name": "jython",
+    "num_edges": 260034,
+    "num_labels": 2352,
+    "num_nodes": 191895,
+    "sha256": "e665cd0dcc1c5ee57a826eb980772bd0ac0682929b0ed16aa85ebea85c9d462a",
+    "status": "uploaded"
+  },
+  {
+    "name": "tradebeans",
+    "num_edges": 466969,
+    "num_labels": 15943,
+    "num_nodes": 439693,
+    "sha256": "0899d1112a2e65dedf4deacb692ccd54ce62be8e7c0ec0a93660bf69822259b8",
+    "status": "uploaded"
+  },
+  {
+    "name": "tradesoap",
+    "num_edges": 468263,
+    "num_labels": 15990,
+    "num_nodes": 440680,
+    "sha256": "334f5b50c9d13e4a88bd9a9c4b750e73ad720a1b163b2abfe50327062aa4391a",
+    "status": "uploaded"
+  }
+]

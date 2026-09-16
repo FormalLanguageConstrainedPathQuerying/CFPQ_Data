@@ -16,10 +16,10 @@ Info
    * - Full Name
      - enzyme
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1G4R2susqQeUsFbC8oUNXzmdMbHNI8sDE>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/enzyme.tar.gz>`_
+   * - Source
      - `link <http://purl.uniprot.org/core/Enzyme>`_
 
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 48815
-     - 173086
+     - 86543
 
 
 Edges Statistics
@@ -45,59 +45,31 @@ Edges Statistics
      - Num Edge Label
    * - type
      - 14989
-   * - type_r
-     - 14989
    * - comment
-     - 11954
-   * - comment_r
      - 11954
    * - altLabel
      - 10088
-   * - altLabel_r
-     - 10088
    * - subClassOf
-     - 8163
-   * - subClassOf_r
      - 8163
    * - broaderTransitive
      - 8156
-   * - broaderTransitive_r
-     - 8156
    * - activity
-     - 6825
-   * - activity_r
      - 6825
    * - label
      - 6825
-   * - label_r
-     - 6825
    * - prefLabel
-     - 6788
-   * - prefLabel_r
      - 6788
    * - narrowerTransitive
      - 6781
-   * - narrowerTransitive_r
-     - 6781
    * - cofactorLabel
-     - 1831
-   * - cofactorLabel_r
      - 1831
    * - replacedBy
      - 1411
-   * - replacedBy_r
-     - 1411
    * - obsolete
-     - 1375
-   * - obsolete_r
      - 1375
    * - replaces
      - 1356
-   * - replaces_r
-     - 1356
    * - imports
-     - 1
-   * - imports_r
      - 1
 
 

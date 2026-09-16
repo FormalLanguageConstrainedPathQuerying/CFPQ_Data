@@ -16,10 +16,10 @@ Info
    * - Full Name
      - eclipse
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1my8LSffItJS6n5MQoYINUyuhVrMXDOYl>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/eclipse.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 41383
-     - 80400
+     - 40200
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 758\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 7129
-   * - :math:`\overline{\textit{alloc}}`
-     - 7129
    * - :math:`\textit{assign}`
      - 27535
-   * - :math:`\overline{\textit{assign}}`
-     - 27535
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 4575
-   * - :math:`\overline{\textit{load}_i}`
-     - 4575
-   * - :math:`\textit{store}_i`
-     - 961
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 961
 
 Canonical grammars

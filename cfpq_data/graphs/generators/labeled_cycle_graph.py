@@ -22,7 +22,7 @@ def labeled_cycle_graph(
     Parameters
     ----------
     n : Union[int, Iterable[Any]]
-        If n is an integer, nodes are from `range(n)`.
+        If n is an integer, nodes are from ``range(n)``.
         If n is a container of nodes, those nodes appear in the graph.
 
     label: str

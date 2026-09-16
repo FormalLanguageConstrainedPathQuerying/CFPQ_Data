@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - django
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1EcOsi4okbXNzQoX1Ln8FaJfDjyZ4qBvF>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/django.tar.gz>`_
    * - Source
      - `django <https://github.com/django/django>`_
 

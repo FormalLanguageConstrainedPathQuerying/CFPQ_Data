@@ -16,7 +16,19 @@ import os
 import sys
 from datetime import date
 
-sys.path.insert(0, os.path.abspath(".."))
+_REPO_ROOT = os.path.abspath("..")
+sys.path.insert(0, _REPO_ROOT)
+
+# nb2plots executes notebook cells in a separate Jupyter kernel process that
+# does not inherit the sys.path modification above. Expose the repository root
+# via PYTHONPATH so the kernel imports cfpq_data from this checkout instead of
+# a (possibly stale) copy installed in site-packages.
+_existing_pythonpath = os.environ.get("PYTHONPATH")
+os.environ["PYTHONPATH"] = (
+    _REPO_ROOT + os.pathsep + _existing_pythonpath
+    if _existing_pythonpath
+    else _REPO_ROOT
+)
 
 # -- Project information -----------------------------------------------------
 
@@ -52,7 +64,6 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
     "sphinx.ext.autosummary",
-    "sphinx.ext.napoleon",
     "sphinx_copybutton",
     "numpydoc",
     "nb2plots",
@@ -73,7 +84,23 @@ autodoc_default_options = {
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
-suppress_warnings = ["ref.citation", "ref.footnote"]
+# Treat every unresolved cross-reference (:obj:, :ref:, :doc:, intersphinx)
+# as a warning instead of silently emitting a broken link.
+nitpicky = True
+
+# linkcheck: treat 401 responses as working (auth-required pages exist).
+linkcheck_allow_unauthorized = True
+
+# linkcheck: skip exactly these two hosts. Both answer 403 to datacenter
+# clients (verified 2026-09: a browser User-Agent still gets 403, so the
+# blocking is IP-based) while the pages remain valid for human readers —
+# dl.acm.org hosts cited papers, dacapobench.sourceforge.net is the source
+# of the avrora graph. Re-verify with a residential connection before
+# removing an entry; every other URL is checked in full.
+linkcheck_ignore = [
+    r"https?://dl\.acm\.org/.*",
+    r"https?://dacapobench\.sourceforge\.net.*",
+]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -96,7 +123,7 @@ master_doc = "index"
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = "English"
+language = "en"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -128,7 +155,10 @@ html_theme = "pydata_sphinx_theme"
 #
 html_theme_options = {
     "collapse_navigation": True,
-    "navigation_depth": 2,
+    # 3 levels: section (Dataset) -> category (C alias analysis) -> graph page.
+    # With the Dataset wrapper section, graph pages sit one level deeper than
+    # before; depth 3 keeps them directly reachable in the sidebar.
+    "navigation_depth": 3,
     "show_prev_next": False,
     "icon_links": [
         {
@@ -143,7 +173,6 @@ html_theme_options = {
         },
     ],
     "navbar_end": ["navbar-icon-links"],
-    "page_sidebar_items": [],
 }
 
 html_logo = "_static/img/CFPQDataLogo.svg"
@@ -165,20 +194,11 @@ html_css_files = [
     "css/about.css",
     "css/custom.css",
 ]
-# Custom sidebar templates, must be a dictionary that maps document names
-# to template names.
-#
-# The default sidebars (for documents that don't match any pattern) are
-# defined by theme itself.  Builtin themes are using these templates by
-# default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
-# 'searchbox.html']``.
-#
+
+# Every page (including the homepage) renders the same left sidebar: the
+# section links plus the active section's toctree. No per-page exceptions.
 html_sidebars = {
     "**": ["sidebar-nav-bs"],
-    "index": [],
-    "install": [],
-    "tutorial": [],
-    "auto_examples/index": [],
 }
 
 # If true, the reST sources are included in the HTML build as _sources/<name>.
@@ -209,8 +229,36 @@ intersphinx_mapping = {
     "pyformlang": ("https://pyformlang.readthedocs.io/en/latest/", None),
 }
 
+# CI runners occasionally drop outbound connections mid-fetch (2026-09-16:
+# networkx.org reset the connection, leaving every networkx cross-reference
+# unresolved and failing the build under the no-warnings policy). Retry
+# transient connection errors; when all attempts fail, the error propagates
+# and the build still fails.
+import time as _time
+
+from requests.exceptions import ConnectionError as _RequestsConnectionError
+from requests.exceptions import Timeout as _RequestsTimeout
+from sphinx.util import requests as _sphinx_requests
+
+_orig_intersphinx_get = _sphinx_requests.get
+
+
+def _get_with_retries(url, *args, retries=3, backoff=2.0, **kwargs):
+    for attempt in range(retries + 1):
+        try:
+            return _orig_intersphinx_get(url, *args, **kwargs)
+        except (_RequestsConnectionError, _RequestsTimeout):
+            if attempt == retries:
+                raise
+            _time.sleep(backoff * (attempt + 1))
+
+
+_sphinx_requests.get = _get_with_retries
+
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
 default_role = "obj"
+
+# -- Options for numpydoc extension ------------------------------------------
 
 numpydoc_show_class_members = False

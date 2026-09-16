@@ -16,10 +16,10 @@ Info
    * - Full Name
      - luindex
    * - Version
-     - 4.0.0
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1hiz2hOg47qhgNgCCJQsDXAAW04CmI06I>`_
-   * - Origin
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/luindex.tar.gz>`_
+   * - Source
      - `link <https://dacapobench.sourceforge.net>`_
 
 
@@ -32,11 +32,15 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 18532
-     - 34750
+     - 17375
 
 
 Edges Statistics
 ----------------
+
+.. note::
+
+   This graph has edges with labels :math:`\textit{load}_f` and :math:`\textit{store}_f` for all :math:`f \in \textit{Fields} = \{0, \ldots, 446\}`.
 
 .. list-table::
    :header-rows: 1
@@ -45,19 +49,11 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 3273
-   * - :math:`\overline{\textit{alloc}}`
-     - 3273
    * - :math:`\textit{assign}`
      - 9903
-   * - :math:`\overline{\textit{assign}}`
-     - 9903
-   * - :math:`\textit{load}_i`
+   * - :math:`\textit{load}_f`
      - 3340
-   * - :math:`\overline{\textit{load}_i}`
-     - 3340
-   * - :math:`\textit{store}_i`
-     - 859
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_f`
      - 859
 
 Canonical grammars

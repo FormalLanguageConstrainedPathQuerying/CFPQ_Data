@@ -14,26 +14,20 @@ This guide can help you start working with CFPQ_Data.
 
 **You can download this tutorial as a Jupyter Notebook from the link at the end of the page.**
 
-.. topic:: NetworkX
+**NetworkX.** We use the NetworkX `MultiDiGraph
+<https://networkx.org/documentation/latest/reference/classes/multidigraph.html>`_ to represent the labeled graph.
+To familiarize yourself with this representation and find useful functions, see `NetworkX tutorial
+<https://networkx.org/documentation/latest/tutorial.html>`_.
 
-    We use the NetworkX `MultiDiGraph
-    <https://networkx.org/documentation/latest/reference/classes/multidigraph.html>`_ to represent the labeled graph.
-    To familiarize yourself with this representation and find useful functions, see `NetworkX tutorial
-    <https://networkx.org/documentation/latest/tutorial.html>`_.
+**Pyformlang.** We use the Pyformlang `Regex
+<https://pyformlang.readthedocs.io/en/latest/modules/regular_expression.html>`_ to represent regular grammars.
+Also, we use the Pyformlang `CFG
+<https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_ and `RSA
+<https://pyformlang.readthedocs.io/en/latest/modules/rsa.html>`_ to represent context-free grammars.
+To familiarize yourself with this representations and find useful functions, see `Pyformlang usage
+<https://pyformlang.readthedocs.io/en/latest/usage.html>`_.
 
-.. topic:: Pyformlang
-
-    We use the Pyformlang `Regex
-    <https://pyformlang.readthedocs.io/en/latest/modules/regular_expression.html>`_ to represent regular grammars.
-    Also, we use the Pyformlang `CFG
-    <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_ and `RSA
-    <https://pyformlang.readthedocs.io/en/latest/modules/rsa.html>`_ to represent context-free grammars.
-    To familiarize yourself with this representations and find useful functions, see `Pyformlang usage
-    <https://pyformlang.readthedocs.io/en/latest/usage.html>`_.
-
-.. note::
-
-   All functions are documented on the :ref:`reference` page.
+All functions are documented on the :ref:`reference` page.
 
 Import
 ------
@@ -52,7 +46,7 @@ After the package is imported, we can load the graphs.
 Load graph archive from Dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the archive with the graph using function `download <cfpq_data.dataset.download>`.
+We can load the archive with the graph using function :obj:`download <cfpq_data.dataset.download>`.
 
 .. nbplot::
 
@@ -61,11 +55,14 @@ We can load the archive with the graph using function `download <cfpq_data.datas
 Load graph by path
 ^^^^^^^^^^^^^^^^^^
 
-We can load the graph along the specified path using function `graph_from_csv <cfpq_data.graphs.readwrite.csv.graph_from_csv>`.
+The archive unpacks to a directory with one MatrixMarket file per edge
+label in its ``graph`` subdirectory (see :ref:`graph_file_structure`). We
+can load the graph along the specified path using function
+:obj:`graph_from_mtx_dir <cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
 
 .. nbplot::
 
-   bzip = cfpq_data.graph_from_csv(bzip_path)
+   bzip = cfpq_data.graph_from_mtx_dir(bzip_path / "graph")
 
 Create graph
 ------------
@@ -84,7 +81,7 @@ For example, let's create a one cycle graph, with 5 nodes, the edges of which ar
 Change edges
 ------------
 
-We can change the specified graph labels by using function `change_edges <cfpq_data.graphs.utils.change_edges>`
+We can change the specified graph labels by using function :obj:`change_edges <cfpq_data.graphs.utils.change_edges>`
 from :ref:`graphs_utils`.
 
 .. nbplot::
@@ -96,7 +93,7 @@ Now the labels ``a`` have changed to ``b``.
 Add reverse edges
 -----------------
 
-In addition, we can add reverse edges to the graph by using function `add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`
+In addition, we can add reverse edges to the graph by using function :obj:`add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`
 from :ref:`graphs_utils`. This is extremely useful if graph analysis is formulated using such reverse edges.
 
 .. nbplot::
@@ -113,7 +110,7 @@ Also, we can load the grammars generated from grammar templates that are describ
 Load grammars archive from Dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the archive with the grammars for the specified template using function `download_grammars <cfpq_data.dataset.download_grammars>`.
+We can load the archive with the grammars for the specified template using function :obj:`download_grammars <cfpq_data.dataset.download_grammars>`.
 
 .. nbplot::
 
@@ -138,7 +135,7 @@ Currently, we have one representation of regular grammars:
 Create a regular expression
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For example, a regular expression can be created by using function `regex_from_text <cfpq_data.grammars.readwrite.regex.regex_from_text>`
+For example, a regular expression can be created by using function :obj:`regex_from_text <cfpq_data.grammars.readwrite.regex.regex_from_text>`
 from :ref:`grammars_readwrite`.
 
 .. nbplot::
@@ -148,7 +145,7 @@ from :ref:`grammars_readwrite`.
 Load regular expression by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the regular expression along the specified path using function `regex_from_txt <cfpq_data.grammars.readwrite.regex.regex_from_txt>`.
+We can load the regular expression along the specified path using function :obj:`regex_from_txt <cfpq_data.grammars.readwrite.regex.regex_from_txt>`.
 
 .. nbplot::
    path = cfpq_data.regex_to_txt(regex, "test.txt")
@@ -161,12 +158,12 @@ Currently, we have three representations of context-free grammars (CFGs):
 
 1. `Classic <https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions>`_
 2. `Chomsky Normal Form <https://en.wikipedia.org/wiki/Chomsky_normal_form>`_
-3. `Recursive State Machine <https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6#Sec2>`_
+3. `Recursive State Machine <https://link.springer.com/chapter/10.1007/978-3-030-54832-2_6>`_
 
 Create a classic context-free grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A classic context-free grammar can be created by using function `cfg_from_text <cfpq_data.grammars.readwrite.cfg.cfg_from_text>`
+A classic context-free grammar can be created by using function :obj:`cfg_from_text <cfpq_data.grammars.readwrite.cfg.cfg_from_text>`
 from :ref:`grammars_readwrite`.
 
 .. nbplot::
@@ -176,7 +173,7 @@ from :ref:`grammars_readwrite`.
 Load context-free grammar by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the classic context-free grammar along the specified path using function `cfg_from_txt <cfpq_data.grammars.readwrite.cfg.cfg_from_txt>`.
+We can load the classic context-free grammar along the specified path using function :obj:`cfg_from_txt <cfpq_data.grammars.readwrite.cfg.cfg_from_txt>`.
 
 .. nbplot::
    path = cfpq_data.cfg_to_txt(cfg, "test.txt")
@@ -218,7 +215,7 @@ Currently, we provide the following benchmarks documented on the :ref:`benchmark
 Load benchmark archive
 ^^^^^^^^^^^^^^^^^^^^^^
 
-You can load the archive with the benchmark using function `download_benchmark <cfpq_data.dataset.download_benchmark>`.
+You can load the archive with the benchmark using function :obj:`download_benchmark <cfpq_data.dataset.download_benchmark>`.
 
 .. nbplot::
 
@@ -233,8 +230,8 @@ formal-language-constrained reachability problem. This benchmark is described on
 For this benchmark we provide some useful functions from
 :ref:`graphs_utils`.
 For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
-functions `multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
-`multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
+functions :obj:`multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
+:obj:`multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
 
 .. nbplot::
 

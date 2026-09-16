@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - perlbench
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1SKS_W7LNy7eiuRAgc88CJLmJT_LyQOUq>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/perlbench.tar.gz>`_
 
 
 Graph Statistics

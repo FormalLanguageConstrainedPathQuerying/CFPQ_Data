@@ -15,8 +15,10 @@ Info
      -
    * - Full Name
      - wikipedia-provenance
+   * - Version
+     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://drive.google.com/uc?export=download&id=1FSOtaHPphLghT20f3xoD4NaRuzeR5h7c>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/wikipedia-provenance.tar.gz>`_
    * - Source
      - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
 
