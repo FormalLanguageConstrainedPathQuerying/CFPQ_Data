@@ -35,8 +35,11 @@ The ``publish`` workflow (``.github/workflows/publish.yml``) runs when a
    ``PYPI_API_TOKEN`` secret is supported as a fallback.
 4. Creates a GitHub Release with the matching changelog section.
 
-A manual **TestPyPI** run is available from *Actions → Publish → Run workflow*
-(uses a ``TEST_PYPI_API_TOKEN`` secret) to validate before a real release.
+On every pull request targeting ``master``, the same build step runs and the
+artifacts are published to **TestPyPI** (``TEST_PYPI_API_TOKEN`` secret, with
+``skip-existing`` so concurrent PRs sharing a version do not collide) — a
+packaging check that fails the PR before a release tag is cut. A manual
+TestPyPI run is also available from *Actions → Publish → Run workflow*.
 
 Prerequisites (one-time, owner action)
 --------------------------------------

@@ -3,6 +3,10 @@ name: Publish
 on:
   push:
     tags: ['v*']
+  # Packaging check for every PR targeting the release branch: build the
+  # sdist/wheel and publish to TestPyPI before a release tag is cut.
+  pull_request:
+    branches: [master]
   workflow_dispatch: {}
 
 permissions:
@@ -44,7 +48,7 @@ jobs:
 
   publish-testpypi:
     needs: build
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Download dist
@@ -58,6 +62,9 @@ jobs:
         with:
           repository-url: https://test.pypi.org/
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          # Concurrent PRs share the same package version and TestPyPI
+          # rejects re-uploads of existing files; skip instead of failing.
+          skip-existing: true
 
   publish-pypi:
     needs: build
