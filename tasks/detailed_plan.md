@@ -275,6 +275,21 @@ Decisions made before implementation (user-confirmed where noted):
   duplication beyond what the skills already carry.
 - Verification: grep `.opencode/skills/` for `poetry` → no matches.
 
+### S9: Pin astral-sh/setup-uv to an existing tag
+
+Added 2026-09-17 after the merge (user: "CI with these changes failed. Fix
+it."). The first CI run on `07b4fb0` failed all four workflows at action
+resolution — `Unable to resolve action astral-sh/setup-uv@v10, unable to
+find version v10`: unlike actions/checkout, the setup-uv repo has no
+major-only tag alias (only full semver tags: v10.1.0, v10.0.1, ...).
+
+**Code:** `.github/workflows/{tests,coverage,docs,deploy_docs,lint,publish}.yml`
+          — `astral-sh/setup-uv@v10` → `astral-sh/setup-uv@v10.1.0`
+**Tests:** every workflow parses as YAML; no `setup-uv@v10` references
+          remain; the CI `uv sync --frozen --only-group <g>` commands are
+          simulated locally for all three groups.
+**Docs:** none (the workflows are not described in the docs).
+
 ## Post-subtask steps
 
 1. Code review of the whole task diff (`code-review` skill), iterate to zero
