@@ -45,7 +45,7 @@ Decisions made before implementation:
 
 ## Subtasks
 
-### S1: Record task 39 in the task log and write the detailed plan [ ]
+### S1: Record task 39 in the task log and write the detailed plan [done — 78e88d1]
 
 **Code:** N/A (documentation-only subtask)
 **Tests:** Skip — no code to test
@@ -58,7 +58,7 @@ Decisions made before implementation:
 - Replace `tasks/detailed_plan.md` with this plan.
 - Commit message body carries the standalone line `Closes #94`.
 
-### S2: Add `cfpq_data/py.typed` and verify the built wheel ships it [ ]
+### S2: Add `cfpq_data/py.typed` and verify the built wheel ships it [done — 7b0cd29]
 
 **Code:** New empty file `cfpq_data/py.typed` (PEP 561 marker, git-tracked).
          No `pyproject.toml` change expected (decision 4); add a hatchling
@@ -77,7 +77,7 @@ Decisions made before implementation:
   is present in each. Clean up `dist/` afterwards (build output, not source).
 - Run the test suite for the new test.
 
-### S3: Document the PEP 561 marker in the developer docs [ ]
+### S3: Document the PEP 561 marker in the developer docs [done — f2205d4]
 
 **Code:** N/A (documentation-only subtask)
 **Tests:** Skip — no code to test
@@ -90,3 +90,17 @@ Decisions made before implementation:
 - Add the sentence; keep it to the "what/why" (no build instructions — the
   packaging config in `pyproject.toml` is the source of truth for "how").
 - Verify the docs build passes under the no-warnings policy.
+
+### S4: Mark task 39 done in the task log [ ]
+
+**Code:** N/A (documentation-only subtask)
+**Tests:** Skip — no code to test
+**Docs:** `tasks/tasks.md` — prepend `[done] ` to the task 39 line;
+         `tasks/detailed_plan.md` — record the S1–S3 completion hashes.
+
+**Spec:**
+- Only prepend `[done] ` to the existing task 39 line; never rewrite the task
+  description (user-authored, immutable).
+- Record the S1–S3 completion hashes in this plan (this subtask's own entry
+  carries no hash — a commit cannot know its own hash; same convention as
+  task 38's final subtask).
