@@ -35,7 +35,10 @@ Upload to Yandex S3
   ``5.0.0/graph/NAME.tar.gz`` to follow the dataset layout).
 
 After the upload the tool verifies that the stored object size equals the
-local file size and reports an error otherwise.
+local file size and reports an error otherwise. The verified size is then
+reported in bytes and megabytes, with the same MB formatting as the
+``Size (MB)`` column of the graph tables, so a new graph's table row can be
+filled directly from the upload output.
 
 .. _migrate_gdrive_to_s3:
 

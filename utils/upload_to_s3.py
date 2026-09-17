@@ -7,6 +7,7 @@ from typing import Optional, Sequence, Union
 
 import boto3
 from botocore.client import BaseClient
+from sizes import format_size_mb
 
 __all__ = [
     "DEFAULT_ENDPOINT_URL",
@@ -56,7 +57,7 @@ def upload_file(
     local_path: Union[str, pathlib.Path],
     bucket: str,
     key: Optional[str] = None,
-) -> str:
+) -> tuple[str, int]:
     """Upload a local file to an S3 bucket and verify the stored size.
 
     Parameters
@@ -74,6 +75,11 @@ def upload_file(
     -------
     key : str
         The object key the file was stored under.
+    size : int
+        The verified size of the stored object in bytes (equal to the local
+        file size; the upload is aborted otherwise). The CLI reports it in
+        MB with the same formatting as the ``Size (MB)`` column of the docs
+        graph tables.
 
     Raises
     ------
@@ -98,8 +104,8 @@ def upload_file(
             f"stored size {stored_size} != local size {local_size}"
         )
 
-    logging.info(f"Uploaded {local_path} to s3://{bucket}/{key}")
-    return key
+    logging.info(f"Uploaded {local_path} to s3://{bucket}/{key} ({stored_size} bytes)")
+    return key, stored_size
 
 
 def copy_object(
@@ -191,8 +197,11 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     client = create_s3_client(
         args.access_key_id, args.secret_access_key, args.endpoint_url
     )
-    key = upload_file(client, args.file, args.bucket, args.key)
-    print(f"Uploaded {args.file} to s3://{args.bucket}/{key}")
+    key, size = upload_file(client, args.file, args.bucket, args.key)
+    print(
+        f"Uploaded {args.file} to s3://{args.bucket}/{key} "
+        f"({size} bytes, {format_size_mb(size)} MB)"
+    )
 
 
 if __name__ == "__main__":

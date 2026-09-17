@@ -47,15 +47,16 @@ def test_create_s3_client_default_endpoint(monkeypatch):
     assert calls["endpoint_url"] == DEFAULT_ENDPOINT_URL == "https://s3.yandexcloud.net"
 
 
-def test_upload_file_uploads_and_returns_key(tmp_path):
+def test_upload_file_uploads_and_returns_key_and_size(tmp_path):
     file = tmp_path / "graph.tar.gz"
     file.write_bytes(b"payload")
     client = mock.Mock()
     client.head_object.return_value = {"ContentLength": 7}
 
-    key = upload_file(client, file, "cfpq-data", key="4.0.0/graph/graph.tar.gz")
+    key, size = upload_file(client, file, "cfpq-data", key="4.0.0/graph/graph.tar.gz")
 
     assert key == "4.0.0/graph/graph.tar.gz"
+    assert size == 7
     client.upload_file.assert_called_once_with(
         str(file), "cfpq-data", "4.0.0/graph/graph.tar.gz"
     )
@@ -70,9 +71,10 @@ def test_upload_file_default_key_is_file_name(tmp_path):
     client = mock.Mock()
     client.head_object.return_value = {"ContentLength": 7}
 
-    key = upload_file(client, file, "cfpq-data")
+    key, size = upload_file(client, file, "cfpq-data")
 
     assert key == "graph.tar.gz"
+    assert size == 7
 
 
 def test_upload_file_missing_local_file(tmp_path):
@@ -127,7 +129,7 @@ def test_copy_object_size_mismatch_raises():
         copy_object(client, "cfpq-data", "a.tar.gz", "b.tar.gz")
 
 
-def test_main_uploads_file(tmp_path, monkeypatch, capsys):
+def test_main_uploads_file_and_reports_size(tmp_path, monkeypatch, capsys):
     file = tmp_path / "graph.tar.gz"
     file.write_bytes(b"payload")
     client = mock.Mock()
@@ -145,8 +147,32 @@ def test_main_uploads_file(tmp_path, monkeypatch, capsys):
     )
 
     out = capsys.readouterr().out
-    assert f"Uploaded {file} to s3://{DEFAULT_BUCKET}/graph.tar.gz" in out
+    assert (
+        f"Uploaded {file} to s3://{DEFAULT_BUCKET}/graph.tar.gz "
+        "(7 bytes, 0.000 MB)" in out
+    )
     client.upload_file.assert_called_once()
+
+
+def test_main_reports_size_above_one_megabyte(tmp_path, monkeypatch, capsys):
+    file = tmp_path / "graph.tar.gz"
+    file.write_bytes(b"x" * 2_500_000)
+    client = mock.Mock()
+    client.head_object.return_value = {"ContentLength": 2_500_000}
+    monkeypatch.setattr("upload_to_s3.boto3.client", lambda *args, **kwargs: client)
+
+    main(
+        [
+            str(file),
+            "--access-key-id",
+            "key-id",
+            "--secret-access-key",
+            "secret",
+        ]
+    )
+
+    out = capsys.readouterr().out
+    assert "(2500000 bytes, 2.50 MB)" in out
 
 
 def test_main_requires_credentials(tmp_path):
