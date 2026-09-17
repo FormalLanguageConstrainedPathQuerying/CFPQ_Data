@@ -237,6 +237,32 @@ def test_update_table_with_empty_cells():
     ]
 
 
+def test_update_table_keeps_rows_without_url_aligned():
+    text = (
+        ".. list-table::\n"
+        "   :header-rows: 1\n"
+        "\n"
+        "   * - Graph\n"
+        "     - Download\n"
+        "   * - :ref:`wc`\n"
+        f"     - `wc.tar.gz <{WC_URL}>`_ 📥\n"
+        "   * - :ref:`broken`\n"
+        "     - no link here\n"
+    )
+
+    updated, changed = update_table(text, SIZES)
+
+    assert changed == 2
+    table = iter_graph_tables(updated)[0]
+    # The broken row gets a bare '-' cell so the columns stay aligned.
+    assert [cell for _, cell in table.rows[1]] == [
+        ":ref:`wc`",
+        "0.002",
+        f"`wc.tar.gz <{WC_URL}>`_ 📥",
+    ]
+    assert [cell for _, cell in table.rows[2]] == [":ref:`broken`", "", "no link here"]
+
+
 def test_update_table_leaves_non_graph_tables_untouched():
     text = (
         ".. list-table::\n"

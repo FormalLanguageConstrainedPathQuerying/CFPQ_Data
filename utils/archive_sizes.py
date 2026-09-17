@@ -44,7 +44,7 @@ SIZE_COLUMN = "Size (MB)"
 #: The download-column header every graph table must have to be processed.
 DOWNLOAD_COLUMN = "Download"
 
-#: The docs files holding graph tables, relative to the repository root.
+#: The docs files holding graph tables, as glob patterns relative to docs/.
 GRAPH_TABLE_FILES: tuple[str, ...] = (
     "graphs/*.rst",
     "old_graphs/index.rst",
@@ -291,18 +291,21 @@ def update_table(text: str, sizes: dict[str, int]) -> tuple[str, int]:
                 continue
             url = extract_url(row[download_index][1])
             if url is None or url not in sizes:
-                continue
-            value = format_size_mb(sizes[url])
+                value = ""
+            else:
+                value = format_size_mb(sizes[url])
             if has_size:
                 cell_index, current = row[download_index - 1]
-                if current != value:
+                if value and current != value:
                     indent = _indent_of(lines, cell_index)
                     replacements.append((cell_index, f"{indent}- {value}"))
                     changed += 1
             else:
+                # A bare '-' line keeps the row aligned when no value is known.
                 line_index, _ = row[download_index]
                 indent = _indent_of(lines, line_index)
-                insertions.append((line_index, f"{indent}- {value}"))
+                cell = f"{indent}- {value}" if value else f"{indent}-"
+                insertions.append((line_index, cell))
                 changed += 1
 
     for line_index, new_line in sorted(replacements, key=lambda p: p[0]):
