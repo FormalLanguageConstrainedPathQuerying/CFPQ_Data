@@ -253,7 +253,7 @@ Decisions made before implementation (user-confirmed where noted):
   policy; `uv run sphinx-build -b linkcheck docs docs/_build/linkcheck`
   reports no broken links.
 
-### S8: Update the agent skills
+### S8: Update the agent skills [done — 21a9333]
 
 **Code:** none (documentation-only)
 **Tests:** skip — no code to test
