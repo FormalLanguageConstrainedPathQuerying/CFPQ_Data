@@ -1,125 +1,92 @@
-# Task 38: Issue-closing commit messages
+# Task 39: Add the PEP 561 `py.typed` marker (issue #94)
 
-Task (verbatim): We use mechanism to close issues automatically described here: https://github.blog/news-insights/product-news/closing-issues-via-commit-messages/    Improve imstructions to write respective commut message when task is link to issue.
+Task (verbatim): Fix https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/issues/94
 
-Branch: `feature/38-issue-closing-commit-messages` (from `dev`).
-Documentation-only task: no `.py` files change; code-specific gates (tests,
-lint, format) are skipped per the workflow rules, docs build + link check still apply.
+Branch: `feature/39-py-typed-marker` (from `dev`).
 
 ## Decision record
 
 Decisions made before implementation:
 
-1. **Mechanism** (per the linked GitHub post): GitHub closes an issue when a
-   commit whose message contains a closing keyword (`close`, `closes`,
-   `closed`, `fixes`, `fixed`) reaches the repository's **default branch**.
-   Verified for this repo: the default branch is `master`
-   (`git ls-remote --symref origin HEAD` -> `refs/heads/master`).
-2. **Closing timing**: our flow merges feature branches to `dev`; only a
-   release merges `dev` -> `master`. Therefore a linked issue closes when the
-   release containing the task lands on `master`, not when the task merges to
-   `dev`. This is documented as intended behavior: an issue stays open until
-   the fix is actually released.
-3. **Placement**: exactly one commit of a task carries the closing keyword —
-   by convention the **first subtask's commit**, as a standalone line in the
-   message body. Rationale: a branch merges only after ALL subtasks complete,
-   so placement does not affect correctness; the first commit makes validation
-   monotonic (0 matches before S1, 1 afterwards) and never requires rewording
-   when the plan grows.
-4. **Keyword choice**: `Fixes #N` when the task fixes a reported defect,
-   `Closes #N` for all other work. One keyword line per fully resolved issue.
-5. **Partial resolution**: reference the issue without a closing keyword (bare
-   `#N`) — GitHub links it but leaves it open. Consistent with the task 34
-   user guidance "Reference partial, no close claim".
-6. **Single source of truth**: the model lives in the "Contribution
-   guidelines" section of `docs/developer.rst` (new "Issue references"
-   subsection); the `git-workflow` skill gains only the operational validation
-   and points to the docs. No other skill is touched (`subtask-loop` step 6
-   already defers commit rules to `git-workflow`).
+1. **The issue is still open work, not stale.** Issue #94 asks for the PEP 561
+   `py.typed` marker. Inline type annotations (added in task 37) are necessary
+   but not sufficient: per PEP 561, a type checker (mypy, pyright) ignores the
+   inline types of an *installed* package unless the package ships a
+   `py.typed` marker file. Without it, downstream users get no type
+   information from `cfpq_data` at all.
+2. **The issue's `setup.py` snippet is obsolete.** Packaging migrated from
+   Poetry + setuptools to PEP 621 + hatchling in task 37 (no `setup.py`
+   exists). The fix is therefore: create the marker file and confirm the
+   hatchling build ships it — no `package_data` configuration needed.
+3. **Marker location**: `cfpq_data/py.typed`, empty file, tracked in git.
+   This is the PEP 561 convention for inline-typed packages (no separate
+   `.pyi` stubs).
+4. **Packaging inclusion (to be verified empirically in S2)**: the hatchling
+   wheel target `packages = ["cfpq_data"]` includes every VCS-tracked file
+   under the package directory by default, so a git-tracked `py.typed` is
+   expected to land in the wheel with no `pyproject.toml` change. The sdist
+   target's `include = ["cfpq_data", ...]` covers it as well. S2 verifies
+   both by building and inspecting the artifacts; if the wheel misses the
+   marker, add an explicit hatchling `force-include`/`artifacts` entry.
+5. **Regression guard**: a pytest test asserts the marker exists inside the
+   installed package (`importlib.resources`), so deleting or untracking the
+   file fails the suite. The built-wheel check is a one-off verification in
+   S2 (the published artifact is what the issue is about); the test guards
+   the source of truth.
+6. **Docs**: one sentence in the "Quality checks" section of
+   `docs/developer.rst` — the section that already documents ty/pyright —
+   stating that the package ships `py.typed` per PEP 561 so downstream type
+   checkers use the inline annotations. No new doc page (single source of
+   truth, no duplication).
+7. **Issue closing**: the task fully resolves #94, so the first subtask's
+   commit carries `Closes #94` as a standalone body line (per the
+   "Issue references" rules in `docs/developer.rst`). The issue closes when
+   the release containing this task lands on `master`.
 
 ## Subtasks
 
-### S1: Record task 38 in the task log and write the detailed plan [done — 3cb5dc3]
+### S1: Record task 39 in the task log and write the detailed plan [ ]
 
-**Code:** N/A (documentation-only task)
+**Code:** N/A (documentation-only subtask)
 **Tests:** Skip — no code to test
-**Docs:** `tasks/tasks.md` (append the task line, user wording verbatim),
-         `tasks/detailed_plan.md` (this plan)
+**Docs:** `tasks/tasks.md` (append the task line), `tasks/detailed_plan.md`
+         (this plan)
 
 **Spec:**
-- Append `- Task 38: <user wording verbatim>` to `tasks/tasks.md`.
+- Append `- [ ] Task 39: Fix https://github.com/.../issues/94` to
+  `tasks/tasks.md`.
 - Replace `tasks/detailed_plan.md` with this plan.
+- Commit message body carries the standalone line `Closes #94`.
 
-### S2: Document the issue-closing commit rules in the developer docs [done — 73581a6]
+### S2: Add `cfpq_data/py.typed` and verify the built wheel ships it [ ]
 
-**Code:** N/A (documentation-only task)
-**Tests:** Skip — no code to test
-**Docs:** `docs/developer.rst` — "Contribution guidelines" section, new
-         "Issue references" subsection right after the "Commits" format text.
-
-**Spec:**
-- State the mechanism: GitHub closes an issue once a commit containing a
-  closing keyword (`close`, `closes`, `closed`, `fixes`, `fixed`) reaches the
-  default branch; link the GitHub blog post as the source.
-- Rule 1 (full resolution): exactly one commit of the task carries the
-  keyword — by convention the first subtask's commit — as a standalone line
-  in the message body: `Fixes #N` for defects, `Closes #N` otherwise; no other
-  commit of the task repeats it. Include a short example.
-- Rule 2 (partial resolution): bare `#N`, no keyword — linked, not closed.
-- Timing note: with the dev -> master release flow, a linked issue closes when
-  the release lands on `master`, not at merge to `dev`.
-
-### S3: Add operational validation to the git-workflow skill [done — 1a0a196]
-
-**Code:** N/A (documentation-only task)
-**Tests:** Skip — no code to test
-**Docs:** `.opencode/skills/git-workflow/SKILL.md` — "Commits" section, extend
-         the pre-commit validation.
+**Code:** New empty file `cfpq_data/py.typed` (PEP 561 marker, git-tracked).
+         No `pyproject.toml` change expected (decision 4); add a hatchling
+         entry only if the empirical check fails.
+**Tests:** New `tests/test_py_typed.py`: assert
+         `importlib.resources.files("cfpq_data") / "py.typed"` exists —
+         guards the marker against deletion/untracking in both editable and
+         real installs.
+**Docs:** N/A for this subtask (the developer-docs note is S3).
 
 **Spec:**
-- Add an **Issue-closing validation** paragraph: if the task fully resolves a
-  linked issue, the first subtask's commit must carry the keyword line and no
-  later commit of the task may repeat it.
-- Verification command on the feature branch:
-  `git log dev..HEAD --format=%B | grep -cE '^(Fixes|Closes) #[0-9]+$'` — must
-  print `0` before the first subtask's commit and, afterwards, exactly one
-  line per fully resolved issue (no more).
-- Partially addressed issues use a bare `#N` reference (no keyword).
-- Point to the "Contribution guidelines" section of `docs/developer.rst` for
-  the model and closing timing — the skill stays a thin pointer.
+- Create the empty `cfpq_data/py.typed` file.
+- Add the regression test (style: plain pytest, no fixtures needed).
+- Verify empirically: `uv build --wheel` and `uv build --sdist`, then inspect
+  both artifacts (`unzip -l` / `tar -tzf`) and confirm `cfpq_data/py.typed`
+  is present in each. Clean up `dist/` afterwards (build output, not source).
+- Run the test suite for the new test.
 
-### S4: Mark task 38 done in the task log [done — 6704bc3]
+### S3: Document the PEP 561 marker in the developer docs [ ]
 
-**Code:** N/A (documentation-only task)
+**Code:** N/A (documentation-only subtask)
 **Tests:** Skip — no code to test
-**Docs:** `tasks/tasks.md` — prepend `[done] ` to the task 38 line.
+**Docs:** `docs/developer.rst`, "Quality checks" section — one sentence after
+         the ty/pyright paragraph: the package ships a PEP 561 `py.typed`
+         marker, so type checkers in downstream projects use the inline
+         annotations.
 
 **Spec:**
-- Only prepend `[done] ` to the existing line; never rewrite the task
-  description (user-authored, immutable).
-
-### S5: Make the link check deterministic on rate-limited networks
-
-Added 2026-09-17 during the quality gate. The full link check failed with
-403 "Too many requests" from `en.wikipedia.org` on two of the four Wikipedia
-URLs (pre-existing links in `grammars/data/dyck.rst` and the generated
-`cfpq_data.grammars.converters.cfg` page — not introduced by this task).
-
-Root cause (verified empirically): with the configured descriptive
-User-Agent, all four URLs answer 200 when requested **sequentially**
-(`curl`, 5 s apart), but linkcheck's default parallel worker pool triggers
-Wikipedia's per-IP rate limit from this datacenter network — the same
-failure mode already documented in `docs/conf.py` for `dl.acm.org` and
-`dacapobench.sourceforge.net`, except there the block is persistent while
-here it is concurrency-driven. Retrying with delays did not stabilize the
-result (different subsets of the four URLs failed per run).
-
-**Code:** N/A (documentation-only task)
-**Tests:** Skip — no code to test
-**Docs:** `docs/conf.py` — add `linkcheck_workers = 1` next to the other
-         linkcheck settings, with the rationale comment.
-
-**Spec:**
-- Sequential checking is not an ignore: every URL is still checked in full;
-  only the concurrency changes (the check gets slower, never weaker).
-- Re-run the full link check; it must report no broken or timed-out links.
+- Add the sentence; keep it to the "what/why" (no build instructions — the
+  packaging config in `pyproject.toml` is the source of truth for "how").
+- Verify the docs build passes under the no-warnings policy.
