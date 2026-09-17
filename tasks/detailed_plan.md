@@ -161,7 +161,7 @@ Decisions made before implementation (user-confirmed where noted):
 - `ruff format` must not change doctest output (it does not touch docstrings);
   the suite is the guard.
 
-### S4: Type checking — ty + pyright config and error fixes
+### S4: Type checking — ty + pyright config and error fixes [done — 5878e10]
 
 **Code:** Add `[tool.ty.environment]` (`extra-paths = ["utils"]`) and
           `[tool.pyright]` (`pythonVersion = "3.11"`, `extraPaths = ["utils"]`)

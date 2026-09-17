@@ -37,31 +37,38 @@ CI workflows install their dependencies through it:
   distribution's install requirements on PyPI; the Poetry groups in
   ``pyproject.toml`` drive the development environment and CI.
 
-.. _developer-precommit:
+.. _developer-quality:
 
-Pre-commit
-----------
+Quality checks
+--------------
 
-Formatting and hygiene checks run through ``pre-commit``. The hook list —
-black formatting plus whitespace, YAML, and requirements-file fixers, and a
-version-sync check that fails when :file:`cfpq_data/config.py` and
-:file:`pyproject.toml` declare different versions — is defined in
+Linting, formatting, and type checking are managed by uv and run through
+``pre-commit``. The hook list — hygiene checks, the official ``uv-lock`` and
+ruff hooks (check with autofix plus format), a version-sync check that fails
+when :file:`cfpq_data/config.py` and :file:`pyproject.toml` declare different
+versions, and a local ty type check — is defined in
 :file:`.pre-commit-config.yaml`, which is the source of truth; do not
 maintain a copy of it elsewhere.
 
+The ``ruff-pre-commit`` hook revision must match the ruff version locked in
+:file:`uv.lock`; bump both together when upgrading ruff.
+
 Install the git hook once so the checks run on every commit::
 
-   pre-commit install
+   uv run pre-commit install
 
 Run the full pass manually (this is what CI does)::
 
-   pre-commit run --all-files --color always --verbose --show-diff-on-failure
+   uv run pre-commit run --all-files --color always --verbose --show-diff-on-failure
 
-Format a single file with black directly::
+The individual tools can also be run directly::
 
-   black <path>
+   uv run ruff check .
+   uv run ruff format .
+   uv run ty check
 
-CI runs this full pass on every push and pull request
+CI additionally runs Pyright, the stricter of the two type checkers; ty is
+the fast local check. The full pass runs on every push and pull request
 (:file:`.github/workflows/lint.yml`).
 
 .. _developer-tests:
@@ -74,11 +81,11 @@ sections of public docstrings are executed as tests, so the documented
 behavior and the tested behavior are the same code. The canonical local
 command (the one CI runs)::
 
-   poetry run pytest --doctest-modules -vv -s cfpq_data tests
+   uv run pytest
 
 A single module or function::
 
-   poetry run pytest tests/graphs/utils/test_add_reverse_edges.py
+   uv run pytest tests/graphs/utils/test_add_reverse_edges.py
 
 - Doctest discovery and test paths are configured in ``pyproject.toml``
   (``[tool.pytest.ini_options]``).
@@ -167,8 +174,9 @@ no exceptions:
 
 1. The full test suite: 0 failures, 0 skipped.
 2. The full pre-commit pass: no errors.
-3. The docs build: exit 0 under the no-warnings policy.
-4. The link check: no broken or timed-out links.
+3. Type checking: ``uv run ty check`` and Pyright both report no errors.
+4. The docs build: exit 0 under the no-warnings policy.
+5. The link check: no broken or timed-out links.
 
 Merge strategy
 ~~~~~~~~~~~~~~
