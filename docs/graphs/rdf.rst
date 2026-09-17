@@ -46,6 +46,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - subClassOf_type
      - type
      - broaderTransitive
+     - Size (MB)
      - Download
    * - :ref:`generations`
      - 129
@@ -54,6 +55,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 12
      - 12
      -
+     - 0.003
      - `generations.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/generations.tar.gz>`_ 📥
    * - :ref:`travel`
      - 131
@@ -62,6 +64,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 52
      - 19
      -
+     - 0.003
      - `travel.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/travel.tar.gz>`_ 📥
    * - :ref:`skos`
      - 144
@@ -70,6 +73,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 30
      - 29
      -
+     - 0.003
      - `skos.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/skos.tar.gz>`_ 📥
    * - :ref:`univ`
      - 179
@@ -78,6 +82,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 25
      - 6
      -
+     - 0.003
      - `univ.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/univ.tar.gz>`_ 📥
    * - :ref:`foaf`
      - 256
@@ -86,6 +91,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 36
      - 29
      -
+     - 0.004
      - `foaf.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/foaf.tar.gz>`_ 📥
    * - :ref:`atom`
      - 291
@@ -94,6 +100,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 6
      - 4
      -
+     - 0.003
      - `atom.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/atom.tar.gz>`_ 📥
    * - :ref:`people`
      - 337
@@ -102,6 +109,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 51
      - 29
      -
+     - 0.005
      - `people.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/people.tar.gz>`_ 📥
    * - :ref:`biomedical`
      - 341
@@ -110,6 +118,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 47
      - 4
      -
+     - 0.003
      - `biomedical.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/biomedical.tar.gz>`_ 📥
    * - :ref:`pizza`
      - 671
@@ -118,6 +127,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 1356
      - 20
      -
+     - 0.009
      - `pizza.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pizza.tar.gz>`_ 📥
    * - :ref:`wine`
      - 733
@@ -126,6 +136,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 565
      - 65
      -
+     - 0.009
      - `wine.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/wine.tar.gz>`_ 📥
    * - :ref:`funding`
      - 778
@@ -134,6 +145,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 58
      - 31
      -
+     - 0.006
      - `funding.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/funding.tar.gz>`_ 📥
    * - :ref:`core`
      - 1323
@@ -142,6 +154,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 204
      - 61
      -
+     - 0.013
      - `core.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/core.tar.gz>`_ 📥
    * - :ref:`pathways`
      - 6238
@@ -150,6 +163,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 884
      - 2
      -
+     - 0.048
      - `pathways.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pathways.tar.gz>`_ 📥
    * - :ref:`go_hierarchy`
      - 45007
@@ -158,6 +172,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 588976
      - 0
      -
+     - 1.50
      - `go_hierarchy.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/go_hierarchy.tar.gz>`_ 📥
    * - :ref:`enzyme`
      - 48815
@@ -166,6 +181,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 396
      - 3
      - 14267542
+     - 0.357
      - `enzyme.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/enzyme.tar.gz>`_ 📥
    * - :ref:`geospecies`
      - 450609
@@ -174,6 +190,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 85
      - 85
      - 226669749
+     - 7.95
      - `geospecies.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/geospecies.tar.gz>`_ 📥
    * - :ref:`go`
      - 582929
@@ -182,6 +199,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 640316
      - 9
      -
+     - 6.31
      - `go.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/go.tar.gz>`_ 📥
    * - :ref:`eclass`
      - 239111
@@ -190,6 +208,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 90994
      - 6
      -
+     - 1.59
      - `eclass.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/eclass.tar.gz>`_ 📥
    * - :ref:`taxonomy_hierarchy`
      - 2112625
@@ -198,6 +217,7 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 5351657
      - 0
      -
+     - 99.65
      - `taxonomy_hierarchy.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/taxonomy_hierarchy.tar.gz>`_ 📥
    * - :ref:`taxonomy`
      - 5728398
@@ -206,4 +226,5 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 151706
      - 4
      -
+     - 59.52
      - `taxonomy.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/taxonomy.tar.gz>`_ 📥

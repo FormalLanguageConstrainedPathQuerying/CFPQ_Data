@@ -74,7 +74,8 @@ pairs ``(u, v)`` for which some string in the language labels a path from
 particular grammar: several grammars may generate the same language and
 yield the same count. A cell reading "not available" means the value has
 not been computed yet; an empty cell means the grammar does not apply to
-that graph.
+that graph. Each table also has a ``Size (MB)`` column: the download size
+of the graph's archive, in megabytes.
 
 .. list-table::
    :header-rows: 1

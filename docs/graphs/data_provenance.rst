@@ -41,94 +41,113 @@ Python projects, following the W3C PROV model (``Entity``, ``Activity``,
      - Num Nodes
      - Num Edges
      - prov_derivation
+     - Size (MB)
      - Download
    * - :ref:`provenance_sampleproject`
      - 148
      - 763
      - 342
+     - 0.004
      - `sampleproject.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/sampleproject.tar.gz>`_ 📥
    * - :ref:`provenance_wikipedia_provenance`
      - 316
      - 1284
      - 1732
+     - 0.006
      - `wikipedia-provenance.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/wikipedia-provenance.tar.gz>`_ 📥
    * - :ref:`provenance_pluggy`
      - 353
      - 1818
      - 880
+     - 0.008
      - `pluggy.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pluggy.tar.gz>`_ 📥
    * - :ref:`provenance_itsdangerous`
      - 425
      - 2210
      - 2912
+     - 0.009
      - `itsdangerous.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/itsdangerous.tar.gz>`_ 📥
    * - :ref:`provenance_requests`
      - 682
      - 3369
      - 2524
+     - 0.013
      - `requests.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/requests.tar.gz>`_ 📥
    * - :ref:`provenance_httpx`
      - 826
      - 4247
      - 4408
+     - 0.016
      - `httpx.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/httpx.tar.gz>`_ 📥
    * - :ref:`provenance_click`
      - 944
      - 4654
      - 2710
+     - 0.017
      - `click.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/click.tar.gz>`_ 📥
    * - :ref:`provenance_jinja`
      - 1202
      - 6277
      - 7436
+     - 0.023
      - `jinja.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jinja.tar.gz>`_ 📥
    * - :ref:`provenance_flask`
      - 1517
      - 7728
      - 8062
+     - 0.028
      - `flask.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/flask.tar.gz>`_ 📥
    * - :ref:`provenance_fastapi`
      - 6455
      - 26528
      - 8814
+     - 0.090
      - `fastapi.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/fastapi.tar.gz>`_ 📥
    * - :ref:`provenance_celery`
      - 6880
      - 35874
      - 25306
+     - 0.129
      - `celery.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/celery.tar.gz>`_ 📥
    * - :ref:`provenance_scikit_learn`
      - 11706
      - 60181
      - 217728
+     - 0.210
      - `scikit-learn.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/scikit-learn.tar.gz>`_ 📥
    * - :ref:`provenance_sphinx`
      - 13431
      - 72692
      - 304084
+     - 0.252
      - `sphinx.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/sphinx.tar.gz>`_ 📥
    * - :ref:`provenance_pandas`
      - 13696
      - 70959
      - 154646
+     - 0.255
      - `pandas.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pandas.tar.gz>`_ 📥
    * - :ref:`provenance_django`
      - 23749
      - 113137
      - 615946
+     - 0.415
      - `django.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/django.tar.gz>`_ 📥
    * - :ref:`provenance_zulip`
      - 59854
      - 310032
      - 209908
+     - 1.07
      - `zulip.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/zulip.tar.gz>`_ 📥
    * - :ref:`provenance_superset`
      - 76348
      - 394708
      - 97460
+     - 1.35
      - `superset.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/superset.tar.gz>`_ 📥
    * - :ref:`provenance_airflow`
      - 90673
      - 454738
      - 91350
+     - 1.56
      - `airflow.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/airflow.tar.gz>`_ 📥
