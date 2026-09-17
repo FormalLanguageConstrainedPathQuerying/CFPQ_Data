@@ -164,6 +164,32 @@ atomic subtask::
 lists are not allowed). Commit messages must explain *why* the change was
 made, not only what it does.
 
+Issue references
+~~~~~~~~~~~~~~~~
+
+GitHub closes an issue automatically once a commit containing a closing
+keyword (``close``, ``closes``, ``closed``, ``fixes``, ``fixed``) reaches the
+repository's default branch (`mechanism
+<https://github.blog/news-insights/product-news/closing-issues-via-commit-messages/>`_).
+This project relies on that mechanism:
+
+- A task that fully resolves a linked GitHub issue carries the closing keyword
+  in exactly one commit — by convention, the first subtask's commit — as a
+  standalone line in the message body: ``Fixes #N`` when the task fixes a
+  reported defect, ``Closes #N`` for all other work. No other commit of the
+  task repeats the keyword::
+
+     docs(XXX-S1): record the task and write the detailed plan
+
+     Closes #N
+
+- A task that only partially addresses an issue references it without a
+  closing keyword (bare ``#N``); GitHub links the issue but leaves it open.
+
+Since feature branches merge to ``dev`` and only releases merge ``dev`` into
+``master``, the default branch, a linked issue closes when the release
+containing the task lands on ``master`` — not when the task merges to ``dev``.
+
 Quality gate
 ~~~~~~~~~~~~
 
