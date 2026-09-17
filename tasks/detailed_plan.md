@@ -1,106 +1,199 @@
-# Task 39: Add the PEP 561 `py.typed` marker (issue #94)
+# Detailed Plan: Task 40 — Archive sizes on the site + upload tool size computation
 
-Task (verbatim): Fix https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/issues/94
+## Task
 
-Branch: `feature/39-py-typed-marker` (from `dev`).
+For the site, add archive sizes (size to download) to tables with graphs. Add
+one new column to each table (for each category). Choose one unit of measure
+for all graphs (Kb, Mb or Gb). Moreover, improve the tool that uploads a new
+graph — it should compute the archive size. When a new graph is added, the
+table must be updated; the computed size is used for it.
 
-## Decision record
+**[USER GUIDANCE]**: "Include old graphs (Recommended)" / "Add a reusable
+utils script"
 
-Decisions made before implementation:
+## Decisions (verified against live data, 2026-09-17)
 
-1. **The issue is still open work, not stale.** Issue #94 asks for the PEP 561
-   `py.typed` marker. Inline type annotations (added in task 37) are necessary
-   but not sufficient: per PEP 561, a type checker (mypy, pyright) ignores the
-   inline types of an *installed* package unless the package ships a
-   `py.typed` marker file. Without it, downstream users get no type
-   information from `cfpq_data` at all.
-2. **The issue's `setup.py` snippet is obsolete.** Packaging migrated from
-   Poetry + setuptools to PEP 621 + hatchling in task 37 (no `setup.py`
-   exists). The fix is therefore: create the marker file and confirm the
-   hatchling build ships it — no `package_data` configuration needed.
-3. **Marker location**: `cfpq_data/py.typed`, empty file, tracked in git.
-   This is the PEP 561 convention for inline-typed packages (no separate
-   `.pyi` stubs).
-4. **Packaging inclusion (to be verified empirically in S2)**: the hatchling
-   wheel target `packages = ["cfpq_data"]` includes every VCS-tracked file
-   under the package directory by default, so a git-tracked `py.typed` is
-   expected to land in the wheel with no `pyproject.toml` change. The sdist
-   target's `include = ["cfpq_data", ...]` covers it as well. S2 verifies
-   both by building and inspecting the artifacts; if the wheel misses the
-   marker, add an explicit hatchling `force-include`/`artifacts` entry.
-5. **Regression guard**: a pytest test asserts the marker exists inside the
-   installed package (`importlib.resources`), so deleting or untracking the
-   file fails the suite. The built-wheel check is a one-off verification in
-   S2 (the published artifact is what the issue is about); the test guards
-   the source of truth.
-6. **Docs**: one sentence in the "Quality checks" section of
-   `docs/developer.rst` — the section that already documents ty/pyright —
-   stating that the package ships `py.typed` per PEP 561 so downstream type
-   checkers use the inline annotations. No new doc page (single source of
-   truth, no duplication).
-7. **Issue closing**: the task fully resolves #94, so the first subtask's
-   commit carries `Closes #94` as a standalone body line (per the
-   "Issue references" rules in `docs/developer.rst`). The issue closes when
-   the release containing this task lands on `master`.
+- **Unit: MB** (decimal, 10^6 bytes), one unit for all graphs. All 167
+  archives measured via S3 HEAD (`Content-Length`):
+  - `5.0.0/graph/` (113 graphs): 2,472 B – 99,645,647 B → 0.002 – 99.65 MB;
+  - `4.0.0/graph/` (54 old graphs): 2,078 B – 112,652,191 B → 0.002 – 112.65 MB.
+  KB would reach ~110,000; GB would make every value < 0.12.
+- **Formatting rule** (single shared function): `< 1` MB → 3 decimals
+  (`0.002`, `0.988`); `>= 1` MB → 2 decimals (`1.02`, `57.21`, `99.65`).
+- **Column**: header `Size (MB)`, inserted immediately before the existing
+  `Download` column in every table.
+- **Scope**: all 9 graph tables — the 8 per-category pages
+  (`docs/graphs/{c_alias_analysis,rdf,java_points_to,field_sensitive_alias,
+  context_sensitive_data_flow,data_provenance,name_resolution,
+  biological_uniprot}.rst`) and `docs/old_graphs/index.rst`. The benchmarks
+  table is excluded (it lists benchmark archives, not graphs). Per-graph Info
+  pages are unchanged.
+- **No new state file**: the S3 bucket is the source of truth for archive
+  sizes. The upload tool reports the size it verifies at upload time; the
+  table tool fetches the same values from S3. Nothing to keep in sync in the
+  repo besides the tables themselves.
+- **URL keying**: sizes are keyed by full URL, not archive name — the 4.0.0
+  and 5.0.0 prefixes contain same-named archives with different content
+  (old CSV format vs new mtx-per-label format).
+
+## Reuse analysis (reusing skill)
+
+- `utils/config.py:MAIN_FOLDER` — reused to anchor the docs paths so the tool
+  runs from any CWD.
+- `utils/audit_info_tables.py` — line-based RST list-table parsing style and
+  module layout (docstring + usage, `__all__`, pure functions with numpydoc
+  docstrings, `main(argv)` with argparse) reused as the template for
+  `archive_sizes.py`.
+- `tests/utils/conftest.py` already puts `utils/` on `sys.path`; new tests
+  follow `tests/utils/test_upload_to_s3.py` conventions (mocked clients, no
+  network in the test suite).
+- `upload_file()` in `utils/upload_to_s3.py` already computes and verifies
+  the stored size (`head_object` vs local stat) — S5 only surfaces it.
+- No existing size-formatting code anywhere (searched `cfpq_data/`,
+  `utils/`, `docs/`) — `utils/sizes.py` is genuinely new.
 
 ## Subtasks
 
-### S1: Record task 39 in the task log and write the detailed plan [done — 78e88d1]
+### S1: Record task, create branch, write this plan
 
-**Code:** N/A (documentation-only subtask)
-**Tests:** Skip — no code to test
-**Docs:** `tasks/tasks.md` (append the task line), `tasks/detailed_plan.md`
-         (this plan)
-
-**Spec:**
-- Append `- [ ] Task 39: Fix https://github.com/.../issues/94` to
-  `tasks/tasks.md`.
-- Replace `tasks/detailed_plan.md` with this plan.
-- Commit message body carries the standalone line `Closes #94`.
-
-### S2: Add `cfpq_data/py.typed` and verify the built wheel ships it [done — 7b0cd29]
-
-**Code:** New empty file `cfpq_data/py.typed` (PEP 561 marker, git-tracked).
-         No `pyproject.toml` change expected (decision 4); add a hatchling
-         entry only if the empirical check fails.
-**Tests:** New `tests/test_py_typed.py`: assert
-         `importlib.resources.files("cfpq_data") / "py.typed"` exists —
-         guards the marker against deletion/untracking in both editable and
-         real installs.
-**Docs:** N/A for this subtask (the developer-docs note is S3).
+**Code:** none.
+**Tests:** none.
+**Docs:** `tasks/tasks.md` (task line), `tasks/detailed_plan.md` (this file).
 
 **Spec:**
-- Create the empty `cfpq_data/py.typed` file.
-- Add the regression test (style: plain pytest, no fixtures needed).
-- Verify empirically: `uv build --wheel` and `uv build --sdist`, then inspect
-  both artifacts (`unzip -l` / `tar -tzf`) and confirm `cfpq_data/py.typed`
-  is present in each. Clean up `dist/` afterwards (build output, not source).
-- Run the test suite for the new test.
+- Task 40 logged in `tasks/tasks.md` with the user's description verbatim and
+  the two Q&A decisions as **[USER GUIDANCE]**.
+- Feature branch `feature/40-archive-sizes` created from `dev`.
 
-### S3: Document the PEP 561 marker in the developer docs [done — f2205d4]
+### S2: Shared size formatting — `utils/sizes.py`
 
-**Code:** N/A (documentation-only subtask)
-**Tests:** Skip — no code to test
-**Docs:** `docs/developer.rst`, "Quality checks" section — one sentence after
-         the ty/pyright paragraph: the package ships a PEP 561 `py.typed`
-         marker, so type checkers in downstream projects use the inline
-         annotations.
-
-**Spec:**
-- Add the sentence; keep it to the "what/why" (no build instructions — the
-  packaging config in `pyproject.toml` is the source of truth for "how").
-- Verify the docs build passes under the no-warnings policy.
-
-### S4: Mark task 39 done in the task log [ ]
-
-**Code:** N/A (documentation-only subtask)
-**Tests:** Skip — no code to test
-**Docs:** `tasks/tasks.md` — prepend `[done] ` to the task 39 line;
-         `tasks/detailed_plan.md` — record the S1–S3 completion hashes.
+**Code:** New `utils/sizes.py` with `format_size_mb(size_bytes: int) -> str`
+implementing the formatting rule above (decimal MB; 3 decimals below 1, 2
+decimals from 1 up). numpydoc docstring with doctest-stable `Examples`.
+**Tests:** New `tests/utils/test_sizes.py`: boundary values (0 B, 999,999 B →
+`0.999`, 1,000,000 B → `1.00`, 1,021,000 B → `1.02`), real archive sizes
+(wc 2,472 B → `0.002`; taxonomy_hierarchy 112,652,191 B → `112.65`), and the
+doctest examples.
+**Docs:** none (maintainer-internal module; documented where used in S3/S5).
 
 **Spec:**
-- Only prepend `[done] ` to the existing task 39 line; never rewrite the task
-  description (user-authored, immutable).
-- Record the S1–S3 completion hashes in this plan (this subtask's own entry
-  carries no hash — a commit cannot know its own hash; same convention as
-  task 38's final subtask).
+- Pure function, no I/O, no dependencies; importable as top-level `sizes`
+  (conftest puts `utils/` on `sys.path`).
+- The formatting rule lives here and ONLY here — both `archive_sizes.py` and
+  `upload_to_s3.py` import it (single source of truth).
+
+### S3: Table tool — `utils/archive_sizes.py`
+
+**Code:** New `utils/archive_sizes.py`:
+- `iter_graph_tables(text: str) -> list[GraphTable]` — line-based parser for
+  RST `list-table`s whose header row contains a `Download` cell; returns the
+  table's rows (each row = list of `(line_index, cell_text)` pairs) so both
+  check and update can operate on it. Tables without a `Download` header are
+  skipped (e.g. the Contents table in `docs/graphs/index.rst`).
+- `extract_url(cell: str) -> str | None` — pulls the `https://…` target out of
+  a `` `name.tar.gz <URL>`_ 📥 `` cell.
+- `fetch_sizes(urls: Iterable[str], timeout: float = 30.0, workers: int = 8)
+  -> dict[str, int]` — HEAD each unique URL (stdlib `urllib.request`,
+  `ThreadPoolExecutor`), one retry per URL, returns `{url: content_length}`;
+  raises `RuntimeError` listing the failed URLs so updates are all-or-nothing.
+- `update_table(text: str, sizes: dict[str, int]) -> tuple[str, int]` —
+  rewrites every graph table in the text: inserts a `Size (MB)` header cell
+  before `Download` where missing and fills/fixes each row's size cell with
+  `format_size_mb`; returns the new text and the number of changed rows.
+- `main(argv) -> int` — default **check mode**: parse
+  `docs/graphs/*.rst` + `docs/old_graphs/index.rst` (anchored at
+  `utils.config.MAIN_FOLDER`), fetch sizes, report every row whose cell
+  disagrees with the stored object (or is missing), exit code 1 on any
+  problem; `--update`: fetch all sizes first, then rewrite the files and
+  print what changed.
+
+**Tests:** New `tests/utils/test_archive_sizes.py` — synthetic RST strings
+only, no network: parser finds graph tables and skips non-graph tables;
+`extract_url`; `update_table` inserts the column into a table that lacks it
+and fixes wrong values in one that has it (idempotent second pass → 0
+changes); row/URL alignment on a multi-grammar table (3 grammar columns, like
+`rdf.rst`). `fetch_sizes` tested with a local `http.server` serving HEAD
+responses (or monkeypatched `_head_size`) — no external network.
+**Docs:** none yet (the tool's docs page section lands in S6, together with
+the populated tables it documents).
+
+**Spec:**
+- RST cell insertion preserves the exact indentation of the file
+  (`   * - ` row starts, `      - ` continuation cells); the no-warnings docs
+  build is the safety net for malformed tables.
+- Check mode output: one line per problem
+  (`<file>:<line>: <graph>: table says X, stored is Y`), then a summary;
+  exit 0 only when every row of every graph table matches S3.
+- Update mode writes a file only if it changed; all fetches happen before any
+  write (a failed HEAD aborts the run with nothing written).
+
+### S4: Populate the Size (MB) column in all 9 tables
+
+**Code:** none (the change is produced by running the new tool — dogfooding).
+**Tests:** `python utils/archive_sizes.py` (check mode) must report all 9
+tables in sync (167 rows) against live S3.
+**Docs:** The 8 per-category tables + `docs/old_graphs/index.rst` gain the
+`Size (MB)` column; one sentence added to the "Contents" section of
+`docs/graphs/index.rst` describing the column (the download size of the
+`<name>.tar.gz` archive, in MB).
+
+**Spec:**
+- Run `python utils/archive_sizes.py --update` from the repo root; inspect
+  the diff: exactly one new header cell and one new cell per row in each of
+  the 9 tables, values matching the live S3 sizes fetched during planning.
+- Re-run check mode → clean. Build the docs (no-warnings) to validate the
+  RST.
+
+### S5: Upload tool reports the computed size
+
+**Code:** `utils/upload_to_s3.py`:
+- `upload_file()` — extend the existing `logging.info` with the verified size
+  in bytes; return type unchanged (`key`), so `migrate_gdrive_to_s3.py` is
+  untouched.
+- `main()` — print the size in both units using `sizes.format_size_mb`:
+  `Uploaded FILE to s3://BUCKET/KEY (12345678 bytes, 11.79 MB)`.
+**Tests:** Extend `tests/utils/test_upload_to_s3.py`: `test_main_uploads_file`
+asserts the byte count and the formatted MB value in the output; a small-file
+case exercises the `< 1 MB` formatting branch (`0.000 MB`).
+**Docs:** `docs/utils.rst`, "Upload to Yandex S3" section — extend the
+verification paragraph: the tool reports the verified size (bytes and MB),
+which is the value for the `Size (MB)` column of the graph tables.
+
+**Spec:**
+- The reported size is the *verified* stored size (the `head_object`
+  `ContentLength` that already must equal the local file size) — the same
+  number `archive_sizes.py` reads back from S3, so a new-graph row filled
+  from the upload output always matches check mode.
+
+### S6: Document the tool and the new-graph flow
+
+**Code:** none.
+**Tests:** none (docs-only; docs build in S7).
+**Docs:**
+- `docs/utils.rst` — new "Archive sizes" section for `utils/archive_sizes.py`
+  (usage, check vs `--update`, what it covers: the 9 graph tables, URL keying,
+  all-or-nothing updates), placed after "Upload to Yandex S3".
+- `.opencode/skills/add-graph/SKILL.md` — Documentation section gains the size
+  step: the upload tool reports the archive size; add the category-table row
+  with that `Size (MB)` value; run `python utils/archive_sizes.py --update`
+  before committing so every table row (including the new one) matches S3.
+- `CHANGELOG.md` `[Unreleased] → Added`: one bullet for the `Size (MB)` column
+  in the website graph tables, one for the tooling (`upload_to_s3.py` reports
+  the verified size; new `utils/archive_sizes.py` keeps the column in sync).
+
+**Spec:**
+- The skill stays a thin pointer: it names the step and the command, the
+  model (column semantics, formatting rule) lives in the docs.
+
+### S7: Quality gate, review, merge
+
+**Code:** none (fixes only if the gate finds problems).
+**Tests:** full quality gate per the `quality-gates` skill: `uv run pytest`,
+ruff (check + format), `uv run ty check`, no-warnings docs build, linkcheck.
+**Docs:** `tasks/tasks.md` — mark Task 40 `[done]` after the merge.
+
+**Spec:**
+- Whole-repo code review per the `code-review` skill first; iterate to zero
+  findings.
+- Rebase onto `dev`, fast-forward merge, delete the feature branch (per
+  `git-workflow`). No pushes.
