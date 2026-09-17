@@ -39,7 +39,7 @@ Decisions made before implementation:
 
 ## Subtasks
 
-### S1: Record task 38 in the task log and write the detailed plan
+### S1: Record task 38 in the task log and write the detailed plan [done — 3cb5dc3]
 
 **Code:** N/A (documentation-only task)
 **Tests:** Skip — no code to test
@@ -50,7 +50,7 @@ Decisions made before implementation:
 - Append `- Task 38: <user wording verbatim>` to `tasks/tasks.md`.
 - Replace `tasks/detailed_plan.md` with this plan.
 
-### S2: Document the issue-closing commit rules in the developer docs
+### S2: Document the issue-closing commit rules in the developer docs [done — 73581a6]
 
 **Code:** N/A (documentation-only task)
 **Tests:** Skip — no code to test
@@ -69,7 +69,7 @@ Decisions made before implementation:
 - Timing note: with the dev -> master release flow, a linked issue closes when
   the release lands on `master`, not at merge to `dev`.
 
-### S3: Add operational validation to the git-workflow skill
+### S3: Add operational validation to the git-workflow skill [done — 1a0a196]
 
 **Code:** N/A (documentation-only task)
 **Tests:** Skip — no code to test
@@ -88,7 +88,7 @@ Decisions made before implementation:
 - Point to the "Contribution guidelines" section of `docs/developer.rst` for
   the model and closing timing — the skill stays a thin pointer.
 
-### S4: Mark task 38 done in the task log
+### S4: Mark task 38 done in the task log [done — 6704bc3]
 
 **Code:** N/A (documentation-only task)
 **Tests:** Skip — no code to test
@@ -97,3 +97,29 @@ Decisions made before implementation:
 **Spec:**
 - Only prepend `[done] ` to the existing line; never rewrite the task
   description (user-authored, immutable).
+
+### S5: Make the link check deterministic on rate-limited networks
+
+Added 2026-09-17 during the quality gate. The full link check failed with
+403 "Too many requests" from `en.wikipedia.org` on two of the four Wikipedia
+URLs (pre-existing links in `grammars/data/dyck.rst` and the generated
+`cfpq_data.grammars.converters.cfg` page — not introduced by this task).
+
+Root cause (verified empirically): with the configured descriptive
+User-Agent, all four URLs answer 200 when requested **sequentially**
+(`curl`, 5 s apart), but linkcheck's default parallel worker pool triggers
+Wikipedia's per-IP rate limit from this datacenter network — the same
+failure mode already documented in `docs/conf.py` for `dl.acm.org` and
+`dacapobench.sourceforge.net`, except there the block is persistent while
+here it is concurrency-driven. Retrying with delays did not stabilize the
+result (different subsets of the four URLs failed per run).
+
+**Code:** N/A (documentation-only task)
+**Tests:** Skip — no code to test
+**Docs:** `docs/conf.py` — add `linkcheck_workers = 1` next to the other
+         linkcheck settings, with the rationale comment.
+
+**Spec:**
+- Sequential checking is not an ignore: every URL is still checked in full;
+  only the concurrency changes (the check gets slower, never weaker).
+- Re-run the full link check; it must report no broken or timed-out links.

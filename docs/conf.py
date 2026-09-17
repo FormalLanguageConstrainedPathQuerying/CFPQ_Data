@@ -111,6 +111,13 @@ linkcheck_ignore = [
     r"https?://dacapobench\.sourceforge\.net.*",
 ]
 
+# linkcheck: check URLs sequentially. Wikipedia rate-limits parallel requests
+# from datacenter IPs with 403 ("Too many requests") even for a descriptive
+# User-Agent, while sequential requests pass (verified 2026-09); the default
+# worker pool makes the check flaky on such networks. Every URL is still
+# checked in full — this only changes the concurrency.
+linkcheck_workers = 1
+
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
