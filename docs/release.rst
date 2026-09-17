@@ -30,7 +30,7 @@ The ``publish`` workflow (``.github/workflows/publish.yml``) runs when a
 ``v*`` tag is pushed:
 
 1. Verifies the tag matches the package version.
-2. Builds the sdist and wheel (``python -m build``).
+2. Builds the sdist and wheel (``uv build``).
 3. Publishes to PyPI via **Trusted Publishing** (OIDC) — no stored token; a
    ``PYPI_API_TOKEN`` secret is supported as a fallback.
 4. Creates a GitHub Release with the matching changelog section.
@@ -46,10 +46,11 @@ be released.
 
 Two packaging constraints matter:
 
-- ``python -m build`` builds the wheel *from the sdist*, so the sdist must
-  contain everything :file:`setup.py` reads at build time — in particular
-  ``requirements/*.txt``, included via :file:`MANIFEST.in`. The PR's Publish
-  check catches a missing file before a tag is cut.
+- With PEP 621 metadata and hatchling, all build inputs are VCS-tracked and
+  ``uv build`` builds the wheel directly from the source tree (not from the
+  sdist), so nothing can be silently missing from a distribution. The PR's
+  TestPyPI pre-publish still validates the build and its metadata before a
+  tag is cut.
 - PyPI and TestPyPI reject re-uploads of files that already exist for a
   version. The PR check uses ``skip-existing`` to stay green; the real
   publish does not — if a tag push reaches PyPI and then fails, an owner must

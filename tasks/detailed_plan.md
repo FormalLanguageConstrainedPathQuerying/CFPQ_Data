@@ -183,7 +183,7 @@ Decisions made before implementation (user-confirmed where noted):
 - pyright runs in its default `basic` mode; do not lower the mode to get
   green — fix or justify.
 
-### S5: Rewrite .pre-commit-config.yaml with official hooks
+### S5: Rewrite .pre-commit-config.yaml with official hooks [done — 2f34ee3]
 
 **Code:** New `.pre-commit-config.yaml`:
           - `pre-commit/pre-commit-hooks` v6.0.0: `check-yaml`,

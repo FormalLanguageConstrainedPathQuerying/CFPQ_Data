@@ -7,20 +7,28 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ 3.9 ]
+        python-version: [ 3.11 ]
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v7
+      - name: Set up uv with Python ${{ matrix.python-version }}
+        uses: astral-sh/setup-uv@v10
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install pre-commit
-        run: |
-          python -m pip install pre-commit==3.6.2
-          pre-commit install
+      # --frozen fails if uv.lock is out of sync with pyproject.toml.
+      - name: Install dependencies with uv
+        run: uv sync --frozen --only-group dev
 
       - name: Run pre-commit
         run: |
-          pre-commit run --all-files --color always --verbose --show-diff-on-failure
+          uv run pre-commit run --all-files --color always --verbose --show-diff-on-failure
+
+      # The pre-commit pass already runs ruff and ty as hooks; these steps
+      # make the type checks explicit — Pyright is the stricter checker and
+      # only runs here.
+      - name: Type check with ty
+        run: uv run ty check
+
+      - name: Type check with Pyright
+        run: uv run pyright

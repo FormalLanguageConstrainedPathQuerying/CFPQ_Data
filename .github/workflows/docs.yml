@@ -11,31 +11,24 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v7
+      - name: Set up uv with Python ${{ matrix.python-version }}
+        uses: astral-sh/setup-uv@v10
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Poetry
-        run: |
-          pip install poetry
-
-      - name: Install dependencies with Poetry
-        run: |
-          poetry install --no-interaction --no-ansi --with docs
+      # --frozen fails if uv.lock is out of sync with pyproject.toml.
+      - name: Install dependencies with uv
+        run: uv sync --frozen --only-group docs
 
       - name: Show installed packages
-        run: poetry show
-
-      - name: Install packages
-        run: poetry run pip install .
+        run: uv tree
 
       # No-warnings policy: the build runs with -W --keep-going (see
       # docs/Makefile), so any warning — including an unresolved
       # cross-reference under nitpicky — exits non-zero on its own.
       - name: Build
-        run: poetry run make -C docs/ html
+        run: uv run make -C docs/ html
 
       # The linkcheck builder exits non-zero on broken or timed-out links.
       - name: Check links
-        run: poetry run sphinx-build -b linkcheck docs docs/_build/linkcheck
+        run: uv run sphinx-build -b linkcheck docs docs/_build/linkcheck
