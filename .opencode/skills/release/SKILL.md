@@ -25,7 +25,7 @@ pre-publishes to TestPyPI as a packaging check.
 2. Verify the version guard passes:
 
    ```bash
-   poetry run pre-commit run check-version-sync --all-files
+    uv run pre-commit run check-version-sync --all-files
    ```
 3. Commit the bump (message: `chore: release X.Y.Z`).
 4. Merge `dev` into `master` via a pull request (`master` is protected; do

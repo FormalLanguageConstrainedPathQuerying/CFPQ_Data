@@ -1,15 +1,17 @@
 ---
 name: code-style
-description: Use before committing to format and lint CFPQ_Data. Thin pointer to the "Pre-commit" section of docs/developer.rst, which holds the model and the exact commands; the hook list is defined in .pre-commit-config.yaml.
+description: Use before committing to format and lint CFPQ_Data. Thin pointer to the "Quality checks" section of docs/developer.rst, which holds the model and the exact commands; the hook list is defined in .pre-commit-config.yaml.
 ---
 
 # Code style
 
-What pre-commit enforces, how CI runs it, and the exact local commands are
-documented in the "Pre-commit" section of `docs/developer.rst` — the single
-source of truth. Read that section before running anything. The hook list
-lives in `.pre-commit-config.yaml`.
+What the quality checks enforce (ruff lint/format, ty type check, hygiene
+hooks), how CI runs them, and the exact local commands are documented in the
+"Quality checks" section of `docs/developer.rst` — the single source of
+truth. Read that section before running anything. The hook list lives in
+`.pre-commit-config.yaml`.
 
 ## Notes
 
-- Dev deps are in `requirements/developer.txt` (`black`, `pre-commit`, `pytest`).
+- Dev tools (`ruff`, `ty`, `pyright`, `pre-commit`) live in the `dev`
+  dependency group in `pyproject.toml`; run them via `uv run`.

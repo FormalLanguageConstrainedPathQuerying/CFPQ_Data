@@ -238,7 +238,7 @@ Decisions made before implementation (user-confirmed where noted):
 - `--frozen` makes CI fail if `uv.lock` is out of sync with `pyproject.toml`
   (the `uv-lock` pre-commit hook is the local guard).
 
-### S7: Update remaining docs and verify the docs build
+### S7: Update remaining docs and verify the docs build [done — 2c73ab7]
 
 **Code:** none (documentation-only)
 **Tests:** skip — no code to test

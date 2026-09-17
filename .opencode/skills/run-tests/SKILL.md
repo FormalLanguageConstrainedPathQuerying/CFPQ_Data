@@ -19,9 +19,10 @@ system Python on this machine has networkx 2.6.2, while the project pins
 in `cfpq_data/graphs/generators/fast_labeled_binomial_graph.py` depend on
 networkx's version-specific RNG behavior and fail spuriously under 2.6.2
 (91 != 85, 182 != 177, 722 != 711). If a bare-pytest run shows exactly those
-failures, re-run under `poetry run` before investigating — the suite is green
-in the Poetry environment (networkx 3.6.1).
+failures, re-run under `uv run` before investigating — the suite is green in
+the uv project environment (networkx 3.6.1).
 
 ## Notes
 
-- Test deps: `pytest`, `pytest-cov`, `codecov` (`requirements/tests.txt`).
+- Test deps: `pytest`, `pytest-cov` (the `test` dependency group in
+  `pyproject.toml`).
