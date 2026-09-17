@@ -213,7 +213,7 @@ Decisions made before implementation (user-confirmed where noted):
 - `uv run ty check` as a local hook requires uv on PATH — that is now a
   project prerequisite (documented in "Development setup").
 
-### S6: Migrate all CI workflows to uv
+### S6: Migrate all CI workflows to uv [done — 73eb75d]
 
 **Code:** `.github/workflows/{tests,coverage,docs,deploy_docs,lint,publish}.yml`:
           replace `actions/setup-python` + Poetry with

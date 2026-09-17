@@ -18,24 +18,22 @@ Development setup
 -----------------
 
 CFPQ_Data requires Python 3.11–3.13 (``pyproject.toml`` declares
-``>=3.11,<3.14``). The canonical development environment is **Poetry** — all
-CI workflows install their dependencies through it:
+``>=3.11,<3.14``). The canonical development environment is **uv** — all CI
+workflows install their dependencies through it. Install uv once (see the
+`uv installation guide <https://docs.astral.sh/uv/getting-started/installation/>`_),
+then from the repository root::
 
-.. code-block:: bash
+   uv sync --all-groups
 
-   poetry install --with dev,test,docs
-   poetry run pip install .
-
-- ``--with dev,test,docs`` pulls the three dependency groups from
-  ``pyproject.toml``: developer tools (``black``, ``pre-commit``, ``pytest``,
-  ``boto3``), test extras (``pytest-cov``, ``codecov``), and the Sphinx docs
-  stack.
-- The project is declared with ``package-mode = false``, so Poetry installs
-  only the dependencies; ``poetry run pip install .`` then installs
-  ``cfpq_data`` itself from :file:`setup.py`.
-- ``requirements/*.txt`` are read by :file:`setup.py` to declare the
-  distribution's install requirements on PyPI; the Poetry groups in
-  ``pyproject.toml`` drive the development environment and CI.
+- ``--all-groups`` pulls the three PEP 735 dependency groups from
+  ``pyproject.toml``: developer tools (``ruff``, ``ty``, ``pyright``,
+  ``pre-commit``, ``boto3``), test extras (``pytest``, ``pytest-cov``), and
+  the Sphinx docs stack.
+- ``uv sync`` also installs ``cfpq_data`` itself (editable) into the project
+  environment, so no separate install step is needed; ``uv run ...`` executes
+  commands inside that environment.
+- The committed :file:`uv.lock` pins every dependency; CI passes ``--frozen``
+  to fail on a lockfile that is out of sync with ``pyproject.toml``.
 
 .. _developer-quality:
 

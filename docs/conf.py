@@ -92,6 +92,14 @@ nitpicky = True
 # linkcheck: treat 401 responses as working (auth-required pages exist).
 linkcheck_allow_unauthorized = True
 
+# linkcheck: identify with a descriptive User-Agent. Wikipedia answers 403
+# ("Too many requests") to generic client UAs from some networks while the
+# pages remain valid; their robot policy asks for a descriptive UA.
+linkcheck_user_agent = (
+    "CFPQ_Data-docs-linkcheck "
+    "(https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data)"
+)
+
 # linkcheck: skip exactly these two hosts. Both answer 403 to datacenter
 # clients (verified 2026-09: a browser User-Agent still gets 403, so the
 # blocking is IP-based) while the pages remain valid for human readers —

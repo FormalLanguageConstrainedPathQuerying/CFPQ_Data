@@ -4,21 +4,19 @@ We use Sphinx for generating the API and reference documentation.
 
 ## Instructions
 
-Install the Python packages needed to build the documentation from the
-Poetry docs group — the same one the CI workflows use::
+Install the Python packages needed to build the documentation from the uv
+`docs` dependency group — the same one the CI workflows install::
 
-    poetry install --with docs
+    uv sync --only-group docs
 
-in the root directory. (`requirements/*.txt` are read by `setup.py` to
-declare the distribution's install requirements on PyPI; the Poetry groups
-in `pyproject.toml` drive the development environment and CI.)
+in the root directory.
 
-To build the HTML documentation, enter::
+To build the HTML documentation, run from the repository root::
 
-    make html
+    uv run make -C docs html
 
-in the ``doc/`` directory.  This will generate a ``build/html`` subdirectory
-containing the built documentation.
+This will generate a ``docs/_build/html`` subdirectory containing the built
+documentation.
 
 The build runs with the no-warnings policy (``-W --keep-going`` in
 ``docs/Makefile``): any Sphinx warning — including an unresolved
@@ -30,7 +28,7 @@ warning in one run. Fix the warnings; do not suppress them.
 To check that all links in the documentation resolve (local targets against
 the filesystem, external URLs over HTTP), run from the repository root::
 
-    sphinx-build -b linkcheck docs docs/_build/linkcheck
+    uv run sphinx-build -b linkcheck docs docs/_build/linkcheck
 
 The check runs in full — no URL classes are skipped by default; see
 ``linkcheck_ignore`` in ``docs/conf.py`` for the two documented exceptions.

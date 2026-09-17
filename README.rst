@@ -70,21 +70,20 @@ Load graph from Dataset
 For developers
 **************
 
-To work on CFPQ_Data itself, set up the development environment (Poetry)::
+To work on CFPQ_Data itself, set up the development environment (uv)::
 
-   poetry install --with dev,test,docs
-   poetry run pip install .
+   uv sync --all-groups
 
-and run the main local checks that CI enforces — tests, style, and the docs
-build::
+and run the main local checks that CI enforces — tests, quality checks, and
+the docs build::
 
-   poetry run pytest --doctest-modules -vv -s cfpq_data tests
-   pre-commit run --all-files
-   poetry run make -C docs html
+   uv run pytest
+   uv run pre-commit run --all-files
+   uv run make -C docs html
 
-The full developer guide — development setup, pre-commit, the test pipeline,
-docs build and deployment, the package release process, and contribution
-guidelines — is on the `Developer <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/developer.html>`_ page.
+The full developer guide — development setup, quality checks, the test
+pipeline, docs build and deployment, the package release process, and
+contribution guidelines — is on the `Developer <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/developer.html>`_ page.
 
 How to add a new graph?
 ***********************
