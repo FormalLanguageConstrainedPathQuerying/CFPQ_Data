@@ -69,6 +69,10 @@ CI additionally runs Pyright, the stricter of the two type checkers; ty is
 the fast local check. The full pass runs on every push and pull request
 (:file:`.github/workflows/lint.yml`).
 
+The package ships a PEP 561 :file:`py.typed` marker, so type checkers in
+downstream projects use the inline annotations of ``cfpq_data`` instead of
+treating it as untyped.
+
 .. _developer-tests:
 
 Test pipeline
