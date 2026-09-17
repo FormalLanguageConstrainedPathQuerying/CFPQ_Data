@@ -19,6 +19,20 @@ forbidden). If the message mentions multiple subtask identifiers, STOP —
 split the changes into individual commits. One commit per completed atomic
 subtask.
 
+**Issue-closing validation**: if the task links a GitHub issue that it fully
+resolves, the first subtask's commit carries the closing keyword (`Fixes #N`
+for defects, `Closes #N` otherwise) as a standalone line in the message body,
+and no later commit of the task repeats it. Verify on the feature branch:
+
+```bash
+git log dev..HEAD --format=%B | grep -cE '^(Fixes|Closes) #[0-9]+$'
+```
+
+must print `0` before the first subtask's commit and, afterwards, exactly one
+line per fully resolved issue (no more). A task that only partially addresses
+an issue uses a bare `#N` reference (no keyword). The model and closing
+timing live in the "Contribution guidelines" section of `docs/developer.rst`.
+
 ### Pre-commit checklist
 
 1. Run commit gate: code-style, all tests, linters.
