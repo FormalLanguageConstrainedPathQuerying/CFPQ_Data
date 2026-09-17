@@ -290,6 +290,36 @@ major-only tag alias (only full semver tags: v10.1.0, v10.0.1, ...).
           simulated locally for all three groups.
 **Docs:** none (the workflows are not described in the docs).
 
+### S10: Install all dependency groups in every CI job
+
+Added 2026-09-17 after the merge (user: "CI still failed. ... Fix CI in
+feature branch and then move to dev."). The second CI run on `26d9929`
+passed tests/coverage/docs but the lint job's `ty-check` hook failed with
+34 `unresolved-import` diagnostics: `pytest` in every test file and
+`sphinx.util` in `docs/conf.py`.
+
+Root cause (verified empirically with scratch environments): uv's default
+group selection installs only the `dev` group, and `--only-group <g>`
+installs *only* that group — not the main dependencies, not the project,
+not the other groups. The lint job synced `--only-group dev`, so its
+environment had no pytest (test group) or sphinx (docs group); `uv run`'s
+implicit sync adds only project + main deps + the default `dev` group,
+never the missing ones. Locally the check passed because the working venv
+had all groups. The tests job had passed only by accident: its implicit
+sync happened to install the dev group (boto3), which `tests/utils/`
+imports.
+
+**Code:** `.github/workflows/{tests,coverage,docs,deploy_docs,lint}.yml` —
+          `uv sync --frozen --only-group <g>` → `uv sync --frozen
+          --all-groups`: every job gets the same complete environment, so
+          no check can fail on an import from a group its job did not
+          install.
+**Tests:** each job's exact CI sequence simulated in a scratch environment
+          (`UV_PROJECT_ENVIRONMENT`): `uv sync --frozen --all-groups` then
+          `uv run ty check` + `uv run pyright` (lint), `uv run pytest`
+          (tests), `uv run make -C docs html` (docs).
+**Docs:** none.
+
 ## Post-subtask steps
 
 1. Code review of the whole task diff (`code-review` skill), iterate to zero
