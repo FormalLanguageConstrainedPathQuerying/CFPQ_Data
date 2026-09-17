@@ -2,7 +2,7 @@
 
 import logging
 import random
-from typing import Callable, Iterable, Union
+from typing import Callable, Sequence, Union
 
 import networkx as nx
 
@@ -17,8 +17,8 @@ def labeled_scale_free_graph(
     gamma: float = 0.05,
     delta_in: float = 0.2,
     delta_out: float = 0,
-    labels: Iterable[str] = "abcd",
-    choice: Callable[[Iterable[str]], str] = random.choice,
+    labels: Sequence[str] = "abcd",
+    choice: Callable[[Sequence[str]], str] = random.choice,
     seed: Union[int, None] = None,
 ) -> nx.MultiDiGraph:
     """Returns a scale-free directed graph. With labeled edges.
@@ -48,10 +48,10 @@ def labeled_scale_free_graph(
     delta_out : float
         Bias for choosing nodes from out-degree distribution.
 
-    labels: Iterable[str]
+    labels: Sequence[str]
         Labels that will be used to mark the edges of the graph.
 
-    choice: Callable[[Iterable[str]], str]
+    choice: Callable[[Sequence[str]], str]
         Function for marking edges.
 
     seed : integer, random_state, or None (default)

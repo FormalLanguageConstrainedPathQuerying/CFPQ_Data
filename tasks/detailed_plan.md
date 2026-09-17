@@ -96,7 +96,7 @@ Decisions made before implementation (user-confirmed where noted):
 
 ## Subtasks
 
-### S1: Record task 37 in the task log and write this detailed plan
+### S1: Record task 37 in the task log and write this detailed plan [done — 2516b06]
 
 **Code:** none (documentation-only)
 **Tests:** skip — no code to test
@@ -108,7 +108,7 @@ Decisions made before implementation (user-confirmed where noted):
   verbatim (official uv pre-commit hooks; ty fast / ty+pyright in CI; delete
   the two broken scripts).
 
-### S2: Core uv migration — PEP 621 pyproject, lockfile, legacy removal
+### S2: Core uv migration — PEP 621 pyproject, lockfile, legacy removal [done — 3f69e99]
 
 **Code:** Rewrite `pyproject.toml` (PEP 621 `[project]`,
           `[dependency-groups]`, hatchling `[build-system]` +
@@ -138,7 +138,7 @@ Decisions made before implementation (user-confirmed where noted):
 - Reuse: `utils/check_version_sync.py` / `utils/bump_version.py` unchanged
   (verified compatible with PEP 621).
 
-### S3: Ruff lint + format config and one-time code pass
+### S3: Ruff lint + format config and one-time code pass [done — a3def54]
 
 **Code:** Add `[tool.ruff]` (`target-version = "py311"`),
           `[tool.ruff.lint]` (`select = ["E", "F", "W", "I"]`) and

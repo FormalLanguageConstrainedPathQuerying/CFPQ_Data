@@ -7,7 +7,7 @@ A graph of ``n`` nodes is grown by attaching new nodes each with
 
 import logging
 import random
-from typing import Callable, List, Union
+from typing import Callable, Sequence, Union
 
 import networkx as nx
 
@@ -18,8 +18,8 @@ def labeled_barabasi_albert_graph(
     n: int,
     m: int,
     *,
-    labels: List[str] = "abcd",
-    choice: Callable[[List[str]], str] = random.choice,
+    labels: Sequence[str] = "abcd",
+    choice: Callable[[Sequence[str]], str] = random.choice,
     seed: Union[int, None] = None,
 ) -> nx.MultiDiGraph:
     """Returns a random graph according to the Barabási–Albert
@@ -36,10 +36,10 @@ def labeled_barabasi_albert_graph(
     m : int
         Number of edges to attach from a new node to existing nodes.
 
-    labels: Iterable[str]
+    labels: Sequence[str]
         Labels that will be used to mark the edges of the graph.
 
-    choice: Callable[[Iterable[str]], str]
+    choice: Callable[[Sequence[str]], str]
         Function for marking edges.
 
     seed : int or None

@@ -89,6 +89,15 @@ select = ["E", "F", "W", "I"]
 "docs/conf.py" = ["E402"]
 "tests/utils/conftest.py" = ["E402"]
 
+[tool.ty.environment]
+extra-paths = ["utils"]
+
+[tool.pyright]
+pythonVersion = "3.11"
+extraPaths = ["utils"]
+# Local scratch/working directory (gitignored), not part of the package.
+exclude = ["temporal_cfpq"]
+
 [tool.pytest.ini_options]
 addopts = "--doctest-modules -vv -s"
 testpaths = ["cfpq_data", "tests"]

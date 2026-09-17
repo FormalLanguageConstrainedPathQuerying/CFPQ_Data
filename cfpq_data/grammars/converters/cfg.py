@@ -77,7 +77,7 @@ def cfg_from_regex(regex: Regex, *, start_symbol: Variable = Variable("S")) -> C
     .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
     .. [2] https://en.wikipedia.org/wiki/Regular_expression#Formal_definition
     """
-    cfg = regex.to_cfg(start_symbol)
+    cfg = regex.to_cfg(start_symbol.value)
 
     logging.info(f"Create {cfg=} from {regex=}")
 
@@ -119,7 +119,10 @@ def cfg_from_rsa(rsa: RSA) -> CFG:
     productions = set()
 
     for symbol in rsa.labels:
-        dfa = rsa.get_box(symbol).dfa
+        box = rsa.get_box(symbol)
+        if box is None:
+            raise ValueError(f"RSA has no box for label {symbol.value}")
+        dfa = box.dfa
 
         variables.add(Variable(symbol.value))
 
@@ -135,18 +138,14 @@ def cfg_from_rsa(rsa: RSA) -> CFG:
 
         for v, label, to in dfa._transition_function.get_edges():
             if label.value == label.value.lower():
-                try:
-                    label_value = re.search('"TER:(.*)"', label.value).group(1)
-                except AttributeError:
-                    label_value = label.value
+                match = re.search('"TER:(.*)"', label.value)
+                label_value = match.group(1) if match is not None else label.value
 
                 terminals.add(Terminal(label_value))
                 production_label = Terminal(label_value)
             else:
-                try:
-                    label_value = re.search('"VAR:(.*)"', label.value).group(1)
-                except AttributeError:
-                    label_value = label.value
+                match = re.search('"VAR:(.*)"', label.value)
+                label_value = match.group(1) if match is not None else label.value
 
                 production_label = Variable(label_value)
 

@@ -311,7 +311,7 @@ JAVA_TEMPLATE: Tuple[Tuple[str, Tuple[str, ...]], ...] = (
 JAVA_START = "PT"
 
 
-def cnf_lite(productions: List[Tuple[str, Tuple[str, ...]]]):
+def cnf_lite(productions: Sequence[Tuple[str, Tuple[str, ...]]]):
     """Break productions with a right-hand side of more than two symbols.
 
     The ``.cnf`` format allows at most two symbols on the right-hand side.
@@ -323,7 +323,7 @@ def cnf_lite(productions: List[Tuple[str, Tuple[str, ...]]]):
 
     Parameters
     ----------
-    productions : list of (str, tuple of str)
+    productions : sequence of (str, tuple of str)
         The productions as ``(lhs, rhs)`` pairs in the desired output order.
 
     Returns
@@ -348,7 +348,7 @@ def cnf_lite(productions: List[Tuple[str, Tuple[str, ...]]]):
 
 
 def write_cnf(
-    productions: List[Tuple[str, Tuple[str, ...]]],
+    productions: Sequence[Tuple[str, Tuple[str, ...]]],
     start_symbol: str,
     path: Union[pathlib.Path, str],
 ) -> None:
@@ -360,7 +360,7 @@ def write_cnf(
 
     Parameters
     ----------
-    productions : list of (str, tuple of str)
+    productions : sequence of (str, tuple of str)
         The productions as ``(lhs, rhs)`` pairs in the desired output order.
     start_symbol : str
         The start non-terminal.
@@ -489,7 +489,7 @@ def rdf_cnf_grammars(
 
 
 def instantiate_template(
-    template: List[Tuple[str, Tuple[str, ...]]],
+    template: Sequence[Tuple[str, Tuple[str, ...]]],
     index_sets: Dict[str, Set[int]],
 ) -> List[Tuple[str, Tuple[str, ...]]]:
     """Expand the indexed symbols of a template per concrete index.
@@ -507,7 +507,7 @@ def instantiate_template(
 
     Parameters
     ----------
-    template : list of (str, tuple of str)
+    template : sequence of (str, tuple of str)
         The template productions with placeholder indexed symbols.
     index_sets : dict of str -> set of int
         Indexed symbol -> the concrete indices present in the graph.

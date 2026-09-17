@@ -1,4 +1,7 @@
+from typing import cast
+
 import pytest
+from pyformlang.cfg import Terminal
 
 import cfpq_data
 
@@ -16,6 +19,7 @@ rsa_2 = cfpq_data.rsa_from_text("S -> sco_r S sco | t_r S t | sco_r sco | t_r t"
 def test_cfg_from_cnf(cnf):
     cfg = cfpq_data.cfg_from_cnf(cnf)
     for word in cfg.get_words(4):
+        word = cast("list[Terminal]", word)
         assert cfg.contains(word) and cnf.contains(word)
 
 
@@ -23,6 +27,7 @@ def test_cfg_from_cnf(cnf):
 def test_cfg_from_regex(regex):
     cfg = cfpq_data.cfg_from_regex(regex)
     for word in cfg.get_words(4):
+        word = cast("list[Terminal]", word)
         regex_word = map(lambda x: x.value, word)
         assert cfg.contains(word) and regex.accepts(regex_word)
 
@@ -32,4 +37,5 @@ def test_cfg_from_rsa(rsa):
     cfg = cfpq_data.cfg_from_rsa(rsa)
     cnf = cfpq_data.cnf_from_rsa(rsa)
     for word in cfg.get_words(4):
+        word = cast("list[Terminal]", word)
         assert cfg.contains(word) and cnf.contains(word)

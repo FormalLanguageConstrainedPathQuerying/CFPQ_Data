@@ -76,7 +76,8 @@ autosummary_generate = True
 # The default options for autodoc directives.
 # They are applied to all autodoc directives automatically.
 # It must be a dictionary which maps option names to the values.
-# Setting None or True to the value is equivalent to giving only the option name to the directives.
+# Setting None or True to the value is equivalent to giving only the option
+# name to the directives.
 autodoc_default_options = {
     "members": True,
 }
@@ -137,7 +138,8 @@ add_module_names = False
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "borland"
 
-# A list of prefixes that are ignored when creating the module index. (new in Sphinx 0.6)
+# A list of prefixes that are ignored when creating the module index.
+# (new in Sphinx 0.6)
 modindex_common_prefix = ["cfpq_data."]
 
 doctest_global_setup = "import cfpq_data"
@@ -235,7 +237,9 @@ intersphinx_mapping = {
 # transient connection errors; when all attempts fail, the error propagates
 # and the build still fails.
 import time as _time
+from typing import Any
 
+from requests import Response
 from requests.exceptions import ConnectionError as _RequestsConnectionError
 from requests.exceptions import Timeout as _RequestsTimeout
 from sphinx.util import requests as _sphinx_requests
@@ -243,17 +247,25 @@ from sphinx.util import requests as _sphinx_requests
 _orig_intersphinx_get = _sphinx_requests.get
 
 
-def _get_with_retries(url, *args, retries=3, backoff=2.0, **kwargs):
-    for attempt in range(retries + 1):
+_RETRY_COUNT = 3
+_RETRY_BACKOFF = 2.0
+
+
+def _get_with_retries(url: str, **kwargs: Any) -> Response:
+    attempt = 0
+    while True:
         try:
-            return _orig_intersphinx_get(url, *args, **kwargs)
+            return _orig_intersphinx_get(url, **kwargs)
         except (_RequestsConnectionError, _RequestsTimeout):
-            if attempt == retries:
+            if attempt == _RETRY_COUNT:
                 raise
-            _time.sleep(backoff * (attempt + 1))
+            attempt += 1
+            _time.sleep(_RETRY_BACKOFF * attempt)
 
 
-_sphinx_requests.get = _get_with_retries
+# ty rejects this signature-identical rebind of a module attribute (pyright
+# accepts it), so the assignment is suppressed for it.
+_sphinx_requests.get = _get_with_retries  # type: ignore
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.

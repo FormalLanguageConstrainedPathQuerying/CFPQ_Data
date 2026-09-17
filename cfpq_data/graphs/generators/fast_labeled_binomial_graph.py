@@ -3,7 +3,7 @@ a binomial graph. With labeled edges."""
 
 import logging
 import random
-from typing import Callable, List, Union
+from typing import Callable, Sequence, Union
 
 import networkx as nx
 
@@ -14,8 +14,8 @@ def fast_labeled_binomial_graph(
     n: int,
     p: float,
     *,
-    labels: List[str] = "a",
-    choice: Callable[[List[str]], str] = random.choice,
+    labels: Sequence[str] = "a",
+    choice: Callable[[Sequence[str]], str] = random.choice,
     seed: Union[int, None] = None,
 ) -> nx.MultiDiGraph:
     """Returns a $G_{n,p}$ random graph, also known as an Erdős-Rényi graph or
@@ -31,10 +31,10 @@ def fast_labeled_binomial_graph(
     p : float
         Probability for edge creation.
 
-    labels: Iterable[str]
+    labels: Sequence[str]
         Labels that will be used to mark the edges of the graph.
 
-    choice: Callable[[Iterable[str]], str]
+    choice: Callable[[Sequence[str]], str]
         Function for marking edges.
 
     seed : integer, random_state, or None (default)

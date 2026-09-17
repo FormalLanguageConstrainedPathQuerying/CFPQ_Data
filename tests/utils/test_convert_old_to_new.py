@@ -4,8 +4,10 @@ import random
 import shutil
 import tarfile
 from collections import Counter
+from typing import cast
 
 import pytest
+from botocore.client import BaseClient
 from convert_old_to_new import (
     JAVA_START,
     JAVA_TEMPLATE,
@@ -32,6 +34,10 @@ from convert_old_to_new import (
     write_cnf,
 )
 from pyformlang.cfg import CFG, Production, Terminal, Variable
+
+# convert_one never touches the S3 client directly (all S3 calls go through
+# the monkeypatched helpers), so a stand-in satisfies the annotation.
+_DUMMY_CLIENT = cast(BaseClient, object())
 
 
 def write_csv(path: pathlib.Path, lines) -> pathlib.Path:
@@ -723,7 +729,7 @@ def test_convert_one_upload_record_and_skip(tmp_path, monkeypatch):
     result = conv.convert_one(
         "g",
         "c_alias",
-        client=object(),
+        client=_DUMMY_CLIENT,
         bucket="cfpq-data",
         key_prefix="5.0.0/graph",
         record=record,
@@ -750,7 +756,7 @@ def test_convert_one_upload_record_and_skip(tmp_path, monkeypatch):
     result2 = conv.convert_one(
         "g",
         "c_alias",
-        client=object(),
+        client=_DUMMY_CLIENT,
         bucket="cfpq-data",
         key_prefix="5.0.0/graph",
         record=record,
@@ -766,7 +772,7 @@ def test_convert_one_upload_record_and_skip(tmp_path, monkeypatch):
     result3 = conv.convert_one(
         "g",
         "c_alias",
-        client=object(),
+        client=_DUMMY_CLIENT,
         bucket="cfpq-data",
         key_prefix="5.0.0/graph",
         record=record,

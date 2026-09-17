@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ruff as the linting and formatting gate (rules `E`, `F`, `W`, `I` plus
   `ruff format`), replacing black; the codebase was brought in line in a
   one-time pass.
+- Type checking with [ty](https://docs.astral.sh/ty/) for fast local checks
+  and Pyright in CI; the package, tests, and utility scripts are now fully
+  type-checked.
 
 ### Changed
 
@@ -23,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   dependency groups (`dev`, `test`, `docs`) instead of Poetry groups and the
   `setup.py` extras, a committed `uv.lock`, and all CI workflows on
   `astral-sh/setup-uv`.
+- The labeled graph generators type their `labels` parameter as
+  `Sequence[str]`, correctly accepting both a single label string and a
+  sequence of labels (previously annotated `List[str]` despite the string
+  default).
 
 ### Removed
 

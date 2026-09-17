@@ -70,7 +70,10 @@ def rsa_from_text(text: str, *, start_symbol: Symbol = Symbol("S")) -> RSA:
             productions[head] = body
 
     for head, body in productions.items():
-        boxes.add(Box(Regex(body).to_epsilon_nfa().minimize(), to_symbol(head)))
+        nfa = Regex(body).to_epsilon_nfa()
+        if nfa is None:
+            raise ValueError(f"Cannot build an epsilon NFA for {body=}")
+        boxes.add(Box(nfa.minimize(), to_symbol(head)))
 
     rsa = RSA(labels=labels, initial_label=start_symbol, boxes=boxes)
 
@@ -111,6 +114,8 @@ def rsa_to_text(rsa: RSA) -> str:
 
     for symbol in rsa.labels:
         box = rsa.get_box(symbol)
+        if box is None:
+            raise ValueError(f"RSA has no box for label {symbol.value}")
         productions.append(f"{box.label.value} -> {box.dfa.to_regex()}")
 
     productions.sort(
