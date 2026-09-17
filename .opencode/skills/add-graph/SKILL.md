@@ -36,10 +36,15 @@ The archive layout and the label conventions are documented once in the
 1. Create the per-graph page `docs/graphs/data/<name>.rst`, following the
    structure of an existing page (description, statistics tables, canonical
    grammars). Statistics conventions: the PR template is the source of truth.
-2. Register it in `docs/graphs/index.rst` **twice**: a row in the section
-   table of its source area, and an entry in the matching captioned toctree
-   (the left navigation bar is generated from those toctrees). Keep both in
-   the same order as the table.
+2. Register it **twice**: a row in the per-category table of its source area
+   (`docs/graphs/<category>.rst`) and an entry in the matching captioned
+   toctree of `docs/graphs/index.rst` (the left navigation bar is generated
+   from those toctrees). Keep both in the same order, and bump the category's
+   graph count in the Contents table of `docs/graphs/index.rst`.
+3. Fill the new row's `Size (MB)` cell with the size the upload tool
+   reported, then run `python utils/archive_sizes.py --update` before
+   committing so every table row — including the new one — matches S3 (see
+   the "Archive sizes" section of `docs/utils.rst`).
 
 Note: a `data/*.rst` page missing from all toctrees produces only a Sphinx
 *warning*, not an error, so the docs quality gate will not catch it — check

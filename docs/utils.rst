@@ -40,6 +40,42 @@ reported in bytes and megabytes, with the same MB formatting as the
 ``Size (MB)`` column of the graph tables, so a new graph's table row can be
 filled directly from the upload output.
 
+.. _archive_sizes:
+
+Archive sizes
+-------------
+
+``utils/archive_sizes.py`` keeps the ``Size (MB)`` column of the graph tables
+in sync with the stored archives::
+
+   python utils/archive_sizes.py [--update]
+
+The tool covers every list-table with a ``Download`` column in
+``docs/graphs/*.rst`` and ``docs/old_graphs/index.rst`` — currently the eight
+per-category tables (113 archives at the ``5.0.0/graph/`` prefix) and the
+old-graphs table (54 archives at the ``4.0.0/graph/`` prefix). For every
+referenced archive it issues an S3 ``HEAD`` request and compares the
+``Content-Length`` with the table cell, formatted in MB (three decimals below
+one megabyte, two from one up — the rule lives in ``utils/sizes.py`` and is
+shared with :ref:`upload_to_s3`).
+
+Behavior:
+
+- **Check mode (default).** Reports every row whose size cell disagrees with
+  the stored object (or a missing column or link) and exits non-zero, so it
+  can gate a commit.
+- **``--update``.** Fetches all sizes first, then rewrites the tables —
+  inserting the ``Size (MB)`` column before ``Download`` where it is missing
+  and fixing drifted cells. All-or-nothing: if any archive cannot be fetched,
+  nothing is written.
+- **URL keying.** Sizes are keyed by full URL, not archive name: the
+  ``4.0.0`` and ``5.0.0`` prefixes hold same-named archives with different
+  content.
+
+When adding a new graph, upload it first (:ref:`upload_to_s3` prints the
+verified size), add the table row with that value, and run this tool before
+committing so every row — including the new one — matches S3.
+
 .. _migrate_gdrive_to_s3:
 
 Migrate from Google Drive

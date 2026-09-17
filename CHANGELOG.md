@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- The graph tables on the website now list the download size of every
+  archive in a `Size (MB)` column — one unit (MB) for all graphs, from the
+  smallest (0.002 MB) to the largest (112.65 MB) archive.
+- `utils/upload_to_s3.py` reports the verified archive size (bytes and MB)
+  after each upload, and the new `utils/archive_sizes.py` checks or updates
+  the `Size (MB)` column of the docs graph tables against the stored
+  archives on Yandex S3.
 - The publish workflow now runs on every pull request targeting `master`: it
   builds the sdist and wheel and publishes them to TestPyPI (`skip-existing`),
   validating packaging before a release tag is cut.
