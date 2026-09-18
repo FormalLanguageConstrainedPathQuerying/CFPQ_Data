@@ -209,3 +209,38 @@ Existing formats are kept: CFPQ data stays ``.cnf`` (the pyformlang
 ecosystem, no re-upload of the existing archives), RPQ queries stay regex
 text files, and MCFPQ uses ``.mcfg``. A ``.cnf <-> .mcfg`` converter is a
 follow-up task.
+
+Site structure
+--------------
+
+The site adds one level of hierarchy under Dataset: each query class gets
+its own section reusing the existing CFPQ layout, while the graph catalog
+stays shared.
+
+.. code-block:: text
+
+   Dataset
+   ├── Graphs           shared catalog (8 categories, 113 pages) — unchanged
+   ├── CFPQ             grammar templates (4 + indexed grammars) | benchmarks | applicable graphs
+   ├── RPQ              query templates (regular expressions)    | benchmarks | applicable graphs
+   ├── MCFPQ            grammar templates (MCFG)                 | benchmarks | applicable graphs
+   └── Reachable pairs  per-category tables; flat CSV download
+
+The per-class "applicable graphs" lists cross-link the shared per-graph
+pages — no graph page is duplicated. The sidebar navigation depth
+(``navigation_depth = 3`` in ``docs/conf.py``) accommodates the
+section -> class -> template pages without change.
+
+Reachable pair counts
+^^^^^^^^^^^^^^^^^^^^^
+
+The single flat table currently rendered on the
+:ref:`reachable pairs <reachable_pairs>` page is removed; it is too large to
+scan. The page renders one table per graph category instead (columns:
+Graph, Grammar, Reachable pairs), so every table stays small. The flat
+table survives as a downloadable CSV — the single source of truth for
+automatic processing — which gains a ``category`` column so it is
+self-describing. A generator script in ``utils/`` (following the pattern of
+``utils/archive_sizes.py``) renders both the per-category tables and the
+count columns of the category pages from that CSV, so no count is
+hand-maintained in two places.
