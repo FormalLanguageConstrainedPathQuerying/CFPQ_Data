@@ -39,7 +39,7 @@ Query classes
      - current
    * - MCFPQ
      - Multiple context-free
-     - MCFG (:math:`d`-MCFG(:math:`r`))
+     - MCFG, :math:`d`-MCFG(:math:`r`)
      - planned
 
 All three classes use the same query pattern: a language :math:`L` constrains
