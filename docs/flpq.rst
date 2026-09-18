@@ -110,3 +110,102 @@ its meaning. All-pairs reachability is computable in
 is static program analysis: the MCFLs underapproximate interleaved Dyck
 reachability — the undecidable language behind combined call-context and
 field sensitivity — with tunable precision as the dimension grows.
+
+MCFG grammar format (.mcfg)
+---------------------------
+
+MCFPQ grammars are stored in text files with the ``.mcfg`` extension, one
+rule per line, in a Datalog-like syntax that follows the predicate notation
+of `Conrado et al. <https://arxiv.org/abs/2411.06383>`_. The syntax was
+chosen deliberately: it reads like logic-programming rules, it subsumes CFGs
+as the dimension-1 special case, and it matches the formalism used by the
+reachability literature.
+
+Lexical conventions
+^^^^^^^^^^^^^^^^^^^
+
+- Blank lines and lines starting with ``#`` are ignored.
+- **Nonterminals** — identifiers starting with an uppercase letter
+  (``S``, ``A``, ``P1``), consistent with the CFG convention of this
+  dataset.
+- **Terminals** — edge labels verbatim (``0``, ``#``, ``subClassOf``,
+  ``load_5``).
+- **Variables** — ``x`` followed by one or more digits (``x1``, ``x2``,
+  ...), mirroring the :math:`x^i` notation of the literature. A terminal
+  must never match this pattern; the reader rejects such grammars.
+- **Empty string** — the token ``eps``.
+- **Arrow** — ``<-`` between the head and the body of a production rule.
+
+Rule forms
+^^^^^^^^^^
+
+A *basic rule* names a nonterminal with terminal-string arguments, each
+argument a space-separated sequence of terminals or ``eps``::
+
+   A(eps, eps)
+
+A *production rule* has a head — a nonterminal whose arguments are
+templates mixing terminals and variables — and a body of comma-separated
+atoms carrying variables only::
+
+   S(x1 y1 # y2 x2) <- A(x1, x2), A(y1, y2)
+
+Validation constraints
+^^^^^^^^^^^^^^^^^^^^^^
+
+The reader enforces, beyond parsing:
+
+- **Arity consistency** — every occurrence of a nonterminal carries the
+  same number of arguments.
+- **Variable uniqueness** — all body variables of a rule are pairwise
+  distinct.
+- **No dangling variables** — each body variable appears exactly once
+  across the head templates (stricter than the minimal definition, which
+  allows at most one appearance; every published example satisfies the
+  stricter form).
+- **Start symbol** — defaults to ``S``, must have arity 1, and is
+  overridable via an API parameter, consistent with the existing
+  ``cnf``/``cfg``/``rsa`` readers.
+
+The dimension :math:`d` (maximum nonterminal arity) and the rank :math:`r`
+(maximum number of body atoms) are computed from the rules and reported by
+the reader; the file carries no header to keep in sync.
+
+Examples
+^^^^^^^^
+
+The 2-MCFG(2) for :math:`\mathcal{L} = \{w_1 w_2 \# w_2 w_1 \mid
+w_1, w_2 \in \{0, 1\}^*\}` from the literature (``A`` parses equal pairs of
+binary strings; ``S`` interleaves two such pairs around ``#``)::
+
+   A(eps, eps)
+   A(x1 0, x2 0) <- A(x1, x2)
+   A(x1 1, x2 1) <- A(x1, x2)
+   S(x1 y1 # y2 x2) <- A(x1, x2), A(y1, y2)
+
+The same format subsumes CFGs: the dimension-1 grammar for
+:math:`\{0^n 1^n 1^m 0^m \mid n, m \geq 0\}`::
+
+   A(eps)
+   B(eps)
+   A(0 x1 1) <- A(x1)
+   B(1 x2 0) <- B(x2)
+   S(x1 x2) <- A(x1), B(x2)
+
+Parser and relationship to existing formats
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+No off-the-shelf library parses this syntax: the PyPI ``datalog`` package is
+a hardware data-logger driver, ``pyDatalog`` is a Datalog engine without a
+documented text parser (and standard Datalog heads take variables and
+constants only, so MCFG head templates are outside its grammar), and no
+MCFG/MCFL library exists on PyPI. The reader therefore uses `lark
+<https://github.com/lark-parser/lark>`_ (MIT license, actively maintained,
+no required dependencies); its EBNF grammar doubles as executable
+documentation of the format, and the semantic constraints above are checked
+on the parse tree.
+
+Existing formats are kept: CFPQ data stays ``.cnf`` (the pyformlang
+ecosystem, no re-upload of the existing archives), RPQ queries stay regex
+text files, and MCFPQ uses ``.mcfg``. A ``.cnf <-> .mcfg`` converter is a
+follow-up task.
