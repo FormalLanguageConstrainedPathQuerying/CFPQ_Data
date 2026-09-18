@@ -221,3 +221,27 @@ section; rewrite `tasks/global_plan.md` with the follow-up task list.
 - Verify `docs/flpq.rst` is reachable from the index toctree and renders all
   six sections; verify no orphan/duplicate-label warnings.
 - Record PASS/BLOCKED outcome here before code review.
+
+**S6 outcome: PASS (with a linkcheck robustness fix).**
+
+The first link-check runs failed on Wikipedia URLs with 403 "Too many
+requests" — transient rate limiting of datacenter IPs, not broken links
+(identical direct requests answered 200 seconds apart; sphinx dedupes URLs
+per run, so it was not duplicate checking). Fixed in `docs/conf.py`,
+extending the retry infrastructure already present for intersphinx:
+
+- `_Session.request` (the path both linkcheck and intersphinx go through)
+  now retries transient failures — connection errors/timeouts and HTTP
+  403/429 — with the existing backoff before a response is reported; a
+  persistent block still reports broken after the retries. Verified with a
+  direct test (2 simulated 403s -> retry -> 200).
+- `linkcheck_retries = 5` adds outer attempts on top, because Wikipedia's
+  limit window can outlast one backoff cycle (observed: one URL answered
+  403 to every attempt of a run while identical direct requests passed).
+
+Final gate result: 363 tests passed; pre-commit clean (ruff check/format,
+version sync, ty); docs build exit 0 with zero warnings; link check exit 0
+with no broken or timed-out links. All four new external links verified:
+arxiv.org/abs/2411.06383 ok, doi.org/10.1016/0304-3975(91)90374-B redirect
+to Elsevier (reported, not failing), github.com/lark-parser/lark ok,
+dl.acm.org/doi/10.1145/3704854 ignored (documented exception).

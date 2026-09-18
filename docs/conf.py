@@ -118,6 +118,14 @@ linkcheck_ignore = [
 # checked in full — this only changes the concurrency.
 linkcheck_workers = 1
 
+# linkcheck: retry broken results. Wikipedia's rate limit can outlast a
+# single attempt even for sequential requests (verified 2026-09-18: one URL
+# answered 403 to every attempt of a run while identical direct requests
+# passed); the session-level retries above add backoff between attempts, and
+# this adds outer attempts on top. A genuinely broken link still fails after
+# all retries.
+linkcheck_retries = 5
+
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
@@ -281,6 +289,38 @@ def _get_with_retries(url: str, **kwargs: Any) -> Response:
 # ty rejects this signature-identical rebind of a module attribute (pyright
 # accepts it), so the assignment is suppressed for it.
 _sphinx_requests.get = _get_with_retries  # type: ignore
+
+# linkcheck: Wikipedia rate-limits datacenter IPs with transient 403s even
+# for sequential requests (verified 2026-09-18: en.wikipedia.org answered
+# 403 to the link check while the same URL answered 200 to a direct request
+# moments later). Retry transient failures inside the session — the path
+# both linkcheck and intersphinx go through — so one rate-limited response
+# does not fail the whole check; a persistent block still reports broken
+# after the retries are exhausted.
+_orig_session_request = _sphinx_requests._Session.request
+
+
+def _session_request_with_retries(
+    self: Any, method: str, url: str, **kwargs: Any
+) -> Response:
+    attempt = 0
+    while True:
+        try:
+            response = _orig_session_request(self, method, url, **kwargs)
+        except (_RequestsConnectionError, _RequestsTimeout):
+            if attempt == _RETRY_COUNT:
+                raise
+            attempt += 1
+            _time.sleep(_RETRY_BACKOFF * attempt)
+            continue
+        if response.status_code in (403, 429) and attempt < _RETRY_COUNT:
+            attempt += 1
+            _time.sleep(_RETRY_BACKOFF * attempt)
+            continue
+        return response
+
+
+_sphinx_requests._Session.request = _session_request_with_retries  # type: ignore
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
