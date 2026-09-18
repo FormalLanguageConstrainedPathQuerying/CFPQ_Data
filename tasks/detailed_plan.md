@@ -1,227 +1,223 @@
-# Detailed Plan: Task 41 — Move canonical grammar descriptions from graph pages to category pages
+# Detailed Plan: Task 42 — FLPQ design document
 
-## Task
+Task: design the structure of the site and the project for extending CFPQ_Data
+to all classes of formal-language-constrained path queries (FLPQ): regular
+(RPQ), context-free (CFPQ, existing), and multiple context-free (MCFPQ).
+Docs-only task — no `.py` files change; code-specific gates (tests, lint,
+format) are skipped per the workflow rules, but the docs build (no-warnings
+policy) and the link check must pass.
 
-Analyze structure of the site. Looks like better place for canonical grammars
-description is category page, not graph. Because grammar canonical for category.
+Deliverable: `docs/flpq.rst` — the single source of truth for the FLPQ design
+(taxonomy, MCFG formalism, `.mcfg` format spec, target site/package/dataset
+structure, migration path), linked from the index toctree so team members can
+discuss it. Plus the follow-up task list in `tasks/global_plan.md`.
 
-**[USER GUIDANCE]**: "On issue and request teplamtes. If graph for existing
-category, then ok. But we can have at least two more options. Graph for new
-category. Then grammars should be provided. New grammar for existing category."
-/ "Nothing (Recommended)" (graph pages keep no grammar section or pointer) /
-"Leave as-is (Recommended)" (docs/old_graphs legacy pages untouched) /
-"All 4 grammars (Recommended)" (rdf category page lists the union incl.
-broaderTransitive) / "Yes, add it (Recommended)" (Category row in both graph
-templates)
+Locked decisions (user guidance, recorded verbatim in `tasks/tasks.md`):
+- Package renamed to `flpq_data` / PyPI `flpq-data` at 6.0.0; `cfpq-data`
+  becomes a thin deprecation shim.
+- Graphs: shared catalog (single source of truth); per-class sections
+  cross-link applicable graphs.
+- MCFPQ = Seki's multiple context-free languages (a language class wider than
+  CFL), NOT a combination of several CFGs; reference application: Conrado et
+  al., "Program Analysis via Multiple Context Free Language Reachability"
+  (ACM doi 10.1145/3704854).
+- MCFGs are specified in a Datalog-like syntax (user requirement); parser
+  library: `lark` (verified: no off-the-shelf Datalog/MCFG text parser exists
+  — MCFG head templates are not standard Datalog; lark is MIT, maintained,
+  zero required deps).
+- Reachable pairs: the flat table stays as a downloadable CSV for automatic
+  processing; site rendering is split into per-category tables.
+- Incremental tasks first (reachable-pairs refactor, MCFG readwrite); NO
+  release task is planned — "We must do much more tasks first."
 
-## Analysis (verified against the tree, 2026-09-18)
+Research facts used by this plan (verified 2026-09-18):
+- Seki, Matsumura, Fujii, Kasami, "On multiple context-free grammars",
+  Theoretical Computer Science 88(2), 191–229, 1991,
+  doi 10.1016/0304-3975(91)90374-B — the d-MCFG(r) formalism: dimension d
+  bounds nonterminal arity, rank r bounds RHS nonterminals; CFL = 1-MCFL;
+  TAL = 2-MCFL(2); membership in O(n^{d(r+1)}).
+- Conrado, Kjelstrøm, Pavlogiannis, van de Pol, "Program Analysis via Multiple
+  Context Free Language Reachability", POPL 2025 (arXiv 2411.06383; ACM doi
+  10.1145/3704854) — Datalog-like predicate notation for MCFGs
+  (`A(x1, ..., xk)` predicates; basic rules `A(s1, ..., sk)`; production rules
+  `A0(s1, ..., sk0) <- A1(...), ..., Al(...)` with head templates mixing
+  terminals and variables, each variable at most once); reachability semantics:
+  an arity-k nonterminal denotes k independent paths, `S[(u,v)]` gives the
+  reachable pairs (start symbol always arity 1); O(n^{2d+1}) for r=1,
+  O(n^{d(r+1)}) for r>1; no public implementation (private Go tool).
+- Current site: one flat ~155-row table in `docs/reachable_pairs.rst`;
+  per-category graph tables already carry count columns (task 28); data source
+  is `cfpq_data/dataset/reachable_pairs.csv` + `reachable_pairs()` API.
 
-Site layout: `docs/dataset.rst` toctree → `graphs/index` → 8 category pages
-(`docs/graphs/<category>.rst`) → 113 graph pages (`docs/graphs/data/*.rst`).
-Separately, `docs/grammars/` holds 4 parameterized *template* pages
-(nested_parentheses, dyck, c_alias, java_points_to) — different purpose, kept.
+### S1: Create docs/flpq.rst with the FLPQ taxonomy and model
 
-7 distinct canonical grammar texts are each repeated on every graph page of
-its category:
-
-| Category | Pages | Current duplication |
-|---|---|---|
-| c_alias_analysis | 20 | identical inline section (incl. `change_edges` note, 2 variants) |
-| rdf | 20 | inline; 19 identical + geospecies has a 4th grammar (broaderTransitive) |
-| biological_uniprot | 10 | identical inline section |
-| java_points_to | 21 | inconsistent: 14 pages inline + 7 via `.. include::` |
-| field_sensitive_alias | 10 | `.. include:: grammar_cpu17_field_sensitive_alias.inc` |
-| context_sensitive_data_flow | 10 | `.. include:: grammar_cpu17_context_sensitive_data_flow.inc` |
-| data_provenance | 18 | `.. include:: grammar_data_provenance.inc` |
-| name_resolution | 4 | `.. include:: grammar_name_resolution.inc` |
-
-5 `.inc` files live in `docs/graphs/data/`. No tooling (utils/, tests/,
-cfpq_data/) references them. Docs build is nitpicky with a no-warnings policy,
-so it catches dangling refs.
-
-## Decisions
-
-- Grammar text moves **verbatim** to the category page, appended after the
-  per-category graph table (the table already has one column per grammar
-  language — the description belongs with it).
-- Section heading normalized to `Canonical grammars` on all 8 category pages
-  (sources use "Canonical grammars" / "Canonical Grammar" / "Grammar").
-- Graph pages: section removed entirely, nothing left in its place (user
-  decision). The category page is the parent in the toctree/nav.
-- `docs/old_graphs/` (54 legacy pages, orphan page, no category structure):
-  untouched (user decision).
-- rdf category page: union of all 4 grammars (3 shared + broaderTransitive),
-  keeping the `----` separators (user decision).
-- Cross-reference lines to `docs/grammars/` template pages
-  (`:ref:`java_points-to``, `:ref:`c_alias``, `:ref:`nested_parentheses``)
-  are kept — they tie the concrete canonical grammar to its parameterized
-  template.
-- Docs-only task: no `.py` changes; code gates (tests/lint/format) skipped,
-  docs build gate applies.
-
-## Subtasks
-
-### S1: Record task 41 in the task log and write the detailed plan
-
-**Code:** n/a. Modify `tasks/tasks.md`, `tasks/detailed_plan.md`.
-**Tests:** n/a.
-**Docs:** n/a (task tracking files).
+**Code:** none (docs-only task).
+**Tests:** docs build must stay warning-free after the change (no-warnings
+policy); no pytest impact.
+**Docs:** new file `docs/flpq.rst` (skeleton + complete "Query classes" and
+"Multiple context-free languages" sections); add `flpq` to the index toctree
+in `docs/index.rst` (between `getting_started` and `dataset`) so the page is
+not orphaned from the first commit.
 
 **Spec:**
-- Append Task 41 to `tasks/tasks.md` with the user's description verbatim and
-  the `[USER GUIDANCE]` annotations.
-- Write this detailed plan.
+- Page label `.. _flpq:`, title "FLPQ: Formal-Language-Constrained Path
+  Querying", standard `.. only:: html` release/date header like other pages.
+- Intro paragraph: FLPQ = paths of a labeled graph constrained by a formal
+  language; the project currently covers CFPQ and is extended to RPQ and
+  MCFPQ; this page records the design decisions (what/why), implementation
+  happens in follow-up tasks.
+- "Query classes" section: list-table with columns Query class | Language
+  class | Formalism | Status in the dataset:
+  - RPQ — Regular — regular expressions, NFA/DFA — planned
+  - CFPQ — Context-free — CFG/CNF (incl. indexed grammars) — current
+  - MCFPQ — Multiple context-free (Seki) — MCFG, d-MCFG(r) — planned
+  Plus a paragraph: all classes share the same query pattern (a language L
+  constrains graph paths; (u, v) reachable iff some string of L labels a path
+  u -> v); they differ only in the language class and its formalism.
+- "Multiple context-free languages" section: definition of d-MCFG(r) in the
+  predicate notation (nonterminal = predicate A(x1, ..., xk), arity k <= d;
+  basic rules A(s1, ..., sk) with terminal strings incl. epsilon; production
+  rules A0(s1, ..., sk0) <- A1(...), ..., Al(...) with l <= r, head templates
+  over terminals + variables, each variable at most once; start symbol arity
+  1); hierarchy facts (CFL = 1-MCFL, TAL = 2-MCFL(2), mildly context-sensitive,
+  decidable membership O(n^{d(r+1)})); reachability semantics (arity-k
+  nonterminal = k independent paths; reachable pairs via the arity-1 start
+  symbol; complexity O(n^{2d+1}) for r=1 / O(n^{d(r+1)}) for r>1) and the
+  static-analysis application (underapproximating interleaved Dyck
+  reachability). Use :math: roles for the notation.
 
-### S2: Add "Canonical grammars" section to the 5 .inc-based category pages
+### S2: Add the .mcfg grammar format spec section
 
-**Code:** n/a (docs-only). Modify `docs/graphs/java_points_to.rst`,
-`docs/graphs/field_sensitive_alias.rst`,
-`docs/graphs/context_sensitive_data_flow.rst`,
-`docs/graphs/data_provenance.rst`, `docs/graphs/name_resolution.rst`.
-**Tests:** n/a — verified by the docs build (S6).
-**Docs:** the 5 category pages gain a `Canonical grammars` section after the
-graph table, content moved verbatim from `grammar_java_points_to.inc`,
-`grammar_cpu17_field_sensitive_alias.inc`,
-`grammar_cpu17_context_sensitive_data_flow.inc`,
-`grammar_data_provenance.inc`, `grammar_name_resolution.inc` respectively;
-headings normalized to `Canonical grammars`; template-page cross-references
-kept.
-
-**Spec:**
-- Append the section at the end of each page (after the list-table), one
-  blank line between the table and the section header.
-- Do NOT delete the `.inc` files or touch graph pages yet (S4) — the build
-  must stay green at every commit, and includes resolve until removed.
-
-### S3: Add "Canonical grammars" section to c_alias_analysis, biological_uniprot, rdf
-
-**Code:** n/a (docs-only). Modify `docs/graphs/c_alias_analysis.rst`,
-`docs/graphs/biological_uniprot.rst`, `docs/graphs/rdf.rst`.
-**Tests:** n/a — verified by the docs build (S6).
-**Docs:** the 3 category pages gain a `Canonical grammars` section after the
-graph table.
-
-**Spec:**
-- c_alias_analysis: verbatim from the inline section shared by its 20 graph
-  pages (the `.. note::` about `change_edges`, both grammar variants with the
-  `----` separator, Pyformlang blocks, `:ref:`c_alias`` cross-reference).
-- biological_uniprot: verbatim from the inline section shared by its 10
-  unigraph pages ("The grammar file is attached to the archive." + math).
-- rdf: union — the 3 grammars shared by 19 pages (combined subClassOf+type,
-  subClassOf-only, type-only) plus the broaderTransitive grammar from
-  geospecies.rst, in that order, keeping the `----` separators and the
-  `:ref:`nested_parentheses`` cross-reference.
-
-### S4: Remove grammar sections from all 113 graph pages; delete the .inc files
-
-**Code:** n/a (docs-only). Modify all 113 `docs/graphs/data/*.rst` pages;
-delete `docs/graphs/data/grammar_java_points_to.inc`,
-`grammar_cpu17_field_sensitive_alias.inc`,
-`grammar_cpu17_context_sensitive_data_flow.inc`,
-`grammar_data_provenance.inc`, `grammar_name_resolution.inc`.
-**Tests:** n/a — verified by the docs build (S6).
-**Docs:** graph pages lose their trailing grammar section; no replacement
-text (user decision).
+**Code:** none.
+**Tests:** docs build warning-free.
+**Docs:** extend `docs/flpq.rst` with a "MCFG grammar format (.mcfg)" section.
 
 **Spec:**
-- 64 pages carry the section inline (header at line start: `Canonical
-  grammars` or `Grammar`, section runs to EOF): delete from the header line
-  to EOF, leaving the file ending with the Edges Statistics table and a
-  single trailing newline.
-- 49 pages end with a blank line + `.. include:: grammar_*.inc`: delete both
-  lines.
-- Verify afterwards: no `include::` left in `docs/graphs/`, no page starts a
-  section with `^Canonical|^Grammar`, and the 5 `.inc` files are gone.
-- `docs/old_graphs/` untouched.
+- State the design decision: Datalog-like syntax per Conrado et al.'s
+  predicate notation (user requirement); rationale for the parser choice —
+  verified that no off-the-shelf library parses this syntax (PyPI `datalog` is
+  a hardware ADC lib; `pyDatalog` is an engine without a documented text
+  parser and standard Datalog heads cannot express MCFG head templates; no
+  MCFG/MCFL library exists) — therefore `lark` (MIT, maintained, zero
+  required deps) with the EBNF grammar doubling as executable format
+  documentation.
+- Lexical conventions (one rule per line; blank lines and `#` comments
+  ignored): nonterminals = identifiers starting with an uppercase letter;
+  terminals = edge labels verbatim; variables = `x` followed by digits
+  (x1, x2, ...), a terminal must never match this pattern; epsilon = the
+  token `eps`; arrow = `<-`.
+- Rule forms: basic rule `A(s1, ..., sk)` (arguments are space-separated
+  terminal tokens or `eps`); production rule
+  `A0(s1, ..., sk0) <- A1(x...), ..., Al(x...)` (body atoms carry variables
+  only).
+- Validation constraints enforced by the reader: arity consistency per
+  nonterminal; all body variables pairwise distinct; each body variable
+  appears exactly once across the head templates (no dangling variables —
+  stricter than the minimal definition, satisfied by all published examples);
+  start symbol defaults to `S`, must have arity 1, overridable via an API
+  parameter (consistent with the existing cnf/cfg/rsa readers).
+- Dimension d and rank r are computed from the rules (max arity / max body
+  atoms) and reported by the reader — no header to keep in sync.
+- Two worked examples in code blocks: the paper's 2-MCFG(2) for
+  L = {w1 w2 # w2 w1 | w1, w2 in {0,1}*} (A(eps, eps); A(x1 0, x2 0) <-
+  A(x1, x2); A(x1 1, x2 1) <- A(x1, x2); S(x1 y1 # y2 x2) <- A(x1, x2),
+  A(y1, y2)) and a d=1 CFG embedding for {0^n 1^n 1^m 0^m} showing the format
+  subsumes CFGs.
+- Relationship to existing formats: CFPQ data stays `.cnf` (pyformlang
+  ecosystem, no re-upload); MCFPQ uses `.mcfg`; a `.cnf <-> .mcfg` converter
+  is a follow-up task; RPQ keeps regex text files.
 
-### S5: Update contribution templates, add-graph skill, graphs index note
+### S3: Add the site structure design section
 
-**Code:** n/a (docs-only). Modify
-`.github/PULL_REQUEST_TEMPLATE/new_graph.md`,
-`.github/ISSUE_TEMPLATE/graph-add-template.md`,
-`.opencode/skills/add-graph/SKILL.md`, `docs/graphs/index.rst`.
-**Tests:** n/a.
-**Docs:** templates + skill + index note per spec.
-
-**Spec:**
-- Both templates: add a `Category` row to the Info table — value is the
-  existing category name, or `new: <proposed name>`.
-- Both templates: replace the "Canonical grammars" section with the three-case
-  structure: (1) graph for an existing category — name the grammar(s) from
-  the category's "Canonical grammars" section that apply; they become the
-  table column(s) filled in for the new row; no new grammar text. (2) New
-  grammar for an existing category — provide LaTeX + Pyformlang below; it is
-  added to the category page and a new column to its table. (3) Graph for a
-  new category — provide the canonical grammar(s) below; a new category page
-  is created with them. The LaTeX/Pyformlang placeholders apply to cases 2–3
-  only.
-- add-graph skill Documentation step: per-graph pages no longer carry a
-  grammar section; describe the three cases (row under an existing column /
-  add grammar + column to the category page / new category page with grammar,
-  table, and `docs/graphs/index.rst` registration).
-- `docs/graphs/index.rst` "Contents" section: one sentence stating that
-  canonical grammars are documented on the category pages.
-
-### S6: Docs build verification
-
-**Code:** n/a.
-**Tests:** full Sphinx build per the build-docs skill; zero warnings
-(no-warnings policy); no new "not included in any toctree" warnings; spot-check
-rendered HTML of the 8 category pages (section present, math rendered) and a
-few graph pages (section gone).
-**Docs:** n/a.
+**Code:** none.
+**Tests:** docs build warning-free.
+**Docs:** extend `docs/flpq.rst` with a "Site structure" section.
 
 **Spec:**
-- Build must exit clean under the project's no-warnings configuration.
-- Grep the build log for `grammar_*.inc` (no unresolved includes) and for
-  dangling refs.
+- Target hierarchy (code block): Dataset -> Graphs (shared catalog, 8
+  categories, unchanged) + one section per query class (CFPQ / RPQ / MCFPQ),
+  each with its Grammars/Queries templates page, Benchmarks, and a list of
+  applicable graphs (cross-links, no duplication); Reachable pairs page at
+  the Dataset level. Note the navigation depth: conf.py `navigation_depth` is
+  3, which accommodates section -> class -> template pages.
+- Reachable-pairs rendering design: the flat table is removed from
+  `docs/reachable_pairs.rst`; the page renders one table per graph category
+  (columns Graph | Grammar | Reachable pairs); the CSV remains the single
+  source of truth for automatic processing and gains a `category` column; a
+  utils generator script (pattern of `utils/archive_sizes.py`) renders both
+  the per-category tables and the category-page count columns from the CSV so
+  no numbers are hand-maintained in two places.
 
-### S7: Resolve code-review findings (stale references to the old location)
+### S4: Add the package structure and API design section
 
-**Code:** Modify `utils/convert_old_to_new.py` (comment only) and
-`docs/utils.rst`.
-**Tests:** `uv run pytest tests/utils/test_convert_old_to_new.py` (51
-passed); pre-commit clean on both files.
-**Docs:** `docs/utils.rst` — the conversion-tool description pointed at "the
-graph's docs page" for the RDF canonical grammars; it now points at the RDF
-category page.
-
-**Spec:**
-- The whole-repo review found two references to the pre-move location of the
-  canonical grammar descriptions: the `RDF_GRAMMAR_TYPES` comment in
-  `utils/convert_old_to_new.py` ("of every RDF graph page ... as on the docs
-  pages") and the conversion-tool paragraph in `docs/utils.rst` ("the three
-  canonical grammars of the graph's docs page"). Both now say "RDF category
-  page". No behavior change.
-
-### S8: Mark task 41 done in the task log
-
-**Code:** n/a. Modify `tasks/tasks.md`, `tasks/detailed_plan.md`.
-**Tests:** n/a.
-**Docs:** n/a (task tracking files).
+**Code:** none.
+**Tests:** docs build warning-free.
+**Docs:** extend `docs/flpq.rst` with a "Package structure" section.
 
 **Spec:**
-- Prepend `[done]` to the Task 41 line in `tasks/tasks.md` (description
-  untouched).
-- Record the final status of all subtasks below.
+- Target layout (code block): `flpq_data/` with `config.py`, `dataset/`
+  (download machinery + per-class registries + reachable_pairs), `graphs/`
+  (unchanged, class-agnostic I/O), and `queries/` (renamed from `grammars/`)
+  containing `cfpq/` (existing generators/readwrite{cfg,cnf,cnf_template}/
+  converters/utils), `rpq/` (regex + rsa readwrite moved here; new
+  regex-template generators), `mcfpq/` (new lark-based mcfg readwrite;
+  generators).
+- Interim placement before the rename: MCFG readwrite lands in
+  `cfpq_data/grammars/readwrite/mcfg.py` (formalism-based module convention,
+  alongside `regex.py` and `rsa.py`) so no global rework is needed to start.
+- API changes: `download(name)` -> `download_graph(name)`;
+  `download_grammars(template, graph_name=None)` ->
+  `download_query(query_class, template, graph_name=None)`; old names kept as
+  deprecated aliases; registries `DATASET` -> `GRAPHS`,
+  `GRAMMAR_TEMPLATES` -> per-class `CFPQ_TEMPLATES` / `RPQ_TEMPLATES` /
+  `MCFPQ_TEMPLATES`; `reachable_pairs()` gains the category field.
+- Distribution: new PyPI project `flpq-data` at 6.0.0; `cfpq-data` 6.0.0 is a
+  thin shim depending on `flpq-data`, re-exporting the old names with
+  DeprecationWarning.
 
-## Status
+### S5: Add the dataset layout + migration path; write the follow-up task list
 
-- S1 c725178 — task log + this plan.
-- S2 52dd7fa — five .inc-based category pages gained "Canonical grammars".
-- S3 546db11 — c_alias_analysis, biological_uniprot, rdf (union of 4) gained
-  the section.
-- S4 1ee9f30 — 113 graph pages stripped, five .inc files deleted.
-- S5 07c9a4c — templates (Category field + three cases), add-graph skill,
-  graphs index note.
-- S6 — clean rebuild `uv run make -C docs clean html`: build succeeded under
-  `-W --keep-going`, zero warnings; all 8 category pages render the section
-  (anchor `canonical-grammars` present, rdf shows all four grammars incl.
-  broaderTransitive); 0 of 113 graph pages still carry it.
-- S7 b544ce0 — review fix: stale "graph's docs page" references re-pointed to
-  the RDF category page (utils/convert_old_to_new.py comment, docs/utils.rst).
-- Quality gate PASS: `uv run pytest` 363 passed / 0 failed / 0 skipped;
-  `pre-commit run --all-files` all passed; `ty check` clean; docs build
-  zero warnings; linkcheck exit 0 (two Wikipedia 403 rate-limits on the first
-  pass cleared on retry — both URLs verified 200).
-- S8 — task marked done in the task log.
+**Code:** none.
+**Tests:** docs build warning-free.
+**Docs:** extend `docs/flpq.rst` with a "Dataset layout and migration"
+section; rewrite `tasks/global_plan.md` with the follow-up task list.
+
+**Spec:**
+- Target S3 layout under the 6.0.0 prefix (code block):
+  `graph/<name>.tar.gz` (shared, copied from 5.0.0);
+  `query/{cfpq,rpq,mcfpq}/<template>[_<graph>].tar.gz` (cfpq migrated from
+  the legacy 4.0.0/grammar prefix); `benchmark/<class>/<name>.tar.gz`
+  (MS_Reachability -> cfpq/). Rationale: graphs are big and class-agnostic —
+  one shared prefix; queries are class-specific.
+- Migration path bullets: copy graph archives to the 6.0.0 prefix; move
+  grammar archives under query/cfpq/; re-point DATASET_URL/GRAMMARS_URL via
+  the version bump (part of the rename task); upload tools in `utils/` gain
+  the class-aware key layout.
+- `tasks/global_plan.md`: follow-up tasks in execution order with
+  dependencies — Task 43 reachable-pairs site refactor (per-category tables,
+  CSV + category column, generator util); Task 44 MCFG readwrite module with
+  lark (`cfpq_data/grammars/readwrite/mcfg.py`, format per docs/flpq.rst,
+  doctests with the paper's examples); Task 45 RPQ query templates + seed
+  data; Task 46 reachable_pairs query_class column (+ generator update);
+  Task 47 S3 6.0.0 layout migration + upload tools; Task 48 package
+  rename/restructure to flpq_data (queries/{cfpq,rpq,mcfpq}, API renames,
+  cfpq-data shim, VERSION 6.0.0); Task 49 site restructure to the FLPQ
+  hierarchy. Dependencies: 43 and 44 independent after 42; 46 after 43; 47
+  after 45; 48 after 47; 49 after 48. Explicitly note: NO release task is
+  planned — the user deferred it ("We must do much more tasks first").
+
+### S6: Final verification of the docs build and link check
+
+**Code:** none.
+**Tests:** full docs build (`make -C docs html` per docs/README.md, no-
+  warnings policy) must exit 0; `sphinx-build -b linkcheck` must report no
+  broken or timed-out links (the two documented conf.py exceptions apply).
+**Docs:** fix any warning/link issue found; record the verification outcome
+  in this plan.
+
+**Spec:**
+- Run the docs build and the link check exactly as the quality gate defines
+  them (docs/developer.rst "Docs build and deploy").
+- Verify `docs/flpq.rst` is reachable from the index toctree and renders all
+  six sections; verify no orphan/duplicate-label warnings.
+- Record PASS/BLOCKED outcome here before code review.

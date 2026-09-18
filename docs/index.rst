@@ -26,6 +26,7 @@ Documentation
    :maxdepth: 1
 
    getting_started
+   flpq
    dataset
    reference/index
    project
