@@ -287,3 +287,31 @@ The new PyPI project ``flpq-data`` carries version 6.0.0. The existing
 depends on ``flpq-data`` and re-exports the old names with
 ``DeprecationWarning``, so scripts importing ``cfpq_data`` keep working
 through one more release.
+
+Dataset layout and migration
+----------------------------
+
+The dataset on object storage moves to the 6.0.0 key prefix with a
+class-aware query layout::
+
+   6.0.0/
+   ├── graph/<name>.tar.gz                        shared — copied from 5.0.0
+   ├── query/
+   │   ├── cfpq/<template>[_<graph>].tar.gz       migrated from the legacy 4.0.0/grammar prefix
+   │   ├── rpq/<template>[_<graph>].tar.gz        new
+   │   └── mcfpq/<template>[_<graph>].tar.gz      new
+   └── benchmark/<class>/<name>.tar.gz            MS_Reachability -> cfpq/
+
+Graphs are large and class-agnostic, so they live under one shared prefix;
+queries are class-specific, so they live under ``query/<class>/``.
+
+Migration path:
+
+- Copy the graph archives from the 5.0.0 prefix to ``6.0.0/graph/`` (no
+  content change).
+- Move the example and per-graph grammar archives from the legacy
+  ``4.0.0/grammar/`` prefix to ``6.0.0/query/cfpq/``.
+- Re-point ``DATASET_URL`` / ``GRAMMARS_URL`` / ``BENCHMARK_URL`` at the new
+  prefixes as part of the version bump (the rename task).
+- The upload tools in ``utils/`` gain the class-aware key layout so new
+  graphs and queries land under the right prefix.
