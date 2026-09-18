@@ -8,7 +8,7 @@ for all follow-up tasks.
 
 ## Tasks
 
-- **Task 42** [in progress]: FLPQ design document (`docs/flpq.rst`): query-
+- **Task 42** [done]: FLPQ design document (`docs/flpq.rst`): query-
   class taxonomy, MCFG formalism (Seki d-MCFG(r)) + `.mcfg` Datalog-like
   format spec (lark parser), target site/package/dataset structure,
   reachable-pairs rendering design, migration path.
