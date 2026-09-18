@@ -121,7 +121,7 @@ linkcheck_workers = 1
 # linkcheck: retry broken results. Wikipedia's rate limit can outlast a
 # single attempt even for sequential requests (verified 2026-09-18: one URL
 # answered 403 to every attempt of a run while identical direct requests
-# passed); the session-level retries above add backoff between attempts, and
+# passed); the session-level retries below add backoff between attempts, and
 # this adds outer attempts on top. A genuinely broken link still fails after
 # all retries.
 linkcheck_retries = 5
