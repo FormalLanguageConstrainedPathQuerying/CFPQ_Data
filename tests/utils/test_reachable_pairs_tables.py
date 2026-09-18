@@ -1,6 +1,7 @@
 import pathlib
 
 import pytest
+import reachable_pairs_tables
 from reachable_pairs_tables import (
     BEGIN_MARKER,
     END_MARKER,
@@ -268,6 +269,4 @@ def test_update_category_columns_unknown_category_raises():
 
 def test_check_mode_on_the_real_repo_is_in_sync():
     # Guards against drift between the CSV and both renderings.
-    import reachable_pairs_tables
-
     assert reachable_pairs_tables.main([]) == 0

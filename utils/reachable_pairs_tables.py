@@ -377,7 +377,7 @@ def update_category_columns(
     ------
     ValueError
         If the page does not contain exactly one table with the expected
-        count columns, or a row has fewer cells than the header.
+        count columns.
     """
     if columns is None:
         try:
@@ -408,7 +408,6 @@ def update_category_columns(
     lines = text.splitlines()
     replacements: list[tuple[int, str]] = []
     problems: list[str] = []
-    changed = 0
     for col_header, _ in columns:
         if col_header not in col_index:
             problems.append(f"column {col_header} is missing from the table header")
@@ -448,7 +447,6 @@ def update_category_columns(
                     f"line {line_idx + 1}: {graph}/{grammar}: table says "
                     f"{current or '<empty>'}, CSV says {expected or '<empty>'}"
                 )
-                changed += 1
 
     for line_idx, new_line in sorted(replacements, key=lambda p: p[0]):
         lines[line_idx] = new_line
@@ -496,7 +494,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
 
     rows = load_rows(REACHABLE_PAIRS_CSV)
-    problems: list[str] = []
 
     try:
         site_map = graph_to_category(DOCS_DIR)
@@ -505,6 +502,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         print(f"error: {error}")
         return 1
 
+    # Validation problems block any update (all-or-nothing, like
+    # archive_sizes.py): a CSV row the site cannot account for must be fixed
+    # in the CSV before anything is rewritten.
+    problems: list[str] = []
     for row in rows:
         expected = site_map.get(row["graph"])
         if expected is None:
@@ -516,7 +517,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 f"CSV says {row['graph']} is in {row['category']}, "
                 f"the docs say {expected}"
             )
-
     for row in rows:
         columns = GRAMMAR_COLUMNS.get(row["category"])
         if columns is None:
@@ -529,7 +529,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 f"CSV row {row['graph']}/{row['grammar']} has no count column "
                 f"in category {row['category']}"
             )
+    if problems:
+        print("\n".join(problems))
+        print(f"FAILED: {len(problems)} problem(s).")
+        return 1
 
+    # Compute every update before writing anything.
     region = render_tables_region(rows, DOCS_DIR)
     page_text = REACHABLE_PAIRS_PAGE.read_text(encoding="utf-8")
     try:
@@ -537,16 +542,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     except ValueError as error:
         print(f"error: {error}")
         return 1
-    if args.update:
-        if updated_page != page_text:
-            REACHABLE_PAIRS_PAGE.write_text(updated_page, encoding="utf-8")
-            print(f"{REACHABLE_PAIRS_PAGE.relative_to(MAIN_FOLDER)}: region updated")
-    elif updated_page != page_text:
-        problems.append(
-            f"{REACHABLE_PAIRS_PAGE.relative_to(MAIN_FOLDER)}: the per-category "
-            "tables are out of sync with the CSV"
-        )
 
+    category_updates: list[tuple[pathlib.Path, str, list[str]]] = []
     for category in category_order(DOCS_DIR):
         path = DOCS_DIR / "graphs" / f"{category}.rst"
         text = path.read_text(encoding="utf-8")
@@ -555,18 +552,32 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 text, rows, category, pages_map
             )
         except ValueError as error:
-            problems.append(f"{path.relative_to(MAIN_FOLDER)}: {error}")
-            continue
-        if args.update and cell_problems:
-            path.write_text(updated, encoding="utf-8")
-            print(
-                f"{path.relative_to(MAIN_FOLDER)}: updated {len(cell_problems)} cell(s)"
-            )
-        elif not args.update and cell_problems:
-            problems.extend(
-                f"{path.relative_to(MAIN_FOLDER)}: {p}" for p in cell_problems
-            )
+            print(f"error: {path.relative_to(MAIN_FOLDER)}: {error}")
+            return 1
+        category_updates.append((path, updated, cell_problems))
 
+    if args.update:
+        if updated_page != page_text:
+            REACHABLE_PAIRS_PAGE.write_text(updated_page, encoding="utf-8")
+            print(f"{REACHABLE_PAIRS_PAGE.relative_to(MAIN_FOLDER)}: region updated")
+        for path, updated, cell_problems in category_updates:
+            if cell_problems:
+                path.write_text(updated, encoding="utf-8")
+                print(
+                    f"{path.relative_to(MAIN_FOLDER)}: "
+                    f"updated {len(cell_problems)} cell(s)"
+                )
+        print("OK: reachable-pairs tables are in sync with the CSV.")
+        return 0
+
+    problems = []
+    if updated_page != page_text:
+        problems.append(
+            f"{REACHABLE_PAIRS_PAGE.relative_to(MAIN_FOLDER)}: the per-category "
+            "tables are out of sync with the CSV"
+        )
+    for path, _, cell_problems in category_updates:
+        problems.extend(f"{path.relative_to(MAIN_FOLDER)}: {p}" for p in cell_problems)
     if problems:
         print("\n".join(problems))
         print(f"FAILED: {len(problems)} problem(s).")
