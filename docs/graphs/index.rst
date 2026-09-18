@@ -77,6 +77,11 @@ not been computed yet; an empty cell means the grammar does not apply to
 that graph. Each table also has a ``Size (MB)`` column: the download size
 of the graph's archive, in megabytes.
 
+The canonical grammar behind each column is documented once on the
+respective category page, in its "Canonical grammars" section — a grammar
+is canonical for the whole category, so the per-graph pages do not repeat
+it.
+
 .. list-table::
    :header-rows: 1
 

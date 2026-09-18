@@ -34,14 +34,28 @@ The archive layout and the label conventions are documented once in the
 ## Documentation
 
 1. Create the per-graph page `docs/graphs/data/<name>.rst`, following the
-   structure of an existing page (description, statistics tables, canonical
-   grammars). Statistics conventions: the PR template is the source of truth.
-2. Register it **twice**: a row in the per-category table of its source area
+   structure of an existing page (description, statistics tables). The page
+   carries **no** grammar section: canonical grammars are documented once on
+   the category page. Statistics conventions: the PR template is the source
+   of truth.
+2. Handle the grammar case from the PR template's "Canonical grammars"
+   section:
+   - *existing category, existing grammar(s)* — nothing to add; the new table
+     row fills in the matching column(s);
+   - *new grammar for an existing category* — append the grammar to the
+     category page's "Canonical grammars" section and add a column to its
+     table;
+   - *new category* — create `docs/graphs/<category>.rst` with the category
+     description, the graph table (one column per grammar), and the
+     "Canonical grammars" section.
+3. Register it **twice**: a row in the per-category table of its source area
    (`docs/graphs/<category>.rst`) and an entry in the matching captioned
    toctree of `docs/graphs/index.rst` (the left navigation bar is generated
    from those toctrees). Keep both in the same order, and bump the category's
-   graph count in the Contents table of `docs/graphs/index.rst`.
-3. Fill the new row's `Size (MB)` cell with the size the upload tool
+   graph count in the Contents table of `docs/graphs/index.rst`. For a new
+   category, also add its page to the `docs/graphs/index.rst` toctree and a
+   row to the Contents table.
+ 4. Fill the new row's `Size (MB)` cell with the size the upload tool
    reported, then run `python utils/archive_sizes.py --update` before
    committing so every table row — including the new one — matches S3 (see
    the "Archive sizes" section of `docs/utils.rst`).

@@ -13,6 +13,7 @@ assignees: rustam-azimov, vadyushkins
 | | |
 |---|---|
 | Full Name | ``<Specify the full name of the graph>`` |
+| Category | ``<Existing category name, or "new: <proposed name>" for a new category>`` |
 | Version | ``<Current version of CFPQ_Data>`` |
 | Origin | [link](``<Link to download the graph>``) |
 
@@ -34,6 +35,12 @@ List the stored labels only (no `_r` reversed-edge rows). A family of indexed la
 
 ## Canonical grammars
 
-<LaTeX format of grammar>
+Canonical grammars are documented on the category page, not on the per-graph page. Pick the case that applies:
 
-<Pyformlang CFG format of grammar>
+1. **Graph for an existing category** — name the grammar(s) from the category's "Canonical grammars" section that apply to this graph; they become the table column(s) filled in for the new row. No new grammar text.
+2. **New grammar for an existing category** — provide the grammar below; it will be added to the category page and a new column to its table.
+3. **Graph for a new category** — provide the canonical grammar(s) below; a new category page will be created with them.
+
+<LaTeX format of grammar (only for cases 2 and 3)>
+
+<Pyformlang CFG format of grammar (only for cases 2 and 3)>
