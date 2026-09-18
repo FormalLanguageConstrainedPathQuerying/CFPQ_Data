@@ -1,199 +1,177 @@
-# Detailed Plan: Task 40 — Archive sizes on the site + upload tool size computation
+# Detailed Plan: Task 41 — Move canonical grammar descriptions from graph pages to category pages
 
 ## Task
 
-For the site, add archive sizes (size to download) to tables with graphs. Add
-one new column to each table (for each category). Choose one unit of measure
-for all graphs (Kb, Mb or Gb). Moreover, improve the tool that uploads a new
-graph — it should compute the archive size. When a new graph is added, the
-table must be updated; the computed size is used for it.
+Analyze structure of the site. Looks like better place for canonical grammars
+description is category page, not graph. Because grammar canonical for category.
 
-**[USER GUIDANCE]**: "Include old graphs (Recommended)" / "Add a reusable
-utils script"
+**[USER GUIDANCE]**: "On issue and request teplamtes. If graph for existing
+category, then ok. But we can have at least two more options. Graph for new
+category. Then grammars should be provided. New grammar for existing category."
+/ "Nothing (Recommended)" (graph pages keep no grammar section or pointer) /
+"Leave as-is (Recommended)" (docs/old_graphs legacy pages untouched) /
+"All 4 grammars (Recommended)" (rdf category page lists the union incl.
+broaderTransitive) / "Yes, add it (Recommended)" (Category row in both graph
+templates)
 
-## Decisions (verified against live data, 2026-09-17)
+## Analysis (verified against the tree, 2026-09-18)
 
-- **Unit: MB** (decimal, 10^6 bytes), one unit for all graphs. All 167
-  archives measured via S3 HEAD (`Content-Length`):
-  - `5.0.0/graph/` (113 graphs): 2,472 B – 99,645,647 B → 0.002 – 99.65 MB;
-  - `4.0.0/graph/` (54 old graphs): 2,078 B – 112,652,191 B → 0.002 – 112.65 MB.
-  KB would reach ~110,000; GB would make every value < 0.12.
-- **Formatting rule** (single shared function): `< 1` MB → 3 decimals
-  (`0.002`, `0.988`); `>= 1` MB → 2 decimals (`1.02`, `57.21`, `99.65`).
-- **Column**: header `Size (MB)`, inserted immediately before the existing
-  `Download` column in every table.
-- **Scope**: all 9 graph tables — the 8 per-category pages
-  (`docs/graphs/{c_alias_analysis,rdf,java_points_to,field_sensitive_alias,
-  context_sensitive_data_flow,data_provenance,name_resolution,
-  biological_uniprot}.rst`) and `docs/old_graphs/index.rst`. The benchmarks
-  table is excluded (it lists benchmark archives, not graphs). Per-graph Info
-  pages are unchanged.
-- **No new state file**: the S3 bucket is the source of truth for archive
-  sizes. The upload tool reports the size it verifies at upload time; the
-  table tool fetches the same values from S3. Nothing to keep in sync in the
-  repo besides the tables themselves.
-- **URL keying**: sizes are keyed by full URL, not archive name — the 4.0.0
-  and 5.0.0 prefixes contain same-named archives with different content
-  (old CSV format vs new mtx-per-label format).
+Site layout: `docs/dataset.rst` toctree → `graphs/index` → 8 category pages
+(`docs/graphs/<category>.rst`) → 113 graph pages (`docs/graphs/data/*.rst`).
+Separately, `docs/grammars/` holds 4 parameterized *template* pages
+(nested_parentheses, dyck, c_alias, java_points_to) — different purpose, kept.
 
-## Reuse analysis (reusing skill)
+7 distinct canonical grammar texts are each repeated on every graph page of
+its category:
 
-- `utils/config.py:MAIN_FOLDER` — reused to anchor the docs paths so the tool
-  runs from any CWD.
-- `utils/audit_info_tables.py` — line-based RST list-table parsing style and
-  module layout (docstring + usage, `__all__`, pure functions with numpydoc
-  docstrings, `main(argv)` with argparse) reused as the template for
-  `archive_sizes.py`.
-- `tests/utils/conftest.py` already puts `utils/` on `sys.path`; new tests
-  follow `tests/utils/test_upload_to_s3.py` conventions (mocked clients, no
-  network in the test suite).
-- `upload_file()` in `utils/upload_to_s3.py` already computes and verifies
-  the stored size (`head_object` vs local stat) — S5 only surfaces it.
-- No existing size-formatting code anywhere (searched `cfpq_data/`,
-  `utils/`, `docs/`) — `utils/sizes.py` is genuinely new.
+| Category | Pages | Current duplication |
+|---|---|---|
+| c_alias_analysis | 20 | identical inline section (incl. `change_edges` note, 2 variants) |
+| rdf | 20 | inline; 19 identical + geospecies has a 4th grammar (broaderTransitive) |
+| biological_uniprot | 10 | identical inline section |
+| java_points_to | 21 | inconsistent: 14 pages inline + 7 via `.. include::` |
+| field_sensitive_alias | 10 | `.. include:: grammar_cpu17_field_sensitive_alias.inc` |
+| context_sensitive_data_flow | 10 | `.. include:: grammar_cpu17_context_sensitive_data_flow.inc` |
+| data_provenance | 18 | `.. include:: grammar_data_provenance.inc` |
+| name_resolution | 4 | `.. include:: grammar_name_resolution.inc` |
+
+5 `.inc` files live in `docs/graphs/data/`. No tooling (utils/, tests/,
+cfpq_data/) references them. Docs build is nitpicky with a no-warnings policy,
+so it catches dangling refs.
+
+## Decisions
+
+- Grammar text moves **verbatim** to the category page, appended after the
+  per-category graph table (the table already has one column per grammar
+  language — the description belongs with it).
+- Section heading normalized to `Canonical grammars` on all 8 category pages
+  (sources use "Canonical grammars" / "Canonical Grammar" / "Grammar").
+- Graph pages: section removed entirely, nothing left in its place (user
+  decision). The category page is the parent in the toctree/nav.
+- `docs/old_graphs/` (54 legacy pages, orphan page, no category structure):
+  untouched (user decision).
+- rdf category page: union of all 4 grammars (3 shared + broaderTransitive),
+  keeping the `----` separators (user decision).
+- Cross-reference lines to `docs/grammars/` template pages
+  (`:ref:`java_points-to``, `:ref:`c_alias``, `:ref:`nested_parentheses``)
+  are kept — they tie the concrete canonical grammar to its parameterized
+  template.
+- Docs-only task: no `.py` changes; code gates (tests/lint/format) skipped,
+  docs build gate applies.
 
 ## Subtasks
 
-### S1: Record task, create branch, write this plan
+### S1: Record task 41 in the task log and write the detailed plan
 
-**Code:** none.
-**Tests:** none.
-**Docs:** `tasks/tasks.md` (task line), `tasks/detailed_plan.md` (this file).
-
-**Spec:**
-- Task 40 logged in `tasks/tasks.md` with the user's description verbatim and
-  the two Q&A decisions as **[USER GUIDANCE]**.
-- Feature branch `feature/40-archive-sizes` created from `dev`.
-
-### S2: Shared size formatting — `utils/sizes.py`
-
-**Code:** New `utils/sizes.py` with `format_size_mb(size_bytes: int) -> str`
-implementing the formatting rule above (decimal MB; 3 decimals below 1, 2
-decimals from 1 up). numpydoc docstring with doctest-stable `Examples`.
-**Tests:** New `tests/utils/test_sizes.py`: boundary values (0 B, 999,999 B →
-`0.999`, 1,000,000 B → `1.00`, 1,021,000 B → `1.02`), real archive sizes
-(wc 2,472 B → `0.002`; taxonomy_hierarchy 112,652,191 B → `112.65`), and the
-doctest examples.
-**Docs:** none (maintainer-internal module; documented where used in S3/S5).
+**Code:** n/a. Modify `tasks/tasks.md`, `tasks/detailed_plan.md`.
+**Tests:** n/a.
+**Docs:** n/a (task tracking files).
 
 **Spec:**
-- Pure function, no I/O, no dependencies; importable as top-level `sizes`
-  (conftest puts `utils/` on `sys.path`).
-- The formatting rule lives here and ONLY here — both `archive_sizes.py` and
-  `upload_to_s3.py` import it (single source of truth).
+- Append Task 41 to `tasks/tasks.md` with the user's description verbatim and
+  the `[USER GUIDANCE]` annotations.
+- Write this detailed plan.
 
-### S3: Table tool — `utils/archive_sizes.py`
+### S2: Add "Canonical grammars" section to the 5 .inc-based category pages
 
-**Code:** New `utils/archive_sizes.py`:
-- `iter_graph_tables(text: str) -> list[GraphTable]` — line-based parser for
-  RST `list-table`s whose header row contains a `Download` cell; returns the
-  table's rows (each row = list of `(line_index, cell_text)` pairs) so both
-  check and update can operate on it. Tables without a `Download` header are
-  skipped (e.g. the Contents table in `docs/graphs/index.rst`).
-- `extract_url(cell: str) -> str | None` — pulls the `https://…` target out of
-  a `` `name.tar.gz <URL>`_ 📥 `` cell.
-- `fetch_sizes(urls: Iterable[str], timeout: float = 30.0, workers: int = 8)
-  -> dict[str, int]` — HEAD each unique URL (stdlib `urllib.request`,
-  `ThreadPoolExecutor`), one retry per URL, returns `{url: content_length}`;
-  raises `RuntimeError` listing the failed URLs so updates are all-or-nothing.
-- `update_table(text: str, sizes: dict[str, int]) -> tuple[str, int]` —
-  rewrites every graph table in the text: inserts a `Size (MB)` header cell
-  before `Download` where missing and fills/fixes each row's size cell with
-  `format_size_mb`; returns the new text and the number of changed rows.
-- `main(argv) -> int` — default **check mode**: parse
-  `docs/graphs/*.rst` + `docs/old_graphs/index.rst` (anchored at
-  `utils.config.MAIN_FOLDER`), fetch sizes, report every row whose cell
-  disagrees with the stored object (or is missing), exit code 1 on any
-  problem; `--update`: fetch all sizes first, then rewrite the files and
-  print what changed.
-
-**Tests:** New `tests/utils/test_archive_sizes.py` — synthetic RST strings
-only, no network: parser finds graph tables and skips non-graph tables;
-`extract_url`; `update_table` inserts the column into a table that lacks it
-and fixes wrong values in one that has it (idempotent second pass → 0
-changes); row/URL alignment on a multi-grammar table (3 grammar columns, like
-`rdf.rst`). `fetch_sizes` tested with a local `http.server` serving HEAD
-responses (or monkeypatched `_head_size`) — no external network.
-**Docs:** none yet (the tool's docs page section lands in S6, together with
-the populated tables it documents).
+**Code:** n/a (docs-only). Modify `docs/graphs/java_points_to.rst`,
+`docs/graphs/field_sensitive_alias.rst`,
+`docs/graphs/context_sensitive_data_flow.rst`,
+`docs/graphs/data_provenance.rst`, `docs/graphs/name_resolution.rst`.
+**Tests:** n/a — verified by the docs build (S6).
+**Docs:** the 5 category pages gain a `Canonical grammars` section after the
+graph table, content moved verbatim from `grammar_java_points_to.inc`,
+`grammar_cpu17_field_sensitive_alias.inc`,
+`grammar_cpu17_context_sensitive_data_flow.inc`,
+`grammar_data_provenance.inc`, `grammar_name_resolution.inc` respectively;
+headings normalized to `Canonical grammars`; template-page cross-references
+kept.
 
 **Spec:**
-- RST cell insertion preserves the exact indentation of the file
-  (`   * - ` row starts, `      - ` continuation cells); the no-warnings docs
-  build is the safety net for malformed tables.
-- Check mode output: one line per problem
-  (`<file>:<line>: <graph>: table says X, stored is Y`), then a summary;
-  exit 0 only when every row of every graph table matches S3.
-- Update mode writes a file only if it changed; all fetches happen before any
-  write (a failed HEAD aborts the run with nothing written).
+- Append the section at the end of each page (after the list-table), one
+  blank line between the table and the section header.
+- Do NOT delete the `.inc` files or touch graph pages yet (S4) — the build
+  must stay green at every commit, and includes resolve until removed.
 
-### S4: Populate the Size (MB) column in all 9 tables
+### S3: Add "Canonical grammars" section to c_alias_analysis, biological_uniprot, rdf
 
-**Code:** none (the change is produced by running the new tool — dogfooding).
-**Tests:** `python utils/archive_sizes.py` (check mode) must report all 9
-tables in sync (167 rows) against live S3.
-**Docs:** The 8 per-category tables + `docs/old_graphs/index.rst` gain the
-`Size (MB)` column; one sentence added to the "Contents" section of
-`docs/graphs/index.rst` describing the column (the download size of the
-`<name>.tar.gz` archive, in MB).
+**Code:** n/a (docs-only). Modify `docs/graphs/c_alias_analysis.rst`,
+`docs/graphs/biological_uniprot.rst`, `docs/graphs/rdf.rst`.
+**Tests:** n/a — verified by the docs build (S6).
+**Docs:** the 3 category pages gain a `Canonical grammars` section after the
+graph table.
 
 **Spec:**
-- Run `python utils/archive_sizes.py --update` from the repo root; inspect
-  the diff: exactly one new header cell and one new cell per row in each of
-  the 9 tables, values matching the live S3 sizes fetched during planning.
-- Re-run check mode → clean. Build the docs (no-warnings) to validate the
-  RST.
+- c_alias_analysis: verbatim from the inline section shared by its 20 graph
+  pages (the `.. note::` about `change_edges`, both grammar variants with the
+  `----` separator, Pyformlang blocks, `:ref:`c_alias`` cross-reference).
+- biological_uniprot: verbatim from the inline section shared by its 10
+  unigraph pages ("The grammar file is attached to the archive." + math).
+- rdf: union — the 3 grammars shared by 19 pages (combined subClassOf+type,
+  subClassOf-only, type-only) plus the broaderTransitive grammar from
+  geospecies.rst, in that order, keeping the `----` separators and the
+  `:ref:`nested_parentheses`` cross-reference.
 
-### S5: Upload tool reports the computed size
+### S4: Remove grammar sections from all 113 graph pages; delete the .inc files
 
-**Code:** `utils/upload_to_s3.py`:
-- `upload_file()` — extend the existing `logging.info` with the verified size
-  in bytes; return type unchanged (`key`), so `migrate_gdrive_to_s3.py` is
-  untouched.
-- `main()` — print the size in both units using `sizes.format_size_mb`:
-  `Uploaded FILE to s3://BUCKET/KEY (12345678 bytes, 11.79 MB)`.
-**Tests:** Extend `tests/utils/test_upload_to_s3.py`: `test_main_uploads_file`
-asserts the byte count and the formatted MB value in the output; a small-file
-case exercises the `< 1 MB` formatting branch (`0.000 MB`).
-**Docs:** `docs/utils.rst`, "Upload to Yandex S3" section — extend the
-verification paragraph: the tool reports the verified size (bytes and MB),
-which is the value for the `Size (MB)` column of the graph tables.
-
-**Spec:**
-- The reported size is the *verified* stored size (the `head_object`
-  `ContentLength` that already must equal the local file size) — the same
-  number `archive_sizes.py` reads back from S3, so a new-graph row filled
-  from the upload output always matches check mode.
-
-### S6: Document the tool and the new-graph flow
-
-**Code:** none.
-**Tests:** none (docs-only; docs build in S7).
-**Docs:**
-- `docs/utils.rst` — new "Archive sizes" section for `utils/archive_sizes.py`
-  (usage, check vs `--update`, what it covers: the 9 graph tables, URL keying,
-  all-or-nothing updates), placed after "Upload to Yandex S3".
-- `.opencode/skills/add-graph/SKILL.md` — Documentation section gains the size
-  step: the upload tool reports the archive size; add the category-table row
-  with that `Size (MB)` value; run `python utils/archive_sizes.py --update`
-  before committing so every table row (including the new one) matches S3.
-- `CHANGELOG.md` `[Unreleased] → Added`: one bullet for the `Size (MB)` column
-  in the website graph tables, one for the tooling (`upload_to_s3.py` reports
-  the verified size; new `utils/archive_sizes.py` keeps the column in sync).
+**Code:** n/a (docs-only). Modify all 113 `docs/graphs/data/*.rst` pages;
+delete `docs/graphs/data/grammar_java_points_to.inc`,
+`grammar_cpu17_field_sensitive_alias.inc`,
+`grammar_cpu17_context_sensitive_data_flow.inc`,
+`grammar_data_provenance.inc`, `grammar_name_resolution.inc`.
+**Tests:** n/a — verified by the docs build (S6).
+**Docs:** graph pages lose their trailing grammar section; no replacement
+text (user decision).
 
 **Spec:**
-- The skill stays a thin pointer: it names the step and the command, the
-  model (column semantics, formatting rule) lives in the docs.
+- 64 pages carry the section inline (header at line start: `Canonical
+  grammars` or `Grammar`, section runs to EOF): delete from the header line
+  to EOF, leaving the file ending with the Edges Statistics table and a
+  single trailing newline.
+- 49 pages end with a blank line + `.. include:: grammar_*.inc`: delete both
+  lines.
+- Verify afterwards: no `include::` left in `docs/graphs/`, no page starts a
+  section with `^Canonical|^Grammar`, and the 5 `.inc` files are gone.
+- `docs/old_graphs/` untouched.
 
-### S7: Quality gate, review, merge
+### S5: Update contribution templates, add-graph skill, graphs index note
 
-**Code:** none (fixes only if the gate finds problems).
-**Tests:** full quality gate per the `quality-gates` skill: `uv run pytest`,
-ruff (check + format), `uv run ty check`, no-warnings docs build, linkcheck.
-**Docs:** `tasks/tasks.md` — mark Task 40 `[done]` after the merge.
+**Code:** n/a (docs-only). Modify
+`.github/PULL_REQUEST_TEMPLATE/new_graph.md`,
+`.github/ISSUE_TEMPLATE/graph-add-template.md`,
+`.opencode/skills/add-graph/SKILL.md`, `docs/graphs/index.rst`.
+**Tests:** n/a.
+**Docs:** templates + skill + index note per spec.
 
 **Spec:**
-- Whole-repo code review per the `code-review` skill first; iterate to zero
-  findings.
-- Rebase onto `dev`, fast-forward merge, delete the feature branch (per
-  `git-workflow`). No pushes.
+- Both templates: add a `Category` row to the Info table — value is the
+  existing category name, or `new: <proposed name>`.
+- Both templates: replace the "Canonical grammars" section with the three-case
+  structure: (1) graph for an existing category — name the grammar(s) from
+  the category's "Canonical grammars" section that apply; they become the
+  table column(s) filled in for the new row; no new grammar text. (2) New
+  grammar for an existing category — provide LaTeX + Pyformlang below; it is
+  added to the category page and a new column to its table. (3) Graph for a
+  new category — provide the canonical grammar(s) below; a new category page
+  is created with them. The LaTeX/Pyformlang placeholders apply to cases 2–3
+  only.
+- add-graph skill Documentation step: per-graph pages no longer carry a
+  grammar section; describe the three cases (row under an existing column /
+  add grammar + column to the category page / new category page with grammar,
+  table, and `docs/graphs/index.rst` registration).
+- `docs/graphs/index.rst` "Contents" section: one sentence stating that
+  canonical grammars are documented on the category pages.
+
+### S6: Docs build verification
+
+**Code:** n/a.
+**Tests:** full Sphinx build per the build-docs skill; zero warnings
+(no-warnings policy); no new "not included in any toctree" warnings; spot-check
+rendered HTML of the 8 category pages (section present, math rendered) and a
+few graph pages (section gone).
+**Docs:** n/a.
+
+**Spec:**
+- Build must exit clean under the project's no-warnings configuration.
+- Grep the build log for `grammar_*.inc` (no unresolved includes) and for
+  dangling refs.
