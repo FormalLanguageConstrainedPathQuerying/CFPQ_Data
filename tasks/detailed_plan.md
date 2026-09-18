@@ -218,3 +218,10 @@ category page.
   `-W --keep-going`, zero warnings; all 8 category pages render the section
   (anchor `canonical-grammars` present, rdf shows all four grammars incl.
   broaderTransitive); 0 of 113 graph pages still carry it.
+- S7 b544ce0 — review fix: stale "graph's docs page" references re-pointed to
+  the RDF category page (utils/convert_old_to_new.py comment, docs/utils.rst).
+- Quality gate PASS: `uv run pytest` 363 passed / 0 failed / 0 skipped;
+  `pre-commit run --all-files` all passed; `ty check` clean; docs build
+  zero warnings; linkcheck exit 0 (two Wikipedia 403 rate-limits on the first
+  pass cleared on retry — both URLs verified 200).
+- S8 — task marked done in the task log.
