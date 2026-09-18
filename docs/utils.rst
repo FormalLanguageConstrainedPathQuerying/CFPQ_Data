@@ -76,6 +76,41 @@ When adding a new graph, upload it first (:ref:`upload_to_s3` prints the
 verified size), add the table row with that value, and run this tool before
 committing so every row — including the new one — matches S3.
 
+.. _reachable_pairs_tables:
+
+Reachable pair counts
+---------------------
+
+``utils/reachable_pairs_tables.py`` keeps the reachable-pairs renderings in
+sync with ``cfpq_data/dataset/reachable_pairs.csv``, the single source of
+truth for the reference counts (:ref:`reachable_pairs`)::
+
+   python utils/reachable_pairs_tables.py [--update]
+
+The tool covers two renderings: the per-category tables of
+``docs/reachable_pairs.rst`` (one section per graph category, between the
+``reachable-pairs-tables`` markers) and the count columns of the eight
+per-category graph tables in ``docs/graphs/*.rst``. The graph-to-category
+mapping is derived from the site itself: each category page's toctree lists
+its data pages, and the archive name in a data page's download URL is the
+graph name (page titles are not reliable).
+
+Behavior:
+
+- **Check mode (default).** Reports every drifted cell or table region —
+  plus CSV rows whose graph is unknown, whose category disagrees with the
+  docs, or which has no count column in its category — and exits non-zero,
+  so it can gate a commit.
+- **``--update``.** Rewrites the reachable-pairs region and fixes the
+  drifted cells in place; lines that need no change keep their exact text.
+
+On the category pages a cell is a number (the count), ``not available``
+(a pair without a computed value yet), or empty (the grammar does not apply
+to that graph) — the convention explained on the :ref:`graphs` page.
+
+When a new count is computed, add the row to the CSV with the graph's
+category and run this tool with ``--update`` before committing.
+
 .. _migrate_gdrive_to_s3:
 
 Migrate from Google Drive
