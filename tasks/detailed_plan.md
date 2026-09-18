@@ -176,7 +176,25 @@ few graph pages (section gone).
 - Grep the build log for `grammar_*.inc` (no unresolved includes) and for
   dangling refs.
 
-### S7: Mark task 41 done in the task log
+### S7: Resolve code-review findings (stale references to the old location)
+
+**Code:** Modify `utils/convert_old_to_new.py` (comment only) and
+`docs/utils.rst`.
+**Tests:** `uv run pytest tests/utils/test_convert_old_to_new.py` (51
+passed); pre-commit clean on both files.
+**Docs:** `docs/utils.rst` — the conversion-tool description pointed at "the
+graph's docs page" for the RDF canonical grammars; it now points at the RDF
+category page.
+
+**Spec:**
+- The whole-repo review found two references to the pre-move location of the
+  canonical grammar descriptions: the `RDF_GRAMMAR_TYPES` comment in
+  `utils/convert_old_to_new.py` ("of every RDF graph page ... as on the docs
+  pages") and the conversion-tool paragraph in `docs/utils.rst` ("the three
+  canonical grammars of the graph's docs page"). Both now say "RDF category
+  page". No behavior change.
+
+### S8: Mark task 41 done in the task log
 
 **Code:** n/a. Modify `tasks/tasks.md`, `tasks/detailed_plan.md`.
 **Tests:** n/a.

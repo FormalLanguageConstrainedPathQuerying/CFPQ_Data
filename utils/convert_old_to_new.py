@@ -435,9 +435,9 @@ def c_alias_cnf() -> Tuple[List[Tuple[str, Tuple[str, ...]]], str]:
     return cnf_lite(_cfg_productions(cfg)), cfg.start_symbol.to_text()
 
 
-#: The three canonical nested-parentheses grammars of every RDF graph page:
-#: filename -> opening/closing label pairs (reversed edge first, as on the
-#: docs pages).
+#: The three canonical nested-parentheses grammars of the RDF category
+#: (documented on the RDF category page): filename -> opening/closing label
+#: pairs (reversed edge first, as on the category page).
 RDF_GRAMMAR_TYPES = {
     "nested_parentheses_subClassOf_type.cnf": [
         ("subClassOf_r", "subClassOf"),
