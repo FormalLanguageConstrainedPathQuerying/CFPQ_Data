@@ -151,3 +151,26 @@ Python projects, following the W3C PROV model (``Entity``, ``Activity``,
      - 91350
      - 1.56
      - `airflow.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/airflow.tar.gz>`_ 📥
+
+Canonical grammars
+------------------
+
+The grammar file is attached to the archive.
+
+.. math::
+
+   S &\to Entity \quad Core \quad Entity \\
+   Core &\to wasDerivedFrom \\
+        &\mid wasDerivedFrom_{r} \\
+        &\mid specializationOf \\
+        &\mid specializationOf_{r} \\
+        &\mid wasGeneratedBy \quad Activity \quad used \\
+        &\mid used_{r} \quad Activity \quad wasGeneratedBy_{r} \\
+        &\mid wasGeneratedBy \quad Activity \quad Core \\
+        &\quad Activity \quad wasGeneratedBy_{r} \\
+        &\mid used_{r} \quad Activity \quad Core \\
+        &\quad Activity \quad used \\
+        &\mid wasDerivedFrom \quad Entity \quad Core \\
+        &\quad Entity \quad wasDerivedFrom_{r} \\
+        &\mid specializationOf \quad Entity \quad Core \\
+        &\quad Entity \quad specializationOf_{r}
