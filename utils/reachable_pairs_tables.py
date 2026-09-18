@@ -119,7 +119,7 @@ def toctree_entries(path: pathlib.Path) -> list[str]:
             in_toc = True
             continue
         if in_toc:
-            if line.strip() and not line[0] in " \t":
+            if line.strip() and line[0] not in " \t":
                 break
             entry = line.strip()
             if entry and not entry.startswith(":"):
@@ -137,7 +137,7 @@ def category_pages(docs_dir: pathlib.Path) -> dict[str, list[str]]:
     pages: dict[str, list[str]] = {}
     for category in category_order(docs_dir):
         entries = toctree_entries(docs_dir / "graphs" / f"{category}.rst")
-        pages[category] = [e[len("data/"):] for e in entries if e.startswith("data/")]
+        pages[category] = [e[len("data/") :] for e in entries if e.startswith("data/")]
     return pages
 
 
@@ -156,7 +156,9 @@ def page_to_graph(docs_dir: pathlib.Path) -> dict[str, str]:
     mapping: dict[str, str] = {}
     for pages in category_pages(docs_dir).values():
         for page in pages:
-            text = (docs_dir / "graphs" / "data" / f"{page}.rst").read_text(encoding="utf-8")
+            text = (docs_dir / "graphs" / "data" / f"{page}.rst").read_text(
+                encoding="utf-8"
+            )
             match = _URL_RE.search(text)
             if match is None:
                 raise ValueError(f"no Yandex download link in data/{page}.rst")
@@ -196,13 +198,16 @@ def load_rows(csv_path: pathlib.Path) -> list[dict]:
     Examples
     --------
     >>> import pathlib, tempfile
-    >>> with tempfile.NamedTemporaryFile("w", suffix=".csv", delete=False) as f:
-    ...     f.write("graph,grammar,category,num_reachable_pairs\n")
-    ...     f.write("g1,c_alias.cnf,c_alias_analysis,42\n")
-    ...     f.write("g2,c_alias.cnf,c_alias_analysis,\n")
-    ...     name = f.name
-    >>> load_rows(pathlib.Path(name))
-    [{'graph': 'g1', 'grammar': 'c_alias.cnf', 'category': 'c_alias_analysis', 'num_reachable_pairs': 42}, {'graph': 'g2', 'grammar': 'c_alias.cnf', 'category': 'c_alias_analysis', 'num_reachable_pairs': None}]
+    >>> with tempfile.TemporaryDirectory() as tmp:
+    ...     p = pathlib.Path(tmp) / "r.csv"
+    ...     p.write_text(
+    ...         "graph,grammar,category,num_reachable_pairs\n"
+    ...         "g1,c_alias.cnf,c_alias_analysis,42\n"
+    ...         "g2,c_alias.cnf,c_alias_analysis,\n"
+    ...     )
+    ...     rows = load_rows(p)
+    ...     [r["num_reachable_pairs"] for r in rows]
+    [42, None]
     """
     rows: list[dict] = []
     with csv_path.open(newline="", encoding="utf-8") as f:
@@ -221,7 +226,11 @@ def load_rows(csv_path: pathlib.Path) -> list[dict]:
 
 def _section_title(docs_dir: pathlib.Path, category: str) -> str:
     """Returns the title line of a category page."""
-    lines = (docs_dir / "graphs" / f"{category}.rst").read_text(encoding="utf-8").splitlines()
+    lines = (
+        (docs_dir / "graphs" / f"{category}.rst")
+        .read_text(encoding="utf-8")
+        .splitlines()
+    )
     return lines[2].strip()
 
 
@@ -309,11 +318,15 @@ def update_reachable_pairs_page(text: str, region: str) -> tuple[str, bool]:
         If either marker is missing or out of order.
     """
     lines = text.splitlines()
-    try:
-        begin = next(i for i, l in enumerate(lines) if l.strip() == BEGIN_MARKER)
-        end = next(i for i, l in enumerate(lines) if l.strip() == END_MARKER)
-    except StopIteration as err:
-        raise ValueError(f"markers {BEGIN_MARKER!r}/{END_MARKER!r} not found") from err
+
+    def marker_index(marker: str) -> int:
+        for i, line in enumerate(lines):
+            if line.strip() == marker:
+                return i
+        raise ValueError(f"markers {BEGIN_MARKER!r}/{END_MARKER!r} not found")
+
+    begin = marker_index(BEGIN_MARKER)
+    end = marker_index(END_MARKER)
     if begin > end:
         raise ValueError("reachable-pairs markers are out of order")
     new_lines = lines[: begin + 1] + [""] + region.splitlines() + [""] + lines[end:]
@@ -376,9 +389,7 @@ def update_category_columns(
             ) from err
     wanted = {header for header, _ in columns}
     tables = [
-        t
-        for t in iter_graph_tables(text)
-        if wanted & {cell for _, cell in t.rows[0]}
+        t for t in iter_graph_tables(text) if wanted & {cell for _, cell in t.rows[0]}
     ]
     if len(tables) != 1:
         raise ValueError(
@@ -414,7 +425,8 @@ def update_category_columns(
             idx = col_index[col_header]
             if len(row) <= idx:
                 problems.append(
-                    f"line {row[0][0] + 1}: row {graph} has no cell for column {col_header}"
+                    f"line {row[0][0] + 1}: row {graph} "
+                    f"has no cell for column {col_header}"
                 )
                 continue
             line_idx, current = row[idx]
@@ -427,12 +439,14 @@ def update_category_columns(
             else:
                 expected = str(value)
             if current != expected:
-                indent = lines[line_idx][: len(lines[line_idx]) - len(lines[line_idx].lstrip())]
+                indent = lines[line_idx][
+                    : len(lines[line_idx]) - len(lines[line_idx].lstrip())
+                ]
                 new_line = f"{indent}- {expected}" if expected else f"{indent}-"
                 replacements.append((line_idx, new_line))
                 problems.append(
-                    f"line {line_idx + 1}: {graph}/{grammar}: "
-                    f"table says {current or '<empty>'}, CSV says {expected or '<empty>'}"
+                    f"line {line_idx + 1}: {graph}/{grammar}: table says "
+                    f"{current or '<empty>'}, CSV says {expected or '<empty>'}"
                 )
                 changed += 1
 
@@ -507,7 +521,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         columns = GRAMMAR_COLUMNS.get(row["category"])
         if columns is None:
             problems.append(
-                f"CSV category {row['category']} has no count columns in GRAMMAR_COLUMNS"
+                f"CSV category {row['category']} has no count columns "
+                "in GRAMMAR_COLUMNS"
             )
         elif not _grammar_has_column(columns, row["graph"], row["grammar"]):
             problems.append(
@@ -544,7 +559,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             continue
         if args.update and cell_problems:
             path.write_text(updated, encoding="utf-8")
-            print(f"{path.relative_to(MAIN_FOLDER)}: updated {len(cell_problems)} cell(s)")
+            print(
+                f"{path.relative_to(MAIN_FOLDER)}: updated {len(cell_problems)} cell(s)"
+            )
         elif not args.update and cell_problems:
             problems.extend(
                 f"{path.relative_to(MAIN_FOLDER)}: {p}" for p in cell_problems

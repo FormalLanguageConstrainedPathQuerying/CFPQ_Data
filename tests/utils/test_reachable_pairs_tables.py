@@ -25,8 +25,7 @@ def make_docs(tmp_path: pathlib.Path) -> pathlib.Path:
         ".. toctree::\n   :hidden:\n\n   data/g1\n   data/g2\n"
     )
     (docs / "graphs" / "cat_b.rst").write_text(
-        ".. _graphs_cat_b:\n\nCat B\n*****\n\n"
-        ".. toctree::\n   :hidden:\n\n   data/g3\n"
+        ".. _graphs_cat_b:\n\nCat B\n*****\n\n.. toctree::\n   :hidden:\n\n   data/g3\n"
     )
     for page, name in [("g1", "alpha"), ("g2", "beta"), ("g3", "gamma")]:
         (docs / "graphs" / "data" / f"{page}.rst").write_text(
@@ -70,11 +69,36 @@ def test_page_to_graph_missing_link_raises(tmp_path):
 
 
 ROWS = [
-    {"graph": "alpha", "grammar": "a.cnf", "category": "cat_a", "num_reachable_pairs": 3},
-    {"graph": "alpha", "grammar": "b.cnf", "category": "cat_a", "num_reachable_pairs": None},
-    {"graph": "beta", "grammar": "a.cnf", "category": "cat_a", "num_reachable_pairs": 5},
-    {"graph": "beta", "grammar": "b.cnf", "category": "cat_a", "num_reachable_pairs": 9},
-    {"graph": "gamma", "grammar": "g.cnf", "category": "cat_b", "num_reachable_pairs": 7},
+    {
+        "graph": "alpha",
+        "grammar": "a.cnf",
+        "category": "cat_a",
+        "num_reachable_pairs": 3,
+    },
+    {
+        "graph": "alpha",
+        "grammar": "b.cnf",
+        "category": "cat_a",
+        "num_reachable_pairs": None,
+    },
+    {
+        "graph": "beta",
+        "grammar": "a.cnf",
+        "category": "cat_a",
+        "num_reachable_pairs": 5,
+    },
+    {
+        "graph": "beta",
+        "grammar": "b.cnf",
+        "category": "cat_a",
+        "num_reachable_pairs": 9,
+    },
+    {
+        "graph": "gamma",
+        "grammar": "g.cnf",
+        "category": "cat_b",
+        "num_reachable_pairs": 7,
+    },
 ]
 
 
@@ -88,7 +112,7 @@ def test_render_tables_region(tmp_path):
     assert "Cat B\n-----" in region
 
     # Rows sorted by (graph, grammar) within a section.
-    cat_a = region[region.index("Cat A"):region.index("Cat B")]
+    cat_a = region[region.index("Cat A") : region.index("Cat B")]
     assert cat_a.index("- a.cnf") < cat_a.index("- b.cnf")
     assert cat_a.index("* - alpha") < cat_a.index("* - beta")
 
@@ -101,18 +125,12 @@ def test_render_tables_region(tmp_path):
 def test_render_tables_region_empty_category(tmp_path):
     docs = make_docs(tmp_path)
     region = render_tables_region(ROWS[:4], docs)
-    cat_b = region[region.index("Cat B"):]
+    cat_b = region[region.index("Cat B") :]
     assert "No reachable-pair counts have been computed" in cat_b
 
 
 def test_update_reachable_pairs_page():
-    text = (
-        "intro\n"
-        f"{BEGIN_MARKER}\n"
-        "old content\n"
-        f"{END_MARKER}\n"
-        "outro\n"
-    )
+    text = f"intro\n{BEGIN_MARKER}\nold content\n{END_MARKER}\noutro\n"
     updated, changed = update_reachable_pairs_page(text, "new content")
     assert changed
     assert updated.splitlines() == [
@@ -135,6 +153,11 @@ def test_update_reachable_pairs_page_missing_markers():
         update_reachable_pairs_page("no markers here\n", "x")
 
 
+BASE_URL = "https://cfpq-data.storage.yandexcloud.net/5.0.0/graph"
+ALPHA_URL = f"{BASE_URL}/alpha.tar.gz"
+BETA_URL = f"{BASE_URL}/beta.tar.gz"
+GAMMA_URL = f"{BASE_URL}/gamma.tar.gz"
+
 CATEGORY_TABLE = (
     ".. list-table::\n"
     "   :header-rows: 1\n"
@@ -148,17 +171,17 @@ CATEGORY_TABLE = (
     "     - 10\n"
     "     - 3\n"
     "     -\n"
-    "     - `alpha.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/alpha.tar.gz>`_ 📥\n"
+    f"     - `alpha.tar.gz <{ALPHA_URL}>`_ 📥\n"
     "   * - :ref:`g2`\n"
     "     - 20\n"
     "     - not available\n"
     "     - 9\n"
-    "     - `beta.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/beta.tar.gz>`_ 📥\n"
+    f"     - `beta.tar.gz <{BETA_URL}>`_ 📥\n"
     "   * - :ref:`g3`\n"
     "     - 30\n"
     "     -\n"
     "     -\n"
-    "     - `gamma.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/gamma.tar.gz>`_ 📥\n"
+    f"     - `gamma.tar.gz <{GAMMA_URL}>`_ 📥\n"
 )
 
 COLUMNS: list[tuple[str, str | None]] = [("a_col", "a.cnf"), ("b_col", "b.cnf")]
@@ -230,7 +253,7 @@ def test_update_category_columns_missing_header_column_is_a_problem():
         "     - Download\n"
         "   * - :ref:`g1`\n"
         "     - 3\n"
-        "     - `alpha.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/alpha.tar.gz>`_ 📥\n"
+        f"     - `alpha.tar.gz <{ALPHA_URL}>`_ 📥\n"
     )
     updated, problems = update_category_columns(
         text, ROWS, "cat_a", PAGES, columns=COLUMNS
@@ -241,3 +264,10 @@ def test_update_category_columns_missing_header_column_is_a_problem():
 def test_update_category_columns_unknown_category_raises():
     with pytest.raises(ValueError, match="GRAMMAR_COLUMNS"):
         update_category_columns(CATEGORY_TABLE, ROWS, "cat_a", PAGES)
+
+
+def test_check_mode_on_the_real_repo_is_in_sync():
+    # Guards against drift between the CSV and both renderings.
+    import reachable_pairs_tables
+
+    assert reachable_pairs_tables.main([]) == 0

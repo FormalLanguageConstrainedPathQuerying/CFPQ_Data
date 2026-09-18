@@ -4,10 +4,16 @@
 Reachable Pair Counts
 ***********************
 
+.. only:: html
+
+   :Release: |release|
+   :Date: |today|
+
 Reference counts of reachable vertex pairs for every graph x grammar pair
 in the dataset. A pair :math:`(u, v)` is reachable if there exists a path
 from :math:`u` to :math:`v` labeled by a string in the language of the
-grammar's start symbol.
+grammar's start symbol. The sections below follow the graph categories of
+the :ref:`Graphs <graphs>` catalog.
 
 .. note::
 
@@ -26,8 +32,10 @@ The full table is available as a CSV file:
 Columns: ``graph``, ``grammar``, ``category``, ``num_reachable_pairs``
 (empty when not yet available).
 
-Summary
--------
+.. reachable-pairs-tables:begin
+
+C alias analysis
+----------------
 
 .. list-table::
    :header-rows: 1
@@ -36,15 +44,77 @@ Summary
    * - Graph
      - Grammar
      - Reachable pairs
-   * - airflow
-     - prov_derivation.cnf
-     - 91350
    * - apache
      - c_alias.cnf
      - 92806768
    * - arch
      - c_alias.cnf
      - 5339563
+   * - block
+     - c_alias.cnf
+     - 5351409
+   * - bzip
+     - c_alias.cnf
+     - 315
+   * - crypto
+     - c_alias.cnf
+     - 5428237
+   * - drivers
+     - c_alias.cnf
+     - 18825025
+   * - fs
+     - c_alias.cnf
+     - 9646475
+   * - gzip
+     - c_alias.cnf
+     - 1458
+   * - init
+     - c_alias.cnf
+     - 3783769
+   * - ipc
+     - c_alias.cnf
+     - 5249389
+   * - kernel
+     - c_alias.cnf
+     - 16747731
+   * - lib
+     - c_alias.cnf
+     - 5276303
+   * - ls
+     - c_alias.cnf
+     - 854
+   * - mm
+     - c_alias.cnf
+     - 3990305
+   * - net
+     - c_alias.cnf
+     - 8833403
+   * - postgre
+     - c_alias.cnf
+     - 90661446
+   * - pr
+     - c_alias.cnf
+     - 385
+   * - security
+     - c_alias.cnf
+     - 5593387
+   * - sound
+     - c_alias.cnf
+     - 6085269
+   * - wc
+     - c_alias.cnf
+     - 156
+
+RDF
+---
+
+.. list-table::
+   :header-rows: 1
+   :align: left
+
+   * - Graph
+     - Grammar
+     - Reachable pairs
    * - atom
      - nested_parentheses_subClassOf.cnf
      - 2
@@ -54,12 +124,6 @@ Summary
    * - atom
      - nested_parentheses_type.cnf
      - 4
-   * - avrora
-     - java_points_to.cnf
-     - 192790
-   * - batik
-     - java_points_to.cnf
-     - 868368
    * - biomedical
      - nested_parentheses_subClassOf.cnf
      - 43
@@ -69,30 +133,6 @@ Summary
    * - biomedical
      - nested_parentheses_type.cnf
      - 4
-   * - block
-     - c_alias.cnf
-     - 5351409
-   * - bzip
-     - c_alias.cnf
-     - 315
-   * - cactus
-     - vf.cnf
-     - 47806209
-   * - cactus_field_sensitive_alias
-     - aa.cnf
-     - 37625324
-   * - celery
-     - prov_derivation.cnf
-     - 25306
-   * - click
-     - prov_derivation.cnf
-     - 2710
-   * - commons_io
-     - java_points_to.cnf
-     - 24020
-   * - commons_lang3
-     - java_points_to.cnf
-     - 27553
    * - core
      - nested_parentheses_subClassOf.cnf
      - 143
@@ -102,15 +142,6 @@ Summary
    * - core
      - nested_parentheses_type.cnf
      - 61
-   * - crypto
-     - c_alias.cnf
-     - 5428237
-   * - django
-     - prov_derivation.cnf
-     - 615946
-   * - drivers
-     - c_alias.cnf
-     - 18825025
    * - eclass
      - nested_parentheses_subClassOf.cnf
      - 90988
@@ -120,9 +151,6 @@ Summary
    * - eclass
      - nested_parentheses_type.cnf
      - 6
-   * - eclipse
-     - java_points_to.cnf
-     - 378989
    * - enzyme
      - nested_parentheses_broaderTransitive.cnf
      - 14267542
@@ -135,12 +163,6 @@ Summary
    * - enzyme
      - nested_parentheses_type.cnf
      - 3
-   * - fastapi
-     - prov_derivation.cnf
-     - 8814
-   * - flask
-     - prov_derivation.cnf
-     - 8062
    * - foaf
      - nested_parentheses_subClassOf.cnf
      - 7
@@ -150,12 +172,6 @@ Summary
    * - foaf
      - nested_parentheses_type.cnf
      - 29
-   * - fop
-     - java_points_to.cnf
-     - 1984072
-   * - fs
-     - c_alias.cnf
-     - 9646475
    * - funding
      - nested_parentheses_subClassOf.cnf
      - 27
@@ -204,108 +220,6 @@ Summary
    * - go_hierarchy
      - nested_parentheses_type.cnf
      - 0
-   * - gson
-     - java_points_to.cnf
-     - 56325
-   * - guava
-     - java_points_to.cnf
-     - 26384496
-   * - gzip
-     - c_alias.cnf
-     - 1458
-   * - h2
-     - java_points_to.cnf
-     - 2611022
-   * - httpx
-     - prov_derivation.cnf
-     - 4408
-   * - imagick
-     - vf.cnf
-     - 12687034
-   * - imagick_field_sensitive_alias
-     - aa.cnf
-     - 369956094
-   * - init
-     - c_alias.cnf
-     - 3783769
-   * - ipc
-     - c_alias.cnf
-     - 5249389
-   * - itsdangerous
-     - prov_derivation.cnf
-     - 2912
-   * - jackson
-     - java_points_to.cnf
-     - 3108775
-   * - jiaozi
-     - name_resolution.cnf
-     - 14435
-   * - jinja
-     - prov_derivation.cnf
-     - 7436
-   * - jsonpath
-     - name_resolution.cnf
-     - 59764
-   * - junit5
-     - java_points_to.cnf
-     - 129598
-   * - jython
-     - java_points_to.cnf
-     - 561720
-   * - kernel
-     - c_alias.cnf
-     - 16747731
-   * - leela
-     - vf.cnf
-     - 662466
-   * - leela_field_sensitive_alias
-     - aa.cnf
-     - 3968276
-   * - lib
-     - c_alias.cnf
-     - 5276303
-   * - libgdx
-     - name_resolution.cnf
-     - not available
-   * - ls
-     - c_alias.cnf
-     - 854
-   * - luindex
-     - java_points_to.cnf
-     - 176051
-   * - lusearch
-     - java_points_to.cnf
-     - 43719
-   * - mm
-     - c_alias.cnf
-     - 3990305
-   * - mockito
-     - java_points_to.cnf
-     - 16169
-   * - nab
-     - vf.cnf
-     - 739646
-   * - nab_field_sensitive_alias
-     - aa.cnf
-     - 262566
-   * - net
-     - c_alias.cnf
-     - 8833403
-   * - omnetpp
-     - vf.cnf
-     - 8424500
-   * - omnetpp_field_sensitive_alias
-     - aa.cnf
-     - 158255766
-   * - pandas
-     - prov_derivation.cnf
-     - 154646
-   * - parest
-     - vf.cnf
-     - 1342540
-   * - parest_field_sensitive_alias
-     - aa.cnf
-     - 49415038
    * - pathways
      - nested_parentheses_subClassOf.cnf
      - 883
@@ -324,12 +238,6 @@ Summary
    * - people
      - nested_parentheses_type.cnf
      - 29
-   * - perlbench
-     - vf.cnf
-     - 297504186
-   * - perlbench_field_sensitive_alias
-     - aa.cnf
-     - 851737865
    * - pizza
      - nested_parentheses_subClassOf.cnf
      - 1334
@@ -339,39 +247,6 @@ Summary
    * - pizza
      - nested_parentheses_type.cnf
      - 20
-   * - pluggy
-     - prov_derivation.cnf
-     - 880
-   * - pmd
-     - java_points_to.cnf
-     - 137120
-   * - postgre
-     - c_alias.cnf
-     - 90661446
-   * - povray
-     - vf.cnf
-     - 34599413
-   * - povray_field_sensitive_alias
-     - aa.cnf
-     - 27219043
-   * - pr
-     - c_alias.cnf
-     - 385
-   * - requests
-     - prov_derivation.cnf
-     - 2524
-   * - sampleproject
-     - prov_derivation.cnf
-     - 342
-   * - scikit-learn
-     - prov_derivation.cnf
-     - 217728
-   * - security
-     - c_alias.cnf
-     - 5593387
-   * - shattered_pixel_dungeon
-     - name_resolution.cnf
-     - 971998
    * - skos
      - nested_parentheses_subClassOf.cnf
      - 1
@@ -381,18 +256,6 @@ Summary
    * - skos
      - nested_parentheses_type.cnf
      - 29
-   * - sound
-     - c_alias.cnf
-     - 6085269
-   * - sphinx
-     - prov_derivation.cnf
-     - 304084
-   * - sunflow
-     - java_points_to.cnf
-     - 35209
-   * - superset
-     - prov_derivation.cnf
-     - 97460
    * - taxonomy
      - nested_parentheses_subClassOf.cnf
      - 151703
@@ -411,15 +274,6 @@ Summary
    * - taxonomy_hierarchy
      - nested_parentheses_type.cnf
      - 0
-   * - tomcat
-     - java_points_to.cnf
-     - 3792543
-   * - tradebeans
-     - java_points_to.cnf
-     - 34370090
-   * - tradesoap
-     - java_points_to.cnf
-     - 34451130
    * - travel
      - nested_parentheses_subClassOf.cnf
      - 33
@@ -429,6 +283,279 @@ Summary
    * - travel
      - nested_parentheses_type.cnf
      - 19
+   * - univ
+     - nested_parentheses_subClassOf.cnf
+     - 17
+   * - univ
+     - nested_parentheses_subClassOf_type.cnf
+     - 25
+   * - univ
+     - nested_parentheses_type.cnf
+     - 6
+   * - wine
+     - nested_parentheses_subClassOf.cnf
+     - 499
+   * - wine
+     - nested_parentheses_subClassOf_type.cnf
+     - 565
+   * - wine
+     - nested_parentheses_type.cnf
+     - 65
+
+Java points-to graphs
+---------------------
+
+.. list-table::
+   :header-rows: 1
+   :align: left
+
+   * - Graph
+     - Grammar
+     - Reachable pairs
+   * - avrora
+     - java_points_to.cnf
+     - 192790
+   * - batik
+     - java_points_to.cnf
+     - 868368
+   * - commons_io
+     - java_points_to.cnf
+     - 24020
+   * - commons_lang3
+     - java_points_to.cnf
+     - 27553
+   * - eclipse
+     - java_points_to.cnf
+     - 378989
+   * - fop
+     - java_points_to.cnf
+     - 1984072
+   * - gson
+     - java_points_to.cnf
+     - 56325
+   * - guava
+     - java_points_to.cnf
+     - 26384496
+   * - h2
+     - java_points_to.cnf
+     - 2611022
+   * - jackson
+     - java_points_to.cnf
+     - 3108775
+   * - junit5
+     - java_points_to.cnf
+     - 129598
+   * - jython
+     - java_points_to.cnf
+     - 561720
+   * - luindex
+     - java_points_to.cnf
+     - 176051
+   * - lusearch
+     - java_points_to.cnf
+     - 43719
+   * - mockito
+     - java_points_to.cnf
+     - 16169
+   * - pmd
+     - java_points_to.cnf
+     - 137120
+   * - sunflow
+     - java_points_to.cnf
+     - 35209
+   * - tomcat
+     - java_points_to.cnf
+     - 3792543
+   * - tradebeans
+     - java_points_to.cnf
+     - 34370090
+   * - tradesoap
+     - java_points_to.cnf
+     - 34451130
+   * - xalan
+     - java_points_to.cnf
+     - 1138776
+
+Field-Sensitive Alias
+---------------------
+
+.. list-table::
+   :header-rows: 1
+   :align: left
+
+   * - Graph
+     - Grammar
+     - Reachable pairs
+   * - cactus_field_sensitive_alias
+     - aa.cnf
+     - 37625324
+   * - imagick_field_sensitive_alias
+     - aa.cnf
+     - 369956094
+   * - leela_field_sensitive_alias
+     - aa.cnf
+     - 3968276
+   * - nab_field_sensitive_alias
+     - aa.cnf
+     - 262566
+   * - omnetpp_field_sensitive_alias
+     - aa.cnf
+     - 158255766
+   * - parest_field_sensitive_alias
+     - aa.cnf
+     - 49415038
+   * - perlbench_field_sensitive_alias
+     - aa.cnf
+     - 851737865
+   * - povray_field_sensitive_alias
+     - aa.cnf
+     - 27219043
+   * - x264_field_sensitive_alias
+     - aa.cnf
+     - 5246565
+   * - xz_field_sensitive_alias
+     - aa.cnf
+     - 205164
+
+Context-Sensitive Data-Flow
+---------------------------
+
+.. list-table::
+   :header-rows: 1
+   :align: left
+
+   * - Graph
+     - Grammar
+     - Reachable pairs
+   * - cactus
+     - vf.cnf
+     - 47806209
+   * - imagick
+     - vf.cnf
+     - 12687034
+   * - leela
+     - vf.cnf
+     - 662466
+   * - nab
+     - vf.cnf
+     - 739646
+   * - omnetpp
+     - vf.cnf
+     - 8424500
+   * - parest
+     - vf.cnf
+     - 1342540
+   * - perlbench
+     - vf.cnf
+     - 297504186
+   * - povray
+     - vf.cnf
+     - 34599413
+   * - x264
+     - vf.cnf
+     - 20259480
+   * - xz
+     - vf.cnf
+     - 358834
+
+Data Provenance
+---------------
+
+.. list-table::
+   :header-rows: 1
+   :align: left
+
+   * - Graph
+     - Grammar
+     - Reachable pairs
+   * - airflow
+     - prov_derivation.cnf
+     - 91350
+   * - celery
+     - prov_derivation.cnf
+     - 25306
+   * - click
+     - prov_derivation.cnf
+     - 2710
+   * - django
+     - prov_derivation.cnf
+     - 615946
+   * - fastapi
+     - prov_derivation.cnf
+     - 8814
+   * - flask
+     - prov_derivation.cnf
+     - 8062
+   * - httpx
+     - prov_derivation.cnf
+     - 4408
+   * - itsdangerous
+     - prov_derivation.cnf
+     - 2912
+   * - jinja
+     - prov_derivation.cnf
+     - 7436
+   * - pandas
+     - prov_derivation.cnf
+     - 154646
+   * - pluggy
+     - prov_derivation.cnf
+     - 880
+   * - requests
+     - prov_derivation.cnf
+     - 2524
+   * - sampleproject
+     - prov_derivation.cnf
+     - 342
+   * - scikit-learn
+     - prov_derivation.cnf
+     - 217728
+   * - sphinx
+     - prov_derivation.cnf
+     - 304084
+   * - superset
+     - prov_derivation.cnf
+     - 97460
+   * - wikipedia-provenance
+     - prov_derivation.cnf
+     - 1732
+   * - zulip
+     - prov_derivation.cnf
+     - 209908
+
+Name Resolution
+---------------
+
+.. list-table::
+   :header-rows: 1
+   :align: left
+
+   * - Graph
+     - Grammar
+     - Reachable pairs
+   * - jiaozi
+     - name_resolution.cnf
+     - 14435
+   * - jsonpath
+     - name_resolution.cnf
+     - 59764
+   * - libgdx
+     - name_resolution.cnf
+     - not available
+   * - shattered_pixel_dungeon
+     - name_resolution.cnf
+     - 971998
+
+Biological graphs from UniProt
+------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :align: left
+
+   * - Graph
+     - Grammar
+     - Reachable pairs
    * - unigraph_1
      - unigraph_1.cnf
      - 376578
@@ -459,45 +586,5 @@ Summary
    * - unigraph_9
      - unigraph_9.cnf
      - not available
-   * - univ
-     - nested_parentheses_subClassOf.cnf
-     - 17
-   * - univ
-     - nested_parentheses_subClassOf_type.cnf
-     - 25
-   * - univ
-     - nested_parentheses_type.cnf
-     - 6
-   * - wc
-     - c_alias.cnf
-     - 156
-   * - wikipedia-provenance
-     - prov_derivation.cnf
-     - 1732
-   * - wine
-     - nested_parentheses_subClassOf.cnf
-     - 499
-   * - wine
-     - nested_parentheses_subClassOf_type.cnf
-     - 565
-   * - wine
-     - nested_parentheses_type.cnf
-     - 65
-   * - x264
-     - vf.cnf
-     - 20259480
-   * - x264_field_sensitive_alias
-     - aa.cnf
-     - 5246565
-   * - xalan
-     - java_points_to.cnf
-     - 1138776
-   * - xz
-     - vf.cnf
-     - 358834
-   * - xz_field_sensitive_alias
-     - aa.cnf
-     - 205164
-   * - zulip
-     - prov_derivation.cnf
-     - 209908
+
+.. reachable-pairs-tables:end
