@@ -96,3 +96,19 @@ as in `"Subgraph queries by context-free grammars" <https://researchportal.helsi
      - not available
      - 56.24
      - `unigraph_10.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_10.tar.gz>`_ 📥
+
+Canonical grammars
+------------------
+
+The grammar file is attached to the archive.
+
+.. math::
+
+   S &\to Seq \quad IsAssociated \quad IsSimilar \\
+   Seq &\to IsSimilar \quad (codes\_for \quad IsSimilar)? \\
+   IsSimilar &\to \varepsilon \\
+             &\mid has \quad IsSimilar \quad has_{r} \\
+             &\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to_{r} \quad IsSimilar \\
+             &\mid belongs\_to \quad IsSimilar \quad belongs\_to_{r} \\
+             &\mid participate\_in \quad IsSimilar \quad participate\_in_{r} \\
+   IsAssociated &\to refers\_to \quad refers\_to_{r}

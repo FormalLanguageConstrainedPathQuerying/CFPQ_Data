@@ -228,3 +228,57 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      -
      - 59.52
      - `taxonomy.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/taxonomy.tar.gz>`_ 📥
+
+Canonical grammars
+------------------
+
+Nested parentheses grammars introduced in `"Context-Free Path Queries on RDF Graphs" <https://arxiv.org/abs/1506.00743>`_.
+Template for these grammars is described on the :ref:`nested_parentheses` page.
+
+.. math::
+
+   S \, \rightarrow \, \overline{subClassOf} \, S \, subClassOf \, \mid \, \overline{subClassOf} \, subClassOf \, \\
+   S \, \rightarrow \, \overline{type} \, S \, type \, \mid \, \overline{type} \, type \, \\
+
+`Pyformlang CFG <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_:
+
+.. code-block:: python
+
+   S -> subClassOf_r S subClassOf | subClassOf_r subClassOf
+   S -> type_r S type | type_r type
+
+----
+
+.. math::
+
+   S \, \rightarrow \, \overline{subClassOf} \, S \, subClassOf \, \mid \, \overline{subClassOf} \, subClassOf \, \\
+
+`Pyformlang CFG <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_:
+
+.. code-block:: python
+
+   S -> subClassOf_r S subClassOf | subClassOf_r subClassOf
+
+----
+
+.. math::
+
+   S \, \rightarrow \, \overline{type} \, S \, type \, \mid \, \overline{type} \, type \, \\
+
+`Pyformlang CFG <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_:
+
+.. code-block:: python
+
+   S -> type_r S type | type_r type
+
+----
+
+.. math::
+
+   S \, \rightarrow \, broaderTransitive \, S \, \overline{broaderTransitive} \, \mid \, broaderTransitive \, \overline{broaderTransitive} \, \\
+
+`Pyformlang CFG <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_:
+
+.. code-block:: python
+
+   S -> broaderTransitive S broaderTransitive_r | broaderTransitive broaderTransitive_r
