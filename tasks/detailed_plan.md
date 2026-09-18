@@ -175,3 +175,28 @@ few graph pages (section gone).
 - Build must exit clean under the project's no-warnings configuration.
 - Grep the build log for `grammar_*.inc` (no unresolved includes) and for
   dangling refs.
+
+### S7: Mark task 41 done in the task log
+
+**Code:** n/a. Modify `tasks/tasks.md`, `tasks/detailed_plan.md`.
+**Tests:** n/a.
+**Docs:** n/a (task tracking files).
+
+**Spec:**
+- Prepend `[done]` to the Task 41 line in `tasks/tasks.md` (description
+  untouched).
+- Record the final status of all subtasks below.
+
+## Status
+
+- S1 c725178 — task log + this plan.
+- S2 52dd7fa — five .inc-based category pages gained "Canonical grammars".
+- S3 546db11 — c_alias_analysis, biological_uniprot, rdf (union of 4) gained
+  the section.
+- S4 1ee9f30 — 113 graph pages stripped, five .inc files deleted.
+- S5 07c9a4c — templates (Category field + three cases), add-graph skill,
+  graphs index note.
+- S6 — clean rebuild `uv run make -C docs clean html`: build succeeded under
+  `-W --keep-going`, zero warnings; all 8 category pages render the section
+  (anchor `canonical-grammars` present, rdf shows all four grammars incl.
+  broaderTransitive); 0 of 113 graph pages still carry it.
