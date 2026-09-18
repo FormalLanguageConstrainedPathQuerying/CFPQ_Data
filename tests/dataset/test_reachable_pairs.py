@@ -12,7 +12,42 @@ def test_total_count():
 
 def test_all_rows_have_keys():
     for row in reachable_pairs():
-        assert set(row.keys()) == {"graph", "grammar", "num_reachable_pairs"}
+        assert set(row.keys()) == {
+            "graph",
+            "grammar",
+            "category",
+            "num_reachable_pairs",
+        }
+
+
+CATEGORIES = {
+    "biological_uniprot": 10,
+    "c_alias_analysis": 20,
+    "context_sensitive_data_flow": 10,
+    "data_provenance": 18,
+    "field_sensitive_alias": 10,
+    "java_points_to": 21,
+    "name_resolution": 4,
+    "rdf": 62,
+}
+
+
+def test_categories_are_valid():
+    rows = reachable_pairs()
+    assert {r["category"] for r in rows} == set(CATEGORIES)
+
+
+def test_row_counts_per_category():
+    for category, count in CATEGORIES.items():
+        assert len(reachable_pairs(category=category)) == count
+
+
+def test_every_graph_has_one_category():
+    rows = reachable_pairs()
+    by_graph: dict[str, set[str]] = {}
+    for row in rows:
+        by_graph.setdefault(row["graph"], set()).add(row["category"])
+    assert all(len(cats) == 1 for cats in by_graph.values())
 
 
 def test_available_and_unavailable():
@@ -44,9 +79,22 @@ def test_filter_by_graph_and_grammar():
     assert rows[0]["num_reachable_pairs"] == 156
 
 
+def test_filter_by_category():
+    rows = reachable_pairs(category="rdf")
+    assert len(rows) == 62
+    assert all(r["category"] == "rdf" for r in rows)
+
+
+def test_filter_by_category_and_graph():
+    rows = reachable_pairs(graph="enzyme", category="rdf")
+    assert len(rows) == 4
+    assert reachable_pairs(graph="enzyme", category="c_alias_analysis") == []
+
+
 def test_no_match_returns_empty():
     assert reachable_pairs(graph="nonexistent") == []
     assert reachable_pairs(grammar="nonexistent.cnf") == []
+    assert reachable_pairs(category="nonexistent") == []
 
 
 def test_rdf_graph_has_multiple_grammars():

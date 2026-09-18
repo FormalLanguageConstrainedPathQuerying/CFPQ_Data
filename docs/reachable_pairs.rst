@@ -23,8 +23,8 @@ The full table is available as a CSV file:
 - **Package API**: ``from cfpq_data.dataset import reachable_pairs, REACHABLE_PAIRS_CSV``
 - **CSV file**: `reachable_pairs.csv <https://raw.githubusercontent.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/dev/cfpq_data/dataset/reachable_pairs.csv>`_
 
-Columns: ``graph``, ``grammar``, ``num_reachable_pairs`` (empty when not
-yet available).
+Columns: ``graph``, ``grammar``, ``category``, ``num_reachable_pairs``
+(empty when not yet available).
 
 Summary
 -------
