@@ -71,5 +71,3 @@ Edges Statistics
      - 5368
    * - wasAttributedTo_r
      - 5368
-
-.. include:: grammar_data_provenance.inc

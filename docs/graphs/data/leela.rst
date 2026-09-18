@@ -48,5 +48,3 @@ Edges Statistics
      - 3595
    * - :math:`ret_i`
      - 2069
-
-.. include:: grammar_cpu17_context_sensitive_data_flow.inc

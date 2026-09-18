@@ -67,19 +67,3 @@ Edges Statistics
      - 228018
    * - refers_to_r
      - 228018
-
-Grammar
-------------------
-
-The grammar file is attached to the archive.
-
-.. math::
-
-   S &\to Seq \quad IsAssociated \quad IsSimilar \\
-   Seq &\to IsSimilar \quad (codes\_for \quad IsSimilar)? \\
-   IsSimilar &\to \varepsilon \\
-             &\mid has \quad IsSimilar \quad has_{r} \\
-             &\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to_{r} \quad IsSimilar \\
-             &\mid belongs\_to \quad IsSimilar \quad belongs\_to_{r} \\
-             &\mid participate\_in \quad IsSimilar \quad participate\_in_{r} \\
-   IsAssociated &\to refers\_to \quad refers\_to_{r}

@@ -59,5 +59,3 @@ Edges Statistics
      - 2719
    * - :math:`\overline{\textit{store}_i}`
      - 2719
-
-.. include:: grammar_java_points_to.inc

@@ -53,5 +53,3 @@ Edges Statistics
      - 1094
    * - vpsh_i
      - 9660
-
-.. include:: grammar_name_resolution.inc

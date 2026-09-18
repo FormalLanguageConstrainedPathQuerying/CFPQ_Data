@@ -53,5 +53,3 @@ Edges Statistics
      - 1192
    * - :math:`fbar_i`
      - 1192
-
-.. include:: grammar_cpu17_field_sensitive_alias.inc
