@@ -244,3 +244,46 @@ self-describing. A generator script in ``utils/`` (following the pattern of
 ``utils/archive_sizes.py``) renders both the per-category tables and the
 count columns of the category pages from that CSV, so no count is
 hand-maintained in two places.
+
+Package structure
+-----------------
+
+The package is renamed from ``cfpq_data`` to ``flpq_data`` (PyPI
+distribution ``flpq-data``) at version 6.0.0, and the grammar module gains
+the same query-class level as the site::
+
+   flpq_data/
+   ├── config.py        version, data directories
+   ├── dataset/         download machinery, per-class registries, reachable pairs
+   ├── graphs/          unchanged — class-agnostic I/O (mtx/csv/rdf/txt), generators, utils
+   └── queries/         renamed from grammars/
+       ├── cfpq/        existing generators/, readwrite/{cfg,cnf,cnf_template}, converters/, utils/
+       ├── rpq/         readwrite/{regex,rsa} moved here; new regex-template generators
+       └── mcfpq/       new lark-based mcfg readwrite; generators
+
+Until the rename happens, the MCFG reader lands in
+``cfpq_data/grammars/readwrite/mcfg.py`` — the formalism-based module
+convention already used by ``regex.py`` and ``rsa.py`` — so no global
+rework is needed to start.
+
+API changes
+^^^^^^^^^^^
+
+- ``download(name)`` becomes ``download_graph(name)``;
+- ``download_grammars(template, graph_name=None)`` becomes
+  ``download_query(query_class, template, graph_name=None)``;
+- the old names stay in ``flpq_data`` as deprecated aliases (the latter
+  defaulting to the CFPQ class);
+- the registries are renamed accordingly: ``DATASET`` -> ``GRAPHS``, and
+  ``GRAMMAR_TEMPLATES`` becomes the per-class ``CFPQ_TEMPLATES`` /
+  ``RPQ_TEMPLATES`` / ``MCFPQ_TEMPLATES``;
+- ``reachable_pairs()`` gains the category field.
+
+Distribution
+^^^^^^^^^^^^
+
+The new PyPI project ``flpq-data`` carries version 6.0.0. The existing
+``cfpq-data`` distribution is published at 6.0.0 as a thin shim that
+depends on ``flpq-data`` and re-exports the old names with
+``DeprecationWarning``, so scripts importing ``cfpq_data`` keep working
+through one more release.
