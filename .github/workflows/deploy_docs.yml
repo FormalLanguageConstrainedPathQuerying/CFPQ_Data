@@ -20,10 +20,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # --frozen fails if uv.lock is out of sync with pyproject.toml;
-      # --all-groups installs the full environment so every check resolves
-      # imports from any dependency group (ty/pyright type-check tests/,
-      # docs/conf.py and utils/, which import pytest, sphinx and boto3).
+      # Why these flags: see "Development setup" in docs/developer.rst.
       - name: Install dependencies with uv
         run: uv sync --frozen --all-groups
 

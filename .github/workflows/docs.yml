@@ -16,22 +16,17 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # --frozen fails if uv.lock is out of sync with pyproject.toml;
-      # --all-groups installs the full environment so every check resolves
-      # imports from any dependency group (ty/pyright type-check tests/,
-      # docs/conf.py and utils/, which import pytest, sphinx and boto3).
+      # Why these flags: see "Development setup" in docs/developer.rst.
       - name: Install dependencies with uv
         run: uv sync --frozen --all-groups
 
       - name: Show installed packages
         run: uv tree
 
-      # No-warnings policy: the build runs with -W --keep-going (see
-      # docs/Makefile), so any warning — including an unresolved
-      # cross-reference under nitpicky — exits non-zero on its own.
+      # No-warnings policy: see "Docs build and deploy" in docs/developer.rst.
       - name: Build
         run: uv run make -C docs/ html
 
-      # The linkcheck builder exits non-zero on broken or timed-out links.
+      # Link check policy: see "Docs build and deploy" in docs/developer.rst.
       - name: Check links
         run: uv run sphinx-build -b linkcheck docs docs/_build/linkcheck

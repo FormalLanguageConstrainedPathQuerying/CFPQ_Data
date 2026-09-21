@@ -16,19 +16,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # --frozen fails if uv.lock is out of sync with pyproject.toml;
-      # --all-groups installs the full environment so every check resolves
-      # imports from any dependency group (ty/pyright type-check tests/,
-      # docs/conf.py and utils/, which import pytest, sphinx and boto3).
+      # Why these flags: see "Development setup" in docs/developer.rst.
       - name: Install dependencies with uv
         run: uv sync --frozen --all-groups
 
       - name: Show installed packages
         run: uv tree
 
-      # The gate enforces line and branch coverage separately (each >= 95%):
-      # the combined --cov-fail-under cannot do that, so the check reads the
-      # JSON report. term-missing keeps the uncovered lines in the CI log.
+      # Per-metric gate rationale: see "Test pipeline" in docs/developer.rst.
+      # term-missing keeps the uncovered lines in the CI log.
       - name: Test CFPQ_Data with coverage (line and branch >= 95%)
         run: uv run pytest --cov=cfpq_data --cov-report=term-missing --cov-report=json && uv run python utils/check_coverage.py
 
