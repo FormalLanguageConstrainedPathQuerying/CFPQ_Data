@@ -130,9 +130,10 @@ Lexical conventions
   dataset.
 - **Terminals** — edge labels verbatim (``0``, ``#``, ``subClassOf``,
   ``load_5``).
-- **Variables** — ``x`` followed by one or more digits (``x1``, ``x2``,
-  ...), mirroring the :math:`x^i` notation of the literature. A terminal
-  must never match this pattern; the reader rejects such grammars.
+- **Variables** — a lowercase letter followed by one or more digits
+  (``x1``, ``y2``, ...), mirroring the :math:`x^i`, :math:`y^j` notation of
+  the literature. A terminal must never match this pattern; the reader
+  rejects such grammars.
 - **Empty string** — the token ``eps``.
 - **Arrow** — ``<-`` between the head and the body of a production rule.
 

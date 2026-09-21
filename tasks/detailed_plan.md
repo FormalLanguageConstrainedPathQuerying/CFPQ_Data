@@ -62,6 +62,16 @@ Design decisions (implementation-level; the format itself is fixed by
    `TERMINAL: /[^ \t\r\n#(),<>-]+/` (structural characters cannot appear in
    terminals — inherent to the chosen syntax). Whitespace is ignored via
    `%ignore /[ \t\r\n]/`; comments are explicit grammar tokens.
+2a. **Variable pattern correction** — `docs/flpq.rst` says variables are "``x``
+   followed by one or more digits", but its own literature example uses
+   ``y1``/``y2`` as body variables (`S(x1 y1 # y2 x2) <- A(x1, x2),
+   A(y1, y2)`), which is unparseable under the strict `x\d+` pattern. The
+   pattern is implemented as **one lowercase letter followed by one or more
+   digits** (`[a-z][0-9]+`) — exactly the literature's `x^i`, `y^j`
+   notation — and the spec line in `docs/flpq.rst` is corrected to match.
+   No dataset label collides: the terminal vocabularies are `0`/`1`/`#`,
+   `a`/`a_r`/`d`/`d_r`, `load_*`/`store_*`, `subClassOf`-style words — none
+   matches `[a-z][0-9]+`.
 3. **Validation** (semantic, on the parsed model; syntax errors are lark's):
    - arity consistency across every occurrence of a nonterminal;
    - body variables pairwise distinct per rule;
@@ -102,25 +112,28 @@ renumbered to 46-50, dependencies updated).
 
 **Code:** new `cfpq_data/grammars/readwrite/mcfg.py`: the `MCFGRule` and
 `MCFG` frozen dataclasses (decision 1), the lark EBNF grammar as a module
-constant (decision 2), and `mcfg_from_text(text: str) -> MCFG` parsing to
-the model. `__all__ = ["MCFG", "MCFGRule", "mcfg_from_text"]` for now.
+constant (decisions 2/2a), and `mcfg_from_text(text: str) -> MCFG` parsing
+to the model. `__all__ = ["MCFG", "MCFGRule", "mcfg_from_text"]`.
+`cfpq_data/grammars/readwrite/__init__.py` gains the `mcfg` re-export in
+alphabetical position (the module is part of the package from birth, so
+doctests can use `from cfpq_data import *` immediately).
 **Tests:** new `tests/grammars/readwrite/test_mcfg_readwrite.py`: both
 literature examples from `docs/flpq.rst` parse into the expected models
 (rule count, head/args/body structure, start symbol default); comments and
-blank lines are ignored; a `#` terminal inside arguments parses; malformed
-syntax (missing arrow, unbalanced parens, lowercase "nonterminal" head,
-dangling comma) raises lark's `UnexpectedInput`.
+blank lines are ignored; a `#` terminal inside arguments parses; `y1`-style
+variables parse (decision 2a); malformed syntax (missing arrow, unbalanced
+parens, lowercase "nonterminal" head, dangling comma) raises lark's
+`UnexpectedInput`.
 **Docs:** numpydoc docstrings with `Examples` for the public names (the
-paper's 2-MCFG(2) example); no reference page yet (S5).
+paper's 2-MCFG(2) example); `docs/flpq.rst` variable line corrected per
+decision 2a; no reference page yet (S5).
 
 **Spec:**
 - The grammar constant is the executable documentation of the syntax
-  (decision 2); it accepts exactly the spec's lexical conventions.
+  (decisions 2/2a); it accepts exactly the spec's lexical conventions.
 - `mcfg_from_text` performs NO semantic validation in this subtask — a
   syntactically valid but semantically broken rule set parses fine (S3
   adds the checks). Tests assert that explicitly.
-- The module is not exported from any `__init__.py` yet (S5) — tests import
-  it directly by path, like the other readwrite tests do via the package.
 
 ### S3: Semantic validation, start symbol, dimension and rank
 
@@ -163,11 +176,10 @@ docstrings use the paper's examples end to end.
 - `mcfg_to_txt` returns the resolved `pathlib.Path` (pattern of
   `regex_to_txt`).
 
-### S5: Exports and reference docs page
+### S5: Reference docs page
 
-**Code:** `cfpq_data/grammars/readwrite/__init__.py` — add
-`from cfpq_data.grammars.readwrite.mcfg import *` in alphabetical position.
-**Tests:** the full suite green, including the new doctests discovered via
+**Code:** none (the module was exported from S2).
+**Tests:** the full suite green, including all mcfg doctests discovered via
 `--doctest-modules`; `from cfpq_data import *` exposes `MCFG`, `MCFGRule`,
 and the four functions (asserted in a test).
 **Docs:** `docs/reference/grammars/grammars_readwrite.rst` — add `mcfg` to
