@@ -19,12 +19,29 @@ Just create a PR (Pull Request) corresponding to the `"Template for adding a new
 File structure
 --------------
 
-A graph is distributed as an archive ``<name>.tar.gz`` that unpacks to a
-directory named after the graph:
+A graph is distributed as a self-contained archive ``<name>.tar.gz`` that
+unpacks to a directory named after the graph. Every archive has the same
+fixed structure::
 
-- ``README.md`` — the description of the graph and of its files;
-- ``grammar/`` — the grammars for this graph in the cnf format (if any);
-- ``graph/`` — one MatrixMarket file per edge label.
+   <name>/
+   ├── README.md              description of the graph and of its files
+   ├── graph/                 one MatrixMarket file per stored edge label
+   │   └── <label>.mtx
+   └── queries/               all queries for this graph, one file each
+       ├── README.md          describes every query file
+       ├── cfpq/              .cnf files (pyformlang CFG format)
+       ├── rpq/               .re files (regular expression text)
+       └── mcfpq/             .mcfg files (Datalog-like MCFG syntax)
+
+- ``README.md`` answers the mandatory questions of the contribution
+  templates — the templates are the source of truth for the fields, as with
+  the statistics conventions.
+- ``graph/`` is never empty; ``queries/`` always carries the three class
+  directories (possibly empty) and its ``README.md``.
+- ``queries/README.md`` has one ``## <class>/<file>`` section per query file
+  (path relative to ``queries/``), each with a non-empty description.
+- A query may only use labels of its own graph: every terminal it uses is a
+  stored label or the reverse of one (see "Reversed edges" below).
 
 The pre-migration graphs on the :ref:`old_graphs` page use the old CSV
 format instead.
