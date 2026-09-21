@@ -1,205 +1,180 @@
-# Detailed Plan: Task 43 — Refactor the reachable-pairs representation on the site
+# Detailed Plan: Task 44 — MCFG readwrite module with lark
 
-Task (user's words, recorded in `tasks/tasks.md`): "One big flat table for
-reachable pairs on the site looks ugly. One table may be usefulf to donload
-for automatic processing, but it may be better to slit rendering on the sute
-to several tables. Eg. per category."
+Task (recorded in `tasks/tasks.md`): "MCFG readwrite module with lark:
+`cfpq_data/grammars/readwrite/mcfg.py` (data model, EBNF grammar, validation
+per the spec in `docs/flpq.rst`, `mcfg_from_text/to_text/from_txt/to_txt`),
+doctests with the paper's examples, reference docs page."
 
-Scope (per `docs/flpq.rst` "Reachable pair counts" and `tasks/global_plan.md`):
-- `docs/reachable_pairs.rst`: the flat ~155-row table is removed; the page
-  renders one small table per graph category (columns Graph | Grammar |
-  Reachable pairs).
-- The flat CSV stays the single source of truth for automatic processing and
-  gains a `category` column so it is self-describing.
-- A generator script in `utils/` (pattern of `utils/archive_sizes.py`) keeps
-  both the per-category tables and the category-page count columns in sync
-  with the CSV, so no count is hand-maintained in two places.
+Scope (per `docs/flpq.rst` "MCFG grammar format (.mcfg)" and
+`tasks/global_plan.md`): a new formalism-based readwrite module for the
+`.mcfg` Datalog-like syntax. The format spec — lexical conventions, rule
+forms, validation constraints, and the two literature examples — lives in
+`docs/flpq.rst`; this plan does not re-describe it, only the implementation
+decisions below.
 
-Verified facts this plan builds on (checked against the repo, 2026-09-18):
-- The CSV has 155 rows / 113 unique graphs; 4 values are empty (libgdx,
-  unigraph_8/9/10).
-- The graph -> category mapping is NOT in the package (`DATASET` is a flat
-  list); it lives in the site: each `docs/graphs/<category>.rst` toctree
-  lists its `data/<page>` pages, and the archive name in each data page's
-  Yandex download URL equals the CSV graph name exactly (all 113 verified;
-  page titles are NOT reliable — `xz_field_sensitive_alias.rst` is titled
-  "xz"). Category order = the toctree of `docs/graphs/index.rst`:
-  c_alias_analysis, rdf, java_points_to, field_sensitive_alias,
-  context_sensitive_data_flow, data_provenance, name_resolution,
-  biological_uniprot. Row counts per category: 20/62/21/10/10/18/4/10 = 155.
-- Category-page count columns (header -> CSV grammar file):
-  c_alias_analysis: `c_alias` -> c_alias.cnf; rdf: `subClassOf` ->
-  nested_parentheses_subClassOf.cnf, `subClassOf_type` ->
-  nested_parentheses_subClassOf_type.cnf, `type` ->
-  nested_parentheses_type.cnf, `broaderTransitive` ->
-  nested_parentheses_broaderTransitive.cnf; java_points_to: `java_points_to`
-  -> java_points_to.cnf; field_sensitive_alias: `aa` -> aa.cnf;
-  context_sensitive_data_flow: `vf` -> vf.cnf; data_provenance:
-  `prov_derivation` -> prov_derivation.cnf; name_resolution:
-  `name_resolution` -> name_resolution.cnf; biological_uniprot: `grammar` ->
-  per-graph `<graph>.cnf` (unigraph_1.cnf ... unigraph_10.cnf).
-- Cell semantics on category pages (per docs/graphs/index.rst "Contents"):
-  a number = the count; "not available" = in the CSV but not computed yet;
-  empty cell = the grammar does not apply to that graph.
-- `tests/utils/conftest.py` puts `utils/` on sys.path, so tests import the
-  script's modules directly (pattern of `test_archive_sizes.py`).
+Verified facts this plan builds on (checked against the repo, 2026-09-21):
+- `lark` is NOT a dependency yet; it must be added to `[project]
+  dependencies` in `pyproject.toml` (runtime dependency of the reader) via
+  `uv add lark`, which also updates `uv.lock`.
+- No pyformlang type exists for MCFGs (verified in task 42), so the data
+  model is defined in `mcfg.py` itself.
+- Module conventions (from `regex.py`/`cnf.py`): module docstring "Read (and
+  write) a ... from (and to) different sources."; `__all__`; numpydoc
+  docstrings with Parameters/Examples/Returns/References (Examples run as
+  doctests via `--doctest-modules`); `logging.info` per public function;
+  file paths typed `Union[pathlib.Path, str]`; doctests import via
+  `from cfpq_data import *`.
+- Invalid input raises `ValueError` with a descriptive f-string (pattern of
+  `cnf_template.py`). Syntax errors surface as lark's `UnexpectedInput`.
+- Exports: `cfpq_data/grammars/readwrite/__init__.py` re-exports each module
+  via `from ... import *` in alphabetical order (cfg, cnf, cnf_template,
+  regex, rsa) — `mcfg` slots between `cnf_template` and `regex`. The top
+  level (`cfpq_data/__init__.py`) already re-exports the whole chain.
+- Tests mirror the package: `tests/grammars/readwrite/test_mcfg_readwrite.py`
+  (siblings: test_cfg/cnf/cnf_template/regex/rsa).
+- Docs: `docs/reference/grammars/grammars_readwrite.rst` lists the modules
+  in an autosummary toctree; the per-module stubs under
+  `docs/reference/grammars/generated/` are produced by
+  `autosummary_generate = True` at build time and committed (pattern of
+  `cfpq_data.grammars.readwrite.regex.rst`).
 
-### S1: Add the category column to the CSV and the API
+Design decisions (implementation-level; the format itself is fixed by
+`docs/flpq.rst`):
 
-**Code:** `cfpq_data/dataset/reachable_pairs.csv` — new column order
-`graph,grammar,category,num_reachable_pairs`, all 155 rows filled with the
-category derived from the site mapping above. `cfpq_data/dataset/
-reachable_pairs.py` — each returned row gains the `category` key; a new
-optional `category` filter parameter (exact match, like the existing ones);
-docstring updated.
-**Tests:** update `tests/dataset/test_reachable_pairs.py`: row keys are now
-{graph, grammar, category, num_reachable_pairs}; every category is one of
-the eight known stems; each graph maps to exactly one category across its
-rows; per-category row counts (20/62/21/10/10/18/4/10); `category=` filter
-works and composes with the other filters.
-**Docs:** update the "Columns:" line of `docs/reachable_pairs.rst` to list
-the new column.
+1. **Data model** — two frozen dataclasses in `mcfg.py`:
+   - `MCFGRule`: `head: str` (nonterminal), `head_args: tuple[tuple[str,
+     ...], ...]` (each argument is a sequence of tokens — terminals,
+     variables, or the literal `"eps"`), `body: tuple[tuple[str,
+     tuple[str, ...]], ...]` (atoms; empty for basic rules). A *basic rule*
+     is a production with an empty body — one representation, no separate
+     class.
+   - `MCFG`: `rules: tuple[MCFGRule, ...]`, `start_symbol: str`; properties
+     `dimension` (max nonterminal arity) and `rank` (max number of body
+     atoms) computed from the rules (the file carries no header).
+2. **Parser** — lark with `parser="lalr"`. The LALR contextual lexer makes
+   `#` context-sensitive without preprocessing: a `COMMENT` token
+   (`/#[^\n]*/`) is only valid between rules (top level), while inside
+   argument lists `#` matches the catch-all `TERMINAL` token — required by
+   the spec's example `S(x1 y1 # y2 x2)`. Token priorities break the other
+   ambiguities: `EPS`/`VARIABLE`/`NONTERMINAL` outrank `TERMINAL`, so
+   `eps`, `x1`, and uppercase identifiers never lex as terminals.
+   `NONTERMINAL: /[A-Z]\w*/`, `VARIABLE: /x[0-9]+/`, `EPS: /eps/`,
+   `TERMINAL: /[^ \t\r\n#(),<>-]+/` (structural characters cannot appear in
+   terminals — inherent to the chosen syntax). Whitespace is ignored via
+   `%ignore /[ \t\r\n]/`; comments are explicit grammar tokens.
+3. **Validation** (semantic, on the parsed model; syntax errors are lark's):
+   - arity consistency across every occurrence of a nonterminal;
+   - body variables pairwise distinct per rule;
+   - no dangling variables in both directions: the set of head-template
+     variables equals the set of body variables, and each appears exactly
+     once across the head templates (the strict form every published
+     example satisfies);
+   - `eps` only in basic rules (empty body) — production templates mix
+     terminals and variables, and `eps` is neither;
+   - a "terminal" matching `x\d+` can never be one: it lexes as a variable,
+     so such a label is rejected wherever a variable is not allowed (basic
+     rules) or leaves the rule dangling-variable-inconsistent;
+   - the start symbol (default `"S"`, overridable via keyword parameter like
+     the `cnf`/`cfg`/`rsa` readers) must occur in the grammar with arity 1.
+   All violations raise `ValueError` naming the offending rule/symbol.
+4. **Canonical rendering** (`mcfg_to_text`): one rule per line, basic rules
+   as `A(eps, eps)`, productions as `S(x1 y1 # y2 x2) <- A(x1, x2),
+   A(y1, y2)`; argument tokens space-joined, empty argument list rendered
+   `()`. Round-trip: `mcfg_to_text(mcfg_from_text(t))` reproduces `t` up to
+   whitespace/comment normalization.
 
-**Spec:**
-- Category values are the category page stems (e.g. `rdf`,
-  `c_alias_analysis`) — the same identifiers the generator and the docs use.
-- The CSV keeps one row per (graph, grammar) pair; sorting stays by graph
-  then grammar (the current order).
-- `reachable_pairs()` keeps its signature backward-compatible: the new
-  parameter is optional with default None.
+### S1: Record the task and add the lark dependency
 
-### S2: Add the utils/reachable_pairs_tables.py generator
-
-**Code:** new file `utils/reachable_pairs_tables.py` following the structure
-of `utils/archive_sizes.py` (module docstring with usage, `__all__`, data
-classes where useful, numpydoc docstrings with Examples, check mode default
-+ `--update`, exit code 0/1):
-- `category_order(docs_dir)` — the ordered category stems from the toctree
-  of `docs/graphs/index.rst`.
-- `graph_to_category(docs_dir) -> dict[str, str]` — for each category page:
-  parse its toctree (`data/<page>` entries), read the data page, take the
-  archive name from the Yandex download URL (regex on
-  `https://cfpq-data.storage.yandexcloud.net/<ver>/graph/<name>.tar.gz`);
-  raise on a missing link or a graph appearing in two categories.
-- `load_rows(csv_path) -> list[dict]` — the CSV rows with
-  `num_reachable_pairs` as int or None.
-- `render_tables_region(rows, docs_dir) -> str` — the RST between the
-  markers: one section per category (in `category_order`, title = the
-  category page's title line, `-` underline), each a list-table with header
-  Graph | Grammar | Reachable pairs and that category's rows sorted by
-  (graph, grammar); None renders as "not available".
-- `update_reachable_pairs_page(text, region) -> tuple[str, int]` — replace
-  the content between the marker lines `.. reachable-pairs-tables:begin` and
-  `.. reachable-pairs-tables:end` (RST comments, invisible in the build);
-  return (new_text, changed).
-- `GRAMMAR_COLUMNS: dict[str, list[tuple[str, str | None]]]` — per category,
-  the ordered (column header, grammar file) pairs; None means the per-graph
-  `<graph>.cnf` (biological_uniprot's `grammar` column).
-- `update_category_columns(text, rows, page_to_graph) -> tuple[str, int]` —
-  for the category table in a single category page: for each row (matched by
-  the `:ref:`<page>` cell via `page_to_graph`) and each count column, set
-  the cell to the CSV value, "not available" when the row exists with no
-  value, or empty (bare `-` line) when the grammar does not apply; lines
-  that need no change keep their exact text.
-- `main(argv)` — check mode: verify the reachable-pairs region equals the
-  rendered one and every category-page count cell matches the CSV, reporting
-  problems with file:line and exiting 1 on any; `--update`: rewrite both.
-
-**Tests:** new `tests/utils/test_reachable_pairs_tables.py` (imports the
-module directly, like `test_archive_sizes.py`):
-- `graph_to_category` on a synthetic mini docs tree in tmp_path (two
-  categories, archive-name extraction, duplicate-graph error).
-- `render_tables_region`: section order/titles, row order, "not available"
-  rendering.
-- `update_reachable_pairs_page`: replaces the region, is idempotent (second
-  run reports no change), errors clearly when the markers are missing.
-- `update_category_columns`: number / "not available" / empty-cell
-  semantics, row matching by page ref, unchanged lines keep exact text.
-- Integration: running `main()` in check mode on the real repo exits 0
-  (after S3 has generated the content; until then this test is added with
-  the expectation set in S3 — see S3 spec).
+**Code:** `pyproject.toml` + `uv.lock` via `uv add lark` (runtime
+dependency). No package code yet.
+**Tests:** none new — the existing suite must stay green under `uv sync`
+with the new lock; `uv run python -c "import lark"` resolves.
+**Docs:** `tasks/tasks.md` (task 44 recorded with user guidance),
+`tasks/global_plan.md` (coverage task added as task 45, tasks 45-49
+renumbered to 46-50, dependencies updated).
 
 **Spec:**
-- The script reads the CSV from
-  `MAIN_FOLDER / "cfpq_data" / "dataset" / "reachable_pairs.csv"` (no
-  package import, consistent with the other utils scripts) and the docs from
-  `MAIN_FOLDER / "docs"`.
-- No network access: everything is local files.
-- Idempotent by construction: check mode after --update must report zero
-  problems.
+- `lark` lands in `[project] dependencies` (not a dev/test group — the
+  reader imports it at runtime), version-pinned like the other dependencies.
+- `uv.lock` regenerated; `uv sync --frozen` passes (the CI check).
 
-### S3: Restructure docs/reachable_pairs.rst and sync the category pages
+### S2: Data model, lark EBNF grammar, and syntax-level parsing
 
-**Code:** none (docs + generated content).
-**Tests:** docs build warning-free; `python utils/reachable_pairs_tables.py`
-(check mode) exits 0; pytest green (the S2 integration test now passes).
-**Docs:** rewrite `docs/reachable_pairs.rst`: keep the title, intro (add one
-sentence: the sections follow the graph categories of the Graphs catalog),
-note, and Download section (Columns line updated in S1); replace the flat
-"Summary" table with the marker region; run
-`python utils/reachable_pairs_tables.py --update` to generate the region and
-sync every category-page count column; commit whatever the generator
-changed.
+**Code:** new `cfpq_data/grammars/readwrite/mcfg.py`: the `MCFGRule` and
+`MCFG` frozen dataclasses (decision 1), the lark EBNF grammar as a module
+constant (decision 2), and `mcfg_from_text(text: str) -> MCFG` parsing to
+the model. `__all__ = ["MCFG", "MCFGRule", "mcfg_from_text"]` for now.
+**Tests:** new `tests/grammars/readwrite/test_mcfg_readwrite.py`: both
+literature examples from `docs/flpq.rst` parse into the expected models
+(rule count, head/args/body structure, start symbol default); comments and
+blank lines are ignored; a `#` terminal inside arguments parses; malformed
+syntax (missing arrow, unbalanced parens, lowercase "nonterminal" head,
+dangling comma) raises lark's `UnexpectedInput`.
+**Docs:** numpydoc docstrings with `Examples` for the public names (the
+paper's 2-MCFG(2) example); no reference page yet (S5).
 
 **Spec:**
-- The generated region holds exactly eight sections in `category_order`;
-  nothing between the markers is hand-edited (the generator owns it).
-- If the generator finds drifted count cells on category pages, fix them via
-  --update and include them in this commit (expected: none — the tables were
-  kept in sync manually so far; any drift found is a finding to report).
+- The grammar constant is the executable documentation of the syntax
+  (decision 2); it accepts exactly the spec's lexical conventions.
+- `mcfg_from_text` performs NO semantic validation in this subtask — a
+  syntactically valid but semantically broken rule set parses fine (S3
+  adds the checks). Tests assert that explicitly.
+- The module is not exported from any `__init__.py` yet (S5) — tests import
+  it directly by path, like the other readwrite tests do via the package.
 
-### S4: Document the tool in docs/utils.rst
+### S3: Semantic validation, start symbol, dimension and rank
 
-**Code:** none.
-**Tests:** docs build warning-free.
-**Docs:** new "Reachable pair counts" section in `docs/utils.rst` (label
-`reachable_pairs_tables`, placed after the Archive sizes section), in the
-same style as the other tool sections: what it keeps in sync (the
-per-category tables of `docs/reachable_pairs.rst` and the count columns of
-the eight category pages, from
-`cfpq_data/dataset/reachable_pairs.csv`), check/`--update` behavior, the
-cell semantics (number / "not available" / empty), and the workflow: after
-computing a new count, add the CSV row and run `--update`.
-
-**Spec:**
-- Cross-reference :ref:`reachable_pairs` from the new section.
-- No other doc changes: the category pages' "Contents" explanation in
-  `docs/graphs/index.rst` already describes the cell semantics correctly.
-
-### S5: Make the docs link check terminate under a persistent Wikipedia block
-
-Added during the quality gate (2026-09-18): the task-42 retry burst in
-`docs/conf.py` is not enough — the Wikipedia block on this IP persisted past
-~2 minutes and escalated from 403 to 429 + Retry-After, so sphinx either
-failed the build or re-queued a link forever (a valid Retry-After bypasses
-the `linkcheck_rate_limit_timeout` cap).
-
-**Code:** `docs/conf.py` — in `_session_request_with_retries`, a Wikipedia
-rate-limit response (403 or 429) that survives the fast retries is
-normalised to 429 + Retry-After: 60 so sphinx's native rate-limit machinery
-re-queues the link at one-minute spacing; the re-queueing is bounded per
-host (`_MAX_RATE_LIMIT_ROUNDS = 10`, the limit is per IP, not per URL) —
-over budget the raw response is handed back and sphinx reports broken. The
-budget is never reset within a run: an early version reset it on any
-successful Wikipedia response, and under a flapping block (intermittent
-200s amid persistent 403s) that renewed the full budget for every URL — a
-real run logged 10 rate-limit rounds for one URL, a success, then another
-10 for the next, and was still running at 30 minutes. Also sets
-`linkcheck_rate_limit_timeout = 120` so non-Wikipedia hosts answering 429
-without Retry-After (owl-ontologies.com under load) get two capped back-off
-rounds instead of failing at the first attempt (the default of 30 is below
-sphinx's initial 60-second delay).
-
-**Tests:** no committed unit tests — `docs/conf.py` is a Sphinx config, not
-an importable module (importing it monkey-patches `requests` and mutates
-`PYTHONPATH`, which would leak into the pytest process); the logic was
-verified ad hoc (shared per-host budget across URLs, pinned over budget,
-non-Wikipedia responses untouched) and by real linkcheck runs: with the
-block lifted the run passes (265 links ok), and under an active block the
-no-reset version must terminate in ~15 minutes with a bounded, explainable
-failure (the reset version ran past 30 minutes).
+**Code:** extend `mcfg.py`: validation pass (decision 3) invoked by
+`mcfg_from_text`, now with signature `mcfg_from_text(text: str, *,
+start_symbol: str = "S") -> MCFG`; `MCFG.dimension` / `MCFG.rank`
+properties; `logging.info` reporting the created grammar with its
+dimension/rank (pattern of the other readers).
+**Tests:** extend `test_mcfg_readwrite.py`: each constraint violated in
+turn raises `ValueError` with a message naming the offender — arity
+mismatch, duplicate body variable, body variable missing from the head,
+head variable missing from the body, a body variable twice in the head,
+`eps` in a production template, start symbol absent, start symbol of
+wrong arity, custom `start_symbol=` accepted; both literature examples
+report dimension/rank (2-MCFG(2): d=2, r=2; the dimension-1 example:
+d=1, r=2).
+**Docs:** docstrings updated for the new parameter and properties.
 
 **Spec:**
-- The check always terminates: worst case 10 rate-limit rounds (one minute
-  each) plus one capped back-off round, then broken links are reported.
-- While the block is lifted the run passes normally (verified: 265 links ok).
+- Validation runs after parsing, before the `MCFG` is constructed; on
+  failure nothing but the `ValueError` escapes.
+- `dimension`/`rank` are computed from the rules (no stored header), per
+  the spec: d = max nonterminal arity, r = max number of body atoms.
+
+### S4: Writers — to_text / from_txt / to_txt and round-trips
+
+**Code:** extend `mcfg.py`: `mcfg_to_text(mcfg: MCFG) -> str` (canonical
+rendering, decision 4), `mcfg_from_txt(path, *, start_symbol="S") -> MCFG`,
+`mcfg_to_txt(mcfg, path) -> pathlib.Path`; `__all__` completed.
+**Tests:** extend `test_mcfg_readwrite.py`: round-trip
+`mcfg_to_text(mcfg_from_text(t)) == t` for both literature examples (and a
+grammar exercising `()`, multi-token arguments, and `#`); `from_txt`/
+`to_txt` via `tmp_path` (pattern of the regex tests); doctests in the
+docstrings use the paper's examples end to end.
+**Docs:** docstrings with `Examples` for all four public functions.
+
+**Spec:**
+- The rendering is canonical: the same model always produces the same text,
+  so round-trips are stable and diffs are meaningful.
+- `mcfg_to_txt` returns the resolved `pathlib.Path` (pattern of
+  `regex_to_txt`).
+
+### S5: Exports and reference docs page
+
+**Code:** `cfpq_data/grammars/readwrite/__init__.py` — add
+`from cfpq_data.grammars.readwrite.mcfg import *` in alphabetical position.
+**Tests:** the full suite green, including the new doctests discovered via
+`--doctest-modules`; `from cfpq_data import *` exposes `MCFG`, `MCFGRule`,
+and the four functions (asserted in a test).
+**Docs:** `docs/reference/grammars/grammars_readwrite.rst` — add `mcfg` to
+the autosummary list; run the docs build so
+`docs/reference/grammars/generated/cfpq_data.grammars.readwrite.mcfg.rst`
+is generated and committed (pattern of the sibling stubs).
+
+**Spec:**
+- The docs build passes under `-W --keep-going` with zero warnings
+  (nitpicky: every cross-reference in the new docstrings resolves).
