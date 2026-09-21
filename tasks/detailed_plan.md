@@ -1,151 +1,191 @@
-# Detailed Plan: Task 51 — CI as source of truth for commands
+# Detailed Plan: Task 52 — Self-contained archive structure + validation
 
-Task (user's words, recorded in `tasks/tasks.md`): "First, analyze whether
-it is possible to replace some parts of developer docs and skills with refs
-to CI workwlow description. I think, CI must be source of thruth for some
-commands and knolage."
+Task (user's words, recorded in `tasks/tasks.md`): "Second, let carefully
+design archive structure and tool to check this structure. All archives must
+have sidentical structure and be self-contained. Each archive: graph as a set
+of MTX, description document (let design madatory cestions), all grammars
+(qeryes) in separated files with descriptions (in common document). Structure
+validation step must be added to upload workflow. Rework FLPQ design document
+with respect to this."
 
-Scope: analyze which developer-doc/skill content duplicates the CI
-workflows, record the decision as a documented rule, apply it — command
-blocks become references to the workflow file + step name — and remove the
-duplicated knowledge from the CI comments (pointers instead).
+User guidance (recorded verbatim): "Do not forget to reflrct structure of
+archive in documnet and templates for PR and issue."
+
+Scope decisions (confirmed with the user during planning):
+- Graph archives only — benchmark data is out of scope (task 53).
+- Example/template queries not tied to a graph are dropped: every query file
+  lives inside a graph archive.
+- Validation lives in the upload tool: `utils/upload_to_s3.py` validates
+  before uploading, plus an audit mode over the bucket.
 
 Verified facts this plan builds on (checked against the repo, 2026-09-21):
-- Six non-trivial commands are restated in docs while CI runs them verbatim:
-  - pre-commit full pass — `docs/developer.rst` "Quality checks" and the
-    "Run pre-commit" step of `.github/workflows/lint.yml`;
-  - canonical test command (pytest + coverage check) — `docs/developer.rst`
-    "Test pipeline" and the "Test CFPQ_Data with coverage (line and branch
-    >= 95%)" step of `.github/workflows/coverage.yml` (CI adds
-    `--cov-report=term-missing`, so local and CI statements already differ);
-  - docs build — `docs/README.md` and the "Build" steps of
-    `.github/workflows/docs.yml` / `deploy_docs.yml`;
-  - link check — `docs/README.md` and the "Check links" step of
-    `.github/workflows/docs.yml`.
-- Local-only commands (no CI counterpart, stay in docs): `uv sync
-  --all-groups`, `uv run pre-commit install`, single-module pytest,
-  `uv sync --only-group docs`, individual tool runs (`uv run ruff check .`
-  etc.), the single-hook `pre-commit run check-version-sync` in the release
-  skill.
-- The same 3-line comment explaining `--frozen`/`--all-groups` is
-  copy-pasted into five workflows (coverage, deploy_docs, docs, lint,
-  tests); `publish.yml` has no sync step. Two more policy comments in
-  `docs.yml` (no-warnings, linkcheck exit code) and one in `coverage.yml`
-  (per-metric gate rationale) restate policies that `docs/developer.rst`
-  already documents.
-- The skills (`run-tests`, `code-style`, `build-docs`, `quality-gates`) are
-  thin pointers to `docs/developer.rst` sections; none restates a command
-  block, but their "exact commands ... the single source of truth" phrasing
-  must follow the new model.
-- The docs already reference workflow files with `:file:` roles, so
-  references are an established pattern.
+- Current layout (`docs/graphs/index.rst` "File structure", the source of
+  truth): `<name>.tar.gz` unpacks to `<name>/{README.md, grammar/, graph/}`;
+  `graph/` holds one Boolean MatrixMarket pattern file per stored edge label.
+- Grammars use reversed labels (`d_r`, `a_r`, `subClassOf_r` in the
+  canonical grammars of `docs/graphs/c_alias_analysis.rst` and
+  `docs/graphs/rdf.rst`); reversed edges are derived, not stored.
+- Query formats and readers already exist: `.cnf` via
+  `cnf_from_text` (pyformlang CFG; terminals via `cfg.terminals`), regex text
+  via `regex_from_text` (pyformlang `Regex`; symbols via
+  `to_epsilon_nfa().symbols`, multi-character tokens stay single symbols —
+  matching dataset labels like `subClassOf`), `.mcfg` via `mcfg_from_text`
+  (task 44; terminals are the non-`eps`, non-variable items of
+  `MCFGRule.head_args`). No RPQ file extension exists yet — this plan
+  introduces `.re`.
+- `graph_from_mtx_dir` raises `ValueError` on a bad header or an nnz/count
+  mismatch — reusable for MTX validation.
+- `utils/` scripts import `cfpq_data` (pattern of `audit_archive_names.py`,
+  `convert_old_to_new.py`); `tests/utils/test_upload_to_s3.py` mocks the S3
+  client with `mock.Mock()` and `monkeypatch` — the pattern for the audit
+  tests.
+- The required fields/metadata live in the GitHub templates (add-graph skill
+  convention): `.github/PULL_REQUEST_TEMPLATE/new_graph.md` and
+  `.github/ISSUE_TEMPLATE/graph-add-template.md` share one body (Info, Data
+  format, Graph Statistics, Edges Statistics, Canonical grammars); both
+  restate the old layout inline.
+- `utils/upload_to_s3.py` uploads arbitrary files; today nothing validates
+  archive content before upload.
 
-Decision (recorded in the docs by S2):
+Design (the new identical, self-contained graph-archive structure):
 
-1. For every command CI runs verbatim, the CI workflow is the source of
-   truth: docs and skills reference the workflow file + step name instead
-   of restating the command, so a command changes in exactly one place.
-2. Granularity: commands with non-trivial arguments (flags, paths,
-   multi-part pipelines) become references; bare tool invocations (`uv run
-   ty check`, `uv run pyright`) stay inline where they name the gate step,
-   because they carry no drift risk.
-3. What stays in docs: local-only commands and the policies behind the
-   checks (no-warnings build, 95/95 coverage gate, doctests as tests,
-   lockfile pinning).
-4. CI comments that restate documented policy become one-line pointers to
-   the docs section; workflow-specific operational notes stay.
+    <name>.tar.gz unpacks to <name>/
+    ├── README.md              description document — answers the mandatory
+    │                          questions of the contribution templates
+    ├── graph/                 one Boolean MatrixMarket pattern file per
+    │   └── <label>.mtx        stored edge label (non-empty)
+    └── queries/               all queries for this graph, one file each
+        ├── README.md          common document describing every query file
+        ├── cfpq/              .cnf files (pyformlang CFG format)
+        ├── rpq/               .re files (regular expression text)
+        └── mcfpq/             .mcfg files (Datalog-like MCFG syntax)
 
-### S1: Record the task and write this plan
+- Fixed skeleton: the three class directories and `queries/README.md` are
+  always present (possibly empty); nothing else may appear at any level.
+- Mandatory questions of `README.md` (markdown `##` headers, enforced by the
+  validator; the templates are the source of truth for the fields):
+  "What is this graph?", "Source", "Construction", "Nodes", "Edges and
+  labels", "Query classes", "License", "Caveats".
+- `queries/README.md`: one `## <class>/<file>` section per query file (path
+  relative to `queries/`), each with a non-empty description; the templates
+  show the recommended Language/Purpose/Source bullets.
+- Label consistency: every terminal used by any query file must be a stored
+  label (`graph/<t>.mtx`) or the reverse of one (`<L>_r` with
+  `graph/<L>.mtx`).
+
+### S1: Record the guidance and write this plan
 
 **Code:** none.
 **Tests:** n/a.
-**Docs:** `tasks/tasks.md` (task 51 recorded — already in the working tree),
-`tasks/global_plan.md` (tasks 51–53 + dependencies — already in the working
+**Docs:** `tasks/tasks.md` (guidance appended — already in the working
 tree), `tasks/detailed_plan.md` (this plan).
 
 **Spec:**
-- Commit the already-recorded task-log and global-plan changes together with
-  this plan; no new task text is added.
+- Commit the task-log change together with this plan.
 
-### S2: Record the decision in developer.rst
-
-**Code:** none.
-**Tests:** docs build (`make -C docs html` under the no-warnings policy)
-must exit 0.
-**Docs:** `docs/developer.rst` — a new "CI as source of truth" section right
-after the intro stating the rule of decision 1–3 (workflow file + step name
-is the reference form; local-only commands and policies stay in docs); the
-"Development setup" bullets absorb the `--frozen`/`--all-groups` rationale
-currently carried by the CI comments (lockfile pinning, every dependency
-group installed so checks that import from any group resolve).
-
-**Spec:**
-- The rule is stated exactly once (this section); later sections apply it
-  without re-stating it.
-- The Development setup text must carry the full rationale so S5's pointer
-  comments do not dangle: `--frozen` fails on a lockfile out of sync with
-  `pyproject.toml`; `--all-groups` installs every dependency group because
-  checks import from any of them (ty/pyright type-check `tests/`,
-  `docs/conf.py` and `utils/`, which import pytest, sphinx and boto3).
-
-### S3: Turn the doc command blocks into references
+### S2: Design the layout in the docs
 
 **Code:** none.
-**Tests:** docs build must exit 0 (no-warnings policy).
-**Docs:** `docs/developer.rst` — "Quality checks": the full-pass command
-block becomes a reference to the "Run pre-commit" step of
-`.github/workflows/lint.yml`; "Test pipeline": the canonical command block
-becomes a reference to the "Test CFPQ_Data with coverage (line and branch
->= 95%)" step of `.github/workflows/coverage.yml"; "Docs build and deploy":
-the build and link-check commands are referenced from the "Build" and
-"Check links" steps of `.github/workflows/docs.yml`, and the pointer to
-`docs/README.md` is adjusted (it keeps only the local-only setup command).
-`docs/README.md` — the build and link-check command blocks become
-references to the same `docs.yml` steps; the `uv sync --only-group docs`
-block and all policy prose stay.
+**Tests:** docs build exits 0 (no-warnings policy).
+**Docs:** `docs/graphs/index.rst` "File structure" — replace the old layout
+(`README.md, grammar/, graph/`) with the new one above; document the query
+file conventions (one file per query, the per-class extensions `.cnf`/`.re`/
+`.mcfg`, the fixed skeleton) and the `queries/README.md` common-document
+format; point at the contribution templates for the mandatory README
+questions (the templates stay the source of truth for the fields, as with
+the statistics conventions).
 
 **Spec:**
-- Local-only command blocks survive untouched: single-module pytest,
-  individual tool runs, `uv run pre-commit install`, `uv sync --all-groups`,
-  `uv sync --only-group docs`.
-- The coverage-policy prose (95/95, why the checker script exists) stays in
-  "Test pipeline"; only the command block is replaced.
-- No command with non-trivial arguments is restated anywhere in `docs/`
-  after this subtask (grep-verified).
+- The "Indexed labels" and "Reversed edges" subsections stay unchanged.
+- No mandatory-question text is duplicated into the docs — only a pointer to
+  the templates.
 
-### S4: Update the skill pointers to the new model
+### S3: Update the PR and issue templates
 
 **Code:** none.
-**Tests:** n/a (skill documentation); docs build still exits 0.
-**Docs:** `.opencode/skills/quality-gates/SKILL.md` — the "single source of
-truth for the commands" sentence becomes the new model (CI workflows are
-the source of truth for the commands they run; `docs/developer.rst` holds
-policies and local-only commands and points at the workflow steps).
-`.opencode/skills/run-tests/SKILL.md`, `code-style/SKILL.md`,
-`build-docs/SKILL.md` — description and intro phrasing "the exact commands
-are documented in ... the single source of truth" becomes "the exact
-commands live in the CI workflow steps referenced by ...".
+**Tests:** n/a (templates); pre-commit passes.
+**Docs:** `.github/PULL_REQUEST_TEMPLATE/new_graph.md` and
+`.github/ISSUE_TEMPLATE/graph-add-template.md` — "Data format" restates the
+new layout; a new "Description document" section lists the eight mandatory
+questions (the fields that become the archive `README.md`); "Canonical
+grammars" becomes "Queries": the three cases stay, and for new grammars the
+contributor provides the file-format text (`.cnf`/`.re`/`.mcfg`) that lands
+in `queries/<class>/` of the archive.
 
 **Spec:**
-- Skills stay thin pointers: they gain no command blocks.
-- The bare `uv run ty check` mentions in `quality-gates` stay inline
-  (decision 2).
+- Both templates keep the same body (they are kept in sync today).
+- Every mandatory question appears exactly once per template, in
+  `<triangle brackets>` form like the existing fields.
 
-### S5: Slim the duplicated CI comments to pointers
+### S4: The structure-validation tool (local mode)
 
-**Code:** `.github/workflows/coverage.yml`, `deploy_docs.yml`, `docs.yml`,
-`lint.yml`, `tests.yml` — the copy-pasted 3-line dependency comment becomes
-a one-line pointer at "Development setup" in `docs/developer.rst`;
-`docs.yml` — the no-warnings and linkcheck comments become pointers at
-"Docs build and deploy"; `coverage.yml` — the per-metric gate rationale
-becomes a pointer at "Test pipeline", keeping the workflow-specific
-`term-missing` note.
-**Tests:** pre-commit passes (check-yaml validates every touched workflow).
-**Docs:** n/a — the knowledge already lives in `docs/developer.rst` since
-S2/S3.
+**Code:** new `utils/check_archive_structure.py` (pattern of
+`utils/archive_sizes.py`: module docstring with Usage, `__all__`,
+`main(argv) -> int`): validates a local `.tar.gz` or an unpacked directory —
+skeleton (single top-level dir named after the archive; exactly
+`README.md`/`graph/`/`queries/`; `graph/` non-empty with only `*.mtx`;
+`queries/` exactly `README.md` + the three class dirs with only the matching
+extensions), MTX validity via `graph_from_mtx_dir`, query validity via
+`cnf_from_text`/`regex_from_text`/`mcfg_from_text`, label consistency
+(stored or reversed), the eight mandatory README headers, and
+`queries/README.md` completeness (every file has a section, no orphan
+sections). Collects ALL problems and prints them; exit 1 if any.
+**Tests:** new `tests/utils/test_check_archive_structure.py` building
+synthetic archives in `tmp_path`: a fully valid archive passes; each
+violation class is detected (extra top-level entry, missing class dir,
+non-mtx file in graph/, malformed MTX, unparseable query, unknown label,
+missing mandatory header, orphan/missing queries/README.md section).
+**Docs:** `docs/utils.rst` — register the tool like the other `utils/`
+scripts (check how `archive_sizes.py` is documented and follow it).
 
 **Spec:**
-- No policy rationale is restated in a workflow comment after this subtask;
-  each slimmed comment names the docs section it points at.
-- Workflow-specific operational notes (the `term-missing` log note, the
-  lint.yml type-check explanation, publish.yml comments) are untouched.
+- The validator imports the existing readers (no re-parsing logic of its
+  own); terminal extraction: `cfg.terminals`,
+  `Regex(...).to_epsilon_nfa().symbols`, and the non-`eps`/non-variable
+  items of `MCFGRule.head_args`.
+- A reversed label `<L>_r` is consistent iff `graph/<L>.mtx` exists.
+
+### S5: Audit mode + pre-upload validation
+
+**Code:** `utils/check_archive_structure.py` — `--audit --prefix P` mode:
+list the `.tar.gz` objects under the bucket prefix, download each to a temp
+dir, validate, report per archive (reuses `upload_to_s3.create_s3_client`,
+credentials from CLI like the upload tool). `utils/upload_to_s3.py` — before
+uploading any `.tar.gz`, run the structure check on the local file; refuse
+the upload and print the problems otherwise.
+**Tests:** extend `tests/utils/test_check_coverage.py`-style coverage: new
+tests in `tests/utils/test_check_archive_structure.py` for the audit mode
+(mocked S3 client listing/downloading a valid and an invalid archive) and in
+`tests/utils/test_upload_to_s3.py` for the pre-upload gate (valid tarball
+uploads, invalid tarball is refused without any S3 call).
+**Docs:** `docs/utils.rst` — the audit mode and the pre-upload behavior.
+
+**Spec:**
+- The upload tool validates every `.tar.gz` upload: graph archives are the
+  only structured archive kind today (benchmarks are out of scope until
+  task 53).
+- Audit mode prints one line per archive plus a summary; exit 1 if any
+  archive is invalid.
+
+### S6: Rework flpq.rst and the add-graph skill
+
+**Code:** none.
+**Tests:** docs build exits 0.
+**Docs:** `docs/flpq.rst` — "Dataset layout and migration": the separate
+`query/<class>/` prefix disappears; `6.0.0/graph/<name>.tar.gz` is the
+self-contained archive (layout documented once in `docs/graphs/index.rst`,
+referenced, not duplicated); the migration repackages every graph archive
+into the new structure (per-graph grammars move from the legacy grammar
+archives into `queries/`, example archives are dropped, READMEs are filled
+to the mandatory questions) instead of copying them unchanged; "API
+changes": `download(name)` returns the directory with graph AND queries,
+`download_grammars` is deprecated (queries come with the graph).
+`.opencode/skills/add-graph/SKILL.md` — the "Data format" paragraph's inline
+old layout is replaced by a pointer to the updated "File structure" section;
+the wiring notes that mention `grammar/` are updated to `queries/`.
+
+**Spec:**
+- `flpq.rst` keeps the dataset-level design (prefixes, migration path, API)
+  and points at `docs/graphs/index.rst` for the per-archive layout — no
+  duplication of the layout.
+- The benchmark prefix line stays, marked as reworked in task 53.
