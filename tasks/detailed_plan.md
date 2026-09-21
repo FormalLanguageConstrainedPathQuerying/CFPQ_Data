@@ -183,9 +183,10 @@ docstrings use the paper's examples end to end.
 `--doctest-modules`; `from cfpq_data import *` exposes `MCFG`, `MCFGRule`,
 and the four functions (asserted in a test).
 **Docs:** `docs/reference/grammars/grammars_readwrite.rst` — add `mcfg` to
-the autosummary list; run the docs build so
+the autosummary list; run the docs build so the per-module stub
 `docs/reference/grammars/generated/cfpq_data.grammars.readwrite.mcfg.rst`
-is generated and committed (pattern of the sibling stubs).
+is generated (the `generated/` stubs are gitignored and regenerated on
+every build — only the hand-written `.rst` files are tracked).
 
 **Spec:**
 - The docs build passes under `-W --keep-going` with zero warnings

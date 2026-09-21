@@ -154,6 +154,18 @@ def test_empty_text_raises():
         cfpq_data.mcfg_from_text("")
 
 
+def test_package_exports():
+    for name in (
+        "MCFG",
+        "MCFGRule",
+        "mcfg_from_text",
+        "mcfg_from_txt",
+        "mcfg_to_text",
+        "mcfg_to_txt",
+    ):
+        assert hasattr(cfpq_data, name)
+
+
 def test_to_text_round_trip():
     for text in (dyck_2_mcfg, dimension_1_mcfg):
         assert cfpq_data.mcfg_to_text(cfpq_data.mcfg_from_text(text)) == text
