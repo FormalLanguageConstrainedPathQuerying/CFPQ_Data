@@ -18,7 +18,7 @@ for all follow-up tasks.
   processing and gains a `category` column, and a `utils/` generator script
   (pattern of `utils/archive_sizes.py`) renders both the per-category
   tables and the category-page count columns from the CSV.
-- **Task 44**: MCFG readwrite module with lark:
+- **Task 44** [done]: MCFG readwrite module with lark:
   `cfpq_data/grammars/readwrite/mcfg.py` (data model, EBNF grammar,
   validation per the spec in `docs/flpq.rst`,
   `mcfg_from_text/to_text/from_txt/to_txt`), doctests with the paper's
