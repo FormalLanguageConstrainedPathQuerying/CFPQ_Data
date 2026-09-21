@@ -47,11 +47,8 @@ pre-publishes to TestPyPI as a packaging check.
 
 ## Recovery
 
-The `gh` CLI is not installed on this machine — use curl + the GitHub API:
-
-```bash
-export GH_TOKEN=$(git config --get remote.origin.url | sed -E 's#.*://[^:]+:([^@]+)@.*#\1#')  # never echo it
-```
+Use the `gh` CLI (installed and authenticated on this machine; if a new
+machine is not, run `gh auth login` first).
 
 ### Workflow failed before the PyPI publish
 
@@ -77,29 +74,19 @@ the release is complete:
    awk -v v="X.Y.Z" 'index($0, "## [" v "]") == 1 {insec=1; next} /^## / && insec {exit} insec {print}' CHANGELOG.md > release_notes.md
    ```
 
-2. Create the release (build the JSON payload with python3 so the notes are
-   escaped correctly):
+2. Create the release for the existing tag with the extracted notes:
 
    ```bash
-   export RELEASE_NOTES_FILE=release_notes.md
-   PAYLOAD=$(python3 -c 'import json,os; print(json.dumps({"tag_name":"vX.Y.Z","name":"vX.Y.Z","body":open(os.environ["RELEASE_NOTES_FILE"]).read()}))')
-   curl -sS -X POST -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" \
-     -d "$PAYLOAD" https://api.github.com/repos/FormalLanguageConstrainedPathQuerying/CFPQ_Data/releases
+   gh release create vX.Y.Z --title "vX.Y.Z" --notes-file release_notes.md
    ```
 
 3. Upload the dist artifacts — download them from PyPI first so the release
    assets are byte-identical to what was published
-   (`cfpq_data-X.Y.Z-py3-none-any.whl`, `cfpq_data-X.Y.Z.tar.gz`), then
-   upload each via the created release's `upload_url` field
-   (`uploads.github.com`):
+   (`cfpq_data-X.Y.Z-py3-none-any.whl`, `cfpq_data-X.Y.Z.tar.gz`):
 
    ```bash
-   curl -sS -X POST -H "Authorization: token $GH_TOKEN" \
-     -H "Content-Type: application/octet-stream" --data-binary @cfpq_data-X.Y.Z-py3-none-any.whl "$UPLOAD_URL"
+   gh release upload vX.Y.Z cfpq_data-X.Y.Z-py3-none-any.whl cfpq_data-X.Y.Z.tar.gz
    ```
-
-   Do not post to `api.github.com/.../releases/{id}/assets` — it returns
-   404; only the per-release `upload_url` works.
 
 ## Notes
 
