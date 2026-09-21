@@ -1,133 +1,151 @@
-# Detailed Plan: Task 45 — Strong code coverage gate + tooling cleanup
+# Detailed Plan: Task 51 — CI as source of truth for commands
 
-Task (user's words, recorded in `tasks/tasks.md`): "set strong code coverage
-checking both in CI and locally. Set both instructionand branch coverage up
-to 95%. Moreover, gh is installed. remove workarounds from documentation and
-instructions. Extend tooling skill: no workaround for regular tasks. If there
-is a tool for regular task it must be installed and configured appropriately."
+Task (user's words, recorded in `tasks/tasks.md`): "First, analyze whether
+it is possible to replace some parts of developer docs and skills with refs
+to CI workwlow description. I think, CI must be source of thruth for some
+commands and knolage."
 
-Scope (per `tasks/global_plan.md`): enforce line and branch coverage >= 95%
-both in CI (`coverage.yml`) and locally (canonical test command); remove the
-curl/GitHub-API workaround from the release skill now that the `gh` CLI is
-installed; extend the project tooling guidance with a no-workaround rule.
+Scope: analyze which developer-doc/skill content duplicates the CI
+workflows, record the decision as a documented rule, apply it — command
+blocks become references to the workflow file + step name — and remove the
+duplicated knowledge from the CI comments (pointers instead).
 
 Verified facts this plan builds on (checked against the repo, 2026-09-21):
-- Current coverage: line 1062/1066 = 99.6%, branch 264/274 = 96.3% — both
-  already >= 95, so the gate passes from day one; the task is enforcement,
-  not writing tests.
-- `pytest-cov --cov-fail-under` and `coverage.py fail_under` check only the
-  combined TOTAL (statements + branches together) — they cannot enforce each
-  metric separately (line 94% + branch 100% could pass a combined 95). No
-  existing tool enforces per-metric thresholds locally, so a small `utils/`
-  script is the tool (pattern of `utils/archive_sizes.py`).
-- `coverage.json` "totals" carries `covered_lines`/`num_statements` always
-  and `covered_branches`/`num_branches` only when branch coverage is on.
-- `.github/workflows/coverage.yml` runs `uv run pytest --cov=cfpq_data` and
-  uploads to Codecov; no branch coverage, no threshold. `tests.yml` (the
-  cross-OS suite) runs bare `uv run pytest` and stays that way.
-- No `[tool.coverage]` configuration exists in `pyproject.toml`.
-- The only gh workaround is `.opencode/skills/release/SKILL.md` "Recovery"
-  (GH_TOKEN extraction + curl to api.github.com for release creation and
-  asset upload). `gh` 2.45.0 is installed and authenticated on this machine
-  (verified 2026-09-21). No other curl/api.github workarounds exist in
-  `docs/` or `.opencode/` (grep-verified).
-- The tooling guidance lives in the "Tools, not instructions" bullet of the
-  Main Principles in `AGENTS.md`.
-- The canonical local test command is documented in the "Test pipeline"
-  section of `docs/developer.rst`; the `quality-gates` skill defines gate
-  semantics and points at `docs/developer.rst` for commands.
+- Six non-trivial commands are restated in docs while CI runs them verbatim:
+  - pre-commit full pass — `docs/developer.rst` "Quality checks" and the
+    "Run pre-commit" step of `.github/workflows/lint.yml`;
+  - canonical test command (pytest + coverage check) — `docs/developer.rst`
+    "Test pipeline" and the "Test CFPQ_Data with coverage (line and branch
+    >= 95%)" step of `.github/workflows/coverage.yml` (CI adds
+    `--cov-report=term-missing`, so local and CI statements already differ);
+  - docs build — `docs/README.md` and the "Build" steps of
+    `.github/workflows/docs.yml` / `deploy_docs.yml`;
+  - link check — `docs/README.md` and the "Check links" step of
+    `.github/workflows/docs.yml`.
+- Local-only commands (no CI counterpart, stay in docs): `uv sync
+  --all-groups`, `uv run pre-commit install`, single-module pytest,
+  `uv sync --only-group docs`, individual tool runs (`uv run ruff check .`
+  etc.), the single-hook `pre-commit run check-version-sync` in the release
+  skill.
+- The same 3-line comment explaining `--frozen`/`--all-groups` is
+  copy-pasted into five workflows (coverage, deploy_docs, docs, lint,
+  tests); `publish.yml` has no sync step. Two more policy comments in
+  `docs.yml` (no-warnings, linkcheck exit code) and one in `coverage.yml`
+  (per-metric gate rationale) restate policies that `docs/developer.rst`
+  already documents.
+- The skills (`run-tests`, `code-style`, `build-docs`, `quality-gates`) are
+  thin pointers to `docs/developer.rst` sections; none restates a command
+  block, but their "exact commands ... the single source of truth" phrasing
+  must follow the new model.
+- The docs already reference workflow files with `:file:` roles, so
+  references are an established pattern.
 
-Design decisions:
+Decision (recorded in the docs by S2):
 
-1. `[tool.coverage.run] branch = true` in `pyproject.toml` — every `--cov`
-   run includes branches; no caller needs to remember `--cov-branch`.
-2. `utils/check_coverage.py` reads `coverage.json`, computes line % and
-   branch % separately from "totals", prints both, and exits non-zero if
-   either is below the threshold (default 95.0, overridable with
-   `--threshold`). Missing branch data is an explicit error (the report must
-   be generated with branch coverage); zero branches counts as 100%.
-3. Canonical local command:
-   `uv run pytest --cov=cfpq_data --cov-report=json && uv run python
-   utils/check_coverage.py` — documented in the "Test pipeline" section; the
-   quality gate treats a threshold failure as a gate failure.
-4. CI: `coverage.yml` runs the same two steps (plus `term-missing` for the
-   log); the Codecov upload is unchanged.
-5. The release skill's Recovery is rewritten with the `gh` CLI (`gh release
-   create` / `gh release upload`); the GH_TOKEN extraction and curl payload
-   machinery are removed; the awk changelog extraction stays (it builds the
-   notes file that `gh release create --notes-file` also needs).
-6. The "Tools, not instructions" bullet in `AGENTS.md` is extended with the
-   user's verbatim no-workaround rule.
+1. For every command CI runs verbatim, the CI workflow is the source of
+   truth: docs and skills reference the workflow file + step name instead
+   of restating the command, so a command changes in exactly one place.
+2. Granularity: commands with non-trivial arguments (flags, paths,
+   multi-part pipelines) become references; bare tool invocations (`uv run
+   ty check`, `uv run pyright`) stay inline where they name the gate step,
+   because they carry no drift risk.
+3. What stays in docs: local-only commands and the policies behind the
+   checks (no-warnings build, 95/95 coverage gate, doctests as tests,
+   lockfile pinning).
+4. CI comments that restate documented policy become one-line pointers to
+   the docs section; workflow-specific operational notes stay.
 
-### S1: Coverage config, check script, and the local gate
-
-**Code:** `pyproject.toml` — `[tool.coverage.run] branch = true`. New
-`utils/check_coverage.py`: argparse (`--threshold` default 95.0, positional
-report path default `coverage.json`), reads "totals", prints line % and
-branch %, exits 1 if either is below the threshold with a message naming the
-metric; explicit error when branch data is missing from the report.
-**Tests:** new `tests/utils/test_check_coverage.py` with synthetic
-`coverage.json` fixtures in `tmp_path`: both metrics pass (exit 0), line
-below threshold (exit 1, message names line), branch below (exit 1, names
-branch), `--threshold` override, missing branch fields (clear error), zero
-branches (treated as 100).
-**Docs:** `docs/developer.rst` "Test pipeline" — the canonical command gains
-the coverage step and the 95/95 policy is stated; `quality-gates` skill —
-the test-suite step notes that a coverage threshold failure fails the gate.
-
-**Spec:**
-- The script uses only the standard library (json, argparse, pathlib, sys)
-  so it runs in any environment where the report exists.
-- Percentages are computed from the raw counts (covered/total), not from the
-  rounded `percent_covered` fields.
-- The canonical command is one line: pytest (which writes `coverage.json`)
-  and then the check; a failing suite short-circuits before the check runs.
-
-### S2: Enforce the gate in CI
-
-**Code:** `.github/workflows/coverage.yml` — the test step becomes
-`uv run pytest --cov=cfpq_data --cov-report=term-missing --cov-report=json &&
-uv run python utils/check_coverage.py`, with a comment explaining that both
-metrics are enforced separately (the combined `--cov-fail-under` cannot).
-**Tests:** pre-commit's check-yaml hook passes; the CI job itself is the
-verification.
-**Docs:** `docs/developer.rst` "Test pipeline" CI bullet — `coverage.yml`
-enforces the 95/95 gate and uploads to Codecov.
-
-**Spec:**
-- `tests.yml` (the cross-OS suite) keeps running bare `uv run pytest` —
-  coverage stays in the dedicated job, as today.
-- The Codecov upload step is unchanged (it reads the `.coverage` data that
-  pytest-cov always writes).
-
-### S3: Remove the gh workaround from the release skill
-
-**Code:** none.
-**Tests:** n/a (skill documentation); `gh --version` and `gh auth status`
-verified on this machine during planning.
-**Docs:** `.opencode/skills/release/SKILL.md` — the "Recovery" section is
-rewritten around the `gh` CLI: create the release with
-`gh release create vX.Y.Z --notes-file release_notes.md`, upload the dist
-artifacts with `gh release upload vX.Y.Z <whl> <tar.gz>`; the GH_TOKEN
-extraction, the python3 JSON payload, and the curl commands (including the
-per-release `upload_url` note) are removed; the awk changelog extraction and
-the PyPI-delete constraint stay.
-
-**Spec:**
-- No curl/api.github.com invocation remains anywhere in `.opencode/` or
-  `docs/` (grep-verified after the change).
-- The skill stays a thin pointer: procedure only, no duplication of
-  `docs/release.rst`.
-
-### S4: The no-workaround tooling rule in AGENTS.md
+### S1: Record the task and write this plan
 
 **Code:** none.
 **Tests:** n/a.
-**Docs:** `AGENTS.md` Main Principles — the "Tools, not instructions" bullet
-is extended with the user's verbatim rule: "No workaround for regular tasks.
-If there is a tool for regular task it must be installed and configured
-appropriately."
+**Docs:** `tasks/tasks.md` (task 51 recorded — already in the working tree),
+`tasks/global_plan.md` (tasks 51–53 + dependencies — already in the working
+tree), `tasks/detailed_plan.md` (this plan).
 
 **Spec:**
-- The rule is recorded verbatim (user guidance), appended to the existing
-  bullet so the tooling policy stays in one place.
+- Commit the already-recorded task-log and global-plan changes together with
+  this plan; no new task text is added.
+
+### S2: Record the decision in developer.rst
+
+**Code:** none.
+**Tests:** docs build (`make -C docs html` under the no-warnings policy)
+must exit 0.
+**Docs:** `docs/developer.rst` — a new "CI as source of truth" section right
+after the intro stating the rule of decision 1–3 (workflow file + step name
+is the reference form; local-only commands and policies stay in docs); the
+"Development setup" bullets absorb the `--frozen`/`--all-groups` rationale
+currently carried by the CI comments (lockfile pinning, every dependency
+group installed so checks that import from any group resolve).
+
+**Spec:**
+- The rule is stated exactly once (this section); later sections apply it
+  without re-stating it.
+- The Development setup text must carry the full rationale so S5's pointer
+  comments do not dangle: `--frozen` fails on a lockfile out of sync with
+  `pyproject.toml`; `--all-groups` installs every dependency group because
+  checks import from any of them (ty/pyright type-check `tests/`,
+  `docs/conf.py` and `utils/`, which import pytest, sphinx and boto3).
+
+### S3: Turn the doc command blocks into references
+
+**Code:** none.
+**Tests:** docs build must exit 0 (no-warnings policy).
+**Docs:** `docs/developer.rst` — "Quality checks": the full-pass command
+block becomes a reference to the "Run pre-commit" step of
+`.github/workflows/lint.yml`; "Test pipeline": the canonical command block
+becomes a reference to the "Test CFPQ_Data with coverage (line and branch
+>= 95%)" step of `.github/workflows/coverage.yml"; "Docs build and deploy":
+the build and link-check commands are referenced from the "Build" and
+"Check links" steps of `.github/workflows/docs.yml`, and the pointer to
+`docs/README.md` is adjusted (it keeps only the local-only setup command).
+`docs/README.md` — the build and link-check command blocks become
+references to the same `docs.yml` steps; the `uv sync --only-group docs`
+block and all policy prose stay.
+
+**Spec:**
+- Local-only command blocks survive untouched: single-module pytest,
+  individual tool runs, `uv run pre-commit install`, `uv sync --all-groups`,
+  `uv sync --only-group docs`.
+- The coverage-policy prose (95/95, why the checker script exists) stays in
+  "Test pipeline"; only the command block is replaced.
+- No command with non-trivial arguments is restated anywhere in `docs/`
+  after this subtask (grep-verified).
+
+### S4: Update the skill pointers to the new model
+
+**Code:** none.
+**Tests:** n/a (skill documentation); docs build still exits 0.
+**Docs:** `.opencode/skills/quality-gates/SKILL.md` — the "single source of
+truth for the commands" sentence becomes the new model (CI workflows are
+the source of truth for the commands they run; `docs/developer.rst` holds
+policies and local-only commands and points at the workflow steps).
+`.opencode/skills/run-tests/SKILL.md`, `code-style/SKILL.md`,
+`build-docs/SKILL.md` — description and intro phrasing "the exact commands
+are documented in ... the single source of truth" becomes "the exact
+commands live in the CI workflow steps referenced by ...".
+
+**Spec:**
+- Skills stay thin pointers: they gain no command blocks.
+- The bare `uv run ty check` mentions in `quality-gates` stay inline
+  (decision 2).
+
+### S5: Slim the duplicated CI comments to pointers
+
+**Code:** `.github/workflows/coverage.yml`, `deploy_docs.yml`, `docs.yml`,
+`lint.yml`, `tests.yml` — the copy-pasted 3-line dependency comment becomes
+a one-line pointer at "Development setup" in `docs/developer.rst`;
+`docs.yml` — the no-warnings and linkcheck comments become pointers at
+"Docs build and deploy"; `coverage.yml` — the per-metric gate rationale
+becomes a pointer at "Test pipeline", keeping the workflow-specific
+`term-missing` note.
+**Tests:** pre-commit passes (check-yaml validates every touched workflow).
+**Docs:** n/a — the knowledge already lives in `docs/developer.rst` since
+S2/S3.
+
+**Spec:**
+- No policy rationale is restated in a workflow comment after this subtask;
+  each slimmed comment names the docs section it points at.
+- Workflow-specific operational notes (the `term-missing` log note, the
+  lint.yml type-check explanation, publish.yml comments) are untouched.
