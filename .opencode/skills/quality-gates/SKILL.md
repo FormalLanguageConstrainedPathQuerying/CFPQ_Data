@@ -31,8 +31,9 @@ type check, and the docs build:
   report no broken or timed-out links (the builder exits non-zero on its
   own; redirects are reported but do not fail the check).
 
-`docs/developer.rst` is the single source of truth for the commands; this
-skill only defines the gate semantics.
+The CI workflows are the source of truth for the commands they run (see
+the "CI as source of truth" section of `docs/developer.rst`); this skill
+only defines the gate semantics.
 
 ## Procedure
 

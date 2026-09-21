@@ -1,14 +1,15 @@
 ---
 name: run-tests
-description: Use when running the CFPQ_Data test suite (pytest). Thin pointer to the "Test pipeline" section of docs/developer.rst, which holds the model and the exact commands; keeps the machine-specific pitfalls (bare pytest, partial venv after uv add).
+description: Use when running the CFPQ_Data test suite (pytest). Thin pointer to the "Test pipeline" section of docs/developer.rst, which holds the model and points at the CI workflow step with the exact command; keeps the machine-specific pitfalls (bare pytest, partial venv after uv add).
 ---
 
 # Run tests
 
-What the test pipeline is (doctest-enabled suite, CI matrix, coverage upload)
-and the exact local commands are documented in the "Test pipeline" section of
-`docs/developer.rst` — the single source of truth. Read that section before
-running anything. This skill keeps only the machine-specific pitfall below.
+What the test pipeline is (doctest-enabled suite, CI matrix, coverage gate)
+and where the exact command lives (the CI workflow step referenced by the
+section) are documented in the "Test pipeline" section of `docs/developer.rst`.
+Read that section before running anything. This skill keeps only the
+machine-specific pitfalls below.
 
 ## Do not run bare pytest
 
