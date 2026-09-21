@@ -57,6 +57,7 @@ coverage.xml
 .pytest_cache/
 
 # Doctest files
+test.mcfg
 test.txt
 test.xml
 
