@@ -76,6 +76,35 @@ When adding a new graph, upload it first (:ref:`upload_to_s3` prints the
 verified size), add the table row with that value, and run this tool before
 committing so every row — including the new one — matches S3.
 
+.. _archive_structure:
+
+Archive structure
+-----------------
+
+``utils/check_archive_structure.py`` validates that a graph archive has the
+fixed self-contained structure documented in the "File structure" section of
+the :ref:`graphs` page::
+
+   python utils/check_archive_structure.py ARCHIVE.tar.gz
+   python utils/check_archive_structure.py UNPACKED_DIR
+
+The checks:
+
+- **Skeleton.** A single top-level directory named after the archive,
+  containing exactly ``README.md``, ``graph/`` (non-empty, only ``.mtx``
+  files), and ``queries/`` with its ``README.md`` and the three class
+  directories (only ``.cnf``/``.re``/``.mcfg`` files respectively).
+- **Graph.** Every MTX file parses as a Boolean pattern matrix and every
+  edge endpoint fits the declared dimensions.
+- **Queries.** Every query file parses with its class reader, uses at least
+  one terminal, and uses only labels of its own graph (stored or reversed).
+- **Description.** ``README.md`` answers all mandatory questions of the
+  contribution templates; ``queries/README.md`` describes exactly the query
+  files that exist, each with a non-empty section.
+
+The tool collects every violation and exits non-zero if any is found, so it
+can gate a commit.
+
 .. _reachable_pairs_tables:
 
 Reachable pair counts
