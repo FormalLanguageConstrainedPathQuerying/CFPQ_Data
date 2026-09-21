@@ -1,8 +1,10 @@
 """Read (and write) a multiple context-free grammar from (and to) different sources."""
 
 import logging
+import pathlib
 import re
 from dataclasses import dataclass
+from typing import Union
 
 from lark import Lark, Transformer
 
@@ -10,6 +12,9 @@ __all__ = [
     "MCFG",
     "MCFGRule",
     "mcfg_from_text",
+    "mcfg_from_txt",
+    "mcfg_to_text",
+    "mcfg_to_txt",
 ]
 
 # Datalog-like syntax for MCFGs (docs/flpq.rst, "MCFG grammar format
@@ -220,3 +225,133 @@ def mcfg_from_text(text: str, *, start_symbol: str = "S") -> MCFG:
     logging.info(f"Create {mcfg=} from {text=}, {start_symbol=}")
 
     return mcfg
+
+
+def _render_rule(rule: MCFGRule) -> str:
+    head = f"{rule.head}(" + ", ".join(" ".join(arg) for arg in rule.head_args) + ")"
+    if not rule.body:
+        return head
+    body = ", ".join(
+        f"{atom_head}(" + ", ".join(atom_vars) + ")"
+        for atom_head, atom_vars in rule.body
+    )
+    return f"{head} <- {body}"
+
+
+def mcfg_to_text(mcfg: MCFG) -> str:
+    """Turns a multiple context-free grammar [1]_ into its text representation.
+
+    The rendering is canonical: one rule per line, argument tokens
+    space-joined, so the same model always produces the same text and
+    ``mcfg_to_text(mcfg_from_text(text))`` reproduces ``text`` up to
+    whitespace and comments.
+
+    Parameters
+    ----------
+    mcfg : MCFG
+        Multiple context-free grammar.
+
+    Examples
+    --------
+    >>> from cfpq_data import *
+    >>> text = (
+    ...     "A(eps, eps)\\n"
+    ...     "A(x1 0, x2 0) <- A(x1, x2)\\n"
+    ...     "A(x1 1, x2 1) <- A(x1, x2)\\n"
+    ...     "S(x1 y1 # y2 x2) <- A(x1, x2), A(y1, y2)"
+    ... )
+    >>> mcfg_to_text(mcfg_from_text(text)) == text
+    True
+
+    Returns
+    -------
+    text : str
+        Multiple context-free grammar text representation.
+
+    References
+    ----------
+    .. [1] https://arxiv.org/abs/2411.06383
+    """
+    text = "\n".join(_render_rule(rule) for rule in mcfg.rules)
+
+    logging.info(f"Turn {mcfg=} into {text=}")
+
+    return text
+
+
+def mcfg_from_txt(path: Union[pathlib.Path, str], *, start_symbol: str = "S") -> MCFG:
+    """Create a multiple context-free grammar [1]_ from an ``.mcfg`` file.
+
+    Parameters
+    ----------
+    path : Union[Path, str]
+        The path to the ``.mcfg`` file with which the multiple context-free
+        grammar will be created.
+
+    start_symbol : str
+        Start symbol of a multiple context-free grammar.
+
+    Examples
+    --------
+    >>> from cfpq_data import *
+    >>> mcfg = mcfg_from_text("A(eps)\\nS(x1) <- A(x1)")
+    >>> path = mcfg_to_txt(mcfg, "test.mcfg")
+    >>> mcfg_from_txt(path) == mcfg
+    True
+
+    Returns
+    -------
+    mcfg : MCFG
+        Multiple context-free grammar.
+
+    References
+    ----------
+    .. [1] https://arxiv.org/abs/2411.06383
+    """
+    with open(path, "r") as f:
+        text = f.read()
+
+    mcfg = mcfg_from_text(text, start_symbol=start_symbol)
+
+    logging.info(f"Create {mcfg=} from {path=}, {start_symbol=}")
+
+    return mcfg
+
+
+def mcfg_to_txt(mcfg: MCFG, path: Union[pathlib.Path, str]) -> pathlib.Path:
+    """Saves a multiple context-free grammar [1]_ text representation into an
+    ``.mcfg`` file.
+
+    Parameters
+    ----------
+    mcfg : MCFG
+        Multiple context-free grammar.
+
+    path : Union[Path, str]
+        The path to the ``.mcfg`` file where the multiple context-free
+        grammar text representation will be saved.
+
+    Examples
+    --------
+    >>> from cfpq_data import *
+    >>> mcfg = mcfg_from_text("A(eps)\\nS(x1) <- A(x1)")
+    >>> path = mcfg_to_txt(mcfg, "test.mcfg")
+
+    Returns
+    -------
+    path : Path
+        The path to the ``.mcfg`` file where the text representation will be
+        saved.
+
+    References
+    ----------
+    .. [1] https://arxiv.org/abs/2411.06383
+    """
+    with open(path, "w") as f:
+        f.write(mcfg_to_text(mcfg))
+
+    dest = pathlib.Path(path).resolve()
+
+    logging.info(f"Save {mcfg=} to {dest=}")
+
+    return dest

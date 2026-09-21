@@ -154,6 +154,33 @@ def test_empty_text_raises():
         cfpq_data.mcfg_from_text("")
 
 
+def test_to_text_round_trip():
+    for text in (dyck_2_mcfg, dimension_1_mcfg):
+        assert cfpq_data.mcfg_to_text(cfpq_data.mcfg_from_text(text)) == text
+
+
+def test_to_text_is_canonical():
+    # Whitespace and comments differ; the rendered models are identical.
+    text_1 = "A(eps, eps)\nS(x1 y1 # y2 x2) <- A(x1, x2), A(y1, y2)"
+    text_2 = "# a comment\n\nA(eps,eps)\nS(x1   y1 # y2 x2) <- A(x1,x2),\nA(y1,y2)"
+
+    assert cfpq_data.mcfg_to_text(cfpq_data.mcfg_from_text(text_1)) == (
+        cfpq_data.mcfg_to_text(cfpq_data.mcfg_from_text(text_2))
+    )
+
+
+def test_from_and_to_txt(tmp_path):
+    for text in (dyck_2_mcfg, dimension_1_mcfg):
+        path = tmp_path / "grammar.mcfg"
+
+        mcfg_1 = cfpq_data.mcfg_from_text(text)
+        dest = cfpq_data.mcfg_to_txt(mcfg_1, path)
+        mcfg_2 = cfpq_data.mcfg_from_txt(dest)
+
+        assert dest == path.resolve()
+        assert mcfg_2 == mcfg_1
+
+
 def test_malformed_syntax_raises():
     for text in (
         "A(eps",  # unbalanced parenthesis
