@@ -9,8 +9,25 @@ Developer guide
    :Date: |today|
 
 How to set up a development environment, run the checks that continuous
-integration runs, and contribute to CFPQ_Data. If you only want to *use* the
-package, start with :doc:`/getting_started` instead.
+integration runs, and contribute to CFPQ_Data. If you only want to *use*
+the package, start with :doc:`/getting_started` instead.
+
+.. _developer-ci:
+
+CI as source of truth
+---------------------
+
+The CI workflows under :file:`.github/workflows/` are the source of truth
+for every command they run: this page and the agent skills reference the
+workflow file and step name instead of restating such a command, so a
+command changes in exactly one place. Commands with non-trivial arguments
+(flags, paths, multi-part pipelines) always take that reference form; bare
+tool invocations (``uv run ty check``, ``uv run pyright``) may stay inline
+where they name a gate step, because they carry no drift risk. What this
+page still documents is what CI does not cover: local-only commands
+(environment setup, installing the git hook, running a single test module)
+and the policies behind the checks — the no-warnings build, the 95/95
+coverage gate, doctests as tests.
 
 .. _developer-setup:
 
@@ -28,7 +45,10 @@ then from the repository root::
 - ``--all-groups`` pulls the three PEP 735 dependency groups from
   ``pyproject.toml``: developer tools (``ruff``, ``ty``, ``pyright``,
   ``pre-commit``, ``boto3``), test extras (``pytest``, ``pytest-cov``), and
-  the Sphinx docs stack.
+  the Sphinx docs stack. The full environment is needed because every check
+  must resolve imports from any dependency group — ty/pyright type-check
+  ``tests/``, ``docs/conf.py`` and ``utils/``, which import pytest, sphinx
+  and boto3.
 - ``uv sync`` also installs ``cfpq_data`` itself (editable) into the project
   environment, so no separate install step is needed; ``uv run ...`` executes
   commands inside that environment.
