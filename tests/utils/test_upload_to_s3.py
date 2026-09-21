@@ -1,6 +1,8 @@
+import pathlib
 from unittest import mock
 
 import pytest
+from test_check_archive_structure import README, _tarball, _valid_tree
 from upload_to_s3 import (
     DEFAULT_BUCKET,
     DEFAULT_ENDPOINT_URL,
@@ -129,14 +131,18 @@ def test_copy_object_size_mismatch_raises():
         copy_object(client, "cfpq-data", "a.tar.gz", "b.tar.gz")
 
 
-def test_main_uploads_file_and_reports_size(tmp_path, monkeypatch, capsys):
-    file = tmp_path / "graph.tar.gz"
-    file.write_bytes(b"payload")
+def _valid_tarball(tmp_path) -> pathlib.Path:
+    tree = _valid_tree(tmp_path)
+    return _tarball(tree, tmp_path / "g.tar.gz")
+
+
+def test_main_uploads_valid_archive_and_reports_size(tmp_path, monkeypatch, capsys):
+    file = _valid_tarball(tmp_path)
     client = mock.Mock()
-    client.head_object.return_value = {"ContentLength": 7}
+    client.head_object.return_value = {"ContentLength": file.stat().st_size}
     monkeypatch.setattr("upload_to_s3.boto3.client", lambda *args, **kwargs: client)
 
-    main(
+    status = main(
         [
             str(file),
             "--access-key-id",
@@ -146,19 +152,25 @@ def test_main_uploads_file_and_reports_size(tmp_path, monkeypatch, capsys):
         ]
     )
 
+    assert status == 0
     out = capsys.readouterr().out
-    assert (
-        f"Uploaded {file} to s3://{DEFAULT_BUCKET}/graph.tar.gz "
-        "(7 bytes, 0.000 MB)" in out
-    )
+    assert f"Uploaded {file} to s3://{DEFAULT_BUCKET}/g.tar.gz" in out
     client.upload_file.assert_called_once()
 
 
 def test_main_reports_size_above_one_megabyte(tmp_path, monkeypatch, capsys):
-    file = tmp_path / "graph.tar.gz"
-    file.write_bytes(b"x" * 2_500_000)
+    tree = _valid_tree(tmp_path)
+    nodes = 5000
+    pairs = [f"{i} {j}" for i in range(nodes) for j in range(i, min(i + 46, nodes))]
+    (tree / "graph" / "a.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        f"%%GraphBLAS type bool\n{nodes} {nodes} {len(pairs)}\n"
+        + "\n".join(pairs)
+        + "\n"
+    )
+    file = _tarball(tree, tmp_path / "g.tar.gz")
     client = mock.Mock()
-    client.head_object.return_value = {"ContentLength": 2_500_000}
+    client.head_object.return_value = {"ContentLength": file.stat().st_size}
     monkeypatch.setattr("upload_to_s3.boto3.client", lambda *args, **kwargs: client)
 
     main(
@@ -172,7 +184,30 @@ def test_main_reports_size_above_one_megabyte(tmp_path, monkeypatch, capsys):
     )
 
     out = capsys.readouterr().out
-    assert "(2500000 bytes, 2.50 MB)" in out
+    assert f"({file.stat().st_size} bytes, " in out and " MB)" in out
+
+
+def test_main_refuses_invalid_archive_without_uploading(tmp_path, monkeypatch, capsys):
+    tree = _valid_tree(tmp_path)
+    (tree / "README.md").write_text(README.replace("## License\nApache-2.0.\n", ""))
+    file = _tarball(tree, tmp_path / "g.tar.gz")
+    client = mock.Mock()
+    monkeypatch.setattr("upload_to_s3.boto3.client", lambda *args, **kwargs: client)
+
+    status = main(
+        [
+            str(file),
+            "--access-key-id",
+            "key-id",
+            "--secret-access-key",
+            "secret",
+        ]
+    )
+
+    assert status == 1
+    out = capsys.readouterr().out
+    assert "upload refused" in out and "'## License'" in out
+    client.upload_file.assert_not_called()
 
 
 def test_main_requires_credentials(tmp_path):

@@ -1,8 +1,9 @@
 import pathlib
 import shutil
 import tarfile
+from unittest import mock
 
-from check_archive_structure import main, validate_archive
+from check_archive_structure import _audit, main, validate_archive
 
 README = """# g
 
@@ -262,4 +263,71 @@ def test_main_passes_valid_archive(tmp_path, capsys):
     tree = _valid_tree(tmp_path)
 
     assert main([str(tree)]) == 0
+    assert "archive structure ok" in capsys.readouterr().out
+
+
+def _mock_s3(archives: dict[str, bytes]) -> mock.Mock:
+    client = mock.Mock()
+    client.get_paginator.return_value.paginate.return_value = [
+        {"Contents": [{"Key": key} for key in sorted(archives)]}
+    ]
+
+    def download(bucket, key, dest):
+        pathlib.Path(dest).write_bytes(archives[key])
+
+    client.download_file.side_effect = download
+    return client
+
+
+def test_audit_passes_valid_archives(tmp_path):
+    tarball = _tarball(_valid_tree(tmp_path), tmp_path / "g.tar.gz")
+    client = _mock_s3({"5.0.0/graph/g.tar.gz": tarball.read_bytes()})
+
+    assert _audit(client, "cfpq-data", "5.0.0/graph") == []
+
+
+def test_audit_reports_invalid_archive_with_its_key(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "README.md").write_text(README.replace("## License\nApache-2.0.\n", ""))
+    tarball = _tarball(tree, tmp_path / "g.tar.gz")
+    client = _mock_s3({"5.0.0/graph/g.tar.gz": tarball.read_bytes()})
+
+    problems = _audit(client, "cfpq-data", "5.0.0/graph")
+
+    assert any(
+        p.startswith("5.0.0/graph/g.tar.gz:") and "'## License'" in p for p in problems
+    )
+
+
+def test_audit_without_archives_reports_it(tmp_path):
+    client = _mock_s3({})
+
+    problems = _audit(client, "cfpq-data", "5.0.0/graph")
+
+    assert any("no .tar.gz objects found" in p for p in problems)
+
+
+def test_main_audit_requires_credentials(capsys):
+    assert main(["--audit"]) == 1
+    assert "required for --audit" in capsys.readouterr().out
+
+
+def test_main_audit_validates_bucket(tmp_path, monkeypatch, capsys):
+    tarball = _tarball(_valid_tree(tmp_path), tmp_path / "g.tar.gz")
+    client = _mock_s3({"5.0.0/graph/g.tar.gz": tarball.read_bytes()})
+    monkeypatch.setattr("upload_to_s3.boto3.client", lambda *args, **kwargs: client)
+
+    status = main(
+        [
+            "--audit",
+            "--prefix",
+            "5.0.0/graph",
+            "--access-key-id",
+            "key-id",
+            "--secret-access-key",
+            "secret",
+        ]
+    )
+
+    assert status == 0
     assert "archive structure ok" in capsys.readouterr().out

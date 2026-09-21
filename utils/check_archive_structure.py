@@ -287,25 +287,105 @@ def validate_archive(path: Union[str, pathlib.Path]) -> list[str]:
         return problems
 
 
+def _audit(client, bucket: str, prefix: str) -> list[str]:
+    """Validate every ``.tar.gz`` object stored under the bucket prefix."""
+    problems = []
+    key_prefix = f"{prefix.rstrip('/')}/" if prefix else ""
+    objects = []
+    for page in client.get_paginator("list_objects_v2").paginate(
+        Bucket=bucket, Prefix=key_prefix
+    ):
+        objects.extend(
+            obj["Key"]
+            for obj in page.get("Contents", [])
+            if obj["Key"].endswith(".tar.gz")
+        )
+    if not objects:
+        problems.append(f"no .tar.gz objects found under s3://{bucket}/{key_prefix}")
+        return problems
+
+    with tempfile.TemporaryDirectory() as tmp:
+        for object_key in sorted(objects):
+            # A per-key sandbox keeps the original file name, which the
+            # top-level-directory check depends on.
+            sandbox = pathlib.Path(tmp) / object_key.replace("/", "__")
+            sandbox.mkdir()
+            local = sandbox / pathlib.Path(object_key).name
+            client.download_file(bucket, object_key, str(local))
+            problems.extend(
+                f"{object_key}: {problem}" for problem in validate_archive(local)
+            )
+    return problems
+
+
 def main(argv: Optional[Sequence[str]] = None) -> int:
     """Command-line entry point.
 
-    Validates one graph archive and prints every structure violation found.
+    Validates one local graph archive, or — with ``--audit`` — every
+    ``.tar.gz`` object under a bucket prefix, and prints every structure
+    violation found.
 
     Returns
     -------
     status : int
-        0 when the archive is valid, 1 otherwise.
+        0 when everything is valid, 1 otherwise.
     """
     parser = argparse.ArgumentParser(
         description="Validate the fixed self-contained structure of a graph archive."
     )
     parser.add_argument(
-        "path", help="path to a .tar.gz archive or an unpacked archive directory"
+        "path",
+        nargs="?",
+        help="path to a .tar.gz archive or an unpacked archive directory",
+    )
+    parser.add_argument(
+        "--audit",
+        action="store_true",
+        help="validate every .tar.gz object under --prefix in the bucket instead of a local path",
+    )
+    parser.add_argument(
+        "--prefix", default="", help="bucket prefix to audit (with --audit)"
+    )
+    parser.add_argument(
+        "--access-key-id", default=None, help="Yandex Cloud IAM key ID (with --audit)"
+    )
+    parser.add_argument(
+        "--secret-access-key",
+        default=None,
+        help="Yandex Cloud IAM secret key (with --audit)",
+    )
+    parser.add_argument(
+        "--endpoint-url",
+        default=None,
+        help="S3 API endpoint (with --audit; default: the upload tool's)",
+    )
+    parser.add_argument(
+        "--bucket",
+        default=None,
+        help="target bucket (with --audit; default: the upload tool's)",
     )
     args = parser.parse_args(argv)
 
-    problems = validate_archive(args.path)
+    if args.audit:
+        from upload_to_s3 import DEFAULT_BUCKET, DEFAULT_ENDPOINT_URL, create_s3_client
+
+        if not args.access_key_id or not args.secret_access_key:
+            print(
+                "error: --access-key-id and --secret-access-key are required for --audit"
+            )
+            return 1
+        client = create_s3_client(
+            args.access_key_id,
+            args.secret_access_key,
+            args.endpoint_url or DEFAULT_ENDPOINT_URL,
+        )
+        problems = _audit(client, args.bucket or DEFAULT_BUCKET, args.prefix)
+    elif args.path is None:
+        print("error: give a path to validate or use --audit")
+        return 1
+    else:
+        problems = validate_archive(args.path)
+
     if problems:
         for problem in problems:
             print(f"error: {problem}")

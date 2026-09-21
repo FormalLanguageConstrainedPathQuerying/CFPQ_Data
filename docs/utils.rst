@@ -34,10 +34,12 @@ Upload to Yandex S3
 - ``--key`` — object key in the bucket; default is the file name (e.g.
   ``5.0.0/graph/NAME.tar.gz`` to follow the dataset layout).
 
-After the upload the tool verifies that the stored object size equals the
-local file size and reports an error otherwise. The verified size is then
-reported in bytes and megabytes, with the same MB formatting as the
-``Size (MB)`` column of the graph tables, so a new graph's table row can be
+Before uploading any ``.tar.gz`` the tool validates it as a graph archive
+(:ref:`archive_structure`) and refuses an invalid one; after the upload it
+verifies that the stored object size equals the local file size and reports
+an error otherwise. The verified size is then reported in bytes and
+megabytes, with the same MB formatting as the ``Size (MB)`` column of the
+graph tables, so a new graph's table row can be
 filled directly from the upload output.
 
 .. _archive_sizes:
@@ -87,6 +89,8 @@ the :ref:`graphs` page::
 
    python utils/check_archive_structure.py ARCHIVE.tar.gz
    python utils/check_archive_structure.py UNPACKED_DIR
+   python utils/check_archive_structure.py --audit --prefix 5.0.0/graph/ \
+       --access-key-id KEY_ID --secret-access-key SECRET
 
 The checks:
 
@@ -103,7 +107,10 @@ The checks:
   files that exist, each with a non-empty section.
 
 The tool collects every violation and exits non-zero if any is found, so it
-can gate a commit.
+can gate a commit. With ``--audit`` it downloads and validates every
+``.tar.gz`` object under the bucket prefix (credentials from the command
+line, like :ref:`upload_to_s3`). :ref:`upload_to_s3` runs the same check
+before uploading any ``.tar.gz`` and refuses an invalid archive.
 
 .. _reachable_pairs_tables:
 

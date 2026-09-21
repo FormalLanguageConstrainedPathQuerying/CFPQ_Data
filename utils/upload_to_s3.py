@@ -153,7 +153,7 @@ def copy_object(
     return dest_key
 
 
-def main(argv: Optional[Sequence[str]] = None) -> None:
+def main(argv: Optional[Sequence[str]] = None) -> int:
     """Command-line entry point.
 
     Usage::
@@ -163,7 +163,14 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             [--endpoint-url URL] [--bucket BUCKET] [--key KEY]
 
     Credentials are always taken from the command line and are never read
-    from environment variables or config files.
+    from environment variables or config files. Any ``.tar.gz`` upload is
+    first validated as a graph archive (see
+    :mod:`check_archive_structure`); an invalid archive is refused.
+
+    Returns
+    -------
+    status : int
+        0 when the file was uploaded, 1 when the upload was refused.
     """
     parser = argparse.ArgumentParser(
         description="Upload a local file to Yandex Object Storage (S3 API)."
@@ -194,6 +201,16 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     )
     args = parser.parse_args(argv)
 
+    if args.file.endswith(".tar.gz"):
+        from check_archive_structure import validate_archive
+
+        problems = validate_archive(args.file)
+        if problems:
+            for problem in problems:
+                print(f"error: {problem}")
+            print("upload refused: the archive does not have the required structure")
+            return 1
+
     client = create_s3_client(
         args.access_key_id, args.secret_access_key, args.endpoint_url
     )
@@ -202,7 +219,8 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         f"Uploaded {args.file} to s3://{args.bucket}/{key} "
         f"({size} bytes, {format_size_mb(size)} MB)"
     )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
