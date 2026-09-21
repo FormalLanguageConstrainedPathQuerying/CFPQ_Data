@@ -23,7 +23,7 @@ for all follow-up tasks.
   validation per the spec in `docs/flpq.rst`,
   `mcfg_from_text/to_text/from_txt/to_txt`), doctests with the paper's
   examples, reference docs page.
-- **Task 45**: Strong code coverage gate + tooling cleanup: enforce line
+- **Task 45** [done]: Strong code coverage gate + tooling cleanup: enforce line
   and branch coverage >= 95% both in CI (`coverage.yml`) and locally
   (canonical test command), remove the curl/GitHub-API workaround from the
   release skill now that the `gh` CLI is installed, and extend the project
