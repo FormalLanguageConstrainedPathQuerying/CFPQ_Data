@@ -1,6 +1,7 @@
 """Read (and write) a multiple context-free grammar from (and to) different sources."""
 
 import logging
+import re
 from dataclasses import dataclass
 
 from lark import Lark, Transformer
@@ -69,6 +70,79 @@ class MCFG:
     rules: tuple[MCFGRule, ...]
     start_symbol: str = "S"
 
+    @property
+    def dimension(self) -> int:
+        """The maximum arity of a nonterminal (the :math:`d` of
+        :math:`d`-MCFG(:math:`r`))."""
+        sizes = [len(rule.head_args) for rule in self.rules]
+        sizes.extend(len(args) for rule in self.rules for _, args in rule.body)
+        return max(sizes, default=0)
+
+    @property
+    def rank(self) -> int:
+        """The maximum number of body atoms of a rule (the :math:`r` of
+        :math:`d`-MCFG(:math:`r`))."""
+        return max((len(rule.body) for rule in self.rules), default=0)
+
+
+_VARIABLE_RE = re.compile(r"[a-z][0-9]+")
+
+
+def _validate_mcfg(rules: tuple[MCFGRule, ...], start_symbol: str) -> None:
+    arities: dict[str, int] = {}
+    for rule in rules:
+        if rule.head in arities and arities[rule.head] != len(rule.head_args):
+            raise ValueError(
+                f"The nonterminal {rule.head} has inconsistent arity: "
+                f"{arities[rule.head]} and {len(rule.head_args)}"
+            )
+        arities[rule.head] = len(rule.head_args)
+        for head, args in rule.body:
+            if head in arities and arities[head] != len(args):
+                raise ValueError(
+                    f"The nonterminal {head} has inconsistent arity: "
+                    f"{arities[head]} and {len(args)}"
+                )
+            arities.setdefault(head, len(args))
+
+    for rule in rules:
+        body_variables = [var for _, args in rule.body for var in args]
+        if len(set(body_variables)) != len(body_variables):
+            duplicated = sorted(
+                {var for var in body_variables if body_variables.count(var) > 1}
+            )
+            raise ValueError(
+                f"The body variables of the rule {rule} are not pairwise "
+                f"distinct: {', '.join(duplicated)}"
+            )
+        head_variables = [
+            token
+            for arg in rule.head_args
+            for token in arg
+            if _VARIABLE_RE.fullmatch(token)
+        ]
+        if sorted(head_variables) != sorted(body_variables):
+            raise ValueError(
+                f"The rule {rule} has dangling variables: the head uses "
+                f"{sorted(set(head_variables))}, the body uses "
+                f"{sorted(set(body_variables))}"
+            )
+        if rule.body and any("eps" in arg for arg in rule.head_args):
+            raise ValueError(
+                f"The rule {rule} uses 'eps' in a production; 'eps' is only "
+                "allowed in basic rules (rules without a body)"
+            )
+
+    if start_symbol not in arities:
+        raise ValueError(
+            f"The start symbol {start_symbol} does not occur in the grammar"
+        )
+    if arities[start_symbol] != 1:
+        raise ValueError(
+            f"The start symbol {start_symbol} must have arity 1, "
+            f"not {arities[start_symbol]}"
+        )
+
 
 class _MCFGBuilder(Transformer):
     def arg(self, items):
@@ -99,13 +173,16 @@ class _MCFGBuilder(Transformer):
         return tuple(item for item in items if isinstance(item, MCFGRule))
 
 
-def mcfg_from_text(text: str) -> MCFG:
+def mcfg_from_text(text: str, *, start_symbol: str = "S") -> MCFG:
     """Create a multiple context-free grammar [1]_ from text.
 
     Parameters
     ----------
     text : str
         The text with which the multiple context-free grammar will be created.
+
+    start_symbol : str
+        Start symbol of a multiple context-free grammar.
 
     Examples
     --------
@@ -121,8 +198,8 @@ def mcfg_from_text(text: str) -> MCFG:
     4
     >>> mcfg.rules[0]
     MCFGRule(head='A', head_args=(('eps',), ('eps',)), body=())
-    >>> mcfg.rules[3].head
-    'S'
+    >>> mcfg.dimension, mcfg.rank
+    (2, 2)
 
     Returns
     -------
@@ -136,8 +213,10 @@ def mcfg_from_text(text: str) -> MCFG:
     tree = _PARSER.parse(text)
     rules = _MCFGBuilder().transform(tree)
 
-    mcfg = MCFG(rules=rules, start_symbol="S")
+    _validate_mcfg(rules, start_symbol)
 
-    logging.info(f"Create {mcfg=} from {text=}")
+    mcfg = MCFG(rules=rules, start_symbol=start_symbol)
+
+    logging.info(f"Create {mcfg=} from {text=}, {start_symbol=}")
 
     return mcfg

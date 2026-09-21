@@ -1,3 +1,4 @@
+import pytest
 from lark.exceptions import UnexpectedInput
 
 import cfpq_data
@@ -47,6 +48,8 @@ def test_dimension_1_mcfg_from_text():
         head_args=(("x1", "x2"),),
         body=(("A", ("x1",)), ("B", ("x2",))),
     )
+    assert mcfg.dimension == 1
+    assert mcfg.rank == 2
 
 
 def test_comments_and_blank_lines_are_ignored():
@@ -78,18 +81,77 @@ def test_lowercase_letter_variables():
     )
 
 
-def test_no_semantic_validation_yet():
-    # Syntactically valid but semantically broken rule sets parse fine;
-    # the semantic checks are added on top of this parser.
-    mcfg = cfpq_data.mcfg_from_text("A(x1) <- B(x2)\nB(eps eps)")
-
-    assert len(mcfg.rules) == 2
+def test_inconsistent_arity_raises():
+    with pytest.raises(ValueError, match="inconsistent arity"):
+        cfpq_data.mcfg_from_text("A(x1) <- B(x1)\nB(x1, x2)")
 
 
-def test_empty_text():
-    mcfg = cfpq_data.mcfg_from_text("")
+def test_duplicate_body_variable_raises():
+    with pytest.raises(ValueError, match="not pairwise distinct"):
+        cfpq_data.mcfg_from_text("S(x1 x1) <- A(x1, x1)")
 
-    assert mcfg.rules == ()
+
+def test_body_variable_missing_from_head_raises():
+    with pytest.raises(ValueError, match="dangling"):
+        cfpq_data.mcfg_from_text("S(x1) <- A(x2)")
+
+
+def test_head_variable_missing_from_body_raises():
+    with pytest.raises(ValueError, match="dangling"):
+        cfpq_data.mcfg_from_text("S(x1 x2) <- A(x1)")
+
+
+def test_head_variable_twice_raises():
+    with pytest.raises(ValueError, match="dangling"):
+        cfpq_data.mcfg_from_text("S(x1 x1) <- A(x1)")
+
+
+def test_eps_in_production_raises():
+    with pytest.raises(ValueError, match="'eps' is only allowed in basic rules"):
+        cfpq_data.mcfg_from_text("S(eps x1) <- A(x1)")
+
+
+def test_basic_rule_with_variable_raises():
+    with pytest.raises(ValueError, match="dangling"):
+        cfpq_data.mcfg_from_text("A(x1)\nS(x1) <- A(x1)")
+
+
+def test_start_symbol_absent_raises():
+    with pytest.raises(ValueError, match="does not occur"):
+        cfpq_data.mcfg_from_text("A(eps)")
+
+
+def test_start_symbol_wrong_arity_raises():
+    with pytest.raises(ValueError, match="must have arity 1"):
+        cfpq_data.mcfg_from_text("A(eps)\nS(x1, x2) <- A(x1), A(x2)")
+
+
+def test_custom_start_symbol():
+    mcfg = cfpq_data.mcfg_from_text(
+        "A(eps)\nS(x1, x2) <- A(x1), A(x2)", start_symbol="A"
+    )
+
+    assert mcfg.start_symbol == "A"
+
+
+def test_dimension_and_rank():
+    mcfg = cfpq_data.mcfg_from_text(dyck_2_mcfg)
+
+    assert mcfg.dimension == 2
+    assert mcfg.rank == 2
+
+
+def test_dimension_counts_body_only_nonterminals():
+    # S has arity 1; the body-only nonterminal B has arity 2.
+    mcfg = cfpq_data.mcfg_from_text("S(x1 x2) <- B(x1, x2)")
+
+    assert mcfg.dimension == 2
+    assert mcfg.rank == 1
+
+
+def test_empty_text_raises():
+    with pytest.raises(ValueError, match="does not occur"):
+        cfpq_data.mcfg_from_text("")
 
 
 def test_malformed_syntax_raises():
