@@ -45,7 +45,7 @@ for all follow-up tasks.
 - **Task 50**: Site restructure to the FLPQ hierarchy: per-class sections
   (CFPQ/RPQ/MCFPQ) with templates/benchmarks/applicable graphs, the shared
   Graphs section, navigation.
-- **Task 51**: CI as source of truth for commands: analyze which developer-
+- **Task 51** [done]: CI as source of truth for commands: analyze which developer-
   docs and skill content can be replaced with references to the CI workflow
   descriptions; record the per-command decision in the docs; apply it —
   command blocks become references to the workflow file + step, local-only
