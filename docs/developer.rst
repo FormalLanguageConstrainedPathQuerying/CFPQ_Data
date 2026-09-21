@@ -75,9 +75,8 @@ Install the git hook once so the checks run on every commit::
 
    uv run pre-commit install
 
-Run the full pass manually (this is what CI does)::
-
-   uv run pre-commit run --all-files --color always --verbose --show-diff-on-failure
+Run the full pass manually — it is exactly the "Run pre-commit" step of
+:file:`.github/workflows/lint.yml`.
 
 The individual tools can also be run directly::
 
@@ -100,10 +99,9 @@ Test pipeline
 
 The test suite is ``pytest`` with **doctests enabled**: the ``Examples``
 sections of public docstrings are executed as tests, so the documented
-behavior and the tested behavior are the same code. The canonical local
-command (the one CI runs)::
-
-   uv run pytest --cov=cfpq_data --cov-report=json && uv run python utils/check_coverage.py
+behavior and the tested behavior are the same code. The canonical command
+is exactly what CI runs — the "Test CFPQ_Data with coverage (line and
+branch >= 95%)" step of :file:`.github/workflows/coverage.yml`.
 
 Coverage is part of the pipeline: branch coverage is always on
 (``[tool.coverage.run]`` in ``pyproject.toml``), and the check fails unless
@@ -132,9 +130,10 @@ Continuous integration:
 Docs build and deploy
 ---------------------
 
-The documentation is built with Sphinx from the :file:`docs/` directory; the
-canonical local instructions (installing the docs dependencies, building the
-HTML, checking links) live in :file:`docs/README.md`. Two policies matter:
+The documentation is built with Sphinx from the :file:`docs/` directory.
+The build and link-check commands are exactly what CI runs — the "Build"
+and "Check links" steps of :file:`.github/workflows/docs.yml`; the local
+setup command lives in :file:`docs/README.md`. Two policies matter:
 
 - **No-warnings policy.** The build runs with ``-W --keep-going`` (set in
   :file:`docs/Makefile`), so any Sphinx warning — including an unresolved
@@ -146,9 +145,6 @@ HTML, checking links) live in :file:`docs/README.md`. Two policies matter:
 - **Resilient inventory fetches.** Intersphinx inventories are fetched with
   retries on transient connection errors (:file:`docs/conf.py`); a persistent
   failure still warns and fails the build.
-
-Both the build and the link check run in CI on every push and pull request
-(:file:`.github/workflows/docs.yml`).
 
 **Deployment.** Pushing to ``master`` deploys the site:
 :file:`.github/workflows/deploy_docs.yml` builds the HTML and publishes
