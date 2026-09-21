@@ -126,6 +126,13 @@ linkcheck_workers = 1
 # all retries.
 linkcheck_retries = 5
 
+# linkcheck: cap for the native 429 back-off (hosts that answer 429 without
+# a Retry-After header, e.g. owl-ontologies.com under load). The default of
+# 30 is below sphinx's initial 60-second delay, so such a link fails at the
+# first attempt; 120 gives two back-off rounds (~3 minutes) before a
+# persistent rate limit reports broken.
+linkcheck_rate_limit_timeout = 120
+
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
@@ -290,13 +297,39 @@ def _get_with_retries(url: str, **kwargs: Any) -> Response:
 # accepts it), so the assignment is suppressed for it.
 _sphinx_requests.get = _get_with_retries  # type: ignore
 
-# linkcheck: Wikipedia rate-limits datacenter IPs with transient 403s even
-# for sequential requests (verified 2026-09-18: en.wikipedia.org answered
-# 403 to the link check while the same URL answered 200 to a direct request
-# moments later). Retry transient failures inside the session — the path
-# both linkcheck and intersphinx go through — so one rate-limited response
-# does not fail the whole check; a persistent block still reports broken
-# after the retries are exhausted.
+# linkcheck: Wikipedia rate-limits datacenter IPs even for sequential
+# requests, answering 403 (and escalating to 429 + Retry-After under
+# sustained load), and the block can outlast short retry bursts (verified
+# 2026-09-18 in both directions: a 403 that answered 200 moments later, and
+# one that persisted past ~2 minutes of retries). Retry transient failures
+# inside the session — the path both linkcheck and intersphinx go through.
+# For a Wikipedia rate-limit response (403 or 429) that survives the fast
+# retries, normalise it to 429 + Retry-After: 60 so sphinx's native
+# rate-limit machinery re-queues the link at one-minute spacing (hammering
+# the endpoint only keeps the block active) instead of failing the build.
+# The re-queueing is bounded per host — the limit is per IP, not per URL:
+# after _MAX_RATE_LIMIT_ROUNDS rate-limited responses from wikipedia.org the
+# budget stays pinned, so every subsequent Wikipedia link is returned
+# unmodified and sphinx reports it broken (a 403 fails at once; a 429
+# without Retry-After gives up after one more capped back-off round); the
+# check therefore always terminates in ~10 minutes. A
+# successful response to wikipedia.org resets the budget (block lifted).
+from urllib.parse import urlsplit as _urlsplit
+
+_RATE_LIMIT_HOST = "wikipedia.org"
+_RATE_LIMIT_RETRY_AFTER = 60
+_MAX_RATE_LIMIT_ROUNDS = 10
+_rate_limit_rounds: dict[str, int] = {}
+
+
+def _wikipedia_netloc(response: Response) -> str | None:
+    """Returns the netloc if the response URL is a Wikipedia host."""
+    netloc = _urlsplit(str(response.url)).netloc.lower()
+    if netloc == _RATE_LIMIT_HOST or netloc.endswith(f".{_RATE_LIMIT_HOST}"):
+        return netloc
+    return None
+
+
 _orig_session_request = _sphinx_requests._Session.request
 
 
@@ -317,6 +350,22 @@ def _session_request_with_retries(
             attempt += 1
             _time.sleep(_RETRY_BACKOFF * attempt)
             continue
+        netloc = _wikipedia_netloc(response)
+        if netloc is not None and response.status_code in (403, 429):
+            rounds = _rate_limit_rounds.get(netloc, 0) + 1
+            if rounds <= _MAX_RATE_LIMIT_ROUNDS:
+                _rate_limit_rounds[netloc] = rounds
+                response.status_code = 429
+                response.headers["Retry-After"] = str(_RATE_LIMIT_RETRY_AFTER)
+            else:
+                # Over budget: keep it pinned so every subsequent Wikipedia
+                # link fails immediately; a successful Wikipedia response
+                # resets the budget. Hand the raw response back so sphinx
+                # reports the link broken instead of re-queueing forever.
+                _rate_limit_rounds[netloc] = rounds
+                response.headers.pop("Retry-After", None)
+        elif netloc is not None and response.ok:
+            _rate_limit_rounds.pop(netloc, None)
         return response
 
 

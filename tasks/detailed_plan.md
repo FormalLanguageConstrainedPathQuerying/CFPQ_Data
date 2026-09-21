@@ -165,3 +165,37 @@ computing a new count, add the CSV row and run `--update`.
 - Cross-reference :ref:`reachable_pairs` from the new section.
 - No other doc changes: the category pages' "Contents" explanation in
   `docs/graphs/index.rst` already describes the cell semantics correctly.
+
+### S5: Make the docs link check terminate under a persistent Wikipedia block
+
+Added during the quality gate (2026-09-18): the task-42 retry burst in
+`docs/conf.py` is not enough — the Wikipedia block on this IP persisted past
+~2 minutes and escalated from 403 to 429 + Retry-After, so sphinx either
+failed the build or re-queued a link forever (a valid Retry-After bypasses
+the `linkcheck_rate_limit_timeout` cap).
+
+**Code:** `docs/conf.py` — in `_session_request_with_retries`, a Wikipedia
+rate-limit response (403 or 429) that survives the fast retries is
+normalised to 429 + Retry-After: 60 so sphinx's native rate-limit machinery
+re-queues the link at one-minute spacing; the re-queueing is bounded per
+host (`_MAX_RATE_LIMIT_ROUNDS = 10`, the limit is per IP, not per URL) —
+over budget the raw response is handed back and sphinx reports broken; a
+successful Wikipedia response resets the budget. Also sets
+`linkcheck_rate_limit_timeout = 120` so non-Wikipedia hosts answering 429
+without Retry-After (owl-ontologies.com under load) get two capped back-off
+rounds instead of failing at the first attempt (the default of 30 is below
+sphinx's initial 60-second delay).
+
+**Tests:** no committed unit tests — `docs/conf.py` is a Sphinx config, not
+an importable module (importing it monkey-patches `requests` and mutates
+`PYTHONPATH`, which would leak into the pytest process); the logic was
+verified ad hoc (shared per-host budget across URLs, pinned over budget,
+other-host success does not reset, Wikipedia success resets, non-Wikipedia
+responses untouched) and by real linkcheck runs: while the block is active
+the run terminates in ~13 minutes with a bounded, explainable failure; with
+the block lifted it passes (265 links ok).
+
+**Spec:**
+- The check always terminates: worst case ~10 rate-limit rounds (one minute
+  each) plus one capped back-off round, then broken links are reported.
+- While the block is lifted the run passes normally (verified: 265 links ok).
