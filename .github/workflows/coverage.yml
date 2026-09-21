@@ -26,8 +26,11 @@ jobs:
       - name: Show installed packages
         run: uv tree
 
-      - name: Test CFPQ_Data with coverage
-        run: uv run pytest --cov=cfpq_data
+      # The gate enforces line and branch coverage separately (each >= 95%):
+      # the combined --cov-fail-under cannot do that, so the check reads the
+      # JSON report. term-missing keeps the uncovered lines in the CI log.
+      - name: Test CFPQ_Data with coverage (line and branch >= 95%)
+        run: uv run pytest --cov=cfpq_data --cov-report=term-missing --cov-report=json && uv run python utils/check_coverage.py
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v7
