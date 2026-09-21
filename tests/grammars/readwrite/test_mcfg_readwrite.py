@@ -81,9 +81,18 @@ def test_lowercase_letter_variables():
     )
 
 
-def test_inconsistent_arity_raises():
+@pytest.mark.parametrize(
+    "text",
+    [
+        # the second rule's head conflicts with the body atom of the first
+        "A(x1) <- B(x1)\nB(x1, x2)",
+        # a body atom conflicts with an earlier occurrence
+        "A(x1) <- B(x1)\nS(x1) <- B(x1, x2)",
+    ],
+)
+def test_inconsistent_arity_raises(text):
     with pytest.raises(ValueError, match="inconsistent arity"):
-        cfpq_data.mcfg_from_text("A(x1) <- B(x1)\nB(x1, x2)")
+        cfpq_data.mcfg_from_text(text)
 
 
 def test_duplicate_body_variable_raises():
