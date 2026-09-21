@@ -12,7 +12,7 @@ for all follow-up tasks.
   class taxonomy, MCFG formalism (Seki d-MCFG(r)) + `.mcfg` Datalog-like
   format spec (lark parser), target site/package/dataset structure,
   reachable-pairs rendering design, migration path.
-- **Task 43**: Refactor the reachable-pairs representation on the site:
+- **Task 43** [done]: Refactor the reachable-pairs representation on the site:
   per-category tables in `docs/reachable_pairs.rst` (the flat table is
   removed), the CSV stays the single source of truth for automatic
   processing and gains a `category` column, and a `utils/` generator script
