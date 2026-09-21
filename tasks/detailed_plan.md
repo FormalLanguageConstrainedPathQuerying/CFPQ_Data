@@ -179,8 +179,12 @@ rate-limit response (403 or 429) that survives the fast retries is
 normalised to 429 + Retry-After: 60 so sphinx's native rate-limit machinery
 re-queues the link at one-minute spacing; the re-queueing is bounded per
 host (`_MAX_RATE_LIMIT_ROUNDS = 10`, the limit is per IP, not per URL) —
-over budget the raw response is handed back and sphinx reports broken; a
-successful Wikipedia response resets the budget. Also sets
+over budget the raw response is handed back and sphinx reports broken. The
+budget is never reset within a run: an early version reset it on any
+successful Wikipedia response, and under a flapping block (intermittent
+200s amid persistent 403s) that renewed the full budget for every URL — a
+real run logged 10 rate-limit rounds for one URL, a success, then another
+10 for the next, and was still running at 30 minutes. Also sets
 `linkcheck_rate_limit_timeout = 120` so non-Wikipedia hosts answering 429
 without Retry-After (owl-ontologies.com under load) get two capped back-off
 rounds instead of failing at the first attempt (the default of 30 is below
@@ -190,12 +194,12 @@ sphinx's initial 60-second delay).
 an importable module (importing it monkey-patches `requests` and mutates
 `PYTHONPATH`, which would leak into the pytest process); the logic was
 verified ad hoc (shared per-host budget across URLs, pinned over budget,
-other-host success does not reset, Wikipedia success resets, non-Wikipedia
-responses untouched) and by real linkcheck runs: while the block is active
-the run terminates in ~13 minutes with a bounded, explainable failure; with
-the block lifted it passes (265 links ok).
+non-Wikipedia responses untouched) and by real linkcheck runs: with the
+block lifted the run passes (265 links ok), and under an active block the
+no-reset version must terminate in ~15 minutes with a bounded, explainable
+failure (the reset version ran past 30 minutes).
 
 **Spec:**
-- The check always terminates: worst case ~10 rate-limit rounds (one minute
+- The check always terminates: worst case 10 rate-limit rounds (one minute
   each) plus one capped back-off round, then broken links are reported.
 - While the block is lifted the run passes normally (verified: 265 links ok).

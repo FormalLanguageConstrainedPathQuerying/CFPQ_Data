@@ -309,11 +309,15 @@ _sphinx_requests.get = _get_with_retries  # type: ignore
 # the endpoint only keeps the block active) instead of failing the build.
 # The re-queueing is bounded per host — the limit is per IP, not per URL:
 # after _MAX_RATE_LIMIT_ROUNDS rate-limited responses from wikipedia.org the
-# budget stays pinned, so every subsequent Wikipedia link is returned
-# unmodified and sphinx reports it broken (a 403 fails at once; a 429
-# without Retry-After gives up after one more capped back-off round); the
-# check therefore always terminates in ~10 minutes. A
-# successful response to wikipedia.org resets the budget (block lifted).
+# budget stays pinned for the rest of the run, so every subsequent Wikipedia
+# link is returned unmodified and sphinx reports it broken (a 403 fails at
+# once; a 429 without Retry-After gives up after one more capped back-off
+# round); the check therefore always terminates in ~15 minutes. The budget
+# is deliberately never reset on success: under a flapping block
+# (intermittent 200s amid persistent 403s, verified 2026-09-18) a
+# success-based reset renewed the budget for every URL and the check ran
+# past 30 minutes. If the block lifts after the budget is spent, the
+# remaining Wikipedia links are reported broken — re-run the check.
 from urllib.parse import urlsplit as _urlsplit
 
 _RATE_LIMIT_HOST = "wikipedia.org"
@@ -358,14 +362,11 @@ def _session_request_with_retries(
                 response.status_code = 429
                 response.headers["Retry-After"] = str(_RATE_LIMIT_RETRY_AFTER)
             else:
-                # Over budget: keep it pinned so every subsequent Wikipedia
-                # link fails immediately; a successful Wikipedia response
-                # resets the budget. Hand the raw response back so sphinx
+                # Over budget: keep it pinned (never reset within a run —
+                # see above) and hand the raw response back so sphinx
                 # reports the link broken instead of re-queueing forever.
                 _rate_limit_rounds[netloc] = rounds
                 response.headers.pop("Retry-After", None)
-        elif netloc is not None and response.ok:
-            _rate_limit_rounds.pop(netloc, None)
         return response
 
 
