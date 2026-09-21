@@ -206,10 +206,11 @@ no required dependencies); its EBNF grammar doubles as executable
 documentation of the format, and the semantic constraints above are checked
 on the parse tree.
 
-Existing formats are kept: CFPQ data stays ``.cnf`` (the pyformlang
-ecosystem, no re-upload of the existing archives), RPQ queries stay regex
-text files, and MCFPQ uses ``.mcfg``. A ``.cnf <-> .mcfg`` converter is a
-follow-up task.
+Existing formats are kept: CFPQ queries stay ``.cnf`` (the pyformlang
+ecosystem), RPQ queries are regular-expression ``.re`` text files, and
+MCFPQ uses ``.mcfg``; all of them live inside the self-contained graph
+archives (see "Dataset layout and migration" below). A ``.cnf <-> .mcfg``
+converter is a follow-up task.
 
 Site structure
 --------------
@@ -270,14 +271,16 @@ rework is needed to start.
 API changes
 ^^^^^^^^^^^
 
-- ``download(name)`` becomes ``download_graph(name)``;
-- ``download_grammars(template, graph_name=None)`` becomes
-  ``download_query(query_class, template, graph_name=None)``;
-- the old names stay in ``flpq_data`` as deprecated aliases (the latter
-  defaulting to the CFPQ class);
+- ``download(name)`` becomes ``download_graph(name)`` and returns the
+  self-contained directory — the graph plus its ``queries/`` tree;
+- ``download_grammars(template, graph_name=None)`` is deprecated: queries
+  come with the graph archive (the example archives it downloaded for
+  ``graph_name=None`` are dropped);
+- the old names stay in ``flpq_data`` as deprecated aliases;
 - the registries are renamed accordingly: ``DATASET`` -> ``GRAPHS``, and
   ``GRAMMAR_TEMPLATES`` becomes the per-class ``CFPQ_TEMPLATES`` /
-  ``RPQ_TEMPLATES`` / ``MCFPQ_TEMPLATES``;
+  ``RPQ_TEMPLATES`` / ``MCFPQ_TEMPLATES`` — they name the query files inside
+  the archives, not downloadable archives;
 - ``reachable_pairs()`` gains the category field.
 
 Distribution
@@ -292,27 +295,30 @@ through one more release.
 Dataset layout and migration
 ----------------------------
 
-The dataset on object storage moves to the 6.0.0 key prefix with a
-class-aware query layout::
+The dataset on object storage moves to the 6.0.0 key prefix::
 
    6.0.0/
-   ├── graph/<name>.tar.gz                        shared — copied from 5.0.0
-   ├── query/
-   │   ├── cfpq/<template>[_<graph>].tar.gz       migrated from the legacy 4.0.0/grammar prefix
-   │   ├── rpq/<template>[_<graph>].tar.gz        new
-   │   └── mcfpq/<template>[_<graph>].tar.gz      new
-   └── benchmark/<class>/<name>.tar.gz            MS_Reachability -> cfpq/
+   ├── graph/<name>.tar.gz                self-contained — repackaged from 5.0.0
+   └── benchmark/<class>/<name>.tar.gz    reworked in a follow-up task
 
-Graphs are large and class-agnostic, so they live under one shared prefix;
-queries are class-specific, so they live under ``query/<class>/``.
+Graphs are large and class-agnostic, so they live under one shared prefix.
+Queries no longer have their own archives: every graph archive is
+self-contained and carries all queries that apply to the graph — the layout
+is documented once in the "File structure" section of the :ref:`graphs`
+page (``README.md``, ``graph/*.mtx``, and ``queries/{cfpq,rpq,mcfpq}/``
+with a common description document).
 
 Migration path:
 
-- Copy the graph archives from the 5.0.0 prefix to ``6.0.0/graph/`` (no
-  content change).
-- Move the example and per-graph grammar archives from the legacy
-  ``4.0.0/grammar/`` prefix to ``6.0.0/query/cfpq/``.
-- Re-point ``DATASET_URL`` / ``GRAMMARS_URL`` / ``BENCHMARK_URL`` at the new
-  prefixes as part of the version bump (the rename task).
-- The upload tools in ``utils/`` gain the class-aware key layout so new
-  graphs and queries land under the right prefix.
+- Repackage every graph archive into the self-contained structure: move the
+  per-graph grammars from the legacy ``4.0.0/grammar/`` archives into the
+  archive's ``queries/cfpq/``, write the mandatory-question ``README.md``,
+  and validate with ``utils/check_archive_structure.py``
+  (:ref:`archive_structure`).
+- The example query archives (``4.0.0/grammar/example/``) are dropped —
+  every query file lives inside a graph archive.
+- Re-point ``DATASET_URL`` / ``BENCHMARK_URL`` at the new prefixes as part
+  of the version bump (the rename task); ``GRAMMARS_URL`` disappears with
+  the separate grammar archives.
+- The upload tool validates the structure before uploading
+  (:ref:`upload_to_s3`, :ref:`archive_structure`).

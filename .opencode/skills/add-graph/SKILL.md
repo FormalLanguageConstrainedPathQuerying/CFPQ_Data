@@ -18,17 +18,19 @@ Fill in every field in the triangle brackets (`<>`) of those templates.
 ## Data format
 
 The archive layout and the label conventions are documented once in the
-"File structure" section of `docs/graphs/index.rst` — follow it exactly:
-`<name>.tar.gz` unpacks to `<name>/{README.md, grammar/, graph/}`, where
-`graph/` holds one Boolean MatrixMarket pattern file per edge label.
+"File structure" section of `docs/graphs/index.rst` — follow it exactly.
+Pack every query of the graph into the archive per the "Queries" section of
+the PR template, then validate with
+`python utils/check_archive_structure.py <archive>.tar.gz` (the upload tool
+runs the same check and refuses invalid archives).
 
 ## Wiring a new graph into the code
 
 1. Add the graph name to `DATASET` in `cfpq_data/dataset/data.py`.
 2. The graph archive must be uploaded under the dataset URL
    `https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/graph/<name>.tar.gz`.
-3. Loading happens via `download(name)` (which returns the graph directory)
-   and `graph_from_mtx_dir(path / "graph")`
+3. Loading happens via `download(name)` (which returns the self-contained
+   graph directory — graph plus queries) and `graph_from_mtx_dir(path / "graph")`
    (`cfpq_data/graphs/readwrite/mtx.py`).
 
 ## Documentation
