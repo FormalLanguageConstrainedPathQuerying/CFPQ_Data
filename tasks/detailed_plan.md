@@ -1,193 +1,133 @@
-# Detailed Plan: Task 44 — MCFG readwrite module with lark
+# Detailed Plan: Task 45 — Strong code coverage gate + tooling cleanup
 
-Task (recorded in `tasks/tasks.md`): "MCFG readwrite module with lark:
-`cfpq_data/grammars/readwrite/mcfg.py` (data model, EBNF grammar, validation
-per the spec in `docs/flpq.rst`, `mcfg_from_text/to_text/from_txt/to_txt`),
-doctests with the paper's examples, reference docs page."
+Task (user's words, recorded in `tasks/tasks.md`): "set strong code coverage
+checking both in CI and locally. Set both instructionand branch coverage up
+to 95%. Moreover, gh is installed. remove workarounds from documentation and
+instructions. Extend tooling skill: no workaround for regular tasks. If there
+is a tool for regular task it must be installed and configured appropriately."
 
-Scope (per `docs/flpq.rst` "MCFG grammar format (.mcfg)" and
-`tasks/global_plan.md`): a new formalism-based readwrite module for the
-`.mcfg` Datalog-like syntax. The format spec — lexical conventions, rule
-forms, validation constraints, and the two literature examples — lives in
-`docs/flpq.rst`; this plan does not re-describe it, only the implementation
-decisions below.
+Scope (per `tasks/global_plan.md`): enforce line and branch coverage >= 95%
+both in CI (`coverage.yml`) and locally (canonical test command); remove the
+curl/GitHub-API workaround from the release skill now that the `gh` CLI is
+installed; extend the project tooling guidance with a no-workaround rule.
 
 Verified facts this plan builds on (checked against the repo, 2026-09-21):
-- `lark` is NOT a dependency yet; it must be added to `[project]
-  dependencies` in `pyproject.toml` (runtime dependency of the reader) via
-  `uv add lark`, which also updates `uv.lock`.
-- No pyformlang type exists for MCFGs (verified in task 42), so the data
-  model is defined in `mcfg.py` itself.
-- Module conventions (from `regex.py`/`cnf.py`): module docstring "Read (and
-  write) a ... from (and to) different sources."; `__all__`; numpydoc
-  docstrings with Parameters/Examples/Returns/References (Examples run as
-  doctests via `--doctest-modules`); `logging.info` per public function;
-  file paths typed `Union[pathlib.Path, str]`; doctests import via
-  `from cfpq_data import *`.
-- Invalid input raises `ValueError` with a descriptive f-string (pattern of
-  `cnf_template.py`). Syntax errors surface as lark's `UnexpectedInput`.
-- Exports: `cfpq_data/grammars/readwrite/__init__.py` re-exports each module
-  via `from ... import *` in alphabetical order (cfg, cnf, cnf_template,
-  regex, rsa) — `mcfg` slots between `cnf_template` and `regex`. The top
-  level (`cfpq_data/__init__.py`) already re-exports the whole chain.
-- Tests mirror the package: `tests/grammars/readwrite/test_mcfg_readwrite.py`
-  (siblings: test_cfg/cnf/cnf_template/regex/rsa).
-- Docs: `docs/reference/grammars/grammars_readwrite.rst` lists the modules
-  in an autosummary toctree; the per-module stubs under
-  `docs/reference/grammars/generated/` are produced by
-  `autosummary_generate = True` at build time and committed (pattern of
-  `cfpq_data.grammars.readwrite.regex.rst`).
+- Current coverage: line 1062/1066 = 99.6%, branch 264/274 = 96.3% — both
+  already >= 95, so the gate passes from day one; the task is enforcement,
+  not writing tests.
+- `pytest-cov --cov-fail-under` and `coverage.py fail_under` check only the
+  combined TOTAL (statements + branches together) — they cannot enforce each
+  metric separately (line 94% + branch 100% could pass a combined 95). No
+  existing tool enforces per-metric thresholds locally, so a small `utils/`
+  script is the tool (pattern of `utils/archive_sizes.py`).
+- `coverage.json` "totals" carries `covered_lines`/`num_statements` always
+  and `covered_branches`/`num_branches` only when branch coverage is on.
+- `.github/workflows/coverage.yml` runs `uv run pytest --cov=cfpq_data` and
+  uploads to Codecov; no branch coverage, no threshold. `tests.yml` (the
+  cross-OS suite) runs bare `uv run pytest` and stays that way.
+- No `[tool.coverage]` configuration exists in `pyproject.toml`.
+- The only gh workaround is `.opencode/skills/release/SKILL.md` "Recovery"
+  (GH_TOKEN extraction + curl to api.github.com for release creation and
+  asset upload). `gh` 2.45.0 is installed and authenticated on this machine
+  (verified 2026-09-21). No other curl/api.github workarounds exist in
+  `docs/` or `.opencode/` (grep-verified).
+- The tooling guidance lives in the "Tools, not instructions" bullet of the
+  Main Principles in `AGENTS.md`.
+- The canonical local test command is documented in the "Test pipeline"
+  section of `docs/developer.rst`; the `quality-gates` skill defines gate
+  semantics and points at `docs/developer.rst` for commands.
 
-Design decisions (implementation-level; the format itself is fixed by
-`docs/flpq.rst`):
+Design decisions:
 
-1. **Data model** — two frozen dataclasses in `mcfg.py`:
-   - `MCFGRule`: `head: str` (nonterminal), `head_args: tuple[tuple[str,
-     ...], ...]` (each argument is a sequence of tokens — terminals,
-     variables, or the literal `"eps"`), `body: tuple[tuple[str,
-     tuple[str, ...]], ...]` (atoms; empty for basic rules). A *basic rule*
-     is a production with an empty body — one representation, no separate
-     class.
-   - `MCFG`: `rules: tuple[MCFGRule, ...]`, `start_symbol: str`; properties
-     `dimension` (max nonterminal arity) and `rank` (max number of body
-     atoms) computed from the rules (the file carries no header).
-2. **Parser** — lark with `parser="lalr"`. The LALR contextual lexer makes
-   `#` context-sensitive without preprocessing: a `COMMENT` token
-   (`/#[^\n]*/`) is only valid between rules (top level), while inside
-   argument lists `#` matches the catch-all `TERMINAL` token — required by
-   the spec's example `S(x1 y1 # y2 x2)`. Token priorities break the other
-   ambiguities: `EPS`/`VARIABLE`/`NONTERMINAL` outrank `TERMINAL`, so
-   `eps`, `x1`, and uppercase identifiers never lex as terminals.
-   `NONTERMINAL: /[A-Z]\w*/`, `VARIABLE: /x[0-9]+/`, `EPS: /eps/`,
-   `TERMINAL: /[^ \t\r\n#(),<>-]+/` (structural characters cannot appear in
-   terminals — inherent to the chosen syntax). Whitespace is ignored via
-   `%ignore /[ \t\r\n]/`; comments are explicit grammar tokens.
-2a. **Variable pattern correction** — `docs/flpq.rst` says variables are "``x``
-   followed by one or more digits", but its own literature example uses
-   ``y1``/``y2`` as body variables (`S(x1 y1 # y2 x2) <- A(x1, x2),
-   A(y1, y2)`), which is unparseable under the strict `x\d+` pattern. The
-   pattern is implemented as **one lowercase letter followed by one or more
-   digits** (`[a-z][0-9]+`) — exactly the literature's `x^i`, `y^j`
-   notation — and the spec line in `docs/flpq.rst` is corrected to match.
-   No dataset label collides: the terminal vocabularies are `0`/`1`/`#`,
-   `a`/`a_r`/`d`/`d_r`, `load_*`/`store_*`, `subClassOf`-style words — none
-   matches `[a-z][0-9]+`.
-3. **Validation** (semantic, on the parsed model; syntax errors are lark's):
-   - arity consistency across every occurrence of a nonterminal;
-   - body variables pairwise distinct per rule;
-   - no dangling variables in both directions: the set of head-template
-     variables equals the set of body variables, and each appears exactly
-     once across the head templates (the strict form every published
-     example satisfies);
-   - `eps` only in basic rules (empty body) — production templates mix
-     terminals and variables, and `eps` is neither;
-   - a "terminal" matching `x\d+` can never be one: it lexes as a variable,
-     so such a label is rejected wherever a variable is not allowed (basic
-     rules) or leaves the rule dangling-variable-inconsistent;
-   - the start symbol (default `"S"`, overridable via keyword parameter like
-     the `cnf`/`cfg`/`rsa` readers) must occur in the grammar with arity 1.
-   All violations raise `ValueError` naming the offending rule/symbol.
-4. **Canonical rendering** (`mcfg_to_text`): one rule per line, basic rules
-   as `A(eps, eps)`, productions as `S(x1 y1 # y2 x2) <- A(x1, x2),
-   A(y1, y2)`; argument tokens space-joined, empty argument list rendered
-   `()`. Round-trip: `mcfg_to_text(mcfg_from_text(t))` reproduces `t` up to
-   whitespace/comment normalization.
+1. `[tool.coverage.run] branch = true` in `pyproject.toml` — every `--cov`
+   run includes branches; no caller needs to remember `--cov-branch`.
+2. `utils/check_coverage.py` reads `coverage.json`, computes line % and
+   branch % separately from "totals", prints both, and exits non-zero if
+   either is below the threshold (default 95.0, overridable with
+   `--threshold`). Missing branch data is an explicit error (the report must
+   be generated with branch coverage); zero branches counts as 100%.
+3. Canonical local command:
+   `uv run pytest --cov=cfpq_data --cov-report=json && uv run python
+   utils/check_coverage.py` — documented in the "Test pipeline" section; the
+   quality gate treats a threshold failure as a gate failure.
+4. CI: `coverage.yml` runs the same two steps (plus `term-missing` for the
+   log); the Codecov upload is unchanged.
+5. The release skill's Recovery is rewritten with the `gh` CLI (`gh release
+   create` / `gh release upload`); the GH_TOKEN extraction and curl payload
+   machinery are removed; the awk changelog extraction stays (it builds the
+   notes file that `gh release create --notes-file` also needs).
+6. The "Tools, not instructions" bullet in `AGENTS.md` is extended with the
+   user's verbatim no-workaround rule.
 
-### S1: Record the task and add the lark dependency
+### S1: Coverage config, check script, and the local gate
 
-**Code:** `pyproject.toml` + `uv.lock` via `uv add lark` (runtime
-dependency). No package code yet.
-**Tests:** none new — the existing suite must stay green under `uv sync`
-with the new lock; `uv run python -c "import lark"` resolves.
-**Docs:** `tasks/tasks.md` (task 44 recorded with user guidance),
-`tasks/global_plan.md` (coverage task added as task 45, tasks 45-49
-renumbered to 46-50, dependencies updated).
+**Code:** `pyproject.toml` — `[tool.coverage.run] branch = true`. New
+`utils/check_coverage.py`: argparse (`--threshold` default 95.0, positional
+report path default `coverage.json`), reads "totals", prints line % and
+branch %, exits 1 if either is below the threshold with a message naming the
+metric; explicit error when branch data is missing from the report.
+**Tests:** new `tests/utils/test_check_coverage.py` with synthetic
+`coverage.json` fixtures in `tmp_path`: both metrics pass (exit 0), line
+below threshold (exit 1, message names line), branch below (exit 1, names
+branch), `--threshold` override, missing branch fields (clear error), zero
+branches (treated as 100).
+**Docs:** `docs/developer.rst` "Test pipeline" — the canonical command gains
+the coverage step and the 95/95 policy is stated; `quality-gates` skill —
+the test-suite step notes that a coverage threshold failure fails the gate.
 
 **Spec:**
-- `lark` lands in `[project] dependencies` (not a dev/test group — the
-  reader imports it at runtime), version-pinned like the other dependencies.
-- `uv.lock` regenerated; `uv sync --frozen` passes (the CI check).
+- The script uses only the standard library (json, argparse, pathlib, sys)
+  so it runs in any environment where the report exists.
+- Percentages are computed from the raw counts (covered/total), not from the
+  rounded `percent_covered` fields.
+- The canonical command is one line: pytest (which writes `coverage.json`)
+  and then the check; a failing suite short-circuits before the check runs.
 
-### S2: Data model, lark EBNF grammar, and syntax-level parsing
+### S2: Enforce the gate in CI
 
-**Code:** new `cfpq_data/grammars/readwrite/mcfg.py`: the `MCFGRule` and
-`MCFG` frozen dataclasses (decision 1), the lark EBNF grammar as a module
-constant (decisions 2/2a), and `mcfg_from_text(text: str) -> MCFG` parsing
-to the model. `__all__ = ["MCFG", "MCFGRule", "mcfg_from_text"]`.
-`cfpq_data/grammars/readwrite/__init__.py` gains the `mcfg` re-export in
-alphabetical position (the module is part of the package from birth, so
-doctests can use `from cfpq_data import *` immediately).
-**Tests:** new `tests/grammars/readwrite/test_mcfg_readwrite.py`: both
-literature examples from `docs/flpq.rst` parse into the expected models
-(rule count, head/args/body structure, start symbol default); comments and
-blank lines are ignored; a `#` terminal inside arguments parses; `y1`-style
-variables parse (decision 2a); malformed syntax (missing arrow, unbalanced
-parens, lowercase "nonterminal" head, dangling comma) raises lark's
-`UnexpectedInput`.
-**Docs:** numpydoc docstrings with `Examples` for the public names (the
-paper's 2-MCFG(2) example); `docs/flpq.rst` variable line corrected per
-decision 2a; no reference page yet (S5).
+**Code:** `.github/workflows/coverage.yml` — the test step becomes
+`uv run pytest --cov=cfpq_data --cov-report=term-missing --cov-report=json &&
+uv run python utils/check_coverage.py`, with a comment explaining that both
+metrics are enforced separately (the combined `--cov-fail-under` cannot).
+**Tests:** pre-commit's check-yaml hook passes; the CI job itself is the
+verification.
+**Docs:** `docs/developer.rst` "Test pipeline" CI bullet — `coverage.yml`
+enforces the 95/95 gate and uploads to Codecov.
 
 **Spec:**
-- The grammar constant is the executable documentation of the syntax
-  (decisions 2/2a); it accepts exactly the spec's lexical conventions.
-- `mcfg_from_text` performs NO semantic validation in this subtask — a
-  syntactically valid but semantically broken rule set parses fine (S3
-  adds the checks). Tests assert that explicitly.
+- `tests.yml` (the cross-OS suite) keeps running bare `uv run pytest` —
+  coverage stays in the dedicated job, as today.
+- The Codecov upload step is unchanged (it reads the `.coverage` data that
+  pytest-cov always writes).
 
-### S3: Semantic validation, start symbol, dimension and rank
+### S3: Remove the gh workaround from the release skill
 
-**Code:** extend `mcfg.py`: validation pass (decision 3) invoked by
-`mcfg_from_text`, now with signature `mcfg_from_text(text: str, *,
-start_symbol: str = "S") -> MCFG`; `MCFG.dimension` / `MCFG.rank`
-properties; `logging.info` reporting the created grammar with its
-dimension/rank (pattern of the other readers).
-**Tests:** extend `test_mcfg_readwrite.py`: each constraint violated in
-turn raises `ValueError` with a message naming the offender — arity
-mismatch, duplicate body variable, body variable missing from the head,
-head variable missing from the body, a body variable twice in the head,
-`eps` in a production template, start symbol absent, start symbol of
-wrong arity, custom `start_symbol=` accepted; both literature examples
-report dimension/rank (2-MCFG(2): d=2, r=2; the dimension-1 example:
-d=1, r=2).
-**Docs:** docstrings updated for the new parameter and properties.
+**Code:** none.
+**Tests:** n/a (skill documentation); `gh --version` and `gh auth status`
+verified on this machine during planning.
+**Docs:** `.opencode/skills/release/SKILL.md` — the "Recovery" section is
+rewritten around the `gh` CLI: create the release with
+`gh release create vX.Y.Z --notes-file release_notes.md`, upload the dist
+artifacts with `gh release upload vX.Y.Z <whl> <tar.gz>`; the GH_TOKEN
+extraction, the python3 JSON payload, and the curl commands (including the
+per-release `upload_url` note) are removed; the awk changelog extraction and
+the PyPI-delete constraint stay.
 
 **Spec:**
-- Validation runs after parsing, before the `MCFG` is constructed; on
-  failure nothing but the `ValueError` escapes.
-- `dimension`/`rank` are computed from the rules (no stored header), per
-  the spec: d = max nonterminal arity, r = max number of body atoms.
+- No curl/api.github.com invocation remains anywhere in `.opencode/` or
+  `docs/` (grep-verified after the change).
+- The skill stays a thin pointer: procedure only, no duplication of
+  `docs/release.rst`.
 
-### S4: Writers — to_text / from_txt / to_txt and round-trips
+### S4: The no-workaround tooling rule in AGENTS.md
 
-**Code:** extend `mcfg.py`: `mcfg_to_text(mcfg: MCFG) -> str` (canonical
-rendering, decision 4), `mcfg_from_txt(path, *, start_symbol="S") -> MCFG`,
-`mcfg_to_txt(mcfg, path) -> pathlib.Path`; `__all__` completed.
-**Tests:** extend `test_mcfg_readwrite.py`: round-trip
-`mcfg_to_text(mcfg_from_text(t)) == t` for both literature examples (and a
-grammar exercising `()`, multi-token arguments, and `#`); `from_txt`/
-`to_txt` via `tmp_path` (pattern of the regex tests); doctests in the
-docstrings use the paper's examples end to end.
-**Docs:** docstrings with `Examples` for all four public functions.
+**Code:** none.
+**Tests:** n/a.
+**Docs:** `AGENTS.md` Main Principles — the "Tools, not instructions" bullet
+is extended with the user's verbatim rule: "No workaround for regular tasks.
+If there is a tool for regular task it must be installed and configured
+appropriately."
 
 **Spec:**
-- The rendering is canonical: the same model always produces the same text,
-  so round-trips are stable and diffs are meaningful.
-- `mcfg_to_txt` returns the resolved `pathlib.Path` (pattern of
-  `regex_to_txt`).
-
-### S5: Reference docs page
-
-**Code:** none (the module was exported from S2).
-**Tests:** the full suite green, including all mcfg doctests discovered via
-`--doctest-modules`; `from cfpq_data import *` exposes `MCFG`, `MCFGRule`,
-and the four functions (asserted in a test).
-**Docs:** `docs/reference/grammars/grammars_readwrite.rst` — add `mcfg` to
-the autosummary list; run the docs build so the per-module stub
-`docs/reference/grammars/generated/cfpq_data.grammars.readwrite.mcfg.rst`
-is generated (the `generated/` stubs are gitignored and regenerated on
-every build — only the hand-written `.rst` files are tracked).
-
-**Spec:**
-- The docs build passes under `-W --keep-going` with zero warnings
-  (nitpicky: every cross-reference in the new docstrings resolves).
+- The rule is recorded verbatim (user guidance), appended to the existing
+  bullet so the tooling policy stays in one place.

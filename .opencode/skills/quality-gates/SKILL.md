@@ -14,7 +14,8 @@ The gate is the combination of the test suite, the style/lint checks, the
 type check, and the docs build:
 
 - **Tests** — see the "Test pipeline" section of `docs/developer.rst` for
-  the exact command.
+  the exact command. The canonical command includes the coverage check: it
+  fails unless both line and branch coverage are at least 95%.
 - **Style/lint** — see the "Quality checks" section of `docs/developer.rst`
   for the exact command.
 - **Type check** — `uv run ty check` must report no errors; CI additionally
@@ -36,7 +37,8 @@ skill only defines the gate semantics.
 ## Procedure
 
 1. Run the full test suite ("Test pipeline" section of `docs/developer.rst`).
-   It must show 0 failures and 0 skipped.
+   It must show 0 failures and 0 skipped, and the coverage check must pass
+   (line and branch each at least 95%).
 2. Run the full style/lint pass ("Quality checks" section of
    `docs/developer.rst`). It must show no errors.
 3. Run the type check (`uv run ty check`). It must report no errors.

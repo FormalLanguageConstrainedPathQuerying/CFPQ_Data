@@ -83,9 +83,14 @@ sections of public docstrings are executed as tests, so the documented
 behavior and the tested behavior are the same code. The canonical local
 command (the one CI runs)::
 
-   uv run pytest
+   uv run pytest --cov=cfpq_data --cov-report=json && uv run python utils/check_coverage.py
 
-A single module or function::
+Coverage is part of the pipeline: branch coverage is always on
+(``[tool.coverage.run]`` in ``pyproject.toml``), and the check fails unless
+**both** line and branch coverage are at least 95%. The threshold lives in
+``utils/check_coverage.py`` because the combined ``--cov-fail-under`` cannot
+enforce each metric separately. A single module or function runs without the
+coverage gate::
 
    uv run pytest tests/graphs/utils/test_add_reverse_edges.py
 
@@ -98,8 +103,9 @@ Continuous integration:
 
 - :file:`.github/workflows/tests.yml` — runs the suite on every push and pull
   request across a matrix of Linux, macOS, and Windows with Python 3.11.
-- :file:`.github/workflows/coverage.yml` — runs the same suite with
-  ``--cov=cfpq_data`` and uploads the report to Codecov.
+- :file:`.github/workflows/coverage.yml` — runs the same suite with coverage,
+  enforces the 95/95 line+branch gate with ``utils/check_coverage.py``, and
+  uploads the report to Codecov.
 
 .. _developer-docs:
 

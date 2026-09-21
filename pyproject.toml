@@ -99,6 +99,11 @@ extraPaths = ["utils"]
 # Local scratch/working directory (gitignored), not part of the package.
 exclude = ["temporal_cfpq"]
 
+[tool.coverage.run]
+# Branch coverage is always on so the line+branch gate (utils/check_coverage.py)
+# sees both metrics in every report.
+branch = true
+
 [tool.pytest.ini_options]
 addopts = "--doctest-modules -vv -s"
 testpaths = ["cfpq_data", "tests"]
