@@ -1,130 +1,201 @@
-# Detailed Plan: Task 55 — Data providing mechanism (Google Drive link + partial archives)
+# Detailed Plan: Task 56 — Optimized grammars from arXiv:2401.11029 into the archives
 
 ## Context
 
-Task 54 extended the archive structure: a query is a directory
-`queries/<class>/<query>/` holding its representations plus one
-`results.mtx`. Task 55 reworks how new data is provided to the project: a
-Google Drive link to an archive prepared per the structure-validation tool
-becomes the main way; partial archives (a new query for an existing graph)
-are allowed, with the structure preserved so the new data merges into the
-existing archive; the issue/PR templates make this way the main one and
-point at the tooling.
+arXiv:2401.11029 ("Optimization of the Context-Free Language Reachability
+Matrix-Based Algorithm", Muravev 2024) presents five optimizations for the
+matrix-based CFL-r algorithm. Optimization (5), in Appendix B, gives two
+equivalent hand-crafted WCNF grammars that outperform the automatically
+normalized ones. Both originals are "taken from CFPQ Data":
 
-Existing pieces to build on:
+| Class | Original in our archives | Optimized (paper) |
+|---|---|---|
+| Field-sensitive Java points-to (FSJPT) | Fig 1(a) = `java_points_to.cnf` | **Fig 1(b)** |
+| Field-insensitive C/C++ alias (FICA) | Fig 2(a) = `c_alias.cnf` | **Fig 2(b)** |
 
-- `utils/check_archive_structure.py` — the structure validator (full mode,
-  task 54 layout).
-- `utils/upload_to_s3.py` — validates before uploading; `--audit` over the
-  bucket.
-- `utils/migrate_gdrive_to_s3.py` — `download_from_drive(file_id, dest)`
-  handles Drive's large-file confirmation form; `DRIVE_FILE_ID_RE` extracts
-  a file ID from a Drive URL.
+(Figs 3–4 are from POCR/Lei et al., not ours, and are untouched by
+optimization 5.) The task: extract the two optimized grammars, add them to
+the respective archives (all 21 `java_points_to` + all 20
+`c_alias_analysis` graph archives on S3), and verify with `temporal_cfpq`
+(FastMatrixCFPQ Docker oracle) that original and optimized return equal
+reachable-pair counts on several small graphs.
+
+Language equivalence (checked by hand before implementation):
+
+- FSJPT: Fig 1(b)'s `PT -> LPFS_i PT` with `LPFS_i = load_i PT FT store_i`
+  reproduces Fig 1(a)'s `PTH -> load_i Al store_i PTH` (`Al = PT FT`); the
+  non-ε trailing `PT` in 1(b) absorbs the terminating `alloc` of 1(a)'s
+  `PTH -> ε` case, and symmetrically for `FT`/`SPFL_i` vs `FTH`. Same
+  language.
+- FICA: Fig 2(a)'s `V = ((ε|M) a_r)* (ε|M) (a (ε|M))*` equals Fig 2(b)'s
+  `d_r (a_r | M a_r)* (ε|M) (a | aM)* d` since `(ε|M) a_r = a_r | M a_r` and
+  `a (ε|M) = a | aM`. Same language.
 
 ## User decisions (recorded verbatim in tasks.md)
 
-1. A partial archive contains **queries/ + a README fragment**:
-   `<graph>/queries/<class>/<query>/{representations, results.mtx}` plus a
-   `queries/README.md` holding only the new `## <class>/<query>` sections —
-   everything needed for the merge lives in the archive.
-2. **Build `utils/merge_archive.py`** — merges a partial archive into an
-   existing one: collision checks, README section append, full re-validation
-   of the result.
+1. **Keep old structure** — the live archives are in the legacy layout
+   (`README.md`, `grammar/`, `graph/`); the upload CLI gate added by task 52
+   enforces the new `queries/` layout and would refuse them. Re-upload the 41
+   archives as-is with the new grammar file added, via the `upload_file()`
+   API of `utils/upload_to_s3.py` (the gate stays intact for new data). The
+   dataset-wide migration to the new layout remains global-plan task 48.
+2. **Cite the paper in the name** — the files are
+   `java_points_to_muravev2024.cnf` and `c_alias_muravev2024.cnf`.
 
-## Design
+## The two optimized grammars (POCR `.cnf`, our label conventions)
 
-### Partial archive format
-
-```
-<graph_name>/
-└── queries/
-    ├── README.md          fragment: the new "## <class>/<query>" sections only
-    └── <class>/
-        └── <query>/
-            ├── <rep>.*    ≥ 1 representation file (.cnf/.rsm, .re/.rsm, .mcfg)
-            └── results.mtx
-```
-
-- The top-level directory is named after the graph (same rule as full
-  archives).
-- No `graph/`, no top-level `README.md`.
-- The reachable-pair count is derivable: the number of entries in
-  `results.mtx` — no separate reference file.
-
-### Validator extension (`check_archive_structure.py --partial`)
-
-- Explicit `--partial` flag; `validate_archive(path, partial=False)`.
-- Partial skeleton: a single top-level directory named after the archive,
-  containing only `queries/`; `queries/` carries its `README.md` and at
-  least one known class directory; each class directory holds query
-  directories validated by the existing `_query_dir_problems`.
-- Representation files must parse (no label check — there is no graph to
-  check against; no `results.mtx` dimension check either).
-- The README fragment: every section is non-empty and matches a
-  `<class>/<query>` directory present in the partial archive.
-- Full mode is unchanged; a missing `graph/` without `--partial` stays an
-  error.
-
-### Merge tool (`utils/merge_archive.py`)
+`java_points_to_muravev2024.cnf` (Fig 1(b); indexed nonterminals share the
+field index; start `PT`):
 
 ```
-python utils/merge_archive.py EXISTING.tar.gz PARTIAL.tar.gz -o MERGED.tar.gz
+PT	alloc
+PT	assign	PT
+PT	LPFS_i	PT
+FT	alloc_r
+FT	FT	assign_r
+FT	FT	SPFL_i
+LPFS_i	LP_i	FS_i
+LP_i	load_i	PT
+FS_i	FT	store_i
+SPFL_i	SP_i	FL_i
+SP_i	store_r_i	PT
+FL_i	FT	load_r_i
+
+Count:
+PT
 ```
 
-- `PARTIAL` may be a local `.tar.gz`, an unpacked directory, or a Google
-  Drive URL / file ID (downloaded via `download_from_drive`).
-- Validates the existing archive in full mode and the partial one in partial
-  mode; both top-level directories must have the same name (same graph).
-- Copies the partial's query directories into the existing tree; a
-  `<class>/<query>` that already exists is a collision error (all collisions
-  reported at once).
-- README merge: every section of the partial fragment must correspond to a
-  merged-in query directory; sections are appended to the existing
-  `queries/README.md`; a section name that already exists is an error.
-- Re-validates the merged tree in full mode; on any problem it reports them
-  and exits non-zero without writing the output.
-- Writes `MERGED.tar.gz` with the graph-named top-level directory.
+`c_alias_muravev2024.cnf` (Fig 2(b); start `M`):
 
-### Templates (issue + PR, kept in sync)
+```
+M	N1	N3
+M	N2	N3
+N1	d_r
+N1	N1	a_r
+N1	N2	a_r
+N2	N1	M
+N3	d
+N3	a	N3
+N3	AM	N3
+AM	a	M
 
-- **Info table.** "Origin" becomes "Archive": a Google Drive link to
-  `<name>.tar.gz`; a new "Target graph" field for partial archives (the
-  existing graph the queries are added to).
-- **Data format.** Explains full vs partial archives and points at the
-  "File structure" section of the Graphs page, the validator (incl.
-  `--partial`), and the RSM format in the FLPQ design page.
-- **Description document.** Full archive: the eight mandatory questions.
-  Partial archive: the `queries/README.md` fragment — one
-  `## <class>/<query>` section per new query.
-- **Queries.** Updated to the task-54 layout (one directory per query with
-  its representations and `results.mtx`); the three canonical-grammar cases
-  stay.
+Count:
+M
+```
 
-### Docs
+Both are CNF (≤2 RHS symbols), have no ε-productions, use only the stored
+labels of their category (`alloc`, `assign`, `load_i`, `store_i` + reverses;
+`a`, `d` + reverses), and the start symbol is not indexed.
 
-- `docs/utils.rst`: the "Archive structure" section documents `--partial`;
-  a new "Merge partial archives" section documents `merge_archive.py`.
-- `.opencode/skills/add-graph/SKILL.md`: pointer update if it states
-  providing-workflow details.
+## Affected archives
+
+- `java_points_to` (21): gson, sunflow, lusearch, luindex, avrora, mockito,
+  commons_io, commons_lang3, eclipse, h2, pmd, xalan, junit5, batik, fop,
+  tomcat, guava, jackson, jython, tradebeans, tradesoap.
+- `c_alias_analysis` (20): wc, bzip, pr, ls, gzip, apache, init, mm, ipc,
+  lib, block, arch, crypto, security, sound, net, fs, drivers, postgre,
+  kernel.
 
 ## Subtasks
 
-- [x] **S1**: Record the user decisions verbatim in `tasks/tasks.md`; write
-      this detailed plan. Commit `docs(55-S1)`.
-- [ ] **S2**: Validator `--partial` mode — partial skeleton, parse-only
-      representation checks, README-fragment check; tests with fixture
-      archives (valid + each failure mode). Commit `feat(55-S2)`.
-- [ ] **S3**: `utils/merge_archive.py` — merge, collisions, README append,
-      full re-validation, Drive input; tests. Commit `feat(55-S3)`.
-- [ ] **S4**: Templates (issue + PR) rework + `docs/utils.rst` sections +
-      skill pointer if needed. Commit `docs(55-S4)`.
-- [ ] **S5**: Quality gate, code review, mark done in the task log, merge to
-      dev.
+### S1: Record the task and write the detailed plan [done]
 
-## Out of scope
+**Code:** none (documentation-only subtask).
+**Tests:** skipped — no code.
+**Docs:** `tasks/tasks.md` (task 56 entry with verbatim user guidance),
+`tasks/detailed_plan.md` (this file).
 
-- Uploading or migrating any data (the migration of existing archives is
-  task 48).
-- `reachable_pairs.csv` redesign for per-query rows (task 48).
-- New-graph partials (a new graph always ships a full archive) and
-  edge/label additions to an existing graph.
+**Spec:**
+- Task line recorded verbatim in `tasks/tasks.md` with the two user
+  decisions as `[USER GUIDANCE]`.
+- This plan written before any implementation.
+
+### S2: Extract and document the two optimized grammars [ ]
+
+**Code:** none in the package. Working `.cnf` files written to
+`temporal_cfpq/grammars/` (gitignored local reference copies, alongside the
+existing `fsjpt.cnf`/`cscvf.cnf`/`fsca.cnf`):
+`java_points_to_muravev2024.cnf`, `c_alias_muravev2024.cnf`.
+**Tests:** local validation (no CI code to test): parse both files with the
+package's `cnf_template_from_cnf` and with pyformlang `CFG.from_text`; assert
+CNF (≤2 RHS), start symbol present and not indexed, terminal set exactly
+`{alloc, assign, alloc_r, assign_r, load_i, store_i, load_r_i, store_r_i}`
+(FSJPT) / `{a, d, a_r, d_r}` (FICA); assert the terminal set equals that of
+the in-archive original grammar (so one `.g` edge list serves both).
+**Docs:** `docs/graphs/java_points_to.rst` and
+`docs/graphs/c_alias_analysis.rst` — an "Optimized variant" subsection in the
+"Canonical grammars" section: the exact `.cnf` content as stored in the
+archives (code block, the single source of truth for the productions), the
+file name, a citation to arXiv:2401.11029 (Fig 1(b) / Fig 2(b)), and a note
+that it generates the same language (verified in S3).
+
+**Spec:**
+- Transcribe Fig 1(b) / Fig 2(b) exactly, mapping the paper's barred symbols
+  to our `_r` convention (`store_ī` -> `store_r_i`, `d̄` -> `d_r`, ...).
+- Tab-separated POCR CNF; last two lines `Count:` + start symbol.
+- The docs subsection shows the productions once (no duplication between the
+  code block and any math rendering).
+
+### S3: Verify equivalence with temporal_cfpq on small graphs [ ]
+
+**Code:** new local tool `temporal_cfpq/verify_optimized.py` (gitignored,
+reuses `run_reference.py`'s `stream_g_file`, `run_solver`,
+`grammar_terminals`, `start_symbol`): for each graph, download it, stream one
+`.g` edge list (terminal sets of original and optimized are identical), run
+the FastMatrixCFPQ solver on the in-archive original `.cnf` and on the
+optimized `.cnf`, compare the reachable-pair counts. Results appended to
+`temporal_cfpq/results/optimized_grammars_check.csv`.
+**Tests:** the check itself is the test: 10 graphs × 2 grammars, all counts
+must be equal (original vs optimized) and must match the recorded reference
+values in `results/reference_answers.csv`.
+**Docs:** record the results table (graph, original count, optimized count,
+match) in this file under "Verification results" — the tracked trace of the
+check.
+
+**Spec:**
+- Graphs: c_alias -> `wc`, `bzip`, `pr`, `ls`, `gzip`; java_points_to ->
+  `gson`, `sunflow`, `lusearch`, `luindex`, `avrora` (all previously `ok` in
+  the full sweep; seconds to ~25 s per run).
+- Run under Docker access (`sg docker -c ...`), container memory cap as in
+  `run_reference.py`.
+- Any mismatch or solver failure blocks S4 — nothing is uploaded before a
+  clean PASS.
+
+### S4: Repack and re-upload the 41 archives [ ]
+
+**Code:** one-off repack script (ad-hoc, task-19 pattern; not committed) +
+committed record `utils/optimized_grammars_record.json`.
+**Tests:** per archive: the repacked tarball contains exactly the original
+members plus the one new `.cnf`; the stored object size after upload equals
+the local file size (verified by `upload_file`); a spot-check download of two
+archives (one per category) lists the new file.
+**Docs:** the JSON record (per archive: name, S3 key, sha256 before/after,
+added file, date) following the `filename_unification_record.json` pattern;
+`Size (MB)` columns re-synced with `utils/archive_sizes.py --update` (the
+archives grow by a few hundred bytes).
+
+**Spec:**
+- For each of the 41 graphs: download `5.0.0/graph/<name>.tar.gz`, unpack,
+  add `grammar/<x>_muravev2024.cnf` (identical file within a category),
+  repack as `<name>.tar.gz` with the same top-level directory name, upload
+  via `upload_file()` from `utils/upload_to_s3.py` (credentials from the CLI;
+  the CLI structure gate is bypassed deliberately — legacy layout kept per
+  the user decision).
+- One graph at a time; scratch removed after each.
+- The record JSON is committed; the upload itself is a data operation on S3.
+
+### S5: Changelog and task close-out [ ]
+
+**Code:** none (documentation-only subtask).
+**Tests:** skipped — no code.
+**Docs:** `CHANGELOG.md` ([Unreleased] → Added: optimized grammar variants
+for the two categories, verified equivalent); `tasks/tasks.md` (mark task 56
+`[done]`).
+
+**Spec:**
+- Changelog entry names the paper and both file names.
+- Task marked done only after the quality gate passes.
+
+## Verification results
+
+(Filled in by S3.)
