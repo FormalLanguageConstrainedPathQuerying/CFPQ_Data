@@ -24,6 +24,11 @@ the PR template, then validate with
 `python utils/check_archive_structure.py <archive>.tar.gz` (the upload tool
 runs the same check and refuses invalid archives).
 
+New queries for an existing graph ship as a **partial archive** instead —
+see the "Data format" section of the PR template; it is validated with
+`--partial` and merged into the existing archive with
+`python utils/merge_archive.py EXISTING.tar.gz PARTIAL.tar.gz -o <name>.tar.gz`.
+
 ## Wiring a new graph into the code
 
 1. Add the graph name to `DATASET` in `cfpq_data/dataset/data.py`.

@@ -89,8 +89,16 @@ the :ref:`graphs` page::
 
    python utils/check_archive_structure.py ARCHIVE.tar.gz
    python utils/check_archive_structure.py UNPACKED_DIR
+   python utils/check_archive_structure.py PARTIAL.tar.gz --partial
    python utils/check_archive_structure.py --audit --prefix 5.0.0/graph/ \
        --access-key-id KEY_ID --secret-access-key SECRET
+
+A **partial archive** provides new queries for an existing graph: it contains
+only ``queries/`` — the new query directories plus a ``README.md`` fragment
+with their sections. With ``--partial`` the tool checks that skeleton, that
+every representation file parses (the label and dimension checks are skipped
+— there is no graph to check against), and that the fragment describes
+exactly the query directories it contains.
 
 The checks:
 
@@ -121,6 +129,29 @@ can gate a commit. With ``--audit`` it downloads and validates every
 ``.tar.gz`` object under the bucket prefix (credentials from the command
 line, like :ref:`upload_to_s3`). :ref:`upload_to_s3` runs the same check
 before uploading any ``.tar.gz`` and refuses an invalid archive.
+
+.. _merge_archive:
+
+Merge partial archives
+----------------------
+
+``utils/merge_archive.py`` merges a partial archive into the existing graph
+archive it extends::
+
+   python utils/merge_archive.py EXISTING.tar.gz PARTIAL.tar.gz -o MERGED.tar.gz
+
+The partial source may also be an unpacked directory or a Google Drive URL /
+file ID (the archive is downloaded first). The tool validates both inputs
+(full mode for the existing archive, ``--partial`` mode for the partial
+one), copies the new query directories into the existing tree, appends the
+fragment's sections to the existing ``queries/README.md``, re-validates the
+merged tree in full mode, and writes the result. Any problem — a query that
+already exists, a section already described, a top-level directory named
+after another graph, or a failed re-validation — is reported and the output
+is not written; both inputs are left untouched.
+
+The output file must be named after the graph (``<graph>.tar.gz``): the
+upload tool stores it under that name, replacing the previous archive.
 
 .. _reachable_pairs_tables:
 

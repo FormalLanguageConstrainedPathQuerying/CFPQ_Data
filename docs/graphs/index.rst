@@ -56,6 +56,13 @@ fixed structure::
   representation in ``.rsm`` must be regular — no box transition may be
   labelled by a nonterminal.
 
+A **partial archive** provides new queries for an existing graph: it unpacks
+to a directory named after that graph and contains only ``queries/`` — the
+new query directories (same layout) plus a ``README.md`` fragment with one
+section per new query. It is validated with
+``python utils/check_archive_structure.py <name>.tar.gz --partial`` and
+merged into the existing archive with :ref:`merge_archive`.
+
 The pre-migration graphs on the :ref:`old_graphs` page use the old CSV
 format instead.
 
