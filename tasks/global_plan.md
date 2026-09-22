@@ -72,13 +72,13 @@ for all follow-up tasks.
   and final states). Each query carries one results file — a Boolean MTX of
   constrained-reachability facts — identical for all its specifications.
   Investigate RSMs first; design documents + tooling only, no re-upload.
-- **Task 55**: Improve the new-data providing mechanism — the main way is a
-  Google Drive link to an archive prepared per the structure-validation
-  tool; partial archives are allowed (e.g. a new query for an existing graph:
-  query representation + references — pair count, results MTX — + README
-  descriptions), with the structure preserved so new data merges into the
-  existing archive. Issue/PR templates make this way the main one and point
-  at the tooling; extend the tooling if necessary.
+ - **Task 55** [done]: Improve the new-data providing mechanism — the main
+   way is a Google Drive link to an archive prepared per the structure-
+   validation tool; partial archives are allowed (e.g. a new query for an
+   existing graph: query representation + references — pair count, results
+   MTX — + README descriptions), with the structure preserved so new data
+   merges into the existing archive. Issue/PR templates make this way the
+   main one and point at the tooling; extend the tooling if necessary.
 
 ## Dependencies
 
@@ -130,3 +130,13 @@ for all follow-up tasks.
   are reused; task 54 adds the transition-system description style to the
   `.rsm` format. Existing archives keep the old layout until the migration
   (task 48) repackages them.
+- **Task 55 makes the Google Drive link the main data-providing way**: a
+  provider shares a Drive link to `<name>.tar.gz` in the issue/PR; the
+  archive is either full (a new graph) or partial (new queries for an
+  existing graph — only `queries/`: the new query directories plus a
+  `README.md` fragment with their sections). The validator gains a
+  `--partial` mode (structure + parse checks; label/dimension checks run
+  after the merge), and `utils/merge_archive.py` merges a partial archive
+  into the existing one (collision checks, README section append, full
+  re-validation, Drive-URL input). The reachable-pair count of a new query
+  is the number of entries in its `results.mtx` — no separate reference.
