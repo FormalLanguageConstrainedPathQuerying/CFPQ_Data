@@ -39,6 +39,8 @@ from cfpq_data.graphs.readwrite.mtx import _MTX_HEADER, graph_from_mtx_dir
 __all__ = [
     "MANDATORY_README_SECTIONS",
     "QUERY_CLASSES",
+    "parse_readme_sections",
+    "unpack_single_dir",
     "validate_archive",
     "main",
 ]
@@ -326,6 +328,20 @@ def _readme_problems(root: pathlib.Path) -> list[str]:
     ]
 
 
+def parse_readme_sections(text: str) -> dict[str, list[str]]:
+    """Parse the ``## <name>`` sections of a queries README into an ordered
+    mapping section name -> body lines."""
+    sections: dict[str, list[str]] = {}
+    current = None
+    for line in text.splitlines():
+        if line.startswith("## "):
+            current = line[3:].strip()
+            sections[current] = []
+        elif current is not None:
+            sections[current].append(line)
+    return sections
+
+
 def _rsm_recurses(rsa: RSA) -> bool:
     """Whether any box transition is labelled by a nonterminal (box name)."""
     names = {label.value for label in rsa.labels}
@@ -394,14 +410,7 @@ def _query_problems(root: pathlib.Path, stored: Optional[set[str]] = None) -> li
                     )
 
     doc = (queries_dir / "README.md").read_text(encoding="utf-8")
-    sections: dict[str, list[str]] = {}
-    current = None
-    for line in doc.splitlines():
-        if line.startswith("## "):
-            current = line[3:].strip()
-            sections[current] = []
-        elif current is not None:
-            sections[current].append(line)
+    sections = parse_readme_sections(doc)
 
     for name in sorted(set(sections) - set(existing)):
         problems.append(
@@ -441,6 +450,22 @@ def _validate_root(root: pathlib.Path, partial: bool = False) -> list[str]:
     return problems
 
 
+def unpack_single_dir(path: pathlib.Path, dest: pathlib.Path) -> pathlib.Path:
+    """Unpack ``path`` (a ``.tar.gz``) into ``dest`` and return its single
+    top-level directory.
+
+    Raises
+    ------
+    ValueError
+        If the archive does not contain a single top-level directory.
+    """
+    shutil.unpack_archive(path, dest)
+    entries = list(dest.iterdir())
+    if len(entries) != 1 or not entries[0].is_dir():
+        raise ValueError(f"{path.name}: must contain a single top-level directory")
+    return entries[0]
+
+
 def validate_archive(
     path: Union[str, pathlib.Path], *, partial: bool = False
 ) -> list[str]:
@@ -471,11 +496,10 @@ def validate_archive(
         return [f"{path.name}: not a .tar.gz archive or an unpacked directory"]
 
     with tempfile.TemporaryDirectory() as tmp:
-        shutil.unpack_archive(path, tmp)
-        entries = list(pathlib.Path(tmp).iterdir())
-        if len(entries) != 1 or not entries[0].is_dir():
-            return [f"{path.name}: must contain a single top-level directory"]
-        root = entries[0]
+        try:
+            root = unpack_single_dir(path, pathlib.Path(tmp))
+        except ValueError as error:
+            return [str(error)]
         problems = []
         expected_name = path.name[: -len(".tar.gz")]
         if root.name != expected_name:
