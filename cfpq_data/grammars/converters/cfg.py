@@ -128,7 +128,7 @@ def cfg_from_rsa(rsa: RSA) -> CFG:
 
         naming = {dfa.start_state: Variable(symbol.value)}
 
-        for state in dfa.states:
+        for state in sorted(dfa.states, key=lambda s: str(s.value)):
             if state not in naming:
                 naming[state] = Variable(f"S{len(naming)}")
                 variables.add(naming[state])
