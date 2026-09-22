@@ -1,0 +1,293 @@
+{
+  "description": "Replaced the 41 graph archives of the java_points_to and c_alias_analysis categories in place at 5.0.0/graph/ with copies that add the optimized WCNF grammars of arXiv:2401.11029 (optimization 5, Figs 1(b) and 2(b)) to their grammar/ directory. Every other member is byte-identical to the previous archive (verified per member). The java_points_to archives come in two label conventions: the 7 indexed-template archives (gson, mockito, commons_io, commons_lang3, junit5, guava, jackson) carry the indexed variant, the 14 bare-family-form archives (sunflow, lusearch, luindex, avrora, eclipse, h2, pmd, xalan, batik, fop, tomcat, jython, tradebeans, tradesoap) carry the same productions without the _i suffix; both are stored under the file name java_points_to_muravev2024.cnf. Equivalence of original and optimized grammars was verified with FastMatrixCFPQ on 10 small graphs (see tasks/detailed_plan.md, task 56).",
+  "date": "2026-09-22",
+  "archives": [
+    {
+      "name": "wc",
+      "key": "5.0.0/graph/wc.tar.gz",
+      "added_file": "wc/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "6a041af21554a91e23040dc8df2fd65352cf616a8f369d14a797410d453e176c",
+      "sha256_after": "4a569740c548f1ba303a0411e45781e4a59b099862c667bb7ca7e96f7dd2dfde"
+    },
+    {
+      "name": "bzip",
+      "key": "5.0.0/graph/bzip.tar.gz",
+      "added_file": "bzip/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "ddcbedd547ab7a292edc244ff1a27b25bf30f42af452e00b39b8f1abef7a6502",
+      "sha256_after": "5e44df3ce3582c526cc745d6edb5291bc03a8494b34ba6248d1409cb62802461"
+    },
+    {
+      "name": "pr",
+      "key": "5.0.0/graph/pr.tar.gz",
+      "added_file": "pr/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "c12eb2b173ea020f40af159af3e4b03a01f71285b39ef1fda3167bdcf19c6820",
+      "sha256_after": "6c2fa99d3c9c0dabd218ecac8792ae00cedd823ecc061e4b32ae457d4076b634"
+    },
+    {
+      "name": "ls",
+      "key": "5.0.0/graph/ls.tar.gz",
+      "added_file": "ls/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "8f507bf0bd2076a7c0728d76c6d90797abe68a6553544c2808f6424940f89a4d",
+      "sha256_after": "feaf2a56be93a7b4564c1d7596744e456a21f8f0c03920abd1b2f4c66eb62b05"
+    },
+    {
+      "name": "gzip",
+      "key": "5.0.0/graph/gzip.tar.gz",
+      "added_file": "gzip/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "2b554f0e2371326c7da41b860c440eb77991cd04493027af550abd130196c52c",
+      "sha256_after": "d14c28906c77e9db303cf69f58607a52452c6b08e7821f8d8866a097bd7663ec"
+    },
+    {
+      "name": "apache",
+      "key": "5.0.0/graph/apache.tar.gz",
+      "added_file": "apache/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "51276672bf25e077e5e9672682fa3b614f7cdc0f3cef19a075c88bd44563c4a7",
+      "sha256_after": "457b8779e4a90d45f0bf3f0e3ba0d24b039081a18df1e8e32ffe37f87097b24a"
+    },
+    {
+      "name": "init",
+      "key": "5.0.0/graph/init.tar.gz",
+      "added_file": "init/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "5bce8274a7b5e63dd657d2843a22cd25516d787bf07feb62ab1ad3884d85b975",
+      "sha256_after": "718ea3ba2391d08cc0ff531cdb4bc3167b27938c52552f1078f881978793f6dd"
+    },
+    {
+      "name": "mm",
+      "key": "5.0.0/graph/mm.tar.gz",
+      "added_file": "mm/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "d213c6d6365a27bab2460150dcfadd6ddd9fb94afc416f302c45b5d60502f7ca",
+      "sha256_after": "e1e5f2655081dc22e9550ed09e5e85482546df59bcebafe01a29fc673df37c30"
+    },
+    {
+      "name": "ipc",
+      "key": "5.0.0/graph/ipc.tar.gz",
+      "added_file": "ipc/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "d48430597765c22c1ca2c1503c7b217c5a73132d40b8327a39e88659ce1756c2",
+      "sha256_after": "516c237f70129db445c0e69d993277ba5f8a3dfc6f6bfeefa7219b3c242c81ee"
+    },
+    {
+      "name": "lib",
+      "key": "5.0.0/graph/lib.tar.gz",
+      "added_file": "lib/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "16a402ad2ef12bacc94e6a1ad3bd2c46c4ccfac9b2f8995c019920706cb9b0c0",
+      "sha256_after": "994227a67b517299d1c1003dd6d3a6068128d2ebc4b5aaace0c8858471ee1a05"
+    },
+    {
+      "name": "block",
+      "key": "5.0.0/graph/block.tar.gz",
+      "added_file": "block/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "6273b108bfcdc5e545e142ae48e15098baab31918428006274e6028c4b1970a7",
+      "sha256_after": "eef90ea55fb3249117ba3488fbd3d33c8c6da2da98e360038b7a5097cf85ce38"
+    },
+    {
+      "name": "arch",
+      "key": "5.0.0/graph/arch.tar.gz",
+      "added_file": "arch/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "b43fd6f302264f26ecb96a06887c0ae98c82dfe3da79a492ea40dde52184a7e4",
+      "sha256_after": "21cf1d428488cbefdd94062e426b7753941475f8884d070e5bec3661a836e54c"
+    },
+    {
+      "name": "crypto",
+      "key": "5.0.0/graph/crypto.tar.gz",
+      "added_file": "crypto/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "3ee95d0be20e0aa383d84b6ae32e1b9a887c788086fd0167e319fa3a7e0bdb73",
+      "sha256_after": "494b60f073e46ac07f1e5940cd870b885372835a98af838329f74bf2ad08f810"
+    },
+    {
+      "name": "security",
+      "key": "5.0.0/graph/security.tar.gz",
+      "added_file": "security/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "bdb93fc07bd1a926ae35f4b6fbce1cbbec60fe986c96683de595071bf6752d17",
+      "sha256_after": "0f27edbcec488efbc372edc522796112417220aead5cba048bebf83cbe94d565"
+    },
+    {
+      "name": "sound",
+      "key": "5.0.0/graph/sound.tar.gz",
+      "added_file": "sound/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "22e460bb6abe5cdc23740b1b7f82dc85e6d969a5d123288608257a1d694a46d2",
+      "sha256_after": "4b9031881cc9f7a2426994f8d40d22ef47a02d164676ae86b61ca62c9847ae4a"
+    },
+    {
+      "name": "net",
+      "key": "5.0.0/graph/net.tar.gz",
+      "added_file": "net/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "474d98d9c776802cdfa2fe7c5c313a836c8008a4e99547ce030e1d4752494340",
+      "sha256_after": "167ab39face63c4971e5146ef89cb537d6142f9552bb4e49d918727363e261e3"
+    },
+    {
+      "name": "fs",
+      "key": "5.0.0/graph/fs.tar.gz",
+      "added_file": "fs/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "97b80a9fc92552c08d97e2c1b7f0b364a75ef28f54a6dc9e7387548a6ff75116",
+      "sha256_after": "3c607aedc4c7330d733b987b2a5674af6c5fe340ff6fb34c01bdd1c4945bbbc5"
+    },
+    {
+      "name": "drivers",
+      "key": "5.0.0/graph/drivers.tar.gz",
+      "added_file": "drivers/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "c4c79e6eecc17a7d78dc46095e8fc740d4cd93c7bf931d2b70bdfa86b4be232f",
+      "sha256_after": "aae448cef43e4ed3f6337ea0f6789f7c880f960a9350f038bb62d407bca228df"
+    },
+    {
+      "name": "postgre",
+      "key": "5.0.0/graph/postgre.tar.gz",
+      "added_file": "postgre/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "5c1ed1042b1e35ab914d8f9f5c4bf05bacda8030966d51459d5ad99ec521b09b",
+      "sha256_after": "56b7f8e6a6eccb7ac64d76e39d9cb866c12062fa296b7df9a447833c7f68be22"
+    },
+    {
+      "name": "kernel",
+      "key": "5.0.0/graph/kernel.tar.gz",
+      "added_file": "kernel/grammar/c_alias_muravev2024.cnf",
+      "sha256_before": "0f513a8bf096768b8e8b26423ee189236b5cc9c3bea71b3f08a6bedf4316506f",
+      "sha256_after": "74e13a30880ae3fcedf9e1ad053075be129915c8551d232da5282d11237557c1"
+    },
+    {
+      "name": "gson",
+      "key": "5.0.0/graph/gson.tar.gz",
+      "added_file": "gson/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "5c7e7f01a8d71ff4fe695de7068dd14806e4516ec8655b518b770c91539c1281",
+      "sha256_after": "6b86ca83586f88a131e104ba9b7a575387c5976b96473746591a65dc205fdf51"
+    },
+    {
+      "name": "mockito",
+      "key": "5.0.0/graph/mockito.tar.gz",
+      "added_file": "mockito/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "973e9317d5127c78f2e281784757ec2c00f22cecf5f2de3edbf9107f20cc4ea0",
+      "sha256_after": "7adeab18411b21499d097bd361fd20993047906abcf086c2903a14a7220aee85"
+    },
+    {
+      "name": "commons_io",
+      "key": "5.0.0/graph/commons_io.tar.gz",
+      "added_file": "commons_io/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "709d20195067eeaccfb0fb45e13b7e0008510dd595329a2fa77987637a9ca40f",
+      "sha256_after": "9a37ba2b566fafc5745538452c82665457f4f3c2ff5108275135c1db56717342"
+    },
+    {
+      "name": "commons_lang3",
+      "key": "5.0.0/graph/commons_lang3.tar.gz",
+      "added_file": "commons_lang3/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "f69baa1683859b3090f798b0f01e68bae421f8506a0411017f8e75ac6b8afcfe",
+      "sha256_after": "d285dc84af931b59281dd0ea0c56c07c4cc2ad218c39150ff988d63241dca380"
+    },
+    {
+      "name": "junit5",
+      "key": "5.0.0/graph/junit5.tar.gz",
+      "added_file": "junit5/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "eb99881840fbacbf704d63b3d96510750aa034d9fb67720469f4e20c0d9cbab7",
+      "sha256_after": "6660f21d215fc47c47be4256c85e0cb9d7130ed7d80ad75d2c45fc1f21be21b8"
+    },
+    {
+      "name": "guava",
+      "key": "5.0.0/graph/guava.tar.gz",
+      "added_file": "guava/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "336cc509356f2fa5de0c7244d9eee03c7382832c400862eb74dab974c82a670b",
+      "sha256_after": "399703ed4d02b230fd8b313b989cf21e1e200899bfddc56e2d131e5db7ae44c2"
+    },
+    {
+      "name": "jackson",
+      "key": "5.0.0/graph/jackson.tar.gz",
+      "added_file": "jackson/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "cf566b4e35aaeb4343cc8d741558fe14663f03c087469c6b6a44986ec9b88bbf",
+      "sha256_after": "be0c97f54b40127a1dfa7de832f9962357d669bde598114556efe59eb7f919dc"
+    },
+    {
+      "name": "sunflow",
+      "key": "5.0.0/graph/sunflow.tar.gz",
+      "added_file": "sunflow/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "a8e9380ba688b4def78de273f9591356607287c696602354a9822b95d742392b",
+      "sha256_after": "e772249944a75e2c942ff95a168115b362fd18c7bfc6f6828bcf7ff3c22d4ff1"
+    },
+    {
+      "name": "lusearch",
+      "key": "5.0.0/graph/lusearch.tar.gz",
+      "added_file": "lusearch/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "bcc8cf275f28b967478da3a7126fcd5d6392f7fbba3b98fb9c419717ec294f3c",
+      "sha256_after": "94e360a5d0a4daab910ae9d3e5de1037d04fb29163d0f97839a871f96e4b1007"
+    },
+    {
+      "name": "luindex",
+      "key": "5.0.0/graph/luindex.tar.gz",
+      "added_file": "luindex/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "147924c2b3d48d666f7ef99b502dab9300e6bfa199984640814c687b8207d990",
+      "sha256_after": "fde1d8efe34bbdb05eca07fdcb7b952380c0da45457081fb770f95ef615abfd1"
+    },
+    {
+      "name": "avrora",
+      "key": "5.0.0/graph/avrora.tar.gz",
+      "added_file": "avrora/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "819dc423d13ea08520766fd70aee3af0c3498b709c253bf125dda1c8a7ca1981",
+      "sha256_after": "ecd6665fd79855dde201781b67957567727af5678b318f34a0db2a466fd6eaa9"
+    },
+    {
+      "name": "eclipse",
+      "key": "5.0.0/graph/eclipse.tar.gz",
+      "added_file": "eclipse/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "1da68f674cb360985ce28660a059ed2bd271e24efef0010ee27cd0a99e7b5902",
+      "sha256_after": "02835414599eec901fbc0648a247f789b2e3860323a9b9b4bf84bb6dafe818c1"
+    },
+    {
+      "name": "h2",
+      "key": "5.0.0/graph/h2.tar.gz",
+      "added_file": "h2/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "7124a4f32fb42d8d0db3afc28ec0455fd306d498642f322a48f6e1c1ac536672",
+      "sha256_after": "8ff11d6f05b4e4a66c06d9f961fd06b73885ee827ad7bf3593d4472512bf6394"
+    },
+    {
+      "name": "pmd",
+      "key": "5.0.0/graph/pmd.tar.gz",
+      "added_file": "pmd/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "012c71da855d12ba5980dcc16dc6363800ff9456b9dcb792b8ecbb0c491a5f61",
+      "sha256_after": "24ceb83317250209372d8b2f2b28a1f0be75569a77427e7e8514c54e202d362e"
+    },
+    {
+      "name": "xalan",
+      "key": "5.0.0/graph/xalan.tar.gz",
+      "added_file": "xalan/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "1b9795d832f48ea68deb0d10cf79a31358fe4b5aa2819a3c7a4e34e7b274fa18",
+      "sha256_after": "501de9d9c4e3af6ef54cb304411fcdfe215e293e53e02a255f19f92ab8b3b9d8"
+    },
+    {
+      "name": "batik",
+      "key": "5.0.0/graph/batik.tar.gz",
+      "added_file": "batik/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "0552f5829bbf288352d8841d7fb9ec5c09731ce7ee9d3daefc169a260be97f51",
+      "sha256_after": "b95a9e1ddd78cd8c5bf0ad271a05acdb68cc0dd407d9374f0b2714ee6e7a6ea3"
+    },
+    {
+      "name": "fop",
+      "key": "5.0.0/graph/fop.tar.gz",
+      "added_file": "fop/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "b29639a55b896989f12c18a9e924e0e9bde3fe7ac75fbe850536236319bd446a",
+      "sha256_after": "b00cf97e6a1ce06e909c57fea54582906012a7415ce59b456a78737d2741e243"
+    },
+    {
+      "name": "tomcat",
+      "key": "5.0.0/graph/tomcat.tar.gz",
+      "added_file": "tomcat/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "4197113ea232179f747946d8886ada836ef1aed28c3821193c0b857bb54e2d53",
+      "sha256_after": "5487cc1806bda28e106a3e0d54a01fd4face7afe16ae865a877b7ac35429d4e2"
+    },
+    {
+      "name": "jython",
+      "key": "5.0.0/graph/jython.tar.gz",
+      "added_file": "jython/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "e665cd0dcc1c5ee57a826eb980772bd0ac0682929b0ed16aa85ebea85c9d462a",
+      "sha256_after": "e07b479a3e925840051d0adc411fcc6c2fef6a8da2914afe83e32b0681b09b48"
+    },
+    {
+      "name": "tradebeans",
+      "key": "5.0.0/graph/tradebeans.tar.gz",
+      "added_file": "tradebeans/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "0899d1112a2e65dedf4deacb692ccd54ce62be8e7c0ec0a93660bf69822259b8",
+      "sha256_after": "5d1420042b13d12fd283bb14a58af210a30ef8e544487979e4ad6c0431b6b21b"
+    },
+    {
+      "name": "tradesoap",
+      "key": "5.0.0/graph/tradesoap.tar.gz",
+      "added_file": "tradesoap/grammar/java_points_to_muravev2024.cnf",
+      "sha256_before": "334f5b50c9d13e4a88bd9a9c4b750e73ad720a1b163b2abfe50327062aa4391a",
+      "sha256_after": "7a65454463a76aa727313573ae11d4c78c7dc05def3b2983bab82211647d6b77"
+    }
+  ]
+}
