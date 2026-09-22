@@ -214,3 +214,24 @@ Template for these grammars is described on the :ref:`c_alias` page.
 
    S -> d_r V d
    V -> ((S|epsilon) a_r)* (S|epsilon) (a (S|epsilon))*
+
+Optimized variant
+^^^^^^^^^^^^^^^^^
+
+An equivalent WCNF grammar introduced as optimization (5) in `"Optimization of the Context-Free Language Reachability Matrix-Based Algorithm" <https://arxiv.org/abs/2401.11029>`_ (Fig. 2(b)) is stored in each archive as ``c_alias_muravev2024.cnf``. It generates the same language and returns identical reachable-pair counts (verified with FastMatrixCFPQ on small graphs).
+
+.. code-block:: text
+
+   M	N1	N3
+   M	N2	N3
+   N1	d_r
+   N1	N1	a_r
+   N1	N2	a_r
+   N2	N1	M
+   N3	d
+   N3	a	N3
+   N3	AM	N3
+   AM	a	M
+
+   Count:
+   M

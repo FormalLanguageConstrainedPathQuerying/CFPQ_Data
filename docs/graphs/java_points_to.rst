@@ -185,3 +185,26 @@ Template for these grammars is described on the :ref:`java_points-to` page.
    \textit{Alias} \, \rightarrow \, \textit{PointsTo} \, \textit{FlowsTo} \, \\
    \textit{FlowsTo} \, \rightarrow \, \overline{\textit{alloc}} \, (\overline{\textit{assign}} \mid \overline{\textit{store}_f} \, \textit{Alias} \, \overline{\textit{load}_f})^* \, \\
    \forall \, f \, \in \, Fields
+
+Optimized variant
+^^^^^^^^^^^^^^^^^
+
+An equivalent WCNF grammar introduced as optimization (5) in `"Optimization of the Context-Free Language Reachability Matrix-Based Algorithm" <https://arxiv.org/abs/2401.11029>`_ (Fig. 1(b)) is stored in each archive as ``java_points_to_muravev2024.cnf``. It generates the same language and returns identical reachable-pair counts (verified with FastMatrixCFPQ on small graphs).
+
+.. code-block:: text
+
+   PT	alloc
+   PT	assign	PT
+   PT	LPFS_i	PT
+   FT	alloc_r
+   FT	FT	assign_r
+   FT	FT	SPFL_i
+   LPFS_i	LP_i	FS_i
+   LP_i	load_i	PT
+   FS_i	FT	store_i
+   SPFL_i	SP_i	FL_i
+   SP_i	store_r_i	PT
+   FL_i	FT	load_r_i
+
+   Count:
+   PT
