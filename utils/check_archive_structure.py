@@ -206,7 +206,8 @@ def _query_problems(root: pathlib.Path) -> list[str]:
                 reversed_of is None or reversed_of not in stored
             ):
                 problems.append(
-                    f"queries/{rel}: label {terminal!r} is not a stored label of this graph"
+                    f"queries/{rel}: label {terminal!r} is not a stored "
+                    "label of this graph"
                 )
 
     doc = (queries_dir / "README.md").read_text(encoding="utf-8")
@@ -341,7 +342,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument(
         "--audit",
         action="store_true",
-        help="validate every .tar.gz object under --prefix in the bucket instead of a local path",
+        help=(
+            "validate every .tar.gz object under --prefix in the bucket "
+            "instead of a local path"
+        ),
     )
     parser.add_argument(
         "--prefix", default="", help="bucket prefix to audit (with --audit)"
@@ -371,7 +375,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
         if not args.access_key_id or not args.secret_access_key:
             print(
-                "error: --access-key-id and --secret-access-key are required for --audit"
+                "error: --access-key-id and --secret-access-key are "
+                "required for --audit"
             )
             return 1
         client = create_s3_client(
