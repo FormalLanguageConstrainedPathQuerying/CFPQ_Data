@@ -111,8 +111,8 @@ def toctree_entries(path: pathlib.Path) -> list[str]:
     >>> import pathlib, tempfile
     >>> with tempfile.TemporaryDirectory() as tmp:
     ...     p = pathlib.Path(tmp) / "t.rst"
-    ...     p.write_text(
-    ...         ".. toctree::\n   :hidden:\n\n   data/a\n   data/b\n\nNext section\n"
+    ...     n = p.write_text(
+    ...         ".. toctree::\\n   :hidden:\\n\\n   data/a\\n   data/b\\n\\nNext section\\n"
     ...     )
     ...     toctree_entries(p)
     ['data/a', 'data/b']
@@ -206,10 +206,10 @@ def load_rows(csv_path: pathlib.Path) -> list[dict]:
     >>> import pathlib, tempfile
     >>> with tempfile.TemporaryDirectory() as tmp:
     ...     p = pathlib.Path(tmp) / "r.csv"
-    ...     p.write_text(
-    ...         "graph,grammar,category,query_class,num_reachable_pairs\n"
-    ...         "g1,c_alias.cnf,c_alias_analysis,cfpq,42\n"
-    ...         "g2,c_alias.cnf,c_alias_analysis,cfpq,\n"
+    ...     n = p.write_text(
+    ...         "graph,grammar,category,query_class,num_reachable_pairs\\n"
+    ...         "g1,c_alias.cnf,c_alias_analysis,cfpq,42\\n"
+    ...         "g2,c_alias.cnf,c_alias_analysis,cfpq,\\n"
     ...     )
     ...     rows = load_rows(p)
     ...     [r["num_reachable_pairs"] for r in rows]
