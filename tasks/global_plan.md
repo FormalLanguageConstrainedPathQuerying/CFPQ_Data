@@ -65,7 +65,7 @@ for all follow-up tasks.
 - **Task 53**: Rework the benchmark page and the respective benchmark data
   (design comes after the archive structure of task 52 and the site
   restructure of task 50).
-- **Task 54**: Extend the archive structure — several ways to specify one
+- **Task 54** [done]: Extend the archive structure — several ways to specify one
   language: a query may be specified by different grammars; for CFPQ, by a
   CFG or an RSM (recursive state machine), described either in an EBNF-based
   text format or as an explicit transition system (labelled graph with start
@@ -121,3 +121,12 @@ for all follow-up tasks.
   documents the RPQ design decision and adds stub template entries to the
   Grammars section; real `.re` query files will be provided later and live
   inside graph archives (task 52 structure).
+- **Task 54 extends the task-52 archive structure**: a query is no longer a
+  flat file but a directory `queries/<class>/<query>/` holding every
+  representation of the language (`.cnf`/`.rsm` for CFPQ, `.re`/`.rsm` for
+  RPQ — regular only, `.mcfg` for MCFPQ) plus one representation-independent
+  `results.mtx` (Boolean MTX of constrained reachability facts). The RSM
+  readwrite (`rsa.py`) and the `cfg_from_rsa` converter already existed and
+  are reused; task 54 adds the transition-system description style to the
+  `.rsm` format. Existing archives keep the old layout until the migration
+  (task 48) repackages them.
