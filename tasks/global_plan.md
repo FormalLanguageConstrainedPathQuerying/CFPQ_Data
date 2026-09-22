@@ -51,7 +51,7 @@ for all follow-up tasks.
   command blocks become references to the workflow file + step, local-only
   commands and policies stay in the docs, and the duplicated CI comments are
   slimmed to pointers.
-- **Task 52**: Self-contained archive structure + validation: design the
+- **Task 52** [done]: Self-contained archive structure + validation: design the
   identical, self-contained graph-archive layout (graph as a set of MTX
   files, a description document with mandatory questions, all queries as
   separate files described in one common document), the `utils/`
