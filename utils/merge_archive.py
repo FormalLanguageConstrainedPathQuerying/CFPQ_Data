@@ -81,11 +81,12 @@ def _append_sections(
     Returns the merged text and the problems found (a fragment section whose
     name already exists in the existing README).
     """
+    existing_sections = parse_readme_sections(existing_text)
     problems = [
         f"queries/README.md: section {name!r} is already described in the "
         "existing archive"
         for name in fragment
-        if name in parse_readme_sections(existing_text)
+        if name in existing_sections
     ]
     if problems:
         return existing_text, problems
