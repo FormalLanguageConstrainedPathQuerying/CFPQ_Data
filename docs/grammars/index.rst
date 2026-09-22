@@ -48,3 +48,11 @@ Grammar templates
      - Context-Free
      - Static Analysis
      - `java_points_to.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points_to.tar.gz>`_ 📥
+   * - :ref:`reachability`
+     - Regular
+     - General
+     - — (data pending)
+   * - :ref:`label_star`
+     - Regular
+     - General
+     - — (data pending)
