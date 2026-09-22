@@ -75,10 +75,82 @@ design decision for this class:
   document both templates.
 - **Placement.** Query files live inside the self-contained graph archive
   under ``queries/rpq/`` (see the "File structure" section of the
-  :ref:`graphs` page); there are no standalone query or example archives.
+  :ref:`graphs` page); there are no standalone query or example archives. An
+  RPQ may also be represented by a regular RSM (``.rsm``, see below).
 - **Data status.** No real-world RPQ data exists yet — the templates are
   designed stubs. Real-world data will be provided later and enters the
   dataset via the graph archives (migration, task 48).
+
+Recursive state machines
+------------------------
+
+A recursive state machine (RSM) [1]_ is a way to specify context-free
+languages that resembles finite automata: it is a set of **boxes**, each box
+being a deterministic finite automaton without ε-transitions over the union
+alphabet of terminals and nonterminals, with a start state and final states.
+There is no stack in the representation — recursion happens during
+computation, when a transition labelled by a nonterminal invokes the
+respective box. A grammar in Extended Backus-Naur Form (EBNF) — productions
+``N -> E`` where ``E`` is a regular expression over terminals and
+nonterminals — maps to an RSM with one box per production.
+
+RSMs are the query formalism of the GLL-based CFPQ algorithm [2]_, which
+evaluates EBNF queries natively and was evaluated on this dataset.
+
+Every RSM defines a context-free language, and
+:obj:`cfg_from_rsa <cfpq_data.grammars.converters.cfg.cfg_from_rsa>` converts
+it to a CFG (each box state becomes a nonterminal, each transition a
+production). An RSM is therefore a valid alternative representation of a
+CFPQ query — and of an RPQ when it is regular: no box transition is labelled
+by a nonterminal.
+
+Format
+^^^^^^
+
+A ``.rsm`` file uses one of two description styles, selected automatically by
+:obj:`rsa_from_text <cfpq_data.grammars.readwrite.rsa.rsa_from_text>`:
+
+- **EBNF style** — one production per line; each production becomes one box::
+
+    start: S
+    S -> a* b S c
+    B -> (x | y)+
+
+- **Transition-system style** — explicit boxes as labelled graphs with start
+  and final states (a ``[box <name>]`` section header selects this style)::
+
+    start: S
+    [box S]
+    start: 0
+    final: 2, 3
+    0 --a--> 1
+    1 --b--> 2
+    1 --c--> 3
+    [box B]
+    start: 0
+    final: 1
+    0 --x--> 1
+
+In both styles an optional ``start: <N>`` line names the start box (``S`` by
+default). Boxes are deterministic — a repeated ``(state, label)`` transition
+is an error. :obj:`rsa_to_text
+<cfpq_data.grammars.readwrite.rsa.rsa_to_text>` emits the EBNF style as the
+canonical form, so a transition-system file round-trips to EBNF-style text.
+
+Placement
+^^^^^^^^^
+
+``.rsm`` representation files are allowed in the ``queries/cfpq/`` and
+``queries/rpq/`` query directories of a graph archive (see the "File
+structure" section of the :ref:`graphs` page). In ``rpq/`` the RSM must be
+regular — no box transition may be labelled by a nonterminal.
+
+.. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+   State Machines. In: Berry G., Comon H., Finkel A. (eds) Computer Aided
+   Verification. CAV 2001. Lecture Notes in Computer Science, vol 2102.
+   Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
+.. [2] Abzalov V., Pogozhelskaya V., Kutuev V., Grigorev S. (2023) GLL-based
+   Context-Free Path Querying for Neo4j. arXiv:2312.11925.
 
 Multiple context-free languages
 -------------------------------
@@ -334,16 +406,18 @@ Graphs are large and class-agnostic, so they live under one shared prefix.
 Queries no longer have their own archives: every graph archive is
 self-contained and carries all queries that apply to the graph — the layout
 is documented once in the "File structure" section of the :ref:`graphs`
-page (``README.md``, ``graph/*.mtx``, and ``queries/{cfpq,rpq,mcfpq}/``
-with a common description document).
+page (``README.md``, ``graph/*.mtx``, and ``queries/{cfpq,rpq,mcfpq}/`` with
+one directory per query — its representations plus a ``results.mtx`` — and a
+common description document).
 
 Migration path:
 
 - Repackage every graph archive into the self-contained structure: move the
-  per-graph grammars from the legacy ``4.0.0/grammar/`` archives into the
-  archive's ``queries/cfpq/``, write the mandatory-question ``README.md``,
-  and validate with ``utils/check_archive_structure.py``
-  (:ref:`archive_structure`).
+  per-graph grammars from the legacy ``4.0.0/grammar/`` archives into one
+  ``queries/cfpq/<query>/`` directory each, add the per-query
+  ``results.mtx`` (the constrained reachability facts), write the
+  mandatory-question ``README.md``, and validate with
+  ``utils/check_archive_structure.py`` (:ref:`archive_structure`).
 - The example query archives (``4.0.0/grammar/example/``) are dropped —
   every query file lives inside a graph archive.
 - Re-point ``DATASET_URL`` / ``BENCHMARK_URL`` at the new prefixes as part

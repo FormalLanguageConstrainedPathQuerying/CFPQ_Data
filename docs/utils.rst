@@ -97,14 +97,24 @@ The checks:
 - **Skeleton.** A single top-level directory named after the archive,
   containing exactly ``README.md``, ``graph/`` (non-empty, only ``.mtx``
   files), and ``queries/`` with its ``README.md`` and the three class
-  directories (only ``.cnf``/``.re``/``.mcfg`` files respectively).
-- **Graph.** Every MTX file parses as a Boolean pattern matrix and every
-  edge endpoint fits the declared dimensions.
-- **Queries.** Every query file parses with its class reader, uses at least
-  one terminal, and uses only labels of its own graph (stored or reversed).
+  directories. Each class directory holds query directories only (flat query
+  files are rejected); each query directory contains at least one
+  representation file with a class extension (``.cnf``/``.rsm`` for CFPQ,
+  ``.re``/``.rsm`` for RPQ, ``.mcfg`` for MCFPQ) and exactly one
+  ``results.mtx``.
+- **Graph.** Every MTX file parses as a Boolean pattern matrix, every edge
+  endpoint fits the declared dimensions, and all label matrices declare the
+  same dimensions.
+- **Results.** Every ``results.mtx`` parses as a Boolean pattern matrix with
+  the graph's dimensions and in-range entries.
+- **Queries.** Every representation file parses with its class reader (an
+  ``.rsm`` via :obj:`rsa_from_text <cfpq_data.grammars.readwrite.rsa.rsa_from_text>`),
+  uses at least one terminal, and uses only labels of its own graph (stored
+  or reversed). An ``.rsm`` in ``rpq/`` must be regular — no box transition
+  labelled by a nonterminal.
 - **Description.** ``README.md`` answers all mandatory questions of the
   contribution templates; ``queries/README.md`` describes exactly the query
-  files that exist, each with a non-empty section.
+  directories that exist, each with a non-empty section.
 
 The tool collects every violation and exits non-zero if any is found, so it
 can gate a commit. With ``--audit`` it downloads and validates every

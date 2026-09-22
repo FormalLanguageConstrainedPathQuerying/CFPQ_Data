@@ -109,9 +109,10 @@ final: 1
   default `S`).
 - States are arbitrary tokens, defined implicitly by use (start/final/
   transitions).
-- Transition lists may be nondeterministic (NFA-style sugar; boxes are
-  conceptually DFAs per the formal definition and are determinized
-  internally by pyformlang).
+- Boxes are deterministic, per the formal definition (the paper: each box
+  is a DFA without ε-transitions; the installed pyformlang
+  `TransitionFunction` is deterministic as well) — a repeated
+  `(state, label)` transition is a parse error.
 - Labels are terminals or box names (nonterminals); multi-character labels
   are allowed.
 - `rsa_to_text` keeps emitting style A — the canonical form; a style-B file

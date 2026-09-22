@@ -27,21 +27,34 @@ fixed structure::
    ├── README.md              description of the graph and of its files
    ├── graph/                 one MatrixMarket file per stored edge label
    │   └── <label>.mtx
-   └── queries/               all queries for this graph, one file each
-       ├── README.md          describes every query file
-       ├── cfpq/              .cnf files (pyformlang CFG format)
-       ├── rpq/               .re files (regular expression text)
-       └── mcfpq/             .mcfg files (Datalog-like MCFG syntax)
+   └── queries/               all queries for this graph, one directory each
+       ├── README.md          describes every query
+       ├── cfpq/              .cnf and/or .rsm representations
+       ├── rpq/               .re and/or .rsm representations (regular only)
+       └── mcfpq/             .mcfg representations (Datalog-like MCFG syntax)
 
 - ``README.md`` answers the mandatory questions of the contribution
   templates — the templates are the source of truth for the fields, as with
   the statistics conventions.
 - ``graph/`` is never empty; ``queries/`` always carries the three class
   directories (possibly empty) and its ``README.md``.
-- ``queries/README.md`` has one ``## <class>/<file>`` section per query file
-  (path relative to ``queries/``), each with a non-empty description.
+- A query is a directory ``queries/<class>/<query>/`` holding every
+  representation of the language — at least one file with a class extension
+  (``.cnf`` / ``.rsm`` for CFPQ, ``.re`` / ``.rsm`` for RPQ, ``.mcfg`` for
+  MCFPQ) — plus exactly one ``results.mtx`` and nothing else. The same query
+  may be represented in several ways (e.g. a CFG and an RSM); all
+  representations must define the same language.
+- ``results.mtx`` is a Boolean pattern matrix with the same dimensions as
+  the graph matrices: entry ``(i, j)`` is present iff some path from node
+  ``i`` to node ``j`` satisfies the query. It depends on the language, not
+  on the representation.
+- ``queries/README.md`` has one ``## <class>/<query>`` section per query
+  directory (path relative to ``queries/``), each with a non-empty
+  description.
 - A query may only use labels of its own graph: every terminal it uses is a
-  stored label or the reverse of one (see "Reversed edges" below).
+  stored label or the reverse of one (see "Reversed edges" below). An RPQ
+  representation in ``.rsm`` must be regular — no box transition may be
+  labelled by a nonterminal.
 
 The pre-migration graphs on the :ref:`old_graphs` page use the old CSV
 format instead.
