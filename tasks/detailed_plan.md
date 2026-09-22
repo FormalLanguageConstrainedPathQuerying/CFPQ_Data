@@ -87,6 +87,21 @@ Both are CNF (≤2 RHS symbols), have no ε-productions, use only the stored
 labels of their category (`alloc`, `assign`, `load_i`, `store_i` + reverses;
 `a`, `d` + reverses), and the start symbol is not indexed.
 
+**Label-convention variants (discovered in S3).** The 21 `java_points_to`
+archives come in two label conventions: 7 use the indexed template
+(`load_i`, ...: gson, mockito, commons_io, commons_lang3, junit5, guava,
+jackson) and 14 use the bare family form (`load`, ...: sunflow, lusearch,
+luindex, avrora, eclipse, h2, pmd, xalan, batik, fop, tomcat, jython,
+tradebeans, tradesoap). FastMatrixCFPQ reads a bare `load` as one
+field-insensitive relation while `load_i` is a per-field block-matrix symbol,
+so the optimized variant must follow the convention of its archive: the same
+productions with every `_i` suffix dropped (`LPFS`, `LP`, `FS`, `SPFL`,
+`SP`, `FL`). Both variants are stored in the archives under the same file
+name `java_points_to_muravev2024.cnf`; the local reference copies are
+`java_points_to_muravev2024.cnf` (indexed) and
+`java_points_to_muravev2024_bare.cnf` (bare). All 20 `c_alias` archives share
+one grammar, so there is a single variant there.
+
 ## Affected archives
 
 - `java_points_to` (21): gson, sunflow, lusearch, luindex, avrora, mockito,
@@ -154,8 +169,9 @@ check.
 
 **Spec:**
 - Graphs: c_alias -> `wc`, `bzip`, `pr`, `ls`, `gzip`; java_points_to ->
-  `gson`, `sunflow`, `lusearch`, `luindex`, `avrora` (all previously `ok` in
-  the full sweep; seconds to ~25 s per run).
+  `gson` (indexed template), `sunflow`, `lusearch`, `luindex`, `avrora`
+  (bare family form) — covering both label conventions; all previously `ok`
+  in the full sweep, seconds to ~25 s per run.
 - Run under Docker access (`sg docker -c ...`), container memory cap as in
   `run_reference.py`.
 - Any mismatch or solver failure blocks S4 — nothing is uploaded before a
@@ -196,6 +212,51 @@ for the two categories, verified equivalent); `tasks/tasks.md` (mark task 56
 - Changelog entry names the paper and both file names.
 - Task marked done only after the quality gate passes.
 
-## Verification results
+## Verification results (S3)
 
-(Filled in by S3.)
+FastMatrixCFPQ (`IncrementalAllPairsCFLReachabilityMatrix`), one shared `.g`
+edge list per graph, original vs optimized grammar. Every count equals the
+recorded reference value of the full sweep.
+
+| Graph | Convention | Original | Optimized | Result |
+|---|---|---|---|---|
+| wc | c_alias | 156 | 156 | EQUAL |
+| bzip | c_alias | 315 | 315 | EQUAL |
+| pr | c_alias | 385 | 385 | EQUAL |
+| ls | c_alias | 854 | 854 | EQUAL |
+| gzip | c_alias | 1458 | 1458 | EQUAL |
+| gson | indexed | 56325 | 56325 | EQUAL |
+| sunflow | bare | 35209 | 35209 | EQUAL |
+| lusearch | bare | 43719 | 43719 | EQUAL |
+| luindex | bare | 176051 | 176051 | EQUAL |
+| avrora | bare | 192790 | 192790 | EQUAL |
+
+## Design Notes (discovered during implementation)
+
+### Bare vs indexed label conventions in the java_points_to archives
+
+The 14 original Giga-scale benchmark graphs (sunflow, lusearch, luindex,
+avrora, eclipse, h2, pmd, xalan, batik, fop, tomcat, jython, tradebeans,
+tradesoap) ship a `java_points_to.cnf` with the bare family form (`load`,
+`store`, `load_r`, `store_r`); the 7 later additions (gson, mockito,
+commons_io, commons_lang3, junit5, guava, jackson) ship the indexed template
+(`load_i`, ...). The two conventions are interpreted differently by
+FastMatrixCFPQ: a bare `load` is one field-insensitive relation, while
+`load_i` is a per-field block-matrix symbol. Concretely, on sunflow the
+indexed optimized variant returns 16354 pairs while the original and the bare
+optimized variant both return 35209. The optimized variant therefore follows
+the convention of its archive (same file name in every archive; two local
+reference copies). Note this also means the recorded reference answers of the
+14 bare-form graphs are field-insensitive, unlike the indexed ones — a
+pre-existing property of the dataset, not introduced by this task.
+
+### Latent bug: check_archive_structure.py cannot parse POCR .cnf files
+
+`_query_terminals` in `utils/check_archive_structure.py` parses `.cnf`
+representations with pyformlang `CFG.from_text`, which only accepts the
+`head -> body` syntax and raises `ValueError` on every real POCR tab-format
+`.cnf` (verified against the in-archive `fsjpt.cnf`). The new-structure
+validator has never run against real archive data, so this is latent. It does
+not affect task 56 (legacy archives are uploaded via `upload_file()`, which
+does not validate) but must be fixed before the task-48 migration repackages
+and validates archives in the new structure.

@@ -191,6 +191,13 @@ Optimized variant
 
 An equivalent WCNF grammar introduced as optimization (5) in `"Optimization of the Context-Free Language Reachability Matrix-Based Algorithm" <https://arxiv.org/abs/2401.11029>`_ (Fig. 1(b)) is stored in each archive as ``java_points_to_muravev2024.cnf``. It generates the same language and returns identical reachable-pair counts (verified with FastMatrixCFPQ on small graphs).
 
+The archives of this category use two label conventions for the field-indexed
+labels: the indexed template (``load_i``, ...) and the bare family form
+(``load``, ...). The stored optimized variant follows the convention of its
+archive — the indexed form below, or the same productions with every ``_i``
+suffix dropped (``LPFS``, ``LP``, ``FS``, ``SPFL``, ``SP``, ``FL``) for the
+bare-form archives.
+
 .. code-block:: text
 
    PT	alloc
