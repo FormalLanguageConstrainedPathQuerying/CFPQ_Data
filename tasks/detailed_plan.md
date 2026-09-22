@@ -1,176 +1,130 @@
-# Detailed Plan: Task 54 — Archive structure extension (multiple specifications per query + per-query results)
+# Detailed Plan: Task 55 — Data providing mechanism (Google Drive link + partial archives)
 
 ## Context
 
-Task 52 introduced the self-contained graph-archive layout with flat query
-files (`queries/<class>/<name>.<ext>`). Task 54 extends it: one query may be
-specified in several ways (different grammars; for CFPQ — a CFG or an RSM),
-and every query carries one results file that is independent of the
-specification. Design documents + tooling only — no data re-upload (the
-migration happens in task 48).
+Task 54 extended the archive structure: a query is a directory
+`queries/<class>/<query>/` holding its representations plus one
+`results.mtx`. Task 55 reworks how new data is provided to the project: a
+Google Drive link to an archive prepared per the structure-validation tool
+becomes the main way; partial archives (a new query for an existing graph)
+are allowed, with the structure preserved so the new data merges into the
+existing archive; the issue/PR templates make this way the main one and
+point at the tooling.
 
-### RSM investigation result (done)
+Existing pieces to build on:
 
-- **Formalism** (Alur, Etessami, Yannakakis, CAV 2001; applied to CFPQ in
-  Abzalov et al., "GLL-based Context-Free Path Querying for Neo4j",
-  arXiv:2312.11925 — which evaluates on CFPQ_Data itself): an RSM is a set of
-  **boxes**; each box is a DFA without ε-transitions over the union alphabet
-  of terminals and nonterminals (start states of other boxes), with a start
-  state and final states. No stack in the representation — the stack appears
-  only during computation, which makes the machine "recursive". A grammar in
-  EBNF (productions `N -> E` where `E` is a regular expression over
-  terminals ∪ nonterminals) maps to an RSM with one box per production.
-- **pyformlang support**: `pyformlang.rsa` — `RecursiveAutomaton` + `Box`
-  (a box wraps an epsilon-NFA; `.dfa` determinizes it).
-- **Already in the repo** (doctests pass, reuse — do not duplicate):
-  - `cfpq_data/grammars/readwrite/rsa.py`: `rsa_from_text/to_text/from_txt/
-    to_txt` — the EBNF-style text format (one box per production line, RHS
-    parsed as a regex over terminals + nonterminals).
-  - `cfpq_data/grammars/converters/cfg.py`: `cfg_from_rsa` — RSM → CFG
-    (each NFA state becomes a nonterminal, each transition a production).
+- `utils/check_archive_structure.py` — the structure validator (full mode,
+  task 54 layout).
+- `utils/upload_to_s3.py` — validates before uploading; `--audit` over the
+  bucket.
+- `utils/migrate_gdrive_to_s3.py` — `download_from_drive(file_id, dest)`
+  handles Drive's large-file confirmation form; `DRIVE_FILE_ID_RE` extracts
+  a file ID from a Drive URL.
 
-### User decisions (recorded verbatim in tasks.md)
+## User decisions (recorded verbatim in tasks.md)
 
-1. `.rsm` specification files are allowed in **both** `cfpq/` and `rpq/`.
-   In `rpq/` the RSM must be regular: no transition label may be a
-   nonterminal (box name) — i.e. no recursion.
-2. Each query is a **directory**: `queries/<class>/<query>/` containing all
-   representations of the language plus one `results.mtx`. The result is
-   independent of the representation; it depends on the language (the query).
+1. A partial archive contains **queries/ + a README fragment**:
+   `<graph>/queries/<class>/<query>/{representations, results.mtx}` plus a
+   `queries/README.md` holding only the new `## <class>/<query>` sections —
+   everything needed for the merge lives in the archive.
+2. **Build `utils/merge_archive.py`** — merges a partial archive into an
+   existing one: collision checks, README section append, full re-validation
+   of the result.
 
 ## Design
 
-### New archive layout
+### Partial archive format
 
 ```
-<name>/
-├── README.md                 (unchanged: 8 mandatory questions)
-├── graph/
-│   └── <label>.mtx ...       (unchanged)
+<graph_name>/
 └── queries/
-    ├── README.md             (one section per query directory)
-    ├── cfpq/
-    │   └── <query>/
-    │       ├── <rep_1>.cnf   ┐ ≥ 1 representation file,
-    │       ├── <rep_2>.rsm   ┘ allowed extensions per class:
-    │       └── results.mtx       cfpq: .cnf .rsm
-    ├── rpq/                    rpq:  .re .rsm (regular only)
-    │   └── <query>/            mcfpq: .mcfg
-    │       ├── <rep>.re / <rep>.rsm
-    │       └── results.mtx
-    └── mcfpq/
+    ├── README.md          fragment: the new "## <class>/<query>" sections only
+    └── <class>/
         └── <query>/
-            ├── <rep>.mcfg
+            ├── <rep>.*    ≥ 1 representation file (.cnf/.rsm, .re/.rsm, .mcfg)
             └── results.mtx
 ```
 
-- Representation file names are author-chosen; the extension selects the
-  format. `results.mtx` is reserved. No other files inside a query directory
-  (per-query descriptions live in `queries/README.md`).
-- **`results.mtx`**: MatrixMarket pattern matrix, `|V| × |V|` of the graph;
-  entry `(i, j)` present iff some path from node `i` to node `j` satisfies
-  the query language. Identical for all representations of the query by
-  construction (author responsibility — equivalence of CFLs is undecidable,
-  so validation is structural only).
+- The top-level directory is named after the graph (same rule as full
+  archives).
+- No `graph/`, no top-level `README.md`.
+- The reachable-pair count is derivable: the number of entries in
+  `results.mtx` — no separate reference file.
 
-### `.rsm` file format — two description styles
+### Validator extension (`check_archive_structure.py --partial`)
 
-Discriminator: a `[box <name>]` section header. Present → transition-system
-style; absent → EBNF style (existing format, unchanged).
+- Explicit `--partial` flag; `validate_archive(path, partial=False)`.
+- Partial skeleton: a single top-level directory named after the archive,
+  containing only `queries/`; `queries/` carries its `README.md` and at
+  least one known class directory; each class directory holds query
+  directories validated by the existing `_query_dir_problems`.
+- Representation files must parse (no label check — there is no graph to
+  check against; no `results.mtx` dimension check either).
+- The README fragment: every section is non-empty and matches a
+  `<class>/<query>` directory present in the partial archive.
+- Full mode is unchanged; a missing `graph/` without `--partial` stays an
+  error.
 
-**Style A — EBNF** (existing `rsa_from_text`): one production per line,
-RHS is a regular expression over terminals + nonterminals; start symbol is
-`S` unless a `start: <N>` header line is given.
-
-```
-start: S
-S -> a* b S c
-B -> (x | y)+
-```
-
-**Style B — transition system** (new): explicit boxes as labelled graphs
-with start and final states.
+### Merge tool (`utils/merge_archive.py`)
 
 ```
-start: S
-[box S]
-start: 0
-final: 2, 3
-0 --a--> 1
-1 --b--> 2
-1 --c--> 3
-[box B]
-start: 0
-final: 1
-0 --x--> 1
+python utils/merge_archive.py EXISTING.tar.gz PARTIAL.tar.gz -o MERGED.tar.gz
 ```
 
-- `start: <N>` — the start box (required in style B; optional in both styles,
-  default `S`).
-- States are arbitrary tokens, defined implicitly by use (start/final/
-  transitions).
-- Boxes are deterministic, per the formal definition (the paper: each box
-  is a DFA without ε-transitions; the installed pyformlang
-  `TransitionFunction` is deterministic as well) — a repeated
-  `(state, label)` transition is a parse error.
-- Labels are terminals or box names (nonterminals); multi-character labels
-  are allowed.
-- `rsa_to_text` keeps emitting style A — the canonical form; a style-B file
-  round-trips to style-A text (documented).
+- `PARTIAL` may be a local `.tar.gz`, an unpacked directory, or a Google
+  Drive URL / file ID (downloaded via `download_from_drive`).
+- Validates the existing archive in full mode and the partial one in partial
+  mode; both top-level directories must have the same name (same graph).
+- Copies the partial's query directories into the existing tree; a
+  `<class>/<query>` that already exists is a collision error (all collisions
+  reported at once).
+- README merge: every section of the partial fragment must correspond to a
+  merged-in query directory; sections are appended to the existing
+  `queries/README.md`; a section name that already exists is an error.
+- Re-validates the merged tree in full mode; on any problem it reports them
+  and exits non-zero without writing the output.
+- Writes `MERGED.tar.gz` with the graph-named top-level directory.
 
-### Validator rules (`utils/check_archive_structure.py`)
+### Templates (issue + PR, kept in sync)
 
-- `queries/<class>/` entries must be query directories (flat files are
-  errors — the old layout is superseded).
-- Per query directory: ≥ 1 representation file with a class-allowed
-  extension; exactly one `results.mtx`; no other files.
-- Representation files must parse (`cfg_from_text`, `rsa_from_text`,
-  `regex_from_text`, `mcfg_from_text`) and use only labels present in the
-  graph (for `.rsm`: box alphabets minus nonterminals).
-- `rpq/*.rsm` regularity: no transition label equals a box name.
-- `results.mtx`: MatrixMarket pattern matrix, dimensions equal to the graph
-  node count, indices in range.
-- `queries/README.md`: one section per query directory (existing check
-  adapted from files to directories).
-- Audit mode applies the same rules to the bucket.
+- **Info table.** "Origin" becomes "Archive": a Google Drive link to
+  `<name>.tar.gz`; a new "Target graph" field for partial archives (the
+  existing graph the queries are added to).
+- **Data format.** Explains full vs partial archives and points at the
+  "File structure" section of the Graphs page, the validator (incl.
+  `--partial`), and the RSM format in the FLPQ design page.
+- **Description document.** Full archive: the eight mandatory questions.
+  Partial archive: the `queries/README.md` fragment — one
+  `## <class>/<query>` section per new query.
+- **Queries.** Updated to the task-54 layout (one directory per query with
+  its representations and `results.mtx`); the three canonical-grammar cases
+  stay.
 
 ### Docs
 
-- `docs/graphs/index.rst` "File structure": new layout + `results.mtx`
-  semantics.
-- `docs/flpq.rst`: new "Recursive state machines" section — formalism
-  (boxes, union alphabet, no stack; references: Alur et al. CAV 2001,
-  arXiv:2312.11925), EBNF definition, CFG equivalence via `cfg_from_rsa`,
-  the `.rsm` format spec (both styles), where `.rsm` is allowed + the
-  regularity rule for `rpq/`.
-- `docs/utils.rst`: validator rules updated.
-- `.opencode/skills/add-graph/SKILL.md`: pointer update if it states layout
-  details.
+- `docs/utils.rst`: the "Archive structure" section documents `--partial`;
+  a new "Merge partial archives" section documents `merge_archive.py`.
+- `.opencode/skills/add-graph/SKILL.md`: pointer update if it states
+  providing-workflow details.
 
 ## Subtasks
 
 - [x] **S1**: Record the user decisions verbatim in `tasks/tasks.md`; write
-      this detailed plan. Commit `docs(54-S1)`.
-- [ ] **S2**: Transition-system style for `.rsm` — extend
-      `cfpq_data/grammars/readwrite/rsa.py`: `start:` header support,
-      `[box]` dispatch in `rsa_from_text`, new `_rsa_from_transition_system`
-      parser; doctests for both styles + round-trip; unit tests in
-      `tests/grammars/test_rsa.py`. Commit `feat(54-S2)`.
-- [ ] **S3**: Validator extension — query directories, representation rules
-      per class, `results.mtx` checks, `rpq/*.rsm` regularity, README
-      sections ↔ directories, audit mode; tests with fixture archives (valid
-      + each failure mode). Commit `feat(54-S3)`.
-- [ ] **S4**: Docs — File structure (`docs/graphs/index.rst`), RSM section +
-      `.rsm` format spec (`docs/flpq.rst`), validator rules
-      (`docs/utils.rst`), add-graph skill pointer. Commit `docs(54-S4)`.
-- [ ] **S5**: Quality gate (canonical test command + coverage, pre-commit,
-      ty, pyright, docs build), code review, mark done in the task log,
-      merge to dev.
+      this detailed plan. Commit `docs(55-S1)`.
+- [ ] **S2**: Validator `--partial` mode — partial skeleton, parse-only
+      representation checks, README-fragment check; tests with fixture
+      archives (valid + each failure mode). Commit `feat(55-S2)`.
+- [ ] **S3**: `utils/merge_archive.py` — merge, collisions, README append,
+      full re-validation, Drive input; tests. Commit `feat(55-S3)`.
+- [ ] **S4**: Templates (issue + PR) rework + `docs/utils.rst` sections +
+      skill pointer if needed. Commit `docs(55-S4)`.
+- [ ] **S5**: Quality gate, code review, mark done in the task log, merge to
+      dev.
 
 ## Out of scope
 
-- Re-uploading or migrating existing archives (task 48).
-- `reachable_pairs.csv` redesign for per-query rows (task 48 — the unit
-  becomes the query directory; documented here as the target state).
-- A CFPQ solver / language-equivalence checking (structural checks only).
-- Google Drive providing mechanism + templates (task 55).
+- Uploading or migrating any data (the migration of existing archives is
+  task 48).
+- `reachable_pairs.csv` redesign for per-query rows (task 48).
+- New-graph partials (a new graph always ships a full archive) and
+  edge/label additions to an existing graph.
