@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Optimized WCNF grammar variants for the `java_points_to` and
+  `c_alias_analysis` categories, taken from "Optimization of the Context-Free
+  Language Reachability Matrix-Based Algorithm" (arXiv:2401.11029,
+  optimization 5): every archive of the two categories now carries
+  `java_points_to_muravev2024.cnf` / `c_alias_muravev2024.cnf` alongside the
+  original grammar. Each variant follows the label convention of its archive
+  (indexed `load_i` form or bare `load` family form) and was verified to
+  return identical reachable-pair counts to the original with FastMatrixCFPQ
+  on small graphs.
 - The graph tables on the website now list the download size of every
   archive in a `Size (MB)` column — one unit (MB) for all graphs, from the
   smallest (0.002 MB) to the largest (112.65 MB) archive.

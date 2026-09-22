@@ -75,7 +75,7 @@ calls, returns) together with their reverses.
      - 24690
      - 25196
      - 192790
-     - 0.137
+     - 0.138
      - `avrora.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/avrora.tar.gz>`_ 📥
    * - :ref:`mockito`
      - 25436
@@ -123,19 +123,19 @@ calls, returns) together with their reverses.
      - 59818
      - 149370
      - 129598
-     - 0.849
+     - 0.850
      - `junit5.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/junit5.tar.gz>`_ 📥
    * - :ref:`batik`
      - 60175
      - 63089
      - 868368
-     - 0.300
+     - 0.301
      - `batik.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/batik.tar.gz>`_ 📥
    * - :ref:`fop`
      - 86183
      - 83016
      - 1984072
-     - 0.403
+     - 0.404
      - `fop.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/fop.tar.gz>`_ 📥
    * - :ref:`tomcat`
      - 111327

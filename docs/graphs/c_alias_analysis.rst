@@ -50,7 +50,7 @@ discovered for each program.
      - 332
      - 269
      - 156
-     - 0.002
+     - 0.003
      - `wc.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/wc.tar.gz>`_ 📥
    * - :ref:`bzip`
      - 632
