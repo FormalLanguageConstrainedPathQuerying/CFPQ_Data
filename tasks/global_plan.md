@@ -34,7 +34,7 @@ for all follow-up tasks.
   (Class = Regular) to the existing Grammars section, until the site
   restructure of task 50 moves them to the RPQ section. No real-world RPQ
   data yet — it will be provided later (user decision).
-- **Task 47**: Add a `query_class` column to `reachable_pairs.csv` and the
+- **Task 47** [done]: Add a `query_class` column to `reachable_pairs.csv` and the
   `reachable_pairs()` API (+ update the generator from task 43).
 - **Task 48**: S3 6.0.0 layout migration + upload tools: copy graph
   archives to `6.0.0/graph/`, move grammar archives to
