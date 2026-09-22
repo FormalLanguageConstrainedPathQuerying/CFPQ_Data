@@ -28,7 +28,7 @@ for all follow-up tasks.
   (canonical test command), remove the curl/GitHub-API workaround from the
   release skill now that the `gh` CLI is installed, and extend the project
   tooling guidance with a no-workaround rule.
-- **Task 46**: RPQ design decision + stubs: document the RPQ query-class
+- **Task 46** [done]: RPQ design decision + stubs: document the RPQ query-class
   design in `docs/flpq.rst` (format, parameterized regex templates, placement
   inside self-contained graph archives) and add stub template entries
   (Class = Regular) to the existing Grammars section, until the site
