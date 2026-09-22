@@ -112,7 +112,8 @@ def toctree_entries(path: pathlib.Path) -> list[str]:
     >>> with tempfile.TemporaryDirectory() as tmp:
     ...     p = pathlib.Path(tmp) / "t.rst"
     ...     n = p.write_text(
-    ...         ".. toctree::\\n   :hidden:\\n\\n   data/a\\n   data/b\\n\\nNext section\\n"
+    ...         ".. toctree::\\n   :hidden:\\n\\n"
+    ...         "   data/a\\n   data/b\\n\\nNext section\\n"
     ...     )
     ...     toctree_entries(p)
     ['data/a', 'data/b']

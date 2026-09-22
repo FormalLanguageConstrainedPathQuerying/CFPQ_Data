@@ -314,9 +314,7 @@ def test_update_category_columns_ignores_other_classes():
 
 def test_validation_problems_unknown_query_class():
     row = {**RPQ_ROW, "query_class": "x"}
-    problems = reachable_pairs_tables._validation_problems(
-        [row], {"alpha": "cat_a"}
-    )
+    problems = reachable_pairs_tables._validation_problems([row], {"alpha": "cat_a"})
     assert any("unknown query_class" in p for p in problems)
 
 
