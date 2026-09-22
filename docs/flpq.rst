@@ -270,8 +270,8 @@ The single flat table currently rendered on the
 scan. The page renders one table per graph category instead (columns:
 Graph, Grammar, Reachable pairs), so every table stays small. The flat
 table survives as a downloadable CSV — the single source of truth for
-automatic processing — which gains a ``category`` column so it is
-self-describing. A generator script in ``utils/`` (following the pattern of
+automatic processing — which gains a ``category`` and a ``query_class``
+column so it is self-describing. A generator script in ``utils/`` (following the pattern of
 ``utils/archive_sizes.py``) renders both the per-category tables and the
 count columns of the category pages from that CSV, so no count is
 hand-maintained in two places.
@@ -310,7 +310,7 @@ API changes
   ``GRAMMAR_TEMPLATES`` becomes the per-class ``CFPQ_TEMPLATES`` /
   ``RPQ_TEMPLATES`` / ``MCFPQ_TEMPLATES`` — they name the query files inside
   the archives, not downloadable archives;
-- ``reachable_pairs()`` gains the category field.
+- ``reachable_pairs()`` gains the category and query_class fields.
 
 Distribution
 ^^^^^^^^^^^^
