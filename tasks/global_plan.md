@@ -28,10 +28,12 @@ for all follow-up tasks.
   (canonical test command), remove the curl/GitHub-API workaround from the
   release skill now that the `gh` CLI is installed, and extend the project
   tooling guidance with a no-workaround rule.
-- **Task 46**: RPQ query templates + seed data: first-class RPQ content —
-  regex template entries in the existing Grammars section (Class = Regular)
-  plus example archives, until the site restructure of task 50 moves them
-  to the RPQ section.
+- **Task 46**: RPQ design decision + stubs: document the RPQ query-class
+  design in `docs/flpq.rst` (format, parameterized regex templates, placement
+  inside self-contained graph archives) and add stub template entries
+  (Class = Regular) to the existing Grammars section, until the site
+  restructure of task 50 moves them to the RPQ section. No real-world RPQ
+  data yet — it will be provided later (user decision).
 - **Task 47**: Add a `query_class` column to `reachable_pairs.csv` and the
   `reachable_pairs()` API (+ update the generator from task 43).
 - **Task 48**: S3 6.0.0 layout migration + upload tools: copy graph
@@ -97,3 +99,7 @@ for all follow-up tasks.
   every query file lives inside a graph archive (user decision); the
   migration (task 48) repackages existing archives instead of copying them
   unchanged.
+- **Task 46 is design-only**: there is no real-world RPQ data yet — the task
+  documents the RPQ design decision and adds stub template entries to the
+  Grammars section; real `.re` query files will be provided later and live
+  inside graph archives (task 52 structure).
