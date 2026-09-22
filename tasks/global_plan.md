@@ -65,6 +65,20 @@ for all follow-up tasks.
 - **Task 53**: Rework the benchmark page and the respective benchmark data
   (design comes after the archive structure of task 52 and the site
   restructure of task 50).
+- **Task 54**: Extend the archive structure — several ways to specify one
+  language: a query may be specified by different grammars; for CFPQ, by a
+  CFG or an RSM (recursive state machine), described either in an EBNF-based
+  text format or as an explicit transition system (labelled graph with start
+  and final states). Each query carries one results file — a Boolean MTX of
+  constrained-reachability facts — identical for all its specifications.
+  Investigate RSMs first; design documents + tooling only, no re-upload.
+- **Task 55**: Improve the new-data providing mechanism — the main way is a
+  Google Drive link to an archive prepared per the structure-validation
+  tool; partial archives are allowed (e.g. a new query for an existing graph:
+  query representation + references — pair count, results MTX — + README
+  descriptions), with the structure preserved so new data merges into the
+  existing archive. Issue/PR templates make this way the main one and point
+  at the tooling; extend the tooling if necessary.
 
 ## Dependencies
 
@@ -77,13 +91,17 @@ for all follow-up tasks.
   principle).
 - 46 is after 52 (new query data must follow the new archive structure).
 - 47 is after 43 (the generator must exist to extend).
-- 48 is after 46 and 52 (all query data classes in place, and the migration
-  repackages archives into the new structure instead of copying them).
+- 48 is after 46, 52, 54 and 55 (all query data classes in place, the
+  migration repackages archives into the final extended structure, and the
+  providing mechanism is settled).
 - 49 is after 48 and 52 (the download machinery points at the new layout and
   reflects self-contained archives).
 - 50 is after 49 (the site references the final package structure).
 - 53 is after 50 and 52 (benchmarks are redesigned on top of the final site
   hierarchy and the self-contained archive structure).
+- 54 is after 52 (it extends the self-contained archive structure).
+- 55 is after 54 (partial archives follow the extended structure, including
+  the per-query results files).
 
 ## Notes
 
