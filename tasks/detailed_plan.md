@@ -1,144 +1,175 @@
-# Detailed Plan: Task 47 — query_class column in reachable pairs
+# Detailed Plan: Task 54 — Archive structure extension (multiple specifications per query + per-query results)
 
-Task (user's words, recorded in `tasks/tasks.md`): "Add a `query_class`
-column to `reachable_pairs.csv` and the `reachable_pairs()` API (+ update
-the generator from task 43)."
+## Context
 
-Scope (from `tasks/global_plan.md`; no ambiguity requiring user input — the
-class values follow the existing conventions, see Verified facts):
-- The CSV gains a `query_class` column; all 155 current rows are CFPQ data.
-- `reachable_pairs()` exposes the column as a field and a filter.
-- The task-43 generator (`utils/reachable_pairs_tables.py`) stays correct
-  with the new column: it validates the value and renders what the site can
-  render today (CFPQ only, until the per-class sections of task 50).
+Task 52 introduced the self-contained graph-archive layout with flat query
+files (`queries/<class>/<name>.<ext>`). Task 54 extends it: one query may be
+specified in several ways (different grammars; for CFPQ — a CFG or an RSM),
+and every query carries one results file that is independent of the
+specification. Design documents + tooling only — no data re-upload (the
+migration happens in task 48).
 
-Verified facts this plan builds on (checked against the repo, 2026-09-22):
-- `cfpq_data/dataset/reachable_pairs.csv`: header
-  `graph,grammar,category,num_reachable_pairs`, 155 data rows; every row is
-  CFPQ data (`.cnf` grammars).
-- `reachable_pairs(graph=None, grammar=None, category=None)` in
-  `cfpq_data/dataset/reachable_pairs.py` filters on exact match and returns
-  row dicts with the four CSV fields (`num_reachable_pairs` as int or None).
-- The generator's `load_rows` parses the same four fields; `main()`
-  validates every row (graph known to the site, category agrees, grammar has
-  a count column in `GRAMMAR_COLUMNS`) and renders both renderings from all
-  rows.
-- Query-class names already exist once:
-  `QUERY_CLASSES = {"cfpq": ".cnf", "rpq": ".re", "mcfpq": ".mcfg"}` in
-  `utils/check_archive_structure.py` (keys = the archive `queries/<class>/`
-  directory names, lowercase) — reused as the single source of truth for the
-  column values; the CSV's existing values are all lowercase stems.
-- The site renders CFPQ counts only today: the per-category tables of
-  `docs/reachable_pairs.rst` and the count columns of `docs/graphs/*.rst`
-  are keyed by `.cnf` grammar files (`GRAMMAR_COLUMNS`). Per-class sections
-  come with task 50.
-- `tests/utils/test_reachable_pairs_tables.py` builds row dicts directly
-  (a `ROWS` fixture) and runs `main()` on the real repo in check mode;
-  `load_rows` is covered by a doctest with inline CSV text.
+### RSM investigation result (done)
 
-Reuse (per the reusing skill):
-- `QUERY_CLASSES` from `utils/check_archive_structure.py` — no new constant
-  for the class names (utils scripts already cross-import: this module
-  imports `archive_sizes` and `config`).
-- The existing filter pattern of `reachable_pairs()` (exact match, None =
-  all) — the new parameter follows it.
-- No new docs pages: the CSV column list lives in
-  `docs/reachable_pairs.rst`, the tool behavior in `docs/utils.rst`, and the
-  design statements in `docs/flpq.rst` — each updated in place.
+- **Formalism** (Alur, Etessami, Yannakakis, CAV 2001; applied to CFPQ in
+  Abzalov et al., "GLL-based Context-Free Path Querying for Neo4j",
+  arXiv:2312.11925 — which evaluates on CFPQ_Data itself): an RSM is a set of
+  **boxes**; each box is a DFA without ε-transitions over the union alphabet
+  of terminals and nonterminals (start states of other boxes), with a start
+  state and final states. No stack in the representation — the stack appears
+  only during computation, which makes the machine "recursive". A grammar in
+  EBNF (productions `N -> E` where `E` is a regular expression over
+  terminals ∪ nonterminals) maps to an RSM with one box per production.
+- **pyformlang support**: `pyformlang.rsa` — `RecursiveAutomaton` + `Box`
+  (a box wraps an epsilon-NFA; `.dfa` determinizes it).
+- **Already in the repo** (doctests pass, reuse — do not duplicate):
+  - `cfpq_data/grammars/readwrite/rsa.py`: `rsa_from_text/to_text/from_txt/
+    to_txt` — the EBNF-style text format (one box per production line, RHS
+    parsed as a regex over terminals + nonterminals).
+  - `cfpq_data/grammars/converters/cfg.py`: `cfg_from_rsa` — RSM → CFG
+    (each NFA state becomes a nonterminal, each transition a production).
 
-### S1: Record the task and write this plan
+### User decisions (recorded verbatim in tasks.md)
 
-**Code:** none.
-**Tests:** none.
-**Docs:** `tasks/tasks.md` — add the task 47 entry (tasks 47-50 were only in
-the global plan); `tasks/detailed_plan.md` — this plan.
+1. `.rsm` specification files are allowed in **both** `cfpq/` and `rpq/`.
+   In `rpq/` the RSM must be regular: no transition label may be a
+   nonterminal (box name) — i.e. no recursion.
+2. Each query is a **directory**: `queries/<class>/<query>/` containing all
+   representations of the language plus one `results.mtx`. The result is
+   independent of the representation; it depends on the language (the query).
 
-**Spec:**
-- The task text is recorded verbatim from the global plan.
+## Design
 
-### S2: The CSV column and the API
+### New archive layout
 
-**Code:** `cfpq_data/dataset/reachable_pairs.csv` — new header
-`graph,grammar,category,query_class,num_reachable_pairs`; all 155 rows gain
-`cfpq` (mechanical rewrite via a one-off Python snippet, verified by row
-count and a spot check). `cfpq_data/dataset/reachable_pairs.py` —
-`reachable_pairs(graph=None, grammar=None, category=None,
-query_class=None)`; the filter follows the existing exact-match pattern; the
-row dicts gain `query_class`; docstring updated (the reference docs page is
-autosummary-generated from it).
+```
+<name>/
+├── README.md                 (unchanged: 8 mandatory questions)
+├── graph/
+│   └── <label>.mtx ...       (unchanged)
+└── queries/
+    ├── README.md             (one section per query directory)
+    ├── cfpq/
+    │   └── <query>/
+    │       ├── <rep_1>.cnf   ┐ ≥ 1 representation file,
+    │       ├── <rep_2>.rsm   ┘ allowed extensions per class:
+    │       └── results.mtx       cfpq: .cnf .rsm
+    ├── rpq/                    rpq:  .re .rsm (regular only)
+    │   └── <query>/            mcfpq: .mcfg
+    │       ├── <rep>.re / <rep>.rsm
+    │       └── results.mtx
+    └── mcfpq/
+        └── <query>/
+            ├── <rep>.mcfg
+            └── results.mtx
+```
 
-**Tests:** `tests/dataset/test_reachable_pairs.py` — `test_all_rows_have_keys`
-gains `query_class`; new tests: every row's `query_class` is `cfpq`;
-`reachable_pairs(query_class="cfpq")` returns all 155 rows;
-`reachable_pairs(query_class="rpq")` returns `[]`.
+- Representation file names are author-chosen; the extension selects the
+  format. `results.mtx` is reserved. No other files inside a query directory
+  (per-query descriptions live in `queries/README.md`).
+- **`results.mtx`**: MatrixMarket pattern matrix, `|V| × |V|` of the graph;
+  entry `(i, j)` present iff some path from node `i` to node `j` satisfies
+  the query language. Identical for all representations of the query by
+  construction (author responsibility — equivalence of CFLs is undecidable,
+  so validation is structural only).
 
-**Docs:** the numpydoc docstring (reference docs regenerate from it).
+### `.rsm` file format — two description styles
 
-**Spec:**
-- Column order: `query_class` sits with the identifier columns, before
-  `num_reachable_pairs` (the only value column, which may be empty).
-- Values are lowercase (`cfpq`, `rpq`, `mcfpq`) — the same names as the
-  `queries/<class>/` archive directories.
-- The API does not validate the filter value: an unknown class simply
-  matches no row (consistent with the other filters).
+Discriminator: a `[box <name>]` section header. Present → transition-system
+style; absent → EBNF style (existing format, unchanged).
 
-### S3: The generator
+**Style A — EBNF** (existing `rsa_from_text`): one production per line,
+RHS is a regular expression over terminals + nonterminals; start symbol is
+`S` unless a `start: <N>` header line is given.
 
-**Code:** `utils/reachable_pairs_tables.py` —
-- `load_rows`: parse `query_class` into the row dicts; doctest updated to
-  the new header.
-- `from check_archive_structure import QUERY_CLASSES` (reused, not
-  redefined).
-- a `_rendered_rows(rows)` helper: the rows the current site renders —
-  `query_class == "cfpq"` — with a comment that per-class rendering comes
-  with the task-50 site restructure; used by both `render_tables_region`
-  and `update_category_columns`.
-- `main()`: every row's `query_class` must be a key of `QUERY_CLASSES`
-  (clear error naming the row); the count-column check applies to cfpq rows
-  only — other classes have no site rendering yet, so their grammar files
-  are not expected in `GRAMMAR_COLUMNS`.
-- module docstring: the CSV is self-describing including `query_class`; the
-  renderings cover CFPQ rows until task 50.
+```
+start: S
+S -> a* b S c
+B -> (x | y)+
+```
 
-**Tests:** `tests/utils/test_reachable_pairs_tables.py` — the `ROWS` fixture
-gains `query_class: "cfpq"` on every row; new tests: `load_rows` parses
-`query_class` (temp CSV with a mixed-class row); `render_tables_region` and
-`update_category_columns` ignore non-cfpq rows; `main()` in check mode
-reports an unknown `query_class` value (monkeypatched CSV + docs) and passes
-a valid non-cfpq row that has no count column.
+**Style B — transition system** (new): explicit boxes as labelled graphs
+with start and final states.
 
-**Docs:** `docs/utils.rst` "Reachable pair counts" — the check-mode bullet
-gains the unknown-class case; a sentence notes that non-CFPQ rows are
-validated but not rendered until the per-class sections exist (task 50);
-the "add the row" note mentions the `query_class` value.
+```
+start: S
+[box S]
+start: 0
+final: 2, 3
+0 --a--> 1
+1 --b--> 2
+1 --c--> 3
+[box B]
+start: 0
+final: 1
+0 --x--> 1
+```
 
-**Spec:**
-- Rendering behavior is unchanged for the current all-cfpq CSV: check mode
-  on the real repo must still report in sync.
-- The class-name validation reuses `QUERY_CLASSES`; no second copy of the
-  names.
+- `start: <N>` — the start box (required in style B; optional in both styles,
+  default `S`).
+- States are arbitrary tokens, defined implicitly by use (start/final/
+  transitions).
+- Transition lists may be nondeterministic (NFA-style sugar; boxes are
+  conceptually DFAs per the formal definition and are determinized
+  internally by pyformlang).
+- Labels are terminals or box names (nonterminals); multi-character labels
+  are allowed.
+- `rsa_to_text` keeps emitting style A — the canonical form; a style-B file
+  round-trips to style-A text (documented).
 
-### S4: The site docs
+### Validator rules (`utils/check_archive_structure.py`)
 
-**Code:** none.
-**Tests:** docs build exits 0.
-**Docs:** `docs/reachable_pairs.rst` — the CSV column list gains
-`query_class` (with its values); `docs/flpq.rst` — the "Reachable pair
-counts" section: the CSV "gains a category and a query_class column so it
-is self-describing"; the API-changes bullet: "reachable_pairs() gains the
-category and query_class fields".
+- `queries/<class>/` entries must be query directories (flat files are
+  errors — the old layout is superseded).
+- Per query directory: ≥ 1 representation file with a class-allowed
+  extension; exactly one `results.mtx`; no other files.
+- Representation files must parse (`cfg_from_text`, `rsa_from_text`,
+  `regex_from_text`, `mcfg_from_text`) and use only labels present in the
+  graph (for `.rsm`: box alphabets minus nonterminals).
+- `rpq/*.rsm` regularity: no transition label equals a box name.
+- `results.mtx`: MatrixMarket pattern matrix, dimensions equal to the graph
+  node count, indices in range.
+- `queries/README.md`: one section per query directory (existing check
+  adapted from files to directories).
+- Audit mode applies the same rules to the bucket.
 
-**Spec:**
-- Each statement is updated in place; no new page, no duplication of the
-  column list.
+### Docs
 
-### S5: Mark task 47 done
+- `docs/graphs/index.rst` "File structure": new layout + `results.mtx`
+  semantics.
+- `docs/flpq.rst`: new "Recursive state machines" section — formalism
+  (boxes, union alphabet, no stack; references: Alur et al. CAV 2001,
+  arXiv:2312.11925), EBNF definition, CFG equivalence via `cfg_from_rsa`,
+  the `.rsm` format spec (both styles), where `.rsm` is allowed + the
+  regularity rule for `rpq/`.
+- `docs/utils.rst`: validator rules updated.
+- `.opencode/skills/add-graph/SKILL.md`: pointer update if it states layout
+  details.
 
-**Code:** none.
-**Tests:** quality gate at merge (canonical test command, pre-commit, ty,
-pyright, docs build).
-**Docs:** `tasks/tasks.md` — `[done]`; `tasks/global_plan.md` — `[done]`.
+## Subtasks
 
-**Spec:**
-- Marked done only after the quality gate passes; the diff adds no external
-  links, so linkcheck is unaffected by this task's changes.
+- [x] **S1**: Record the user decisions verbatim in `tasks/tasks.md`; write
+      this detailed plan. Commit `docs(54-S1)`.
+- [ ] **S2**: Transition-system style for `.rsm` — extend
+      `cfpq_data/grammars/readwrite/rsa.py`: `start:` header support,
+      `[box]` dispatch in `rsa_from_text`, new `_rsa_from_transition_system`
+      parser; doctests for both styles + round-trip; unit tests in
+      `tests/grammars/test_rsa.py`. Commit `feat(54-S2)`.
+- [ ] **S3**: Validator extension — query directories, representation rules
+      per class, `results.mtx` checks, `rpq/*.rsm` regularity, README
+      sections ↔ directories, audit mode; tests with fixture archives (valid
+      + each failure mode). Commit `feat(54-S3)`.
+- [ ] **S4**: Docs — File structure (`docs/graphs/index.rst`), RSM section +
+      `.rsm` format spec (`docs/flpq.rst`), validator rules
+      (`docs/utils.rst`), add-graph skill pointer. Commit `docs(54-S4)`.
+- [ ] **S5**: Quality gate (canonical test command + coverage, pre-commit,
+      ty, pyright, docs build), code review, mark done in the task log,
+      merge to dev.
+
+## Out of scope
+
+- Re-uploading or migrating existing archives (task 48).
+- `reachable_pairs.csv` redesign for per-query rows (task 48 — the unit
+  becomes the query directory; documented here as the target state).
+- A CFPQ solver / language-equivalence checking (structural checks only).
+- Google Drive providing mechanism + templates (task 55).
