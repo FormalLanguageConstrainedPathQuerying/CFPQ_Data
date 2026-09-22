@@ -134,9 +134,12 @@ graph name (page titles are not reliable).
 Behavior:
 
 - **Check mode (default).** Reports every drifted cell or table region —
-  plus CSV rows whose graph is unknown, whose category disagrees with the
-  docs, or which has no count column in its category — and exits non-zero,
-  so it can gate a commit.
+  plus CSV rows with an unknown ``query_class``, whose graph is unknown,
+  whose category disagrees with the docs, or which has no count column in
+  its category — and exits non-zero, so it can gate a commit. The
+  count-column check applies to CFPQ rows only: the site renders CFPQ
+  counts, and rows of other query classes are validated but not rendered
+  until the per-class sections exist (task 50).
 - **``--update``.** Rewrites the reachable-pairs region and fixes the
   drifted cells in place; lines that need no change keep their exact text.
 
@@ -145,7 +148,8 @@ On the category pages a cell is a number (the count), ``not available``
 to that graph) — the convention explained on the :ref:`graphs` page.
 
 When a new count is computed, add the row to the CSV with the graph's
-category and run this tool with ``--update`` before committing.
+category and query class and run this tool with ``--update`` before
+committing.
 
 .. _migrate_gdrive_to_s3:
 

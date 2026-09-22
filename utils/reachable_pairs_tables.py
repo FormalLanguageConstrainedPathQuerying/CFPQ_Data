@@ -2,12 +2,17 @@
 
 The reference counts live once, in
 ``cfpq_data/dataset/reachable_pairs.csv`` (the single source of truth for
-automatic processing). Two renderings are derived from it:
+automatic processing); each row carries a ``query_class`` (``cfpq``,
+``rpq``, or ``mcfpq`` — the names of the ``queries/<class>/`` directories
+in the graph archives). Two renderings are derived from it:
 
 - the per-category tables of ``docs/reachable_pairs.rst`` (one section per
   graph category, between the ``reachable-pairs-tables`` markers);
 - the count columns of the eight per-category graph tables in
   ``docs/graphs/*.rst``.
+
+The site renders CFPQ counts only; rows of other query classes are
+validated but not rendered until the per-class sections exist (task 50).
 
 This tool keeps both renderings accurate:
 
@@ -31,6 +36,7 @@ import re
 from typing import Optional, Sequence
 
 from archive_sizes import iter_graph_tables
+from check_archive_structure import QUERY_CLASSES
 from config import MAIN_FOLDER
 
 __all__ = [
@@ -201,9 +207,9 @@ def load_rows(csv_path: pathlib.Path) -> list[dict]:
     >>> with tempfile.TemporaryDirectory() as tmp:
     ...     p = pathlib.Path(tmp) / "r.csv"
     ...     p.write_text(
-    ...         "graph,grammar,category,num_reachable_pairs\n"
-    ...         "g1,c_alias.cnf,c_alias_analysis,42\n"
-    ...         "g2,c_alias.cnf,c_alias_analysis,\n"
+    ...         "graph,grammar,category,query_class,num_reachable_pairs\n"
+    ...         "g1,c_alias.cnf,c_alias_analysis,cfpq,42\n"
+    ...         "g2,c_alias.cnf,c_alias_analysis,cfpq,\n"
     ...     )
     ...     rows = load_rows(p)
     ...     [r["num_reachable_pairs"] for r in rows]
@@ -218,10 +224,20 @@ def load_rows(csv_path: pathlib.Path) -> list[dict]:
                     "graph": row["graph"],
                     "grammar": row["grammar"],
                     "category": row["category"],
+                    "query_class": row["query_class"],
                     "num_reachable_pairs": int(val) if val else None,
                 }
             )
     return rows
+
+
+def _rendered_rows(rows: list[dict]) -> list[dict]:
+    """Returns the rows the current site renders.
+
+    The site renders CFPQ counts only; per-class rendering comes with the
+    task-50 site restructure.
+    """
+    return [r for r in rows if r["query_class"] == "cfpq"]
 
 
 def _section_title(docs_dir: pathlib.Path, category: str) -> str:
@@ -259,7 +275,7 @@ def render_tables_region(rows: list[dict], docs_dir: pathlib.Path) -> str:
     for category in category_order(docs_dir):
         title = _section_title(docs_dir, category)
         cat_rows = sorted(
-            (r for r in rows if r["category"] == category),
+            (r for r in _rendered_rows(rows) if r["category"] == category),
             key=lambda r: (r["graph"], r["grammar"]),
         )
         lines = [title, "-" * len(title), ""]
@@ -401,7 +417,8 @@ def update_category_columns(
     col_index = {name: i for i, name in enumerate(header)}
 
     by_pair: dict[tuple[str, str], Optional[int]] = {
-        (r["graph"], r["grammar"]): r["num_reachable_pairs"] for r in rows
+        (r["graph"], r["grammar"]): r["num_reachable_pairs"]
+        for r in _rendered_rows(rows)
     }
     missing = object()
 
@@ -468,6 +485,47 @@ def _grammar_has_column(
     )
 
 
+def _validation_problems(rows: list[dict], site_map: dict[str, str]) -> list[str]:
+    """Returns the CSV rows the site cannot account for.
+
+    Every row must have a known ``query_class`` and a graph that the docs
+    list in the row's category. The count-column check applies to the rows
+    the site renders (CFPQ) only; other classes have no rendering yet, so
+    their grammar files are not expected in ``GRAMMAR_COLUMNS``.
+    """
+    problems: list[str] = []
+    for row in rows:
+        if row["query_class"] not in QUERY_CLASSES:
+            problems.append(
+                f"CSV row {row['graph']}/{row['grammar']} has unknown "
+                f"query_class {row['query_class']!r} "
+                f"(expected one of {sorted(QUERY_CLASSES)})"
+            )
+        expected = site_map.get(row["graph"])
+        if expected is None:
+            problems.append(
+                f"CSV graph {row['graph']} is not listed in any docs category"
+            )
+        elif expected != row["category"]:
+            problems.append(
+                f"CSV says {row['graph']} is in {row['category']}, "
+                f"the docs say {expected}"
+            )
+    for row in _rendered_rows(rows):
+        columns = GRAMMAR_COLUMNS.get(row["category"])
+        if columns is None:
+            problems.append(
+                f"CSV category {row['category']} has no count columns "
+                "in GRAMMAR_COLUMNS"
+            )
+        elif not _grammar_has_column(columns, row["graph"], row["grammar"]):
+            problems.append(
+                f"CSV row {row['graph']}/{row['grammar']} has no count column "
+                f"in category {row['category']}"
+            )
+    return problems
+
+
 def main(argv: Optional[Sequence[str]] = None) -> int:
     """Command-line entry point.
 
@@ -505,30 +563,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     # Validation problems block any update (all-or-nothing, like
     # archive_sizes.py): a CSV row the site cannot account for must be fixed
     # in the CSV before anything is rewritten.
-    problems: list[str] = []
-    for row in rows:
-        expected = site_map.get(row["graph"])
-        if expected is None:
-            problems.append(
-                f"CSV graph {row['graph']} is not listed in any docs category"
-            )
-        elif expected != row["category"]:
-            problems.append(
-                f"CSV says {row['graph']} is in {row['category']}, "
-                f"the docs say {expected}"
-            )
-    for row in rows:
-        columns = GRAMMAR_COLUMNS.get(row["category"])
-        if columns is None:
-            problems.append(
-                f"CSV category {row['category']} has no count columns "
-                "in GRAMMAR_COLUMNS"
-            )
-        elif not _grammar_has_column(columns, row["graph"], row["grammar"]):
-            problems.append(
-                f"CSV row {row['graph']}/{row['grammar']} has no count column "
-                f"in category {row['category']}"
-            )
+    problems = _validation_problems(rows, site_map)
     if problems:
         print("\n".join(problems))
         print(f"FAILED: {len(problems)} problem(s).")

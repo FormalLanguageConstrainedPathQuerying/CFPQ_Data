@@ -7,6 +7,7 @@ from reachable_pairs_tables import (
     END_MARKER,
     category_order,
     graph_to_category,
+    load_rows,
     page_to_graph,
     render_tables_region,
     update_category_columns,
@@ -74,30 +75,35 @@ ROWS = [
         "graph": "alpha",
         "grammar": "a.cnf",
         "category": "cat_a",
+        "query_class": "cfpq",
         "num_reachable_pairs": 3,
     },
     {
         "graph": "alpha",
         "grammar": "b.cnf",
         "category": "cat_a",
+        "query_class": "cfpq",
         "num_reachable_pairs": None,
     },
     {
         "graph": "beta",
         "grammar": "a.cnf",
         "category": "cat_a",
+        "query_class": "cfpq",
         "num_reachable_pairs": 5,
     },
     {
         "graph": "beta",
         "grammar": "b.cnf",
         "category": "cat_a",
+        "query_class": "cfpq",
         "num_reachable_pairs": 9,
     },
     {
         "graph": "gamma",
         "grammar": "g.cnf",
         "category": "cat_b",
+        "query_class": "cfpq",
         "num_reachable_pairs": 7,
     },
 ]
@@ -128,6 +134,34 @@ def test_render_tables_region_empty_category(tmp_path):
     region = render_tables_region(ROWS[:4], docs)
     cat_b = region[region.index("Cat B") :]
     assert "No reachable-pair counts have been computed" in cat_b
+
+
+RPQ_ROW = {
+    "graph": "alpha",
+    "grammar": "r.re",
+    "category": "cat_a",
+    "query_class": "rpq",
+    "num_reachable_pairs": 100,
+}
+
+
+def test_load_rows_parses_query_class(tmp_path):
+    p = tmp_path / "r.csv"
+    p.write_text(
+        "graph,grammar,category,query_class,num_reachable_pairs\n"
+        "g1,a.cnf,cat_a,cfpq,42\n"
+        "g2,r.re,cat_a,rpq,\n",
+        encoding="utf-8",
+    )
+    rows = load_rows(p)
+    assert [r["query_class"] for r in rows] == ["cfpq", "rpq"]
+    assert [r["num_reachable_pairs"] for r in rows] == [42, None]
+
+
+def test_render_tables_region_ignores_other_classes(tmp_path):
+    docs = make_docs(tmp_path)
+    region = render_tables_region(ROWS + [RPQ_ROW], docs)
+    assert region == render_tables_region(ROWS, docs)
 
 
 def test_update_reachable_pairs_page():
@@ -265,6 +299,47 @@ def test_update_category_columns_missing_header_column_is_a_problem():
 def test_update_category_columns_unknown_category_raises():
     with pytest.raises(ValueError, match="GRAMMAR_COLUMNS"):
         update_category_columns(CATEGORY_TABLE, ROWS, "cat_a", PAGES)
+
+
+def test_update_category_columns_ignores_other_classes():
+    # An rpq row for a rendered pair must not change the cfpq rendering.
+    rows = [
+        *ROWS,
+        {**RPQ_ROW, "grammar": "a.cnf", "num_reachable_pairs": 999},
+    ]
+    assert update_category_columns(
+        CATEGORY_TABLE, rows, "cat_a", PAGES, columns=COLUMNS
+    ) == update_category_columns(CATEGORY_TABLE, ROWS, "cat_a", PAGES, columns=COLUMNS)
+
+
+def test_validation_problems_unknown_query_class():
+    row = {**RPQ_ROW, "query_class": "x"}
+    problems = reachable_pairs_tables._validation_problems(
+        [row], {"alpha": "cat_a"}
+    )
+    assert any("unknown query_class" in p for p in problems)
+
+
+def test_validation_problems_non_cfpq_row_needs_no_count_column(monkeypatch):
+    site_map = {"gamma": "cat_b"}
+    row = {
+        "graph": "gamma",
+        "grammar": "reachability.re",
+        "category": "cat_b",
+        "query_class": "rpq",
+        "num_reachable_pairs": 1,
+    }
+    # An rpq row has no count column yet — that is not a problem.
+    assert reachable_pairs_tables._validation_problems([row], site_map) == []
+    # The same row as cfpq must have a count column in its category.
+    monkeypatch.setitem(
+        reachable_pairs_tables.GRAMMAR_COLUMNS, "cat_b", [("g_col", "g.cnf")]
+    )
+    problems = reachable_pairs_tables._validation_problems(
+        [{**row, "query_class": "cfpq"}], site_map
+    )
+    assert len(problems) == 1
+    assert "no count column" in problems[0]
 
 
 def test_check_mode_on_the_real_repo_is_in_sync():
