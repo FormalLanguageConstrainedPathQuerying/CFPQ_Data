@@ -32,6 +32,28 @@ Apache-2.0.
 None.
 """
 
+RESULTS = (
+    "%%MatrixMarket matrix coordinate pattern general\n"
+    "%%GraphBLAS type bool\n2 2 1\n0 1\n"
+)
+
+
+def _query_dir(
+    tree: pathlib.Path, cls: str, name: str, representation: str
+) -> pathlib.Path:
+    query = tree / "queries" / cls / name
+    query.mkdir(parents=True)
+    (query / f"{name}{representation}").write_text(
+        {
+            ".cnf": "S -> a S | epsilon",
+            ".rsm": "S -> a*",
+            ".re": "a*",
+            ".mcfg": "A(a)\nS(x1) <- A(x1)",
+        }[representation]
+    )
+    (query / "results.mtx").write_text(RESULTS)
+    return query
+
 
 def _valid_tree(root: pathlib.Path, name: str = "g") -> pathlib.Path:
     d = root / name
@@ -43,9 +65,9 @@ def _valid_tree(root: pathlib.Path, name: str = "g") -> pathlib.Path:
         "%%MatrixMarket matrix coordinate pattern general\n"
         "%%GraphBLAS type bool\n2 2 1\n0 1\n"
     )
-    (d / "queries" / "cfpq" / "s.cnf").write_text("S -> a S | epsilon")
+    _query_dir(d, "cfpq", "s", ".cnf")
     (d / "queries" / "README.md").write_text(
-        "# Queries for g\n\n## cfpq/s.cnf\n- Language: a*.\n- Purpose: test.\n"
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n- Purpose: test.\n"
     )
     return d
 
@@ -131,9 +153,92 @@ def test_out_of_range_edge(tmp_path):
     assert any("outside the declared" in p for p in problems)
 
 
+def test_inconsistent_graph_dimensions(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "graph" / "b.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n3 3 0\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any("same dimensions" in p for p in problems)
+
+
+def test_flat_query_file_is_rejected(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "x.cnf").write_text("S -> a")
+
+    problems = validate_archive(tree)
+
+    assert any("must be a query directory" in p for p in problems)
+
+
+def test_missing_results_mtx(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "results.mtx").unlink()
+
+    problems = validate_archive(tree)
+
+    assert any("missing results.mtx" in p for p in problems)
+
+
+def test_query_dir_without_representation(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").unlink()
+
+    problems = validate_archive(tree)
+
+    assert any("no cfpq representation file" in p for p in problems)
+
+
+def test_stray_file_in_query_dir(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "notes.txt").write_text("extra")
+
+    problems = validate_archive(tree)
+
+    assert any(
+        "representation files and results.mtx are allowed" in p for p in problems
+    )
+
+
+def test_results_mtx_wrong_dimensions(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "results.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n3 3 1\n0 1\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any("must be a 2x2 matrix" in p for p in problems)
+
+
+def test_results_mtx_out_of_range(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "results.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n2 2 1\n0 5\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any("results.mtx: entry (0, 5) is outside" in p for p in problems)
+
+
+def test_results_mtx_unparseable(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "results.mtx").write_text("garbage")
+
+    problems = validate_archive(tree)
+
+    assert any("cannot be parsed as a Boolean MatrixMarket file" in p for p in problems)
+
+
 def test_unparseable_cnf(tmp_path):
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "cfpq" / "s.cnf").write_text("not a grammar")
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("not a grammar")
 
     problems = validate_archive(tree)
 
@@ -142,7 +247,7 @@ def test_unparseable_cnf(tmp_path):
 
 def test_unknown_label(tmp_path):
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "cfpq" / "s.cnf").write_text("S -> z | epsilon")
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S -> z | epsilon")
 
     problems = validate_archive(tree)
 
@@ -151,39 +256,95 @@ def test_unknown_label(tmp_path):
 
 def test_reversed_label_is_accepted(tmp_path):
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "cfpq" / "s.cnf").write_text("S -> a_r | epsilon")
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S -> a_r | epsilon")
 
     assert validate_archive(tree) == []
 
 
 def test_query_without_terminals(tmp_path):
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "cfpq" / "s.cnf").write_text("S -> epsilon")
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S -> epsilon")
 
     problems = validate_archive(tree)
 
     assert any("uses no terminal" in p for p in problems)
 
 
-def test_rpq_and_mcfpq_queries_parse(tmp_path):
+def test_rsm_representation_is_accepted(tmp_path):
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "rpq" / "p.re").write_text("a*")
-    (tree / "queries" / "mcfpq" / "m.mcfg").write_text("A(a)\nS(x1) <- A(x1)")
+    query = _query_dir(tree, "cfpq", "t", ".rsm")
+    (query / "t.rsm").write_text(
+        "start: S\n[box S]\nstart: 0\nfinal: 2\n0 --a--> 1\n1 --a--> 2"
+    )
     (tree / "queries" / "README.md").write_text(
-        "# Queries for g\n\n## cfpq/s.cnf\n- Language: a*.\n"
-        "\n## mcfpq/m.mcfg\n- Language: a*.\n"
-        "\n## rpq/p.re\n- Language: a*.\n"
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n\n## cfpq/t\n- Language: aa.\n"
     )
 
     assert validate_archive(tree) == []
 
 
+def test_rsm_unknown_label(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "t.rsm").write_text("S -> z*")
+
+    problems = validate_archive(tree)
+
+    assert any("'z' is not a stored label" in p for p in problems)
+
+
+def test_unparseable_rsm(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "t.rsm").write_text("garbage")
+
+    problems = validate_archive(tree)
+
+    assert any("cannot be parsed as a cfpq query" in p for p in problems)
+
+
+def test_rpq_and_mcfpq_queries_parse(tmp_path):
+    tree = _valid_tree(tmp_path)
+    _query_dir(tree, "rpq", "p", ".re")
+    _query_dir(tree, "mcfpq", "m", ".mcfg")
+    (tree / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n"
+        "\n## mcfpq/m\n- Language: a*.\n"
+        "\n## rpq/p\n- Language: a*.\n"
+    )
+
+    assert validate_archive(tree) == []
+
+
+def test_rpq_regular_rsm_is_accepted(tmp_path):
+    tree = _valid_tree(tmp_path)
+    query = _query_dir(tree, "rpq", "p", ".rsm")
+    (query / "p.rsm").write_text("[box S]\nstart: 0\nfinal: 1\n0 --a--> 1")
+    (tree / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n\n## rpq/p\n- Language: a*.\n"
+    )
+
+    assert validate_archive(tree) == []
+
+
+def test_rpq_recursive_rsm_is_rejected(tmp_path):
+    tree = _valid_tree(tmp_path)
+    query = _query_dir(tree, "rpq", "p", ".rsm")
+    (query / "p.rsm").write_text("S -> a S b | a b")
+    (tree / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n\n## rpq/p\n- Language: a*b*.\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any("must be regular" in p for p in problems)
+
+
 def test_unparseable_mcfg(tmp_path):
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "mcfpq" / "m.mcfg").write_text("S(x1 x2) <- A(x1)")
+    query = _query_dir(tree, "mcfpq", "m", ".mcfg")
+    (query / "m.mcfg").write_text("S(x1 x2) <- A(x1)")
     (tree / "queries" / "README.md").write_text(
-        "# Queries for g\n\n## cfpq/s.cnf\n- Language: a*.\n"
-        "\n## mcfpq/m.mcfg\n- Language: broken.\n"
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n"
+        "\n## mcfpq/m\n- Language: broken.\n"
     )
 
     problems = validate_archive(tree)
@@ -203,13 +364,13 @@ def test_missing_mandatory_section(tmp_path):
 def test_orphan_query_section(tmp_path):
     tree = _valid_tree(tmp_path)
     (tree / "queries" / "README.md").write_text(
-        "# Queries for g\n\n## cfpq/s.cnf\n- Language: a*.\n"
-        "\n## cfpq/missing.cnf\n- Language: nowhere.\n"
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n"
+        "\n## cfpq/missing\n- Language: nowhere.\n"
     )
 
     problems = validate_archive(tree)
 
-    assert any("does not match any query file" in p for p in problems)
+    assert any("does not match any query directory" in p for p in problems)
 
 
 def test_undocumented_query(tmp_path):
@@ -218,27 +379,18 @@ def test_undocumented_query(tmp_path):
 
     problems = validate_archive(tree)
 
-    assert any("no section describing 'cfpq/s.cnf'" in p for p in problems)
+    assert any("no section describing 'cfpq/s'" in p for p in problems)
 
 
 def test_empty_query_section(tmp_path):
     tree = _valid_tree(tmp_path)
     (tree / "queries" / "README.md").write_text(
-        "# Queries for g\n\n## cfpq/s.cnf\n\n## cfpq/other.cnf\n- Language: a*.\n"
+        "# Queries for g\n\n## cfpq/s\n\n## cfpq/other\n- Language: a*.\n"
     )
 
     problems = validate_archive(tree)
 
-    assert any("the section for 'cfpq/s.cnf' is empty" in p for p in problems)
-
-
-def test_wrong_extension_in_class_dir(tmp_path):
-    tree = _valid_tree(tmp_path)
-    (tree / "queries" / "cfpq" / "x.re").write_text("a*")
-
-    problems = validate_archive(tree)
-
-    assert any("queries/cfpq/x.re" in p for p in problems)
+    assert any("the section for 'cfpq/s' is empty" in p for p in problems)
 
 
 def test_not_an_archive(tmp_path):

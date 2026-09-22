@@ -168,6 +168,10 @@ def test_main_reports_size_above_one_megabyte(tmp_path, monkeypatch, capsys):
         + "\n".join(pairs)
         + "\n"
     )
+    (tree / "queries" / "cfpq" / "s" / "results.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        f"%%GraphBLAS type bool\n{nodes} {nodes} 1\n0 1\n"
+    )
     file = _tarball(tree, tmp_path / "g.tar.gz")
     client = mock.Mock()
     client.head_object.return_value = {"ContentLength": file.stat().st_size}
