@@ -72,6 +72,15 @@ def _valid_tree(root: pathlib.Path, name: str = "g") -> pathlib.Path:
     return d
 
 
+def _partial_tree(root: pathlib.Path, name: str = "g") -> pathlib.Path:
+    d = root / name
+    _query_dir(d, "cfpq", "s", ".cnf")
+    (d / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n- Purpose: test.\n"
+    )
+    return d
+
+
 def _tarball(tree: pathlib.Path, dest: pathlib.Path) -> pathlib.Path:
     with tarfile.open(dest, "w:gz") as tarball:
         tarball.add(tree, arcname=tree.name)
@@ -416,6 +425,143 @@ def test_main_passes_valid_archive(tmp_path, capsys):
 
     assert main([str(tree)]) == 0
     assert "archive structure ok" in capsys.readouterr().out
+
+
+def test_valid_partial_passes(tmp_path):
+    assert validate_archive(_partial_tree(tmp_path), partial=True) == []
+
+
+def test_valid_partial_tarball_passes(tmp_path):
+    tree = _partial_tree(tmp_path)
+    assert validate_archive(_tarball(tree, tmp_path / "g.tar.gz"), partial=True) == []
+
+
+def test_partial_tarball_top_level_must_match_name(tmp_path):
+    tree = _partial_tree(tmp_path, name="other")
+    tarball = _tarball(tree, tmp_path / "g.tar.gz")
+
+    problems = validate_archive(tarball, partial=True)
+
+    assert any("must be named after the archive" in p for p in problems)
+
+
+def test_partial_rejects_graph_dir(tmp_path):
+    tree = _partial_tree(tmp_path)
+    (tree / "graph").mkdir()
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("'graph'" in p and "unexpected entry" in p for p in problems)
+
+
+def test_partial_missing_queries(tmp_path):
+    tree = tmp_path / "g"
+    tree.mkdir()
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("missing entry 'queries'" in p for p in problems)
+
+
+def test_partial_requires_class_dir(tmp_path):
+    tree = _partial_tree(tmp_path)
+    shutil.rmtree(tree / "queries" / "cfpq")
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("at least one class directory is required" in p for p in problems)
+
+
+def test_partial_empty_class_dir(tmp_path):
+    tree = _partial_tree(tmp_path)
+    shutil.rmtree(tree / "queries" / "cfpq" / "s")
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("must add at least one query" in p for p in problems)
+
+
+def test_partial_flat_file_rejected(tmp_path):
+    tree = _partial_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "x.cnf").write_text("S -> a")
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("must be a query directory" in p for p in problems)
+
+
+def test_partial_missing_results(tmp_path):
+    tree = _partial_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "results.mtx").unlink()
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("missing results.mtx" in p for p in problems)
+
+
+def test_partial_unparseable_representation(tmp_path):
+    tree = _partial_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("not a grammar")
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("cannot be parsed as a cfpq query" in p for p in problems)
+
+
+def test_partial_readme_orphan_section(tmp_path):
+    tree = _partial_tree(tmp_path)
+    (tree / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n"
+        "\n## cfpq/missing\n- Language: nowhere.\n"
+    )
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("does not match any query directory" in p for p in problems)
+
+
+def test_partial_readme_undocumented_query(tmp_path):
+    tree = _partial_tree(tmp_path)
+    (tree / "queries" / "README.md").write_text("# Queries for g\n")
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("no section describing 'cfpq/s'" in p for p in problems)
+
+
+def test_partial_readme_empty_section(tmp_path):
+    tree = _partial_tree(tmp_path)
+    (tree / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n\n## cfpq/other\n- Language: a*.\n"
+    )
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("the section for 'cfpq/s' is empty" in p for p in problems)
+
+
+def test_full_mode_rejects_partial_tree(tmp_path):
+    tree = _partial_tree(tmp_path)
+
+    problems = validate_archive(tree)
+
+    assert any("missing entry 'graph'" in p for p in problems)
+
+
+def test_main_partial_passes(tmp_path, capsys):
+    tree = _partial_tree(tmp_path)
+
+    assert main([str(tree), "--partial"]) == 0
+    assert "partial archive structure ok" in capsys.readouterr().out
+
+
+def test_main_partial_reports_problems(tmp_path, capsys):
+    tree = _partial_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "results.mtx").unlink()
+
+    assert main([str(tree), "--partial"]) == 1
+    out = capsys.readouterr().out
+    assert "error:" in out and "structure violation" in out
 
 
 def _mock_s3(archives: dict[str, bytes]) -> mock.Mock:

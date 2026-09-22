@@ -8,10 +8,15 @@ directories grouped by class — each query directory holding every
 representation of the query plus one ``results.mtx`` with the constrained
 reachability facts — described in a common document.
 
+A partial archive provides new queries for an existing graph: it contains
+only ``queries/`` (the new query directories plus a ``README.md`` fragment
+with their sections) and is validated with ``--partial``.
+
 Usage (from any directory)::
 
     python utils/check_archive_structure.py ARCHIVE.tar.gz
     python utils/check_archive_structure.py UNPACKED_DIR
+    python utils/check_archive_structure.py PARTIAL.tar.gz --partial
 """
 
 import argparse
@@ -140,6 +145,50 @@ def _skeleton_problems(root: pathlib.Path) -> list[str]:
                 )
                 continue
             problems.extend(_query_dir_problems(path, cls, exts))
+    return problems
+
+
+def _partial_skeleton_problems(root: pathlib.Path) -> list[str]:
+    """Check the skeleton of a partial archive under ``root``."""
+    problems = []
+    entries = {path.name for path in root.iterdir()}
+    for name in sorted(entries - {"queries"}):
+        problems.append(
+            f"unexpected entry {name!r} (a partial archive contains only queries/)"
+        )
+    if "queries" not in entries:
+        problems.append("missing entry 'queries'")
+    if problems:
+        return problems
+
+    queries_dir = root / "queries"
+    query_entries = {path.name for path in queries_dir.iterdir()}
+    for name in sorted(query_entries - {"README.md", *QUERY_CLASSES}):
+        problems.append(
+            f"queries/{name}: unexpected entry (expected only README.md and "
+            f"the class directories {sorted(QUERY_CLASSES)})"
+        )
+    if "README.md" not in query_entries:
+        problems.append("queries/README.md: missing")
+    for cls in sorted(query_entries & set(QUERY_CLASSES)):
+        cls_dir = queries_dir / cls
+        if not any(path.is_dir() for path in cls_dir.iterdir()):
+            problems.append(
+                f"queries/{cls}/: a partial archive must add at least one query"
+            )
+        for path in sorted(cls_dir.iterdir()):
+            if not path.is_dir():
+                problems.append(
+                    f"queries/{cls}/{path.name}: must be a query directory "
+                    "(flat query files are no longer allowed)"
+                )
+                continue
+            problems.extend(_query_dir_problems(path, cls, QUERY_CLASSES[cls]))
+    if not (query_entries & set(QUERY_CLASSES)):
+        problems.append(
+            f"queries/: at least one class directory is required "
+            f"({sorted(QUERY_CLASSES)})"
+        )
     return problems
 
 
@@ -287,11 +336,14 @@ def _rsm_recurses(rsa: RSA) -> bool:
     return False
 
 
-def _query_problems(root: pathlib.Path) -> list[str]:
-    """Check that queries parse, use only own labels, and are all described."""
+def _query_problems(root: pathlib.Path, stored: Optional[set[str]] = None) -> list[str]:
+    """Check that queries parse, use only own labels, and are all described.
+
+    When ``stored`` is None (a partial archive has no graph), the label
+    check is skipped — it runs once the queries are merged into the graph.
+    """
     problems = []
     queries_dir = root / "queries"
-    stored = {path.stem for path in (root / "graph").glob("*.mtx")}
 
     existing: dict[str, tuple[str, list[pathlib.Path]]] = {}
     for cls, exts in QUERY_CLASSES.items():
@@ -320,15 +372,16 @@ def _query_problems(root: pathlib.Path) -> list[str]:
                 problems.append(
                     f"{where}: uses no terminal (an empty query is meaningless)"
                 )
-            for terminal in sorted(terminals):
-                reversed_of = terminal[:-2] if terminal.endswith("_r") else None
-                if terminal not in stored and (
-                    reversed_of is None or reversed_of not in stored
-                ):
-                    problems.append(
-                        f"{where}: label {terminal!r} is not a stored "
-                        "label of this graph"
-                    )
+            if stored is not None:
+                for terminal in sorted(terminals):
+                    reversed_of = terminal[:-2] if terminal.endswith("_r") else None
+                    if terminal not in stored and (
+                        reversed_of is None or reversed_of not in stored
+                    ):
+                        problems.append(
+                            f"{where}: label {terminal!r} is not a stored "
+                            "label of this graph"
+                        )
             if cls == "rpq" and path.suffix == ".rsm":
                 try:
                     rsa = rsa_from_text(path.read_text(encoding="utf-8"))
@@ -362,8 +415,14 @@ def _query_problems(root: pathlib.Path) -> list[str]:
     return problems
 
 
-def _validate_root(root: pathlib.Path) -> list[str]:
+def _validate_root(root: pathlib.Path, partial: bool = False) -> list[str]:
     """Validate the unpacked archive directory ``root``."""
+    if partial:
+        problems = _partial_skeleton_problems(root)
+        if problems:
+            return problems  # the deeper checks are meaningless without the skeleton
+        problems.extend(_query_problems(root, stored=None))
+        return problems
     problems = _skeleton_problems(root)
     if problems:
         return problems  # the deeper checks are meaningless without the skeleton
@@ -374,17 +433,26 @@ def _validate_root(root: pathlib.Path) -> list[str]:
     problems.extend(_mtx_range_problems(root / "graph"))
     problems.extend(_results_problems(root))
     problems.extend(_readme_problems(root))
-    problems.extend(_query_problems(root))
+    problems.extend(
+        _query_problems(
+            root, stored={path.stem for path in (root / "graph").glob("*.mtx")}
+        )
+    )
     return problems
 
 
-def validate_archive(path: Union[str, pathlib.Path]) -> list[str]:
+def validate_archive(
+    path: Union[str, pathlib.Path], *, partial: bool = False
+) -> list[str]:
     """Validate one graph archive (a ``.tar.gz`` or an unpacked directory).
 
     Parameters
     ----------
     path : Union[str, Path]
         The archive to validate.
+    partial : bool
+        Validate a partial archive (new queries for an existing graph:
+        ``queries/`` only) instead of a full graph archive.
 
     Returns
     -------
@@ -394,7 +462,7 @@ def validate_archive(path: Union[str, pathlib.Path]) -> list[str]:
     """
     path = pathlib.Path(path)
     if path.is_dir():
-        return _validate_root(path)
+        return _validate_root(path, partial=partial)
     try:
         is_tar = tarfile.is_tarfile(path)
     except OSError:
@@ -415,7 +483,7 @@ def validate_archive(path: Union[str, pathlib.Path]) -> list[str]:
                 f"top-level directory {root.name!r} must be named after the "
                 f"archive ({expected_name!r})"
             )
-        problems.extend(_validate_root(root))
+        problems.extend(_validate_root(root, partial=partial))
         return problems
 
 
@@ -471,6 +539,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         help="path to a .tar.gz archive or an unpacked archive directory",
     )
     parser.add_argument(
+        "--partial",
+        action="store_true",
+        help=(
+            "validate a partial archive (queries/ only — new queries for an "
+            "existing graph) instead of a full graph archive"
+        ),
+    )
+    parser.add_argument(
         "--audit",
         action="store_true",
         help=(
@@ -520,14 +596,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         print("error: give a path to validate or use --audit")
         return 1
     else:
-        problems = validate_archive(args.path)
+        problems = validate_archive(args.path, partial=args.partial)
 
     if problems:
         for problem in problems:
             print(f"error: {problem}")
         print(f"{len(problems)} structure violation(s) found")
         return 1
-    print("archive structure ok")
+    kind = "partial archive" if args.partial else "archive"
+    print(f"{kind} structure ok")
     return 0
 
 
