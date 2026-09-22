@@ -191,16 +191,24 @@ def _read_mtx(path: pathlib.Path) -> Optional[tuple[int, int, list[tuple[int, in
     return rows, cols, entries
 
 
+def _graph_dimensions(graph_dir: pathlib.Path) -> set[tuple[int, int]]:
+    """The declared dimensions of every parseable graph label matrix."""
+    dimensions = set()
+    for mtx_file in sorted(graph_dir.glob("*.mtx")):
+        parsed = _read_mtx(mtx_file)
+        if parsed is not None:
+            dimensions.add((parsed[0], parsed[1]))
+    return dimensions
+
+
 def _mtx_range_problems(graph_dir: pathlib.Path) -> list[str]:
     """Check that edge endpoints fit the declared matrix dimensions."""
     problems = []
-    dimensions = set()
     for mtx_file in sorted(graph_dir.glob("*.mtx")):
         parsed = _read_mtx(mtx_file)
         if parsed is None:
             continue  # a format problem graph_from_mtx_dir already reports
         rows, cols, entries = parsed
-        dimensions.add((rows, cols))
         for tail, head in entries:
             if not 0 <= tail < rows or not 0 <= head < cols:
                 problems.append(
@@ -208,6 +216,7 @@ def _mtx_range_problems(graph_dir: pathlib.Path) -> list[str]:
                     f"declared {rows}x{cols} matrix"
                 )
                 break
+    dimensions = _graph_dimensions(graph_dir)
     if len(dimensions) > 1:
         problems.append(
             "graph/: all label matrices must declare the same dimensions "
@@ -219,11 +228,7 @@ def _mtx_range_problems(graph_dir: pathlib.Path) -> list[str]:
 def _results_problems(root: pathlib.Path) -> list[str]:
     """Check every per-query results.mtx against the graph."""
     problems = []
-    dimensions = set()
-    for mtx_file in sorted((root / "graph").glob("*.mtx")):
-        parsed = _read_mtx(mtx_file)
-        if parsed is not None:
-            dimensions.add((parsed[0], parsed[1]))
+    dimensions = _graph_dimensions(root / "graph")
     if len(dimensions) != 1:
         return problems  # the matrix shape is undefined; already reported
     expected = next(iter(dimensions))
