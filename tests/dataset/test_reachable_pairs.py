@@ -16,8 +16,19 @@ def test_all_rows_have_keys():
             "graph",
             "grammar",
             "category",
+            "query_class",
             "num_reachable_pairs",
         }
+
+
+def test_query_class_values():
+    # All the current counts are CFPQ data.
+    assert {r["query_class"] for r in reachable_pairs()} == {"cfpq"}
+
+
+def test_query_class_filter():
+    assert len(reachable_pairs(query_class="cfpq")) == 155
+    assert reachable_pairs(query_class="rpq") == []
 
 
 CATEGORIES = {

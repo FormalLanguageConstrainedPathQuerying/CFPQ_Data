@@ -18,11 +18,13 @@ def reachable_pairs(
     graph: Optional[str] = None,
     grammar: Optional[str] = None,
     category: Optional[str] = None,
+    query_class: Optional[str] = None,
 ) -> list[dict]:
     """Return reference reachable-pair counts.
 
-    Each row is a dict with keys ``graph``, ``grammar``, ``category``, and
-    ``num_reachable_pairs`` (int or None when not yet available).
+    Each row is a dict with keys ``graph``, ``grammar``, ``category``,
+    ``query_class``, and ``num_reachable_pairs`` (int or None when not yet
+    available).
 
     Parameters
     ----------
@@ -33,6 +35,10 @@ def reachable_pairs(
     category:
         Filter by graph category (exact match, e.g. ``"rdf"``); the
         categories are the sections of the Graphs catalog on the site.
+    query_class:
+        Filter by query class (exact match, one of ``"cfpq"``, ``"rpq"``,
+        ``"mcfpq"`` — the names of the ``queries/<class>/`` directories in
+        the graph archives).
     """
     rows: list[dict] = []
     with REACHABLE_PAIRS_CSV.open(newline="") as f:
@@ -43,12 +49,15 @@ def reachable_pairs(
                 continue
             if category is not None and row["category"] != category:
                 continue
+            if query_class is not None and row["query_class"] != query_class:
+                continue
             val = row["num_reachable_pairs"]
             rows.append(
                 {
                     "graph": row["graph"],
                     "grammar": row["grammar"],
                     "category": row["category"],
+                    "query_class": row["query_class"],
                     "num_reachable_pairs": int(val) if val else None,
                 }
             )
