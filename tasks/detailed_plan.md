@@ -125,7 +125,7 @@ one grammar, so there is a single variant there.
   decisions as `[USER GUIDANCE]`.
 - This plan written before any implementation.
 
-### S2: Extract and document the two optimized grammars [ ]
+### S2: Extract and document the two optimized grammars [done]
 
 **Code:** none in the package. Working `.cnf` files written to
 `temporal_cfpq/grammars/` (gitignored local reference copies, alongside the
@@ -151,7 +151,7 @@ that it generates the same language (verified in S3).
 - The docs subsection shows the productions once (no duplication between the
   code block and any math rendering).
 
-### S3: Verify equivalence with temporal_cfpq on small graphs [ ]
+### S3: Verify equivalence with temporal_cfpq on small graphs [done]
 
 **Code:** new local tool `temporal_cfpq/verify_optimized.py` (gitignored,
 reuses `run_reference.py`'s `stream_g_file`, `run_solver`,
@@ -177,7 +177,7 @@ check.
 - Any mismatch or solver failure blocks S4 — nothing is uploaded before a
   clean PASS.
 
-### S4: Repack and re-upload the 41 archives [ ]
+### S4: Repack and re-upload the 41 archives [done]
 
 **Code:** one-off repack script (ad-hoc, task-19 pattern; not committed) +
 committed record `utils/optimized_grammars_record.json`.
@@ -200,7 +200,7 @@ archives grow by a few hundred bytes).
 - One graph at a time; scratch removed after each.
 - The record JSON is committed; the upload itself is a data operation on S3.
 
-### S5: Changelog and task close-out [ ]
+### S5: Changelog and task close-out [done]
 
 **Code:** none (documentation-only subtask).
 **Tests:** skipped — no code.
