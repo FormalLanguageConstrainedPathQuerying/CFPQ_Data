@@ -32,7 +32,7 @@ Query classes
    * - RPQ
      - Regular
      - Regular expressions, NFA/DFA
-     - planned
+     - designed, no data
    * - CFPQ
      - Context-free
      - CFG/CNF (incl. indexed grammars)
@@ -50,6 +50,35 @@ formalism that specifies it. The existing data — the :ref:`graphs <graphs>`
 catalog, the :ref:`grammar templates <grammar_templates>`, and the
 :ref:`reachable pair counts <reachable_pairs>` — is CFPQ data; the shared
 graph catalog is reused by all classes.
+
+Regular path queries
+--------------------
+
+RPQ constraints are regular languages over the graph's edge labels. The
+design decision for this class:
+
+- **Format.** An RPQ query is a regular expression in the pyformlang
+  ``Regex`` text syntax, stored as a ``.re`` file and read by
+  :obj:`regex_from_text <cfpq_data.grammars.readwrite.regex.regex_from_text>`.
+- **Templates.** As with CFG templates, an RPQ template is a named,
+  parameterized regular expression instantiated per graph from its stored
+  labels. The designed seed set consists of two canonical queries applicable
+  to every graph:
+
+  - ``reachability`` — :math:`(L_1 \,|\, \dots \,|\, L_n)^*` over all stored
+    labels :math:`L_1, \dots, L_n`: unrestricted reachability;
+  - ``label_star`` — :math:`L^*` for each stored label :math:`L`: the
+    per-label transitive closure.
+
+  Additional templates may be added later together with real-world data; the
+  stub pages in the :ref:`grammar templates <grammar_templates>` section
+  document both templates.
+- **Placement.** Query files live inside the self-contained graph archive
+  under ``queries/rpq/`` (see the "File structure" section of the
+  :ref:`graphs` page); there are no standalone query or example archives.
+- **Data status.** No real-world RPQ data exists yet — the templates are
+  designed stubs. Real-world data will be provided later and enters the
+  dataset via the graph archives (migration, task 48).
 
 Multiple context-free languages
 -------------------------------
