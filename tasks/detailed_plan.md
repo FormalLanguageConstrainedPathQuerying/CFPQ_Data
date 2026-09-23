@@ -80,7 +80,7 @@ hits.
 - No other page changes: c_alias.rst is the only file with an underscore
   inside a text-mode command group.
 
-### S3: Add the math-snippet guard
+### S3: Add the math-snippet guard (done)
 
 **Code:** new `utils/check_math_snippets.py`:
 - `extract_math_snippets(rst_text) -> list[tuple[str, str]]` — returns
@@ -136,3 +136,21 @@ that the suite also validates docs math snippets.
 - The developer-docs note states what/why: browser-runtime MathJax errors are
   invisible to the Sphinx build; the guard catches them in CI as part of the
   standard suite (no new command).
+
+## Design Notes (discovered during implementation)
+
+### latex2mathml evaluation — dropped
+
+`latex2mathml==3.81.1` was trialled as a broader math validator against the
+full corpus (600 extracted snippets):
+
+- It **accepts** the broken pattern: `convert(r"\textit{a_b}")` and
+  `convert(r"\textit{assigment_labels}")` both succeed. The library does not
+  model MathJax's text-mode semantics (an underscore inside a `\text*` group
+  is legal to it), so it cannot catch this bug class — criterion (a) of the
+  plan fails.
+- It has zero failures on the current corpus, but that is uninformative given
+  the above.
+
+Decision: drop latex2mathml; keep the deterministic targeted rule
+(`utils/check_math_snippets.py`) as the guard. No new dependency added.
