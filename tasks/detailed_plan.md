@@ -49,7 +49,7 @@ against code.
 - Changelog: extend the existing `[Unreleased]` section (new `### Fixed`
   subsection + one `### Added` entry).
 
-### S1: Record task 57 in the task log and write the detailed plan
+### S1: Record task 57 in the task log and write the detailed plan (done, c7e2913)
 
 **Code:** none
 **Tests:** none
