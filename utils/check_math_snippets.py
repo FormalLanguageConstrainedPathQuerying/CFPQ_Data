@@ -33,8 +33,37 @@ __all__ = [
 _TEXT_MODE_RE = re.compile(r"\\(?:text|textit|textrm|textbf|mbox)\s*\{")
 
 _INLINE_MATH_RE = re.compile(r":math:`([^`]+)`", re.DOTALL)
-_MATH_BLOCK_RE = re.compile(r"^(\s*)\.\.\s+math::\s*$")
+_MATH_BLOCK_RE = re.compile(r"^\s*\.\.\s+math::\s*$")
 _CODE_BLOCK_RE = re.compile(r"^\s*\.\.\s+(?:code-block|literalinclude|sourcecode)::")
+
+
+def _directive_body(lines: list[str], i: int) -> tuple[int, list[str]]:
+    """Returns the (end index, body lines) of the indented block after ``lines[i]``.
+
+    The end index is the first line index past the block (trailing blank
+    lines are included in the span); body lines are stripped of their
+    indentation.
+    """
+    base = len(lines[i]) - len(lines[i].lstrip())
+    j = i + 1
+    n = len(lines)
+    body_indent: Optional[int] = None
+    body: list[str] = []
+    while j < n:
+        line = lines[j]
+        if not line.strip():
+            j += 1
+            continue
+        indent = len(line) - len(line.lstrip())
+        if body_indent is None:
+            if indent <= base:
+                break
+            body_indent = indent
+        elif indent < body_indent:
+            break
+        body.append(line.strip())
+        j += 1
+    return j, body
 
 
 def _code_block_spans(lines: list[str]) -> list[tuple[int, int]]:
@@ -45,22 +74,7 @@ def _code_block_spans(lines: list[str]) -> list[tuple[int, int]]:
         if not _CODE_BLOCK_RE.match(lines[i]):
             i += 1
             continue
-        base = len(lines[i]) - len(lines[i].lstrip())
-        j = i + 1
-        body_indent: Optional[int] = None
-        while j < n:
-            line = lines[j]
-            if not line.strip():
-                j += 1
-                continue
-            indent = len(line) - len(line.lstrip())
-            if body_indent is None:
-                if indent <= base:
-                    break
-                body_indent = indent
-            elif indent < body_indent:
-                break
-            j += 1
+        j, _ = _directive_body(lines, i)
         spans.append((i, j))
         i = j
     return spans
@@ -108,27 +122,9 @@ def extract_math_snippets(text: str) -> list[tuple[int, str]]:
     snippets: list[tuple[int, str]] = []
     block_lines: set[int] = set()
     for i, line in enumerate(lines):
-        match = _MATH_BLOCK_RE.match(line)
-        if not match:
+        if not _MATH_BLOCK_RE.match(line):
             continue
-        base = len(match.group(1))
-        j = i + 1
-        body_indent: Optional[int] = None
-        body: list[str] = []
-        while j < len(lines):
-            candidate = lines[j]
-            if not candidate.strip():
-                j += 1
-                continue
-            indent = len(candidate) - len(candidate.lstrip())
-            if body_indent is None:
-                if indent <= base:
-                    break
-                body_indent = indent
-            elif indent < body_indent:
-                break
-            body.append(candidate.strip())
-            j += 1
+        j, body = _directive_body(lines, i)
         block_lines.update(range(i, j))
         if body:
             snippets.append((i + 1, " ".join(body)))
