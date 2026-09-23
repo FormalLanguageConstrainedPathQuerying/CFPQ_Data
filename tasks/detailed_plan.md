@@ -60,7 +60,7 @@ against code.
 - Write this detailed plan.
 - The commit carries `Fixes #127` (the task fully resolves the defect).
 
-### S2: Fix the broken math in docs/grammars/data/c_alias.rst
+### S2: Fix the broken math in docs/grammars/data/c_alias.rst (done, e2feda7)
 
 **Code:** none (docs-only change)
 **Tests:** verified by the S3 guard once it exists; until then, a search for
@@ -80,7 +80,7 @@ hits.
 - No other page changes: c_alias.rst is the only file with an underscore
   inside a text-mode command group.
 
-### S3: Add the math-snippet guard (done)
+### S3: Add the math-snippet guard (done, 57eb73a + refactor d42a8ef)
 
 **Code:** new `utils/check_math_snippets.py`:
 - `extract_math_snippets(rst_text) -> list[tuple[str, str]]` — returns
@@ -122,7 +122,7 @@ hits.
   section of this plan.
 - Coverage: all branches of the new module must be covered (95/95 gate).
 
-### S4: Changelog + developer docs
+### S4: Changelog + developer docs (done, 6c99c5e)
 
 **Code:** none
 **Tests:** none
