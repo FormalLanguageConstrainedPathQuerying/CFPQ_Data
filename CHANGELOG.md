@@ -34,6 +34,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Type checking with [ty](https://docs.astral.sh/ty/) for fast local checks
   and Pyright in CI; the package, tests, and utility scripts are now fully
   type-checked.
+- A math-snippet guard in the test suite (`utils/check_math_snippets.py`): it
+  scans every docs page and rejects math that MathJax cannot render — an
+  unescaped underscore inside a text-mode command group (e.g.
+  `\textit{a_b}`) — which previously surfaced only as an error on the
+  deployed site while the Sphinx build stayed green.
 
 ### Changed
 
@@ -56,6 +61,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The broken utility scripts `utils/fetch_dataset.py` and
   `utils/update_dataset_tables.py` (both failed at import time against the
   5.0.0 package layout).
+
+### Fixed
+
+- The C Alias grammar page rendered the MathJax error "'_' allowed only in
+  math mode" instead of the parameter names and the example grammars: the
+  page wrapped identifiers containing underscores in `\textit{...}` inside
+  math, where an underscore is illegal. Parameter names now use the literal
+  style and the reverse labels are plain subscripts (#127).
 
 ## [5.0.0] - 2026-09-16
 
