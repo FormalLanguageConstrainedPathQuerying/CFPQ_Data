@@ -118,6 +118,8 @@ def cfg_from_rsa(rsa: RSA) -> CFG:
     terminals = set()
     productions = set()
 
+    box_names = {sym.value for sym in rsa.labels}
+
     for symbol in rsa.labels:
         box = rsa.get_box(symbol)
         if box is None:
@@ -130,24 +132,21 @@ def cfg_from_rsa(rsa: RSA) -> CFG:
 
         for state in sorted(dfa.states, key=lambda s: str(s.value)):
             if state not in naming:
-                naming[state] = Variable(f"S{len(naming)}")
+                naming[state] = Variable(f"{symbol.value}_{state.value}")
                 variables.add(naming[state])
 
             if state in dfa.final_states:
                 productions.add(Production(naming[state], []))
 
         for v, label, to in dfa._transition_function.get_edges():
-            if label.value == label.value.lower():
-                match = re.search('"TER:(.*)"', label.value)
-                label_value = match.group(1) if match is not None else label.value
+            match = re.search(r'"(?:TER|VAR):(.*)"', label.value)
+            label_value = match.group(1) if match is not None else label.value
 
+            if label_value in box_names:
+                production_label = Variable(label_value)
+            else:
                 terminals.add(Terminal(label_value))
                 production_label = Terminal(label_value)
-            else:
-                match = re.search('"VAR:(.*)"', label.value)
-                label_value = match.group(1) if match is not None else label.value
-
-                production_label = Variable(label_value)
 
             productions.add(Production(naming[v], [production_label, naming[to]]))
 

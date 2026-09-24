@@ -5,7 +5,30 @@ from typing import Any, Dict, Union
 
 import networkx as nx
 
-__all__ = ["add_reverse_edges"]
+__all__ = ["add_reverse_edges", "reverse_label"]
+
+
+def reverse_label(label: str) -> str:
+    """Returns the reverse of an edge label.
+
+    Non-indexed labels get a ``_r`` suffix (``a`` -> ``a_r``).
+    Indexed labels (ending in ``_i``) insert ``_r`` before the suffix
+    (``load_i`` -> ``load_r_i``).
+
+    Examples
+    --------
+    >>> reverse_label("a")
+    'a_r'
+    >>> reverse_label("alloc")
+    'alloc_r'
+    >>> reverse_label("load_i")
+    'load_r_i'
+    >>> reverse_label("f_r_i")
+    'f_r_r_i'
+    """
+    if label.endswith("_i"):
+        return label[:-2] + "_r_i"
+    return label + "_r"
 
 
 def add_reverse_edges(
@@ -48,7 +71,7 @@ def add_reverse_edges(
         reverse_edge_labels = dict()
         for key, value in edge_labels.items():
             if not mapping:
-                reverse_edge_labels[key] = value + "_r"
+                reverse_edge_labels[key] = reverse_label(value)
             elif value in mapping.keys():
                 reverse_edge_labels[key] = mapping[value]
 
