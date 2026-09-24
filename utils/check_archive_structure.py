@@ -128,13 +128,20 @@ def _skeleton_problems(root: pathlib.Path) -> list[str]:
 
     queries_dir = root / "queries"
     query_entries = {path.name for path in queries_dir.iterdir()}
-    query_expected = {"README.md", *QUERY_CLASSES}
-    for name in sorted(query_entries - query_expected):
+    allowed = {"README.md", *QUERY_CLASSES}
+    for name in sorted(query_entries - allowed):
         problems.append(
-            f"queries/{name}: unexpected entry (expected only {sorted(query_expected)})"
+            f"queries/{name}: unexpected entry (expected only README.md and "
+            f"class directories {sorted(QUERY_CLASSES)})"
         )
-    for name in sorted(query_expected - query_entries):
-        problems.append(f"queries/{name}: missing")
+    if "README.md" not in query_entries:
+        problems.append("queries/README.md: missing")
+    present_classes = query_entries & set(QUERY_CLASSES)
+    if not present_classes:
+        problems.append(
+            f"queries/: at least one class directory is required "
+            f"({sorted(QUERY_CLASSES)})"
+        )
     for cls, exts in QUERY_CLASSES.items():
         cls_dir = queries_dir / cls
         if not cls_dir.is_dir():
@@ -273,6 +280,160 @@ def _mtx_range_problems(graph_dir: pathlib.Path) -> list[str]:
             "graph/: all label matrices must declare the same dimensions "
             f"(found {sorted(dimensions)})"
         )
+    return problems
+
+
+# --------------------------------------------------------------------------- #
+# Naming consistency rules
+# --------------------------------------------------------------------------- #
+
+_FORBIDDEN_COMPONENTS = ("bar", "rev")
+_INDEXED_RE = re.compile(r"^(.+)_(\d+)$")
+_INDEXED_REV_RE = re.compile(r"^(.*)_r_(\d+)$")
+
+
+def _label_problems(graph_dir: pathlib.Path) -> list[str]:
+    """Check edge-label naming conventions in ``graph/``."""
+    problems = []
+    stems = {path.stem for path in graph_dir.glob("*.mtx")}
+
+    for stem in sorted(stems):
+        # Rule 1: no forbidden components (bar, rev)
+        parts = stem.replace("_", " ").split()
+        for part in parts:
+            if part in _FORBIDDEN_COMPONENTS:
+                problems.append(
+                    f"graph/{stem}.mtx: label contains forbidden component "
+                    f"{part!r} (use '_r' for reversed edges)"
+                )
+                break
+
+        # Rule 2: indexed-reversed order must be <base>_r_<N>, not <base>_<N>_r
+        m = _INDEXED_RE.fullmatch(stem)
+        if m and not _INDEXED_REV_RE.fullmatch(stem):
+            base, idx = m.groups()
+            if base.endswith("_r"):
+                problems.append(
+                    f"graph/{stem}.mtx: indexed-reversed label must be "
+                    f"{base[:-2]}_r_{idx} (got {stem})"
+                )
+
+    # Rule 3: no stored reverses — if L.mtx exists, L_r.mtx must not
+    for stem in sorted(stems):
+        if stem.endswith("_r"):
+            forward = stem[:-2]
+            if forward in stems:
+                problems.append(
+                    f"graph/{stem}.mtx: reversed edge is stored but must be "
+                    f"auto-generated from {forward}.mtx"
+                )
+    return problems
+
+
+def _terminal_coverage_problems(
+    graph_dir: pathlib.Path, queries_dir: pathlib.Path
+) -> list[str]:
+    """Check that query terminals are covered by stored labels (or their
+    reverses / indexed forms)."""
+    problems = []
+    stems = {path.stem for path in graph_dir.glob("*.mtx")}
+
+    # Build the set of "valid" terminal patterns:
+    # - every stored label
+    # - the _r reverse of every stored label
+    # - for indexed labels (base_N): the placeholder base_i and base_r_i
+    valid: set[str] = set()
+    indexed_bases: set[str] = set()
+    for stem in stems:
+        valid.add(stem)
+        valid.add(stem + "_r")
+        m = _INDEXED_RE.fullmatch(stem)
+        if m:
+            base = m.group(1)
+            indexed_bases.add(base)
+            valid.add(base + "_i")
+            valid.add(base + "_r_i")
+
+    # Collect terminals from all query files
+    queries_dir_resolved = queries_dir
+    if not queries_dir_resolved.is_dir():
+        return problems
+    for cls_dir in sorted(queries_dir_resolved.iterdir()):
+        if not cls_dir.is_dir() or cls_dir.name not in QUERY_CLASSES:
+            continue
+        for query_dir in sorted(cls_dir.iterdir()):
+            if not query_dir.is_dir():
+                continue
+            for path in sorted(query_dir.iterdir()):
+                if path.suffix not in (".cnf", ".rsm", ".re", ".mcfg"):
+                    continue
+                try:
+                    terminals = _query_terminals(path)
+                except Exception:
+                    continue  # parse error already reported elsewhere
+                for term in sorted(terminals):
+                    if term not in valid:
+                        problems.append(
+                            f"queries/{cls_dir.name}/{query_dir.name}/{path.name}: "
+                            f"terminal {term!r} has no corresponding stored label "
+                            f"(not a stored label, not a _r reverse, not an "
+                            f"indexed form of a stored label family)"
+                        )
+    return problems
+
+
+def _same_dir_consistency_problems(queries_dir: pathlib.Path) -> list[str]:
+    """Check that all representations in one query directory use the same
+    terminal set (they must define the same language)."""
+    problems = []
+    if not queries_dir.is_dir():
+        return problems
+    for cls_dir in sorted(queries_dir.iterdir()):
+        if not cls_dir.is_dir() or cls_dir.name not in QUERY_CLASSES:
+            continue
+        for query_dir in sorted(cls_dir.iterdir()):
+            if not query_dir.is_dir():
+                continue
+            term_sets: dict[str, frozenset[str]] = {}
+            for path in sorted(query_dir.iterdir()):
+                if path.suffix not in (".cnf", ".rsm", ".re", ".mcfg"):
+                    continue
+                try:
+                    terminals = _query_terminals(path)
+                except Exception:
+                    continue
+                term_sets[path.name] = frozenset(terminals)
+            # Compare all pairs
+            names = list(term_sets)
+            for i in range(len(names)):
+                for j in range(i + 1, len(names)):
+                    if term_sets[names[i]] != term_sets[names[j]]:
+                        only_i = term_sets[names[i]] - term_sets[names[j]]
+                        only_j = term_sets[names[j]] - term_sets[names[i]]
+                        detail = ""
+                        if only_i:
+                            detail += f" {names[i]} has extra {sorted(only_i)}"
+                        if only_j:
+                            detail += f" {names[j]} has extra {sorted(only_j)}"
+                        problems.append(
+                            f"queries/{cls_dir.name}/{query_dir.name}/: "
+                            f"{names[i]} and {names[j]} use different terminal "
+                            f"sets (must represent the same language){detail}"
+                        )
+    return problems
+
+
+def _naming_problems(root: pathlib.Path) -> list[str]:
+    """Run all naming-consistency checks on the unpacked archive."""
+    problems = []
+    graph_dir = root / "graph"
+    queries_dir = root / "queries"
+    if graph_dir.is_dir():
+        problems.extend(_label_problems(graph_dir))
+    if graph_dir.is_dir() and queries_dir.is_dir():
+        problems.extend(_terminal_coverage_problems(graph_dir, queries_dir))
+    if queries_dir.is_dir():
+        problems.extend(_same_dir_consistency_problems(queries_dir))
     return problems
 
 
@@ -447,6 +608,7 @@ def _validate_root(root: pathlib.Path, partial: bool = False) -> list[str]:
             root, stored={path.stem for path in (root / "graph").glob("*.mtx")}
         )
     )
+    problems.extend(_naming_problems(root))
     return problems
 
 

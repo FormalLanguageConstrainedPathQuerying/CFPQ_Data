@@ -1,156 +1,121 @@
-# Detailed Plan: Task 57 — Fix LaTeX error in the C Alias grammar parameters (#127) + prevent recurrence
+# Detailed Plan: Task 48 — S3 6.0.0 self-contained archive migration
 
 ## Context
 
-Issue #127: on the deployed C Alias page, the Parameter column renders the
-MathJax error `'_’ allowed only in math mode` instead of the parameter name.
+Migrate all 113 graph archives from the 5.0.0 flat `grammar/` layout to the
+6.0.0 self-contained `queries/cfpq/<query>/` structure (designed in tasks 52,
+54). Fix naming inconsistencies (aa/vf swap, java_points_to load→load_i,
+stored reverses with old "bar" naming). Compute `results.mtx` via the
+FastMatrixCFPQ Docker oracle for fast pairs (< 30s); stub empty files for
+slow/OOM pairs. Verify reachable-pair counts against
+`temporal_cfpq/results/reference_answers.csv` and report all drift. Upload to
+S3 `6.0.0/graph/`. Remove separate grammar/ and benchmark/ paths from S3,
+docs, and package code.
 
-Root cause: `docs/grammars/data/c_alias.rst` wraps identifiers containing
-underscores in `:math:`\textit{...}``. Inside a math environment `\textit`
-switches to text mode (MathJax supports it; raw LaTeX does not define
-`\textit` in math mode at all); `_` is illegal in text mode, so MathJax
-renders the error instead of the formula. 10 occurrences on 7 lines: the
-Parameter table (lines 38, 40) and the Example Grammars section (lines 63,
-67, 70, 93, 94).
+## Subtasks
 
-Why CI missed it: the error only occurs at browser runtime. Sphinx passes
-math content verbatim to MathJax; `make html -W` + linkcheck + pytest never
-validate math snippets.
+### S1: Extend check_archive_structure.py with naming rules [in_progress]
 
-Why only C Alias breaks: it is the only page with an underscore *inside* a
-`\textit{...}` group. Other pages write subscripts outside the group
-(`\textit{load}_f`), which is valid math. Verified across `docs/`:
-c_alias.rst is the sole offender.
+- Add `_label_problems(graph_dir)`: no `bar`/`rev` components; indexed-reversed
+  order must be `<base>_r_<N>`; no stored reverses (if `L.mtx` exists,
+  `L_r.mtx` must not).
+- Add `_terminal_coverage_problems(graph_dir, queries_dir)`: every query
+  terminal must map to a stored label, its `_r` reverse, or an indexed form
+  `<base>_i` where `<base>_<N>.mtx` exists.
+- Add `_same_dir_consistency_problems(queries_dir)`: all representations in
+  one query directory must use the same terminal set.
+- Relax class-dir requirement: at least one of {cfpq, rpq, mcfpq} present;
+  any individual one may be absent.
+- Wire `_naming_problems` into `_validate_root`.
+- Fix the LSP error (None-safe regex group access).
+- Verify: run checker on a local archive (bzip) — should pass structure,
+  flag naming issues if any.
 
-Structural cause: grammar data pages are hand-written transcriptions of
-generator signatures/docstrings; c_alias.rst deviates from the PR template
-convention (`.github/PULL_REQUEST_TEMPLATE/new_grammar.md` specifies literal
-style for parameter names). Nothing validates docs math or cross-checks docs
-against code.
+### S2: Fix local CNF naming [pending]
 
-## Decisions (user-approved)
+- `avrora/grammar/java_points_to.cnf`: replace bare `load`→`load_i`,
+  `store`→`store_i`, `load_r`→`load_r_i`, `store_r`→`store_r_i`; update
+  nonterminal names to indexed form (match gson's correct CNF from 5.0.0).
+- Same for `eclipse/grammar/java_points_to.cnf`.
+- Verify all other local .cnf/.rsm files use unified naming.
 
-- Fix style: parameter names -> literal style (matches the PR template);
-  reverse labels in math blocks -> plain subscripts (`a_r`, `d_r`),
-  consistent with `V_1`/`V_2`/`V_3` and plain `a`/`d` already on the page.
-- Test scope: deterministic targeted rule now (zero new deps); evaluate
-  `latex2mathml` against the corpus during S3 and adopt it as an additional
-  check only if it rejects the broken snippets and accepts all current ones
-  with zero false positives.
+### S3: Build rebuild script + restructure all 113 archives [pending]
 
-## Reuse analysis
+Script logic (per graph):
+1. Download `5.0.0/graph/<name>.tar.gz` from S3.
+2. Unpack to temp dir.
+3. Strip stored reverses from `graph/`: remove `X_r.mtx` where `X.mtx`
+   exists; remove any `*bar*.mtx`.
+4. Create `queries/cfpq/<query_name>/` per category:
+   - C Alias (20): `c_alias/` with c_alias.cnf + _muravev2024.cnf + c_alias.rsm
+   - RDF standard (18): 3 dirs (subClassOf, type, subClassOf_type) each with
+     .cnf + shared .rsm in subClassOf_type dir
+   - RDF enzyme+geospecies (2): above 3 + broaderTransitive/
+   - Java Points-To (21): `java_points_to/` with .cnf + _muravev2024.cnf + .rsm
+   - Field-Sensitive Alias (10): `vf/` with vf.cnf + vf.rsm
+   - Context-Sensitive Data-Flow (10): `aa/` with aa.cnf + aa.rsm
+   - Data Provenance (18): `prov_derivation/` with .cnf (no RSM yet)
+   - Name Resolution (4): `name_resolution/` with .cnf (no RSM yet)
+   - Biological UniProt (10): `unigraph_N/` per-graph with .cnf (no RSM yet)
+5. Write `queries/README.md` with `## cfpq/<query>` sections.
+6. Ensure top-level `README.md` has mandatory sections.
+7. Remove old `grammar/` directory.
+8. Validate with extended checker.
+9. Pack as `<name>.tar.gz`.
 
-- No existing math validation anywhere in the repo (no latex2mathml, no RST
-  math extraction) — new material is justified.
-- Follows the established `utils/<tool>.py` + `tests/utils/test_<tool>.py`
-  pattern (e.g. `check_version_sync.py`, `audit_info_tables.py`); tests
-  import the tool module directly (`extraPaths = ["utils"]` is already
-  configured for ty and pyright).
-- Changelog: extend the existing `[Unreleased]` section (new `### Fixed`
-  subsection + one `### Added` entry).
+### S4: Compute results.mtx via oracle (< 30s pairs) [pending]
 
-### S1: Record task 57 in the task log and write the detailed plan (done, c7e2913)
+For each graph×query pair in reference with elapsed < 30s AND status=ok:
+1. Build `.g` file (forward + auto-reverse, indexed label expansion).
+2. Materialize CNF template → concrete CNF.
+3. Run FastMatrixCFPQ Docker oracle.
+4. Write `results.mtx` (Boolean pattern matrix).
+5. Assert pair count matches reference.
 
-**Code:** none
-**Tests:** none
-**Docs:** `tasks/tasks.md` (task 57 entry), `tasks/detailed_plan.md` (this file)
+For pairs >= 30s or status != ok: write stub results.mtx (header, 0 entries).
 
-**Spec:**
-- Add the Task 57 entry after task 56 with the user decisions recorded.
-- Write this detailed plan.
-- The commit carries `Fixes #127` (the task fully resolves the defect).
+### S5: Drift report [pending]
 
-### S2: Fix the broken math in docs/grammars/data/c_alias.rst (done, e2feda7)
+Compare all computed counts against reference_answers.csv. Output
+`drift_report.csv`: graph, query, ref_count, new_count, delta, explanation.
+Expected drift: 20 swap-fix pairs + 2 java_points_to pairs. Flag any
+unexpected drift.
 
-**Code:** none (docs-only change)
-**Tests:** verified by the S3 guard once it exists; until then, a search for
-an underscore inside a `\textit{...}` group across `docs/` must return no
-hits.
-**Docs:** `docs/grammars/data/c_alias.rst`
+### S6: Upload to S3 + cleanup [pending]
 
-**Spec:**
-- Parameter table (lines 38, 40): `:math:`\textit{assigment_labels}`` ->
-  `` `assigment_labels` `` and `:math:`\textit{dereference_labels}`` ->
-  `` `dereference_labels` `` (literal style per the PR template).
-- Line 63 prose: parameter names -> literal; keep the label pairs as math:
-  "C Alias grammar with `assigment_labels` = :math:`\{(a, a_r)\}` and
-  `dereference_labels` = :math:`\{(d, d_r)\}`."
-- Math blocks (lines 67, 70, 93, 94): `\textit{d_r}` -> `d_r`,
-  `\textit{a_r}` -> `a_r` (plain subscripts, consistent with `V_1`..`V_3`).
-- No other page changes: c_alias.rst is the only file with an underscore
-  inside a text-mode command group.
+1. Upload all 113 .tar.gz to `s3://cfpq-data/6.0.0/graph/`.
+2. Delete `6.0.0/grammar/` and `6.0.0/benchmark/` objects.
+3. Package code: remove GRAMMAR_TEMPLATES, BENCHMARKS, download_grammars(),
+   download_benchmark(), GRAMMARS_URL, BENCHMARK_URL, LEGACY_VERSION_PREFIX;
+   update DATASET_KEY_PREFIX to "6.0.0/graph".
+4. Config: remove GRAMMARS_DIR, BENCHMARKS_DIR.
+5. Docs: remove grammar example links, benchmark refs; update URLs to 6.0.0.
 
-### S3: Add the math-snippet guard (done, 57eb73a + refactor d42a8ef)
+### S7: [FOLLOW-UP — separate task] Fill results.mtx for big graphs [pending]
 
-**Code:** new `utils/check_math_snippets.py`:
-- `extract_math_snippets(rst_text) -> list[tuple[str, str]]` — returns
-  (location, snippet) for every inline `:math:` role and `.. math::` block;
-  skips code blocks.
-- `find_broken_snippets(snippets) -> list[...]` — flags an unescaped `_`
-  inside a text-mode command group (`\text`, `\textit`, `\textrm`,
-  `\textbf`, `\mbox`); subscripts outside the group (`\textit{load}_f`) are
-  valid and must not be flagged.
-- `check_docs(docs_dir) -> list[...]` — walks `docs/**/*.rst`, applies both;
-  CLI entry point printing violations (non-zero exit on any).
+All stub pairs (elapsed >= 30s or OOM/timeout). May need increased Docker
+memory, parallel execution, or algorithm changes.
 
-**Tests:** new `tests/utils/test_check_math_snippets.py`:
-- Unit tests on synthetic RST covering: broken inline role, broken math
-  block, valid subscript outside the group, escaped underscore inside the
-  group, code blocks ignored, file without math.
-- A test running `check_docs` over the real `docs/` tree (must pass after S2).
+## Reference data
 
-**Docs:** none in this subtask (developer-docs note + changelog in S4).
+- `temporal_cfpq/results/reference_answers.csv`: 155 pairs (148 ok, 7 OOM,
+  1 timeout). Columns: graph, grammar, start_symbol, num_nodes, num_edges,
+  num_reachable_pairs, status, elapsed_sec.
+- Docker container: `fast_matrix_cfpq` (image `fast_matrix_cfpq:1.1.0`).
+- S3: bucket `cfpq-data`, endpoint `https://s3.yandexcloud.net`.
+- Local RSM templates: `/tmp/opencode/rsm_templates.py` (c_alias, java_points_to,
+  vf, aa, nested_parentheses).
 
-**Spec:**
-- Extraction: inline roles via regex `` :math:`([^`]+)` ``; blocks by parsing
-  `.. math::` directives with their indented body (option lines like
-  `:label:` skipped). Must not treat `:math:` inside code blocks as math.
-- Rule: for each text-mode command group in a snippet, the argument must not
-  contain `_` unless escaped (`\_`). Brace-balanced scanning (groups can
-  nest).
-- Verify the guard fails on the pre-fix c_alias.rst content (run it against
-  `git show dev:docs/grammars/data/c_alias.rst` before S2 is committed... i.e.
-  against the pre-S2 blob) and passes after S2; record the outcome in the
-  commit message.
-- latex2mathml evaluation: trial it on every extracted snippet from the
-  current corpus (install into the venv temporarily). Adopt as an additional
-  check — adding it to the `test` dependency group — only if it (a) rejects
-  `\textit{a_b}` and (b) accepts all current snippets with zero false
-  positives. Strict-LaTeX semantics would flag all ~100 existing
-  `\textit`-in-math usages (undefined in raw LaTeX) — in that case drop it
-  and keep the targeted rule only. Record the outcome in a Design Notes
-  section of this plan.
-- Coverage: all branches of the new module must be covered (95/95 gate).
+## Category → grammar mapping
 
-### S4: Changelog + developer docs (done, 6c99c5e)
-
-**Code:** none
-**Tests:** none
-**Docs:** `CHANGELOG.md` — `[Unreleased]`: new `### Fixed` subsection (C
-Alias page math error, refs #127) + one `### Added` entry (math-snippet guard
-in the test suite). `docs/developer.rst` Test pipeline section — a short note
-that the suite also validates docs math snippets.
-
-**Spec:**
-- Keep a Changelog ordering: `Fixed` after `Removed`.
-- The developer-docs note states what/why: browser-runtime MathJax errors are
-  invisible to the Sphinx build; the guard catches them in CI as part of the
-  standard suite (no new command).
-
-## Design Notes (discovered during implementation)
-
-### latex2mathml evaluation — dropped
-
-`latex2mathml==3.81.1` was trialled as a broader math validator against the
-full corpus (600 extracted snippets):
-
-- It **accepts** the broken pattern: `convert(r"\textit{a_b}")` and
-  `convert(r"\textit{assigment_labels}")` both succeed. The library does not
-  model MathJax's text-mode semantics (an underscore inside a `\text*` group
-  is legal to it), so it cannot catch this bug class — criterion (a) of the
-  plan fails.
-- It has zero failures on the current corpus, but that is uninformative given
-  the above.
-
-Decision: drop latex2mathml; keep the deterministic targeted rule
-(`utils/check_math_snippets.py`) as the guard. No new dependency added.
+| Category | Graphs | Query dir(s) | .cnf | .rsm |
+|----------|--------|-------------|------|------|
+| C Alias | wc,bzip,pr,ls,gzip,apache,init,mm,ipc,lib,block,arch,crypto,security,sound,net,fs,drivers,postgre,kernel (20) | c_alias/ | c_alias.cnf, _muravev2024.cnf | c_alias.rsm |
+| RDF std | skos,generations,travel,univ,foaf,atom,people,biomedical,pizza,wine,funding,core,pathways,go_hierarchy,go,eclass,taxonomy,taxonomy_hierarchy (18) | nested_parentheses_subClassOf/, _type/, _subClassOf_type/ | 3 variants | _subClassOf_type.rsm |
+| RDF ext | enzyme, geospecies (2) | above 3 + _broaderTransitive/ | 4 variants | (Task S7+) |
+| Java PT | gson,sunflow,lusearch,luindex,avrora,mockito,commons_io,commons_lang3,eclipse,h2,pmd,xalan,junit5,batik,fop,tomcat,guava,jackson,jython,tradebeans,tradesoap (21) | java_points_to/ | .cnf, _muravev2024.cnf | .rsm |
+| FS Alias | xz_fsa,nab_fsa,leela_fsa,povray_fsa,x264_fsa,cactus_fsa,parest_fsa,perlbench_fsa,imagick_fsa,omnetpp_fsa (10) | vf/ | vf.cnf | vf.rsm |
+| CS DataFlow | xz,nab,leela,x264,parest,imagick,povray,cactus,omnetpp,perlbench (10) | aa/ | aa.cnf | aa.rsm |
+| Provenance | sampleproject,wikipedia-provenance,pluggy,itsdangerous,requests,httpx,click,jinja,flask,fastapi,celery,scikit-learn,sphinx,pandas,django,zulip,superset,airflow (18) | prov_derivation/ | .cnf | (S7+) |
+| Name Res | jiaozi,jsonpath,shattered_pixel_dungeon,libgdx (4) | name_resolution/ | .cnf | (S7+) |
+| UniProt | unigraph_1..10 (10) | unigraph_N/ per-graph | .cnf | (S7+) |
