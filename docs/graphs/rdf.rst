@@ -237,8 +237,8 @@ Template for these grammars is described on the :ref:`nested_parentheses` page.
 
 .. math::
 
-   S \, \rightarrow \, \overline{subClassOf} \, S \, subClassOf \, \mid \, \overline{subClassOf} \, subClassOf \, \\
-   S \, \rightarrow \, \overline{type} \, S \, type \, \mid \, \overline{type} \, type \, \\
+   S \, \rightarrow \, subClassOf_r \, S \, subClassOf \, \mid \, subClassOf_r \, subClassOf \, \\
+   S \, \rightarrow \, type_r \, S \, type \, \mid \, type_r \, type \, \\
 
 `Pyformlang CFG <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_:
 
@@ -251,7 +251,7 @@ Template for these grammars is described on the :ref:`nested_parentheses` page.
 
 .. math::
 
-   S \, \rightarrow \, \overline{subClassOf} \, S \, subClassOf \, \mid \, \overline{subClassOf} \, subClassOf \, \\
+   S \, \rightarrow \, subClassOf_r \, S \, subClassOf \, \mid \, subClassOf_r \, subClassOf \, \\
 
 `Pyformlang CFG <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_:
 
@@ -263,7 +263,7 @@ Template for these grammars is described on the :ref:`nested_parentheses` page.
 
 .. math::
 
-   S \, \rightarrow \, \overline{type} \, S \, type \, \mid \, \overline{type} \, type \, \\
+   S \, \rightarrow \, type_r \, S \, type \, \mid \, type_r \, type \, \\
 
 `Pyformlang CFG <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_:
 
@@ -275,7 +275,7 @@ Template for these grammars is described on the :ref:`nested_parentheses` page.
 
 .. math::
 
-   S \, \rightarrow \, broaderTransitive \, S \, \overline{broaderTransitive} \, \mid \, broaderTransitive \, \overline{broaderTransitive} \, \\
+   S \, \rightarrow \, broaderTransitive \, S \, broaderTransitive_r \, \mid \, broaderTransitive \, broaderTransitive_r \, \\
 
 `Pyformlang CFG <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_:
 

@@ -36,9 +36,9 @@ Grammar Parameters
    * - Parameter
      - Description
    * - ``assigment_labels``
-     - Pair :math:`(a, \overline{a})` where label :math:`a` represents the assignment operation and :math:`a_r` is reverse to it
+     - Pair :math:`(a, a_r)` where label :math:`a` represents the assignment operation and :math:`a_r` is reverse to it
    * - ``dereference_labels``
-     - Pair :math:`(d, \overline{d})` where label :math:`d` represents pointer dereference relation and :math:`d_r` is reverse to it
+     - Pair :math:`(d, d_r)` where label :math:`d` represents pointer dereference relation and :math:`d_r` is reverse to it
 
 
 Grammar Template
@@ -46,8 +46,8 @@ Grammar Template
 
 .. math::
 
-   S \, &\rightarrow \, \overline{d} \, V \, d \, \\
-   V \, &\rightarrow \, ((S \, \mid \, \varepsilon) \, \overline{a})^{*} \, (S \, \mid \, \varepsilon) \, (a \, (S \, \mid \, \varepsilon))^{*} \, \\
+   S \, &\rightarrow \, d_r \, V \, d \, \\
+   V \, &\rightarrow \, ((S \, \mid \, \varepsilon) \, a_r)^{*} \, (S \, \mid \, \varepsilon) \, (a \, (S \, \mid \, \varepsilon))^{*} \, \\
 
 
 Description

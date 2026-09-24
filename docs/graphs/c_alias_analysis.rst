@@ -179,10 +179,10 @@ Template for these grammars is described on the :ref:`c_alias` page.
 
 .. math::
 
-   S \, \rightarrow \, \overline{d} \, V \, d \, \\
+   S \, \rightarrow \, d_r \, V \, d \, \\
    V \, \rightarrow \, V_1 \, V_2 \, V_3 \, \\
    V_1 \, \rightarrow \, \varepsilon \, \\
-   V_1 \, \rightarrow \, V_2 \, \overline{a} \, V_1 \, \\
+   V_1 \, \rightarrow \, V_2 \, a_r \, V_1 \, \\
    V_2 \, \rightarrow \, \varepsilon \, \\
    V_2 \, \rightarrow \, S \, \\
    V_3 \, \rightarrow \, \varepsilon \, \\
@@ -205,8 +205,8 @@ Template for these grammars is described on the :ref:`c_alias` page.
 
 .. math::
 
-   S \, \rightarrow \, \overline{d} \, V \, d \, \\
-   V \, \rightarrow \, ((S \mid \varepsilon) \, \overline{a})^{*} \, (S \mid \varepsilon) \, (a \, (S \mid \varepsilon))^{*} \, \\
+   S \, \rightarrow \, d_r \, V \, d \, \\
+   V \, \rightarrow \, ((S \mid \varepsilon) \, a_r)^{*} \, (S \mid \varepsilon) \, (a \, (S \mid \varepsilon))^{*} \, \\
 
 `Pyformlang RSA <https://github.com/Aunsiels/pyformlang/tree/master/pyformlang/rsa>`_:
 

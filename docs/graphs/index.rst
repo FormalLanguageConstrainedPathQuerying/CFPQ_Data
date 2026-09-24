@@ -92,8 +92,7 @@ the edges labeled ``load_5``).
 Reversed edges
 ^^^^^^^^^^^^^^
 
-For every edge label ``L`` there is a reversed label ``L_r`` (written
-:math:`\overline{L}` in the per-graph pages): an edge ``(u, v)`` labeled
+For every edge label ``L`` there is a reversed label ``L_r``: an edge ``(u, v)`` labeled
 ``L`` corresponds to an edge ``(v, u)`` labeled ``L_r``. Reversed edges are
 not stored in the archives; they are derived by
 :obj:`add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`, and the

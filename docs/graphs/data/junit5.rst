@@ -45,17 +45,17 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 2220
-   * - :math:`\overline{\textit{alloc}}`
+   * - :math:`\textit{alloc}_r`
      - 2220
    * - :math:`\textit{assign}`
      - 62833
-   * - :math:`\overline{\textit{assign}}`
+   * - :math:`\textit{assign}_r`
      - 62833
    * - :math:`\textit{load}_i`
      - 6562
-   * - :math:`\overline{\textit{load}_i}`
+   * - :math:`\textit{load}_{r\_i}`
      - 6562
    * - :math:`\textit{store}_i`
      - 3070
-   * - :math:`\overline{\textit{store}_i}`
+   * - :math:`\textit{store}_{r\_i}`
      - 3070

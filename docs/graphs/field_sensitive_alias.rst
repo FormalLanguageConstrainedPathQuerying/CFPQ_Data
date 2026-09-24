@@ -32,7 +32,7 @@ field (the ``f_i`` family), as in `"Taming Transitive Redundancy for Context-Fre
    * - Graph
      - Num Nodes
      - Num Edges
-     - aa
+     - vf
      - Size (MB)
      - Download
    * - :ref:`xz_field_sensitive_alias`
@@ -101,19 +101,35 @@ Canonical grammars
 
 Productions with index :math:`i` are duplicated for each field number from the analyzed program classes.
 The start nonterminal is :math:`V`.
+Reversed edges (``a_r``, ``d_r``, ``f_r_i``) are auto-generated from forward edges.
 
 .. math::
 
-   M \, \rightarrow \, d \, V \, d \, \\
-   V \, \rightarrow \, A \, V \, A \mid f_i \, V \, f_i \mid M \mid \varepsilon \, \\
+   M \, \rightarrow \, d_r \, V \, d \, \\
+   V \, \rightarrow \, A \, V \, A \mid f_r_i \, V \, f_i \mid M \mid a_r \, V \, a \mid \varepsilon \, \\
    A \, \rightarrow \, a \, M? \mid \varepsilon \, \\
-   A \, \rightarrow \, M? \, a \mid \varepsilon \, \\
 
-`Pyformlang RSA <https://github.com/Aunsiels/pyformlang/tree/master/pyformlang/rsa>`_:
+RSM (stored as ``vf.rsm`` in each archive):
 
 .. code-block:: text
 
-   M -> d V d
-   V -> A V A | f_i V f_i | M | epsilon
-   A -> a M? | epsilon
-   A -> M? a | epsilon
+   start: V
+   [box M]
+   start: 0
+   final: 3
+   0 --d_r--> 1
+   1 --V--> 2
+   2 --d--> 3
+   [box V]
+   start: 0
+   final: 0, 1, 2, 3, 4
+   0 --V--> 1
+   0 --M--> 4
+   0 --a_r--> 5
+   4 --a_r--> 5
+   5 --V--> 1
+   1 --a--> 2
+   2 --M--> 3
+   0 --f_r_i--> p_i
+   p_i --V--> q_i
+   q_i --f_i--> 3

@@ -43,13 +43,13 @@ Edges Statistics
      - Num Edge Label
    * - :math:`a`
      - 12468
-   * - :math:`abar`
+   * - :math:`a_r`
      - 12468
    * - :math:`d`
      - 5060
-   * - :math:`dbar`
+   * - :math:`d_r`
      - 5060
    * - :math:`f_i`
      - 10790
-   * - :math:`fbar_i`
+   * - :math:`f_r_i`
      - 10790

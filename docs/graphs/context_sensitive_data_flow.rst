@@ -32,7 +32,7 @@ families), as in `"Taming Transitive Redundancy for Context-Free Language Reacha
    * - Graph
      - Num Nodes
      - Num Edges
-     - vf
+     - aa
      - Size (MB)
      - Download
    * - :ref:`xz`
@@ -107,9 +107,15 @@ The start nonterminal is :math:`A`.
    A \, \rightarrow \, A \, A \mid a \mid \varepsilon \, \\
    A \, \rightarrow \, call_i \, A \, ret_i \, \\
 
-`Pyformlang CFG <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_:
+RSM (stored as ``aa.rsm`` in each archive):
 
-.. code-block:: python
+.. code-block:: text
 
-   A -> A A | a | epsilon
-   A -> call_i A ret_i
+   start: A
+   [box A]
+   start: 0
+   final: 0
+   0 --a--> 0
+   0 --call_i--> p_i
+   p_i --A--> q_i
+   q_i --ret_i--> 0

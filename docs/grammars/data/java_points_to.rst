@@ -45,7 +45,7 @@ Grammar Template
 .. math::
    \textit{PointsTo} \, &\rightarrow \, (\textit{assign} \, \mid  \, \textit{load}_f \, \textit{Alias} \, \textit{store}_f)^{*} \, \textit{alloc} \, \\
    \textit{Alias} \, &\rightarrow \, \textit{PointsTo} \, \textit{FlowsTo} \, \\
-   \textit{FlowsTo} \, &\rightarrow \, \overline{\textit{alloc}} \, (\overline{\textit{assign}} \, \mid \, \overline{\textit{store}}_f \, \textit{Alias} \, \overline{\textit{load}}_f)^* \, \\
+   \textit{FlowsTo} \, &\rightarrow \, \textit{alloc}_r \, (\textit{assign}_r \, \mid \, \textit{store}_{r\_f} \, \textit{Alias} \, \textit{load}_{r\_f})^* \, \\
    &\forall \, f \, \in \, \textit{fields} \, \\
 
 
