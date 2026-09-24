@@ -97,5 +97,32 @@ C Alias grammar with ``assigment_labels`` = :math:`\{(a, a_r)\}` and ``dereferen
 
 .. code-block:: python
 
-   S -> d_r V d
-   V -> ((S | epsilon) a_r)* (S | epsilon) (a (S | epsilon))*
+    S -> d_r V d
+    V -> ((S | epsilon) a_r)* (S | epsilon) (a (S | epsilon))*
+
+Recursive State Machine
+-----------------------
+
+.. image:: /_static/img/rsm_c_alias.svg
+   :alt: C Alias RSM
+
+.. code-block:: text
+
+   start: S
+   [box S]
+   start: 0
+   final: 3
+   0 --d_r--> 1
+   1 --V--> 2
+   2 --d--> 3
+   [box V]
+   start: 0
+   final: 0, 1, 2, 3
+   0 --a--> 2
+   0 --a_r--> 0
+   0 --S--> 1
+   1 --a_r--> 0
+   1 --a--> 2
+   2 --a--> 2
+   2 --S--> 3
+   3 --a--> 2

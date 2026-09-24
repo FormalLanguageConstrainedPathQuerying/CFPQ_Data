@@ -78,4 +78,35 @@ The Java points-to analysis grammar with :math:`\textit{fields} = [0, 1]`.
    FTh -> assign_r FTh
    FTh -> store_0_r Al load_0_r FTh
    FTh -> store_1_r Al load_1_r FTh
-   Al -> S FT
+    Al -> S FT
+
+Recursive State Machine
+-----------------------
+
+.. image:: /_static/img/rsm_java_points_to.svg
+   :alt: Java Points-To RSM
+
+.. code-block:: text
+
+   start: PointsTo
+   [box PointsTo]
+   start: 0
+   final: 1
+   0 --assign--> 0
+   0 --alloc--> 1
+   0 --load_i--> p_i
+   p_i --Alias--> q_i
+   q_i --store_i--> 0
+   [box FlowsTo]
+   start: 0
+   final: 1
+   0 --alloc_r--> 1
+   1 --store_r_i--> p_i
+   p_i --Alias--> q_i
+   q_i --load_r_i--> 1
+   1 --assign_r--> 1
+   [box Alias]
+   start: 0
+   final: 2
+   0 --PointsTo--> 1
+   1 --FlowsTo--> 2

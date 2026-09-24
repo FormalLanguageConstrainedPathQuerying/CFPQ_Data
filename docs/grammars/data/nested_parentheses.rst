@@ -85,4 +85,25 @@ The nested parentheses grammar with :math:`\textit{types} = \{(a, b)\}` and :mat
 
 .. code-block:: python
 
-   S -> a b | a S b
+    S -> a b | a S b
+
+Recursive State Machine
+-----------------------
+
+.. image:: /_static/img/rsm_nested_parentheses.svg
+   :alt: Nested Parentheses RSM
+
+.. code-block:: text
+
+   start: S
+   [box S]
+   start: 0
+   final: 2
+   0 --type_r--> 1
+   1 --type--> 2
+   0 --subClassOf_r--> 3
+   3 --subClassOf--> 2
+   3 --S--> 5
+   5 --subClassOf--> 2
+   1 --S--> 4
+   4 --type--> 2
