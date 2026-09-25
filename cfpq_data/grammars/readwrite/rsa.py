@@ -69,7 +69,7 @@ def rsa_from_text(text: str, *, start_symbol: Symbol = Symbol("S")) -> RSA:
     ...     "1 --b--> 2"
     ... )
     >>> cfg_to_text(cfg_from_rsa(rsa))
-    'S -> a S1\\nS1 -> b S2\\nS2 -> '
+    'S -> a S_1\\nS_1 -> b S_2\\nS_2 -> '
 
     Returns
     -------
