@@ -31,28 +31,21 @@ Grammar templates
    * - Grammar
      - Class
      - Kind
-     - Examples
    * - :ref:`nested_parentheses`
      - Context-Free
      - Hierarchical
-     - `nested_parentheses.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/nested_parentheses.tar.gz>`_ 📥
    * - :ref:`dyck`
      - Context-Free
      - Hierarchical
-     - `dyck.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/dyck.tar.gz>`_ 📥
    * - :ref:`c_alias`
      - Context-Free
      - Static Analysis
-     - `c_alias.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/c_alias.tar.gz>`_ 📥
    * - :ref:`java_points-to`
      - Context-Free
      - Static Analysis
-     - `java_points_to.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/java_points_to.tar.gz>`_ 📥
    * - :ref:`reachability`
      - Regular
      - General
-     - — (data pending)
    * - :ref:`label_star`
      - Regular
      - General
-     - — (data pending)

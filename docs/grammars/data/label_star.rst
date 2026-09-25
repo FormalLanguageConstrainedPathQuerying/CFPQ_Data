@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - Per-Label Transitive Closure Regular Expression Template
-   * - Version
-     - 5.0.0
    * - Class
      - Regular
    * - Kind

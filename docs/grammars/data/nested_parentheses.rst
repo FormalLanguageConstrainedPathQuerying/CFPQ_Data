@@ -15,14 +15,10 @@ Info
      -
    * - Full Name
      - Nested Parentheses Grammar
-   * - Version
-     - 4.0.0
    * - Class
      - Context-Free
    * - Kind
      - Hierarchical
-   * - Example download (.txt + .md)
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/grammar/example/nested_parentheses.tar.gz>`_
    * - Origin
      - `link <https://en.wikipedia.org/wiki/Dyck_language>`_
 

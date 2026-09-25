@@ -16,8 +16,4 @@ Dataset utilities
    :toctree: generated/
 
    download
-   download_grammars
-   download_benchmark
    DATASET
-   BENCHMARKS
-   GRAMMAR_TEMPLATES

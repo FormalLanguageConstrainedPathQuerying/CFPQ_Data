@@ -9,7 +9,7 @@ Dataset
    :Release: |release|
    :Date: |today|
 
-The dataset catalog: graphs, grammars, and benchmarks for experimental
+The dataset catalog: graphs and grammars for experimental
 analysis of Context-Free Path Querying algorithms.
 
 .. toctree::
@@ -19,4 +19,3 @@ analysis of Context-Free Path Querying algorithms.
    grammars/index
    indexed_grammars
    reachable_pairs
-   benchmarks/index

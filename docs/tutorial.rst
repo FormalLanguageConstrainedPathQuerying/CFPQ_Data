@@ -105,25 +105,35 @@ Now, for each edge with label ``a`` this graph contains the reversed edge with l
 Load grammar
 ------------
 
-Also, we can load the grammars generated from grammar templates that are described on the :ref:`grammar_templates` page.
+Graph archives from the dataset are self-contained: besides the graph they carry the
+queries that apply to the graph under ``queries/`` — one directory per query with its
+grammar template and a precomputed ``results.mtx`` (see :ref:`graph_file_structure`).
+The grammar templates themselves are described on the :ref:`grammar_templates` page.
 
-Load grammars archive from Dataset
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-We can load the archive with the grammars for the specified template using function :obj:`download_grammars <cfpq_data.dataset.download_grammars>`.
-
-.. nbplot::
-
-   c_alias_path = cfpq_data.download_grammars("c_alias")
-
-Load grammars archive for specified graph
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-For some grammar templates we also can load the archive with the grammars for specific graphs.
+A grammar template may use indexed symbols (e.g. ``load_i``); we materialize it over a
+concrete graph with functions :obj:`cnf_template_from_text <cfpq_data.grammars.readwrite.cnf_template.cnf_template_from_text>`
+and :obj:`materialize <cfpq_data.grammars.readwrite.cnf_template.materialize>`,
+which expand every index present in the graph edge labels:
 
 .. nbplot::
 
-   java_pt_avrora_path = cfpq_data.download_grammars("java_points_to", graph_name="avrora")
+    import networkx as nx
+    g = nx.MultiDiGraph()
+    _ = g.add_edges_from(
+        [(0, 1, {"label": "load_0"}), (1, 2, {"label": "store_0"}),
+         (0, 3, {"label": "alloc"})]
+    )
+    text = ("PT\tPTh\talloc\n"
+            "PT\talloc\n"
+            "PTh\tload_i\tAl_st_PTh_i\n"
+            "Al_st_PTh_i\tAl\tst_PTh_i\n"
+            "st_PTh_i\tstore_i\tPTh\n"
+            "Al\tPT\n"
+            "\n"
+            "Count:\n"
+            "PT")
+    template = cfpq_data.cnf_template_from_text(text)
+    cfg = cfpq_data.materialize(template, g)
 
 Regular grammars
 ----------------
@@ -202,40 +212,4 @@ Also, let's generate a :ref:`java_points-to` grammar for the field-sensitive ana
 
     java_pt_cfg = cfpq_data.java_points_to_grammar(["f0", "f1"])
 
-Benchmarks
-----------
-
-In addition, one of the prepared benchmarks that contains graphs, queries, other input data, and results for
-a particular formal-language-constrained path querying problem can be downloaded.
-
-Currently, we provide the following benchmarks documented on the :ref:`benchmarks` page:
-
-1. :ref:`msreachability`
-
-Load benchmark archive
-^^^^^^^^^^^^^^^^^^^^^^
-
-You can load the archive with the benchmark using function :obj:`download_benchmark <cfpq_data.dataset.download_benchmark>`.
-
-.. nbplot::
-
-   ms_reachability_path = cfpq_data.download_benchmark("MS_Reachability")
-
-MS_Reachability benchmark
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-MS_Reachability benchmark can be used for the experimental study of the algorithms that solve the multiple-source
-formal-language-constrained reachability problem. This benchmark is described on the :ref:`msreachability` page.
-
-For this benchmark we provide some useful functions from
-:ref:`graphs_utils`.
-For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
-functions :obj:`multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
-:obj:`multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
-
-.. nbplot::
-
-    s = {1, 2, 5, 10}
-    path = cfpq_data.multiple_source_to_txt(s, "test.txt")
-    source_vertices = cfpq_data.multiple_source_from_txt(path)
 .. code-links::

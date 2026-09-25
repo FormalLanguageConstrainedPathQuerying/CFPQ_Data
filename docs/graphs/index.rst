@@ -51,8 +51,12 @@ fixed structure::
 - ``queries/README.md`` has one ``## <class>/<query>`` section per query
   directory (path relative to ``queries/``), each with a non-empty
   description.
-- A query may only use labels of its own graph: every terminal it uses is a
-  stored label or the reverse of one (see "Reversed edges" below). An RPQ
+- A query's terminals resolve against its own graph's labels: a stored label
+  or the reverse of one (see "Reversed edges" below). A terminal matching no
+  stored label is legal but inert — materialization keeps it as-is and the
+  query yields an empty result; the RDF category ships such non-applicable
+  variants (e.g. ``generations`` has no ``subClassOf`` edges, so its
+  ``nested_parentheses_subClassOf`` query is trivially empty). An RPQ
   representation in ``.rsm`` must be regular — no box transition may be
   labelled by a nonterminal.
 

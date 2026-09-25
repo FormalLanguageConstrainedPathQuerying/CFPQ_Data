@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - Reachability Regular Expression Template
-   * - Version
-     - 5.0.0
    * - Class
      - Regular
    * - Kind
