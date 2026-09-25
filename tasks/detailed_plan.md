@@ -61,7 +61,7 @@ Approved model (user decisions):
   requirement met; the issue closes automatically at release; never edit the
   issue body.
 
-### S3: Re-point task authoring and review references
+### S3: Re-point task authoring and review references [done] d61e41a
 
 **Code:** `.opencode/skills/planning/SKILL.md`, `.opencode/skills/code-review/SKILL.md`
 **Tests:** skip (docs-only)

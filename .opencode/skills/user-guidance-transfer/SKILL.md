@@ -1,6 +1,6 @@
 ---
 name: user-guidance-transfer
-description: Use when the user provides design guidance, descoping, algorithmic hints, or clarification during a task. Record it verbatim into tasks/tasks.md so it is never lost or paraphrased.
+description: Use when the user provides design guidance, descoping, algorithmic hints, or clarification during a task. Record it verbatim as a comment on the task issue so it is never lost or paraphrased.
 ---
 
 # User Guidance Transfer
@@ -11,21 +11,20 @@ verbatim.
 
 ## Procedure
 
-1. In `tasks/tasks.md`, append a `**[USER GUIDANCE]**` annotation to the task
-   line it applies to. Never rewrite or delete the original task text — it is
-   user-authored and immutable.
+1. Post the guidance as a comment on the task issue:
+   `gh issue comment <N> --body '[USER GUIDANCE]: "<verbatim quote>"'`.
+   Never edit the issue body — it is user-authored and immutable.
 2. Quote the user's guidance **verbatim**. Do not paraphrase, summarize, or
    interpret.
 3. If the guidance is algorithmic and belongs in the persistent design record,
    also record it verbatim in the `### <Topic>` section of the `## Design
    Notes` block in `tasks/detailed_plan.md` (see the `planning` skill).
 
-Example:
+Example comment:
 
 ```
-- [ ] Task 3: Implement matrix-based CFPQ  **[USER GUIDANCE]**: "Use CSR
-  representation; the matrix indices must be the same node order as the DFA
-  from task 2."
+[USER GUIDANCE]: "Use CSR representation; the matrix indices must be the same
+node order as the DFA from task 2."
 ```
 
 Only transfer guidance the user actually gave; do not invent or pad it.
