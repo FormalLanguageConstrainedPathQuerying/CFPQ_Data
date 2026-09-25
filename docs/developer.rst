@@ -194,34 +194,40 @@ atomic subtask::
    fix(XXX-SN): description
    docs(XXX-SN): description
 
-``XXX`` is the task ID and ``SN`` a single subtask identifier (ranges or
-lists are not allowed). Commit messages must explain *why* the change was
-made, not only what it does.
+``XXX`` is the task's GitHub issue number and ``SN`` a single subtask
+identifier (ranges or lists are not allowed). Commit messages must explain
+*why* the change was made, not only what it does.
 
 Issue references
 ~~~~~~~~~~~~~~~~
 
-GitHub closes an issue automatically once a commit containing a closing
-keyword (``close``, ``closes``, ``closed``, ``fixes``, ``fixed``) reaches the
-repository's default branch (`mechanism
+Every task is itself a GitHub issue (label ``task``; the working loop lives
+in the ``workflow-management`` skill). GitHub closes an issue automatically
+once a commit containing a closing keyword (``close``, ``closes``, ``closed``,
+``fixes``, ``fixed``) reaches the repository's default branch (`mechanism
 <https://github.blog/news-insights/product-news/closing-issues-via-commit-messages/>`_).
 This project relies on that mechanism:
 
-- A task that fully resolves a linked GitHub issue carries the closing keyword
-  in exactly one commit — by convention, the first subtask's commit — as a
-  standalone line in the message body: ``Fixes #N`` when the task fixes a
-  reported defect, ``Closes #N`` for all other work. No other commit of the
-  task repeats the keyword::
+- A completed task carries the closing keyword for its own issue — and for
+  every linked issue it fully resolves — in exactly one commit: by
+  convention, the last subtask's commit. Each keyword is a standalone line in
+  the message body: ``Fixes #N`` when the work fixes a reported defect,
+  ``Closes #N`` otherwise. No other commit of the task repeats a keyword::
 
-     docs(XXX-S1): record the task and write the detailed plan
+     docs(XXX-S3): final subtask — verify and clean up
 
-     Closes #N
+     Closes #XXX
+     Fixes #127
 
-- A task that only partially addresses an issue references it without a
+- A task that only partially addresses a linked issue references it without a
   closing keyword (bare ``#N``); GitHub links the issue but leaves it open.
 
+Because the keywords live in the last subtask's commit, an incomplete or
+blocked task — whose branch never merges — carries no keyword and can never
+close its issue by accident.
+
 Since feature branches merge to ``dev`` and only releases merge ``dev`` into
-``master``, the default branch, a linked issue closes when the release
+``master``, the default branch, a task's issue closes when the release
 containing the task lands on ``master`` — not when the task merges to ``dev``.
 
 Quality gate

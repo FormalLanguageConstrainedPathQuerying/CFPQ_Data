@@ -74,7 +74,7 @@ Approved model (user decisions):
 - code-review checklist item 1: "every clause of the task issue (#N) is
   traceable to committed code."
 
-### S4: Rewrite user-guidance-transfer for issues
+### S4: Rewrite user-guidance-transfer for issues [done] 511704a
 
 **Code:** `.opencode/skills/user-guidance-transfer/SKILL.md`
 **Tests:** skip (docs-only)
