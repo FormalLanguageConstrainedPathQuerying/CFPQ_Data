@@ -85,7 +85,7 @@ Approved model (user decisions):
   never edit the issue body (user-authored, immutable); Design Notes
   cross-reference unchanged; update frontmatter description.
 
-### S5: Update commit/issue model in docs + git-workflow
+### S5: Update commit/issue model in docs + git-workflow [done] 7375e24
 
 **Code:** `docs/developer.rst`, `.opencode/skills/git-workflow/SKILL.md`
 **Tests:** skip (docs-only)
