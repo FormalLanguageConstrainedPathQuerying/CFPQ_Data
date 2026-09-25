@@ -62,20 +62,24 @@ def test_every_graph_has_one_category():
 
 
 def test_available_and_unavailable():
+    # A pair has a count iff its results.mtx is computed in the archive;
+    # the rest are stubs awaiting the follow-up computation task.
     rows = reachable_pairs()
     available = [r for r in rows if r["num_reachable_pairs"] is not None]
     unavailable = [r for r in rows if r["num_reachable_pairs"] is None]
-    assert len(available) == 151
-    assert len(unavailable) == 4
-    unavailable_graphs = {r["graph"] for r in unavailable}
-    assert unavailable_graphs == {"libgdx", "unigraph_8", "unigraph_9", "unigraph_10"}
+    assert len(available) == 95
+    assert len(unavailable) == 60
+    # Spot checks: a computed pair and a stubbed one.
+    by_pair = {(r["graph"], r["grammar"]): r for r in rows}
+    assert by_pair[("wc", "c_alias.cnf")]["num_reachable_pairs"] == 156
+    assert by_pair[("guava", "java_points_to.cnf")]["num_reachable_pairs"] is None
 
 
 def test_filter_by_graph():
-    rows = reachable_pairs(graph="guava")
+    rows = reachable_pairs(graph="gson")
     assert len(rows) == 1
     assert rows[0]["grammar"] == "java_points_to.cnf"
-    assert rows[0]["num_reachable_pairs"] == 26384496
+    assert rows[0]["num_reachable_pairs"] == 56325
 
 
 def test_filter_by_grammar():

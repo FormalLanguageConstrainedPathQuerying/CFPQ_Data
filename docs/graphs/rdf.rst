@@ -180,16 +180,16 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
      - 394
      - 396
      - 3
-     - 14267542
+     - not available
      - 0.357
      - `enzyme.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/enzyme.tar.gz>`_ 📥
    * - :ref:`geospecies`
      - 450609
      - 2201532
      - 0
-     - 85
-     - 85
-     - 226669749
+     - not available
+     - not available
+     - not available
      - 7.95
      - `geospecies.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/geospecies.tar.gz>`_ 📥
    * - :ref:`go`
@@ -213,18 +213,18 @@ queries over RDF as in `"Context-Free Path Queries on RDF Graphs" <https://arxiv
    * - :ref:`taxonomy_hierarchy`
      - 2112625
      - 32876289
-     - 5351657
-     - 5351657
-     - 0
+     - not available
+     - not available
+     - not available
      -
      - 99.65
      - `taxonomy_hierarchy.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/taxonomy_hierarchy.tar.gz>`_ 📥
    * - :ref:`taxonomy`
      - 5728398
      - 14922125
-     - 151703
-     - 151706
-     - 4
+     - not available
+     - not available
+     - not available
      -
      - 59.52
      - `taxonomy.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/taxonomy.tar.gz>`_ 📥

@@ -29,7 +29,7 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 2055881
+   * - 2055882
      - 17223588
 
 

@@ -37,61 +37,61 @@ as in `"Subgraph queries by context-free grammars" <https://researchportal.helsi
      - Size (MB)
      - Download
    * - :ref:`unigraph_1`
-     - 3081
+     - 3082
      - 11966
      - 376578
      - 0.037
      - `unigraph_1.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_1.tar.gz>`_ 📥
    * - :ref:`unigraph_2`
-     - 36467
+     - 36468
      - 168344
-     - 39888347
+     - not available
      - 0.581
      - `unigraph_2.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_2.tar.gz>`_ 📥
    * - :ref:`unigraph_3`
-     - 41332
+     - 41333
      - 193866
-     - 52471840
+     - not available
      - 0.667
      - `unigraph_3.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_3.tar.gz>`_ 📥
    * - :ref:`unigraph_4`
-     - 215480
+     - 215481
      - 1346130
-     - 808091802
+     - not available
      - 4.42
      - `unigraph_4.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_4.tar.gz>`_ 📥
    * - :ref:`unigraph_5`
-     - 243838
+     - 243839
      - 1818404
-     - 2303590109
+     - not available
      - 6.11
      - `unigraph_5.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_5.tar.gz>`_ 📥
    * - :ref:`unigraph_6`
-     - 286644
+     - 286645
      - 1708910
-     - 1722963921
+     - not available
      - 5.74
      - `unigraph_6.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_6.tar.gz>`_ 📥
    * - :ref:`unigraph_7`
-     - 285576
+     - 285577
      - 2073268
-     - 2320964134
+     - not available
      - 6.76
      - `unigraph_7.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_7.tar.gz>`_ 📥
    * - :ref:`unigraph_8`
-     - 449236
+     - 449237
      - 3385168
      - not available
      - 11.07
      - `unigraph_8.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_8.tar.gz>`_ 📥
    * - :ref:`unigraph_9`
-     - 475478
+     - 475479
      - 3579034
      - not available
      - 11.79
      - `unigraph_9.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_9.tar.gz>`_ 📥
    * - :ref:`unigraph_10`
-     - 2055881
+     - 2055882
      - 17223588
      - not available
      - 56.24

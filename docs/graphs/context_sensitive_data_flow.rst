@@ -74,25 +74,25 @@ families), as in `"Taming Transitive Redundancy for Context-Free Language Reacha
    * - :ref:`povray`
      - 346034
      - 581210
-     - 34599413
+     - not available
      - 2.34
      - `povray.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/povray.tar.gz>`_ 📥
    * - :ref:`cactus`
      - 359200
      - 580297
-     - 47806209
+     - not available
      - 2.55
      - `cactus.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/cactus.tar.gz>`_ 📥
    * - :ref:`omnetpp`
      - 463454
      - 958487
-     - 8424500
+     - not available
      - 6.06
      - `omnetpp.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/omnetpp.tar.gz>`_ 📥
    * - :ref:`perlbench`
      - 605864
      - 1114892
-     - 297504186
+     - not available
      - 4.41
      - `perlbench.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/perlbench.tar.gz>`_ 📥
 

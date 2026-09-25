@@ -75,9 +75,9 @@ NOT_AVAILABLE = "not available"
 GRAMMAR_COLUMNS: dict[str, list[tuple[str, Optional[str]]]] = {
     "biological_uniprot": [("grammar", None)],
     "c_alias_analysis": [("c_alias", "c_alias.cnf")],
-    "context_sensitive_data_flow": [("vf", "vf.cnf")],
+    "context_sensitive_data_flow": [("aa", "aa.cnf")],
     "data_provenance": [("prov_derivation", "prov_derivation.cnf")],
-    "field_sensitive_alias": [("aa", "aa.cnf")],
+    "field_sensitive_alias": [("vf", "vf.cnf")],
     "java_points_to": [("java_points_to", "java_points_to.cnf")],
     "name_resolution": [("name_resolution", "name_resolution.cnf")],
     "rdf": [
