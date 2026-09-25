@@ -45,7 +45,7 @@ def _query_dir(
     query.mkdir(parents=True)
     (query / f"{name}{representation}").write_text(
         {
-            ".cnf": "S -> a S | epsilon",
+            ".cnf": "S\ta\tN1\nN1\ta\n\nCount:\nS",
             ".rsm": "S -> a*",
             ".re": "a*",
             ".mcfg": "A(a)\nS(x1) <- A(x1)",
@@ -114,13 +114,21 @@ def test_extra_top_level_entry(tmp_path):
     assert any("'notes.txt'" in p for p in problems)
 
 
-def test_missing_class_dir(tmp_path):
+def test_single_class_dir_missing_is_ok(tmp_path):
     tree = _valid_tree(tmp_path)
     shutil.rmtree(tree / "queries" / "rpq")
 
+    assert validate_archive(tree) == []
+
+
+def test_all_class_dirs_missing(tmp_path):
+    tree = _valid_tree(tmp_path)
+    for cls in ("cfpq", "rpq", "mcfpq"):
+        shutil.rmtree(tree / "queries" / cls)
+
     problems = validate_archive(tree)
 
-    assert any("queries/rpq: missing" in p for p in problems)
+    assert any("at least one class directory is required" in p for p in problems)
 
 
 def test_non_mtx_file_in_graph(tmp_path):
@@ -254,25 +262,37 @@ def test_unparseable_cnf(tmp_path):
     assert any("cannot be parsed as a cfpq query" in p for p in problems)
 
 
-def test_unknown_label(tmp_path):
+def test_inert_label_is_accepted(tmp_path):
+    # A terminal matching no stored label stays inert on materialization;
+    # the query is legal and yields an empty result.
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S -> z | epsilon")
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S\tz\n\nCount:\nS")
 
-    problems = validate_archive(tree)
-
-    assert any("'z' is not a stored label" in p for p in problems)
+    assert validate_archive(tree) == []
 
 
 def test_reversed_label_is_accepted(tmp_path):
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S -> a_r | epsilon")
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S\ta_r\n\nCount:\nS")
+
+    assert validate_archive(tree) == []
+
+
+def test_indexed_placeholder_label_is_accepted(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "graph" / "a.mtx").unlink()
+    (tree / "graph" / "load_0.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n2 2 1\n0 1\n"
+    )
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S\tload_i\n\nCount:\nS")
 
     assert validate_archive(tree) == []
 
 
 def test_query_without_terminals(tmp_path):
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S -> epsilon")
+    (tree / "queries" / "cfpq" / "s" / "s.cnf").write_text("S\tN1\nN1\tS\n\nCount:\nS")
 
     problems = validate_archive(tree)
 
@@ -292,13 +312,15 @@ def test_rsm_representation_is_accepted(tmp_path):
     assert validate_archive(tree) == []
 
 
-def test_rsm_unknown_label(tmp_path):
+def test_rsm_inert_label_is_accepted(tmp_path):
     tree = _valid_tree(tmp_path)
-    (tree / "queries" / "cfpq" / "s" / "t.rsm").write_text("S -> z*")
+    query = _query_dir(tree, "cfpq", "t", ".rsm")
+    (query / "t.rsm").write_text("S -> z*")
+    (tree / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n\n## cfpq/t\n- Language: z*.\n"
+    )
 
-    problems = validate_archive(tree)
-
-    assert any("'z' is not a stored label" in p for p in problems)
+    assert validate_archive(tree) == []
 
 
 def test_unparseable_rsm(tmp_path):

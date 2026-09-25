@@ -27,11 +27,11 @@ import tarfile
 import tempfile
 from typing import Optional, Sequence, Union
 
-from pyformlang.cfg import CFG
 from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
 from cfpq_data.grammars.converters.cfg import cfg_from_rsa
+from cfpq_data.grammars.readwrite.cnf_template import cnf_template_from_text
 from cfpq_data.grammars.readwrite.mcfg import mcfg_from_text
 from cfpq_data.grammars.readwrite.rsa import rsa_from_text
 from cfpq_data.graphs.readwrite.mtx import _MTX_HEADER, graph_from_mtx_dir
@@ -83,7 +83,7 @@ def _query_terminals(path: pathlib.Path) -> set[str]:
     """
     text = path.read_text(encoding="utf-8")
     if path.suffix == ".cnf":
-        cfg = CFG.from_text(text=text)
+        cfg = cnf_template_from_text(text)
         return {symbol.value for symbol in cfg.terminals}
     if path.suffix == ".rsm":
         rsa = rsa_from_text(text)
@@ -228,34 +228,48 @@ def _query_dir_problems(
     return problems
 
 
-def _read_mtx(path: pathlib.Path) -> Optional[tuple[int, int, list[tuple[int, int]]]]:
-    """Parse one Boolean MatrixMarket file into (rows, cols, entries).
+def _mtx_header(path: pathlib.Path) -> Optional[tuple[int, int, int]]:
+    """The (rows, cols, nnz) declared by one Boolean MatrixMarket file.
 
     Returns None when the file does not follow the dataset format (the
-    two-line header, a dimension line, and integer entry lines).
+    two-line header and a dimension line). Streams — only the first lines
+    are read.
     """
-    lines = [
-        line for line in path.read_text(encoding="utf-8").splitlines() if line.strip()
-    ]
-    if len(lines) < 3 or tuple(lines[:2]) != _MTX_HEADER:
-        return None
     try:
-        rows, cols, nnz = (int(value) for value in lines[2].split())
-        entries = [(int(line.split()[0]), int(line.split()[1])) for line in lines[3:]]
-    except ValueError:
+        with open(path, "r", encoding="utf-8") as f:
+            if f.readline().rstrip() != _MTX_HEADER[0]:
+                return None
+            if f.readline().rstrip() != _MTX_HEADER[1]:
+                return None
+            rows, cols, nnz = (int(value) for value in f.readline().split())
+    except (OSError, ValueError):
         return None
-    if len(entries) != nnz:
-        return None
-    return rows, cols, entries
+    return rows, cols, nnz
+
+
+def _mtx_entries(path: pathlib.Path):
+    """Yields the (tail, head) entry pairs of one Boolean MatrixMarket file,
+    streaming line by line (O(1) memory).
+
+    Raises ValueError on a malformed entry line.
+    """
+    with open(path, "r", encoding="utf-8") as f:
+        for _ in range(3):  # the two header lines and the dimension line
+            f.readline()
+        for line in f:
+            if not line.strip():
+                continue
+            parts = line.split()
+            yield int(parts[0]), int(parts[1])
 
 
 def _graph_dimensions(graph_dir: pathlib.Path) -> set[tuple[int, int]]:
     """The declared dimensions of every parseable graph label matrix."""
     dimensions = set()
     for mtx_file in sorted(graph_dir.glob("*.mtx")):
-        parsed = _read_mtx(mtx_file)
-        if parsed is not None:
-            dimensions.add((parsed[0], parsed[1]))
+        header = _mtx_header(mtx_file)
+        if header is not None:
+            dimensions.add((header[0], header[1]))
     return dimensions
 
 
@@ -263,17 +277,24 @@ def _mtx_range_problems(graph_dir: pathlib.Path) -> list[str]:
     """Check that edge endpoints fit the declared matrix dimensions."""
     problems = []
     for mtx_file in sorted(graph_dir.glob("*.mtx")):
-        parsed = _read_mtx(mtx_file)
-        if parsed is None:
+        header = _mtx_header(mtx_file)
+        if header is None:
             continue  # a format problem graph_from_mtx_dir already reports
-        rows, cols, entries = parsed
-        for tail, head in entries:
-            if not 0 <= tail < rows or not 0 <= head < cols:
-                problems.append(
-                    f"graph/{mtx_file.name}: edge ({tail}, {head}) is outside the "
-                    f"declared {rows}x{cols} matrix"
-                )
-                break
+        rows, cols, nnz = header
+        count = 0
+        try:
+            for tail, head in _mtx_entries(mtx_file):
+                count += 1
+                if not 0 <= tail < rows or not 0 <= head < cols:
+                    problems.append(
+                        f"graph/{mtx_file.name}: edge ({tail}, {head}) is outside "
+                        f"the declared {rows}x{cols} matrix"
+                    )
+                    break
+        except ValueError:
+            continue  # a format problem graph_from_mtx_dir already reports
+        if count != nnz:
+            continue  # a format problem graph_from_mtx_dir already reports
     dimensions = _graph_dimensions(graph_dir)
     if len(dimensions) > 1:
         problems.append(
@@ -330,58 +351,6 @@ def _label_problems(graph_dir: pathlib.Path) -> list[str]:
     return problems
 
 
-def _terminal_coverage_problems(
-    graph_dir: pathlib.Path, queries_dir: pathlib.Path
-) -> list[str]:
-    """Check that query terminals are covered by stored labels (or their
-    reverses / indexed forms)."""
-    problems = []
-    stems = {path.stem for path in graph_dir.glob("*.mtx")}
-
-    # Build the set of "valid" terminal patterns:
-    # - every stored label
-    # - the _r reverse of every stored label
-    # - for indexed labels (base_N): the placeholder base_i and base_r_i
-    valid: set[str] = set()
-    indexed_bases: set[str] = set()
-    for stem in stems:
-        valid.add(stem)
-        valid.add(stem + "_r")
-        m = _INDEXED_RE.fullmatch(stem)
-        if m:
-            base = m.group(1)
-            indexed_bases.add(base)
-            valid.add(base + "_i")
-            valid.add(base + "_r_i")
-
-    # Collect terminals from all query files
-    queries_dir_resolved = queries_dir
-    if not queries_dir_resolved.is_dir():
-        return problems
-    for cls_dir in sorted(queries_dir_resolved.iterdir()):
-        if not cls_dir.is_dir() or cls_dir.name not in QUERY_CLASSES:
-            continue
-        for query_dir in sorted(cls_dir.iterdir()):
-            if not query_dir.is_dir():
-                continue
-            for path in sorted(query_dir.iterdir()):
-                if path.suffix not in (".cnf", ".rsm", ".re", ".mcfg"):
-                    continue
-                try:
-                    terminals = _query_terminals(path)
-                except Exception:
-                    continue  # parse error already reported elsewhere
-                for term in sorted(terminals):
-                    if term not in valid:
-                        problems.append(
-                            f"queries/{cls_dir.name}/{query_dir.name}/{path.name}: "
-                            f"terminal {term!r} has no corresponding stored label "
-                            f"(not a stored label, not a _r reverse, not an "
-                            f"indexed form of a stored label family)"
-                        )
-    return problems
-
-
 def _same_dir_consistency_problems(queries_dir: pathlib.Path) -> list[str]:
     """Check that all representations in one query directory use the same
     terminal set (they must define the same language)."""
@@ -430,8 +399,6 @@ def _naming_problems(root: pathlib.Path) -> list[str]:
     queries_dir = root / "queries"
     if graph_dir.is_dir():
         problems.extend(_label_problems(graph_dir))
-    if graph_dir.is_dir() and queries_dir.is_dir():
-        problems.extend(_terminal_coverage_problems(graph_dir, queries_dir))
     if queries_dir.is_dir():
         problems.extend(_same_dir_consistency_problems(queries_dir))
     return problems
@@ -455,26 +422,38 @@ def _results_problems(root: pathlib.Path) -> list[str]:
                 continue
             results = query_dir / "results.mtx"
             rel = f"queries/{cls}/{query_dir.name}/results.mtx"
-            parsed = _read_mtx(results)
-            if parsed is None:
+            header = _mtx_header(results)
+            if header is None:
                 problems.append(
                     f"{rel}: cannot be parsed as a Boolean MatrixMarket file"
                 )
                 continue
-            rows, cols, entries = parsed
+            rows, cols, nnz = header
             if (rows, cols) != expected:
                 problems.append(
                     f"{rel}: must be a {expected[0]}x{expected[1]} matrix "
                     f"(the graph declares {expected[0]}x{expected[1]})"
                 )
                 continue
-            for tail, head in entries:
-                if not 0 <= tail < rows or not 0 <= head < cols:
-                    problems.append(
-                        f"{rel}: entry ({tail}, {head}) is outside the declared "
-                        f"{rows}x{cols} matrix"
-                    )
-                    break
+            count = 0
+            done = False
+            try:
+                for tail, head in _mtx_entries(results):
+                    count += 1
+                    if not 0 <= tail < rows or not 0 <= head < cols:
+                        problems.append(
+                            f"{rel}: entry ({tail}, {head}) is outside the "
+                            f"declared {rows}x{cols} matrix"
+                        )
+                        done = True
+                        break
+            except ValueError:
+                problems.append(
+                    f"{rel}: cannot be parsed as a Boolean MatrixMarket file"
+                )
+                done = True
+            if not done and count != nnz:
+                problems.append(f"{rel}: declares {nnz} entries but has {count}")
     return problems
 
 
@@ -513,12 +492,12 @@ def _rsm_recurses(rsa: RSA) -> bool:
     return False
 
 
-def _query_problems(root: pathlib.Path, stored: Optional[set[str]] = None) -> list[str]:
-    """Check that queries parse, use only own labels, and are all described.
-
-    When ``stored`` is None (a partial archive has no graph), the label
-    check is skipped — it runs once the queries are merged into the graph.
-    """
+def _query_problems(root: pathlib.Path) -> list[str]:
+    """Check that queries parse, use at least one terminal, and are all
+    described. A terminal matching no stored label is legal: it stays inert
+    on materialization (see :func:`cfpq_data.materialize`) and the query
+    yields an empty result — the RDF category ships such non-applicable
+    variants."""
     problems = []
     queries_dir = root / "queries"
 
@@ -549,16 +528,6 @@ def _query_problems(root: pathlib.Path, stored: Optional[set[str]] = None) -> li
                 problems.append(
                     f"{where}: uses no terminal (an empty query is meaningless)"
                 )
-            if stored is not None:
-                for terminal in sorted(terminals):
-                    reversed_of = terminal[:-2] if terminal.endswith("_r") else None
-                    if terminal not in stored and (
-                        reversed_of is None or reversed_of not in stored
-                    ):
-                        problems.append(
-                            f"{where}: label {terminal!r} is not a stored "
-                            "label of this graph"
-                        )
             if cls == "rpq" and path.suffix == ".rsm":
                 try:
                     rsa = rsa_from_text(path.read_text(encoding="utf-8"))
@@ -591,7 +560,7 @@ def _validate_root(root: pathlib.Path, partial: bool = False) -> list[str]:
         problems = _partial_skeleton_problems(root)
         if problems:
             return problems  # the deeper checks are meaningless without the skeleton
-        problems.extend(_query_problems(root, stored=None))
+        problems.extend(_query_problems(root))
         return problems
     problems = _skeleton_problems(root)
     if problems:
@@ -603,11 +572,7 @@ def _validate_root(root: pathlib.Path, partial: bool = False) -> list[str]:
     problems.extend(_mtx_range_problems(root / "graph"))
     problems.extend(_results_problems(root))
     problems.extend(_readme_problems(root))
-    problems.extend(
-        _query_problems(
-            root, stored={path.stem for path in (root / "graph").glob("*.mtx")}
-        )
-    )
+    problems.extend(_query_problems(root))
     problems.extend(_naming_problems(root))
     return problems
 
