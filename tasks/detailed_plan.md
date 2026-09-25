@@ -24,7 +24,7 @@ Approved model (user decisions):
 
 ## Subtasks
 
-### S1: Introduce issue-based tracking in workflow-management
+### S1: Introduce issue-based tracking in workflow-management [done] 59b0640
 
 **Code:** `.opencode/skills/workflow-management/SKILL.md`, plus this plan file
 **Tests:** skip (docs-only)
