@@ -14,7 +14,7 @@ docs, and package code.
 
 ## Subtasks
 
-### S1: Extend check_archive_structure.py with naming rules [in_progress]
+### S1: Extend check_archive_structure.py with naming rules [done]
 
 - Add `_label_problems(graph_dir)`: no `bar`/`rev` components; indexed-reversed
   order must be `<base>_r_<N>`; no stored reverses (if `L.mtx` exists,
@@ -31,7 +31,7 @@ docs, and package code.
 - Verify: run checker on a local archive (bzip) — should pass structure,
   flag naming issues if any.
 
-### S2: Fix local CNF naming [pending]
+### S2: Fix local CNF naming [done]
 
 - `avrora/grammar/java_points_to.cnf`: replace bare `load`→`load_i`,
   `store`→`store_i`, `load_r`→`load_r_i`, `store_r`→`store_r_i`; update
@@ -39,7 +39,7 @@ docs, and package code.
 - Same for `eclipse/grammar/java_points_to.cnf`.
 - Verify all other local .cnf/.rsm files use unified naming.
 
-### S3: Build rebuild script + restructure all 113 archives [pending]
+### S3: Build rebuild script + restructure all 113 archives [done]
 
 Script logic (per graph):
 1. Download `5.0.0/graph/<name>.tar.gz` from S3.
@@ -63,7 +63,7 @@ Script logic (per graph):
 8. Validate with extended checker.
 9. Pack as `<name>.tar.gz`.
 
-### S4: Compute results.mtx via oracle (< 30s pairs) [pending]
+### S4: Compute results.mtx via oracle (< 30s pairs) [done]
 
 For each graph×query pair in reference with elapsed < 30s AND status=ok:
 1. Build `.g` file (forward + auto-reverse, indexed label expansion).
@@ -74,14 +74,14 @@ For each graph×query pair in reference with elapsed < 30s AND status=ok:
 
 For pairs >= 30s or status != ok: write stub results.mtx (header, 0 entries).
 
-### S5: Drift report [pending]
+### S5: Drift report [done]
 
 Compare all computed counts against reference_answers.csv. Output
 `drift_report.csv`: graph, query, ref_count, new_count, delta, explanation.
 Expected drift: 20 swap-fix pairs + 2 java_points_to pairs. Flag any
 unexpected drift.
 
-### S6: Upload to S3 + cleanup [pending]
+### S6: Upload to S3 + cleanup [done]
 
 1. Upload all 113 .tar.gz to `s3://cfpq-data/6.0.0/graph/`.
 2. Delete `6.0.0/grammar/` and `6.0.0/benchmark/` objects.
@@ -91,7 +91,7 @@ unexpected drift.
 4. Config: remove GRAMMARS_DIR, BENCHMARKS_DIR.
 5. Docs: remove grammar example links, benchmark refs; update URLs to 6.0.0.
 
-### S7: [FOLLOW-UP — separate task] Fill results.mtx for big graphs [pending]
+### S7: [FOLLOW-UP — separate task] Fill results.mtx for big graphs [moved to Task 58]
 
 All stub pairs (elapsed >= 30s or OOM/timeout). May need increased Docker
 memory, parallel execution, or algorithm changes.
