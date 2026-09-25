@@ -11,8 +11,9 @@ step.
 
 ## Core Rules
 
-- Log all tasks to `tasks/tasks.md`. Use the description exactly as the user
-  provided it — minimal changes, only splitting and numbering.
+- Log all tasks as GitHub issues with the `task` label (`gh issue create`).
+  Use the description exactly as the user provided it — minimal changes, only
+  splitting and numbering. The task ID is the issue number.
 - Do tasks strictly **one at a time**. Each task gets its own feature branch,
   its own detailed plan, and its own merge to `dev`. Never combine multiple
   tasks in a single feature branch.
@@ -27,16 +28,23 @@ step.
 
 ## Working Loop
 
-0. If the user requests multiple tasks at once, first create a global plan in
-   `tasks/global_plan.md` (see the `planning` skill) before proceeding.
+0. If the user requests multiple tasks at once, first create one issue per
+   task, then create a global plan in `tasks/global_plan.md` referencing the
+   issue numbers (see the `planning` skill) before proceeding.
 1. Ensure user-defined tasks, the global plan, and project architecture are
    aligned.
-2. Choose exactly ONE task that is not yet done.
+2. Choose exactly ONE open `task`-labeled issue that is not yet done: a task
+   is done when its subtask commits are on `dev`
+   (`git log dev --format=%s | grep -cE '\(<N>-S[0-9]+\):'` > 0, where N is
+   the issue number). List candidates with
+   `gh issue list --label task --state open`.
 3. Create a feature branch from `dev` for this single task (branching model:
    the "Contribution guidelines" section of `docs/developer.rst`; procedure:
    `git-workflow`).
 4. Generate a detailed plan in `tasks/detailed_plan.md`, decomposing the task
-   into atomic subtasks (see `planning`).
+   into atomic subtasks (see `planning`), then post it as a comment on the
+   task issue; the first line of the comment is the marker
+   `<!-- detailed-plan -->`.
 5. Load the `subtask-loop` skill, then execute each subtask using its cycle.
 5a. Verify all subtasks are complete and unblocked. Check
     `tasks/detailed_plan.md`:
@@ -61,7 +69,8 @@ step.
    your changes; fix every failure and re-run until PASS. Then merge the
    feature branch to `dev` (see `git-workflow`). Verify
    `git branch --show-current` is `dev`.
-8. Mark the task `[done]` in `tasks/tasks.md` — see the Task Completeness
-   Verification in the `subtask-loop` skill (the single source of truth for
-   what "done" means).
+8. Verify the last subtask's commit carries `Closes #<N>` (the task's own
+   issue) as a standalone line — the issue closes when the release lands on
+   `master`. See the Task Completeness Verification in the `subtask-loop`
+   skill (the single source of truth for what "done" means).
 9. Return to step 2.
