@@ -101,7 +101,7 @@ Approved model (user decisions):
 - git-workflow "Issue-closing validation": unconditional for the own issue;
   grep count must be 0 until the last subtask's commit, then exactly K lines.
 
-### S6: Migrate open tasks and archive tasks.md
+### S6: Migrate open tasks and archive tasks.md [done] 651b4f4
 
 **Code:** GitHub (issues), `tasks/tasks.md`
 **Tests:** skip (docs-only)
