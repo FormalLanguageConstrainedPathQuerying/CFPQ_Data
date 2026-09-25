@@ -145,7 +145,8 @@ Requirements:
 
 ## Task Authoring Guidelines
 
-When writing a new task for `tasks/tasks.md`, follow these rules:
+When creating a new task issue (`gh issue create`, label `task`), follow
+these rules (they apply to the issue body):
 
 - **Specify output format upfront**. If the task involves TeX or dot
   visualization, include the exact column layout, math mode conventions, and
@@ -165,4 +166,4 @@ When writing a new task for `tasks/tasks.md`, follow these rules:
 ## Task Completeness Verification
 
 See the `subtask-loop` skill — it is the single source of truth for verifying
-task completion before marking a task `[done]` in `tasks/tasks.md`.
+task completion before a task is considered done.

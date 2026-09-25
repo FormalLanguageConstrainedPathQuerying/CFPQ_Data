@@ -42,7 +42,7 @@ Approved model (user decisions):
 - Step 8: verify the LAST subtask's commit carries `Closes #<N>` (own issue);
   pointer to Task Completeness Verification unchanged.
 
-### S2: Re-point completion semantics in subtask-loop
+### S2: Re-point completion semantics in subtask-loop [done] b0e7c93
 
 **Code:** `.opencode/skills/subtask-loop/SKILL.md`
 **Tests:** skip (docs-only)
