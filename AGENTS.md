@@ -2,7 +2,9 @@
 
 CFPQ_Data is a Python package (`cfpq_data`, Apache-2.0) providing Graphs and
 Grammars for experimental analysis of Context-Free Path Querying (CFPQ)
-algorithms. This file is an entrypoint/TOC only — details live in the skills
+algorithms. It is both the dataset and the tools to support and use it —
+extend, modify, validate.
+This file is an entrypoint/TOC only — details live in the skills
 linked below.
 
 ## Start here
@@ -15,13 +17,16 @@ gate → merge, and points to the other workflow skills below.
 ## Main Principles
 
 * Documentation is about "What" and "Why". Skills are about "How".
-* Docs are the source of truth; skills are thin pointers. A skill references
-  the docs page for the model and keeps only agent-specific operational
-  details (commands, pitfalls, procedures) — it never re-describes what the
-  docs already say. When a topic gains a docs page, slim the overlapping
-  skills to pointers (see `release` → `docs/release.rst`).
 * This file is a short entry point for fast cold errors-free start.
-* Only one source of truth. No duplicates. Each thing (in doth code and documentation) described exactly once. Use generalization (especially for code), cross-references, links, other similar techniques to avoid duplicates and reuse staff.
+* Only one source of truth. No duplicates. Each thing (in both code and documentation) described exactly once. Use generalization (especially for code), cross-references, links, other similar techniques to avoid duplicates and reuse staff.
+* Source-of-truth hierarchy: code, scripts, CI configs > docs. If a fact can
+  be extracted from code or scripts (e.g., CI configs), it is not duplicated
+  in docs. Docs hold only what cannot be unambiguously reconstructed from
+  code: design decisions, non-trivial constraints. Skills stay thin pointers
+  to docs, code, or CI — they never re-describe them.
+* Data archives are self-contained and must align with the checker
+  (`utils/check_archive_structure.py`) — the source of truth for any data
+  structure.
 * Tools, not instructions. If you can do something with existing tool --- do it. No thinking, no long instructions, no manual analysis. You want to analyze code coverage? Just run coverage tool and analyze report. No workaround for regular tasks. If there is a tool for regular task it must be installed and configured appropriately.
 * Always learn, never forget — encode patterns before session ends
 
