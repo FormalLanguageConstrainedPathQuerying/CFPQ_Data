@@ -151,11 +151,12 @@ changelog lags behind dev. User decisions: work #131 on the existing issue
 with the 6.0.0 dataset — preparation only, no version bump (that is task 49);
 benchmark page related stuff stays removed from dev.
 
-- **#131** [bug]: the FSA canonical grammar on `docs/graphs/field_sensitive_alias.rst`
+- **#131** [done]: the FSA canonical grammar on `docs/graphs/field_sensitive_alias.rst`
   does not match the distributed `vf.cnf`/`vf.rsm`: the docs' `a` part
   (`V → A V A | a_r V a`, `A → a M? | ε`) defines a different language than
   the archive's (`V → A_r V | V A`, `A_r → M a_r | a_r | ε`,
-  `A → a M | a | ε`). Fix the docs to match the dataset.
+  `A → a M | a | ε`). Fix the docs to match the dataset. (Also moved the
+  link check out of the local quality gate — CI only — per user guidance.)
 - **#132**: complete the `[Unreleased]` section of CHANGELOG.md with the
   post-5.0.0 changes (MCFG module, CSV columns, RSM transition-system style,
   partial archives/merge tooling, 6.0.0 dataset migration, removal of

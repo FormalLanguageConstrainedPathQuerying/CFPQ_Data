@@ -1,66 +1,64 @@
-# Detailed Plan: Issue #131 — FSA canonical grammar does not match the distributed grammar
+# Detailed Plan: Issue #133 — Align the site with the 6.0.0 dataset
 
 ## Context
 
-The "Canonical grammars" section of `docs/graphs/field_sensitive_alias.rst`
-describes the `vf` query language. The dataset (source of truth) ships the
-query in every 6.0.0 archive as `queries/cfpq/vf/vf.cnf` + `vf.rsm`. The RSM
-block on the page matches `vf.rsm` verbatim, but the CFG math block does not
-match `vf.cnf`:
+dev works towards v6.0 (user decision: preparation only, no version bump —
+that is task 49). The dataset on S3 is at the `6.0.0/graph/` prefix
+(self-contained archives), but the site still points at 5.0.0 artifacts: all
+226 download links (113 per-graph pages + 113 category-table rows) use
+`5.0.0/graph/`, the `Size (MB)` columns reflect 5.0.0 archive sizes, and
+`docs/utils.rst` / `AGENTS.md` carry stale references. The 6.0.0 archives
+have different sizes (e.g. xz_field_sensitive_alias: 27.7 KB -> 536 KB).
 
-- Docs: `V → A V A | f_r_i V f_i | M | a_r V a | ε`, `A → a M? | ε`
-- Archive (`vf.cnf`): `V → A_r V | V A | FV_i f_i | M | ε`,
-  `FV_i → f_r_i V`, `A_r → M a_r | a_r | ε`, `A → a M | a | ε`
-
-The two define different languages (verified by CYK membership check on the
-short paths): `a_r`, `a a`, and `a_r a_r` are accepted by the archive grammar
-and rejected by the docs grammar. The issue (#131) was reported against the
-deployed site, where the page had no reverse symbols at all; dev partially
-fixed it (commit 06ebf6d added `d_r`/`f_r_i` and the correct RSM block) but
-the `a` part is still wrong.
-
-Approved fix (user: work on the existing issue #131, no new one): make the
-docs CFG language-identical to the distributed grammar, keeping the page's
-existing compressed presentation style (the archive's helper nonterminals
-`DV`/`FV_i` are inlined exactly as `M → d_r V d` and `f_r_i V f_i` already
-are). The RSM block is already correct and stays untouched.
+Scope per the issue: re-point links, refresh sizes via the existing tool,
+update the two stale reference spots, and keep benchmark page related stuff
+removed (no re-introduction; historical changelog entries and flpq.rst design
+references stay; LICENSE-DATA.txt keeps "benchmarks" because the
+4.0.0/benchmark/ data is still distributed). The old-graphs table links to
+`4.0.0/graph/` and stays untouched.
 
 ## Subtasks
 
-### S1: Fix the canonical grammar math block [done] 60f30b7
+### S1: Re-point all download links to 6.0.0/graph/ [pending]
 
-**Code:** none (docs-only task)
-**Tests:** skip code tests; run `utils/check_math_snippets.py` and the docs
-build (quality gate) to prove the new math renders
-**Docs:** `docs/graphs/field_sensitive_alias.rst` — the "Canonical grammars"
-math block
-
-**Spec:**
-- Replace the math block with the productions of the distributed grammar in
-  the page's compressed style:
-  - `M → d_r V d` (unchanged)
-  - `V → A_r V | V A | f_r_i V f_i | M | ε`
-  - `A_r → M a_r | a_r | ε`
-  - `A → a M | a | ε`
-- Keep the surrounding text ("Productions with index i ...", "Reversed edges
-  (a_r, d_r, f_r_i) are auto-generated from forward edges.") and the RSM
-  block unchanged.
-
-### S2: Move the link check out of the local quality gate [done] 77877a5
-
-**Code:** none (instructions only)
-**Tests:** skip (no code)
-**Docs:** `docs/developer.rst` ("Quality gate" + "Docs build and deploy"),
-`.opencode/skills/quality-gates/SKILL.md`, `docs/README.md` ("Check links")
+**Code:** none (docs-only)
+**Tests:** skip (no code); verify with a grep that no `5.0.0/graph` link
+remains in docs/graphs/ and that the old-graphs table still points at 4.0.0
+**Docs:** `docs/graphs/data/*.rst` (113 "Direct download" links) and
+`docs/graphs/*.rst` (8 category tables, 113 "Download" links)
 
 **Spec:**
-- User guidance (verbatim on the issue): the local link check is too slow
-  (network-bound, rate-limited retries), so it runs in CI only.
-- The gate keeps its four local components (tests, style/lint, type check,
-  docs build); the link check becomes a CI-only requirement: the "Check
-  links" step of `.github/workflows/docs.yml` must be green for the branch
-  before merge.
-- `docs/developer.rst` is the source of truth for the gate composition; the
-  quality-gates skill and docs/README.md stay thin pointers consistent with
-  it. The S1 commit was reworded so this (last) subtask's commit carries
-  `Fixes #131`.
+- Replace every `https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/`
+  with `https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/` in the 121
+  files (226 links). No other text changes.
+
+### S2: Refresh the Size (MB) columns against the 6.0.0 archives [pending]
+
+**Code:** none (tool-driven docs update)
+**Tests:** `utils/archive_sizes.py` check mode must pass after the update
+**Docs:** the `Size (MB)` cells of the eight category tables in
+`docs/graphs/*.rst` (the tool rewrites only drifted cells)
+
+**Spec:**
+- Run `uv run python utils/archive_sizes.py --update` (anonymous HTTP HEAD
+  against the public bucket; no credentials).
+- Verify with check mode (exit 0) and inspect the diff: only size cells of
+  the 6.0.0-re-pointed tables change; the old-graphs (4.0.0) table is
+  untouched.
+
+### S3: Update stale prefix references in docs/utils.rst and AGENTS.md [pending]
+
+**Code:** none (docs-only)
+**Tests:** skip (no code); docs build green
+**Docs:** `docs/utils.rst` (upload key example, archive_sizes coverage
+  description, --audit example), `AGENTS.md` ("Package layout")
+
+**Spec:**
+- `docs/utils.rst`: current-state references move to `6.0.0/graph/` — the
+  upload `--key` example, the archive_sizes coverage sentence ("113 archives
+  at the ... prefix"), and the `--audit --prefix` example. The
+  migrate_gdrive_to_s3 section describes the historical migration (5.0.0) —
+  leave it untouched.
+- `AGENTS.md` "Package layout": the `cfpq_data/dataset/` line still lists
+  download_grammars/download_benchmark (removed in 48-S6); replace with the
+  current API (`download`, `reachable_pairs`).
