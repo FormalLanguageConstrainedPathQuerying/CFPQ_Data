@@ -52,9 +52,9 @@ for all follow-up tasks.
   (re-points `DATASET_URL` at `6.0.0/graph/`; `GRAMMARS_URL`/`BENCHMARK_URL`
   no longer exist — removed in 48-S6). The `cfpq-data` PyPI deprecation shim
   is split into a follow-up task (needs the flpq-data PyPI project first).
-- **Task 50**: Site restructure to the FLPQ hierarchy: per-class sections
-  (CFPQ/RPQ/MCFPQ) with templates/benchmarks/applicable graphs, the shared
-  Graphs section, navigation.
+- **Task 50** (#137): Site restructure to the FLPQ hierarchy: per-class
+  sections (CFPQ/RPQ/MCFPQ) with templates/benchmarks/applicable graphs,
+  the shared Graphs section, navigation.
 - **Task 51** [done]: CI as source of truth for commands: analyze which developer-
   docs and skill content can be replaced with references to the CI workflow
   descriptions; record the per-command decision in the docs; apply it —

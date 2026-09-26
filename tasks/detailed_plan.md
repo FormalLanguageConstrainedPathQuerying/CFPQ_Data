@@ -1,136 +1,130 @@
-# Detailed Plan: Issue #135 — Rename/restructure the package to flpq_data at 6.0.0
+# Detailed Plan: Issue #137 — Restructure the site to the FLPQ hierarchy (per-class query sections)
 
 ## Context
 
-The rename step of the FLPQ extension (design source of truth:
-`docs/flpq.rst`, "Package structure", "API changes", "Dataset layout and
-migration"). The dataset already lives at `6.0.0/graph/` (task 48) and the
-site already points there (#133); this task makes the package match:
+The site step of the FLPQ extension (design source of truth:
+`docs/flpq.rst`, "Site structure"). The package is already `flpq_data` with
+`queries/{cfpq,rpq,mcfpq}/` (#135), the dataset lives at `6.0.0/graph/`
+(task 48), and the site links/sizes already point there (#133). This task
+restructures the Dataset section of the site into the per-class hierarchy:
 
+```text
+Dataset
+├── Graphs           shared catalog (8 categories, 113 pages) — unchanged
+├── CFPQ             grammar templates (4 + indexed grammars) | benchmarks | applicable graphs
+├── RPQ              query templates (regular expressions)    | benchmarks | applicable graphs
+├── MCFPQ            grammar templates (MCFG)                 | benchmarks | applicable graphs
+└── Reachable pairs  per-category tables; flat CSV download
 ```
-flpq_data/
-├── config.py        version, data directories
-├── dataset/         download machinery, registries, reachable pairs
-├── graphs/          unchanged — class-agnostic I/O, generators, utils
-└── queries/         renamed from grammars/
-    ├── cfpq/        generators/, readwrite/{cfg,cnf,cnf_template}, converters/, utils/
-    ├── rpq/         readwrite/{regex,rsa}
-    └── mcfpq/       readwrite/mcfg
-```
 
-Verified current state on dev:
+Current state: the top-level "Grammars" page (`docs/grammars/index.rst`)
+holds one template table with a Class column (4 Context-Free + 2 Regular
+rows) and six template pages under `docs/grammars/data/`;
+`docs/indexed_grammars.rst` is CFPQ-specific; the reachable-pairs page is
+already final (tasks 43/47).
 
-- `grammars/` holds exactly the modules listed above; cross-imports are only
-  `converters/cnf.py -> converters/cfg.py` and `readwrite/cnf.py ->
-  {converters/cnf, readwrite/cfg}` (all CFPQ-side, so they stay inside
-  `queries/cfpq/`).
-- `DATASET_KEY_PREFIX = f"{VERSION[0]}.0.0/graph"` — bumping VERSION to
-  6.0.0 re-points `DATASET_URL` at `6.0.0/graph/` automatically; no separate
-  URL change needed.
-- `GRAMMAR_TEMPLATES` / `GRAMMARS_URL` / `BENCHMARK_URL` were removed in
-  48-S6 — the design's "GRAMMAR_TEMPLATES becomes per-class templates" item
-  is stale (nothing to rename).
-- `download()` always re-downloads (no cache skip), so the version bump
-  cannot be masked by a stale local cache.
-- Files referencing the old names: package (~50 .py), tests (146 files),
-  docs (232 files, incl. autosummary stubs named after module paths),
-  `utils/{audit_archive_names,migrate_gdrive_to_s3,check_archive_structure}.py`,
-  `pyproject.toml` (name/packages/coverage/testpaths), `.gitignore`
-  (`cfpq_data/data`), `.github/workflows/coverage.yml` (`--cov=cfpq_data`),
-  README.rst, AGENTS.md, six skills.
-
-User decision (verbatim on the issue): the cfpq-data PyPI deprecation shim is
-split into a follow-up task — not part of this one.
+User decision: the per-class "applicable graphs" lists are rendered from
+`flpq_data/dataset/reachable_pairs.csv` — the registry where one row exists
+per applicable graph×query pair (155 cfpq rows covering all 113 graphs;
+rpq/mcfpq rows arrive with data) — following the
+`utils/reachable_pairs_tables.py` pattern; `utils/merge_archive.py` requires
+a CSV row for every new query directory so the registry cannot drift.
 
 ## Subtasks
 
-### S1: Restructure grammars/ into queries/{cfpq,rpq,mcfpq}/ [done] cab6ccb
+### S1: Per-class section skeleton (move pages, class indexes, benchmarks placeholders) [pending]
 
-**Code:** `git mv` inside `cfpq_data/`: `grammars/generators/` ->
-`queries/cfpq/generators/`; `grammars/readwrite/{cfg,cnf,cnf_template}.py` ->
-`queries/cfpq/readwrite/`; `grammars/readwrite/{regex,rsa}.py` ->
-`queries/rpq/readwrite/`; `grammars/readwrite/mcfg.py` ->
-`queries/mcfpq/readwrite/`; `grammars/converters/` -> `queries/cfpq/converters/`;
-`grammars/utils/` -> `queries/cfpq/utils/`. New `__init__.py`:
-`queries/__init__.py` (star-imports the three classes), one per class, and
-per-class `readwrite/__init__.py` (cfpq: cfg+cnf+cnf_template; rpq: regex+rsa;
-mcfpq: mcfg). Top-level `__init__.py`: `grammars` -> `queries`. Fix the two
-cross-imports and any doctests that name module paths.
-**Tests:** mirror the move: `tests/grammars/{generators,converters,utils}` ->
-`tests/queries/cfpq/...`, `tests/grammars/readwrite/test_{cfg,cnf,cnf_template}.py`
--> `tests/queries/cfpq/readwrite/`, `test_{regex,rsa}_readwrite.py` ->
-`tests/queries/rpq/readwrite/`, `test_mcfg_readwrite.py` ->
-`tests/queries/mcfpq/readwrite/`; fix imports.
-**Docs:** restructure `docs/reference/grammars/` ->
-`docs/reference/queries/{cfpq,rpq,mcfpq}/`: rename the autosummary stubs to
-the new module paths (`automodule:: cfpq_data.queries.<class>....`), regroup
-the four summary pages per class, update `docs/reference/index.rst`.
-
-**Spec:**
-- The flat top-level API is preserved: `from cfpq_data import *` still exposes
-  every function (star-import chain through `queries/__init__.py`).
-- No function names change in this subtask — only module paths.
-
-### S2: Rename the package cfpq_data -> flpq_data [done] b3d81f2
-
-**Code:** `git mv cfpq_data flpq_data`; update every import (package doctests,
-tests, the three utils scripts); `pyproject.toml` (`name = "flpq-data"`,
-`packages = ["flpq_data"]`, coverage source, `testpaths`, keywords);
-`.gitignore` (`cfpq_data/data` -> `flpq_data/data`);
-`.github/workflows/coverage.yml` (`--cov=flpq_data`); the package docstring in
-`flpq_data/__init__.py`.
-**Tests:** mechanical import update across `tests/` (incl.
-`tests/test_py_typed.py`).
-**Docs:** every remaining `cfpq_data` mention under `docs/`: reference stubs
-(dataset/graphs), `docs/conf.py`, the per-graph load snippets, tutorial, about,
-developer guide; the "Until the rename happens" paragraph of `docs/flpq.rst`
-is now stale — rewrite it to state the rename has happened.
-
-**Spec:**
-- The PyPI distribution name becomes `flpq-data`; the repo/site project name
-  stays CFPQ_Data (the site restructure is task 50).
-
-### S3: API renames with deprecated aliases [done] 7456898
-
-**Code:** `flpq_data/dataset/data.py`: `download` -> `download_graph`
-(docstring + doctest updated), `DATASET` -> `GRAPHS`; keep `download` as a
-wrapper that emits `DeprecationWarning` and delegates to `download_graph`, and
-`DATASET = GRAPHS` as a documented alias (a plain constant — no runtime
-warning, since a PEP 562 `__getattr__` would fire during the package's own
-star import); update `__all__`.
-**Tests:** `tests/dataset/test_data.py` switches to `GRAPHS`; new tests:
-`download_graph` is the implementation name, the deprecated `download` emits
-`DeprecationWarning` and returns the same result, `DATASET is GRAPHS`.
-**Docs:** dataset reference stubs renamed to `flpq_data.dataset.GRAPHS.rst` /
-`flpq_data.dataset.download_graph.rst`; `docs/reference/dataset/index.rst`
-autosummary updated.
-
-**Spec:**
-- Importing the package must not emit any warning (warnings only on calling
-  the deprecated function).
-
-### S4: Bump VERSION to 6.0.0 and record the rename in the changelog [done] a901566
-
-**Code:** `config.py` `VERSION = "6.0.0"` + `pyproject.toml` `version =
-"6.0.0"` (the version-sync guard must pass); `DATASET_KEY_PREFIX` then
-derives `6.0.0/graph` and `DATASET_URL` re-points automatically.
-**Tests:** the `download_graph` doctest now fetches from `6.0.0/graph/`
-(verified to exist for all 113 archives); version-sync pre-commit hook green.
-**Docs:** CHANGELOG `[Unreleased]`: a Changed entry (package renamed to
-`flpq_data`, distribution `flpq-data`, `grammars/` restructured into
-`queries/{cfpq,rpq,mcfpq}/`, `DATASET_URL` now serves the 6.0.0 prefix) and a
-Deprecated entry (`download` / `DATASET` aliases for `download_graph` /
-`GRAPHS`).
-
-### S5: Update README, AGENTS.md, and the skills [done] 869d14d
-
-**Code:** none (meta files only)
+**Code:** none (docs only)
 **Tests:** skip (no code); docs build green
-**Docs:** `README.rst` (install/import examples), `AGENTS.md` ("Package
-layout"), `.opencode/skills/{run-tests,add-graph,add-grammar,planning,reusing,
-release}/SKILL.md`, and any remaining `cfpq_data`/`cfpq-data` mentions in
-tracked meta files.
+**Docs:**
+- New `docs/queries/cfpq/index.rst` — "CFPQ" page: intro, template table
+  (the 4 CFPQ templates), toctree (`data/*`, `indexed_grammars`,
+  `benchmarks`).
+- New `docs/queries/rpq/index.rst` — "RPQ" page: intro, template table
+  (reachability, label_star), toctree (`data/*`, `benchmarks`).
+- New `docs/queries/mcfpq/index.rst` — "MCFPQ" page: note that MCFG
+  templates arrive with data (the `.mcfg` format is documented in the
+  reference), toctree (`benchmarks`).
+- Move `docs/grammars/data/{c_alias,dyck,java_points_to,nested_parentheses}.rst`
+  → `docs/queries/cfpq/data/`;
+  `{reachability,label_star}.rst` → `docs/queries/rpq/data/`.
+- Move `docs/indexed_grammars.rst` → `docs/queries/cfpq/indexed_grammars.rst`.
+- New benchmarks placeholder pages `docs/queries/{cfpq,rpq,mcfpq}/benchmarks.rst`.
+- `docs/dataset.rst`: toctree becomes `graphs/index`,
+  `queries/cfpq/index`, `queries/rpq/index`, `queries/mcfpq/index`,
+  `reachable_pairs`; the "How to add a new grammar?" pointer moves here;
+  intro wording updated (Context-Free Path Querying → formal-language
+  queries).
+- Delete `docs/grammars/`.
+- Cross-references: `docs/tutorial.rst` ("described on the
+  :ref:`grammar_templates` page" → the CFPQ page); `docs/flpq.rst` (the two
+  `:ref:`grammar templates <grammar_templates>`` references → the per-class
+  sections).
 
 **Spec:**
-- Skills stay thin pointers — update paths/names only, no re-description.
-- `tasks/tasks.md` is archived history: untouched.
+- Page labels are preserved by the moves (`c_alias`, `dyck`,
+  `java_points-to`, `nested_parentheses`, `reachability`, `label_star`,
+  `indexed_grammars`) so every existing `:ref:` target keeps working; the
+  `grammar_templates` label dies with the old page and its three references
+  are updated.
+- The class-level template tables drop the now-redundant Class column
+  (every row in a section is that class); the per-page Info tables stay
+  unchanged.
+- The MCFPQ index carries no template entries yet — a documented placeholder
+  pointing at the `.mcfg` reference page, not an empty table.
+- The benchmarks placeholder pages state that benchmark data arrives with
+  the benchmark rework (#129); they are linked from each class toctree so
+  the section -> class -> page depth is exercised.
+- `navigation_depth = 3` in `docs/conf.py` already accommodates
+  section -> class -> template: no conf change.
+
+### S2: Applicable-graphs generator from reachable_pairs.csv [pending]
+
+**Code:** New `utils/applicable_graphs.py` — reuses `load_rows`,
+`page_to_graph`, `graph_to_category`, `category_order` from
+`utils/reachable_pairs_tables.py` and `QUERY_CLASSES` from
+`utils/check_archive_structure.py`. Also: the stale "until the per-class
+sections exist (task 50)" note in the `reachable_pairs_tables.py` docstring
+is updated (other classes are rendered on the class pages by this tool).
+**Tests:** New `tests/utils/test_applicable_graphs.py` — rendering for a
+class with rows (cfpq: distinct graphs, category order, graph-page links),
+an empty class (rpq/mcfpq → "no queries yet" line), check mode exits
+non-zero on drift, `--update` rewrites the region; reuse the tmp docs-tree
+fixture pattern of `tests/utils/test_reachable_pairs_tables.py`.
+**Docs:** Marked regions on the three class index pages (rendered by
+`--update`); a new section in `docs/utils.rst` following the
+reachable-pairs section.
+
+**Spec:**
+- One list-table per class page between
+  `.. applicable-graphs:<class>:begin` / `:end` markers (plain reST
+  comments, same convention as `reachable-pairs-tables`): columns Graph
+  (`:ref:` link to the shared graph page) and Category; rows are the
+  distinct graphs with at least one CSV row of that query_class, sorted by
+  category order then graph name.
+- A class without rows renders a single italic "no queries yet" line, so
+  the RPQ/MCFPQ pages stay clean before data arrives.
+- Check mode (default) reports every region disagreeing with the CSV and
+  exits non-zero (commit gate); `--update` rewrites the regions.
+- The CSV stays the single source of truth: a row exists iff the query
+  applies to the graph; this tool only renders, never edits the CSV.
+
+### S3: merge_archive.py requires a CSV row for every new query [pending]
+
+**Code:** `utils/merge_archive.py` — after resolving the partial archive and
+before writing anything, verify that every `queries/<class>/<query>`
+directory it would add has at least one `reachable_pairs.csv` row matching
+(graph, query_class); a missing pair fails the merge with a message naming
+the (graph, class) pairs and pointing at the CSV.
+**Tests:** Extend `tests/utils/test_merge_archive.py` — a partial archive
+with a new query directory and no CSV row fails the merge; the same archive
+with the row present succeeds.
+**Docs:** The merge-archive section of `docs/utils.rst` mentions the CSV-row
+requirement.
+
+**Spec:**
+- The check runs before any file is written — the merge stays all-or-nothing
+  (consistent with the existing collision/re-validation behavior).
+- Matching is on (graph, query_class) only; which representation file name
+  goes into the `grammar` column is the contributor's call.
+- Existing rows for the graph are untouched; the tool never edits the CSV.
