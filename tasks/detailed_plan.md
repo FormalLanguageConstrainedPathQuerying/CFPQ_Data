@@ -27,7 +27,7 @@ are). The RSM block is already correct and stays untouched.
 
 ## Subtasks
 
-### S1: Fix the canonical grammar math block [done] a570f53
+### S1: Fix the canonical grammar math block [done] 60f30b7
 
 **Code:** none (docs-only task)
 **Tests:** skip code tests; run `utils/check_math_snippets.py` and the docs
@@ -45,5 +45,22 @@ math block
 - Keep the surrounding text ("Productions with index i ...", "Reversed edges
   (a_r, d_r, f_r_i) are auto-generated from forward edges.") and the RSM
   block unchanged.
-- The commit carries `Fixes #131` as a standalone body line (the task's own
-  issue is the bug being fixed).
+
+### S2: Move the link check out of the local quality gate [done] 77877a5
+
+**Code:** none (instructions only)
+**Tests:** skip (no code)
+**Docs:** `docs/developer.rst` ("Quality gate" + "Docs build and deploy"),
+`.opencode/skills/quality-gates/SKILL.md`, `docs/README.md` ("Check links")
+
+**Spec:**
+- User guidance (verbatim on the issue): the local link check is too slow
+  (network-bound, rate-limited retries), so it runs in CI only.
+- The gate keeps its four local components (tests, style/lint, type check,
+  docs build); the link check becomes a CI-only requirement: the "Check
+  links" step of `.github/workflows/docs.yml` must be green for the branch
+  before merge.
+- `docs/developer.rst` is the source of truth for the gate composition; the
+  quality-gates skill and docs/README.md stay thin pointers consistent with
+  it. The S1 commit was reworded so this (last) subtask's commit carries
+  `Fixes #131`.
