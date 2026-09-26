@@ -78,7 +78,7 @@ Example:
 ```
 ### S1: Add graph generator to CSV export
 
-**Code:** New file `cfpq_data/graphs/generators/labeled_cycle_graph.py`
+**Code:** New file `flpq_data/graphs/generators/labeled_cycle_graph.py`
           with a `labeled_cycle_graph` function
 **Tests:** New `tests/graphs/generators/test_labeled_cycle_graph.py`
           verifying node/edge counts and labels
@@ -160,7 +160,7 @@ these rules (they apply to the issue body):
 - **Specify type genericity**. If a module must handle arbitrary types, state
   it explicitly (e.g., "generic over terminal and nonterminal types").
 - **Specify reuse expectations**. If the task builds on existing infrastructure
-  (e.g., "reuse the labeled graph generators from `cfpq_data/graphs`"), name
+  (e.g., "reuse the labeled graph generators from `flpq_data/graphs`"), name
   the dependencies. This prevents reinvention.
 
 ## Task Completeness Verification

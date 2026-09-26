@@ -28,20 +28,20 @@ Install the released version
 
 Install the current release of ``flpq_data`` with ``pip``::
 
-    pip install cfpq-data
+    pip install flpq-data
 
 To upgrade to a newer release use the ``--upgrade`` flag::
 
-    pip install --upgrade cfpq-data
+    pip install --upgrade flpq-data
 
 If you do not have permission to install software systemwide, you can
 install into your user directory using the ``--user`` flag::
 
-    pip install --user cfpq-data
+    pip install --user flpq-data
 
 Alternatively, you can manually download ``flpq_data`` from
 `GitHub <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/releases>`_  or
-`PyPI <https://pypi.org/project/cfpq-data/>`_.
+`PyPI <https://pypi.org/project/flpq-data/>`_.
 To install one of these versions, unpack it and run the following from the
 top-level source directory using the Terminal::
 

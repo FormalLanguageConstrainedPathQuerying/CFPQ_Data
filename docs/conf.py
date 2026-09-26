@@ -200,7 +200,7 @@ html_theme_options = {
         },
         {
             "name": "PyPI",
-            "url": "https://pypi.org/project/cfpq-data/",
+            "url": "https://pypi.org/project/flpq-data/",
             "icon": "fas fa-box",
         },
     ],

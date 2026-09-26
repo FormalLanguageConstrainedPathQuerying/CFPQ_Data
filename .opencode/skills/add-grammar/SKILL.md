@@ -17,22 +17,25 @@ Fill in every field in the triangle brackets (`<>`) of those templates.
 
 ## Package conventions
 
-Grammar code lives in `cfpq_data/grammars/`:
+Query code lives under `flpq_data/queries/<class>/` (`cfpq`, `rpq`, `mcfpq`):
 
-- `generators/` — template factories (e.g. `dyck_grammar`, `c_alias_grammar`).
-- `readwrite/` — (de)serialization (`cfg_*`, `cnf_*`, `rsa_*`, `regex_*`).
-- `converters/` — conversions between formalisms (`cfg_from_cnf`, ...).
-- `utils/` — helpers (e.g. `change_terminals_in_cfg`).
+- `cfpq/generators/` — template factories (e.g. `dyck_grammar`, `c_alias_grammar`).
+- `cfpq/readwrite/` — (de)serialization (`cfg_*`, `cnf_*`).
+- `cfpq/converters/` — conversions between formalisms (`cfg_from_cnf`, ...).
+- `cfpq/utils/` — helpers (e.g. `change_terminals_in_cfg`).
+- `rpq/readwrite/` — `regex_*`, `rsa_*`.
+- `mcfpq/readwrite/` — lark-based `mcfg_*`.
 
 Each new module must:
 
 1. Define `__all__` listing its public functions.
-2. Export it from the relevant `__init__.py`
-   (`generators/__init__.py`, `readwrite/__init__.py`, etc.).
+2. Export it from the relevant `__init__.py` files up the chain
+   (e.g. `queries/cfpq/readwrite/__init__.py`, then `queries/cfpq/__init__.py`).
 3. Provide numpydoc docstrings with `Examples` (these are run as doctests).
-4. Add a mirroring test under `tests/grammars/<submodule>/test_*.py`.
-5. Add the template name to `GRAMMAR_TEMPLATES` in
-   `cfpq_data/dataset/data.py` if it should be downloadable.
+4. Add a mirroring test under `tests/queries/<class>/<submodule>/test_*.py`.
+
+Templates are not downloadable on their own — the query files they generate
+ship inside each graph archive's `queries/<class>/<query>/` directory.
 
 Use `pyformlang` types (`CFG`, `CNF`, `RSA`, `Regex`) as the interchange
 format. See `.opencode/skills/run-tests` to verify.

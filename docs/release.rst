@@ -8,7 +8,7 @@ Release process
    :Release: |release|
    :Date: |today|
 
-A release publishes two things: the ``cfpq-data`` **package** on PyPI and the
+A release publishes two things: the ``flpq-data`` **package** on PyPI and the
 **dataset** served from Yandex Object Storage. This page describes the model;
 the step-by-step procedure lives in the ``release`` skill.
 
@@ -62,7 +62,7 @@ only on ``v*`` tag pushes (the merge does redeploy the docs site).
 Prerequisites (one-time, owner action)
 --------------------------------------
 
-Publishing requires PyPI access. The ``cfpq-data`` project owners must either:
+Publishing requires PyPI access. The ``flpq-data`` project owners must either:
 
 - configure **Trusted Publishing** on PyPI for this repository and the
   ``publish.yml`` workflow (recommended — no long-lived secret), or

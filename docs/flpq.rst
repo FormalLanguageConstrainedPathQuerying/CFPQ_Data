@@ -351,7 +351,7 @@ hand-maintained in two places.
 Package structure
 -----------------
 
-The package is renamed from ``flpq_data`` to ``flpq_data`` (PyPI
+The package is renamed from ``cfpq_data`` to ``flpq_data`` (PyPI
 distribution ``flpq-data``) at version 6.0.0, and the grammar module gains
 the same query-class level as the site::
 
@@ -385,7 +385,7 @@ Distribution
 The new PyPI project ``flpq-data`` carries version 6.0.0. The existing
 ``cfpq-data`` distribution is published at 6.0.0 as a thin shim that
 depends on ``flpq-data`` and re-exports the old names with
-``DeprecationWarning``, so scripts importing ``flpq_data`` keep working
+``DeprecationWarning``, so scripts importing ``cfpq_data`` keep working
 through one more release.
 
 Dataset layout and migration

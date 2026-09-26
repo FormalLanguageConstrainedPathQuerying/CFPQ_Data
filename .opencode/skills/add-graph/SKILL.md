@@ -1,6 +1,6 @@
 ---
 name: add-graph
-description: Use when adding a new graph to CFPQ_Data. Covers the mtx-per-label archive format, the download()/DATASET wiring, and the PR/issue templates.
+description: Use when adding a new graph to CFPQ_Data. Covers the mtx-per-label archive format, the download_graph()/GRAPHS wiring, and the PR/issue templates.
 ---
 
 # Add a graph to the dataset
@@ -31,12 +31,12 @@ see the "Data format" section of the PR template; it is validated with
 
 ## Wiring a new graph into the code
 
-1. Add the graph name to `DATASET` in `cfpq_data/dataset/data.py`.
+1. Add the graph name to `GRAPHS` in `flpq_data/dataset/data.py`.
 2. The graph archive must be uploaded under the dataset URL
    `https://cfpq-data.storage.yandexcloud.net/{VERSION[0]}.0.0/graph/<name>.tar.gz`.
 3. Loading happens via `download(name)` (which returns the self-contained
    graph directory — graph plus queries) and `graph_from_mtx_dir(path / "graph")`
-   (`cfpq_data/graphs/readwrite/mtx.py`).
+   (`flpq_data/graphs/readwrite/mtx.py`).
 
 ## Documentation
 

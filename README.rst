@@ -7,11 +7,11 @@ CFPQ_Data
 .. image:: https://codecov.io/gh/FormalLanguageConstrainedPathQuerying/CFPQ_Data/branch/master/graph/badge.svg?token=6IAZM6KZT7
    :target: https://codecov.io/gh/FormalLanguageConstrainedPathQuerying/CFPQ_Data
 
-.. image:: https://img.shields.io/pypi/v/cfpq-data.svg
-   :target: https://pypi.org/project/cfpq-data/
+.. image:: https://img.shields.io/pypi/v/flpq-data.svg
+   :target: https://pypi.org/project/flpq-data/
 
-.. image:: https://img.shields.io/pypi/pyversions/cfpq-data.svg
-   :target: https://pypi.org/project/cfpq-data/
+.. image:: https://img.shields.io/pypi/pyversions/flpq-data.svg
+   :target: https://pypi.org/project/flpq-data/
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/ambv/black
@@ -35,7 +35,7 @@ Installation
 
 Install from PyPI with ``pip``::
 
-   pip install cfpq-data
+   pip install flpq-data
 
 Requires Python 3.11–3.13; see the `Install <https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/install.html>`_ page for details.
 
@@ -52,8 +52,8 @@ Dataset content
 
 .. code-block:: python
 
-   >>> import cfpq_data
-   >>> cfpq_data.DATASET[:3]
+   >>> import flpq_data
+   >>> flpq_data.GRAPHS[:3]
    ['skos', 'wc', 'generations']
 
 The full list of graphs, with statistics and download links, is on the
@@ -64,8 +64,8 @@ Load graph from Dataset
 
 .. code-block:: python
 
-   >>> bzip_path = cfpq_data.download("bzip")
-   >>> bzip = cfpq_data.graph_from_mtx_dir(bzip_path / "graph")
+   >>> bzip_path = flpq_data.download_graph("bzip")
+   >>> bzip = flpq_data.graph_from_mtx_dir(bzip_path / "graph")
 
 For developers
 **************

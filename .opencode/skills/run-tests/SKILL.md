@@ -17,7 +17,7 @@ Never run `pytest` or `python -m pytest` with the system interpreter. The
 system Python on this machine has networkx 2.6.2, while the project pins
 `networkx ^3.6.1` (`pyproject.toml`). The edge-count assertions in
 `tests/graphs/generators/test_fast_labeled_binomial_graph.py` and the doctest
-in `cfpq_data/graphs/generators/fast_labeled_binomial_graph.py` depend on
+in `flpq_data/graphs/generators/fast_labeled_binomial_graph.py` depend on
 networkx's version-specific RNG behavior and fail spuriously under 2.6.2
 (91 != 85, 182 != 177, 722 != 711). If a bare-pytest run shows exactly those
 failures, re-run under `uv run` before investigating — the suite is green in

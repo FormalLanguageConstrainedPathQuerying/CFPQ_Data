@@ -1,6 +1,6 @@
 # AGENTS.md
 
-CFPQ_Data is a Python package (`cfpq_data`, Apache-2.0) providing Graphs and
+CFPQ_Data is a Python package (`flpq_data`, Apache-2.0) providing Graphs and
 Grammars for experimental analysis of Context-Free Path Querying (CFPQ)
 algorithms. It is both the dataset and the tools to support and use it —
 extend, modify, validate.
@@ -32,11 +32,13 @@ gate → merge, and points to the other workflow skills below.
 
 ## Package layout
 
-- `cfpq_data/config.py` — version, data directories.
-- `cfpq_data/dataset/` — dataset download (`download`) and reachable-pair
+- `flpq_data/config.py` — version, data directories.
+- `flpq_data/dataset/` — dataset download (`download_graph`) and reachable-pair
   counts (`reachable_pairs`).
-- `cfpq_data/graphs/` — `generators`, `readwrite`, `utils`.
-- `cfpq_data/grammars/` — `generators`, `readwrite`, `converters`, `utils`.
+- `flpq_data/graphs/` — `generators`, `readwrite`, `utils`.
+- `flpq_data/queries/` — per-class query modules: `cfpq/` (`generators`,
+  `readwrite`, `converters`, `utils`), `rpq/` (`readwrite`), `mcfpq/`
+  (`readwrite`).
 - `tests/` mirrors the package structure (pytest + doctests).
 
 ## Skills

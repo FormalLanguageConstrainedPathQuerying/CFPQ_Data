@@ -5,7 +5,7 @@ description: Use when cutting a CFPQ_Data release — bumping the version, final
 
 # Release
 
-Cut a release of the `cfpq-data` package. The model, versioning policy,
+Cut a release of the `flpq-data` package. The model, versioning policy,
 prerequisites, and packaging constraints are documented in `docs/release.rst`
 — do not duplicate them here. Publishing is automated by
 `.github/workflows/publish.yml`: on a `v*` tag push it builds, publishes to
@@ -42,7 +42,7 @@ pre-publishes to TestPyPI as a packaging check.
    ```
 6. The `publish` workflow builds, publishes to PyPI (Trusted Publishing),
    and creates the GitHub Release. Verify both: the package is live on
-   <https://pypi.org/project/cfpq-data/> and the GitHub Release carries the
+   <https://pypi.org/project/flpq-data/> and the GitHub Release carries the
    `[X.Y.Z]` changelog section with the dist artifacts as assets.
 
 ## Recovery
@@ -82,10 +82,10 @@ the release is complete:
 
 3. Upload the dist artifacts — download them from PyPI first so the release
    assets are byte-identical to what was published
-   (`cfpq_data-X.Y.Z-py3-none-any.whl`, `cfpq_data-X.Y.Z.tar.gz`):
+   (`flpq_data-X.Y.Z-py3-none-any.whl`, `flpq_data-X.Y.Z.tar.gz`):
 
    ```bash
-   gh release upload vX.Y.Z cfpq_data-X.Y.Z-py3-none-any.whl cfpq_data-X.Y.Z.tar.gz
+   gh release upload vX.Y.Z flpq_data-X.Y.Z-py3-none-any.whl flpq_data-X.Y.Z.tar.gz
    ```
 
 ## Notes
