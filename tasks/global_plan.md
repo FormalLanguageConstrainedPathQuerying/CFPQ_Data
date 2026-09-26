@@ -138,5 +138,38 @@ for all follow-up tasks.
   `--partial` mode (structure + parse checks; label/dimension checks run
   after the merge), and `utils/merge_archive.py` merges a partial archive
   into the existing one (collision checks, README section append, full
-  re-validation, Drive-URL input). The reachable-pair count of a new query
-  is the number of entries in its `results.mtx` — no separate reference.
+   re-validation, Drive-URL input). The reachable-pair count of a new query
+   is the number of entries in its `results.mtx` — no separate reference.
+
+## Consistency fixes (issues 131–134)
+
+A consistency audit (dataset on S3 = source of truth) found the site
+mid-migration: it describes the 6.0.0 self-contained layout while linking and
+serving 5.0.0 artifacts, one grammar page disagrees with its archive, and the
+changelog lags behind dev. User decisions: work #131 on the existing issue
+(no new one); dev targets v6.0, so all links/references must be consistent
+with the 6.0.0 dataset — preparation only, no version bump (that is task 49);
+benchmark page related stuff stays removed from dev.
+
+- **#131** [bug]: the FSA canonical grammar on `docs/graphs/field_sensitive_alias.rst`
+  does not match the distributed `vf.cnf`/`vf.rsm`: the docs' `a` part
+  (`V → A V A | a_r V a`, `A → a M? | ε`) defines a different language than
+  the archive's (`V → A_r V | V A`, `A_r → M a_r | a_r | ε`,
+  `A → a M | a | ε`). Fix the docs to match the dataset.
+- **#132**: complete the `[Unreleased]` section of CHANGELOG.md with the
+  post-5.0.0 changes (MCFG module, CSV columns, RSM transition-system style,
+  partial archives/merge tooling, 6.0.0 dataset migration, removal of
+  download_grammars/download_benchmark).
+- **#133**: align the site with the 6.0.0 dataset — re-point all download
+  links to `6.0.0/graph/`, refresh `Size (MB)` via `utils/archive_sizes.py`,
+  update `docs/utils.rst` prefix references, fix the stale package-layout
+  line in AGENTS.md; no benchmark page re-introduction.
+- **#134**: remove untracked scratch files (`endpoints`, `test.csv`) and
+  gitignore `test.csv`.
+
+### Dependencies
+
+- All four are independent of each other (disjoint file sets, except #132
+  and #133 both touch the changelog/docs narrative — #133 first so #132 can
+  also record the re-pointing if desired; kept separate to stay atomic).
+- Execution order: #131 → #133 → #132 → #134.
