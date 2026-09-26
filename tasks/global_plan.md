@@ -47,7 +47,7 @@ for all follow-up tasks.
   plan of separate `6.0.0/query/` and `6.0.0/benchmark/` prefixes was
   superseded by the self-contained layout of task 52 and the benchmark
   deferral to #129.)
-- **Task 49** (#135): Package rename/restructure to `flpq_data`:
+- **Task 49** (#135) [done]: Package rename/restructure to `flpq_data`:
   `queries/{cfpq,rpq,mcfpq}`, API renames + deprecated aliases, VERSION 6.0.0
   (re-points `DATASET_URL` at `6.0.0/graph/`; `GRAMMARS_URL`/`BENCHMARK_URL`
   no longer exist — removed in 48-S6). The `cfpq-data` PyPI deprecation shim
