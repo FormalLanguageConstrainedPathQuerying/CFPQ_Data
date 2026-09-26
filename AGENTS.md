@@ -33,8 +33,8 @@ gate → merge, and points to the other workflow skills below.
 ## Package layout
 
 - `cfpq_data/config.py` — version, data directories.
-- `cfpq_data/dataset/` — dataset download (`download`, `download_grammars`,
-  `download_benchmark`).
+- `cfpq_data/dataset/` — dataset download (`download`) and reachable-pair
+  counts (`reachable_pairs`).
 - `cfpq_data/graphs/` — `generators`, `readwrite`, `utils`.
 - `cfpq_data/grammars/` — `generators`, `readwrite`, `converters`, `utils`.
 - `tests/` mirrors the package structure (pytest + doctests).

@@ -32,7 +32,7 @@ Upload to Yandex S3
   cfpq-data bucket).
 - ``--bucket`` — target bucket; default ``cfpq-data``.
 - ``--key`` — object key in the bucket; default is the file name (e.g.
-  ``5.0.0/graph/NAME.tar.gz`` to follow the dataset layout).
+  ``6.0.0/graph/NAME.tar.gz`` to follow the dataset layout).
 
 Before uploading any ``.tar.gz`` the tool validates it as a graph archive
 (:ref:`archive_structure`) and refuses an invalid one; after the upload it
@@ -54,7 +54,7 @@ in sync with the stored archives::
 
 The tool covers every list-table with a ``Download`` column in
 ``docs/graphs/*.rst`` and ``docs/old_graphs/index.rst`` — currently the eight
-per-category tables (113 archives at the ``5.0.0/graph/`` prefix) and the
+per-category tables (113 archives at the ``6.0.0/graph/`` prefix) and the
 old-graphs table (54 archives at the ``4.0.0/graph/`` prefix). For every
 referenced archive it issues an S3 ``HEAD`` request and compares the
 ``Content-Length`` with the table cell, formatted in MB (three decimals below
@@ -71,8 +71,8 @@ Behavior:
   and fixing drifted cells. All-or-nothing: if any archive cannot be fetched,
   nothing is written.
 - **URL keying.** Sizes are keyed by full URL, not archive name: the
-  ``4.0.0`` and ``5.0.0`` prefixes hold same-named archives with different
-  content.
+  ``4.0.0``, ``5.0.0``, and ``6.0.0`` prefixes hold same-named archives with
+  different content.
 
 When adding a new graph, upload it first (:ref:`upload_to_s3` prints the
 verified size), add the table row with that value, and run this tool before
@@ -90,7 +90,7 @@ the :ref:`graphs` page::
    python utils/check_archive_structure.py ARCHIVE.tar.gz
    python utils/check_archive_structure.py UNPACKED_DIR
    python utils/check_archive_structure.py PARTIAL.tar.gz --partial
-   python utils/check_archive_structure.py --audit --prefix 5.0.0/graph/ \
+   python utils/check_archive_structure.py --audit --prefix 6.0.0/graph/ \
        --access-key-id KEY_ID --secret-access-key SECRET
 
 A **partial archive** provides new queries for an existing graph: it contains

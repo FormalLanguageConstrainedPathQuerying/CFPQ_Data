@@ -9,8 +9,8 @@ column linking to the archive on Yandex Object Storage. This tool keeps the
 - ``--update``: fetch all sizes first, then rewrite the tables (inserting
   the column where it is missing).
 
-Sizes are keyed by full URL: the ``4.0.0`` and ``5.0.0`` prefixes hold
-same-named archives with different content.
+Sizes are keyed by full URL: the ``4.0.0``, ``5.0.0``, and ``6.0.0``
+prefixes hold same-named archives with different content.
 
 Usage (from any directory)::
 
