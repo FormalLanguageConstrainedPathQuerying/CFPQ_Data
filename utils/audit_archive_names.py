@@ -17,7 +17,7 @@ from typing import Iterable, Optional, Sequence
 
 import requests
 
-from flpq_data.dataset.data import DATASET, DATASET_URL
+from flpq_data.dataset.data import DATASET_URL, GRAPHS
 
 __all__ = [
     "INDEXED_NAME_RE",
@@ -73,7 +73,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     )
     args = parser.parse_args(argv)
 
-    names = args.names or DATASET
+    names = args.names or GRAPHS
     affected = []
     for name in names:
         url = DATASET_URL + f"{name}.tar.gz"

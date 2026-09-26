@@ -5,6 +5,7 @@ import os
 import pathlib
 import shutil
 import tempfile
+import warnings
 
 import requests
 
@@ -13,6 +14,8 @@ from flpq_data.config import GRAPHS_DIR, VERSION
 __all__ = [
     "DATASET_KEY_PREFIX",
     "DATASET_URL",
+    "GRAPHS",
+    "download_graph",
     "DATASET",
     "download",
 ]
@@ -21,7 +24,7 @@ DATASET_KEY_PREFIX = f"{VERSION[0]}.0.0/graph"
 DATASET_URL = f"https://cfpq-data.storage.yandexcloud.net/{DATASET_KEY_PREFIX}/"
 
 #: All downloadable graphs, served from ``DATASET_URL``.
-DATASET = [
+GRAPHS = [
     "skos",
     "wc",
     "generations",
@@ -138,7 +141,7 @@ DATASET = [
 ]
 
 
-def download(name: str) -> pathlib.Path:
+def download_graph(name: str) -> pathlib.Path:
     """Download graph data from dataset.
 
     The archive is extracted to a directory named after the graph (the
@@ -154,7 +157,7 @@ def download(name: str) -> pathlib.Path:
     Examples
     --------
     >>> from flpq_data import *
-    >>> path = download("generations")
+    >>> path = download_graph("generations")
     >>> path.name
     'generations'
 
@@ -163,7 +166,7 @@ def download(name: str) -> pathlib.Path:
     path : Path
         Path to the directory with the graph data.
     """
-    if name in DATASET:
+    if name in GRAPHS:
         logging.info(f"Found graph with {name=}")
 
         GRAPHS_DIR.mkdir(exist_ok=True, parents=True)
@@ -203,3 +206,22 @@ def download(name: str) -> pathlib.Path:
         return graph
     else:
         raise FileNotFoundError(f"No graph with {name=} found")
+
+
+#: Deprecated alias of :data:`GRAPHS` (renamed in 6.0.0). A plain constant —
+#: a module ``__getattr__`` would fire during the package's own star import.
+DATASET = GRAPHS
+
+
+def download(name: str) -> pathlib.Path:
+    """Deprecated alias of :func:`download_graph`.
+
+    .. deprecated:: 6.0.0
+        Use :func:`download_graph` instead.
+    """
+    warnings.warn(
+        "download() is deprecated, use download_graph() instead",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return download_graph(name)

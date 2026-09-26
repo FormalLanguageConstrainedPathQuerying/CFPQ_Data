@@ -15,5 +15,5 @@ Dataset utilities
 .. autosummary::
    :toctree: generated/
 
-   download
-   DATASET
+   download_graph
+   GRAPHS

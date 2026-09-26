@@ -24,7 +24,7 @@ from upload_to_s3 import (
     upload_file,
 )
 
-from flpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
+from flpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL, GRAPHS
 
 __all__ = [
     "MigrationItem",
@@ -105,7 +105,7 @@ def discover_items(docs_dir: pathlib.Path | str) -> list[MigrationItem]:
         One item per unique Drive file ID. Only the "Direct download"
         archive is considered; "Origin" files (``.txt``, ``.xml.tar.gz``)
         are ignored. The object key name is the rst stem for old-collection
-        graphs (stems in :data:`flpq_data.dataset.DATASET`) and the page's
+        graphs (stems in :data:`flpq_data.dataset.GRAPHS`) and the page's
         "Full Name" otherwise.
     """
     docs_dir = pathlib.Path(docs_dir)
@@ -125,7 +125,7 @@ def discover_items(docs_dir: pathlib.Path | str) -> list[MigrationItem]:
 
             match = FULL_NAME_RE.search(text)
             full_name = match.group(1) if match else rst.stem
-            name = rst.stem if rst.stem in DATASET else full_name
+            name = rst.stem if rst.stem in GRAPHS else full_name
 
             items.append(
                 MigrationItem(

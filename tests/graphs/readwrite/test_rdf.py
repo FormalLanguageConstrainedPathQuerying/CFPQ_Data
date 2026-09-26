@@ -15,7 +15,7 @@ import flpq_data
     ],
 )
 def test_rdf(graph_name):
-    graph_dir = flpq_data.download(graph_name)
+    graph_dir = flpq_data.download_graph(graph_name)
     graph = flpq_data.graph_from_mtx_dir(graph_dir / "graph")
 
     path_rdf = flpq_data.graph_to_rdf(graph, "test.ttl")

@@ -31,13 +31,13 @@ expected_cfg_2 = flpq_data.cfg_from_text(
 )
 
 
-avrora = flpq_data.download("avrora")
+avrora = flpq_data.download_graph("avrora")
 cfg_avrora = flpq_data.java_points_to_grammar_from_graph(
     flpq_data.graph_from_mtx_dir(avrora / "graph")
 )
 expected_productions_count_avrora = 1723
 
-eclipse = flpq_data.download("eclipse")
+eclipse = flpq_data.download_graph("eclipse")
 cfg_eclipse = flpq_data.java_points_to_grammar_from_graph(
     flpq_data.graph_from_mtx_dir(eclipse / "graph")
 )

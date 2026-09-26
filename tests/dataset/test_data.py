@@ -1,7 +1,12 @@
 import pytest
 
 import flpq_data
-from flpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
+from flpq_data.dataset import (
+    DATASET,
+    DATASET_KEY_PREFIX,
+    DATASET_URL,
+    GRAPHS,
+)
 
 
 def test_url_constants():
@@ -11,11 +16,22 @@ def test_url_constants():
     assert flpq_data.__version__ == "5.0.0"
 
 
-def test_dataset():
-    assert len(DATASET) == 113
-    assert len(set(DATASET)) == len(DATASET)
+def test_graphs():
+    assert len(GRAPHS) == 113
+    assert len(set(GRAPHS)) == len(GRAPHS)
 
 
-def test_download_rise():
+def test_dataset_alias():
+    # DATASET is a deprecated alias of GRAPHS (renamed in 6.0.0).
+    assert DATASET is GRAPHS
+
+
+def test_download_graph_rise():
     with pytest.raises(FileNotFoundError):
-        flpq_data.download("")
+        flpq_data.download_graph("")
+
+
+def test_download_deprecated():
+    with pytest.warns(DeprecationWarning, match="download_graph"):
+        with pytest.raises(FileNotFoundError):
+            flpq_data.download("")

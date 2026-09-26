@@ -46,11 +46,11 @@ After the package is imported, we can load the graphs.
 Load graph archive from Dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the archive with the graph using function :obj:`download <flpq_data.dataset.download>`.
+We can load the archive with the graph using function :obj:`download_graph <flpq_data.dataset.download_graph>`.
 
 .. nbplot::
 
-   bzip_path = flpq_data.download("bzip")
+   bzip_path = flpq_data.download_graph("bzip")
 
 Load graph by path
 ^^^^^^^^^^^^^^^^^^
