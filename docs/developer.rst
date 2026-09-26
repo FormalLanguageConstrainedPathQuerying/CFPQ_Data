@@ -149,7 +149,10 @@ setup command lives in :file:`docs/README.md`. Two policies matter:
   do not suppress them.
 - **Full link check.** ``sphinx-build -b linkcheck`` verifies every local
   target and external URL (two documented exceptions in
-  :file:`docs/conf.py`); it exits non-zero on broken or timed-out links.
+  :file:`docs/conf.py`); it exits non-zero on broken or timed-out links. It
+  is network-bound and slow locally (rate-limited retries), so it runs in CI
+  only — the "Check links" step of :file:`.github/workflows/docs.yml` — and
+  is not part of the local quality gate (see "Quality gate").
 - **Resilient inventory fetches.** Intersphinx inventories are fetched with
   retries on transient connection errors (:file:`docs/conf.py`); a persistent
   failure still warns and fails the build.
@@ -240,7 +243,10 @@ no exceptions:
 2. The full pre-commit pass: no errors.
 3. Type checking: ``uv run ty check`` and Pyright both report no errors.
 4. The docs build: exit 0 under the no-warnings policy.
-5. The link check: no broken or timed-out links.
+5. The link check (CI only): the "Check links" step of
+   :file:`.github/workflows/docs.yml` reports no broken or timed-out links.
+   It is network-bound and slow locally (rate-limited retries), so it is not
+   part of the local gate — the branch's CI run must be green before merge.
 
 Merge strategy
 ~~~~~~~~~~~~~~

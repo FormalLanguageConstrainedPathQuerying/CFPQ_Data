@@ -26,10 +26,9 @@ type check, and the docs build:
   `docs/Makefile`): any warning — including an unresolved cross-reference
   under `nitpicky = True` — fails the build, so the exit code is sufficient.
   There are no tolerated warnings; fix them instead of suppressing.
-- **Link check** — see the "Docs build and deploy" section of
-  `docs/developer.rst` (and `docs/README.md`) for the exact command. It must
-  report no broken or timed-out links (the builder exits non-zero on its
-  own; redirects are reported but do not fail the check).
+- **Link check (CI only)** — not part of the local gate: it is network-bound
+  and slow locally (rate-limited retries). The "Check links" step of
+  `.github/workflows/docs.yml` must be green for the branch before merge.
 
 The CI workflows are the source of truth for the commands they run (see
 the "CI as source of truth" section of `docs/developer.rst`); this skill
@@ -45,8 +44,8 @@ only defines the gate semantics.
 3. Run the type check (`uv run ty check`). It must report no errors.
 4. Build the docs ("Docs build and deploy" section of `docs/developer.rst`).
    It must exit 0 (no-warnings policy: any warning fails the build).
-5. Run the link check ("Docs build and deploy" section of
-   `docs/developer.rst`). It must report no broken or timed-out links.
+5. Confirm the branch's CI link check ("Check links" step of
+   `.github/workflows/docs.yml`) is green — it runs in CI only, not locally.
 6. Interpret the result:
    - All clean → **PASS**. Proceed to merge (see `git-workflow`).
    - Any failure → **BLOCKED**.
