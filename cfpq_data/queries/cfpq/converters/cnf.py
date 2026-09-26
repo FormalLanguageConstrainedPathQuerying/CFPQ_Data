@@ -6,7 +6,7 @@ from pyformlang.cfg import CFG, Epsilon
 from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
-from cfpq_data.grammars.converters.cfg import cfg_from_regex, cfg_from_rsa
+from cfpq_data.queries.cfpq.converters.cfg import cfg_from_regex, cfg_from_rsa
 
 __all__ = [
     "cnf_from_cfg",

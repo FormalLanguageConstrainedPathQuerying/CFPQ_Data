@@ -111,8 +111,8 @@ grammar template and a precomputed ``results.mtx`` (see :ref:`graph_file_structu
 The grammar templates themselves are described on the :ref:`grammar_templates` page.
 
 A grammar template may use indexed symbols (e.g. ``load_i``); we materialize it over a
-concrete graph with functions :obj:`cnf_template_from_text <cfpq_data.grammars.readwrite.cnf_template.cnf_template_from_text>`
-and :obj:`materialize <cfpq_data.grammars.readwrite.cnf_template.materialize>`,
+concrete graph with functions :obj:`cnf_template_from_text <cfpq_data.queries.cfpq.readwrite.cnf_template.cnf_template_from_text>`
+and :obj:`materialize <cfpq_data.queries.cfpq.readwrite.cnf_template.materialize>`,
 which expand every index present in the graph edge labels:
 
 .. nbplot::
@@ -145,8 +145,8 @@ Currently, we have one representation of regular grammars:
 Create a regular expression
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For example, a regular expression can be created by using function :obj:`regex_from_text <cfpq_data.grammars.readwrite.regex.regex_from_text>`
-from :ref:`grammars_readwrite`.
+For example, a regular expression can be created by using function :obj:`regex_from_text <cfpq_data.queries.rpq.readwrite.regex.regex_from_text>`
+from :ref:`cfpq_readwrite`.
 
 .. nbplot::
 
@@ -155,7 +155,7 @@ from :ref:`grammars_readwrite`.
 Load regular expression by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the regular expression along the specified path using function :obj:`regex_from_txt <cfpq_data.grammars.readwrite.regex.regex_from_txt>`.
+We can load the regular expression along the specified path using function :obj:`regex_from_txt <cfpq_data.queries.rpq.readwrite.regex.regex_from_txt>`.
 
 .. nbplot::
    path = cfpq_data.regex_to_txt(regex, "test.txt")
@@ -173,8 +173,8 @@ Currently, we have three representations of context-free grammars (CFGs):
 Create a classic context-free grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A classic context-free grammar can be created by using function :obj:`cfg_from_text <cfpq_data.grammars.readwrite.cfg.cfg_from_text>`
-from :ref:`grammars_readwrite`.
+A classic context-free grammar can be created by using function :obj:`cfg_from_text <cfpq_data.queries.cfpq.readwrite.cfg.cfg_from_text>`
+from :ref:`cfpq_readwrite`.
 
 .. nbplot::
 
@@ -183,7 +183,7 @@ from :ref:`grammars_readwrite`.
 Load context-free grammar by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the classic context-free grammar along the specified path using function :obj:`cfg_from_txt <cfpq_data.grammars.readwrite.cfg.cfg_from_txt>`.
+We can load the classic context-free grammar along the specified path using function :obj:`cfg_from_txt <cfpq_data.queries.cfpq.readwrite.cfg.cfg_from_txt>`.
 
 .. nbplot::
    path = cfpq_data.cfg_to_txt(cfg, "test.txt")
@@ -192,7 +192,7 @@ We can load the classic context-free grammar along the specified path using func
 Generate grammar
 ----------------
 
-We can also generate a grammar for specified template using one of the generators in module :ref:`grammars_generators`.
+We can also generate a grammar for specified template using one of the generators in module :ref:`cfpq_generators`.
 
 Generate a Dyck grammar
 ^^^^^^^^^^^^^^^^^^^^^^^

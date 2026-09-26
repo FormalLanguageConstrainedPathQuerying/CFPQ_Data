@@ -7,8 +7,8 @@ from typing import Union
 
 from pyformlang.cfg import CFG, Variable
 
-from cfpq_data.grammars.converters.cnf import cnf_from_cfg
-from cfpq_data.grammars.readwrite.cfg import cfg_from_text
+from cfpq_data.queries.cfpq.converters.cnf import cnf_from_cfg
+from cfpq_data.queries.cfpq.readwrite.cfg import cfg_from_text
 
 __all__ = [
     "cnf_from_text",

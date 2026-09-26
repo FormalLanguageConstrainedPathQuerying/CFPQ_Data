@@ -24,4 +24,4 @@ Reference
 
    dataset/index
    graphs/index
-   grammars/index
+   queries/index

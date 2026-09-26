@@ -83,6 +83,7 @@ instance/
 docs/_build/
 docs/*/generated/*
 docs/*/*/generated/*
+docs/*/*/*/generated/*
 
 # PyBuilder
 target/

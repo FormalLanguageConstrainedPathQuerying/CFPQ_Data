@@ -1,23 +1,19 @@
-.. _grammars_readwrite:
+.. _cfpq_converters:
 
 .. currentmodule:: cfpq_data
 
-****************************
-Reading and writing grammars
-****************************
+******************
+Grammar converters
+******************
 
 .. seealso::
 
     `Pyformlang CFG
     <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_
 
-.. automodule:: cfpq_data.grammars.readwrite
+.. automodule:: cfpq_data.queries.cfpq.converters
 .. autosummary::
    :toctree: generated/
 
    cfg
    cnf
-   cnf_template
-   mcfg
-   rsa
-   regex

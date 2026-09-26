@@ -11,8 +11,8 @@ import logging
 
 from cfpq_data.config import *
 from cfpq_data.dataset import *
-from cfpq_data.grammars import *
 from cfpq_data.graphs import *
+from cfpq_data.queries import *
 
 __version__ = VERSION
 

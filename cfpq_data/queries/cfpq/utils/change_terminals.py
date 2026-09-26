@@ -8,10 +8,10 @@ from pyformlang.cfg import CFG
 from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
-from cfpq_data.grammars.readwrite.cfg import cfg_from_text, cfg_to_text
-from cfpq_data.grammars.readwrite.cnf import cnf_from_text
-from cfpq_data.grammars.readwrite.regex import regex_from_text, regex_to_text
-from cfpq_data.grammars.readwrite.rsa import rsa_from_text, rsa_to_text
+from cfpq_data.queries.cfpq.readwrite.cfg import cfg_from_text, cfg_to_text
+from cfpq_data.queries.cfpq.readwrite.cnf import cnf_from_text
+from cfpq_data.queries.rpq.readwrite.regex import regex_from_text, regex_to_text
+from cfpq_data.queries.rpq.readwrite.rsa import rsa_from_text, rsa_to_text
 
 __all__ = [
     "change_terminals_in_cfg",

@@ -90,7 +90,7 @@ Materializing for non-indexed CFPQ tools
 
 Many CFPQ algorithms (classic inside/outside fixpoint, matrix-based without
 block support) require an **explicit** grammar where every index is spelled
-out. The :func:`cfpq_data.grammars.readwrite.cnf_template.materialize_grammar`
+out. The :func:`cfpq_data.queries.cfpq.readwrite.cnf_template.materialize_grammar`
 function performs this expansion:
 
 .. code-block:: python
