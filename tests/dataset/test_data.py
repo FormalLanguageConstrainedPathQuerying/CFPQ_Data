@@ -11,9 +11,9 @@ from flpq_data.dataset import (
 
 def test_url_constants():
     # The whole dataset lives under the current version prefix.
-    assert DATASET_KEY_PREFIX == "5.0.0/graph"
-    assert DATASET_URL == "https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/"
-    assert flpq_data.__version__ == "5.0.0"
+    assert DATASET_KEY_PREFIX == "6.0.0/graph"
+    assert DATASET_URL == "https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/"
+    assert flpq_data.__version__ == "6.0.0"
 
 
 def test_graphs():

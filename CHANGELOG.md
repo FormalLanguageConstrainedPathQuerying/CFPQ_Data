@@ -39,8 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   unescaped underscore inside a text-mode command group (e.g.
   `\textit{a_b}`) — which previously surfaced only as an error on the
   deployed site while the Sphinx build stayed green.
-- The MCFG readwrite module `cfpq_data/grammars/readwrite/mcfg.py`: a data
-  model for multiple context-free grammars, lark-based parsing of the
+- The MCFG readwrite module `flpq_data/queries/mcfpq/readwrite/mcfg.py`: a
+  data model for multiple context-free grammars, lark-based parsing of the
   Datalog-like `.mcfg` format specified in `docs/flpq.rst`, semantic
   validation (start symbol, dimension and rank), and `mcfg_from_text` /
   `mcfg_to_text` with round-trip guarantees plus `mcfg_from_txt` /
@@ -59,6 +59,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Breaking:** the package is renamed `cfpq_data` -> `flpq_data` (PyPI
+  distribution `flpq-data`) and `grammars/` is restructured into
+  `queries/{cfpq,rpq,mcfpq}/` — the module tree gains the same query-class
+  level as the site, per the FLPQ design in `docs/flpq.rst`. The flat
+  top-level API is unchanged apart from the renames below; import the new
+  names (`from flpq_data import *`).
+- `download(name)` is renamed `download_graph(name)`, and the `DATASET`
+  registry is renamed `GRAPHS`; `DATASET_URL` now serves the `6.0.0/graph/`
+  prefix.
 - Development tooling migrated from Poetry to [uv](https://docs.astral.sh/uv/):
   PEP 621 project metadata with hatchling as the build backend, PEP 735
   dependency groups (`dev`, `test`, `docs`) instead of Poetry groups and the
@@ -73,6 +82,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `queries/<class>/<query>/` (every representation plus one `results.mtx`)
   instead of a separate top-level `grammar/` directory, and the website's
   download links and `Size (MB)` tables point at the new prefix.
+
+### Deprecated
+
+- `download()` and `DATASET`: deprecated aliases of `download_graph()` and
+  `GRAPHS` (renamed in this release); `download()` emits a
+  `DeprecationWarning` on every call. The `cfpq-data` PyPI distribution gets
+  one final shim release depending on `flpq-data` so scripts importing
+  `cfpq_data` keep working through one more release.
 
 ### Removed
 

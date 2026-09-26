@@ -1,6 +1,6 @@
 [project]
 name = "flpq-data"
-version = "5.0.0"
+version = "6.0.0"
 description = "Python package containing Graphs and Grammars for experimental analysis of Context-Free Path Querying algorithms"
 readme = "README.rst"
 license = "Apache-2.0 AND CC-BY-4.0"
