@@ -51,121 +51,121 @@ discovered for each program.
      - 269
      - 156
      - 0.003
-     - `wc.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/wc.tar.gz>`_ 📥
+     - `wc.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/wc.tar.gz>`_ 📥
    * - :ref:`bzip`
      - 632
      - 556
      - 315
      - 0.004
-     - `bzip.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/bzip.tar.gz>`_ 📥
+     - `bzip.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/bzip.tar.gz>`_ 📥
    * - :ref:`pr`
      - 815
      - 692
      - 385
      - 0.004
-     - `pr.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pr.tar.gz>`_ 📥
+     - `pr.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/pr.tar.gz>`_ 📥
    * - :ref:`ls`
      - 1687
      - 1453
      - 854
      - 0.008
-     - `ls.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/ls.tar.gz>`_ 📥
+     - `ls.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/ls.tar.gz>`_ 📥
    * - :ref:`gzip`
      - 2687
      - 2293
      - 1458
      - 0.011
-     - `gzip.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/gzip.tar.gz>`_ 📥
+     - `gzip.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/gzip.tar.gz>`_ 📥
    * - :ref:`apache`
      - 1721418
      - 1510411
      - not available
      - 9.05
-     - `apache.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/apache.tar.gz>`_ 📥
+     - `apache.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/apache.tar.gz>`_ 📥
    * - :ref:`init`
      - 2446224
      - 2112809
      - not available
      - 12.84
-     - `init.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/init.tar.gz>`_ 📥
+     - `init.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/init.tar.gz>`_ 📥
    * - :ref:`mm`
      - 2538243
      - 2191079
      - not available
      - 13.33
-     - `mm.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/mm.tar.gz>`_ 📥
+     - `mm.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/mm.tar.gz>`_ 📥
    * - :ref:`ipc`
      - 3401022
      - 2931498
      - not available
      - 18.01
-     - `ipc.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/ipc.tar.gz>`_ 📥
+     - `ipc.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/ipc.tar.gz>`_ 📥
    * - :ref:`lib`
      - 3401355
      - 2931880
      - not available
      - 18.01
-     - `lib.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/lib.tar.gz>`_ 📥
+     - `lib.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/lib.tar.gz>`_ 📥
    * - :ref:`block`
      - 3423234
      - 2951393
      - not available
      - 18.14
-     - `block.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/block.tar.gz>`_ 📥
+     - `block.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/block.tar.gz>`_ 📥
    * - :ref:`arch`
      - 3448422
      - 2970242
      - not available
      - 18.25
-     - `arch.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/arch.tar.gz>`_ 📥
+     - `arch.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/arch.tar.gz>`_ 📥
    * - :ref:`crypto`
      - 3464970
      - 2988387
      - not available
      - 18.38
-     - `crypto.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/crypto.tar.gz>`_ 📥
+     - `crypto.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/crypto.tar.gz>`_ 📥
    * - :ref:`security`
      - 3479982
      - 3003326
      - not available
      - 18.47
-     - `security.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/security.tar.gz>`_ 📥
+     - `security.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/security.tar.gz>`_ 📥
    * - :ref:`sound`
      - 3528861
      - 3049732
      - not available
      - 18.77
-     - `sound.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/sound.tar.gz>`_ 📥
+     - `sound.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/sound.tar.gz>`_ 📥
    * - :ref:`net`
      - 4039470
      - 3500141
      - not available
      - 21.65
-     - `net.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/net.tar.gz>`_ 📥
+     - `net.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/net.tar.gz>`_ 📥
    * - :ref:`fs`
      - 4177416
      - 3609373
      - not available
      - 22.34
-     - `fs.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/fs.tar.gz>`_ 📥
+     - `fs.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/fs.tar.gz>`_ 📥
    * - :ref:`drivers`
      - 4273803
      - 3707769
      - not available
      - 22.99
-     - `drivers.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/drivers.tar.gz>`_ 📥
+     - `drivers.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/drivers.tar.gz>`_ 📥
    * - :ref:`postgre`
      - 5203419
      - 4678543
      - not available
      - 29.37
-     - `postgre.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/postgre.tar.gz>`_ 📥
+     - `postgre.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/postgre.tar.gz>`_ 📥
    * - :ref:`kernel`
      - 11254434
      - 9484213
      - not available
      - 59.99
-     - `kernel.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/kernel.tar.gz>`_ 📥
+     - `kernel.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/kernel.tar.gz>`_ 📥
 
 Canonical grammars
 ------------------

@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/commons_lang3.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/commons_lang3.tar.gz>`_
    * - Source
      - `commons_lang3 homepage <https://commons.apache.org/lang/>`_
 

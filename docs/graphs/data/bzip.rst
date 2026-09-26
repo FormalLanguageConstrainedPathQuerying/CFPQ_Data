@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/bzip.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/bzip.tar.gz>`_
    * - Source
      - `link <https://www.spec.org/cpu2000/CINT2000/256.bzip2/docs/256.bzip2.html>`_
 

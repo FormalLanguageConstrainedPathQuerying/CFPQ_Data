@@ -35,25 +35,25 @@ scopes.
      - 46322
      - not available
      - 0.240
-     - `jiaozi.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jiaozi.tar.gz>`_ 📥
+     - `jiaozi.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jiaozi.tar.gz>`_ 📥
    * - :ref:`name_resolution_jsonpath`
      - 185421
      - 161488
      - 59764
      - 0.810
-     - `jsonpath.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jsonpath.tar.gz>`_ 📥
+     - `jsonpath.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jsonpath.tar.gz>`_ 📥
    * - :ref:`name_resolution_shattered_pixel_dungeon`
      - 1179205
      - 1017798
      - not available
      - 4.99
-     - `shattered_pixel_dungeon.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/shattered_pixel_dungeon.tar.gz>`_ 📥
+     - `shattered_pixel_dungeon.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/shattered_pixel_dungeon.tar.gz>`_ 📥
    * - :ref:`name_resolution_libgdx`
      - 2571363
      - 2321366
      - not available
      - 11.27
-     - `libgdx.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/libgdx.tar.gz>`_ 📥
+     - `libgdx.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/libgdx.tar.gz>`_ 📥
 
 Canonical grammars
 ------------------
