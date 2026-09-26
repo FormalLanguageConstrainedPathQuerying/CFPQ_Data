@@ -1,6 +1,6 @@
 .. _tutorial:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 Tutorial
 ========
@@ -36,7 +36,7 @@ First you need to import the package.
 
 .. nbplot::
 
-   import cfpq_data
+   import flpq_data
 
 Load graph
 ----------
@@ -46,11 +46,11 @@ After the package is imported, we can load the graphs.
 Load graph archive from Dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the archive with the graph using function :obj:`download <cfpq_data.dataset.download>`.
+We can load the archive with the graph using function :obj:`download <flpq_data.dataset.download>`.
 
 .. nbplot::
 
-   bzip_path = cfpq_data.download("bzip")
+   bzip_path = flpq_data.download("bzip")
 
 Load graph by path
 ^^^^^^^^^^^^^^^^^^
@@ -58,11 +58,11 @@ Load graph by path
 The archive unpacks to a directory with one MatrixMarket file per edge
 label in its ``graph`` subdirectory (see :ref:`graph_file_structure`). We
 can load the graph along the specified path using function
-:obj:`graph_from_mtx_dir <cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
+:obj:`graph_from_mtx_dir <flpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
 
 .. nbplot::
 
-   bzip = cfpq_data.graph_from_mtx_dir(bzip_path / "graph")
+   bzip = flpq_data.graph_from_mtx_dir(bzip_path / "graph")
 
 Create graph
 ------------
@@ -76,29 +76,29 @@ For example, let's create a one cycle graph, with 5 nodes, the edges of which ar
 
 .. nbplot::
 
-    cycle = cfpq_data.labeled_cycle_graph(5, label="a")
+    cycle = flpq_data.labeled_cycle_graph(5, label="a")
 
 Change edges
 ------------
 
-We can change the specified graph labels by using function :obj:`change_edges <cfpq_data.graphs.utils.change_edges>`
+We can change the specified graph labels by using function :obj:`change_edges <flpq_data.graphs.utils.change_edges>`
 from :ref:`graphs_utils`.
 
 .. nbplot::
 
-    new_cycle = cfpq_data.change_edges(cycle, {"a": "b"})
+    new_cycle = flpq_data.change_edges(cycle, {"a": "b"})
 
 Now the labels ``a`` have changed to ``b``.
 
 Add reverse edges
 -----------------
 
-In addition, we can add reverse edges to the graph by using function :obj:`add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`
+In addition, we can add reverse edges to the graph by using function :obj:`add_reverse_edges <flpq_data.graphs.utils.add_reverse_edges>`
 from :ref:`graphs_utils`. This is extremely useful if graph analysis is formulated using such reverse edges.
 
 .. nbplot::
 
-    new_cycle_with_reversed = cfpq_data.add_reverse_edges(new_cycle)
+    new_cycle_with_reversed = flpq_data.add_reverse_edges(new_cycle)
 
 Now, for each edge with label ``a`` this graph contains the reversed edge with label ``a_r``.
 
@@ -111,8 +111,8 @@ grammar template and a precomputed ``results.mtx`` (see :ref:`graph_file_structu
 The grammar templates themselves are described on the :ref:`grammar_templates` page.
 
 A grammar template may use indexed symbols (e.g. ``load_i``); we materialize it over a
-concrete graph with functions :obj:`cnf_template_from_text <cfpq_data.queries.cfpq.readwrite.cnf_template.cnf_template_from_text>`
-and :obj:`materialize <cfpq_data.queries.cfpq.readwrite.cnf_template.materialize>`,
+concrete graph with functions :obj:`cnf_template_from_text <flpq_data.queries.cfpq.readwrite.cnf_template.cnf_template_from_text>`
+and :obj:`materialize <flpq_data.queries.cfpq.readwrite.cnf_template.materialize>`,
 which expand every index present in the graph edge labels:
 
 .. nbplot::
@@ -132,8 +132,8 @@ which expand every index present in the graph edge labels:
             "\n"
             "Count:\n"
             "PT")
-    template = cfpq_data.cnf_template_from_text(text)
-    cfg = cfpq_data.materialize(template, g)
+    template = flpq_data.cnf_template_from_text(text)
+    cfg = flpq_data.materialize(template, g)
 
 Regular grammars
 ----------------
@@ -145,21 +145,21 @@ Currently, we have one representation of regular grammars:
 Create a regular expression
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For example, a regular expression can be created by using function :obj:`regex_from_text <cfpq_data.queries.rpq.readwrite.regex.regex_from_text>`
+For example, a regular expression can be created by using function :obj:`regex_from_text <flpq_data.queries.rpq.readwrite.regex.regex_from_text>`
 from :ref:`cfpq_readwrite`.
 
 .. nbplot::
 
-    regex = cfpq_data.regex_from_text("a (bc|d*)")
+    regex = flpq_data.regex_from_text("a (bc|d*)")
 
 Load regular expression by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the regular expression along the specified path using function :obj:`regex_from_txt <cfpq_data.queries.rpq.readwrite.regex.regex_from_txt>`.
+We can load the regular expression along the specified path using function :obj:`regex_from_txt <flpq_data.queries.rpq.readwrite.regex.regex_from_txt>`.
 
 .. nbplot::
-   path = cfpq_data.regex_to_txt(regex, "test.txt")
-   regex_by_path = cfpq_data.regex_from_txt(path)
+   path = flpq_data.regex_to_txt(regex, "test.txt")
+   regex_by_path = flpq_data.regex_from_txt(path)
 
 Сontext-free grammars
 ---------------------
@@ -173,21 +173,21 @@ Currently, we have three representations of context-free grammars (CFGs):
 Create a classic context-free grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A classic context-free grammar can be created by using function :obj:`cfg_from_text <cfpq_data.queries.cfpq.readwrite.cfg.cfg_from_text>`
+A classic context-free grammar can be created by using function :obj:`cfg_from_text <flpq_data.queries.cfpq.readwrite.cfg.cfg_from_text>`
 from :ref:`cfpq_readwrite`.
 
 .. nbplot::
 
-    cfg = cfpq_data.cfg_from_text("S -> a S b S | a b")
+    cfg = flpq_data.cfg_from_text("S -> a S b S | a b")
 
 Load context-free grammar by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the classic context-free grammar along the specified path using function :obj:`cfg_from_txt <cfpq_data.queries.cfpq.readwrite.cfg.cfg_from_txt>`.
+We can load the classic context-free grammar along the specified path using function :obj:`cfg_from_txt <flpq_data.queries.cfpq.readwrite.cfg.cfg_from_txt>`.
 
 .. nbplot::
-   path = cfpq_data.cfg_to_txt(cfg, "test.txt")
-   cfg_by_path = cfpq_data.cfg_from_txt(path)
+   path = flpq_data.cfg_to_txt(cfg, "test.txt")
+   cfg_by_path = flpq_data.cfg_from_txt(path)
 
 Generate grammar
 ----------------
@@ -201,7 +201,7 @@ For example, let's generate a :ref:`dyck` grammar of the balanced strings with `
 
 .. nbplot::
 
-    dyck_cfg = cfpq_data.dyck_grammar([("a", "b")], eps=False)
+    dyck_cfg = flpq_data.dyck_grammar([("a", "b")], eps=False)
 
 Generate a Java Points-to grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -210,6 +210,6 @@ Also, let's generate a :ref:`java_points-to` grammar for the field-sensitive ana
 
 .. nbplot::
 
-    java_pt_cfg = cfpq_data.java_points_to_grammar(["f0", "f1"])
+    java_pt_cfg = flpq_data.java_points_to_grammar(["f0", "f1"])
 
 .. code-links::

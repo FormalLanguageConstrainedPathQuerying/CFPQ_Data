@@ -1,9 +1,9 @@
 import pytest
 
-import cfpq_data
+import flpq_data
 
-g1 = cfpq_data.labeled_cycle_graph(29)
-g2 = cfpq_data.labeled_cycle_graph(42)
+g1 = flpq_data.labeled_cycle_graph(29)
+g2 = flpq_data.labeled_cycle_graph(42)
 
 
 @pytest.mark.parametrize(

@@ -1,12 +1,12 @@
 import pytest
 
-import cfpq_data
+import flpq_data
 
-cfg_1 = cfpq_data.dyck_grammar([("a", "b"), ("c", "d")])
-expected_cfg_1 = cfpq_data.cfg_from_text("S -> epsilon | a S b S | c S d S")
+cfg_1 = flpq_data.dyck_grammar([("a", "b"), ("c", "d")])
+expected_cfg_1 = flpq_data.cfg_from_text("S -> epsilon | a S b S | c S d S")
 
-cfg_2 = cfpq_data.dyck_grammar([("a", "b"), ("c", "d")], eps=False)
-expected_cfg_2 = cfpq_data.cfg_from_text("S -> a b | c d | a S b S | c S d S")
+cfg_2 = flpq_data.dyck_grammar([("a", "b"), ("c", "d")], eps=False)
+expected_cfg_2 = flpq_data.cfg_from_text("S -> a b | c d | a S b S | c S d S")
 
 
 @pytest.mark.parametrize(

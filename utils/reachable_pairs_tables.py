@@ -1,7 +1,7 @@
 """Keep the reachable-pairs tables in sync with the CSV.
 
 The reference counts live once, in
-``cfpq_data/dataset/reachable_pairs.csv`` (the single source of truth for
+``flpq_data/dataset/reachable_pairs.csv`` (the single source of truth for
 automatic processing); each row carries a ``query_class`` (``cfpq``,
 ``rpq``, or ``mcfpq`` — the names of the ``queries/<class>/`` directories
 in the graph archives). Two renderings are derived from it:
@@ -56,7 +56,7 @@ __all__ = [
     "main",
 ]
 
-REACHABLE_PAIRS_CSV = MAIN_FOLDER / "cfpq_data" / "dataset" / "reachable_pairs.csv"
+REACHABLE_PAIRS_CSV = MAIN_FOLDER / "flpq_data" / "dataset" / "reachable_pairs.csv"
 DOCS_DIR = MAIN_FOLDER / "docs"
 REACHABLE_PAIRS_PAGE = DOCS_DIR / "reachable_pairs.rst"
 

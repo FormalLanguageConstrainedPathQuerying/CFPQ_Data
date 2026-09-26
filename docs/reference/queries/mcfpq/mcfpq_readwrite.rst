@@ -1,12 +1,12 @@
 .. _mcfpq_readwrite:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 ****************************
 Reading and writing grammars
 ****************************
 
-.. automodule:: cfpq_data.queries.mcfpq.readwrite
+.. automodule:: flpq_data.queries.mcfpq.readwrite
 .. autosummary::
    :toctree: generated/
 

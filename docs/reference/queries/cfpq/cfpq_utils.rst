@@ -1,6 +1,6 @@
 .. _cfpq_utils:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 *****************
 Grammar utilities
@@ -11,7 +11,7 @@ Grammar utilities
     `Pyformlang CFG
     <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_
 
-.. automodule:: cfpq_data.queries.cfpq.utils
+.. automodule:: flpq_data.queries.cfpq.utils
 .. autosummary::
    :toctree: generated/
 

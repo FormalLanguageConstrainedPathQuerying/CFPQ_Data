@@ -1,6 +1,6 @@
 .. _queries_rpq:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 *******************
 Regular queries

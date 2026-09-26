@@ -24,7 +24,7 @@ from upload_to_s3 import (
     upload_file,
 )
 
-from cfpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
+from flpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
 
 __all__ = [
     "MigrationItem",
@@ -105,7 +105,7 @@ def discover_items(docs_dir: pathlib.Path | str) -> list[MigrationItem]:
         One item per unique Drive file ID. Only the "Direct download"
         archive is considered; "Origin" files (``.txt``, ``.xml.tar.gz``)
         are ignored. The object key name is the rst stem for old-collection
-        graphs (stems in :data:`cfpq_data.dataset.DATASET`) and the page's
+        graphs (stems in :data:`flpq_data.dataset.DATASET`) and the page's
         "Full Name" otherwise.
     """
     docs_dir = pathlib.Path(docs_dir)
@@ -346,7 +346,7 @@ def migrate(
     when another Drive file claims the same name: that item is stored under
     its docs page stem instead (see :func:`_key_name_for`), keeping both
     archives. Objects are stored under ``DATASET_KEY_PREFIX``
-    (``5.0.0/graph/``), matching :data:`cfpq_data.dataset.DATASET_URL`.
+    (``5.0.0/graph/``), matching :data:`flpq_data.dataset.DATASET_URL`.
 
     For each item (at most one local file on disk at any time):
 

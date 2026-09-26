@@ -1,6 +1,6 @@
 .. _rpq_readwrite:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 ****************************
 Reading and writing grammars
@@ -11,7 +11,7 @@ Reading and writing grammars
     `Pyformlang regular expression
     <https://pyformlang.readthedocs.io/en/latest/modules/regular_expression.html>`_
 
-.. automodule:: cfpq_data.queries.rpq.readwrite
+.. automodule:: flpq_data.queries.rpq.readwrite
 .. autosummary::
    :toctree: generated/
 

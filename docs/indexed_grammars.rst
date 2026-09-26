@@ -90,12 +90,12 @@ Materializing for non-indexed CFPQ tools
 
 Many CFPQ algorithms (classic inside/outside fixpoint, matrix-based without
 block support) require an **explicit** grammar where every index is spelled
-out. The :func:`cfpq_data.queries.cfpq.readwrite.cnf_template.materialize_grammar`
+out. The :func:`flpq_data.queries.cfpq.readwrite.cnf_template.materialize_grammar`
 function performs this expansion:
 
 .. code-block:: python
 
-   from cfpq_data import *
+   from flpq_data import *
    import networkx as nx, pathlib, tempfile
 
    g = nx.MultiDiGraph()

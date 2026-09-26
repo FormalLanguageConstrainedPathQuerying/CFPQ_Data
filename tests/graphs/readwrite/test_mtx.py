@@ -1,7 +1,7 @@
 import networkx as nx
 import pytest
 
-from cfpq_data.graphs.readwrite.mtx import (
+from flpq_data.graphs.readwrite.mtx import (
     filename_to_label,
     graph_from_mtx_dir,
     graph_to_mtx_dir,

@@ -10,7 +10,7 @@ Maintainer tools
 
 The ``utils/`` directory contains maintainer scripts for managing the dataset
 stored on Yandex Object Storage (bucket ``cfpq-data``, S3 API). They are not
-part of the public ``cfpq_data`` package.
+part of the public ``flpq_data`` package.
 
 .. _upload_to_s3:
 
@@ -116,7 +116,7 @@ The checks:
 - **Results.** Every ``results.mtx`` parses as a Boolean pattern matrix with
   the graph's dimensions and in-range entries.
 - **Queries.** Every representation file parses with its class reader (an
-  ``.rsm`` via :obj:`rsa_from_text <cfpq_data.queries.rpq.readwrite.rsa.rsa_from_text>`),
+  ``.rsm`` via :obj:`rsa_from_text <flpq_data.queries.rpq.readwrite.rsa.rsa_from_text>`),
   uses at least one terminal, and uses only labels of its own graph (stored
   or reversed). An ``.rsm`` in ``rpq/`` must be regular — no box transition
   labelled by a nonterminal.
@@ -159,7 +159,7 @@ Reachable pair counts
 ---------------------
 
 ``utils/reachable_pairs_tables.py`` keeps the reachable-pairs renderings in
-sync with ``cfpq_data/dataset/reachable_pairs.csv``, the single source of
+sync with ``flpq_data/dataset/reachable_pairs.csv``, the single source of
 truth for the reference counts (:ref:`reachable_pairs`)::
 
    python utils/reachable_pairs_tables.py [--update]

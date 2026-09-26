@@ -1,6 +1,6 @@
 .. _reference:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 *********
 Reference

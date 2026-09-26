@@ -4,7 +4,7 @@
 Updates, atomically (all files are validated and transformed before any of
 them is written):
 
-* ``cfpq_data/config.py`` -- the canonical ``VERSION``
+* ``flpq_data/config.py`` -- the canonical ``VERSION``
 * ``pyproject.toml``      -- the declared ``version``
 * ``CHANGELOG.md``        -- promotes ``## [Unreleased]`` to a dated release
   section (``## [X.Y.Z] - <date>``) and inserts a fresh empty
@@ -67,7 +67,7 @@ def bump(new_version: str, date: str | None = None) -> dict[str, str]:
 
     changes: dict[str, str] = {}
 
-    config_path = ROOT / "cfpq_data" / "config.py"
+    config_path = ROOT / "flpq_data" / "config.py"
     changes[str(config_path)] = _set_version(
         config_path.read_text(encoding="utf-8"), r"^VERSION\s*=\s*", new_version
     )

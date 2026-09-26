@@ -66,7 +66,7 @@ If you use CFPQ_Data in your work, please cite the repository:
 
 .. code-block:: bibtex
 
-   @misc{cfpq_data,
+   @misc{flpq_data,
      title  = {CFPQ\_Data: Graphs and Grammars for Context-Free Path Querying},
      author = {Abzalov, Vadim and Kovalev, Nikita and Grigorev, Semyon},
      year   = {2026},

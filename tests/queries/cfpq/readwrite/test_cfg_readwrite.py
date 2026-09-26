@@ -3,7 +3,7 @@ import tempfile
 
 import pytest
 
-import cfpq_data
+import flpq_data
 
 grammar_1 = "S -> a S b S\nS -> \n"
 grammar_2 = "S -> a S\nS -> \n"
@@ -17,9 +17,9 @@ grammar_2 = "S -> a S\nS -> \n"
     ],
 )
 def test_cfg_from_text(grammar, expected):
-    cfg = cfpq_data.cfg_from_text(grammar)
+    cfg = flpq_data.cfg_from_text(grammar)
 
-    assert cfpq_data.cfg_to_text(cfg) == expected
+    assert flpq_data.cfg_to_text(cfg) == expected
 
 
 @pytest.mark.parametrize(
@@ -30,9 +30,9 @@ def test_cfg_from_text(grammar, expected):
     ],
 )
 def test_cfg_to_text(grammar, expected):
-    cfg = cfpq_data.cfg_from_text(grammar)
+    cfg = flpq_data.cfg_from_text(grammar)
 
-    actual = set(cfpq_data.cfg_to_text(cfg).splitlines())
+    actual = set(flpq_data.cfg_to_text(cfg).splitlines())
 
     assert actual == expected
 
@@ -47,15 +47,15 @@ def test_cfg_to_text(grammar, expected):
 def test_cfg_from_and_to_txt(grammar):
     (fd, fname) = tempfile.mkstemp()
 
-    cfg_1 = cfpq_data.cfg_from_text(grammar)
+    cfg_1 = flpq_data.cfg_from_text(grammar)
 
-    path = cfpq_data.cfg_to_txt(cfg_1, fname)
+    path = flpq_data.cfg_to_txt(cfg_1, fname)
 
-    cfg_2 = cfpq_data.cfg_from_txt(path)
+    cfg_2 = flpq_data.cfg_from_txt(path)
 
     os.close(fd)
     os.unlink(fname)
 
-    assert set(cfpq_data.cfg_to_text(cfg_1).splitlines()) == set(
-        cfpq_data.cfg_to_text(cfg_2).splitlines()
+    assert set(flpq_data.cfg_to_text(cfg_1).splitlines()) == set(
+        flpq_data.cfg_to_text(cfg_2).splitlines()
     )

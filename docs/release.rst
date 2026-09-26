@@ -16,7 +16,7 @@ Versioning
 ----------
 
 - Versions follow `Semantic Versioning <https://semver.org/>`_.
-- The canonical version is ``VERSION`` in :file:`cfpq_data/config.py`.
+- The canonical version is ``VERSION`` in :file:`flpq_data/config.py`.
   ``pyproject.toml`` must declare the same value; a pre-commit hook
   (``check-version-sync``) and CI fail on a mismatch.
 - Releases are tagged ``vX.Y.Z`` (e.g. ``v5.0.0``). The tag must match the

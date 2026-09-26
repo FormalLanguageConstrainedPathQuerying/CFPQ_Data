@@ -2,13 +2,13 @@ import random
 
 import pytest
 
-import cfpq_data
+import flpq_data
 
 seed = 42
 random.seed(seed)
 
-g1 = cfpq_data.labeled_scale_free_graph(29, seed=seed)
-g2 = cfpq_data.labeled_scale_free_graph(42, seed=seed)
+g1 = flpq_data.labeled_scale_free_graph(29, seed=seed)
+g2 = flpq_data.labeled_scale_free_graph(42, seed=seed)
 
 
 @pytest.mark.parametrize(

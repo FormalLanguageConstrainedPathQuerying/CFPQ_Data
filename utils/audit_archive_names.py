@@ -17,7 +17,7 @@ from typing import Iterable, Optional, Sequence
 
 import requests
 
-from cfpq_data.dataset.data import DATASET, DATASET_URL
+from flpq_data.dataset.data import DATASET, DATASET_URL
 
 __all__ = [
     "INDEXED_NAME_RE",

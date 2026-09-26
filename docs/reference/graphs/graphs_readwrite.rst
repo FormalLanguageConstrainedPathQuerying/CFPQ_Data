@@ -1,6 +1,6 @@
 .. _graphs_readwrite:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 **************************
 Reading and writing graphs
@@ -11,7 +11,7 @@ Reading and writing graphs
     `NetworkX Reading and writing graphs
     <https://networkx.org/documentation/stable/reference/readwrite/index.html>`_
 
-.. automodule:: cfpq_data.graphs.readwrite
+.. automodule:: flpq_data.graphs.readwrite
 .. autosummary::
    :toctree: generated/
 

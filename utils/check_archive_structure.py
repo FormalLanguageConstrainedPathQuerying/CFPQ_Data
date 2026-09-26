@@ -30,11 +30,11 @@ from typing import Optional, Sequence, Union
 from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
 
-from cfpq_data.graphs.readwrite.mtx import _MTX_HEADER, graph_from_mtx_dir
-from cfpq_data.queries.cfpq.converters.cfg import cfg_from_rsa
-from cfpq_data.queries.cfpq.readwrite.cnf_template import cnf_template_from_text
-from cfpq_data.queries.mcfpq.readwrite.mcfg import mcfg_from_text
-from cfpq_data.queries.rpq.readwrite.rsa import rsa_from_text
+from flpq_data.graphs.readwrite.mtx import _MTX_HEADER, graph_from_mtx_dir
+from flpq_data.queries.cfpq.converters.cfg import cfg_from_rsa
+from flpq_data.queries.cfpq.readwrite.cnf_template import cnf_template_from_text
+from flpq_data.queries.mcfpq.readwrite.mcfg import mcfg_from_text
+from flpq_data.queries.rpq.readwrite.rsa import rsa_from_text
 
 __all__ = [
     "MANDATORY_README_SECTIONS",
@@ -495,7 +495,7 @@ def _rsm_recurses(rsa: RSA) -> bool:
 def _query_problems(root: pathlib.Path) -> list[str]:
     """Check that queries parse, use at least one terminal, and are all
     described. A terminal matching no stored label is legal: it stays inert
-    on materialization (see :func:`cfpq_data.materialize`) and the query
+    on materialization (see :func:`flpq_data.materialize`) and the query
     yields an empty result — the RDF category ships such non-applicable
     variants."""
     problems = []

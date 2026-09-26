@@ -49,7 +49,7 @@ then from the repository root::
   must resolve imports from any dependency group — ty/pyright type-check
   ``tests/``, ``docs/conf.py`` and ``utils/``, which import pytest, sphinx
   and boto3.
-- ``uv sync`` also installs ``cfpq_data`` itself (editable) into the project
+- ``uv sync`` also installs ``flpq_data`` itself (editable) into the project
   environment, so no separate install step is needed; ``uv run ...`` executes
   commands inside that environment.
 - The committed :file:`uv.lock` pins every dependency; CI passes ``--frozen``
@@ -63,7 +63,7 @@ Quality checks
 Linting, formatting, and type checking are managed by uv and run through
 ``pre-commit``. The hook list — hygiene checks, the official ``uv-lock`` and
 ruff hooks (check with autofix plus format), a version-sync check that fails
-when :file:`cfpq_data/config.py` and :file:`pyproject.toml` declare different
+when :file:`flpq_data/config.py` and :file:`pyproject.toml` declare different
 versions, and a local ty type check — is defined in
 :file:`.pre-commit-config.yaml`, which is the source of truth; do not
 maintain a copy of it elsewhere.
@@ -89,7 +89,7 @@ the fast local check. The full pass runs on every push and pull request
 (:file:`.github/workflows/lint.yml`).
 
 The package ships a PEP 561 :file:`py.typed` marker, so type checkers in
-downstream projects use the inline annotations of ``cfpq_data`` instead of
+downstream projects use the inline annotations of ``flpq_data`` instead of
 treating it as untyped.
 
 .. _developer-tests:
@@ -123,7 +123,7 @@ broken snippet.
 - Doctest discovery and test paths are configured in ``pyproject.toml``
   (``[tool.pytest.ini_options]``).
 - ``tests/`` mirrors the package layout (e.g. ``tests/graphs/generators/``
-  for ``cfpq_data/graphs/generators/``).
+  for ``flpq_data/graphs/generators/``).
 
 Continuous integration:
 

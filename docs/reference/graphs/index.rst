@@ -1,6 +1,6 @@
 .. _reference_graphs:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 ******
 Graphs

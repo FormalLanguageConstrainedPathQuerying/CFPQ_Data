@@ -3,12 +3,12 @@ import pathlib
 
 import pytest
 
-import cfpq_data
+import flpq_data
 
 seed = 42
 
-g1 = cfpq_data.labeled_two_cycles_graph(42, 29)
-g2 = cfpq_data.labeled_cycle_graph(42)
+g1 = flpq_data.labeled_two_cycles_graph(42, 29)
+g2 = flpq_data.labeled_cycle_graph(42)
 
 
 @pytest.mark.parametrize(
@@ -27,11 +27,11 @@ g2 = cfpq_data.labeled_cycle_graph(42)
     ],
 )
 def test_generate_multiple_source(graph, set_size):
-    actual = cfpq_data.generate_multiple_source(graph, set_size, seed=seed)
+    actual = flpq_data.generate_multiple_source(graph, set_size, seed=seed)
 
     assert len(actual) == set_size
 
-    expected = cfpq_data.generate_multiple_source(graph, set_size, seed=seed)
+    expected = flpq_data.generate_multiple_source(graph, set_size, seed=seed)
 
     assert actual == expected
 
@@ -45,7 +45,7 @@ def test_generate_multiple_source(graph, set_size):
 )
 def test_multiple_source_set_size(incorrect_set_size):
     with pytest.raises(ValueError):
-        cfpq_data.generate_multiple_source(g1, incorrect_set_size, seed=seed)
+        flpq_data.generate_multiple_source(g1, incorrect_set_size, seed=seed)
 
 
 @pytest.mark.parametrize(
@@ -64,11 +64,11 @@ def test_multiple_source_set_size(incorrect_set_size):
     ],
 )
 def test_generate_multiple_source_percent(graph, percent):
-    actual = cfpq_data.generate_multiple_source_percent(graph, percent, seed=seed)
+    actual = flpq_data.generate_multiple_source_percent(graph, percent, seed=seed)
 
     assert len(actual) == int(percent * graph.number_of_nodes() / 100.0)
 
-    expected = cfpq_data.generate_multiple_source_percent(graph, percent, seed=seed)
+    expected = flpq_data.generate_multiple_source_percent(graph, percent, seed=seed)
 
     assert actual == expected
 
@@ -82,7 +82,7 @@ def test_generate_multiple_source_percent(graph, percent):
 )
 def test_multiple_source_percent_bounds(incorrect_percent):
     with pytest.raises(ValueError):
-        cfpq_data.generate_multiple_source_percent(g1, incorrect_percent, seed=seed)
+        flpq_data.generate_multiple_source_percent(g1, incorrect_percent, seed=seed)
 
 
 @pytest.mark.parametrize(
@@ -101,11 +101,11 @@ def test_multiple_source_percent_bounds(incorrect_percent):
     ],
 )
 def test_multiple_source_txt(graph, percent):
-    source_vertices_expected = cfpq_data.generate_multiple_source_percent(
+    source_vertices_expected = flpq_data.generate_multiple_source_percent(
         graph, percent, seed=seed
     )
-    path = cfpq_data.multiple_source_to_txt(source_vertices_expected, "test.txt")
-    source_vertices_actual = cfpq_data.multiple_source_from_txt(path)
+    path = flpq_data.multiple_source_to_txt(source_vertices_expected, "test.txt")
+    source_vertices_actual = flpq_data.multiple_source_from_txt(path)
 
     os.remove("test.txt")
 
@@ -126,7 +126,7 @@ def test_multiple_source_txt_format(incorrect_line):
         dest = pathlib.Path("test.txt").resolve()
 
     with pytest.raises(ValueError):
-        cfpq_data.multiple_source_from_txt(dest)
+        flpq_data.multiple_source_from_txt(dest)
 
     os.remove("test.txt")
 
@@ -139,8 +139,8 @@ def test_multiple_source_txt_format(incorrect_line):
     ],
 )
 def test_multiple_source_result_txt(reachable_pairs):
-    path = cfpq_data.multiple_source_result_to_txt(reachable_pairs, "test.txt")
-    reachable_pairs_actual = cfpq_data.multiple_source_result_from_txt(path)
+    path = flpq_data.multiple_source_result_to_txt(reachable_pairs, "test.txt")
+    reachable_pairs_actual = flpq_data.multiple_source_result_from_txt(path)
 
     os.remove("test.txt")
 
@@ -161,6 +161,6 @@ def test_multiple_source_result_txt_format(incorrect_line):
         dest = pathlib.Path("test.txt").resolve()
 
     with pytest.raises(ValueError):
-        cfpq_data.multiple_source_result_from_txt(dest)
+        flpq_data.multiple_source_result_from_txt(dest)
 
     os.remove("test.txt")

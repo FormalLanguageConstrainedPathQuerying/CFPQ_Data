@@ -81,7 +81,7 @@ exactly the edges with that label::
 
 Node ids are 0-based integers, and the matrix dimensions equal the number of
 nodes. A whole directory is loaded by
-:obj:`graph_from_mtx_dir <cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
+:obj:`graph_from_mtx_dir <flpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
 
 Indexed labels
 ^^^^^^^^^^^^^^
@@ -99,7 +99,7 @@ Reversed edges
 For every edge label ``L`` there is a reversed label ``L_r``: an edge ``(u, v)`` labeled
 ``L`` corresponds to an edge ``(v, u)`` labeled ``L_r``. Reversed edges are
 not stored in the archives; they are derived by
-:obj:`add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`, and the
+:obj:`add_reverse_edges <flpq_data.graphs.utils.add_reverse_edges>`, and the
 "Edges Statistics" tables of the per-graph pages list the stored labels
 only.
 

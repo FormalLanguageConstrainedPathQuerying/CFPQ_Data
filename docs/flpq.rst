@@ -59,7 +59,7 @@ design decision for this class:
 
 - **Format.** An RPQ query is a regular expression in the pyformlang
   ``Regex`` text syntax, stored as a ``.re`` file and read by
-  :obj:`regex_from_text <cfpq_data.queries.rpq.readwrite.regex.regex_from_text>`.
+  :obj:`regex_from_text <flpq_data.queries.rpq.readwrite.regex.regex_from_text>`.
 - **Templates.** As with CFG templates, an RPQ template is a named,
   parameterized regular expression instantiated per graph from its stored
   labels. The designed seed set consists of two canonical queries applicable
@@ -98,7 +98,7 @@ RSMs are the query formalism of the GLL-based CFPQ algorithm [2]_, which
 evaluates EBNF queries natively and was evaluated on this dataset.
 
 Every RSM defines a context-free language, and
-:obj:`cfg_from_rsa <cfpq_data.queries.cfpq.converters.cfg.cfg_from_rsa>` converts
+:obj:`cfg_from_rsa <flpq_data.queries.cfpq.converters.cfg.cfg_from_rsa>` converts
 it to a CFG (each box state becomes a nonterminal, each transition a
 production). An RSM is therefore a valid alternative representation of a
 CFPQ query — and of an RPQ when it is regular: no box transition is labelled
@@ -108,7 +108,7 @@ Format
 ^^^^^^
 
 A ``.rsm`` file uses one of two description styles, selected automatically by
-:obj:`rsa_from_text <cfpq_data.queries.rpq.readwrite.rsa.rsa_from_text>`:
+:obj:`rsa_from_text <flpq_data.queries.rpq.readwrite.rsa.rsa_from_text>`:
 
 - **EBNF style** — one production per line; each production becomes one box::
 
@@ -134,7 +134,7 @@ A ``.rsm`` file uses one of two description styles, selected automatically by
 In both styles an optional ``start: <N>`` line names the start box (``S`` by
 default). Boxes are deterministic — a repeated ``(state, label)`` transition
 is an error. :obj:`rsa_to_text
-<cfpq_data.queries.rpq.readwrite.rsa.rsa_to_text>` emits the EBNF style as the
+<flpq_data.queries.rpq.readwrite.rsa.rsa_to_text>` emits the EBNF style as the
 canonical form, so a transition-system file round-trips to EBNF-style text.
 
 Placement
@@ -351,7 +351,7 @@ hand-maintained in two places.
 Package structure
 -----------------
 
-The package is renamed from ``cfpq_data`` to ``flpq_data`` (PyPI
+The package is renamed from ``flpq_data`` to ``flpq_data`` (PyPI
 distribution ``flpq-data``) at version 6.0.0, and the grammar module gains
 the same query-class level as the site::
 
@@ -363,11 +363,6 @@ the same query-class level as the site::
        ├── cfpq/        existing generators/, readwrite/{cfg,cnf,cnf_template}, converters/, utils/
        ├── rpq/         readwrite/{regex,rsa} moved here; new regex-template generators
        └── mcfpq/       new lark-based mcfg readwrite; generators
-
-Until the rename happens, the MCFG reader lands in
-``cfpq_data/grammars/readwrite/mcfg.py`` — the formalism-based module
-convention already used by ``regex.py`` and ``rsa.py`` — so no global
-rework is needed to start.
 
 API changes
 ^^^^^^^^^^^
@@ -390,7 +385,7 @@ Distribution
 The new PyPI project ``flpq-data`` carries version 6.0.0. The existing
 ``cfpq-data`` distribution is published at 6.0.0 as a thin shim that
 depends on ``flpq-data`` and re-exports the old names with
-``DeprecationWarning``, so scripts importing ``cfpq_data`` keep working
+``DeprecationWarning``, so scripts importing ``flpq_data`` keep working
 through one more release.
 
 Dataset layout and migration

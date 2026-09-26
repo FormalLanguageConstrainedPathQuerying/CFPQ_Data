@@ -1,7 +1,7 @@
 import networkx as nx
 import pytest
 
-from cfpq_data.queries.cfpq.readwrite.cnf_template import (
+from flpq_data.queries.cfpq.readwrite.cnf_template import (
     cnf_template_from_cnf,
     cnf_template_from_text,
     cnf_template_to_cnf,

@@ -1,6 +1,6 @@
 .. _queries_cfpq:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 *********************
 Context-free queries

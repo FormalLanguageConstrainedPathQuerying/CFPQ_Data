@@ -4,14 +4,14 @@ from itertools import product
 
 import pytest
 
-import cfpq_data
+import flpq_data
 
 seed = 42
 random.seed(seed)
 
-g1 = cfpq_data.labeled_binomial_graph(42, 0.42, seed=seed)
-g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed)
-g3 = cfpq_data.graph_from_text(["1 A 2"])
+g1 = flpq_data.labeled_binomial_graph(42, 0.42, seed=seed)
+g2 = flpq_data.labeled_binomial_graph(42, 0.73, seed=seed)
+g3 = flpq_data.graph_from_text(["1 A 2"])
 
 
 @pytest.mark.parametrize(
@@ -28,8 +28,8 @@ g3 = cfpq_data.graph_from_text(["1 A 2"])
     ),
 )
 def test_txt(graph, quoting):
-    path = cfpq_data.graph_to_txt(graph, "test.txt", quoting=quoting)
-    gin = cfpq_data.graph_from_txt(path)
+    path = flpq_data.graph_to_txt(graph, "test.txt", quoting=quoting)
+    gin = flpq_data.graph_from_txt(path)
 
     os.remove("test.txt")
 
@@ -50,9 +50,9 @@ def test_txt(graph, quoting):
     ),
 )
 def test_text(graph, quoting):
-    g = cfpq_data.graph_from_text(graph)
-    text = cfpq_data.graph_to_text(g, quoting=quoting)
-    gin = cfpq_data.graph_from_text(text)
+    g = flpq_data.graph_from_text(graph)
+    text = flpq_data.graph_to_text(g, quoting=quoting)
+    gin = flpq_data.graph_from_text(text)
 
     assert g.number_of_nodes() == gin.number_of_nodes()
     assert g.number_of_edges() == gin.number_of_edges()
@@ -60,4 +60,4 @@ def test_text(graph, quoting):
 
 def test_text_format():
     with pytest.raises(ValueError):
-        cfpq_data.graph_from_text(["1 2 3 4"])
+        flpq_data.graph_from_text(["1 2 3 4"])

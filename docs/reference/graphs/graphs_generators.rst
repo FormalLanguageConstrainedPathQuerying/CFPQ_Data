@@ -1,6 +1,6 @@
 .. _graphs_generators:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 ****************
 Graph generators
@@ -11,7 +11,7 @@ Graph generators
     `NetworkX Graph generators
     <https://networkx.org/documentation/stable/reference/generators.html>`_
 
-.. automodule:: cfpq_data.graphs.generators
+.. automodule:: flpq_data.graphs.generators
 .. autosummary::
    :toctree: generated/
 

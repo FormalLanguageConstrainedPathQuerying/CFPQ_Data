@@ -1,8 +1,8 @@
 import pytest
 from lark.exceptions import UnexpectedInput
 
-import cfpq_data
-from cfpq_data import MCFG, MCFGRule
+import flpq_data
+from flpq_data import MCFG, MCFGRule
 
 # The 2-MCFG(2) for {w1 w2 # w2 w1 | w1, w2 in {0, 1}*} from the
 # literature (docs/flpq.rst, "MCFG grammar format (.mcfg)").
@@ -20,7 +20,7 @@ dimension_1_mcfg = (
 
 
 def test_dyck_2_mcfg_from_text():
-    mcfg = cfpq_data.mcfg_from_text(dyck_2_mcfg)
+    mcfg = flpq_data.mcfg_from_text(dyck_2_mcfg)
 
     assert isinstance(mcfg, MCFG)
     assert mcfg.start_symbol == "S"
@@ -39,7 +39,7 @@ def test_dyck_2_mcfg_from_text():
 
 
 def test_dimension_1_mcfg_from_text():
-    mcfg = cfpq_data.mcfg_from_text(dimension_1_mcfg)
+    mcfg = flpq_data.mcfg_from_text(dimension_1_mcfg)
 
     assert len(mcfg.rules) == 5
     assert mcfg.rules[0] == MCFGRule(head="A", head_args=(("eps",),), body=())
@@ -55,14 +55,14 @@ def test_dimension_1_mcfg_from_text():
 def test_comments_and_blank_lines_are_ignored():
     text = "# a comment\n\nA(eps)\n   # an indented comment\n\nS(x1) <- A(x1)\n"
 
-    mcfg = cfpq_data.mcfg_from_text(text)
+    mcfg = flpq_data.mcfg_from_text(text)
 
     assert len(mcfg.rules) == 2
     assert mcfg.rules[0] == MCFGRule(head="A", head_args=(("eps",),), body=())
 
 
 def test_hash_terminal_in_arguments():
-    mcfg = cfpq_data.mcfg_from_text("S(x1 # x2) <- A(x1, x2)")
+    mcfg = flpq_data.mcfg_from_text("S(x1 # x2) <- A(x1, x2)")
 
     assert mcfg.rules[0] == MCFGRule(
         head="S",
@@ -72,7 +72,7 @@ def test_hash_terminal_in_arguments():
 
 
 def test_lowercase_letter_variables():
-    mcfg = cfpq_data.mcfg_from_text("S(x1 y2 z10) <- A(x1, y2, z10)")
+    mcfg = flpq_data.mcfg_from_text("S(x1 y2 z10) <- A(x1, y2, z10)")
 
     assert mcfg.rules[0] == MCFGRule(
         head="S",
@@ -92,51 +92,51 @@ def test_lowercase_letter_variables():
 )
 def test_inconsistent_arity_raises(text):
     with pytest.raises(ValueError, match="inconsistent arity"):
-        cfpq_data.mcfg_from_text(text)
+        flpq_data.mcfg_from_text(text)
 
 
 def test_duplicate_body_variable_raises():
     with pytest.raises(ValueError, match="not pairwise distinct"):
-        cfpq_data.mcfg_from_text("S(x1 x1) <- A(x1, x1)")
+        flpq_data.mcfg_from_text("S(x1 x1) <- A(x1, x1)")
 
 
 def test_body_variable_missing_from_head_raises():
     with pytest.raises(ValueError, match="dangling"):
-        cfpq_data.mcfg_from_text("S(x1) <- A(x2)")
+        flpq_data.mcfg_from_text("S(x1) <- A(x2)")
 
 
 def test_head_variable_missing_from_body_raises():
     with pytest.raises(ValueError, match="dangling"):
-        cfpq_data.mcfg_from_text("S(x1 x2) <- A(x1)")
+        flpq_data.mcfg_from_text("S(x1 x2) <- A(x1)")
 
 
 def test_head_variable_twice_raises():
     with pytest.raises(ValueError, match="dangling"):
-        cfpq_data.mcfg_from_text("S(x1 x1) <- A(x1)")
+        flpq_data.mcfg_from_text("S(x1 x1) <- A(x1)")
 
 
 def test_eps_in_production_raises():
     with pytest.raises(ValueError, match="'eps' is only allowed in basic rules"):
-        cfpq_data.mcfg_from_text("S(eps x1) <- A(x1)")
+        flpq_data.mcfg_from_text("S(eps x1) <- A(x1)")
 
 
 def test_basic_rule_with_variable_raises():
     with pytest.raises(ValueError, match="dangling"):
-        cfpq_data.mcfg_from_text("A(x1)\nS(x1) <- A(x1)")
+        flpq_data.mcfg_from_text("A(x1)\nS(x1) <- A(x1)")
 
 
 def test_start_symbol_absent_raises():
     with pytest.raises(ValueError, match="does not occur"):
-        cfpq_data.mcfg_from_text("A(eps)")
+        flpq_data.mcfg_from_text("A(eps)")
 
 
 def test_start_symbol_wrong_arity_raises():
     with pytest.raises(ValueError, match="must have arity 1"):
-        cfpq_data.mcfg_from_text("A(eps)\nS(x1, x2) <- A(x1), A(x2)")
+        flpq_data.mcfg_from_text("A(eps)\nS(x1, x2) <- A(x1), A(x2)")
 
 
 def test_custom_start_symbol():
-    mcfg = cfpq_data.mcfg_from_text(
+    mcfg = flpq_data.mcfg_from_text(
         "A(eps)\nS(x1, x2) <- A(x1), A(x2)", start_symbol="A"
     )
 
@@ -144,7 +144,7 @@ def test_custom_start_symbol():
 
 
 def test_dimension_and_rank():
-    mcfg = cfpq_data.mcfg_from_text(dyck_2_mcfg)
+    mcfg = flpq_data.mcfg_from_text(dyck_2_mcfg)
 
     assert mcfg.dimension == 2
     assert mcfg.rank == 2
@@ -152,7 +152,7 @@ def test_dimension_and_rank():
 
 def test_dimension_counts_body_only_nonterminals():
     # S has arity 1; the body-only nonterminal B has arity 2.
-    mcfg = cfpq_data.mcfg_from_text("S(x1 x2) <- B(x1, x2)")
+    mcfg = flpq_data.mcfg_from_text("S(x1 x2) <- B(x1, x2)")
 
     assert mcfg.dimension == 2
     assert mcfg.rank == 1
@@ -160,7 +160,7 @@ def test_dimension_counts_body_only_nonterminals():
 
 def test_empty_text_raises():
     with pytest.raises(ValueError, match="does not occur"):
-        cfpq_data.mcfg_from_text("")
+        flpq_data.mcfg_from_text("")
 
 
 def test_package_exports():
@@ -172,12 +172,12 @@ def test_package_exports():
         "mcfg_to_text",
         "mcfg_to_txt",
     ):
-        assert hasattr(cfpq_data, name)
+        assert hasattr(flpq_data, name)
 
 
 def test_to_text_round_trip():
     for text in (dyck_2_mcfg, dimension_1_mcfg):
-        assert cfpq_data.mcfg_to_text(cfpq_data.mcfg_from_text(text)) == text
+        assert flpq_data.mcfg_to_text(flpq_data.mcfg_from_text(text)) == text
 
 
 def test_to_text_is_canonical():
@@ -185,8 +185,8 @@ def test_to_text_is_canonical():
     text_1 = "A(eps, eps)\nS(x1 y1 # y2 x2) <- A(x1, x2), A(y1, y2)"
     text_2 = "# a comment\n\nA(eps,eps)\nS(x1   y1 # y2 x2) <- A(x1,x2),\nA(y1,y2)"
 
-    assert cfpq_data.mcfg_to_text(cfpq_data.mcfg_from_text(text_1)) == (
-        cfpq_data.mcfg_to_text(cfpq_data.mcfg_from_text(text_2))
+    assert flpq_data.mcfg_to_text(flpq_data.mcfg_from_text(text_1)) == (
+        flpq_data.mcfg_to_text(flpq_data.mcfg_from_text(text_2))
     )
 
 
@@ -194,9 +194,9 @@ def test_from_and_to_txt(tmp_path):
     for text in (dyck_2_mcfg, dimension_1_mcfg):
         path = tmp_path / "grammar.mcfg"
 
-        mcfg_1 = cfpq_data.mcfg_from_text(text)
-        dest = cfpq_data.mcfg_to_txt(mcfg_1, path)
-        mcfg_2 = cfpq_data.mcfg_from_txt(dest)
+        mcfg_1 = flpq_data.mcfg_from_text(text)
+        dest = flpq_data.mcfg_to_txt(mcfg_1, path)
+        mcfg_2 = flpq_data.mcfg_from_txt(dest)
 
         assert dest == path.resolve()
         assert mcfg_2 == mcfg_1
@@ -211,7 +211,7 @@ def test_malformed_syntax_raises():
         "foo",  # stray terminal at the top level
     ):
         try:
-            cfpq_data.mcfg_from_text(text)
+            flpq_data.mcfg_from_text(text)
         except UnexpectedInput:
             pass
         else:

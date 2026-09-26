@@ -20,7 +20,7 @@ from migrate_gdrive_to_s3 import (
     update_docs,
 )
 
-from cfpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL
+from flpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL
 
 
 def _rst_page(full_name: str, direct_fid: str, origin_fid: str | None = None) -> str:

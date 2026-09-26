@@ -10,8 +10,8 @@ def repo(tmp_path, monkeypatch):
     Both ``bump_version.ROOT`` and ``check_version_sync.ROOT`` are redirected
     here so no real file in the repository is ever touched.
     """
-    (tmp_path / "cfpq_data").mkdir()
-    (tmp_path / "cfpq_data" / "config.py").write_text(
+    (tmp_path / "flpq_data").mkdir()
+    (tmp_path / "flpq_data" / "config.py").write_text(
         'VERSION = "5.0.0"\n', encoding="utf-8"
     )
     (tmp_path / "pyproject.toml").write_text(
@@ -28,7 +28,7 @@ def repo(tmp_path, monkeypatch):
 
 def test_bump_updates_all_sources(repo):
     bump_version.bump("5.1.0", date="2026-09-08")
-    assert 'VERSION = "5.1.0"' in (repo / "cfpq_data" / "config.py").read_text()
+    assert 'VERSION = "5.1.0"' in (repo / "flpq_data" / "config.py").read_text()
     assert 'version = "5.1.0"' in (repo / "pyproject.toml").read_text()
     changelog = (repo / "CHANGELOG.md").read_text()
     assert "## [Unreleased]" in changelog
@@ -51,8 +51,8 @@ def test_bump_rejects_bad_semver(repo):
 
 
 def test_bump_rejects_mismatched_sources(tmp_path, monkeypatch):
-    (tmp_path / "cfpq_data").mkdir()
-    (tmp_path / "cfpq_data" / "config.py").write_text(
+    (tmp_path / "flpq_data").mkdir()
+    (tmp_path / "flpq_data" / "config.py").write_text(
         'VERSION = "5.0.0"\n', encoding="utf-8"
     )
     (tmp_path / "pyproject.toml").write_text('version = "9.9.9"\n', encoding="utf-8")
@@ -75,11 +75,11 @@ def test_bump_writes_nothing_when_a_later_step_fails(repo):
     # Drop the [Unreleased] section so the changelog step (the last transform)
     # fails; config.py and pyproject.toml must remain untouched on disk.
     (repo / "CHANGELOG.md").write_text("# Changelog\n", encoding="utf-8")
-    before_config = (repo / "cfpq_data" / "config.py").read_text()
+    before_config = (repo / "flpq_data" / "config.py").read_text()
     before_pyproject = (repo / "pyproject.toml").read_text()
     with pytest.raises(ValueError, match="Unreleased"):
         bump_version.bump("5.1.0")
-    assert (repo / "cfpq_data" / "config.py").read_text() == before_config
+    assert (repo / "flpq_data" / "config.py").read_text() == before_config
     assert (repo / "pyproject.toml").read_text() == before_pyproject
 
 

@@ -1,14 +1,14 @@
 import pytest
 
-import cfpq_data
-from cfpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
+import flpq_data
+from flpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
 
 
 def test_url_constants():
     # The whole dataset lives under the current version prefix.
     assert DATASET_KEY_PREFIX == "5.0.0/graph"
     assert DATASET_URL == "https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/"
-    assert cfpq_data.__version__ == "5.0.0"
+    assert flpq_data.__version__ == "5.0.0"
 
 
 def test_dataset():
@@ -18,4 +18,4 @@ def test_dataset():
 
 def test_download_rise():
     with pytest.raises(FileNotFoundError):
-        cfpq_data.download("")
+        flpq_data.download("")

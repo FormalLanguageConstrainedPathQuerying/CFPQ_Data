@@ -1,4 +1,4 @@
-from cfpq_data.dataset import REACHABLE_PAIRS_CSV, reachable_pairs
+from flpq_data.dataset import REACHABLE_PAIRS_CSV, reachable_pairs
 
 
 def test_csv_exists():

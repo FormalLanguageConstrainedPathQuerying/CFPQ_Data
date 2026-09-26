@@ -1,9 +1,9 @@
 import pytest
 
-import cfpq_data
+import flpq_data
 
-cfg_1 = cfpq_data.java_points_to_grammar(["0"])
-expected_cfg_1 = cfpq_data.cfg_from_text(
+cfg_1 = flpq_data.java_points_to_grammar(["0"])
+expected_cfg_1 = flpq_data.cfg_from_text(
     """S -> PTh alloc
     PTh -> epsilon
     PTh -> assign PTh
@@ -15,8 +15,8 @@ expected_cfg_1 = cfpq_data.cfg_from_text(
     Al -> S FT"""
 )
 
-cfg_2 = cfpq_data.java_points_to_grammar(["0", "1"])
-expected_cfg_2 = cfpq_data.cfg_from_text(
+cfg_2 = flpq_data.java_points_to_grammar(["0", "1"])
+expected_cfg_2 = flpq_data.cfg_from_text(
     """S -> PTh alloc
     PTh -> epsilon
     PTh -> assign PTh
@@ -31,15 +31,15 @@ expected_cfg_2 = cfpq_data.cfg_from_text(
 )
 
 
-avrora = cfpq_data.download("avrora")
-cfg_avrora = cfpq_data.java_points_to_grammar_from_graph(
-    cfpq_data.graph_from_mtx_dir(avrora / "graph")
+avrora = flpq_data.download("avrora")
+cfg_avrora = flpq_data.java_points_to_grammar_from_graph(
+    flpq_data.graph_from_mtx_dir(avrora / "graph")
 )
 expected_productions_count_avrora = 1723
 
-eclipse = cfpq_data.download("eclipse")
-cfg_eclipse = cfpq_data.java_points_to_grammar_from_graph(
-    cfpq_data.graph_from_mtx_dir(eclipse / "graph")
+eclipse = flpq_data.download("eclipse")
+cfg_eclipse = flpq_data.java_points_to_grammar_from_graph(
+    flpq_data.graph_from_mtx_dir(eclipse / "graph")
 )
 expected_productions_count_eclipse = 1525
 

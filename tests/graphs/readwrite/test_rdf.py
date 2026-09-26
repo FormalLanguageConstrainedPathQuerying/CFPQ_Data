@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-import cfpq_data
+import flpq_data
 
 
 @pytest.mark.parametrize(
@@ -15,11 +15,11 @@ import cfpq_data
     ],
 )
 def test_rdf(graph_name):
-    graph_dir = cfpq_data.download(graph_name)
-    graph = cfpq_data.graph_from_mtx_dir(graph_dir / "graph")
+    graph_dir = flpq_data.download(graph_name)
+    graph = flpq_data.graph_from_mtx_dir(graph_dir / "graph")
 
-    path_rdf = cfpq_data.graph_to_rdf(graph, "test.ttl")
-    graph_rdf = cfpq_data.graph_from_rdf(path_rdf)
+    path_rdf = flpq_data.graph_to_rdf(graph, "test.ttl")
+    graph_rdf = flpq_data.graph_from_rdf(path_rdf)
 
     os.remove("test.ttl")
 
@@ -28,9 +28,9 @@ def test_rdf(graph_name):
 
 
 def test_nodes():
-    tmp = cfpq_data.graph_from_text(["1 A 2"])
-    path = cfpq_data.graph_to_rdf(tmp, "test.ttl")
-    g = cfpq_data.graph_from_rdf(path)
+    tmp = flpq_data.graph_from_text(["1 A 2"])
+    path = flpq_data.graph_to_rdf(tmp, "test.ttl")
+    g = flpq_data.graph_from_rdf(path)
 
     os.remove("test.ttl")
 

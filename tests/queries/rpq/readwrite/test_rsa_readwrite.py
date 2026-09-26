@@ -1,6 +1,6 @@
 import pytest
 
-import cfpq_data
+import flpq_data
 
 grammar_1 = "S -> a b"
 grammar_2 = "S -> a"
@@ -33,8 +33,8 @@ transition_system_3 = (
     ],
 )
 def test_rsa_from_text(grammar, expected):
-    rsa = cfpq_data.rsa_from_text(grammar)
-    cfg_from_rsa = cfpq_data.cfg_from_rsa(rsa)
+    rsa = flpq_data.rsa_from_text(grammar)
+    cfg_from_rsa = flpq_data.cfg_from_rsa(rsa)
 
     for word in expected:
         if word is not None:
@@ -51,9 +51,9 @@ def test_rsa_from_text(grammar, expected):
     ],
 )
 def test_rsa_to_text(grammar, expected):
-    rsa = cfpq_data.rsa_from_text(grammar)
+    rsa = flpq_data.rsa_from_text(grammar)
 
-    actual = set(cfpq_data.rsa_to_text(rsa).splitlines())
+    actual = set(flpq_data.rsa_to_text(rsa).splitlines())
 
     assert actual.issubset(expected)
 
@@ -67,8 +67,8 @@ def test_rsa_to_text(grammar, expected):
     ],
 )
 def test_rsa_from_text_transition_system(text, expected):
-    rsa = cfpq_data.rsa_from_text(text)
-    cfg = cfpq_data.cfg_from_rsa(rsa)
+    rsa = flpq_data.rsa_from_text(text)
+    cfg = flpq_data.cfg_from_rsa(rsa)
 
     for word in expected:
         assert cfg.contains(word)
@@ -83,8 +83,8 @@ def test_rsa_from_text_transition_system(text, expected):
     ],
 )
 def test_rsa_from_text_transition_system_rejects(text, rejected):
-    rsa = cfpq_data.rsa_from_text(text)
-    cfg = cfpq_data.cfg_from_rsa(rsa)
+    rsa = flpq_data.rsa_from_text(text)
+    cfg = flpq_data.cfg_from_rsa(rsa)
 
     for word in rejected:
         assert not cfg.contains(word)
@@ -99,10 +99,10 @@ def test_rsa_from_text_transition_system_rejects(text, rejected):
     ],
 )
 def test_rsa_to_text_transition_system_round_trip(text):
-    rsa = cfpq_data.rsa_from_text(text)
-    canonical = cfpq_data.rsa_to_text(rsa)
+    rsa = flpq_data.rsa_from_text(text)
+    canonical = flpq_data.rsa_to_text(rsa)
 
-    assert cfpq_data.rsa_from_text(canonical) == rsa
+    assert flpq_data.rsa_from_text(canonical) == rsa
 
 
 @pytest.mark.parametrize(
@@ -117,10 +117,10 @@ def test_rsa_to_text_transition_system_round_trip(text):
 )
 def test_rsa_from_text_transition_system_errors(text):
     with pytest.raises(ValueError):
-        cfpq_data.rsa_from_text(text)
+        flpq_data.rsa_from_text(text)
 
 
 def test_rsa_from_text_start_header():
-    rsa = cfpq_data.rsa_from_text("start: B\nB -> x")
+    rsa = flpq_data.rsa_from_text("start: B\nB -> x")
 
     assert rsa.initial_label.value == "B"

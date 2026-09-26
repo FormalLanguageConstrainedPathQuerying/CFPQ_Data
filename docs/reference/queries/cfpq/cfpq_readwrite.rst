@@ -1,6 +1,6 @@
 .. _cfpq_readwrite:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 ****************************
 Reading and writing grammars
@@ -11,7 +11,7 @@ Reading and writing grammars
     `Pyformlang CFG
     <https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html>`_
 
-.. automodule:: cfpq_data.queries.cfpq.readwrite
+.. automodule:: flpq_data.queries.cfpq.readwrite
 .. autosummary::
    :toctree: generated/
 

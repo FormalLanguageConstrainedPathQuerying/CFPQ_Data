@@ -3,7 +3,7 @@ import tempfile
 
 import pytest
 
-import cfpq_data
+import flpq_data
 
 expression_1 = "abc|d*"
 expression_2 = "a (bc|d*)"
@@ -21,7 +21,7 @@ expression_2 = "a (bc|d*)"
     ],
 )
 def test_cfg_from_text(expression, expected, not_expected):
-    regex = cfpq_data.regex_from_text(expression)
+    regex = flpq_data.regex_from_text(expression)
 
     for word in expected:
         assert regex.accepts(word)
@@ -38,9 +38,9 @@ def test_cfg_from_text(expression, expected, not_expected):
     ],
 )
 def test_regex_to_text(expression, expected):
-    regex = cfpq_data.regex_from_text(expression)
+    regex = flpq_data.regex_from_text(expression)
 
-    assert cfpq_data.regex_to_text(regex) == expected
+    assert flpq_data.regex_to_text(regex) == expected
 
 
 @pytest.mark.parametrize(
@@ -53,13 +53,13 @@ def test_regex_to_text(expression, expected):
 def test_regex_from_and_to_txt(expression):
     (fd, fname) = tempfile.mkstemp()
 
-    regex_1 = cfpq_data.regex_from_text(expression)
+    regex_1 = flpq_data.regex_from_text(expression)
 
-    path = cfpq_data.regex_to_txt(regex_1, fname)
+    path = flpq_data.regex_to_txt(regex_1, fname)
 
-    regex_2 = cfpq_data.regex_from_txt(path)
+    regex_2 = flpq_data.regex_from_txt(path)
 
     os.close(fd)
     os.unlink(fname)
 
-    assert cfpq_data.regex_to_text(regex_1) == cfpq_data.regex_to_text(regex_2)
+    assert flpq_data.regex_to_text(regex_1) == flpq_data.regex_to_text(regex_2)

@@ -1,6 +1,6 @@
 .. _queries:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 *******
 Queries

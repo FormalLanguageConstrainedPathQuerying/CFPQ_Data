@@ -1,6 +1,6 @@
 .. _dataset:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 *****************
 Dataset utilities
@@ -11,7 +11,7 @@ Dataset utilities
    :Release: |release|
    :Date: |today|
 
-.. automodule:: cfpq_data.dataset
+.. automodule:: flpq_data.dataset
 .. autosummary::
    :toctree: generated/
 

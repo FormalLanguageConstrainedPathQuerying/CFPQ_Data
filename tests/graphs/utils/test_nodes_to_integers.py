@@ -1,12 +1,12 @@
 import pytest
 
-import cfpq_data
+import flpq_data
 
-foaf = cfpq_data.download("foaf")
-core = cfpq_data.download("core")
+foaf = flpq_data.download("foaf")
+core = flpq_data.download("core")
 
-g1 = cfpq_data.graph_from_mtx_dir(foaf / "graph")
-g2 = cfpq_data.graph_from_mtx_dir(core / "graph")
+g1 = flpq_data.graph_from_mtx_dir(foaf / "graph")
+g2 = flpq_data.graph_from_mtx_dir(core / "graph")
 
 
 @pytest.mark.parametrize(
@@ -17,7 +17,7 @@ g2 = cfpq_data.graph_from_mtx_dir(core / "graph")
     ],
 )
 def test_nodes_to_integers(graph):
-    actual = list(cfpq_data.nodes_to_integers(graph).nodes())
+    actual = list(flpq_data.nodes_to_integers(graph).nodes())
 
     expected = list(range(graph.number_of_nodes()))
 

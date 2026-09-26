@@ -21,7 +21,7 @@ sys.path.insert(0, _REPO_ROOT)
 
 # nb2plots executes notebook cells in a separate Jupyter kernel process that
 # does not inherit the sys.path modification above. Expose the repository root
-# via PYTHONPATH so the kernel imports cfpq_data from this checkout instead of
+# via PYTHONPATH so the kernel imports flpq_data from this checkout instead of
 # a (possibly stale) copy installed in site-packages.
 _existing_pythonpath = os.environ.get("PYTHONPATH")
 os.environ["PYTHONPATH"] = (
@@ -40,11 +40,11 @@ author = "vdshk"
 # other places throughout the built documents.
 #
 # The short X.Y version
-import cfpq_data
+import flpq_data
 
-version = cfpq_data.__version__
+version = flpq_data.__version__
 # The full version, including alpha/beta/rc tags
-release = cfpq_data.__version__.replace("_", "")
+release = flpq_data.__version__.replace("_", "")
 
 # -- General configuration ---------------------------------------------------
 
@@ -170,9 +170,9 @@ pygments_style = "borland"
 
 # A list of prefixes that are ignored when creating the module index.
 # (new in Sphinx 0.6)
-modindex_common_prefix = ["cfpq_data."]
+modindex_common_prefix = ["flpq_data."]
 
-doctest_global_setup = "import cfpq_data"
+doctest_global_setup = "import flpq_data"
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -250,7 +250,7 @@ htmlhelp_basename = "CFPQ_Data"
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "cfpq_data", "CFPQ_Data Documentation", [author], 1)]
+man_pages = [(master_doc, "flpq_data", "CFPQ_Data Documentation", [author], 1)]
 
 # -- Options for intersphinx extension ---------------------------------------
 

@@ -1,5 +1,5 @@
 [project]
-name = "cfpq-data"
+name = "flpq-data"
 version = "5.0.0"
 description = "Python package containing Graphs and Grammars for experimental analysis of Context-Free Path Querying algorithms"
 readme = "README.rst"
@@ -9,7 +9,7 @@ authors = [
   { name = "Nikita Kovalev", email = "Nikitoskova123@gmail.com" },
 ]
 requires-python = ">=3.11,<3.14"
-keywords = ["graphs", "grammars", "context-free", "path-query", "cfpq-data"]
+keywords = ["graphs", "grammars", "context-free", "path-query", "flpq-data"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
@@ -69,11 +69,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["cfpq_data"]
+packages = ["flpq_data"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-  "cfpq_data",
+  "flpq_data",
   "README.rst",
   "LICENSE.txt",
   "LICENSE-DATA.txt",
@@ -106,4 +106,4 @@ branch = true
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules -vv -s"
-testpaths = ["cfpq_data", "tests"]
+testpaths = ["flpq_data", "tests"]
