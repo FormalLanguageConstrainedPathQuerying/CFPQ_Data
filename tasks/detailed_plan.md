@@ -71,7 +71,7 @@ the four summary pages per class, update `docs/reference/index.rst`.
   every function (star-import chain through `queries/__init__.py`).
 - No function names change in this subtask — only module paths.
 
-### S2: Rename the package cfpq_data -> flpq_data [pending]
+### S2: Rename the package cfpq_data -> flpq_data [done] b828e58
 
 **Code:** `git mv cfpq_data flpq_data`; update every import (package doctests,
 tests, the three utils scripts); `pyproject.toml` (`name = "flpq-data"`,
