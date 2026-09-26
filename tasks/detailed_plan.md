@@ -44,7 +44,7 @@ split into a follow-up task — not part of this one.
 
 ## Subtasks
 
-### S1: Restructure grammars/ into queries/{cfpq,rpq,mcfpq}/ [pending]
+### S1: Restructure grammars/ into queries/{cfpq,rpq,mcfpq}/ [done] cab6ccb
 
 **Code:** `git mv` inside `cfpq_data/`: `grammars/generators/` ->
 `queries/cfpq/generators/`; `grammars/readwrite/{cfg,cnf,cnf_template}.py` ->
