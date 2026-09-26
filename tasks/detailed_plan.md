@@ -19,7 +19,7 @@ references stay; LICENSE-DATA.txt keeps "benchmarks" because the
 
 ## Subtasks
 
-### S1: Re-point all download links to 6.0.0/graph/ [pending]
+### S1: Re-point all download links to 6.0.0/graph/ [done] 467fe08
 
 **Code:** none (docs-only)
 **Tests:** skip (no code); verify with a grep that no `5.0.0/graph` link
@@ -32,7 +32,7 @@ remains in docs/graphs/ and that the old-graphs table still points at 4.0.0
   with `https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/` in the 121
   files (226 links). No other text changes.
 
-### S2: Refresh the Size (MB) columns against the 6.0.0 archives [pending]
+### S2: Refresh the Size (MB) columns against the 6.0.0 archives [done] 271861f
 
 **Code:** none (tool-driven docs update)
 **Tests:** `utils/archive_sizes.py` check mode must pass after the update
@@ -46,7 +46,7 @@ remains in docs/graphs/ and that the old-graphs table still points at 4.0.0
   the 6.0.0-re-pointed tables change; the old-graphs (4.0.0) table is
   untouched.
 
-### S3: Update stale prefix references in docs/utils.rst and AGENTS.md [pending]
+### S3: Update stale prefix references in docs/utils.rst and AGENTS.md [done] a94b8bd
 
 **Code:** none (docs-only)
 **Tests:** skip (no code); docs build green
