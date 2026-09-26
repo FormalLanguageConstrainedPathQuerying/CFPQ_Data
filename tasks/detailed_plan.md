@@ -15,7 +15,7 @@ the "# Doctest files" section of `.gitignore` currently lists `test.mcfg`,
 
 ## Subtasks
 
-### S1: Delete the scratch files and ignore test.csv [pending]
+### S1: Delete the scratch files and ignore test.csv [done] 0363569
 
 **Code:** none (working-tree cleanup + `.gitignore`)
 **Tests:** skip (no code); confirm `git status --short` is clean afterwards
