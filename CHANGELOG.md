@@ -39,6 +39,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   unescaped underscore inside a text-mode command group (e.g.
   `\textit{a_b}`) — which previously surfaced only as an error on the
   deployed site while the Sphinx build stayed green.
+- The MCFG readwrite module `cfpq_data/grammars/readwrite/mcfg.py`: a data
+  model for multiple context-free grammars, lark-based parsing of the
+  Datalog-like `.mcfg` format specified in `docs/flpq.rst`, semantic
+  validation (start symbol, dimension and rank), and `mcfg_from_text` /
+  `mcfg_to_text` with round-trip guarantees plus `mcfg_from_txt` /
+  `mcfg_to_txt` for file I/O.
+- The `category` and `query_class` columns of `reachable_pairs.csv` and the
+  matching filters and row fields of the `reachable_pairs()` API: reference
+  counts are now keyed per graph category and query class (`cfpq`, `rpq`,
+  `mcfpq`).
+- The transition-system description style of the `.rsm` format: a query may
+  be written as an explicit labelled transition system in addition to the
+  CFG (EBNF) style, and `rsa_from_text` accepts both.
+- Partial graph archives: `utils/check_archive_structure.py --partial`
+  validates an archive that carries only new queries for an existing graph,
+  and `utils/merge_archive.py` merges such a partial archive into the
+  existing full one.
 
 ### Changed
 
