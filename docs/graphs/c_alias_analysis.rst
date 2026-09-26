@@ -56,25 +56,25 @@ discovered for each program.
      - 632
      - 556
      - 315
-     - 0.004
+     - 0.005
      - `bzip.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/bzip.tar.gz>`_ 📥
    * - :ref:`pr`
      - 815
      - 692
      - 385
-     - 0.004
+     - 0.006
      - `pr.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/pr.tar.gz>`_ 📥
    * - :ref:`ls`
      - 1687
      - 1453
      - 854
-     - 0.008
+     - 0.011
      - `ls.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/ls.tar.gz>`_ 📥
    * - :ref:`gzip`
      - 2687
      - 2293
      - 1458
-     - 0.011
+     - 0.017
      - `gzip.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/gzip.tar.gz>`_ 📥
    * - :ref:`apache`
      - 1721418
@@ -140,7 +140,7 @@ discovered for each program.
      - 4039470
      - 3500141
      - not available
-     - 21.65
+     - 21.66
      - `net.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/net.tar.gz>`_ 📥
    * - :ref:`fs`
      - 4177416

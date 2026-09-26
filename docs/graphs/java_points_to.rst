@@ -51,127 +51,127 @@ calls, returns) together with their reverses.
      - 14114
      - 34934
      - 56325
-     - 0.189
+     - 0.301
      - `gson.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/gson.tar.gz>`_ 📥
    * - :ref:`sunflow`
      - 15464
      - 15957
      - 16354
-     - 0.076
+     - 0.129
      - `sunflow.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/sunflow.tar.gz>`_ 📥
    * - :ref:`lusearch`
      - 15774
      - 14994
      - 9242
-     - 0.079
+     - 0.114
      - `lusearch.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/lusearch.tar.gz>`_ 📥
    * - :ref:`luindex`
      - 18532
      - 17375
      - 9677
-     - 0.095
+     - 0.133
      - `luindex.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/luindex.tar.gz>`_ 📥
    * - :ref:`avrora`
      - 24690
      - 25196
      - 21532
-     - 0.138
+     - 0.212
      - `avrora.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/avrora.tar.gz>`_ 📥
    * - :ref:`mockito`
      - 25436
      - 62388
      - 16169
-     - 0.349
+     - 0.304
      - `mockito.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/mockito.tar.gz>`_ 📥
    * - :ref:`commons_io`
      - 26188
      - 62428
      - 24020
-     - 0.342
+     - 0.310
      - `commons_io.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/commons_io.tar.gz>`_ 📥
    * - :ref:`commons_lang3`
      - 40970
      - 96854
      - 27553
-     - 0.521
+     - 0.443
      - `commons_lang3.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/commons_lang3.tar.gz>`_ 📥
    * - :ref:`eclipse`
      - 41383
      - 40200
      - not available
-     - 0.201
+     - 0.208
      - `eclipse.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/eclipse.tar.gz>`_ 📥
    * - :ref:`h2`
      - 44717
      - 56683
      - not available
-     - 0.256
+     - 0.263
      - `h2.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/h2.tar.gz>`_ 📥
    * - :ref:`pmd`
      - 54444
      - 59329
      - 60518
-     - 0.280
+     - 0.460
      - `pmd.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/pmd.tar.gz>`_ 📥
    * - :ref:`xalan`
      - 58476
      - 62758
      - not available
-     - 0.309
+     - 0.320
      - `xalan.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/xalan.tar.gz>`_ 📥
    * - :ref:`junit5`
      - 59818
      - 149370
      - not available
-     - 0.850
+     - 0.585
      - `junit5.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/junit5.tar.gz>`_ 📥
    * - :ref:`batik`
      - 60175
      - 63089
      - not available
-     - 0.301
+     - 0.310
      - `batik.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/batik.tar.gz>`_ 📥
    * - :ref:`fop`
      - 86183
      - 83016
      - not available
-     - 0.404
+     - 0.417
      - `fop.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/fop.tar.gz>`_ 📥
    * - :ref:`tomcat`
      - 111327
      - 110884
      - not available
-     - 0.544
+     - 0.563
      - `tomcat.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/tomcat.tar.gz>`_ 📥
    * - :ref:`guava`
      - 129562
      - 336232
      - not available
-     - 2.00
+     - 1.34
      - `guava.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/guava.tar.gz>`_ 📥
    * - :ref:`jackson`
      - 149404
      - 395356
      - not available
-     - 2.33
+     - 1.57
      - `jackson.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jackson.tar.gz>`_ 📥
    * - :ref:`jython`
      - 191895
      - 260034
      - not available
-     - 1.04
+     - 1.05
      - `jython.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jython.tar.gz>`_ 📥
    * - :ref:`tradebeans`
      - 439693
      - 466969
      - not available
-     - 2.26
+     - 2.33
      - `tradebeans.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/tradebeans.tar.gz>`_ 📥
    * - :ref:`tradesoap`
      - 440680
      - 468263
      - not available
-     - 2.26
+     - 2.34
      - `tradesoap.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/tradesoap.tar.gz>`_ 📥
 
 Canonical grammars
