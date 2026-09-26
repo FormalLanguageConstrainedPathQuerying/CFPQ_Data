@@ -122,7 +122,7 @@ derives `6.0.0/graph` and `DATASET_URL` re-points automatically.
 Deprecated entry (`download` / `DATASET` aliases for `download_graph` /
 `GRAPHS`).
 
-### S5: Update README, AGENTS.md, and the skills [pending]
+### S5: Update README, AGENTS.md, and the skills [done] 869d14d
 
 **Code:** none (meta files only)
 **Tests:** skip (no code); docs build green
