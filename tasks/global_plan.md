@@ -157,15 +157,15 @@ benchmark page related stuff stays removed from dev.
   the archive's (`V → A_r V | V A`, `A_r → M a_r | a_r | ε`,
   `A → a M | a | ε`). Fix the docs to match the dataset. (Also moved the
   link check out of the local quality gate — CI only — per user guidance.)
-- **#132**: complete the `[Unreleased]` section of CHANGELOG.md with the
+- **#132** [done]: complete the `[Unreleased]` section of CHANGELOG.md with the
   post-5.0.0 changes (MCFG module, CSV columns, RSM transition-system style,
   partial archives/merge tooling, 6.0.0 dataset migration, removal of
   download_grammars/download_benchmark).
-- **#133**: align the site with the 6.0.0 dataset — re-point all download
+- **#133** [done]: align the site with the 6.0.0 dataset — re-point all download
   links to `6.0.0/graph/`, refresh `Size (MB)` via `utils/archive_sizes.py`,
   update `docs/utils.rst` prefix references, fix the stale package-layout
   line in AGENTS.md; no benchmark page re-introduction.
-- **#134**: remove untracked scratch files (`endpoints`, `test.csv`) and
+- **#134** [done]: remove untracked scratch files (`endpoints`, `test.csv`) and
   gitignore `test.csv`.
 
 ### Dependencies
