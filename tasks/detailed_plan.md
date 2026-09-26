@@ -90,7 +90,7 @@ is now stale — rewrite it to state the rename has happened.
 - The PyPI distribution name becomes `flpq-data`; the repo/site project name
   stays CFPQ_Data (the site restructure is task 50).
 
-### S3: API renames with deprecated aliases [pending]
+### S3: API renames with deprecated aliases [done] 7456898
 
 **Code:** `flpq_data/dataset/data.py`: `download` -> `download_graph`
 (docstring + doctest updated), `DATASET` -> `GRAPHS`; keep `download` as a
