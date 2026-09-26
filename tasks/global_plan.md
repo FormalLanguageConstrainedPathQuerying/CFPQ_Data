@@ -36,10 +36,17 @@ for all follow-up tasks.
   data yet — it will be provided later (user decision).
 - **Task 47** [done]: Add a `query_class` column to `reachable_pairs.csv` and the
   `reachable_pairs()` API (+ update the generator from task 43).
-- **Task 48**: S3 6.0.0 layout migration + upload tools: copy graph
-  archives to `6.0.0/graph/`, move grammar archives to
-  `6.0.0/query/cfpq/`, benchmarks to `6.0.0/benchmark/<class>/`; the
-  `utils/` upload tools gain the class-aware key layout.
+- **Task 48** [done]: Migrate all 113 graph archives to the 6.0.0
+  self-contained structure (`queries/cfpq/<query>/` with `.cnf` + `.rsm` +
+  `results.mtx`; stubs for the 60 pairs whose reference run took >= 30 s or
+  oom/timeout — filled by #130), unify edge-label naming, verify counts
+  against the FastMatrixCFPQ oracle and report drift, upload to S3
+  `6.0.0/graph/`, remove the separate grammar/ and benchmark/ paths from S3 +
+  docs + package; extend `check_archive_structure.py` with the
+  naming-consistency rules and relax the class-dir requirement. (The original
+  plan of separate `6.0.0/query/` and `6.0.0/benchmark/` prefixes was
+  superseded by the self-contained layout of task 52 and the benchmark
+  deferral to #129.)
 - **Task 49**: Package rename/restructure to `flpq_data`:
   `queries/{cfpq,rpq,mcfpq}`, API renames + deprecated aliases, `cfpq-data`
   deprecation shim, VERSION 6.0.0, re-pointed
