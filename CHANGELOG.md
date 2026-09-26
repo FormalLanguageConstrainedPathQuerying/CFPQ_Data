@@ -68,6 +68,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Sequence[str]`, correctly accepting both a single label string and a
   sequence of labels (previously annotated `List[str]` despite the string
   default).
+- The dataset on object storage moved to the 6.0.0 self-contained archive
+  layout: each graph archive carries its queries under
+  `queries/<class>/<query>/` (every representation plus one `results.mtx`)
+  instead of a separate top-level `grammar/` directory, and the website's
+  download links and `Size (MB)` tables point at the new prefix.
 
 ### Removed
 
@@ -78,6 +83,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The broken utility scripts `utils/fetch_dataset.py` and
   `utils/update_dataset_tables.py` (both failed at import time against the
   5.0.0 package layout).
+- `download_grammars()` and `download_benchmark()`: queries now ship inside
+  the graph archives, so the separate `grammar/` and `benchmark/` paths were
+  removed from the S3 bucket, the docs, and the package. Benchmark data is
+  set aside for now and gets its own rework (#129).
 
 ### Fixed
 
