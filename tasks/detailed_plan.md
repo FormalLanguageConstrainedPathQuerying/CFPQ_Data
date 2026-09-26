@@ -38,7 +38,7 @@ Verification evidence (all on dev):
 
 ## Subtasks
 
-### S1: Add the four "Added" entries [pending]
+### S1: Add the four "Added" entries [done] b9dfce3
 
 **Code:** none (changelog only)
 **Tests:** skip (no code); docs build green (the changelog is not built by
@@ -58,7 +58,7 @@ Sphinx, so this is a formality — run it as part of the gate)
   - partial-archive validation (`--partial`) and `utils/merge_archive.py` for
     merging new queries into an existing graph archive.
 
-### S2: Add the "Changed" and "Removed" entries [pending]
+### S2: Add the "Changed" and "Removed" entries [done] 776bb34
 
 **Code:** none (changelog only)
 **Tests:** skip (no code)
