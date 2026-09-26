@@ -109,7 +109,7 @@ autosummary updated.
 - Importing the package must not emit any warning (warnings only on calling
   the deprecated function).
 
-### S4: Bump VERSION to 6.0.0 and record the rename in the changelog [pending]
+### S4: Bump VERSION to 6.0.0 and record the rename in the changelog [done] a901566
 
 **Code:** `config.py` `VERSION = "6.0.0"` + `pyproject.toml` `version =
 "6.0.0"` (the version-sync guard must pass); `DATASET_KEY_PREFIX` then
