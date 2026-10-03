@@ -316,23 +316,27 @@ converter is a follow-up task.
 Site structure
 --------------
 
-The site adds one level of hierarchy under Dataset: each query class gets
-its own section reusing the existing CFPQ layout, while the graph catalog
-stays shared.
+The Dataset section has one sub-section per query class next to the shared
+graph catalog: each class reuses the existing layout — an index page with its
+templates and its "Applicable graphs" list, and one page per template — while
+the graph catalog stays shared.
 
 .. code-block:: text
 
    Dataset
    ├── Graphs           shared catalog (8 categories, 113 pages) — unchanged
-   ├── CFPQ             grammar templates (4 + indexed grammars) | benchmarks | applicable graphs
-   ├── RPQ              query templates (regular expressions)    | benchmarks | applicable graphs
-   ├── MCFPQ            grammar templates (MCFG)                 | benchmarks | applicable graphs
+   ├── CFPQ             grammar templates (4 + indexed grammars) | applicable graphs
+   ├── RPQ              query templates (regular expressions)    | applicable graphs
+   ├── MCFPQ            grammar templates (MCFG)                 | applicable graphs
    └── Reachable pairs  per-category tables; flat CSV download
 
-The per-class "applicable graphs" lists cross-link the shared per-graph
-pages — no graph page is duplicated. The sidebar navigation depth
-(``navigation_depth = 3`` in ``docs/conf.py``) accommodates the
-section -> class -> template pages without change.
+There is no separate benchmarks section: benchmarking data and results are
+not part of the dataset site. The per-class "applicable graphs" lists are
+rendered from the reachable-pairs registry (``reachable_pairs.csv``) by a
+``utils/`` generator and cross-link the shared per-graph pages — no graph page
+is duplicated. The sidebar navigation depth (``navigation_depth = 3`` in
+``docs/conf.py``) accommodates the section -> class -> template pages without
+change.
 
 Reachable pair counts
 ^^^^^^^^^^^^^^^^^^^^^
@@ -393,9 +397,8 @@ Dataset layout and migration
 
 The dataset on object storage moves to the 6.0.0 key prefix::
 
-   6.0.0/
-   ├── graph/<name>.tar.gz                self-contained — repackaged from 5.0.0
-   └── benchmark/<class>/<name>.tar.gz    reworked in a follow-up task
+    6.0.0/
+    └── graph/<name>.tar.gz                self-contained — repackaged from 5.0.0
 
 Graphs are large and class-agnostic, so they live under one shared prefix.
 Queries no longer have their own archives: every graph archive is
@@ -415,8 +418,8 @@ Migration path:
   ``utils/check_archive_structure.py`` (:ref:`archive_structure`).
 - The example query archives (``4.0.0/grammar/example/``) are dropped —
   every query file lives inside a graph archive.
-- Re-point ``DATASET_URL`` / ``BENCHMARK_URL`` at the new prefixes as part
-  of the version bump (the rename task); ``GRAMMARS_URL`` disappears with
-  the separate grammar archives.
+- Re-point ``DATASET_URL`` at the new prefix as part of the version bump
+  (the rename task); ``GRAMMARS_URL`` disappears with the separate grammar
+  archives.
 - The upload tool validates the structure before uploading
   (:ref:`upload_to_s3`, :ref:`archive_structure`).

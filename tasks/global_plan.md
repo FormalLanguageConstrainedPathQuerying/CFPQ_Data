@@ -52,9 +52,11 @@ for all follow-up tasks.
   (re-points `DATASET_URL` at `6.0.0/graph/`; `GRAMMARS_URL`/`BENCHMARK_URL`
   no longer exist — removed in 48-S6). The `cfpq-data` PyPI deprecation shim
   is split into a follow-up task (needs the flpq-data PyPI project first).
-- **Task 50** (#137): Site restructure to the FLPQ hierarchy: per-class
-  sections (CFPQ/RPQ/MCFPQ) with templates/benchmarks/applicable graphs,
-  the shared Graphs section, navigation.
+- **Task 50** (#137) [done]: Site restructure to the FLPQ hierarchy: per-class
+  sections (CFPQ/RPQ/MCFPQ) with templates and generated applicable-graphs
+  lists, the shared Graphs section, navigation. The flat Grammars section is
+  replaced and the benchmarks category is removed (resolving #129 inside this
+  task, per user decision).
 - **Task 51** [done]: CI as source of truth for commands: analyze which developer-
   docs and skill content can be replaced with references to the CI workflow
   descriptions; record the per-command decision in the docs; apply it —
@@ -70,9 +72,10 @@ for all follow-up tasks.
   layout, migration, API) to match. Scope: graph archives only — example
   queries not tied to a graph are dropped, benchmark data is out of scope
   (task 53).
-- **Task 53**: Rework the benchmark page and the respective benchmark data
-  (design comes after the archive structure of task 52 and the site
-  restructure of task 50).
+- **Task 53** (#129) [done]: Benchmark page removed — no separate benchmarks
+  category anywhere on the site and no benchmark data rework; the design no
+  longer reserves a benchmarks section. Resolved inside the task-50 site
+  restructure (user decision).
 - **Task 54** [done]: Extend the archive structure — several ways to specify one
   language: a query may be specified by different grammars; for CFPQ, by a
   CFG or an RSM (recursive state machine), described either in an EBNF-based
@@ -105,8 +108,8 @@ for all follow-up tasks.
 - 49 is after 48 and 52 (the download machinery points at the new layout and
   reflects self-contained archives).
 - 50 is after 49 (the site references the final package structure).
-- 53 is after 50 and 52 (benchmarks are redesigned on top of the final site
-  hierarchy and the self-contained archive structure).
+- 53 is after 50 and 52; it was resolved inside 50 by removing the benchmarks
+  category (no benchmark page).
 - 54 is after 52 (it extends the self-contained archive structure).
 - 55 is after 54 (partial archives follow the extended structure, including
   the per-query results files).

@@ -61,6 +61,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   fetched into the local data cache by `download_reachable_pairs()`; once
   downloaded, `reachable_pairs()` reads it instead of the bundled copy, so an
   updated table is consumed without reinstalling the package.
+- The per-class "Applicable graphs" lists of the new query sections: a new
+  `utils/applicable_graphs.py` renders each class's list from
+  `reachable_pairs.csv`, grouped by graph category and cross-linking the
+  shared per-graph pages, in check or `--update` mode.
 
 ### Changed
 
@@ -87,6 +91,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `queries/<class>/<query>/` (every representation plus one `results.mtx`)
   instead of a separate top-level `grammar/` directory, and the website's
   download links and `Size (MB)` tables point at the new prefix.
+- The website's Dataset section is restructured into per-class query sections
+  (CFPQ, RPQ, MCFPQ): the flat Grammars section is replaced by one section per
+  class with its templates and an "Applicable graphs" list, and the "How to
+  add a new grammar?" pointer moves to the Dataset page.
+- `utils/merge_archive.py` refuses to merge a partial archive whose new query
+  directory has no row in `reachable_pairs.csv` (same graph and query class,
+  with the query directory name as the stem of the row's grammar file), so the
+  registry cannot drift.
 
 ### Deprecated
 
@@ -107,8 +119,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   5.0.0 package layout).
 - `download_grammars()` and `download_benchmark()`: queries now ship inside
   the graph archives, so the separate `grammar/` and `benchmark/` paths were
-  removed from the S3 bucket, the docs, and the package. Benchmark data is
-  set aside for now and gets its own rework (#129).
+  removed from the S3 bucket, the docs, and the package. Benchmark data is out
+  of scope for the dataset and is not reworked.
+- The benchmark page and the separate `benchmarks` category: benchmarking data
+  and results are not part of the dataset site, so no query-class section
+  reserves a benchmarks page (#129).
 
 ### Fixed
 
