@@ -113,7 +113,7 @@ consistency; extend the reverse note to name both stored forms.
 - Confirm the 14 clean archives still validate.
 - Record old/new sha256 + removed-file count in the JSON.
 
-### S4: Fix edge statistics in the docs
+### S4: Fix edge statistics in the docs [done] (577126f)
 
 **Code:** docs only.
 **Tests:** none (Sphinx `Num Edges` cells); docs build is part of the gate.
