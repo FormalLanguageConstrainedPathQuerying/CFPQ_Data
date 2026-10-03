@@ -1,17 +1,81 @@
 """Reference reachable-pair counts for graph x grammar pairs."""
 
 import csv
+import logging
 import pathlib
+import shutil
 from typing import Optional
+
+import requests
+
+from flpq_data.config import DATA, VERSION
 
 __all__ = [
     "REACHABLE_PAIRS_CSV",
+    "REACHABLE_PAIRS_KEY_PREFIX",
+    "REACHABLE_PAIRS_URL",
+    "download_reachable_pairs",
     "reachable_pairs",
 ]
 
-REACHABLE_PAIRS_CSV: pathlib.Path = (
-    pathlib.Path(__file__).parent / "reachable_pairs.csv"
+REACHABLE_PAIRS_FILENAME = "reachable_pairs.csv"
+
+#: Version prefix the table is published under on the dataset object storage.
+#: Derived like :data:`flpq_data.dataset.data.DATASET_KEY_PREFIX`, so the URL
+#: follows the package version.
+REACHABLE_PAIRS_KEY_PREFIX: str = f"{VERSION[0]}.0.0"
+
+#: Public URL of the versioned reachable-pairs CSV (see
+#: :func:`download_reachable_pairs`).
+REACHABLE_PAIRS_URL: str = (
+    f"https://cfpq-data.storage.yandexcloud.net/"
+    f"{REACHABLE_PAIRS_KEY_PREFIX}/{REACHABLE_PAIRS_FILENAME}"
 )
+
+#: Path to the reference CSV shipped with the package; always available
+#: offline. :func:`download_reachable_pairs` fetches the versioned copy from
+#: the dataset storage instead, and :func:`reachable_pairs` prefers it when
+#: present.
+REACHABLE_PAIRS_CSV: pathlib.Path = (
+    pathlib.Path(__file__).parent / REACHABLE_PAIRS_FILENAME
+)
+
+
+def download_reachable_pairs() -> pathlib.Path:
+    """Download the versioned reachable-pairs CSV from the dataset storage.
+
+    The table is also shipped with the package (:data:`REACHABLE_PAIRS_CSV`);
+    this fetches the copy published under the current version prefix
+    (:data:`REACHABLE_PAIRS_URL`) into the package data directory
+    (:data:`flpq_data.config.DATA`), so an updated table can be consumed
+    without reinstalling. Once downloaded, :func:`reachable_pairs` reads it
+    instead of the bundled copy.
+
+    Returns
+    -------
+    path : pathlib.Path
+        Path to the downloaded CSV.
+
+    Raises
+    ------
+    requests.HTTPError
+        If the table is not available at :data:`REACHABLE_PAIRS_URL`.
+    """
+    DATA.mkdir(exist_ok=True, parents=True)
+    destination = DATA / REACHABLE_PAIRS_FILENAME
+    logging.info(f"Downloading reachable pairs CSV from {REACHABLE_PAIRS_URL}")
+    with requests.get(url=REACHABLE_PAIRS_URL, stream=True) as response:
+        response.raise_for_status()
+        with open(destination, "wb") as file:
+            shutil.copyfileobj(response.raw, file)
+    logging.info(f"Downloaded reachable pairs CSV to {destination}")
+    return destination
+
+
+def _csv_path() -> pathlib.Path:
+    """Returns the CSV to read: the downloaded copy if present, else bundled."""
+    downloaded = DATA / REACHABLE_PAIRS_FILENAME
+    return downloaded if downloaded.exists() else REACHABLE_PAIRS_CSV
 
 
 def reachable_pairs(
@@ -41,7 +105,7 @@ def reachable_pairs(
         the graph archives).
     """
     rows: list[dict] = []
-    with REACHABLE_PAIRS_CSV.open(newline="") as f:
+    with _csv_path().open(newline="") as f:
         for row in csv.DictReader(f):
             if graph is not None and row["graph"] != graph:
                 continue

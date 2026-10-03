@@ -16,4 +16,6 @@ Dataset utilities
    :toctree: generated/
 
    download_graph
+   download_reachable_pairs
    GRAPHS
+   reachable_pairs
