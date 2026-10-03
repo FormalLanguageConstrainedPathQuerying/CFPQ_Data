@@ -108,7 +108,7 @@ Load grammar
 Graph archives from the dataset are self-contained: besides the graph they carry the
 queries that apply to the graph under ``queries/`` — one directory per query with its
 grammar template and a precomputed ``results.mtx`` (see :ref:`graph_file_structure`).
-The grammar templates themselves are described on the :ref:`grammar_templates` page.
+The grammar templates themselves are described in the :ref:`CFPQ section <cfpq_queries>`.
 
 A grammar template may use indexed symbols (e.g. ``load_i``); we materialize it over a
 concrete graph with functions :obj:`cnf_template_from_text <flpq_data.queries.cfpq.readwrite.cnf_template.cnf_template_from_text>`

@@ -47,7 +47,7 @@ the paths of a labeled graph, and a pair :math:`(u, v)` is reachable if some
 string of :math:`L` labels a path from :math:`u` to :math:`v`. The classes
 differ only in the language class used for the constraint and in the
 formalism that specifies it. The existing data — the :ref:`graphs <graphs>`
-catalog, the :ref:`grammar templates <grammar_templates>`, and the
+catalog, the :ref:`query templates <cfpq_queries>`, and the
 :ref:`reachable pair counts <reachable_pairs>` — is CFPQ data; the shared
 graph catalog is reused by all classes.
 
@@ -71,7 +71,7 @@ design decision for this class:
     per-label transitive closure.
 
   Additional templates may be added later together with real-world data; the
-  stub pages in the :ref:`grammar templates <grammar_templates>` section
+  stub pages in the :ref:`RPQ section <rpq_queries>`
   document both templates.
 - **Placement.** Query files live inside the self-contained graph archive
   under ``queries/rpq/`` (see the "File structure" section of the
