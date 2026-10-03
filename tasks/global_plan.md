@@ -182,3 +182,17 @@ benchmark page related stuff stays removed from dev.
   and #133 both touch the changelog/docs narrative — #133 first so #132 can
   also record the re-pointing if desired; kept separate to stay atomic).
 - Execution order: #131 → #133 → #132 → #134.
+
+## Reverse-edge consistency (issue 146, from bug #136)
+
+- **#146**: 7 of the 21 `java_points_to` archives (commons_io, commons_lang3,
+  gson, guava, jackson, junit5, mockito) still store reverse edges
+  (`load_r_<n>.mtx`, `store_r_<n>.mtx`) left over from the 6.0.0 migration
+  (task 48); the other 14 are clean. `utils/check_archive_structure.py` Rule 3
+  catches only unindexed `L_r.mtx`, so the 7 pass validation despite
+  contradicting `docs/graphs/index.rst` ("Reversed edges are not stored in the
+  archives"). Strip the stored reverses from the 7 archives, re-upload them to
+  `6.0.0/graph/`, tighten the checker to catch the indexed form, and align the
+  docs. The precomputed `results.mtx` are unchanged (the oracle already
+  derives reverses from every forward file; the stored reverses are exact
+  transposes and are never grammar terminals).

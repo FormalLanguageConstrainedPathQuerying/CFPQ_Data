@@ -1,111 +1,142 @@
-# Detailed Plan: Issue #139 — Fix reachable_pairs CSV packaging and storage
+# Detailed Plan: Task 146 — strip stored reverse edges from 7 Java points-to archives and fix the checker
+
+Task issue: **#146**. Fully resolves bug **#136**. Branch:
+`feature/146-strip-stored-reverses`.
 
 ## Context
 
-Issue #139 (task): "reachable_pairs.csv is missing from the 5.0.0 wheel;
-documentation link returns 404". `cfpq_data.reachable_pairs("wc", "c_alias.cnf")`
-raised `FileNotFoundError` for `cfpq_data/dataset/reachable_pairs.csv` on the
-installed 5.0.0 wheel, and the docs CSV link pointed at an unpinned
-`raw.githubusercontent.com/.../dev/...` URL that 404s.
+The 6.0.0 migration (task 48) was supposed to remove stored reverse edges, but
+7 of the 21 `java_points_to` archives still bundle `load_r_<n>.mtx` /
+`store_r_<n>.mtx`:
 
-User guidance (the design driver for this task):
-"store the table in S3. It must be versioned as dataset, so stored in
-respective path with version prefix."
+- with reverses: commons_io, commons_lang3, gson, guava, jackson, junit5, mockito
+- clean: avrora, batik, eclipse, fop, h2, jython, luindex, lusearch, pmd,
+  sunflow, tomcat, tradebeans, tradesoap, xalan
 
-## Current state (6.0.0 codebase)
+The stored reverses are exact transposes of the forward labels (verified on
+gson) and are never grammar terminals: `materialize` emits `load_<k>_r`
+(derived from forward edges), so the stored `load_r_<k>` are dead weight and
+cause `add_reverse_edges()` to double-reverse.
 
-- `flpq_data/dataset/reachable_pairs.csv` exists in the repo (tracked) and is
-  included in the wheel built by hatchling (`packages = ["flpq_data"]`).
-- `reachable_pairs.py` reads the CSV from
-  `pathlib.Path(__file__).parent / "reachable_pairs.csv"` (bundled).
-- `docs/reachable_pairs.rst` links the CSV from `raw.githubusercontent.com`
-  (`dev` branch, unpinned).
-- The graph dataset is served from S3 under `{VERSION[0]}.0.0/graph/`
-  (`flpq_data/dataset/data.py`), publicly readable.
-- The partial branch work added an S3 URL constant, an S3-download/cache
-  routine and changed the docs link, but left the code largely untested
-  (coverage gate fails: branch 93.56% < 95%) and made the exported
-  `REACHABLE_PAIRS_CSV` point at a cache path that does not exist on a fresh
-  checkout (`test_csv_exists` only passed because a stale cache file existed
-  locally).
+`utils/check_archive_structure.py` Rule 3 ("no stored reverses") only checks
+stems ending in `_r`, so it catches `a_r.mtx` but not `load_r_0.mtx`; all 7
+archives report `archive structure ok`.
 
 ## Design decisions
 
-1. **Keep the CSV bundled in the wheel** (fixes the reported
-   `FileNotFoundError`): the repo file `flpq_data/dataset/reachable_pairs.csv`
-   stays the single source of truth for the counts and the offline package
-   API. `REACHABLE_PAIRS_CSV` points at it and always exists.
-2. **Publish the CSV to S3 under the version prefix** at
-   `{VERSION[0]}.0.0/reachable_pairs.csv` (sibling of `graph/`) — the table is
-   dataset-level metadata, not a graph archive, so it does not belong under
-   the archive-validated `graph/` prefix. The key derives from `VERSION`, the
-   same single source as `DATASET_KEY_PREFIX`, so it moves with the version
-   bump.
-3. **Expose the versioned location as `REACHABLE_PAIRS_URL`** and add
-   `download_reachable_pairs()`, which fetches the versioned copy into the
-   shared local data cache (`flpq_data/config.py::DATA`, the same directory
-   graph archives use). This lets an updated table be consumed without a new
-   package release.
-4. **`reachable_pairs()` prefers the downloaded versioned copy when present,
-   else the bundled one.** No implicit network access on every call: the
-   download is explicit, so the API stays deterministic and offline-capable.
-5. **Fix the documentation link** to the S3 versioned URL (no `dev` branch
-   dependency, no 404).
+1. **Checker.** Extend Rule 3 to also flag an indexed reverse `B_r_<n>` when
+   the forward `B_<n>` is stored. The unindexed `L_r` branch stays.
+2. **Tool.** Add a reusable `utils/strip_reverse_edges.py` maintenance tool
+   (archive in, archive out) rather than a one-off script; removing stored
+   reverses is now a convention the checker enforces, so the normalizer is
+   reusable.
+3. **No recomputation of `results.mtx`.** Reachability is unchanged. Proof:
+   `temporal_cfpq/run_reference.py:stream_g_file` writes, for every stored
+   `.mtx` edge, both the forward token and its reverse. The stored reverse
+   files therefore only add duplicate edges and `_r_r_i` tokens that no
+   grammar terminal matches; dropping them cannot change the solution.
+4. **Docs reflect stored edges.** `docs/graphs/index.rst` says the Edges
+   Statistics tables list stored labels only. The 7 per-graph pages and the
+   `java_points_to` category table must drop the reverse rows and halves of the
+   edge counts; `Size (MB)` follows from `utils/archive_sizes.py --update`.
+
+## Reuse
+
+- `utils/check_archive_structure.py` — the reverse-label regexes
+  (`_INDEXED_REV_RE`) and the existing Rule 3 message.
+- `utils/upload_to_s3.py` / `check_archive_structure.validate_archive` — the
+  upload path already validates archives (used by the tool and by S3).
+- `utils/archive_sizes.py --update` — refreshes the `Size (MB)` columns.
+- `utils/merge_archive.py` — pattern for a tar-in/tar-out maintenance tool
+  (single top-level dir handling, validation, exit codes).
+- `temporal_cfpq` (gitignored) — `stream_g_file`/`label_to_tokens` for the
+  reachability-invariance argument; not depended on by committed code.
 
 ## Subtasks
 
-### S1: Versioned S3 storage for reachable_pairs in the package [done] 81728f7
-**Code:** rewrite `flpq_data/dataset/reachable_pairs.py`: `REACHABLE_PAIRS_FILENAME`,
-`REACHABLE_PAIRS_KEY_PREFIX`, `REACHABLE_PAIRS_URL`, bundled `REACHABLE_PAIRS_CSV`,
-`download_reachable_pairs()`, and a resolver used by `reachable_pairs()`.
-**Tests:** none yet (S2).
-**Docs:** none yet (S3).
+### S1: Catch indexed stored reverses in the archive checker
+
+**Code:** `utils/check_archive_structure.py` — extend `_label_problems` Rule 3.
+**Tests:** `tests/utils/test_check_archive_structure.py` — new cases.
+**Docs:** `docs/utils.rst` — the "Graph" check bullet already covers label
+consistency; extend the reverse note to name both stored forms.
 
 **Spec:**
-- `REACHABLE_PAIRS_KEY_PREFIX = f"{VERSION[0]}.0.0"`.
-- `REACHABLE_PAIRS_URL = "https://cfpq-data.storage.yandexcloud.net/6.0.0/reachable_pairs.csv"`.
-- `REACHABLE_PAIRS_CSV = Path(__file__).parent / "reachable_pairs.csv"` (bundled, always exists).
-- `download_reachable_pairs()` -> writes `DATA / "reachable_pairs.csv"`, returns the path.
-- `reachable_pairs()` reads `DATA / "reachable_pairs.csv"` if it exists, else
-  `REACHABLE_PAIRS_CSV`; signatures and returned rows unchanged.
+- Keep the existing branch: a stem ending in `_r` whose `stem[:-2]` is stored.
+- Add: a stem matching `^(?P<base>.+)_r_(?P<idx>\d+)$` whose
+  `f"{base}_{idx}"` is stored is a stored reverse. Report the same message
+  ("reversed edge is stored but must be auto-generated from <forward>.mtx").
+- No double report: an indexed stem has a numeric suffix, so it is not caught
+  by the `_r` branch.
+- Tests:
+  - stored unindexed reverse (`a.mtx` + `a_r.mtx`) is flagged;
+  - stored indexed reverse (`load_0.mtx` + `load_r_0.mtx`) is flagged;
+  - an indexed reverse without its forward (`load_r_0.mtx` only) is not
+    flagged by Rule 3.
 
-### S2: Tests for the versioned storage [done] 652fc30
-**Code:** none.
-**Tests:** extend `tests/dataset/test_reachable_pairs.py`.
-**Docs:** none.
+### S2: Add a strip-stored-reverses maintenance tool
 
-**Spec:**
-- URL constants assert the 6.0.0 prefix and full URL.
-- `download_reachable_pairs()` writes the fetched bytes to a monkeypatched
-  `DATA` (no network) and returns the destination path.
-- The resolver returns the downloaded copy when present and the bundled copy
-  otherwise (both branches), with `reachable_pairs()` reading the selected file.
-
-### S3: Documentation for the versioned CSV [done] b88a5b8
-**Code:** none.
-**Tests:** none.
-**Docs:** `docs/reachable_pairs.rst` (S3 link + download API), `CHANGELOG.md`
-(Unreleased/Added or Fixed).
+**Code:** new `utils/strip_reverse_edges.py`.
+**Tests:** new `tests/utils/test_strip_reverse_edges.py`.
+**Docs:** `docs/utils.rst` — new "Strip stored reverse edges" section.
 
 **Spec:**
-- The "CSV file" link points at `REACHABLE_PAIRS_URL`.
-- The Download section documents that the table is shipped with the package
-  and that the versioned copy is available from S3 via
-  `download_reachable_pairs()`.
-- Changelog records the versioned S3 storage and the packaging/link fix.
+- CLI: `python utils/strip_reverse_edges.py ARCHIVE.tar.gz -o OUT.tar.gz`
+  (also accept an unpacked directory for tests).
+- A graph `.mtx` stem is a stored reverse when its forward exists (same
+  predicate as the fixed Rule 3). Remove those files.
+- Rewrite `README.md` "Edges and labels": drop the reverse bullet lines
+  (labels ending in `_r`, `_r_i`, or `_r_<i>`) and set the leading
+  "N stored edges:" total to the sum of the remaining bullets.
+- Preserve the single top-level directory and deterministic (sorted) member
+  order; refuse to write an output that fails
+  `check_archive_structure.validate_archive`.
+- Return/print the number of removed files and the old/new total.
+- Tests: a small fixture archive with `a`/`a_r`/`load_0`/`load_r_0`; assert
+  the reverse files are gone, the README total recomputed and reverse bullets
+  removed, the output validates, and a second run is a no-op.
 
-### S4: Verify the wheel and publish the versioned CSV to S3 (final) [done]
-**Code:** only if a verification fails.
-**Tests:** none.
-**Docs:** none.
+### S3: Strip and re-upload the 7 archives
+
+**Code:** none in the package; add `utils/reverse_edges_strip_record.json`
+(old/new sha256 + removed count per archive).
+**Tests:** verification commands (not committed unit tests).
+**Docs:** the record JSON is the provenance document.
 
 **Spec:**
-- Build the wheel (`uv build --wheel`) and confirm
-  `flpq_data/dataset/reachable_pairs.csv` is present — verified present, so
-  no build-config change is needed.
-- Upload `flpq_data/dataset/reachable_pairs.csv` to
-  `s3://cfpq-data/6.0.0/reachable_pairs.csv` with `utils/upload_to_s3.py`
-  (credentials from the user).
-- Verify the public `REACHABLE_PAIRS_URL` returns 200 and the exact byte
-  contents.
-- Final subtask: carries `Closes #139`.
+- For each of the 7 names: download `6.0.0/graph/<name>.tar.gz`, strip with the
+  S2 tool, validate with the S1 checker, upload back to
+  `6.0.0/graph/<name>.tar.gz` with `utils/upload_to_s3.py` (credentials from
+  the CLI), size-verified by the tool.
+- Re-download the 7 and validate; assert no reverse problems and no structural
+  problems.
+- Confirm the 14 clean archives still validate.
+- Record old/new sha256 + removed-file count in the JSON.
+
+### S4: Fix edge statistics in the docs
+
+**Code:** docs only.
+**Tests:** none (Sphinx `Num Edges` cells); docs build is part of the gate.
+**Docs:** 7 `docs/graphs/data/<name>.rst` and
+`docs/graphs/java_points_to.rst`.
+
+**Spec:**
+- For each of the 7 per-graph pages: set `Num Edges` to the forward-only
+  stored sum and delete the reverse rows (`*_r`, `*_{r\_i}`) from
+  "Edges Statistics".
+- `docs/graphs/java_points_to.rst`: set the `Num Edges` cells of the 7 rows to
+  the same values.
+
+### S5: Refresh sizes and record the change
+
+**Code:** docs only.
+**Tests:** `python utils/archive_sizes.py` (check mode) must pass.
+**Docs:** `docs/graphs/java_points_to.rst` (`Size (MB)` column, via the tool)
+and `CHANGELOG.md` `[Unreleased]`.
+
+**Spec:**
+- Run `utils/archive_sizes.py --update` to refresh every `Size (MB)` cell from
+  the re-uploaded 6.0.0 objects.
+- Add a CHANGELOG `[Unreleased]` entry: 7 java_points_to archives no longer
+  store reverse edges; the archive checker now rejects indexed stored reverses.
+- Last commit carries `Closes #146` and `Fixes #136`.
