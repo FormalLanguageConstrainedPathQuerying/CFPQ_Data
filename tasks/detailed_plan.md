@@ -127,7 +127,7 @@ consistency; extend the reverse note to name both stored forms.
 - `docs/graphs/java_points_to.rst`: set the `Num Edges` cells of the 7 rows to
   the same values.
 
-### S5: Refresh sizes and record the change
+### S5: Refresh sizes and record the change [done] (9f43bcc)
 
 **Code:** docs only.
 **Tests:** `python utils/archive_sizes.py` (check mode) must pass.
