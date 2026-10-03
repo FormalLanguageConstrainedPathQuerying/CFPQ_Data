@@ -25,7 +25,7 @@ import re
 import shutil
 import tarfile
 import tempfile
-from typing import Optional, Sequence, Union
+from typing import Optional, Sequence, Set, Union
 
 from pyformlang.regular_expression import Regex
 from pyformlang.rsa import RecursiveAutomaton as RSA
@@ -39,6 +39,7 @@ from flpq_data.queries.rpq.readwrite.rsa import rsa_from_text
 __all__ = [
     "MANDATORY_README_SECTIONS",
     "QUERY_CLASSES",
+    "stored_reverse_forward",
     "parse_readme_sections",
     "unpack_single_dir",
     "validate_archive",
@@ -313,6 +314,45 @@ _INDEXED_RE = re.compile(r"^(.+)_(\d+)$")
 _INDEXED_REV_RE = re.compile(r"^(.*)_r_(\d+)$")
 
 
+def stored_reverse_forward(stem: str, stems: Set[str]) -> Optional[str]:
+    """Return the forward label of a stored reversed matrix ``stem``, if any.
+
+    A matrix stem is a stored reverse when its forward label is also stored:
+    the unindexed form ``L_r`` (forward ``L``) or the indexed form
+    ``<base>_r_<n>`` (forward ``<base>_<n>``). Reversed edges must not be
+    stored — they are auto-generated (see
+    :func:`flpq_data.graphs.utils.add_reverse_edges`).
+
+    Parameters
+    ----------
+    stem : str
+        The file stem (name without the ``.mtx`` suffix).
+    stems : Set[str]
+        The stems of all label matrices stored in the ``graph/`` directory.
+
+    Examples
+    --------
+    >>> stored_reverse_forward("a_r", {"a", "a_r"})
+    'a'
+    >>> stored_reverse_forward("load_r_0", {"load_0", "load_r_0"})
+    'load_0'
+    >>> stored_reverse_forward("load_r_0", {"load_r_0"}) is None
+    True
+
+    Returns
+    -------
+    forward : str or None
+        The forward label ``stem`` reverses, or None when ``stem`` is not a
+        stored reverse.
+    """
+    if stem.endswith("_r"):
+        forward: Optional[str] = stem[:-2]
+    else:
+        indexed = _INDEXED_REV_RE.fullmatch(stem)
+        forward = f"{indexed.group(1)}_{indexed.group(2)}" if indexed else None
+    return forward if forward is not None and forward in stems else None
+
+
 def _label_problems(graph_dir: pathlib.Path) -> list[str]:
     """Check edge-label naming conventions in ``graph/``."""
     problems = []
@@ -342,14 +382,8 @@ def _label_problems(graph_dir: pathlib.Path) -> list[str]:
     # Rule 3: no stored reverses — if the forward label is stored, neither its
     # unindexed reverse (L_r) nor its indexed reverse (B_r_<n>) may be stored.
     for stem in sorted(stems):
-        forward = None
-        if stem.endswith("_r"):
-            forward = stem[:-2]
-        else:
-            indexed = _INDEXED_REV_RE.fullmatch(stem)
-            if indexed is not None:
-                forward = f"{indexed.group(1)}_{indexed.group(2)}"
-        if forward is not None and forward in stems:
+        forward = stored_reverse_forward(stem, stems)
+        if forward is not None:
             problems.append(
                 f"graph/{stem}.mtx: reversed edge is stored but must be "
                 f"auto-generated from {forward}.mtx"

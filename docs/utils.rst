@@ -136,6 +136,27 @@ can gate a commit. With ``--audit`` it downloads and validates every
 line, like :ref:`upload_to_s3`). :ref:`upload_to_s3` runs the same check
 before uploading any ``.tar.gz`` and refuses an invalid archive.
 
+.. _strip_reverse_edges:
+
+Strip stored reverse edges
+--------------------------
+
+``utils/strip_reverse_edges.py`` normalizes a legacy archive that still stores
+reverse matrices (the unindexed ``L_r.mtx`` or the indexed
+``<base>_r_<n>.mtx``) — both are rejected by :ref:`archive_structure`::
+
+   python utils/strip_reverse_edges.py ARCHIVE.tar.gz -o STRIPPED.tar.gz
+
+The tool removes the reverse matrices, drops their bullet lines from the
+archive ``README.md`` ("Edges and labels") and recomputes the stored-edge
+total, then re-validates the result with the archive-structure checks. The
+precomputed ``results.mtx`` are left untouched: reachability does not depend
+on the redundant reverse matrices (they are exact transposes of forward
+labels, and the reference solver derives reverses from every forward edge).
+The output must be named after the graph (``<graph>.tar.gz``) so that
+:ref:`upload_to_s3` stores it under the same name, replacing the previous
+archive.
+
 .. _merge_archive:
 
 Merge partial archives
