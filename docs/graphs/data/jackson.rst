@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 149404
-     - 395356
+     - 197678
 
 
 Edges Statistics
@@ -45,17 +45,9 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 4244
-   * - :math:`\textit{alloc}_r`
-     - 4244
    * - :math:`\textit{assign}`
-     - 159765
-   * - :math:`\textit{assign}_r`
      - 159765
    * - :math:`\textit{load}_i`
      - 22160
-   * - :math:`\textit{load}_{r\_i}`
-     - 22160
    * - :math:`\textit{store}_i`
-     - 11509
-   * - :math:`\textit{store}_{r\_i}`
      - 11509

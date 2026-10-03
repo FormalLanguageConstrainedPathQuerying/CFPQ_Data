@@ -11,7 +11,8 @@ Java points-to graphs
 Exhaustive, field-sensitive points-to graphs for Java programs, produced by
 the analysis of `"Giga-scale exhaustive points-to analysis for Java in under a minute" <https://dl.acm.org/doi/10.1145/2858965.2814307>`_.
 Edges are the points-to relations (allocations, assignments, loads, stores,
-calls, returns) together with their reverses.
+calls, returns); reversed edges are auto-generated from the forward edges and
+are not stored (see :ref:`graphs`).
 
 .. toctree::
    :hidden:
@@ -49,7 +50,7 @@ calls, returns) together with their reverses.
      - Download
    * - :ref:`gson`
      - 14114
-     - 34934
+     - 17467
      - 56325
      - 0.301
      - `gson.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/gson.tar.gz>`_ 📥
@@ -79,19 +80,19 @@ calls, returns) together with their reverses.
      - `avrora.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/avrora.tar.gz>`_ 📥
    * - :ref:`mockito`
      - 25436
-     - 62388
+     - 31194
      - 16169
      - 0.304
      - `mockito.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/mockito.tar.gz>`_ 📥
    * - :ref:`commons_io`
      - 26188
-     - 62428
+     - 31214
      - 24020
      - 0.310
      - `commons_io.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/commons_io.tar.gz>`_ 📥
    * - :ref:`commons_lang3`
      - 40970
-     - 96854
+     - 48427
      - 27553
      - 0.443
      - `commons_lang3.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/commons_lang3.tar.gz>`_ 📥
@@ -121,7 +122,7 @@ calls, returns) together with their reverses.
      - `xalan.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/xalan.tar.gz>`_ 📥
    * - :ref:`junit5`
      - 59818
-     - 149370
+     - 74685
      - not available
      - 0.585
      - `junit5.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/junit5.tar.gz>`_ 📥
@@ -145,13 +146,13 @@ calls, returns) together with their reverses.
      - `tomcat.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/tomcat.tar.gz>`_ 📥
    * - :ref:`guava`
      - 129562
-     - 336232
+     - 168116
      - not available
      - 1.34
      - `guava.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/guava.tar.gz>`_ 📥
    * - :ref:`jackson`
      - 149404
-     - 395356
+     - 197678
      - not available
      - 1.57
      - `jackson.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jackson.tar.gz>`_ 📥
