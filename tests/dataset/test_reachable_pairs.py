@@ -1,4 +1,73 @@
-from flpq_data.dataset import REACHABLE_PAIRS_CSV, reachable_pairs
+import io
+from importlib import import_module
+
+from flpq_data.dataset import (
+    REACHABLE_PAIRS_CSV,
+    REACHABLE_PAIRS_KEY_PREFIX,
+    REACHABLE_PAIRS_URL,
+    download_reachable_pairs,
+    reachable_pairs,
+)
+
+rp = import_module("flpq_data.dataset.reachable_pairs")
+
+
+class _FakeResponse:
+    """Minimal stand-in for ``requests.Response`` for the download tests."""
+
+    def __init__(self, content: bytes) -> None:
+        self.raw = io.BytesIO(content)
+
+    def raise_for_status(self) -> None:
+        pass
+
+    def __enter__(self) -> "_FakeResponse":
+        return self
+
+    def __exit__(self, *args: object) -> None:
+        pass
+
+
+def test_versioned_url_constants():
+    assert REACHABLE_PAIRS_KEY_PREFIX == "6.0.0"
+    assert (
+        REACHABLE_PAIRS_URL
+        == "https://cfpq-data.storage.yandexcloud.net/6.0.0/reachable_pairs.csv"
+    )
+
+
+def test_download_reachable_pairs(tmp_path, monkeypatch):
+    data_dir = tmp_path / "data"
+    monkeypatch.setattr(rp, "DATA", data_dir)
+    content = b"graph,grammar\nwc,c_alias.cnf\n"
+    monkeypatch.setattr(rp.requests, "get", lambda **kwargs: _FakeResponse(content))
+
+    destination = download_reachable_pairs()
+
+    assert destination == data_dir / "reachable_pairs.csv"
+    assert destination.read_bytes() == content
+
+
+def test_reachable_pairs_reads_downloaded_copy(tmp_path, monkeypatch):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    (data_dir / "reachable_pairs.csv").write_text(
+        "graph,grammar,category,query_class,num_reachable_pairs\n"
+        "g,c_alias.cnf,c_alias_analysis,cfpq,7\n"
+    )
+    monkeypatch.setattr(rp, "DATA", data_dir)
+
+    rows = reachable_pairs()
+
+    assert len(rows) == 1
+    assert rows[0]["graph"] == "g"
+    assert rows[0]["num_reachable_pairs"] == 7
+
+
+def test_reachable_pairs_falls_back_to_bundled(tmp_path, monkeypatch):
+    monkeypatch.setattr(rp, "DATA", tmp_path / "empty")
+
+    assert rp._csv_path() == REACHABLE_PAIRS_CSV
 
 
 def test_csv_exists():
