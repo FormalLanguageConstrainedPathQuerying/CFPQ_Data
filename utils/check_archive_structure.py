@@ -339,15 +339,21 @@ def _label_problems(graph_dir: pathlib.Path) -> list[str]:
                     f"{base[:-2]}_r_{idx} (got {stem})"
                 )
 
-    # Rule 3: no stored reverses — if L.mtx exists, L_r.mtx must not
+    # Rule 3: no stored reverses — if the forward label is stored, neither its
+    # unindexed reverse (L_r) nor its indexed reverse (B_r_<n>) may be stored.
     for stem in sorted(stems):
+        forward = None
         if stem.endswith("_r"):
             forward = stem[:-2]
-            if forward in stems:
-                problems.append(
-                    f"graph/{stem}.mtx: reversed edge is stored but must be "
-                    f"auto-generated from {forward}.mtx"
-                )
+        else:
+            indexed = _INDEXED_REV_RE.fullmatch(stem)
+            if indexed is not None:
+                forward = f"{indexed.group(1)}_{indexed.group(2)}"
+        if forward is not None and forward in stems:
+            problems.append(
+                f"graph/{stem}.mtx: reversed edge is stored but must be "
+                f"auto-generated from {forward}.mtx"
+            )
     return problems
 
 

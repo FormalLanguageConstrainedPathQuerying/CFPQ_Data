@@ -278,6 +278,47 @@ def test_reversed_label_is_accepted(tmp_path):
     assert validate_archive(tree) == []
 
 
+def _write_mtx(path, entries="0 1\n"):
+    path.write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        f"%%GraphBLAS type bool\n2 2 {len(entries.split()) // 2}\n{entries}"
+    )
+
+
+def test_stored_unindexed_reversed_label_is_rejected(tmp_path):
+    tree = _valid_tree(tmp_path)
+    _write_mtx(tree / "graph" / "a_r.mtx")
+
+    problems = validate_archive(tree)
+
+    assert any(
+        "graph/a_r.mtx: reversed edge is stored but must be auto-generated "
+        "from a.mtx" in p
+        for p in problems
+    )
+
+
+def test_stored_indexed_reversed_label_is_rejected(tmp_path):
+    tree = _valid_tree(tmp_path)
+    _write_mtx(tree / "graph" / "load_0.mtx")
+    _write_mtx(tree / "graph" / "load_r_0.mtx")
+
+    problems = validate_archive(tree)
+
+    assert any(
+        "graph/load_r_0.mtx: reversed edge is stored but must be auto-generated "
+        "from load_0.mtx" in p
+        for p in problems
+    )
+
+
+def test_indexed_reversed_label_without_forward_is_accepted(tmp_path):
+    tree = _valid_tree(tmp_path)
+    _write_mtx(tree / "graph" / "load_r_0.mtx")
+
+    assert validate_archive(tree) == []
+
+
 def test_indexed_placeholder_label_is_accepted(tmp_path):
     tree = _valid_tree(tmp_path)
     (tree / "graph" / "a.mtx").unlink()
