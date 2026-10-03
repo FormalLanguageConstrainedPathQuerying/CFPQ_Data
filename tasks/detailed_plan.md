@@ -132,7 +132,7 @@ class index regions.
   before any update (all-or-nothing), like `reachable_pairs_tables.py`.
 - Marker region replaced by the shared two-marker update helper; idempotent.
 
-### S3: Enforce the CSV registry when merging partial archives
+### S3: Enforce the CSV registry when merging partial archives [done] (ed40952)
 
 **Code:** `utils/merge_archive.py` — add `REGISTRY_CSV` constant and a registry
 check for every new query directory.
