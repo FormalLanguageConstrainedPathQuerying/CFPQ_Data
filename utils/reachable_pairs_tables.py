@@ -11,8 +11,8 @@ in the graph archives). Two renderings are derived from it:
 - the count columns of the eight per-category graph tables in
   ``docs/graphs/*.rst``.
 
-The site renders CFPQ counts only; rows of other query classes are
-validated but not rendered until the per-class sections exist (task 50).
+The graph tables render CFPQ counts only; rows of other query classes are
+validated but not rendered (no RPQ/MCFPQ counts exist yet).
 
 This tool keeps both renderings accurate:
 
@@ -51,6 +51,7 @@ __all__ = [
     "graph_to_category",
     "load_rows",
     "render_tables_region",
+    "replace_marked_region",
     "update_reachable_pairs_page",
     "update_category_columns",
     "main",
@@ -235,8 +236,8 @@ def load_rows(csv_path: pathlib.Path) -> list[dict]:
 def _rendered_rows(rows: list[dict]) -> list[dict]:
     """Returns the rows the current site renders.
 
-    The site renders CFPQ counts only; per-class rendering comes with the
-    task-50 site restructure.
+    The graph tables render CFPQ counts only; RPQ/MCFPQ counts do not exist
+    yet.
     """
     return [r for r in rows if r["query_class"] == "cfpq"]
 
@@ -308,8 +309,66 @@ def render_tables_region(rows: list[dict], docs_dir: pathlib.Path) -> str:
     return "\n\n".join(sections)
 
 
+def replace_marked_region(
+    text: str, region: str, begin_marker: str, end_marker: str
+) -> tuple[str, bool]:
+    """Returns text with the region between two marker lines replaced.
+
+    The content strictly between the BEGIN and END marker lines is
+    replaced; the markers themselves stay in place, separated from the
+    region by blank lines. This is the generic helper behind
+    :func:`update_reachable_pairs_page` and the applicable-graphs generator.
+
+    Parameters
+    ----------
+    text : str
+        The current source text.
+    region : str
+        The rendered region.
+    begin_marker : str
+        The line that opens the replaced region.
+    end_marker : str
+        The line that closes the replaced region.
+
+    Returns
+    -------
+    updated : str
+        The new text.
+    changed : bool
+        Whether anything was replaced.
+
+    Raises
+    ------
+    ValueError
+        If either marker is missing or out of order.
+
+    Examples
+    --------
+    >>> text = "intro\\n<!--b-->\\nold\\n<!--e-->\\noutro\\n"
+    >>> replace_marked_region(text, "new", "<!--b-->", "<!--e-->")[0].splitlines()
+    ['intro', '<!--b-->', '', 'new', '', '<!--e-->', 'outro']
+    """
+    lines = text.splitlines()
+
+    def marker_index(marker: str) -> int:
+        for i, line in enumerate(lines):
+            if line.strip() == marker:
+                return i
+        raise ValueError(f"markers {begin_marker!r}/{end_marker!r} not found")
+
+    begin = marker_index(begin_marker)
+    end = marker_index(end_marker)
+    if begin > end:
+        raise ValueError("markers are out of order")
+    new_lines = lines[: begin + 1] + [""] + region.splitlines() + [""] + lines[end:]
+    updated = "\n".join(new_lines)
+    if text.endswith("\n"):
+        updated += "\n"
+    return updated, updated != text
+
+
 def update_reachable_pairs_page(text: str, region: str) -> tuple[str, bool]:
-    """Returns text with the marker region replaced by ``region``.
+    """Returns text with the reachable-pairs marker region replaced.
 
     The content strictly between the BEGIN and END marker lines is
     replaced; the markers themselves stay in place, separated from the
@@ -334,23 +393,7 @@ def update_reachable_pairs_page(text: str, region: str) -> tuple[str, bool]:
     ValueError
         If either marker is missing or out of order.
     """
-    lines = text.splitlines()
-
-    def marker_index(marker: str) -> int:
-        for i, line in enumerate(lines):
-            if line.strip() == marker:
-                return i
-        raise ValueError(f"markers {BEGIN_MARKER!r}/{END_MARKER!r} not found")
-
-    begin = marker_index(BEGIN_MARKER)
-    end = marker_index(END_MARKER)
-    if begin > end:
-        raise ValueError("reachable-pairs markers are out of order")
-    new_lines = lines[: begin + 1] + [""] + region.splitlines() + [""] + lines[end:]
-    updated = "\n".join(new_lines)
-    if text.endswith("\n"):
-        updated += "\n"
-    return updated, updated != text
+    return replace_marked_region(text, region, BEGIN_MARKER, END_MARKER)
 
 
 def update_category_columns(

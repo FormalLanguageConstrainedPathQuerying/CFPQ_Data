@@ -205,9 +205,9 @@ Behavior:
   plus CSV rows with an unknown ``query_class``, whose graph is unknown,
   whose category disagrees with the docs, or which has no count column in
   its category — and exits non-zero, so it can gate a commit. The
-  count-column check applies to CFPQ rows only: the site renders CFPQ
-  counts, and rows of other query classes are validated but not rendered
-  until the per-class sections exist (task 50).
+  count-column check applies to CFPQ rows only: the graph tables render CFPQ
+  counts, and rows of other query classes are validated but not rendered (no
+  RPQ/MCFPQ counts exist yet).
 - **``--update``.** Rewrites the reachable-pairs region and fixes the
   drifted cells in place; lines that need no change keep their exact text.
 
@@ -218,6 +218,35 @@ to that graph) — the convention explained on the :ref:`graphs` page.
 When a new count is computed, add the row to the CSV with the graph's
 category and query class and run this tool with ``--update`` before
 committing.
+
+.. _applicable_graphs:
+
+Applicable graphs
+-----------------
+
+``utils/applicable_graphs.py`` keeps the per-class "Applicable graphs" lists
+of ``docs/queries/{cfpq,rpq,mcfpq}/index.rst`` in sync with the same CSV
+registry::
+
+   python utils/applicable_graphs.py [--update]
+
+For each query class the tool lists the graphs that carry at least one query
+of that class, grouped by graph category and cross-linking the shared
+per-graph pages (``:ref:`` to ``docs/graphs/data/*.rst``), so no graph page
+is duplicated. The lists are delimited by the ``applicable-graphs`` markers.
+The graph-to-category and graph-to-page mappings and the CSV validation are
+reused from :ref:`reachable_pairs_tables`.
+
+Behavior:
+
+- **Check mode (default).** Reports every drifted region — plus CSV rows the
+  site cannot account for — and exits non-zero, so it can gate a commit.
+- **``--update``.** Rewrites the drifted regions in place.
+- **Empty class.** A class with no registered graphs renders a placeholder
+  sentence instead of an empty list.
+
+When a query is added for a graph, add its row to the CSV first and run this
+tool with ``--update`` before committing.
 
 .. _migrate_gdrive_to_s3:
 

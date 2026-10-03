@@ -31,4 +31,6 @@ query.
 
 .. applicable-graphs:begin
 
+No MCFPQ queries have been added to the graph catalog yet.
+
 .. applicable-graphs:end
