@@ -108,7 +108,7 @@ the design doc and the changelog.
 - The moved pages keep their anchors and content unchanged, so every
   `:ref:` to a template keeps resolving.
 
-### S2: Generate the per-class applicable-graphs lists from the CSV
+### S2: Generate the per-class applicable-graphs lists from the CSV [done] (5869cdc)
 
 **Code:** new `utils/applicable_graphs.py`; reuse `load_rows`, `category_order`,
 `page_to_graph`, `graph_to_category`, `_section_title`, `_validation_problems`
