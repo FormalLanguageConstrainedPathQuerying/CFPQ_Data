@@ -154,7 +154,7 @@ archives" section.
   `merge_archive.REGISTRY_CSV` to a tmp CSV so the existing graph `g` /
   query `t` fixtures remain valid.
 
-### S4: Design doc + changelog: drop benchmarks, reflect the site hierarchy
+### S4: Design doc + changelog: drop benchmarks, reflect the site hierarchy [done] (4584106)
 
 **Code:** none (docs/process only).
 **Tests:** none (docs build is the gate).
