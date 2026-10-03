@@ -69,7 +69,7 @@ respective path with version prefix."
 - `reachable_pairs()` reads `DATA / "reachable_pairs.csv"` if it exists, else
   `REACHABLE_PAIRS_CSV`; signatures and returned rows unchanged.
 
-### S2: Tests for the versioned storage
+### S2: Tests for the versioned storage [done] 652fc30
 **Code:** none.
 **Tests:** extend `tests/dataset/test_reachable_pairs.py`.
 **Docs:** none.
