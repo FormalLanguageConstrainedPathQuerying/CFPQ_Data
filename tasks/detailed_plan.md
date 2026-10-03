@@ -96,7 +96,7 @@ consistency; extend the reverse note to name both stored forms.
   the reverse files are gone, the README total recomputed and reverse bullets
   removed, the output validates, and a second run is a no-op.
 
-### S3: Strip and re-upload the 7 archives
+### S3: Strip and re-upload the 7 archives [done] (270d09b)
 
 **Code:** none in the package; add `utils/reverse_edges_strip_record.json`
 (old/new sha256 + removed count per archive).
