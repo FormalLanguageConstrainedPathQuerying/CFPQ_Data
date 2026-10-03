@@ -52,7 +52,7 @@ are not stored (see :ref:`graphs`).
      - 14114
      - 17467
      - 56325
-     - 0.301
+     - 0.268
      - `gson.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/gson.tar.gz>`_ 📥
    * - :ref:`sunflow`
      - 15464
@@ -82,19 +82,19 @@ are not stored (see :ref:`graphs`).
      - 25436
      - 31194
      - 16169
-     - 0.304
+     - 0.249
      - `mockito.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/mockito.tar.gz>`_ 📥
    * - :ref:`commons_io`
      - 26188
      - 31214
      - 24020
-     - 0.310
+     - 0.261
      - `commons_io.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/commons_io.tar.gz>`_ 📥
    * - :ref:`commons_lang3`
      - 40970
      - 48427
      - 27553
-     - 0.443
+     - 0.371
      - `commons_lang3.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/commons_lang3.tar.gz>`_ 📥
    * - :ref:`eclipse`
      - 41383
@@ -124,7 +124,7 @@ are not stored (see :ref:`graphs`).
      - 59818
      - 74685
      - not available
-     - 0.585
+     - 0.453
      - `junit5.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/junit5.tar.gz>`_ 📥
    * - :ref:`batik`
      - 60175
@@ -148,13 +148,13 @@ are not stored (see :ref:`graphs`).
      - 129562
      - 168116
      - not available
-     - 1.34
+     - 1.06
      - `guava.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/guava.tar.gz>`_ 📥
    * - :ref:`jackson`
      - 149404
      - 197678
      - not available
-     - 1.57
+     - 1.22
      - `jackson.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jackson.tar.gz>`_ 📥
    * - :ref:`jython`
      - 191895

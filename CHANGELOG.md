@@ -112,6 +112,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- The 7 `java_points_to` archives that still stored reverse edges
+  (`load_r_<n>.mtx`, `store_r_<n>.mtx`) after the 6.0.0 migration were
+  stripped, so `add_reverse_edges()` no longer double-reverses them. Reversed
+  edges are auto-generated and must not be stored, but these archives had
+  passed validation because the checker rejected only the unindexed
+  `L_r.mtx` form; it now rejects indexed stored reverses too, and the new
+  `utils/strip_reverse_edges.py` normalizes an archive that carries them
+  (#136).
 - `reachable_pairs.csv` is shipped in the installed wheel and the
   documentation download link points at the versioned object-storage URL
   instead of an unpinned `dev`-branch URL that returned 404, so
