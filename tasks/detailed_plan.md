@@ -81,7 +81,7 @@ respective path with version prefix."
 - The resolver returns the downloaded copy when present and the bundled copy
   otherwise (both branches), with `reachable_pairs()` reading the selected file.
 
-### S3: Documentation for the versioned CSV
+### S3: Documentation for the versioned CSV [done] b88a5b8
 **Code:** none.
 **Tests:** none.
 **Docs:** `docs/reachable_pairs.rst` (S3 link + download API), `CHANGELOG.md`
