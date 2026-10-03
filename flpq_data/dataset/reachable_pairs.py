@@ -44,10 +44,10 @@ REACHABLE_PAIRS_CSV: pathlib.Path = (
 def download_reachable_pairs() -> pathlib.Path:
     """Download the versioned reachable-pairs CSV from the dataset storage.
 
-    The table is also shipped with the package (:data:`REACHABLE_PAIRS_CSV`);
+    The table is also shipped with the package (``REACHABLE_PAIRS_CSV``);
     this fetches the copy published under the current version prefix
-    (:data:`REACHABLE_PAIRS_URL`) into the package data directory
-    (:data:`flpq_data.config.DATA`), so an updated table can be consumed
+    (``REACHABLE_PAIRS_URL``) into the package data directory
+    (``flpq_data.config.DATA``), so an updated table can be consumed
     without reinstalling. Once downloaded, :func:`reachable_pairs` reads it
     instead of the bundled copy.
 
@@ -59,7 +59,7 @@ def download_reachable_pairs() -> pathlib.Path:
     Raises
     ------
     requests.HTTPError
-        If the table is not available at :data:`REACHABLE_PAIRS_URL`.
+        If the table is not available at ``REACHABLE_PAIRS_URL``.
     """
     DATA.mkdir(exist_ok=True, parents=True)
     destination = DATA / REACHABLE_PAIRS_FILENAME

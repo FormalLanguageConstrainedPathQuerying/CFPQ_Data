@@ -56,6 +56,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   validates an archive that carries only new queries for an existing graph,
   and `utils/merge_archive.py` merges such a partial archive into the
   existing full one.
+- The reachable-pairs table is republished, versioned, on the dataset object
+  storage (`6.0.0/reachable_pairs.csv`), exposed as `REACHABLE_PAIRS_URL` and
+  fetched into the local data cache by `download_reachable_pairs()`; once
+  downloaded, `reachable_pairs()` reads it instead of the bundled copy, so an
+  updated table is consumed without reinstalling the package.
 
 ### Changed
 
@@ -107,6 +112,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `reachable_pairs.csv` is shipped in the installed wheel and the
+  documentation download link points at the versioned object-storage URL
+  instead of an unpinned `dev`-branch URL that returned 404, so
+  `reachable_pairs("wc", "c_alias.cnf")` no longer fails on a fresh install
+  (#139).
 - The C Alias grammar page rendered the MathJax error "'_' allowed only in
   math mode" instead of the parameter names and the example grammars: the
   page wrapped identifiers containing underscores in `\textit{...}` inside

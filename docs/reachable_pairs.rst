@@ -24,10 +24,17 @@ the :ref:`Graphs <graphs>` catalog.
 Download
 --------
 
-The full table is available as a CSV file:
+The full table is available as a CSV file. It ships with the package
+(``REACHABLE_PAIRS_CSV``), so the API works offline, and is republished —
+versioned — on the dataset object storage at
+``https://cfpq-data.storage.yandexcloud.net/<major>.0.0/reachable_pairs.csv``.
 
-- **Package API**: ``from flpq_data.dataset import reachable_pairs, REACHABLE_PAIRS_CSV``
-- **CSV file**: `reachable_pairs.csv <https://raw.githubusercontent.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/dev/flpq_data/dataset/reachable_pairs.csv>`_
+- **Package API**: ``from flpq_data.dataset import reachable_pairs, REACHABLE_PAIRS_CSV``.
+  :func:`flpq_data.dataset.download_reachable_pairs` fetches the versioned copy
+  from the object storage into the local data cache; once downloaded,
+  :func:`flpq_data.dataset.reachable_pairs` reads it instead of the bundled
+  table, so a table updated on the storage is used without reinstalling.
+- **CSV file**: `reachable_pairs.csv <https://cfpq-data.storage.yandexcloud.net/6.0.0/reachable_pairs.csv>`_
 
 Columns: ``graph``, ``grammar``, ``category``, ``query_class`` (one of
 ``cfpq``, ``rpq``, ``mcfpq`` — the names of the ``queries/<class>/``
