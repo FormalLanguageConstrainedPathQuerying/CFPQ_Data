@@ -54,7 +54,7 @@ respective path with version prefix."
 
 ## Subtasks
 
-### S1: Versioned S3 storage for reachable_pairs in the package
+### S1: Versioned S3 storage for reachable_pairs in the package [done] 81728f7
 **Code:** rewrite `flpq_data/dataset/reachable_pairs.py`: `REACHABLE_PAIRS_FILENAME`,
 `REACHABLE_PAIRS_KEY_PREFIX`, `REACHABLE_PAIRS_URL`, bundled `REACHABLE_PAIRS_CSV`,
 `download_reachable_pairs()`, and a resolver used by `reachable_pairs()`.
