@@ -54,7 +54,7 @@ archives report `archive structure ok`.
 
 ## Subtasks
 
-### S1: Catch indexed stored reverses in the archive checker
+### S1: Catch indexed stored reverses in the archive checker [done] (caf7af6)
 
 **Code:** `utils/check_archive_structure.py` — extend `_label_problems` Rule 3.
 **Tests:** `tests/utils/test_check_archive_structure.py` — new cases.
