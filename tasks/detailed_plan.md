@@ -94,22 +94,15 @@ respective path with version prefix."
   `download_reachable_pairs()`.
 - Changelog records the versioned S3 storage and the packaging/link fix.
 
-### S4: Verify the CSV ships in the wheel
-**Code:** only if the wheel lacks the file.
+### S4: Verify the wheel and publish the versioned CSV to S3 (final) [done]
+**Code:** only if a verification fails.
 **Tests:** none.
 **Docs:** none.
 
 **Spec:**
 - Build the wheel (`uv build --wheel`) and confirm
-  `flpq_data/dataset/reachable_pairs.csv` is present; if absent, add the
-  hatch build configuration needed to include it.
-
-### S5: Publish and verify the versioned CSV on S3
-**Code:** none.
-**Tests:** none.
-**Docs:** none.
-
-**Spec:**
+  `flpq_data/dataset/reachable_pairs.csv` is present — verified present, so
+  no build-config change is needed.
 - Upload `flpq_data/dataset/reachable_pairs.csv` to
   `s3://cfpq-data/6.0.0/reachable_pairs.csv` with `utils/upload_to_s3.py`
   (credentials from the user).
