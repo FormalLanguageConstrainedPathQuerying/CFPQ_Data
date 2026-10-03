@@ -177,6 +177,13 @@ already exists, a section already described, a top-level directory named
 after another graph, or a failed re-validation — is reported and the output
 is not written; both inputs are left untouched.
 
+Every new query directory must also have a row in the reachable-pairs
+registry (``flpq_data/dataset/reachable_pairs.csv``): the same graph, the
+same query class, and the query directory name as the stem of the row's
+``grammar`` file. This keeps the registry — the single source of truth behind
+the :ref:`reachable_pairs_tables` and :ref:`applicable_graphs` renderings — in
+step with the archives; an unregistered query aborts the merge.
+
 The output file must be named after the graph (``<graph>.tar.gz``): the
 upload tool stores it under that name, replacing the previous archive.
 

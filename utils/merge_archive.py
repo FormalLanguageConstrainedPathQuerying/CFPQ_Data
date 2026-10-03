@@ -32,13 +32,44 @@ from check_archive_structure import (
     unpack_single_dir,
     validate_archive,
 )
+from config import MAIN_FOLDER
 from migrate_gdrive_to_s3 import (
     DRIVE_FILE_ID_RE,
     DriveDownloadError,
     download_from_drive,
 )
+from reachable_pairs_tables import load_rows
 
-__all__ = ["merge_archives", "main"]
+__all__ = ["REGISTRY_CSV", "merge_archives", "main"]
+
+#: The reachable-pairs registry, the single source of truth for applicable
+#: graph x query pairs. A merged partial archive must carry a registry row
+#: for every new query directory so the site's applicable-graphs lists
+#: cannot drift from the archives.
+REGISTRY_CSV = MAIN_FOLDER / "flpq_data" / "dataset" / "reachable_pairs.csv"
+
+
+def _registry_problems(
+    graph: str, new_queries: list[tuple[str, pathlib.Path]]
+) -> list[str]:
+    """Check that every new query directory has a registry row.
+
+    A new query ``queries/<cls>/<name>`` must be recorded in
+    ``reachable_pairs.csv`` for the same graph and query class, with the
+    query directory name as the stem of the row's ``grammar`` file (the
+    key the site's renderings use), so the registry cannot drift.
+    """
+    registered = {
+        (row["graph"], row["query_class"], pathlib.Path(row["grammar"]).stem)
+        for row in load_rows(REGISTRY_CSV)
+    }
+    return [
+        f"queries/{cls}/{query_dir.name}: no "
+        "flpq_data/dataset/reachable_pairs.csv row for graph "
+        f"'{graph}' (query_class {cls})"
+        for cls, query_dir in new_queries
+        if (graph, cls, query_dir.name) not in registered
+    ]
 
 
 def _resolve_partial(source: str, tmp: pathlib.Path) -> pathlib.Path:
@@ -184,6 +215,9 @@ def merge_archives(
                     f"queries/{cls}/{query_dir.name}: already exists in the "
                     "existing archive"
                 )
+
+        if not problems:
+            problems.extend(_registry_problems(existing_root.name, new_queries))
 
         fragment = parse_readme_sections(
             (partial_root / "queries" / "README.md").read_text(encoding="utf-8")

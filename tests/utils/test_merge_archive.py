@@ -1,6 +1,8 @@
 import pathlib
 import shutil
 
+import merge_archive
+import pytest
 from check_archive_structure import validate_archive
 from merge_archive import main, merge_archives
 from test_check_archive_structure import (
@@ -9,6 +11,18 @@ from test_check_archive_structure import (
     _tarball,
     _valid_tree,
 )
+
+
+@pytest.fixture(autouse=True)
+def _registry(tmp_path, monkeypatch):
+    """The merge fixtures register their new ``cfpq/t`` query."""
+    csv = tmp_path / "reachable_pairs.csv"
+    csv.write_text(
+        "graph,grammar,category,query_class,num_reachable_pairs\n"
+        "g,t.cnf,cat_a,cfpq,1\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(merge_archive, "REGISTRY_CSV", csv)
 
 
 def _new_query_partial(root: pathlib.Path, name: str = "g") -> pathlib.Path:
@@ -63,6 +77,49 @@ def test_merge_collision(tmp_path):
     problems = merge_archives(existing, partial, output)
 
     assert any("already exists in the existing archive" in p for p in problems)
+    assert not output.exists()
+
+
+def test_merge_unregistered_query_is_reported(tmp_path):
+    existing = _valid_tree(tmp_path)
+    partial = _new_query_partial(tmp_path / "p")
+    _query_dir(partial, "cfpq", "u", ".cnf")
+    readme = partial / "queries" / "README.md"
+    readme.write_text(
+        readme.read_text(encoding="utf-8")
+        + "\n## cfpq/u\n- Language: a*.\n- Purpose: test.\n",
+        encoding="utf-8",
+    )
+    output = tmp_path / "out" / "g.tar.gz"
+    output.parent.mkdir()
+
+    problems = merge_archives(existing, partial, output)
+
+    assert any(
+        "flpq_data/dataset/reachable_pairs.csv" in p
+        and "graph 'g'" in p
+        and "queries/cfpq/u" in p
+        for p in problems
+    )
+    assert not output.exists()
+
+
+def test_merge_class_mismatch_is_reported(tmp_path):
+    existing = _valid_tree(tmp_path)
+    partial = _new_query_partial(tmp_path / "p")
+    _query_dir(partial, "rpq", "t", ".re")
+    readme = partial / "queries" / "README.md"
+    readme.write_text(
+        readme.read_text(encoding="utf-8")
+        + "\n## rpq/t\n- Language: a*.\n- Purpose: test.\n",
+        encoding="utf-8",
+    )
+    output = tmp_path / "out" / "g.tar.gz"
+    output.parent.mkdir()
+
+    problems = merge_archives(existing, partial, output)
+
+    assert any("queries/rpq/t" in p and "query_class rpq" in p for p in problems)
     assert not output.exists()
 
 
