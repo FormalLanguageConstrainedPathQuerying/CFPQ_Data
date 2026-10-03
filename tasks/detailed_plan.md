@@ -74,7 +74,7 @@ consistency; extend the reverse note to name both stored forms.
   - an indexed reverse without its forward (`load_r_0.mtx` only) is not
     flagged by Rule 3.
 
-### S2: Add a strip-stored-reverses maintenance tool
+### S2: Add a strip-stored-reverses maintenance tool [done] (c80988d)
 
 **Code:** new `utils/strip_reverse_edges.py`.
 **Tests:** new `tests/utils/test_strip_reverse_edges.py`.
