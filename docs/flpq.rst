@@ -360,8 +360,8 @@ distribution ``flpq-data``) at version 6.0.0, and the grammar module gains
 the same query-class level as the site::
 
    flpq_data/
-   ├── config.py        version, data directories
-   ├── dataset/         download machinery, per-class registries, reachable pairs
+   ├── config.py        version
+   ├── dataset/         registry + metadata API, machine-global cache with lazy access (graph_dir), reachable pairs
    ├── graphs/          unchanged — class-agnostic I/O (mtx/csv/rdf/txt), generators, utils
    └── queries/         renamed from grammars/
        ├── cfpq/        existing generators/, readwrite/{cfg,cnf,cnf_template}, converters/, utils/
@@ -423,3 +423,94 @@ Migration path:
   archives.
 - The upload tool validates the structure before uploading
   (:ref:`upload_to_s3`, :ref:`archive_structure`).
+
+Core API: metadata, lazy access, and cache
+------------------------------------------
+
+The package core is for end users — dataset utilisation for benchmarks and
+statistical analysis. Dataset maintenance (archive validation, upload, merge,
+registry generation) lives in the repo-only ``utils/`` scripts and is never
+installed with the wheel; nothing in ``flpq_data/`` performs maintenance
+work, and the maintenance scripts consume the package as a library. This
+design responds to #140 (the graph archive was re-downloaded on every call)
+and #147 (no way to get the category of a graph from the package); it is
+tracked in hub issue #148.
+
+Graph registry
+^^^^^^^^^^^^^^
+
+``flpq_data/dataset/registry.json`` is the machine-readable per-graph
+registry, bundled with the wheel for the current dataset version and
+published to object storage as ``<version>/registry.json``::
+
+   { "version": "6.0.0",
+     "graphs": { "skos": { "category": "rdf", "num_nodes": 144,
+                           "num_edges": 252, "size_mb": 0.003,
+                           "sha256": "...",
+                           "queries": [ {"class": "cfpq",
+                                         "name": "nested_parentheses_subClassOf",
+                                         "representations": ["cnf", "rsm"]} ] } } }
+
+Field sources: the graph list and ``category`` from
+``reachable_pairs.csv``; ``num_nodes``/``num_edges`` from the MTX headers of
+the archive's ``graph/`` dir; ``size_mb`` from the stored object size;
+``sha256`` of the ``.tar.gz``; ``queries`` from the archive's ``queries/``
+tree. The repo-only ``utils/generate_registry.py`` (pattern of
+``utils/archive_sizes.py``) regenerates the file; it runs locally, never in
+CI (no-network policy).
+
+The metadata API never touches the network: ``graphs() -> list[str]``,
+``graph_info(name) -> GraphInfo`` (a frozen dataclass mirroring one registry
+record), and ``categories() -> dict[str, list[str]]`` — the category-to-
+graphs mapping of #147. The never-released ``GRAPHS``/``DATASET`` constants
+are dropped; the future ``cfpq-data`` shim maps ``DATASET -> graphs()``.
+
+Machine-global cache
+^^^^^^^^^^^^^^^^^^^^
+
+Downloaded data lives outside the package in a machine-global, per-user
+cache shared across projects: the ``FLPQ_DATA_CACHE`` environment variable,
+or the OS default from ``platformdirs.user_cache_dir("flpq-data")`` when it
+is unset (``~/.cache/flpq-data`` on Linux, ``~/Library/Caches/flpq-data`` on
+macOS, ``%LOCALAPPDATA%\flpq-data\Cache`` on Windows). The in-package data
+dir (the old ``config.DATA``/``GRAPHS_DIR``) is removed.
+
+The cache mirrors the dataset layout; the dataset version is the root, so
+several versions coexist::
+
+   <root>/6.0.0/
+   ├── reachable_pairs.csv
+   └── graph/<name>/<name>.tar.gz   plus the unpacked contents in the same
+                                     folder (README.md, graph/*.mtx, queries/)
+
+Lazy access
+^^^^^^^^^^^
+
+``graph_dir(name)`` is the single data accessor and is lazy: it returns the
+local graph folder and downloads only when the cache is missing or invalid.
+
+- The name is validated against the bundled registry.
+- Hit: ``<root>/<v>/graph/<name>/`` exists and the archive's sha256 (sidecar
+  ``.sha256`` written at install) matches the registry — return the path,
+  zero network. ``verify=True`` re-hashes the archive instead of trusting
+  the sidecar.
+- Miss: download to a temp file (``raise_for_status``), stream-verify the
+  sha256 against the registry, extract, check the single top-level dir, and
+  move the folder into the cache atomically; any failure leaves the cache
+  untouched.
+
+``download_graph``/``download`` remain as deprecated aliases of
+``graph_dir``. ``reachable_pairs.csv`` resolves to the per-version cache copy
+when present, else the bundled file; ``download_reachable_pairs()`` writes
+into the cache.
+
+Cache manipulation
+^^^^^^^^^^^^^^^^^^
+
+- ``cache_root() -> Path`` — the effective cache root (env var or OS
+  default).
+- ``cached_versions() -> list[str]`` — dataset versions present in the
+  cache.
+- ``clear_cache(keep: str | None = None)`` — remove version directories under
+  the root except ``keep`` (``None`` removes all); returns the removed
+  paths.
