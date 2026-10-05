@@ -72,7 +72,7 @@ dirs, `keep="6.0.0"` keeps only that one.
   (boundary, registry schema + generation/publication, cache layout/lifecycle/
   integrity, full API incl. deprecations; cite #140/#147); AGENTS.md
   package-layout lines; CHANGELOG `[Unreleased]`. Docs-only task.
-- **T2** (#150): Graph registry + metadata API (closes #147) —
+- **T2** (#150) [done]: Graph registry + metadata API (closes #147) —
   `utils/generate_registry.py` (maintenance; pattern of
   `utils/archive_sizes.py`), bundled `registry.json`, `GraphInfo`/`graph_names()`/
   `graph_info()`/`categories()`, drop `GRAPHS`/`DATASET`.
