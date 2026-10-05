@@ -11,7 +11,7 @@ The cache from #151 holds one directory per dataset version under the root
 (`None` removes all), returning the removed paths. `cache_root()` and
 `cached_versions()` (read-side manipulation) already exist in #151.
 
-### S1: clear_cache(keep=None) in cache.py + tests + docs
+### S1: clear_cache(keep=None) in cache.py + tests + docs [done] (c318590)
 
 **Code:** `flpq_data/dataset/cache.py` (new `clear_cache`; exported through
 the existing star import)
