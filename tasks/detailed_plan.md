@@ -122,7 +122,7 @@ Cache layout (version root = dataset version, so versions coexist)::
   `<root>/<v>/reachable_pairs.csv`; the downloaded copy is preferred; the
   bundled fallback when the cache copy is absent.
 
-### S4: Remove DATA/GRAPHS_DIR from config.py; migrate remaining references
+### S4: Remove DATA/GRAPHS_DIR from config.py; migrate remaining references [done] (ae3762d)
 
 **Code:** `flpq_data/config.py`, `.gitignore`, `LICENSE-DATA.txt`, three
 live-network test files, `.opencode/skills/add-graph/SKILL.md`
