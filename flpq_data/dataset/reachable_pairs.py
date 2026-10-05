@@ -8,7 +8,8 @@ from typing import Optional
 
 import requests
 
-from flpq_data.config import DATA, DATASET_VERSION
+from flpq_data.config import DATASET_VERSION
+from flpq_data.dataset.cache import version_dir
 
 __all__ = [
     "REACHABLE_PAIRS_CSV",
@@ -46,10 +47,10 @@ def download_reachable_pairs() -> pathlib.Path:
 
     The table is also shipped with the package (``REACHABLE_PAIRS_CSV``);
     this fetches the copy published under the current version prefix
-    (``REACHABLE_PAIRS_URL``) into the package data directory
-    (``flpq_data.config.DATA``), so an updated table can be consumed
-    without reinstalling. Once downloaded, :func:`reachable_pairs` reads it
-    instead of the bundled copy.
+    (``REACHABLE_PAIRS_URL``) into the machine-global cache
+    (``version_dir() / "reachable_pairs.csv"``), so an updated table can be
+    consumed without reinstalling. Once downloaded, :func:`reachable_pairs`
+    reads it instead of the bundled copy.
 
     Returns
     -------
@@ -61,8 +62,8 @@ def download_reachable_pairs() -> pathlib.Path:
     requests.HTTPError
         If the table is not available at ``REACHABLE_PAIRS_URL``.
     """
-    DATA.mkdir(exist_ok=True, parents=True)
-    destination = DATA / REACHABLE_PAIRS_FILENAME
+    destination = version_dir() / REACHABLE_PAIRS_FILENAME
+    destination.parent.mkdir(exist_ok=True, parents=True)
     logging.info(f"Downloading reachable pairs CSV from {REACHABLE_PAIRS_URL}")
     with requests.get(url=REACHABLE_PAIRS_URL, stream=True) as response:
         response.raise_for_status()
@@ -73,9 +74,9 @@ def download_reachable_pairs() -> pathlib.Path:
 
 
 def _csv_path() -> pathlib.Path:
-    """Returns the CSV to read: the downloaded copy if present, else bundled."""
-    downloaded = DATA / REACHABLE_PAIRS_FILENAME
-    return downloaded if downloaded.exists() else REACHABLE_PAIRS_CSV
+    """Returns the CSV to read: the per-version cache copy if present, else bundled."""
+    cached = version_dir() / REACHABLE_PAIRS_FILENAME
+    return cached if cached.exists() else REACHABLE_PAIRS_CSV
 
 
 def reachable_pairs(

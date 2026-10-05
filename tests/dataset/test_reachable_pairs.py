@@ -37,25 +37,24 @@ def test_versioned_url_constants():
 
 
 def test_download_reachable_pairs(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    monkeypatch.setattr(rp, "DATA", data_dir)
+    monkeypatch.setenv("FLPQ_DATA_CACHE", str(tmp_path))
     content = b"graph,grammar\nwc,c_alias.cnf\n"
     monkeypatch.setattr(rp.requests, "get", lambda **kwargs: _FakeResponse(content))
 
     destination = download_reachable_pairs()
 
-    assert destination == data_dir / "reachable_pairs.csv"
+    assert destination == tmp_path / "6.0.0" / "reachable_pairs.csv"
     assert destination.read_bytes() == content
 
 
 def test_reachable_pairs_reads_downloaded_copy(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    data_dir.mkdir()
-    (data_dir / "reachable_pairs.csv").write_text(
+    version_dir = tmp_path / "6.0.0"
+    version_dir.mkdir()
+    (version_dir / "reachable_pairs.csv").write_text(
         "graph,grammar,category,query_class,num_reachable_pairs\n"
         "g,c_alias.cnf,c_alias_analysis,cfpq,7\n"
     )
-    monkeypatch.setattr(rp, "DATA", data_dir)
+    monkeypatch.setenv("FLPQ_DATA_CACHE", str(tmp_path))
 
     rows = reachable_pairs()
 
@@ -65,7 +64,7 @@ def test_reachable_pairs_reads_downloaded_copy(tmp_path, monkeypatch):
 
 
 def test_reachable_pairs_falls_back_to_bundled(tmp_path, monkeypatch):
-    monkeypatch.setattr(rp, "DATA", tmp_path / "empty")
+    monkeypatch.setenv("FLPQ_DATA_CACHE", str(tmp_path / "empty"))
 
     assert rp._csv_path() == REACHABLE_PAIRS_CSV
 
