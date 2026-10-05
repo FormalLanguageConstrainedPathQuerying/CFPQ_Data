@@ -2,6 +2,7 @@
 
 import os
 import pathlib
+import shutil
 
 import platformdirs
 
@@ -12,6 +13,7 @@ __all__ = [
     "cache_root",
     "version_dir",
     "cached_versions",
+    "clear_cache",
 ]
 
 #: Environment variable overriding the cache root.
@@ -68,3 +70,36 @@ def cached_versions() -> list[str]:
     if not root.is_dir():
         return []
     return sorted(p.name for p in root.iterdir() if p.is_dir())
+
+
+def clear_cache(keep: str | None = None) -> list[pathlib.Path]:
+    """Remove the cached dataset versions, optionally keeping one.
+
+    Every version directory under the cache root is removed except the one
+    named by ``keep``; ``keep=None`` removes all of them. Non-directory
+    entries under the root are left untouched.
+
+    Parameters
+    ----------
+    keep : str, optional
+        The dataset version to keep (default ``None`` — remove everything).
+
+    Examples
+    --------
+    >>> from flpq_data import *
+    >>> clear_cache()  # doctest: +SKIP
+    []
+
+    Returns
+    -------
+    removed : list of Path
+        The removed version directories, in sorted order; empty when the
+        cache root does not exist or nothing was removed.
+    """
+    root = cache_root()
+    if not root.is_dir():
+        return []
+    removed = [p for p in sorted(root.iterdir()) if p.is_dir() and p.name != keep]
+    for path in removed:
+        shutil.rmtree(path)
+    return removed

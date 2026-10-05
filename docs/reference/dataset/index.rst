@@ -18,6 +18,7 @@ Dataset utilities
     cached_versions
     cache_root
     categories
+    clear_cache
     download_graph
     download_reachable_pairs
     graph_dir

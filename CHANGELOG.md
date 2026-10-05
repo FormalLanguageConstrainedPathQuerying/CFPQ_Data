@@ -81,6 +81,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `graph_names()` (all names), `graph_info(name) -> GraphInfo`, and
   `categories() -> dict[str, list[str]]` — the category of each graph
   (#147).
+- The machine-global cache API: `cache_root()` (the effective root — the
+  `FLPQ_DATA_CACHE` environment variable or the OS default from
+  `platformdirs`), `cached_versions()` (the dataset versions present in the
+  cache), and `clear_cache(keep=None)` (remove the cached version
+  directories, optionally keeping one).
 
 ### Changed
 
