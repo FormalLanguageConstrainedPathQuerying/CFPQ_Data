@@ -102,7 +102,7 @@ Cache layout (version root = dataset version, so versions coexist)::
 - Docs: tutorial "Load graph archive from Dataset" uses `graph_dir`;
   reference page lists `graph_dir` (and keeps the deprecated aliases).
 
-### S3: reachable_pairs.csv — per-version cache copy
+### S3: reachable_pairs.csv — per-version cache copy [done] (a630af9)
 
 **Code:** `flpq_data/dataset/reachable_pairs.py`
 **Tests:** Reworked download/precedence tests in
