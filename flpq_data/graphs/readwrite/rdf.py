@@ -117,8 +117,10 @@ def iter_edges_from_rdf(
         The ``(u, label, v)`` edge tuples (the order is not guaranteed —
         rdflib iterates in store order).
     """
+    # The format is always Turtle (the writer emits it); parse it explicitly
+    # instead of guessing from the file extension (.rdf means RDF/XML).
     tmp = rdflib.Graph()
-    tmp.parse(str(path))
+    tmp.parse(str(path), format="turtle")
 
     for subj, pred, obj in tmp:
         yield _node_id(subj), _label(pred), _node_id(obj)
