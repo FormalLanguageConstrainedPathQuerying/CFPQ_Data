@@ -189,6 +189,15 @@ edge via `data["label"]`).
 **Spec:** follow the `documentation` skill mapping; no fact duplicated that
 the S1 section already holds (reference pages and tutorial cross-link it).
 
+## Review
+
+Whole-repo review (after S6, before the quality gate): one finding — a
+failure during `mtx_dir_from_edges`' finalize phase leaked temp files and
+left partially written final files. Fixed in `fix(153-S6)` (7960654): the
+finalize loop runs inside the cleanup scope, finals are tracked from
+creation, and any failure removes everything the run created (all-or-nothing),
+covered by a new test.
+
 ## Notes
 
 - **Execution order**: S1 → S2 → S3 → S4 → S5 → S6, one commit per subtask
