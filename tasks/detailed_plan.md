@@ -64,7 +64,7 @@ in `tmp_path`, no network
 - numpydoc docstrings with `Examples` on the pure functions (same style as
   `archive_sizes.py`).
 
-### S2: Generate and commit flpq_data/dataset/registry.json
+### S2: Generate and commit flpq_data/dataset/registry.json [done] (7600cc2)
 
 **Code:** run `uv run python utils/generate_registry.py` (network, local
 only); commit the generated `flpq_data/dataset/registry.json` (113 graphs)
