@@ -1,6 +1,6 @@
 ---
 name: run-tests
-description: Use when running the CFPQ_Data test suite (pytest). Thin pointer to the "Test pipeline" section of docs/developer.rst, which holds the model and points at the CI workflow step with the exact command; keeps the machine-specific pitfalls (bare pytest, partial venv after uv add).
+description: Use when running the CFPQ_Data test suite (pytest). Thin pointer to the "Test pipeline" section of docs/developer.rst, which holds the model and points at the CI workflow step with the exact command; keeps the machine-specific pitfalls (bare pytest, partial venv after uv add, stale coverage.json gate).
 ---
 
 # Run tests
@@ -33,6 +33,17 @@ exactly the bare-pytest failure signature above. After any `uv add` or
 `uv remove`, restore the full environment before running anything:
 
     uv sync --all-groups
+
+## The coverage gate reads a JSON file, not the live run
+
+`utils/check_coverage.py` reads `coverage.json` from disk — it does not run
+pytest. If you invoke pytest with only `--cov-report=term` (or any report set
+that omits `json`), the `coverage.json` left by the previous run is stale, and
+the gate silently passes or fails on old numbers (observed 2026-10-05: a gate
+run reported byte-identical percentages to the prior task because the JSON was
+never regenerated). Always generate the JSON in the same command as the run —
+use the canonical CI command from `docs/developer.rst`, which includes
+`--cov-report=json`.
 
 ## Notes
 

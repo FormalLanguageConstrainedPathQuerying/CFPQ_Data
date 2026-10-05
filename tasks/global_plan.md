@@ -81,8 +81,8 @@ dirs, `keep="6.0.0"` keeps only that one.
   env-var override), lazy `graph_dir()` with checksum verification and atomic
   install, `reachable_pairs.csv` moved into the per-version cache, in-package
   data dir removed.
-- **T4** (#152): Cache manipulation API — `clear_cache(keep=None)` + tests +
-  docs.
+- **T4** (#152) [done]: Cache manipulation API — `clear_cache(keep=None)` +
+  tests + docs.
 
 ## Dependencies
 
