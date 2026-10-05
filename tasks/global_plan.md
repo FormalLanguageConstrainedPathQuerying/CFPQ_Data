@@ -67,7 +67,7 @@ dirs, `keep="6.0.0"` keeps only that one.
 
 ## Tasks
 
-- **T1** (#149): Design doc — record all decisions in `docs/flpq.rst`
+- **T1** (#149) [done]: Design doc — record all decisions in `docs/flpq.rst`
   (boundary, registry schema + generation/publication, cache layout/lifecycle/
   integrity, full API incl. deprecations; cite #140/#147); AGENTS.md
   package-layout lines; CHANGELOG `[Unreleased]`. Docs-only task.

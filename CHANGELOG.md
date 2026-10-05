@@ -65,6 +65,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `utils/applicable_graphs.py` renders each class's list from
   `reachable_pairs.csv`, grouped by graph category and cross-linking the
   shared per-graph pages, in check or `--update` mode.
+- The end-user core rework design is documented in `docs/flpq.rst` (hub
+  #148): the core/maintenance boundary — `flpq_data/` is the end-user core
+  for dataset utilisation (benchmarks, statistical analysis), and dataset
+  maintenance (archive validation, upload, merge, registry generation) stays
+  in repo-only `utils/` scripts that are never installed with the wheel —
+  plus the per-graph registry, the machine-global versioned cache, the lazy
+  `graph_dir()` accessor, and the cache manipulation API. Implementation
+  follows in #150–#152.
 
 ### Changed
 
@@ -74,9 +82,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   level as the site, per the FLPQ design in `docs/flpq.rst`. The flat
   top-level API is unchanged apart from the renames below; import the new
   names (`from flpq_data import *`).
-- `download(name)` is renamed `download_graph(name)`, and the `DATASET`
-  registry is renamed `GRAPHS`; `DATASET_URL` now serves the `6.0.0/graph/`
-  prefix.
+- `download(name)` becomes `graph_dir(name)`; `download_graph(name)` and
+  `download(name)` remain as deprecated aliases. The `DATASET` registry list
+  is replaced by the `graphs()` function backed by the per-graph
+  `registry.json`; `DATASET_URL` now serves the `6.0.0/graph/` prefix.
 - Development tooling migrated from Poetry to [uv](https://docs.astral.sh/uv/):
   PEP 621 project metadata with hatchling as the build backend, PEP 735
   dependency groups (`dev`, `test`, `docs`) instead of Poetry groups and the
@@ -102,11 +111,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
-- `download()` and `DATASET`: deprecated aliases of `download_graph()` and
-  `GRAPHS` (renamed in this release); `download()` emits a
-  `DeprecationWarning` on every call. The `cfpq-data` PyPI distribution gets
-  one final shim release depending on `flpq-data` so scripts importing
-  `cfpq_data` keep working through one more release.
+- `download_graph()` and `download()`: deprecated aliases of
+  `graph_dir()`; both emit a `DeprecationWarning` on every call. The
+  `cfpq-data` PyPI distribution gets one final shim release depending on
+  `flpq-data`, mapping the old names (`DATASET -> graphs()`), so scripts
+  importing `cfpq_data` keep working through one more release.
 
 ### Removed
 
@@ -124,6 +133,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The benchmark page and the separate `benchmarks` category: benchmarking data
   and results are not part of the dataset site, so no query-class section
   reserves a benchmarks page (#129).
+- The `DATASET` registry constant (replaced by the `graphs()` function and
+  the per-graph `registry.json`) and the in-package data directory
+  (`flpq_data/data/`, replaced by the machine-global cache).
 
 ### Fixed
 

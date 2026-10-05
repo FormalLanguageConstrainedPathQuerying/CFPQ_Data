@@ -32,9 +32,9 @@ gate → merge, and points to the other workflow skills below.
 
 ## Package layout
 
-- `flpq_data/config.py` — version, data directories.
-- `flpq_data/dataset/` — dataset download (`download_graph`) and reachable-pair
-  counts (`reachable_pairs`).
+- `flpq_data/config.py` — version.
+- `flpq_data/dataset/` — graph registry + metadata API, machine-global cache
+  with lazy access (`graph_dir`), reachable-pair counts (`reachable_pairs`).
 - `flpq_data/graphs/` — `generators`, `readwrite`, `utils`.
 - `flpq_data/queries/` — per-class query modules: `cfpq/` (`generators`,
   `readwrite`, `converters`, `utils`), `rpq/` (`readwrite`), `mcfpq/`
