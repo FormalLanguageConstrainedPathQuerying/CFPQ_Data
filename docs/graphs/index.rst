@@ -103,6 +103,95 @@ not stored in the archives; they are derived by
 "Edges Statistics" tables of the per-graph pages list the stored labels
 only.
 
+Format conversion
+-----------------
+
+Graphs can be converted between the formats below without building an
+in-memory NetworkX graph: the conversion runs over an **edge stream** — a
+lazy iterator of ``(u, label, v)`` tuples in the TXT ``FROM LABEL TO`` order
+— with one streaming reader and one streaming writer per format, composed by
+``convert_graph``. This keeps peak memory at O(1) for the common case (an MTX
+directory to TXT or ``.g`` text), where routing through a
+``networkx.MultiDiGraph`` costs several gigabytes on the largest graphs
+(#138: ~4 GiB of RAM for ~100 MB of input).
+
+Formats
+^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Format
+     - On disk
+     - Node ids
+     - Direction
+   * - ``mtx``
+     - a directory with one Boolean MatrixMarket file per label (the "File structure" layout above)
+     - non-negative integers
+     - both
+   * - ``txt``
+     - one edge per line, ``FROM LABEL TO``, optional quoting
+     - strings
+     - both
+   * - ``rdf``
+     - Turtle (the encoding below)
+     - strings
+     - both
+   * - ``g``
+     - FastMatrixCFPQ ``.g`` text: ``u v label`` lines plus auto-generated reverse edges; an indexed family ``X_0, X_1, ...`` collapses to ``X_i`` with the index as a fourth column
+     - non-negative integers
+     - write-only
+   * - ``graph``
+     - not on disk — an in-memory ``networkx.MultiDiGraph``
+     - whatever the graph holds
+     - read-only
+
+Memory characteristics
+^^^^^^^^^^^^^^^^^^^^^^
+
+- Every reader and writer streams: one edge is held in memory at a time, so
+  ``mtx`` → ``txt`` / ``g`` / ``rdf`` runs in O(1) RAM (the #138 case).
+- Writing ``mtx`` is a single pass over the source with one temporary file
+  per label (O(1) RAM, O(E) disk); it requires integer node ids (digit
+  strings are accepted, anything else is an error).
+- An ``rdf`` **source** is materialized: rdflib has no streaming parser, so
+  reading RDF costs O(E) RAM. It is the only unavoidable materialization.
+
+RDF encoding
+^^^^^^^^^^^^
+
+The RDF writer emits valid RDF 1.1 Turtle, one triple per line::
+
+   <urn:flpq:node:0> <urn:flpq:label:load_5> <urn:flpq:node:1> .
+
+Nodes are IRIs ``urn:flpq:node:<id>``, predicates IRIs
+``urn:flpq:label:<label>``, with the variable components percent-encoded; the
+writer streams line by line without an in-memory RDF store. The reader accepts
+this encoding and, for backwards compatibility, the legacy form that older
+versions of ``graph_to_rdf`` emitted — blank-node endpoints with a
+``Literal`` predicate, which is not valid RDF 1.1 (predicates must be IRIs)
+and only round-tripped inside rdflib.
+
+The NetworkX boundary
+^^^^^^^^^^^^^^^^^^^^^
+
+NetworkX stays where it earns its place: the random graph generators, the
+adjacency-based utilities (:obj:`add_reverse_edges <flpq_data.graphs.utils.add_reverse_edges>`,
+:obj:`filter_edges <flpq_data.graphs.utils.filter_edges>`, ...), query
+materialization, and the existing ``graph_from_*`` / ``graph_to_*`` API, which
+builds or consumes a ``networkx.MultiDiGraph``. The conversion path above
+never materializes one.
+
+CSV removal
+^^^^^^^^^^^
+
+The former CSV format (one edge per line, ``from to label``) is removed in
+6.0.0: it was the same line-per-edge format as TXT with only the column order
+different — a footgun, not a feature — and no dataset archive uses it
+(archives are MTX-only). Use ``txt`` instead; ``graph_from_csv`` /
+``graph_to_csv`` are gone, and the ``pandas`` dependency that only they used
+is dropped.
+
 Contents
 --------
 
