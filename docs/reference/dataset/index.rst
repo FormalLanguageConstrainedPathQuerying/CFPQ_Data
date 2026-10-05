@@ -15,12 +15,15 @@ Dataset utilities
 .. autosummary::
    :toctree: generated/
 
+    cached_versions
+    cache_root
     categories
     download_graph
     download_reachable_pairs
     graph_info
     graph_names
     reachable_pairs
+    version_dir
 
 .. autoclass:: GraphInfo
 .. autoclass:: QueryInfo
