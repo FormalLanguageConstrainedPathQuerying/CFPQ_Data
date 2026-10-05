@@ -22,7 +22,7 @@ def _g_lines(edges: Iterable[Tuple[Any, str, Any]]) -> Iterator[str]:
     """Yields the FastMatrixCFPQ .g lines of an edge stream.
 
     Each ``(u, label, v)`` edge yields a forward line and an auto-generated
-    reverse line (the :func:`reverse_label` convention); an indexed label
+    reverse line (the ``_reverse_label`` convention); an indexed label
     ``X_N`` collapses to ``X_i`` with the index as a fourth column.
 
     Parameters
@@ -99,7 +99,7 @@ def graph_dir_to_g_text(
     """Generates a FastMatrixCFPQ .g file text from a directory of mtx files.
 
     Each ``*.mtx`` file contributes forward edges; reverse edges are
-    auto-generated with the :func:`reverse_label` convention. Indexed files
+    auto-generated with the ``_reverse_label`` convention. Indexed files
     (``X_N.mtx``) produce 4-column lines with label ``X_i`` and index ``N``.
 
     Parameters

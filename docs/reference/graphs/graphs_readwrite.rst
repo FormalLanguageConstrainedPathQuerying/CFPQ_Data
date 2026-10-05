@@ -15,7 +15,7 @@ Reading and writing graphs
 .. autosummary::
    :toctree: generated/
 
-   csv
-   txt
-   rdf
-   mtx
+    graph
+    txt
+    rdf
+    mtx

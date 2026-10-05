@@ -362,7 +362,7 @@ the same query-class level as the site::
    flpq_data/
    ├── config.py        version
    ├── dataset/         registry + metadata API, machine-global cache with lazy access (graph_dir), reachable pairs
-   ├── graphs/          unchanged — class-agnostic I/O (mtx/csv/rdf/txt), generators, utils
+    ├── graphs/          class-agnostic I/O (mtx/rdf/txt), streaming format conversion, generators, utils
    └── queries/         renamed from grammars/
        ├── cfpq/        existing generators/, readwrite/{cfg,cnf,cnf_template}, converters/, utils/
        ├── rpq/         readwrite/{regex,rsa} moved here; new regex-template generators

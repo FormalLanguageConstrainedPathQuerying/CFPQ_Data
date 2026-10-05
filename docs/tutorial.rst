@@ -102,6 +102,22 @@ from :ref:`graphs_utils`. This is extremely useful if graph analysis is formulat
 
 Now, for each edge with label ``a`` this graph contains the reversed edge with label ``a_r``.
 
+Convert graph format
+--------------------
+
+Graphs can be converted between the supported formats — ``mtx`` (a directory
+of MatrixMarket files), ``txt``, ``rdf``, and the FastMatrixCFPQ ``.g`` text
+— with function :obj:`convert_graph <flpq_data.graphs.converters.convert_graph>`:
+the conversion runs over a streaming edge iterator without building an
+in-memory graph, so even large archives convert in constant memory (see the
+:ref:`graph_format_conversion` section).
+
+.. nbplot::
+
+    txt_path = flpq_data.convert_graph(
+        bzip_path / "graph", "bzip.txt", src_format="mtx", dst_format="txt"
+    )
+
 Load grammar
 ------------
 

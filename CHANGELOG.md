@@ -86,6 +86,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `platformdirs`), `cached_versions()` (the dataset versions present in the
   cache), and `clear_cache(keep=None)` (remove the cached version
   directories, optionally keeping one).
+- Streaming format conversion: `convert_graph(src, dst, *, src_format,
+  dst_format)` converts between `mtx` (a directory of MatrixMarket files),
+  `txt`, `rdf`, and the FastMatrixCFPQ `.g` text (write-only) — plus an
+  in-memory `nx.MultiDiGraph` as source — over a lazy edge stream without
+  materializing a graph, so converting the largest archive (`fs`, 3.6M edges)
+  from MTX to TXT or `.g` runs in ~0.1 GiB of RAM instead of ~4 GiB (#138).
+  The streaming primitives: `iter_edges_from_mtx_dir` / `mtx_dir_from_edges`,
+  `iter_edges_from_text` / `iter_edges_from_txt`, `iter_edges_from_rdf` /
+  `rdf_from_edges`, `iter_edges_from_graph`, and `g_text_from_edges`.
 
 ### Changed
 
@@ -126,6 +135,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   directory has no row in `reachable_pairs.csv` (same graph and query class,
   with the query directory name as the stem of the row's grammar file), so the
   registry cannot drift.
+- **Breaking:** the RDF output of `graph_to_rdf` is now valid RDF 1.1 Turtle
+  — IRI nodes `urn:flpq:node:<id>` and IRI predicates `urn:flpq:label:<label>`,
+  streamed line by line without an in-memory store; files written by older
+  versions (blank-node endpoints with a Literal predicate) remain readable.
+  RDF is a set of triples, so parallel edges with identical `(u, label, v)`
+  collapse on write — as before.
+- `graph_to_text` emits one line per edge using the edge's `label` attribute
+  (the convention `graph_to_mtx_dir` already required) instead of one line
+  per value in the edge data dict.
 
 ### Deprecated
 
@@ -154,6 +172,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `DATASET` registry constant (replaced by the `graph_names()` function
   and the per-graph `registry.json`) and the in-package data directory
   (`flpq_data/data/`, replaced by the machine-global cache).
+- `graph_from_csv` / `graph_to_csv` and the CSV graph format: redundant with
+  TXT (the same line-per-edge format, only the column order differed), and no
+  dataset archive uses it (archives are MTX-only). Use `txt` instead.
+- The `pandas` dependency (its only user was the CSV readwrite module).
 
 ### Fixed
 

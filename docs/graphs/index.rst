@@ -103,6 +103,8 @@ not stored in the archives; they are derived by
 "Edges Statistics" tables of the per-graph pages list the stored labels
 only.
 
+.. _graph_format_conversion:
+
 Format conversion
 -----------------
 
@@ -110,10 +112,10 @@ Graphs can be converted between the formats below without building an
 in-memory NetworkX graph: the conversion runs over an **edge stream** — a
 lazy iterator of ``(u, label, v)`` tuples in the TXT ``FROM LABEL TO`` order
 — with one streaming reader and one streaming writer per format, composed by
-``convert_graph``. This keeps peak memory at O(1) for the common case (an MTX
-directory to TXT or ``.g`` text), where routing through a
-``networkx.MultiDiGraph`` costs several gigabytes on the largest graphs
-(#138: ~4 GiB of RAM for ~100 MB of input).
+:obj:`convert_graph <flpq_data.graphs.converters.convert_graph>`. This keeps
+peak memory at O(1) for the common case (an MTX directory to TXT or ``.g``
+text), where routing through a ``networkx.MultiDiGraph`` costs several
+gigabytes on the largest graphs (#138: ~4 GiB of RAM for ~100 MB of input).
 
 Formats
 ^^^^^^^
@@ -171,6 +173,10 @@ this encoding and, for backwards compatibility, the legacy form that older
 versions of ``graph_to_rdf`` emitted — blank-node endpoints with a
 ``Literal`` predicate, which is not valid RDF 1.1 (predicates must be IRIs)
 and only round-tripped inside rdflib.
+
+RDF is a set of triples: parallel edges with identical ``(u, label, v)``
+collapse on write — a format-inherent limitation the legacy form shared. The
+other formats preserve parallel edges.
 
 The NetworkX boundary
 ^^^^^^^^^^^^^^^^^^^^^

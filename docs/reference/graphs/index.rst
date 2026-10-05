@@ -16,4 +16,5 @@ Graphs
 
    graphs_generators
    graphs_readwrite
+   graphs_converters
    graphs_utils

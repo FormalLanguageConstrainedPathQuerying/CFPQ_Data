@@ -178,7 +178,8 @@ def graph_to_text(graph: nx.MultiDiGraph, *, quoting: bool = False) -> Iterator[
     """Turns a graph into its text representation.
 
     One line per edge; the label is taken from the edge's ``label``
-    attribute (the same convention as :func:`graph_to_mtx_dir`).
+    attribute (the same convention as
+    :func:`graph_to_mtx_dir <flpq_data.graphs.readwrite.mtx.graph_to_mtx_dir>`).
 
     Parameters
     ----------
