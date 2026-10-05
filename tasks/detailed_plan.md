@@ -123,7 +123,7 @@ Added entry
   as `<version>/registry.json`), its fields, `utils/generate_registry.py`,
   and the network-free API `graphs()`/`graph_info()`/`categories()` (#147).
 
-### S4: Drop GRAPHS/DATASET; validate names against the registry
+### S4: Drop GRAPHS/DATASET; validate names against the registry [done] (f0cdd7d)
 
 **Code:** `flpq_data/dataset/data.py` (remove `GRAPHS` list + `DATASET`
 alias, validate via `graph_names()`)
