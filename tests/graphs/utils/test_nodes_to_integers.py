@@ -2,8 +2,8 @@ import pytest
 
 import flpq_data
 
-foaf = flpq_data.download_graph("foaf")
-core = flpq_data.download_graph("core")
+foaf = flpq_data.graph_dir("foaf")
+core = flpq_data.graph_dir("core")
 
 g1 = flpq_data.graph_from_mtx_dir(foaf / "graph")
 g2 = flpq_data.graph_from_mtx_dir(core / "graph")

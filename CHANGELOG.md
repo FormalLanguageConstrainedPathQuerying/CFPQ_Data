@@ -90,10 +90,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   level as the site, per the FLPQ design in `docs/flpq.rst`. The flat
   top-level API is unchanged apart from the renames below; import the new
   names (`from flpq_data import *`).
-- `download(name)` becomes `graph_dir(name)`; `download_graph(name)` and
-  `download(name)` remain as deprecated aliases. The `DATASET` registry list
-  is replaced by the `graphs()` function backed by the per-graph
-  `registry.json`; `DATASET_URL` now serves the `6.0.0/graph/` prefix.
+- `download(name)` becomes `graph_dir(name)`, which is lazy: it returns the
+  local graph folder from a machine-global, per-user cache (the
+  `FLPQ_DATA_CACHE` environment variable or the OS default from
+  `platformdirs`) keyed by dataset version, and downloads only on a cache
+  miss — the archive is sha256-verified against the registry before it is
+  installed. `download_graph(name)` and `download(name)` remain as deprecated
+  aliases. The `DATASET` registry list is replaced by the `graph_names()`
+  function backed by the per-graph `registry.json`; `DATASET_URL` now serves
+  the `6.0.0/graph/` prefix.
 - Development tooling migrated from Poetry to [uv](https://docs.astral.sh/uv/):
   PEP 621 project metadata with hatchling as the build backend, PEP 735
   dependency groups (`dev`, `test`, `docs`) instead of Poetry groups and the
@@ -122,7 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `download_graph()` and `download()`: deprecated aliases of
   `graph_dir()`; both emit a `DeprecationWarning` on every call. The
   `cfpq-data` PyPI distribution gets one final shim release depending on
-  `flpq-data`, mapping the old names (`DATASET -> graphs()`), so scripts
+  `flpq-data`, mapping the old names (`DATASET -> graph_names()`), so scripts
   importing `cfpq_data` keep working through one more release.
 
 ### Removed
@@ -141,8 +146,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The benchmark page and the separate `benchmarks` category: benchmarking data
   and results are not part of the dataset site, so no query-class section
   reserves a benchmarks page (#129).
-- The `DATASET` registry constant (replaced by the `graphs()` function and
-  the per-graph `registry.json`) and the in-package data directory
+- The `DATASET` registry constant (replaced by the `graph_names()` function
+  and the per-graph `registry.json`) and the in-package data directory
   (`flpq_data/data/`, replaced by the machine-global cache).
 
 ### Fixed

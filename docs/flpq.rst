@@ -371,8 +371,11 @@ the same query-class level as the site::
 API changes
 ^^^^^^^^^^^
 
-- ``download(name)`` becomes ``download_graph(name)`` and returns the
-  self-contained directory — the graph plus its ``queries/`` tree;
+- ``download(name)`` becomes ``graph_dir(name)`` and returns the
+  self-contained directory — the graph plus its ``queries/`` tree — from the
+  machine-global cache, downloading only on a miss (see "Core API: metadata,
+  lazy access, and cache"); ``download_graph(name)`` and ``download(name)``
+  stay as deprecated aliases;
 - ``download_grammars(template, graph_name=None)`` is deprecated: queries
   come with the graph archive (the example archives it downloaded for
   ``graph_name=None`` are dropped);

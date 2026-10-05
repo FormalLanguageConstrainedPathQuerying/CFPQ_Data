@@ -120,7 +120,7 @@ def graph_info(name: str) -> GraphInfo:
     Parameters
     ----------
     name : str
-        The graph name (see :func:`graphs`).
+        The graph name (see :func:`graph_names`).
 
     Examples
     --------

@@ -4,8 +4,6 @@ __all__ = [
     "VERSION",
     "DATASET_VERSION",
     "ROOT",
-    "DATA",
-    "GRAPHS_DIR",
 ]
 
 VERSION = "6.0.0"
@@ -16,5 +14,3 @@ VERSION = "6.0.0"
 DATASET_VERSION = f"{VERSION[0]}.0.0"
 
 ROOT = pathlib.Path(__file__).parent
-DATA = ROOT / "data"
-GRAPHS_DIR = DATA / "graphs"

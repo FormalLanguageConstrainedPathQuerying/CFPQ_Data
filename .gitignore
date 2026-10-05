@@ -1,9 +1,6 @@
 # IDEA
 .idea
 
-# Data
-flpq_data/data
-
 # Temporal CFPQ reference-answer tool (local-only, not part of the package)
 temporal_cfpq/
 

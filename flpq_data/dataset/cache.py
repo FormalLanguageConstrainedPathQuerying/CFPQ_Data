@@ -21,10 +21,10 @@ CACHE_ENV_VAR = "FLPQ_DATA_CACHE"
 def cache_root() -> pathlib.Path:
     """Return the effective cache root.
 
-    The :data:`CACHE_ENV_VAR` environment variable wins when set to a
+    The ``FLPQ_DATA_CACHE`` environment variable wins when set to a
     non-empty value; otherwise the OS default from
-    :func:`platformdirs.user_cache_dir` (``~/.cache/flpq-data`` on Linux,
-    ``~/Library/Caches/flpq-data`` on macOS,
+    ``platformdirs.user_cache_dir("flpq-data")`` (``~/.cache/flpq-data`` on
+    Linux, ``~/Library/Caches/flpq-data`` on macOS,
     ``%LOCALAPPDATA%\\flpq-data\\Cache`` on Windows).
 
     Returns
@@ -44,8 +44,8 @@ def version_dir(version: str | None = None) -> pathlib.Path:
     Parameters
     ----------
     version : str, optional
-        The dataset version; defaults to the current one
-        (:data:`flpq_data.config.DATASET_VERSION`).
+        The dataset version; defaults to the current one (the package major
+        version with zeroed minor and patch).
 
     Returns
     -------
