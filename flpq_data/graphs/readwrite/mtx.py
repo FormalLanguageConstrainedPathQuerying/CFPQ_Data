@@ -4,7 +4,7 @@ import logging
 import os
 import pathlib
 import tempfile
-from typing import Any, Dict, Iterable, Iterator, Optional, Tuple, Union
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple, Union
 
 import networkx as nx
 
@@ -245,11 +245,14 @@ def mtx_dir_from_edges(
     max_node = -1
     counts: Dict[str, int] = {}
     temps: Dict[str, pathlib.Path] = {}
+    finals: List[pathlib.Path] = []
     current: Optional[Tuple[str, Any]] = None  # (label, open handle)
 
     def _cleanup() -> None:
         for temp in temps.values():
             temp.unlink(missing_ok=True)
+        for final in finals:
+            final.unlink(missing_ok=True)
 
     try:
         for u, label, v in edges:
@@ -279,19 +282,21 @@ def mtx_dir_from_edges(
                 f"{dimension=} is smaller than the largest node index plus one "
                 f"({max_node + 1})"
             )
+
+        dim = dimension if dimension is not None else max_node + 1
+        for label in sorted(counts):
+            final = dest / label_to_filename(label)
+            finals.append(final)
+            with open(temps[label], "r") as src, open(final, "w") as dst:
+                dst.write(f"{_MTX_HEADER[0]}\n{_MTX_HEADER[1]}\n")
+                dst.write(f"{dim} {dim} {counts[label]}\n")
+                for line in src:
+                    dst.write(line)
+            temps[label].unlink()
     except Exception:
+        # All-or-nothing: no temp or partially written final file survives.
         _cleanup()
         raise
-
-    dim = dimension if dimension is not None else max_node + 1
-    for label in sorted(counts):
-        final = dest / label_to_filename(label)
-        with open(temps[label], "r") as src, open(final, "w") as dst:
-            dst.write(f"{_MTX_HEADER[0]}\n{_MTX_HEADER[1]}\n")
-            dst.write(f"{dim} {dim} {counts[label]}\n")
-            for line in src:
-                dst.write(line)
-        temps[label].unlink()
 
     dest = dest.resolve()
 

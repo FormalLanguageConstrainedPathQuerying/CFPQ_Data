@@ -227,3 +227,26 @@ def test_mtx_dir_from_edges_empty(tmp_path):
     d = mtx_dir_from_edges([], tmp_path / "graph")
 
     assert not list(d.glob("*"))
+
+
+def test_mtx_dir_from_edges_cleanup_on_finalize_failure(tmp_path, monkeypatch):
+    # A failure while finalizing removes the temp files and any final file
+    # written so far (all-or-nothing).
+    import builtins
+
+    real_open = builtins.open
+    calls = {"n": 0}
+
+    def failing_open(file, *args, **kwargs):
+        calls["n"] += 1
+        if calls["n"] == 4:  # the second final file's write
+            raise OSError("disk full")
+        return real_open(file, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "open", failing_open)
+
+    with pytest.raises(OSError, match="disk full"):
+        mtx_dir_from_edges([(0, "a", 1), (0, "b", 1)], tmp_path / "graph")
+
+    assert not list((tmp_path / "graph").glob("*.mtx"))
+    assert not list((tmp_path / "graph").glob("*.tmp"))
