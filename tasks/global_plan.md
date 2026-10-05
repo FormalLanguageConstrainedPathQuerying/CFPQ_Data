@@ -1,201 +1,107 @@
-# Global Plan: FLPQ extension (tasks 42-50)
+# Global Plan: End-user core rework (hub #148)
 
-Extending CFPQ_Data from context-free path queries to all classes of
-formal-language-constrained path querying (FLPQ): regular (RPQ),
-context-free (CFPQ, existing), and multiple context-free (MCFPQ). Design
-decisions live in `docs/flpq.rst` (task 42) — the single source of truth
-for all follow-up tasks.
+Rework the package core for end users: dataset utilisation for benchmarks
+and statistical analysis. The core (`flpq_data/`) is split from dataset
+maintenance utils (repo-only `utils/`). Driven by #140 (cache downloaded
+graph datasets) and #147 (expose the dataset category of each graph).
+
+## Decisions (confirmed with the user)
+
+| # | Decision | Choice |
+|---|---|---|
+| 1 | Metadata storage | New per-graph `registry.json` (bundled + published per S3 version) |
+| 2 | Cache layout | Per-graph folder: archive + unpacked contents together; version root mirrors the S3 prefix |
+| 3 | Accessor name | `graph_dir(name)`; `download_graph`/`download` become deprecated aliases |
+| 4 | Version selection | Current dataset version only (no `version=` param); cache stays version-structured |
+| 5 | Loader scope | Metadata + local paths only (no convenience loaders) |
+
+## Target design
+
+**Boundary.** `flpq_data/` = end-user core (lazy dataset access, metadata,
+graph/query I/O). `utils/` = maintenance (validation, upload, merge, registry
+generation) — repo-only, never installed. `config.DATA`/`GRAPHS_DIR` removed;
+the boundary is documented in `docs/flpq.rst` + AGENTS.md.
+
+**Registry schema** (`flpq_data/dataset/registry.json`, published as
+`<version>/registry.json` on S3):
+
+```json
+{ "version": "6.0.0",
+  "graphs": { "skos": { "category": "rdf", "num_nodes": 144, "num_edges": 252,
+                        "size_mb": 0.003, "sha256": "…",
+                        "queries": [ {"class": "cfpq",
+                                      "name": "nested_parentheses_subClassOf",
+                                      "representations": ["cnf", "rsm"]} ] } } }
+```
+
+**Cache layout.** Root = `FLPQ_DATA_CACHE` env var >
+`platformdirs.user_cache_dir("flpq-data")` (new dependency; OS default:
+`~/.cache/flpq-data`, `~/Library/Caches/…`, `%LOCALAPPDATA%\…\Cache`).
+"Machine-global" = per-user, shared across projects — not tied to a venv or
+install dir.
+
+```
+<root>/6.0.0/
+├── reachable_pairs.csv      # per-version copy (replaces flpq_data/data/)
+└── graph/<name>/<name>.tar.gz + README.md, graph/*.mtx, queries/…   (unpacked in the same folder)
+```
+
+Multiple dataset versions coexist under `<root>/`.
+
+**Lazy `graph_dir(name)`.** Validate the name against the bundled registry →
+if `<root>/<v>/graph/<name>/` exists with an archive whose sha256 matches the
+registry → return the path, zero network. Else: download to a temp file →
+`raise_for_status` → stream-verify sha256 → extract → single-top-dir check →
+atomic move into the cache. Integrity on hit: a sidecar `.sha256` written at
+install is compared against the registry (fast path); `verify=True` re-hashes
+the archive.
+
+**Metadata API.** `graphs() -> list[str]`, `graph_info(name) -> GraphInfo`
+(frozen dataclass), `categories() -> dict[str, list[str]]` (#147). The
+never-released `GRAPHS`/`DATASET` constants are dropped (6.0.0 is pre-release;
+the future `cfpq-data` shim maps `DATASET -> graphs()`).
+
+**Cache manipulation.** `cache_root() -> Path`, `cached_versions() ->
+list[str]`, `clear_cache(keep: str | None = None)` — `None` wipes all version
+dirs, `keep="6.0.0"` keeps only that one.
 
 ## Tasks
 
-- **Task 42** [done]: FLPQ design document (`docs/flpq.rst`): query-
-  class taxonomy, MCFG formalism (Seki d-MCFG(r)) + `.mcfg` Datalog-like
-  format spec (lark parser), target site/package/dataset structure,
-  reachable-pairs rendering design, migration path.
-- **Task 43** [done]: Refactor the reachable-pairs representation on the site:
-  per-category tables in `docs/reachable_pairs.rst` (the flat table is
-  removed), the CSV stays the single source of truth for automatic
-  processing and gains a `category` column, and a `utils/` generator script
-  (pattern of `utils/archive_sizes.py`) renders both the per-category
-  tables and the category-page count columns from the CSV.
-- **Task 44** [done]: MCFG readwrite module with lark:
-  `cfpq_data/grammars/readwrite/mcfg.py` (data model, EBNF grammar,
-  validation per the spec in `docs/flpq.rst`,
-  `mcfg_from_text/to_text/from_txt/to_txt`), doctests with the paper's
-  examples, reference docs page.
-- **Task 45** [done]: Strong code coverage gate + tooling cleanup: enforce line
-  and branch coverage >= 95% both in CI (`coverage.yml`) and locally
-  (canonical test command), remove the curl/GitHub-API workaround from the
-  release skill now that the `gh` CLI is installed, and extend the project
-  tooling guidance with a no-workaround rule.
-- **Task 46** [done]: RPQ design decision + stubs: document the RPQ query-class
-  design in `docs/flpq.rst` (format, parameterized regex templates, placement
-  inside self-contained graph archives) and add stub template entries
-  (Class = Regular) to the existing Grammars section, until the site
-  restructure of task 50 moves them to the RPQ section. No real-world RPQ
-  data yet — it will be provided later (user decision).
-- **Task 47** [done]: Add a `query_class` column to `reachable_pairs.csv` and the
-  `reachable_pairs()` API (+ update the generator from task 43).
-- **Task 48** [done]: Migrate all 113 graph archives to the 6.0.0
-  self-contained structure (`queries/cfpq/<query>/` with `.cnf` + `.rsm` +
-  `results.mtx`; stubs for the 60 pairs whose reference run took >= 30 s or
-  oom/timeout — filled by #130), unify edge-label naming, verify counts
-  against the FastMatrixCFPQ oracle and report drift, upload to S3
-  `6.0.0/graph/`, remove the separate grammar/ and benchmark/ paths from S3 +
-  docs + package; extend `check_archive_structure.py` with the
-  naming-consistency rules and relax the class-dir requirement. (The original
-  plan of separate `6.0.0/query/` and `6.0.0/benchmark/` prefixes was
-  superseded by the self-contained layout of task 52 and the benchmark
-  deferral to #129.)
-- **Task 49** (#135) [done]: Package rename/restructure to `flpq_data`:
-  `queries/{cfpq,rpq,mcfpq}`, API renames + deprecated aliases, VERSION 6.0.0
-  (re-points `DATASET_URL` at `6.0.0/graph/`; `GRAMMARS_URL`/`BENCHMARK_URL`
-  no longer exist — removed in 48-S6). The `cfpq-data` PyPI deprecation shim
-  is split into a follow-up task (needs the flpq-data PyPI project first).
-- **Task 50** (#137) [done]: Site restructure to the FLPQ hierarchy: per-class
-  sections (CFPQ/RPQ/MCFPQ) with templates and generated applicable-graphs
-  lists, the shared Graphs section, navigation. The flat Grammars section is
-  replaced and the benchmarks category is removed (resolving #129 inside this
-  task, per user decision).
-- **Task 51** [done]: CI as source of truth for commands: analyze which developer-
-  docs and skill content can be replaced with references to the CI workflow
-  descriptions; record the per-command decision in the docs; apply it —
-  command blocks become references to the workflow file + step, local-only
-  commands and policies stay in the docs, and the duplicated CI comments are
-  slimmed to pointers.
-- **Task 52** [done]: Self-contained archive structure + validation: design the
-  identical, self-contained graph-archive layout (graph as a set of MTX
-  files, a description document with mandatory questions, all queries as
-  separate files described in one common document), the `utils/`
-  structure-validation tool, pre-upload validation in `utils/upload_to_s3.py`
-  plus an audit mode over the bucket, and rework `docs/flpq.rst` (dataset
-  layout, migration, API) to match. Scope: graph archives only — example
-  queries not tied to a graph are dropped, benchmark data is out of scope
-  (task 53).
-- **Task 53** (#129) [done]: Benchmark page removed — no separate benchmarks
-  category anywhere on the site and no benchmark data rework; the design no
-  longer reserves a benchmarks section. Resolved inside the task-50 site
-  restructure (user decision).
-- **Task 54** [done]: Extend the archive structure — several ways to specify one
-  language: a query may be specified by different grammars; for CFPQ, by a
-  CFG or an RSM (recursive state machine), described either in an EBNF-based
-  text format or as an explicit transition system (labelled graph with start
-  and final states). Each query carries one results file — a Boolean MTX of
-  constrained-reachability facts — identical for all its specifications.
-  Investigate RSMs first; design documents + tooling only, no re-upload.
- - **Task 55** [done]: Improve the new-data providing mechanism — the main
-   way is a Google Drive link to an archive prepared per the structure-
-   validation tool; partial archives are allowed (e.g. a new query for an
-   existing graph: query representation + references — pair count, results
-   MTX — + README descriptions), with the structure preserved so new data
-   merges into the existing archive. Issue/PR templates make this way the
-   main one and point at the tooling; extend the tooling if necessary.
+- **T1** (#149): Design doc — record all decisions in `docs/flpq.rst`
+  (boundary, registry schema + generation/publication, cache layout/lifecycle/
+  integrity, full API incl. deprecations; cite #140/#147); AGENTS.md
+  package-layout lines; CHANGELOG `[Unreleased]`. Docs-only task.
+- **T2** (#150): Graph registry + metadata API (closes #147) —
+  `utils/generate_registry.py` (maintenance; pattern of
+  `utils/archive_sizes.py`), bundled `registry.json`, `GraphInfo`/`graphs()`/
+  `graph_info()`/`categories()`, drop `GRAPHS`/`DATASET`.
+- **T3** (#151): Machine-global versioned cache + lazy downloads (closes
+  #140) — `platformdirs` dependency, `cache.py` (`cache_root()` with env-var
+  override), lazy `graph_dir()` with checksum verification and atomic
+  install, `reachable_pairs.csv` moved into the per-version cache, in-package
+  data dir removed.
+- **T4** (#152): Cache manipulation API — `clear_cache(keep=None)` + tests +
+  docs.
 
 ## Dependencies
 
-- 43 and 44 are independent of each other (both after 42).
-- 45 is independent of the FLPQ tasks (CI/tooling/docs only); scheduled
-  right after 44.
-- 51 is independent of the FLPQ tasks (process/docs/CI only); scheduled
-  right after 45.
-- 52 is after 51 (the new upload workflow follows the CI-source-of-truth
-  principle).
-- 46 is after 52 (new query data must follow the new archive structure).
-- 47 is after 43 (the generator must exist to extend).
-- 48 is after 46, 52, 54 and 55 (all query data classes in place, the
-  migration repackages archives into the final extended structure, and the
-  providing mechanism is settled).
-- 49 is after 48 and 52 (the download machinery points at the new layout and
-  reflects self-contained archives).
-- 50 is after 49 (the site references the final package structure).
-- 53 is after 50 and 52; it was resolved inside 50 by removing the benchmarks
-  category (no benchmark page).
-- 54 is after 52 (it extends the self-contained archive structure).
-- 55 is after 54 (partial archives follow the extended structure, including
-  the per-query results files).
+T1 → T2 → T3 → T4. T2 must precede T3 (the registry carries the checksums T3
+verifies and replaces `GRAPHS` for name validation). T4 needs T3's structure.
+No file-set conflicts between tasks beyond `data.py`/docs, which are
+sequential anyway.
 
 ## Notes
 
-- **No release task is planned** — user instruction: "Do not plan 6.0
-  release as a task. We must do much more tasks first." The 6.0.0 version
-  bump happens inside task 49; cutting the release is deferred.
-- Incremental tasks (43, 44) deliberately avoid any global rework: they
-  work inside the existing `cfpq_data` package and site structure.
-- Task 52 supersedes part of the `docs/flpq.rst` dataset design: the
-  separate per-query archives (`query/<class>/<template>[_<graph>].tar.gz`)
-  are replaced by self-contained graph archives that carry their queries;
-  the example query archives (`example/<template>.tar.gz`) are dropped —
-  every query file lives inside a graph archive (user decision); the
-  migration (task 48) repackages existing archives instead of copying them
-  unchanged.
-- **Task 46 is design-only**: there is no real-world RPQ data yet — the task
-  documents the RPQ design decision and adds stub template entries to the
-  Grammars section; real `.re` query files will be provided later and live
-  inside graph archives (task 52 structure).
-- **Task 54 extends the task-52 archive structure**: a query is no longer a
-  flat file but a directory `queries/<class>/<query>/` holding every
-  representation of the language (`.cnf`/`.rsm` for CFPQ, `.re`/`.rsm` for
-  RPQ — regular only, `.mcfg` for MCFPQ) plus one representation-independent
-  `results.mtx` (Boolean MTX of constrained reachability facts). The RSM
-  readwrite (`rsa.py`) and the `cfg_from_rsa` converter already existed and
-  are reused; task 54 adds the transition-system description style to the
-  `.rsm` format. Existing archives keep the old layout until the migration
-  (task 48) repackages them.
-- **Task 55 makes the Google Drive link the main data-providing way**: a
-  provider shares a Drive link to `<name>.tar.gz` in the issue/PR; the
-  archive is either full (a new graph) or partial (new queries for an
-  existing graph — only `queries/`: the new query directories plus a
-  `README.md` fragment with their sections). The validator gains a
-  `--partial` mode (structure + parse checks; label/dimension checks run
-  after the merge), and `utils/merge_archive.py` merges a partial archive
-  into the existing one (collision checks, README section append, full
-   re-validation, Drive-URL input). The reachable-pair count of a new query
-   is the number of entries in its `results.mtx` — no separate reference.
-
-## Consistency fixes (issues 131–134)
-
-A consistency audit (dataset on S3 = source of truth) found the site
-mid-migration: it describes the 6.0.0 self-contained layout while linking and
-serving 5.0.0 artifacts, one grammar page disagrees with its archive, and the
-changelog lags behind dev. User decisions: work #131 on the existing issue
-(no new one); dev targets v6.0, so all links/references must be consistent
-with the 6.0.0 dataset — preparation only, no version bump (that is task 49);
-benchmark page related stuff stays removed from dev.
-
-- **#131** [done]: the FSA canonical grammar on `docs/graphs/field_sensitive_alias.rst`
-  does not match the distributed `vf.cnf`/`vf.rsm`: the docs' `a` part
-  (`V → A V A | a_r V a`, `A → a M? | ε`) defines a different language than
-  the archive's (`V → A_r V | V A`, `A_r → M a_r | a_r | ε`,
-  `A → a M | a | ε`). Fix the docs to match the dataset. (Also moved the
-  link check out of the local quality gate — CI only — per user guidance.)
-- **#132** [done]: complete the `[Unreleased]` section of CHANGELOG.md with the
-  post-5.0.0 changes (MCFG module, CSV columns, RSM transition-system style,
-  partial archives/merge tooling, 6.0.0 dataset migration, removal of
-  download_grammars/download_benchmark).
-- **#133** [done]: align the site with the 6.0.0 dataset — re-point all download
-  links to `6.0.0/graph/`, refresh `Size (MB)` via `utils/archive_sizes.py`,
-  update `docs/utils.rst` prefix references, fix the stale package-layout
-  line in AGENTS.md; no benchmark page re-introduction.
-- **#134** [done]: remove untracked scratch files (`endpoints`, `test.csv`) and
-  gitignore `test.csv`.
-
-### Dependencies
-
-- All four are independent of each other (disjoint file sets, except #132
-  and #133 both touch the changelog/docs narrative — #133 first so #132 can
-  also record the re-pointing if desired; kept separate to stay atomic).
-- Execution order: #131 → #133 → #132 → #134.
-
-## Reverse-edge consistency (issue 146, from bug #136)
-
-- **#146**: 7 of the 21 `java_points_to` archives (commons_io, commons_lang3,
-  gson, guava, jackson, junit5, mockito) still store reverse edges
-  (`load_r_<n>.mtx`, `store_r_<n>.mtx`) left over from the 6.0.0 migration
-  (task 48); the other 14 are clean. `utils/check_archive_structure.py` Rule 3
-  catches only unindexed `L_r.mtx`, so the 7 pass validation despite
-  contradicting `docs/graphs/index.rst` ("Reversed edges are not stored in the
-  archives"). Strip the stored reverses from the 7 archives, re-upload them to
-  `6.0.0/graph/`, tighten the checker to catch the indexed form, and align the
-  docs. The precomputed `results.mtx` are unchanged (the oracle already
-  derives reverses from every forward file; the stored reverses are exact
-  transposes and are never grammar terminals).
+- **Execution order**: T1 → T2 → T3 → T4, one feature branch per task, merge
+  to `dev` after the quality gate; each subtask commit carries its own
+  `<issue>-S<n>` identifier; the last subtask commit of a task carries
+  `Closes #<own issue>` plus `Closes #147` (T2) / `Closes #140` (T3).
+- **No-network test policy**: download paths are tested with monkeypatched
+  `requests.get` and real tarballs built in `tmp_path`; the cache root is
+  redirected via `FLPQ_DATA_CACHE`. The registry generator is a local-only
+  maintenance script (like `utils/archive_sizes.py`) — CI never runs it.
+- **Coverage gate** ≥95% line+branch applies to all new package code.
+- **Doctests**: `--doctest-modules` runs over the package; network examples
+  follow the existing SKIP convention.
+- The in-package `flpq_data/data/` dir (gitignored scratch) is orphaned by T3
+  — no migration; users re-download into the new cache.
