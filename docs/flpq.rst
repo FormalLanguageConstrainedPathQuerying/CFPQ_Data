@@ -377,10 +377,11 @@ API changes
   come with the graph archive (the example archives it downloaded for
   ``graph_name=None`` are dropped);
 - the old names stay in ``flpq_data`` as deprecated aliases;
-- the registries are renamed accordingly: ``DATASET`` -> ``GRAPHS``, and
-  ``GRAMMAR_TEMPLATES`` becomes the per-class ``CFPQ_TEMPLATES`` /
-  ``RPQ_TEMPLATES`` / ``MCFPQ_TEMPLATES`` — they name the query files inside
-  the archives, not downloadable archives;
+- the graph registry list is replaced by the per-graph ``registry.json``
+  and the ``graph_names()`` function (see "Core API: metadata, lazy access,
+  and cache"), and ``GRAMMAR_TEMPLATES`` becomes the per-class
+  ``CFPQ_TEMPLATES`` / ``RPQ_TEMPLATES`` / ``MCFPQ_TEMPLATES`` — they name
+  the query files inside the archives, not downloadable archives;
 - ``reachable_pairs()`` gains the category and query_class fields.
 
 Distribution

@@ -1,12 +1,7 @@
 import pytest
 
 import flpq_data
-from flpq_data.dataset import (
-    DATASET,
-    DATASET_KEY_PREFIX,
-    DATASET_URL,
-    GRAPHS,
-)
+from flpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL
 
 
 def test_url_constants():
@@ -14,16 +9,6 @@ def test_url_constants():
     assert DATASET_KEY_PREFIX == "6.0.0/graph"
     assert DATASET_URL == "https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/"
     assert flpq_data.__version__ == "6.0.0"
-
-
-def test_graphs():
-    assert len(GRAPHS) == 113
-    assert len(set(GRAPHS)) == len(GRAPHS)
-
-
-def test_dataset_alias():
-    # DATASET is a deprecated alias of GRAPHS (renamed in 6.0.0).
-    assert DATASET is GRAPHS
 
 
 def test_download_graph_rise():

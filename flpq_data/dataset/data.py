@@ -10,135 +10,17 @@ import warnings
 import requests
 
 from flpq_data.config import DATASET_VERSION, GRAPHS_DIR
+from flpq_data.dataset.registry import graph_names
 
 __all__ = [
     "DATASET_KEY_PREFIX",
     "DATASET_URL",
-    "GRAPHS",
     "download_graph",
-    "DATASET",
     "download",
 ]
 
 DATASET_KEY_PREFIX = f"{DATASET_VERSION}/graph"
 DATASET_URL = f"https://cfpq-data.storage.yandexcloud.net/{DATASET_KEY_PREFIX}/"
-
-#: All downloadable graphs, served from ``DATASET_URL``.
-GRAPHS = [
-    "skos",
-    "wc",
-    "generations",
-    "travel",
-    "univ",
-    "atom",
-    "biomedical",
-    "bzip",
-    "foaf",
-    "people",
-    "pr",
-    "funding",
-    "ls",
-    "wine",
-    "pizza",
-    "gzip",
-    "core",
-    "pathways",
-    "enzyme",
-    "eclass",
-    "go_hierarchy",
-    "go",
-    "apache",
-    "init",
-    "mm",
-    "geospecies",
-    "ipc",
-    "lib",
-    "block",
-    "arch",
-    "crypto",
-    "security",
-    "sound",
-    "net",
-    "fs",
-    "drivers",
-    "postgre",
-    "kernel",
-    "taxonomy",
-    "taxonomy_hierarchy",
-    "avrora",
-    "batik",
-    "eclipse",
-    "fop",
-    "h2",
-    "jython",
-    "luindex",
-    "lusearch",
-    "pmd",
-    "sunflow",
-    "tomcat",
-    "tradebeans",
-    "tradesoap",
-    "xalan",
-    "airflow",
-    "cactus",
-    "cactus_field_sensitive_alias",
-    "celery",
-    "click",
-    "commons_io",
-    "commons_lang3",
-    "django",
-    "fastapi",
-    "flask",
-    "gson",
-    "guava",
-    "httpx",
-    "imagick",
-    "imagick_field_sensitive_alias",
-    "itsdangerous",
-    "jackson",
-    "jiaozi",
-    "jinja",
-    "jsonpath",
-    "junit5",
-    "leela",
-    "leela_field_sensitive_alias",
-    "libgdx",
-    "mockito",
-    "nab",
-    "nab_field_sensitive_alias",
-    "omnetpp",
-    "omnetpp_field_sensitive_alias",
-    "pandas",
-    "parest",
-    "parest_field_sensitive_alias",
-    "perlbench",
-    "perlbench_field_sensitive_alias",
-    "pluggy",
-    "povray",
-    "povray_field_sensitive_alias",
-    "requests",
-    "sampleproject",
-    "scikit-learn",
-    "shattered_pixel_dungeon",
-    "sphinx",
-    "superset",
-    "unigraph_1",
-    "unigraph_10",
-    "unigraph_2",
-    "unigraph_3",
-    "unigraph_4",
-    "unigraph_5",
-    "unigraph_6",
-    "unigraph_7",
-    "unigraph_8",
-    "unigraph_9",
-    "wikipedia-provenance",
-    "x264",
-    "x264_field_sensitive_alias",
-    "xz",
-    "xz_field_sensitive_alias",
-    "zulip",
-]
 
 
 def download_graph(name: str) -> pathlib.Path:
@@ -166,7 +48,7 @@ def download_graph(name: str) -> pathlib.Path:
     path : Path
         Path to the directory with the graph data.
     """
-    if name in GRAPHS:
+    if name in graph_names():
         logging.info(f"Found graph with {name=}")
 
         GRAPHS_DIR.mkdir(exist_ok=True, parents=True)
@@ -206,11 +88,6 @@ def download_graph(name: str) -> pathlib.Path:
         return graph
     else:
         raise FileNotFoundError(f"No graph with {name=} found")
-
-
-#: Deprecated alias of :data:`GRAPHS` (renamed in 6.0.0). A plain constant —
-#: a module ``__getattr__`` would fire during the package's own star import.
-DATASET = GRAPHS
 
 
 def download(name: str) -> pathlib.Path:
