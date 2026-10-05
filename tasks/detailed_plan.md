@@ -48,7 +48,7 @@ Cache layout (version root = dataset version, so versions coexist)::
   the dataset version and honours an explicit one; `cached_versions` on a
   missing root, on a root with version dirs + a stray file.
 
-### S2: Lazy accessor graph_dir(name, verify=False) in data.py
+### S2: Lazy accessor graph_dir(name, verify=False) in data.py [done] (4fbc85e)
 
 **Code:** `flpq_data/dataset/data.py` (reworked)
 **Tests:** Reworked `tests/dataset/test_data.py` — real tarballs in
