@@ -69,7 +69,7 @@ metadata, lazy access, and cache" after "Dataset layout and migration"
   `dataset/` line becomes "registry + metadata API, machine-global cache
   with lazy access (`graph_dir`), reachable pairs".
 
-### S2: Update AGENTS.md package layout and CHANGELOG
+### S2: Update AGENTS.md package layout and CHANGELOG [done] (fb6985c)
 
 **Code:** none (docs-only subtask)
 **Tests:** n/a — no code; the docs build gate applies at merge time
