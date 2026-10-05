@@ -147,7 +147,7 @@ import cycle — converters imports the readwrite modules).
 - CSV removal is final (no deprecation shim): `flpq_data.graph_from_csv` /
   `graph_to_csv` disappear at 6.0.0 (pre-release).
 
-### S5: `convert_graph` dispatcher + `to_g_text` refactor [ ]
+### S5: `convert_graph` dispatcher + `to_g_text` refactor [done] (ca721c5)
 
 **Code:** `flpq_data/graphs/converters.py` (`convert_graph`, the format
 registry, public exports; the `.g` writer is composed from
@@ -204,7 +204,13 @@ the S1 section already holds (reference pages and tutorial cross-link it).
   keeps its private `_mtx_header`/`_mtx_entries` — maintenance tooling with
   different validation semantics; a follow-up may point it at
   `iter_edges_from_mtx_dir`.
-- **Post-merge verification of #138**: run the reporter's repro
-  (`homka122/cfpq-fs-memory-repro`) against `convert_graph(fs_dir, out.txt,
-  src_format="mtx", dst_format="txt")`; expect peak RSS to drop from ~4 GiB
-  to an O(1) working set.
+- **Verification of #138 (done in S5, pre-merge)**: `convert_graph` on the
+  `fs` graph (3,609,373 edges, MTX dir → TXT and → `.g`) peaks at **0.06 GiB**
+  RSS (vs ~4 GiB through an in-memory MultiDiGraph) in ~3–6 s; edge counts
+  match the registry exactly. The reporter's repro
+  (`homka122/cfpq-fs-memory-repro`) can be re-run post-merge for the record.
+- **RDF multiedge limitation (format-inherent)**: RDF is a set of triples, so
+  parallel edges with identical `(u, label, v)` collapse on write — the same
+  limitation the legacy form had. Documented in S6; the round-trip tests use
+  duplicate-free graphs for the rdf pairs and cover parallel edges for all
+  other formats.
