@@ -100,7 +100,9 @@ Added entry
 - `_load_registry() -> dict` — reads the bundled
   `pathlib.Path(__file__).parent / "registry.json"` once and caches it at
   module level. The metadata path never touches the network.
-- `graphs() -> list[str]` — sorted graph names.
+- `graph_names() -> list[str]` — sorted graph names (named to avoid
+  clashing with the `flpq_data.graphs` subpackage, which would shadow a
+  top-level `graphs` name through the star-import chain).
 - `graph_info(name: str) -> GraphInfo` — the record for `name`; raises
   `FileNotFoundError(f"No graph with {name=} found")` for unknown names
   (same message style as `download_graph`). Maps the JSON `"class"` key to
@@ -110,8 +112,8 @@ Added entry
 - `__all__ = ["GraphInfo", "QueryInfo", "graphs", "graph_info",
   "categories"]`; add `from .registry import *` to `dataset/__init__.py`.
 - Doctest examples use the real bundled data with stable output (e.g.
-  `len(graphs())` -> 113, `graph_info("skos").category` -> 'rdf').
-- Tests: `len(graphs()) == 113` and sorted; graph set equals the CSV's graph
+  `len(graph_names())` -> 113, `graph_info("skos").category` -> 'rdf').
+- Tests: `len(graph_names()) == 113` and sorted; graph set equals the CSV's graph
   column; `graph_info("skos")` fields (rdf, 144, 252); a record with an RPQ
   or MCFPQ query if present, else CFPQ-only; unknown name raises
   `FileNotFoundError`; `categories()` agrees with the CSV category column
@@ -124,7 +126,7 @@ Added entry
 ### S4: Drop GRAPHS/DATASET; validate names against the registry
 
 **Code:** `flpq_data/dataset/data.py` (remove `GRAPHS` list + `DATASET`
-alias, validate via `graphs()`)
+alias, validate via `graph_names()`)
 **Tests:** `tests/dataset/test_data.py` (drop the GRAPHS/DATASET
 assertions)
 **Docs:** `docs/reference/dataset/index.rst` (remove `GRAPHS` from the
@@ -133,7 +135,7 @@ autosummary list)
 **Spec:**
 - Remove the 113-name `GRAPHS` literal, the `DATASET = GRAPHS` alias, and
   both `__all__` entries; `download_graph` validates with
-  `name in graphs()` (imported from `.registry`) — the registry is now the
+  `name in graph_names()` (imported from `.registry`) — the registry is now the
   single source of truth for the graph list.
 - Update any docstring text that references `GRAPHS`.
 - Tests: keep the URL-constant tests (`6.0.0/graph` prefix, now derived via

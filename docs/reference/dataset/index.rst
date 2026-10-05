@@ -15,7 +15,13 @@ Dataset utilities
 .. autosummary::
    :toctree: generated/
 
-   download_graph
-   download_reachable_pairs
-   GRAPHS
-   reachable_pairs
+    categories
+    download_graph
+    download_reachable_pairs
+    GRAPHS
+    graph_info
+    graph_names
+    reachable_pairs
+
+.. autoclass:: GraphInfo
+.. autoclass:: QueryInfo

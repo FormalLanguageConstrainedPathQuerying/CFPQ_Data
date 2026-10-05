@@ -459,11 +459,14 @@ tree. The repo-only ``utils/generate_registry.py`` (pattern of
 ``utils/archive_sizes.py``) regenerates the file; it runs locally, never in
 CI (no-network policy).
 
-The metadata API never touches the network: ``graphs() -> list[str]``,
+The metadata API never touches the network: ``graph_names() ->
+list[str]`` (named to avoid clashing with the ``flpq_data.graphs``
+subpackage),
 ``graph_info(name) -> GraphInfo`` (a frozen dataclass mirroring one registry
 record), and ``categories() -> dict[str, list[str]]`` — the category-to-
 graphs mapping of #147. The never-released ``GRAPHS``/``DATASET`` constants
-are dropped; the future ``cfpq-data`` shim maps ``DATASET -> graphs()``.
+are dropped; the future ``cfpq-data`` shim maps ``DATASET ->
+graph_names()``.
 
 Machine-global cache
 ^^^^^^^^^^^^^^^^^^^^

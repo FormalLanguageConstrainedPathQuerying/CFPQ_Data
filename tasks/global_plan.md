@@ -56,10 +56,11 @@ atomic move into the cache. Integrity on hit: a sidecar `.sha256` written at
 install is compared against the registry (fast path); `verify=True` re-hashes
 the archive.
 
-**Metadata API.** `graphs() -> list[str]`, `graph_info(name) -> GraphInfo`
+**Metadata API.** `graph_names() -> list[str]` (named to avoid clashing
+with the `flpq_data.graphs` subpackage), `graph_info(name) -> GraphInfo`
 (frozen dataclass), `categories() -> dict[str, list[str]]` (#147). The
 never-released `GRAPHS`/`DATASET` constants are dropped (6.0.0 is pre-release;
-the future `cfpq-data` shim maps `DATASET -> graphs()`).
+the future `cfpq-data` shim maps `DATASET -> graph_names()`).
 
 **Cache manipulation.** `cache_root() -> Path`, `cached_versions() ->
 list[str]`, `clear_cache(keep: str | None = None)` — `None` wipes all version
@@ -73,7 +74,7 @@ dirs, `keep="6.0.0"` keeps only that one.
   package-layout lines; CHANGELOG `[Unreleased]`. Docs-only task.
 - **T2** (#150): Graph registry + metadata API (closes #147) —
   `utils/generate_registry.py` (maintenance; pattern of
-  `utils/archive_sizes.py`), bundled `registry.json`, `GraphInfo`/`graphs()`/
+  `utils/archive_sizes.py`), bundled `registry.json`, `GraphInfo`/`graph_names()`/
   `graph_info()`/`categories()`, drop `GRAPHS`/`DATASET`.
 - **T3** (#151): Machine-global versioned cache + lazy downloads (closes
   #140) — `platformdirs` dependency, `cache.py` (`cache_root()` with env-var
