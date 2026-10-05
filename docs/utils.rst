@@ -255,6 +255,35 @@ Behavior:
 When a query is added for a graph, add its row to the CSV first and run this
 tool with ``--update`` before committing.
 
+.. _generate_registry:
+
+Graph registry
+--------------
+
+``utils/generate_registry.py`` regenerates
+``flpq_data/dataset/registry.json`` — the machine-readable per-graph metadata
+bundled with the package (the "Graph registry" section of :ref:`flpq`) — from
+the live dataset::
+
+   python utils/generate_registry.py
+
+For every graph in ``reachable_pairs.csv`` the tool downloads the archive
+from the current dataset prefix and records: the category (from the CSV),
+the node and edge counts (loaded with the package's own MTX reader), the
+archive size in MB and its sha256, and the query list from the archive's
+``queries/`` tree (class, name, representations — the class-to-representation
+mapping is reused from :ref:`archive_structure`). The result is written as
+deterministic JSON.
+
+Behavior:
+
+- **All-or-nothing.** If any archive cannot be downloaded or processed,
+  nothing is written and the failures are listed.
+- **Local only.** The tool downloads every archive, so it never runs in CI
+  (no-network policy). Re-run it whenever the dataset changes (a new graph
+  or query), commit the result, and upload it to the bucket as
+  ``<version>/registry.json`` with :ref:`upload_to_s3`.
+
 .. _migrate_gdrive_to_s3:
 
 Migrate from Google Drive

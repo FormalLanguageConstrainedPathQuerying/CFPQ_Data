@@ -8,7 +8,7 @@ from typing import Optional
 
 import requests
 
-from flpq_data.config import DATA, VERSION
+from flpq_data.config import DATA, DATASET_VERSION
 
 __all__ = [
     "REACHABLE_PAIRS_CSV",
@@ -21,9 +21,9 @@ __all__ = [
 REACHABLE_PAIRS_FILENAME = "reachable_pairs.csv"
 
 #: Version prefix the table is published under on the dataset object storage.
-#: Derived like :data:`flpq_data.dataset.data.DATASET_KEY_PREFIX`, so the URL
-#: follows the package version.
-REACHABLE_PAIRS_KEY_PREFIX: str = f"{VERSION[0]}.0.0"
+#: Derived from :data:`flpq_data.config.DATASET_VERSION`, so the URL follows
+#: the package version.
+REACHABLE_PAIRS_KEY_PREFIX: str = DATASET_VERSION
 
 #: Public URL of the versioned reachable-pairs CSV (see
 #: :func:`download_reachable_pairs`).

@@ -9,7 +9,7 @@ import warnings
 
 import requests
 
-from flpq_data.config import GRAPHS_DIR, VERSION
+from flpq_data.config import DATASET_VERSION, GRAPHS_DIR
 
 __all__ = [
     "DATASET_KEY_PREFIX",
@@ -20,7 +20,7 @@ __all__ = [
     "download",
 ]
 
-DATASET_KEY_PREFIX = f"{VERSION[0]}.0.0/graph"
+DATASET_KEY_PREFIX = f"{DATASET_VERSION}/graph"
 DATASET_URL = f"https://cfpq-data.storage.yandexcloud.net/{DATASET_KEY_PREFIX}/"
 
 #: All downloadable graphs, served from ``DATASET_URL``.
