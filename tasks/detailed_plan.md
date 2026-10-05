@@ -117,7 +117,7 @@ labels containing spaces, unicode, and `<>"{}|^`\`#`; round-trip through
   auto-reversed line; indexed labels (`X_N`) collapse to `X_i` with the index
   as a fourth column — byte-identical to today's `graph_dir_to_g_text`.
 
-### S4: Drop CSV; reimplement `graph_from_*`/`graph_to_*` on streams [ ]
+### S4: Drop CSV; reimplement `graph_from_*`/`graph_to_*` on streams [done] (20d46de)
 
 **Code:** delete `flpq_data/graphs/readwrite/csv.py` and its import line in
 `readwrite/__init__.py`; drop `pandas` from `pyproject.toml` (its only user)
@@ -126,11 +126,13 @@ and re-sync the env; `mtx.py` (`graph_from_mtx_dir` builds the graph from
 `mtx_dir_from_edges` with `dimension = max(graph.nodes(), default=-1) + 1` to
 preserve isolated-node behavior exactly); `txt.py` (`graph_from_text/txt`
 from the readers; `graph_to_text` yields one line per edge using
-`data["label"]`; `graph_to_txt` via `txt_from_edges`); `rdf.py`
-(`graph_from_rdf` from `iter_edges_from_rdf`; `graph_to_rdf` via
-`rdf_from_edges` — output is now the valid encoding, doctests updated to use
-`graph_from_text` for the sample graph); `converters.py` gains
-`iter_edges_from_graph(graph)` yielding `(u, data["label"], v)` per edge key.
+`data["label"]`; `graph_to_txt` via `txt_from_edges`; the line format is a
+shared private `_text_line` used by both); `rdf.py` (`graph_from_rdf` from
+`iter_edges_from_rdf`; `graph_to_rdf` via `rdf_from_edges` — output is now
+the valid encoding, doctests updated to use `graph_from_text` for the sample
+graph); new `readwrite/graph.py` with `iter_edges_from_graph(graph)` yielding
+`(u, data["label"], v)` per edge key (kept out of converters.py to avoid an
+import cycle — converters imports the readwrite modules).
 **Tests:** existing suite green; `rdf.py` doctests updated (new encoding +
 `graph_from_text` sample); no `test_csv.py` exists to delete.
 **Docs:** docstring updates where internals are described.
