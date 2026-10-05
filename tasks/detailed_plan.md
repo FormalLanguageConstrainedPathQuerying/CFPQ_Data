@@ -170,7 +170,7 @@ the #138 scenario.
   listing the supported formats. `writer_options` are forwarded to the writer
   (e.g. `quoting` for txt).
 
-### S6: Docs completion — reference, tutorial, CHANGELOG [ ]
+### S6: Docs completion — reference, tutorial, CHANGELOG [done] (f62a351)
 
 **Code:** none (docs-only subtask)
 **Tests:** docs build gate
