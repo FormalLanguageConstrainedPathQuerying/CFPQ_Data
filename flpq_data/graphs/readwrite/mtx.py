@@ -4,9 +4,11 @@ import logging
 import os
 import pathlib
 import tempfile
-from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple, Union
+from typing import Any, Dict, Iterable, Iterator, Optional, Tuple, Union
 
 import networkx as nx
+
+from flpq_data.graphs.readwrite.graph import iter_edges_from_graph
 
 __all__ = [
     "filename_to_label",
@@ -335,23 +337,8 @@ def graph_from_mtx_dir(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
     path = pathlib.Path(path)
     graph = nx.MultiDiGraph()
 
-    for mtx_file in sorted(path.glob("*.mtx")):
-        label = filename_to_label(mtx_file.name)
-
-        with open(mtx_file, "r") as f:
-            lines = [line.strip() for line in f if line.strip()]
-
-        if tuple(lines[:2]) != _MTX_HEADER:
-            raise ValueError(f"Unexpected header in {mtx_file=}")
-
-        rows, cols, nnz = map(int, lines[2].split())
-        pairs = lines[3:]
-        if len(pairs) != nnz:
-            raise ValueError(f"{mtx_file=} declares {nnz} entries but has {len(pairs)}")
-
-        for pair in pairs:
-            i, j = map(int, pair.split())
-            graph.add_edge(i, j, label=label)
+    for u, label, v in iter_edges_from_mtx_dir(path):
+        graph.add_edge(u, v, label=label)
 
     logging.info(f"Load {graph=} from {path=}")
 
@@ -396,25 +383,16 @@ def graph_to_mtx_dir(
     path : Path
         Path to the directory where the graph will be saved.
     """
-    dest = pathlib.Path(path)
-    dest.mkdir(parents=True, exist_ok=True)
-
     nodes = list(graph.nodes())
     if any(not isinstance(node, int) or node < 0 for node in nodes):
         raise TypeError(f"The node ids of {graph=} must be non-negative integers")
-    dimension = max(nodes, default=-1) + 1
 
-    by_label: Dict[str, List[Tuple[int, int]]] = {}
-    for u, v, data in graph.edges(data=True):
-        by_label.setdefault(data["label"], []).append((u, v))
-
-    for label in sorted(by_label):
-        pairs = by_label[label]
-        lines = [*_MTX_HEADER, f"{dimension} {dimension} {len(pairs)}"]
-        lines += [f"{i} {j}" for i, j in pairs]
-        (dest / label_to_filename(label)).write_text("\n".join(lines) + "\n")
-
-    dest = dest.resolve()
+    # The explicit dimension preserves isolated nodes that carry no edges.
+    dest = mtx_dir_from_edges(
+        iter_edges_from_graph(graph),
+        path,
+        dimension=max(nodes, default=-1) + 1,
+    )
 
     logging.info(f"Save {graph=} to {dest=}")
 

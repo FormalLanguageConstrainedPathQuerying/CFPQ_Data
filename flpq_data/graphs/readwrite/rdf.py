@@ -9,6 +9,8 @@ import networkx as nx
 import rdflib
 from rdflib.term import Node as RdfNode
 
+from flpq_data.graphs.readwrite.graph import iter_edges_from_graph
+
 __all__ = [
     "iter_edges_from_rdf",
     "rdf_from_edges",
@@ -189,9 +191,7 @@ def graph_from_rdf(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
     >>> from flpq_data import *
     >>> import pathlib, tempfile
     >>> d = pathlib.Path(tempfile.mkdtemp())
-    >>> p = d / "g.csv"
-    >>> _ = p.write_text("0 1 a\\n1 2 b\\n")
-    >>> g = graph_from_csv(path=p)
+    >>> g = graph_from_text(["0 a 1", "1 b 2"])
     >>> path = graph_to_rdf(g, d / "g.ttl")
     >>> generations = graph_from_rdf(path)
     >>> generations.number_of_nodes()
@@ -204,17 +204,10 @@ def graph_from_rdf(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
     g : MultiDiGraph
         Loaded graph.
     """
-    tmp = rdflib.Graph()
-    tmp.parse(str(path))
-
     graph = nx.MultiDiGraph()
 
-    for subj, pred, obj in tmp:
-        graph.add_edge(
-            u_for_edge=subj,
-            v_for_edge=obj,
-            label=pred,
-        )
+    for u, label, v in iter_edges_from_rdf(path):
+        graph.add_edge(u, v, label=label)
 
     logging.info(f"Load {graph=} from {path=}")
 
@@ -225,6 +218,10 @@ def graph_to_rdf(
     graph: nx.MultiDiGraph, path: Union[pathlib.Path, str]
 ) -> pathlib.Path:
     """Saves the ``graph`` to the RDF file by ``path``.
+
+    The file holds valid RDF 1.1 Turtle — one triple per edge with IRI nodes
+    and predicates (see :func:`rdf_from_edges` and the "RDF encoding" section
+    of ``docs/graphs/index.rst``).
 
     Parameters
     ----------
@@ -239,28 +236,15 @@ def graph_to_rdf(
     >>> from flpq_data import *
     >>> import pathlib, tempfile
     >>> d = pathlib.Path(tempfile.mkdtemp())
-    >>> p = d / "g.csv"
-    >>> _ = p.write_text("0 1 a\\n1 2 b\\n")
-    >>> g = graph_from_csv(p)
+    >>> g = graph_from_text(["0 a 1", "1 b 2"])
     >>> path = graph_to_rdf(g, d / "g.ttl")
 
     Returns
     -------
     path : Path
-        Path to the RDF file where the graph will be saved.
+        Path to the file where the graph will be saved.
     """
-    tmp = rdflib.Graph()
-
-    for u, v, edge_labels in graph.edges(data=True):
-        subj = rdflib.BNode(u)
-        obj = rdflib.BNode(v)
-
-        for label in edge_labels.values():
-            pred = rdflib.Literal(f"{label}", datatype=rdflib.XSD.string)
-            tmp.add((subj, pred, obj))
-
-    dest = pathlib.Path(path).resolve()
-    tmp.serialize(destination=str(dest))
+    dest = rdf_from_edges(iter_edges_from_graph(graph), path)
 
     logging.info(f"Save {graph=} to {dest=}")
 

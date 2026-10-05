@@ -3,9 +3,11 @@
 import logging
 import pathlib
 import shlex
-from typing import Iterable, Iterator, Tuple, Union
+from typing import Any, Iterable, Iterator, Tuple, Union
 
 import networkx as nx
+
+from flpq_data.graphs.readwrite.graph import iter_edges_from_graph
 
 __all__ = [
     "iter_edges_from_text",
@@ -86,6 +88,13 @@ def iter_edges_from_txt(
     logging.info(f"Stream edges from {path=}")
 
 
+def _text_line(u: Any, label: Any, v: Any, *, quoting: bool = False) -> str:
+    """Returns the ``FROM LABEL TO`` line of an edge."""
+    if quoting:
+        return f"'{u}' '{label}' '{v}'"
+    return f"{u} {label} {v}"
+
+
 def txt_from_edges(
     edges: Iterable[Tuple[str, str, str]],
     path: Union[pathlib.Path, str],
@@ -124,10 +133,7 @@ def txt_from_edges(
     """
     with open(path, "w") as f:
         for u, label, v in edges:
-            if quoting:
-                f.write(f"'{u}' '{label}' '{v}'\n")
-            else:
-                f.write(f"{u} {label} {v}\n")
+            f.write(_text_line(u, label, v, quoting=quoting) + "\n")
 
     dest = pathlib.Path(path).resolve()
 
@@ -160,18 +166,8 @@ def graph_from_text(text: Iterable[str]) -> nx.MultiDiGraph:
     """
     graph = nx.MultiDiGraph()
 
-    for edge in text:
-        try:
-            u, label, v = shlex.split(edge.strip())
-            graph.add_edge(
-                u_for_edge=u,
-                v_for_edge=v,
-                label=label,
-            )
-        except Exception as e:
-            raise ValueError(
-                f"{edge} does not match the input format: FROM LABEL TO"
-            ) from e
+    for u, label, v in iter_edges_from_text(text):
+        graph.add_edge(u, v, label=label)
 
     logging.info(f"Load {graph=} from {text=}")
 
@@ -180,6 +176,9 @@ def graph_from_text(text: Iterable[str]) -> nx.MultiDiGraph:
 
 def graph_to_text(graph: nx.MultiDiGraph, *, quoting: bool = False) -> Iterator[str]:
     """Turns a graph into its text representation.
+
+    One line per edge; the label is taken from the edge's ``label``
+    attribute (the same convention as :func:`graph_to_mtx_dir`).
 
     Parameters
     ----------
@@ -203,12 +202,8 @@ def graph_to_text(graph: nx.MultiDiGraph, *, quoting: bool = False) -> Iterator[
     text : str
         Generator of graph edges.
     """
-    for u, v, edge_labels in graph.edges(data=True):
-        for label in edge_labels.values():
-            if quoting:
-                yield f"'{u}' '{label}' '{v}'"
-            else:
-                yield f"{u} {label} {v}"
+    for u, v, data in graph.edges(data=True):
+        yield _text_line(u, data["label"], v, quoting=quoting)
 
     logging.info(f"Turn {graph=} into text with {quoting=}")
 
@@ -237,8 +232,10 @@ def graph_from_txt(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:
     g : MultiDiGraph
         Loaded graph.
     """
-    with open(path, "r") as f:
-        graph = graph_from_text(f)
+    graph = nx.MultiDiGraph()
+
+    for u, label, v in iter_edges_from_txt(path):
+        graph.add_edge(u, v, label=label)
 
     logging.info(f"Load {graph=} from {path=}")
 
@@ -275,11 +272,7 @@ def graph_to_txt(
     path : Path
         Path to a TXT file where the graph will be saved.
     """
-    with open(path, "w") as f:
-        for edge in graph_to_text(graph=graph, quoting=quoting):
-            f.write(edge + "\n")
-
-    dest = pathlib.Path(path).resolve()
+    dest = txt_from_edges(iter_edges_from_graph(graph), path, quoting=quoting)
 
     logging.info(f"Save {graph=} to {dest=}")
 

@@ -30,7 +30,6 @@ classifiers = [
 ]
 dependencies = [
   "networkx>=3.6.1,<4.0.0",
-  "pandas>=2.3.3,<4.0.0",
   "rdflib>=7.5.0,<8.0.0",
   "requests>=2.32.5,<3.0.0",
   "pyformlang==1.0.1",
