@@ -12,7 +12,7 @@ in `docs/flpq.rst` — the persistent design record — and aligns the two
 layout pointers (AGENTS.md, CHANGELOG). It cites #140 (cache) and #147
 (category exposure) as the drivers.
 
-### S1: Record the core rework design in docs/flpq.rst
+### S1: Record the core rework design in docs/flpq.rst [done] (45bd1aa)
 
 **Code:** none (docs-only subtask)
 **Tests:** n/a — no code; the docs build gate applies at merge time
