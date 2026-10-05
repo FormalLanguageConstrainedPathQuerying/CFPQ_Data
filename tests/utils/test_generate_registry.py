@@ -1,12 +1,31 @@
+import io
 import pathlib
 
 import pytest
 from generate_registry import (
+    _download,
     _sha256,
     archive_record,
     build_registry,
     write_registry,
 )
+
+
+class _FakeResponse:
+    """Minimal stand-in for ``requests.Response`` for the download tests."""
+
+    def __init__(self, content: bytes) -> None:
+        self.raw = io.BytesIO(content)
+
+    def raise_for_status(self) -> None:
+        pass
+
+    def __enter__(self) -> "_FakeResponse":
+        return self
+
+    def __exit__(self, *args: object) -> None:
+        pass
+
 
 MTX = "%%MatrixMarket matrix coordinate pattern general\n%%GraphBLAS type bool\n"
 
@@ -45,6 +64,15 @@ def test_archive_record(tmp_path):
         {"class": "cfpq", "name": "q2", "representations": ["cnf"]},
         {"class": "rpq", "name": "r1", "representations": ["re"]},
     ]
+
+
+def test_archive_record_mixed_dimensions(tmp_path):
+    root = tmp_path / "g"
+    (root / "graph").mkdir(parents=True)
+    (root / "graph" / "a.mtx").write_text(MTX + "3 3 1\n0 1\n")
+    (root / "graph" / "b.mtx").write_text(MTX + "2 2 1\n0 1\n")
+    with pytest.raises(ValueError, match="same dimensions"):
+        archive_record(root)
 
 
 def test_archive_record_without_queries_dir(tmp_path):
@@ -134,3 +162,33 @@ def test_build_registry_all_or_nothing(monkeypatch, tmp_path):
     monkeypatch.setattr(generate_registry, "build_record", fake_build_record)
     with pytest.raises(RuntimeError, match="g2: boom"):
         build_registry(tmp_path)
+
+
+def test_download_retries_once(monkeypatch, tmp_path):
+    import generate_registry
+
+    calls = []
+
+    def fake_get(url, stream=None, timeout=None):
+        calls.append((url, timeout))
+        if len(calls) == 1:
+            raise ConnectionError("stalled")
+        return _FakeResponse(b"abc")
+
+    monkeypatch.setattr(generate_registry.requests, "get", fake_get)
+    archive = tmp_path / "a.tar.gz"
+    _download("https://example.com/a.tar.gz", archive)
+    assert archive.read_bytes() == b"abc"
+    assert len(calls) == 2
+    assert calls[0][1] == (30.0, 60.0)
+
+
+def test_download_failure_raises(monkeypatch, tmp_path):
+    import generate_registry
+
+    def fake_get(url, stream=None, timeout=None):
+        raise ConnectionError("stalled")
+
+    monkeypatch.setattr(generate_registry.requests, "get", fake_get)
+    with pytest.raises(RuntimeError, match="download of .* failed"):
+        _download("https://example.com/a.tar.gz", tmp_path / "a.tar.gz")

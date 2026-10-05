@@ -6,8 +6,9 @@ the query list of every graph (see the "Graph registry" section of
 ``docs/flpq.rst``). Field sources:
 
 - the graph list and ``category`` from ``reachable_pairs.csv``;
-- ``num_nodes``/``num_edges`` from the MTX files of the archive's
-  ``graph/`` dir (loaded with the package's own reader);
+- ``num_nodes``/``num_edges`` from the MTX headers of the archive's
+  ``graph/`` dir (the declared dimension and nnz — read streaming, without
+  building the networkx graph);
 - ``size_mb`` and ``sha256`` of the downloaded ``.tar.gz``;
 - ``queries`` from the archive's ``queries/`` tree.
 
@@ -31,13 +32,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional, Sequence
 
 import requests
-from check_archive_structure import QUERY_CLASSES
+from check_archive_structure import QUERY_CLASSES, _graph_dimensions, _mtx_header
 from config import MAIN_FOLDER
 from reachable_pairs_tables import load_rows
 
 from flpq_data.config import DATASET_VERSION
 from flpq_data.dataset.data import DATASET_URL
-from flpq_data.graphs.readwrite.mtx import graph_from_mtx_dir
 
 __all__ = [
     "REGISTRY_CSV",
@@ -86,9 +86,12 @@ def archive_record(graph_dir: pathlib.Path) -> dict:
     """Returns the archive-derived fields of one registry record.
 
     ``graph_dir`` is an unpacked graph archive (the single top-level
-    directory of a ``.tar.gz``). The node and edge counts come from the
-    package's own MTX reader; the query list walks the ``queries/`` tree
-    with the class -> representation mapping of the structure checker.
+    directory of a ``.tar.gz``). The node count is the declared matrix
+    dimension and the edge count the sum of the declared nnz — read from
+    the MTX headers only (streaming, O(1) memory: building the networkx
+    graph of a large archive exhausts RAM when several run concurrently);
+    the query list walks the ``queries/`` tree with the class ->
+    representation mapping of the structure checker.
 
     Parameters
     ----------
@@ -119,8 +122,27 @@ def archive_record(graph_dir: pathlib.Path) -> dict:
         one query entry per query dir: ``{"class", "name",
         "representations"}``, sorted by (class, name) and with sorted
         representation names.
+
+    Raises
+    ------
+    ValueError
+        If the label matrices do not share one declared dimension or a MTX
+        file does not follow the dataset format.
     """
-    graph = graph_from_mtx_dir(graph_dir / "graph")
+    mtx_dir = graph_dir / "graph"
+    dimensions = _graph_dimensions(mtx_dir)
+    if len(dimensions) != 1:
+        raise ValueError(
+            f"All label matrices must declare the same dimensions, "
+            f"found {sorted(dimensions)}"
+        )
+    rows, cols = dimensions.pop()
+    num_edges = 0
+    for mtx_file in sorted(mtx_dir.glob("*.mtx")):
+        header = _mtx_header(mtx_file)
+        if header is None:
+            raise ValueError(f"{mtx_file} does not follow the dataset MTX format")
+        num_edges += header[2]
 
     queries: list[dict] = []
     queries_root = graph_dir / "queries"
@@ -142,19 +164,51 @@ def archive_record(graph_dir: pathlib.Path) -> dict:
             )
 
     return {
-        "num_nodes": graph.number_of_nodes(),
-        "num_edges": graph.number_of_edges(),
+        "num_nodes": rows,
+        "num_edges": num_edges,
         "queries": queries,
     }
+
+
+def _download(url: str, archive: pathlib.Path) -> None:
+    """Downloads url to archive, streaming with a timeout and one retry.
+
+    A stalled connection must not hang the run: both the connect and the
+    read phases are bounded, and a failed attempt is retried once before
+    the error propagates (the partial file is overwritten on the retry).
+
+    Parameters
+    ----------
+    url : str
+        The public URL of the archive.
+    archive : Path
+        The destination file (overwritten).
+
+    Raises
+    ------
+    RuntimeError
+        If the download fails twice.
+    """
+    last_error: Optional[Exception] = None
+    for _ in range(2):
+        try:
+            with requests.get(url, stream=True, timeout=(30.0, 60.0)) as r:
+                r.raise_for_status()
+                with archive.open("wb") as f:
+                    shutil.copyfileobj(r.raw, f)
+            return
+        except Exception as error:
+            last_error = error
+    raise RuntimeError(f"download of {url} failed: {last_error}")
 
 
 def build_record(name: str, url: str, workdir: pathlib.Path) -> dict:
     """Downloads one archive and returns its full registry record fields.
 
-    The archive is streamed to ``workdir``, hashed and sized while on disk,
-    then unpacked for :func:`archive_record`; the temp files are removed
-    again, so ``workdir`` may be shared between concurrent calls (one per
-    graph name).
+    The archive is streamed to ``workdir`` (see :func:`_download`), hashed
+    and sized while on disk, then unpacked for :func:`archive_record`; the
+    temp files are removed again, so ``workdir`` may be shared between
+    concurrent calls (one per graph name).
 
     Parameters
     ----------
@@ -177,10 +231,7 @@ def build_record(name: str, url: str, workdir: pathlib.Path) -> dict:
         If the archive does not contain a single top-level directory.
     """
     archive = workdir / f"{name}.tar.gz"
-    with requests.get(url, stream=True) as r:
-        r.raise_for_status()
-        with archive.open("wb") as f:
-            shutil.copyfileobj(r.raw, f)
+    _download(url, archive)
 
     size = archive.stat().st_size
     sha256 = _sha256(archive)
