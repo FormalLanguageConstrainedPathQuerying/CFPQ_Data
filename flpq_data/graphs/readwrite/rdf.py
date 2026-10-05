@@ -2,15 +2,123 @@
 
 import logging
 import pathlib
-from typing import Union
+from typing import Iterator, Tuple, Union
 
 import networkx as nx
 import rdflib
+from rdflib.term import Node as RdfNode
 
 __all__ = [
+    "iter_edges_from_rdf",
     "graph_from_rdf",
     "graph_to_rdf",
 ]
+
+#: The IRI prefixes of the RDF encoding (the "RDF encoding" section of
+#: ``docs/graphs/index.rst``).
+_NODE_IRI_PREFIX = "urn:flpq:node:"
+_LABEL_IRI_PREFIX = "urn:flpq:label:"
+
+
+def _node_id(term: RdfNode) -> str:
+    """Returns the node id behind an RDF endpoint term.
+
+    The current encoding uses IRIs ``urn:flpq:node:<id>``; the legacy form
+    used blank nodes, which the Turtle serializer writes as anonymous — their
+    ids are opaque, so the full term string is returned.
+
+    Parameters
+    ----------
+    term : Node
+        An RDF endpoint (subject or object) term.
+
+    Returns
+    -------
+    node_id : str
+        The node id of the term.
+
+    Raises
+    ------
+    ValueError
+        If the term is neither a blank node nor a ``urn:flpq:node:`` IRI.
+    """
+    if isinstance(term, rdflib.BNode):
+        return str(term)
+    text = str(term)
+    if not text.startswith(_NODE_IRI_PREFIX):
+        raise ValueError(f"Unrecognized node term {term!r}")
+    return text[len(_NODE_IRI_PREFIX) :]
+
+
+def _label(term: RdfNode) -> str:
+    """Returns the edge label behind an RDF predicate term.
+
+    The current encoding uses IRIs ``urn:flpq:label:<label>``; the legacy
+    form used Literals.
+
+    Parameters
+    ----------
+    term : Node
+        An RDF predicate term.
+
+    Returns
+    -------
+    label : str
+        The edge label of the term.
+
+    Raises
+    ------
+    ValueError
+        If the term is neither a Literal nor a ``urn:flpq:label:`` IRI.
+    """
+    if isinstance(term, rdflib.Literal):
+        return str(term)
+    text = str(term)
+    if not text.startswith(_LABEL_IRI_PREFIX):
+        raise ValueError(f"Unrecognized predicate term {term!r}")
+    return text[len(_LABEL_IRI_PREFIX) :]
+
+
+def iter_edges_from_rdf(
+    path: Union[pathlib.Path, str],
+) -> Iterator[Tuple[str, str, str]]:
+    """Yields the edges of an RDF file as a stream.
+
+    Reads both the current encoding (IRI nodes ``urn:flpq:node:<id>`` and IRI
+    predicates ``urn:flpq:label:<label>``) and the legacy form written by
+    older versions (blank-node endpoints and Literal predicates). rdflib has
+    no streaming parser, so the file is materialized in memory.
+
+    Parameters
+    ----------
+    path : Union[Path, str]
+        The path to the RDF file with which the edges will be created.
+
+    Examples
+    --------
+    >>> import pathlib, tempfile
+    >>> d = pathlib.Path(tempfile.mkdtemp())
+    >>> p = d / "g.ttl"
+    >>> _ = p.write_text(
+    ...     "<urn:flpq:node:0> <urn:flpq:label:a> <urn:flpq:node:1> .\\n"
+    ...     "<urn:flpq:node:1> <urn:flpq:label:b_5> <urn:flpq:node:2> .\\n"
+    ... )
+    >>> sorted(iter_edges_from_rdf(p))
+    [('0', 'a', '1'), ('1', 'b_5', '2')]
+
+    Returns
+    -------
+    edges : Iterator[Tuple[str, str, str]]
+        The ``(u, label, v)`` edge tuples (the order is not guaranteed —
+        rdflib iterates in store order).
+    """
+    tmp = rdflib.Graph()
+    tmp.parse(str(path))
+
+    for subj, pred, obj in tmp:
+        yield _node_id(subj), _label(pred), _node_id(obj)
+
+    logging.info(f"Stream edges from {path=}")
 
 
 def graph_from_rdf(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:

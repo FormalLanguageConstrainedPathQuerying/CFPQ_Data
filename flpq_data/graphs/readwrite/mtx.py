@@ -2,13 +2,14 @@
 
 import logging
 import pathlib
-from typing import Dict, List, Tuple, Union
+from typing import Dict, Iterator, List, Tuple, Union
 
 import networkx as nx
 
 __all__ = [
     "filename_to_label",
     "label_to_filename",
+    "iter_edges_from_mtx_dir",
     "graph_from_mtx_dir",
     "graph_to_mtx_dir",
 ]
@@ -76,6 +77,72 @@ def label_to_filename(label: str) -> str:
         The file name of the label.
     """
     return f"{label}.mtx"
+
+
+def iter_edges_from_mtx_dir(
+    path: Union[pathlib.Path, str],
+) -> Iterator[Tuple[int, str, int]]:
+    """Yields the edges of a directory of MatrixMarket files as a stream.
+
+    Each ``*.mtx`` file is a Boolean pattern matrix with one entry per edge
+    of a single label (0-based indices, no values); the label is derived from
+    the file name by :func:`filename_to_label`. The files are read line by
+    line, so the memory stays O(1) in the number of edges.
+
+    Parameters
+    ----------
+    path : Union[Path, str]
+        The path to the directory with the MatrixMarket files.
+
+    Examples
+    --------
+    >>> import pathlib, tempfile
+    >>> d = pathlib.Path(tempfile.mkdtemp()) / "graph"
+    >>> _ = d.mkdir(parents=True)
+    >>> _ = (d / "a.mtx").write_text(
+    ...     "%%MatrixMarket matrix coordinate pattern general\\n"
+    ...     "%%GraphBLAS type bool\\n3 3 2\\n0 1\\n1 2\\n"
+    ... )
+    >>> _ = (d / "b_5.mtx").write_text(
+    ...     "%%MatrixMarket matrix coordinate pattern general\\n"
+    ...     "%%GraphBLAS type bool\\n3 3 1\\n2 0\\n"
+    ... )
+    >>> list(iter_edges_from_mtx_dir(d))
+    [(0, 'a', 1), (1, 'a', 2), (2, 'b_5', 0)]
+
+    Returns
+    -------
+    edges : Iterator[Tuple[int, str, int]]
+        The ``(u, label, v)`` edge tuples in file order.
+
+    Raises
+    ------
+    ValueError
+        If a file has an unexpected header or its entry count differs from
+        the declared nnz.
+    """
+    path = pathlib.Path(path)
+
+    for mtx_file in sorted(path.glob("*.mtx")):
+        label = filename_to_label(mtx_file.name)
+
+        with open(mtx_file, "r") as f:
+            if tuple(f.readline().strip() for _ in range(2)) != _MTX_HEADER:
+                raise ValueError(f"Unexpected header in {mtx_file=}")
+            rows, cols, nnz = map(int, f.readline().split())
+
+            count = 0
+            for line in f:
+                if not line.strip():
+                    continue
+                i, j = map(int, line.split())
+                yield i, label, j
+                count += 1
+
+        if count != nnz:
+            raise ValueError(f"{mtx_file=} declares {nnz} entries but has {count}")
+
+    logging.info(f"Stream edges from {path=}")
 
 
 def graph_from_mtx_dir(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:

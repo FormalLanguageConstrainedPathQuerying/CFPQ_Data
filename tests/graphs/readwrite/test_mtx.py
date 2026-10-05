@@ -1,3 +1,5 @@
+import inspect
+
 import networkx as nx
 import pytest
 
@@ -5,6 +7,7 @@ from flpq_data.graphs.readwrite.mtx import (
     filename_to_label,
     graph_from_mtx_dir,
     graph_to_mtx_dir,
+    iter_edges_from_mtx_dir,
     label_to_filename,
 )
 
@@ -110,3 +113,49 @@ def test_mtx_rejects_non_integer_nodes(tmp_path):
 
     with pytest.raises(TypeError, match="non-negative integers"):
         graph_to_mtx_dir(g, tmp_path / "graph")
+
+
+def _write_two_label_dir(path):
+    (path / "a.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n3 3 2\n0 1\n1 2\n"
+    )
+    (path / "b_5.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n3 3 1\n2 0\n"
+    )
+
+
+def test_iter_edges_from_mtx_dir(tmp_path):
+    _write_two_label_dir(tmp_path)
+
+    assert list(iter_edges_from_mtx_dir(tmp_path)) == [
+        (0, "a", 1),
+        (1, "a", 2),
+        (2, "b_5", 0),
+    ]
+
+
+def test_iter_edges_from_mtx_dir_is_lazy(tmp_path):
+    _write_two_label_dir(tmp_path)
+
+    edges = iter_edges_from_mtx_dir(tmp_path)
+    assert inspect.isgenerator(edges)
+    assert next(edges) == (0, "a", 1)
+
+
+def test_iter_edges_from_mtx_dir_rejects_bad_header(tmp_path):
+    (tmp_path / "a.mtx").write_text("%%MatrixMarket matrix coordinate real\n1 1 0\n")
+
+    with pytest.raises(ValueError, match="Unexpected header"):
+        list(iter_edges_from_mtx_dir(tmp_path))
+
+
+def test_iter_edges_from_mtx_dir_rejects_bad_nnz(tmp_path):
+    (tmp_path / "a.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n3 3 2\n0 1\n"
+    )
+
+    with pytest.raises(ValueError, match="declares 2 entries but has 1"):
+        list(iter_edges_from_mtx_dir(tmp_path))

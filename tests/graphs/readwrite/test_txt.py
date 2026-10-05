@@ -61,3 +61,25 @@ def test_text(graph, quoting):
 def test_text_format():
     with pytest.raises(ValueError):
         flpq_data.graph_from_text(["1 2 3 4"])
+
+
+def test_iter_edges_from_text():
+    assert list(flpq_data.iter_edges_from_text(["1 A 2", "'3' 'b_5' '4'"])) == [
+        ("1", "A", "2"),
+        ("3", "b_5", "4"),
+    ]
+
+
+def test_iter_edges_from_text_format():
+    with pytest.raises(ValueError, match="FROM LABEL TO"):
+        list(flpq_data.iter_edges_from_text(["1 2 3 4"]))
+
+
+def test_iter_edges_from_txt(tmp_path):
+    p = tmp_path / "g.txt"
+    p.write_text("1 A 2\n3 b_5 4\n")
+
+    assert list(flpq_data.iter_edges_from_txt(p)) == [
+        ("1", "A", "2"),
+        ("3", "b_5", "4"),
+    ]

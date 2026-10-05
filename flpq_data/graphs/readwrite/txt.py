@@ -3,16 +3,86 @@
 import logging
 import pathlib
 import shlex
-from typing import Iterable, Iterator, Union
+from typing import Iterable, Iterator, Tuple, Union
 
 import networkx as nx
 
 __all__ = [
+    "iter_edges_from_text",
+    "iter_edges_from_txt",
     "graph_from_text",
     "graph_to_text",
     "graph_from_txt",
     "graph_to_txt",
 ]
+
+
+def iter_edges_from_text(text: Iterable[str]) -> Iterator[Tuple[str, str, str]]:
+    """Yields the edges of a text representation as a stream.
+
+    Each line is ``FROM LABEL TO`` — three whitespace-separated tokens;
+    quoting is allowed, as in shell syntax.
+
+    Parameters
+    ----------
+    text : Iterable[str]
+        The lines with which the edges will be created.
+
+    Examples
+    --------
+    >>> list(iter_edges_from_text(["1 A 2", "'3' 'b_5' '4'"]))
+    [('1', 'A', '2'), ('3', 'b_5', '4')]
+
+    Returns
+    -------
+    edges : Iterator[Tuple[str, str, str]]
+        The ``(u, label, v)`` edge tuples in line order.
+
+    Raises
+    ------
+    ValueError
+        If a line does not match the ``FROM LABEL TO`` format.
+    """
+    for edge in text:
+        try:
+            u, label, v = shlex.split(edge.strip())
+        except Exception as e:
+            raise ValueError(
+                f"{edge} does not match the input format: FROM LABEL TO"
+            ) from e
+        yield u, label, v
+
+
+def iter_edges_from_txt(
+    path: Union[pathlib.Path, str],
+) -> Iterator[Tuple[str, str, str]]:
+    """Yields the edges of a TXT file as a stream.
+
+    The file holds one ``FROM LABEL TO`` edge per line (see
+    :func:`iter_edges_from_text`).
+
+    Parameters
+    ----------
+    path : Union[Path, str]
+        The path to the TXT file with which the edges will be created.
+
+    Examples
+    --------
+    >>> import pathlib, tempfile
+    >>> p = pathlib.Path(tempfile.mkdtemp()) / "g.txt"
+    >>> _ = p.write_text("1 A 2\\n3 b_5 4\\n")
+    >>> list(iter_edges_from_txt(p))
+    [('1', 'A', '2'), ('3', 'b_5', '4')]
+
+    Returns
+    -------
+    edges : Iterator[Tuple[str, str, str]]
+        The ``(u, label, v)`` edge tuples in line order.
+    """
+    with open(path, "r") as f:
+        yield from iter_edges_from_text(f)
+
+    logging.info(f"Stream edges from {path=}")
 
 
 def graph_from_text(text: Iterable[str]) -> nx.MultiDiGraph:
