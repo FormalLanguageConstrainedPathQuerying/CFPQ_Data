@@ -24,7 +24,7 @@ Cache layout (version root = dataset version, so versions coexist)::
 `<root>` = `FLPQ_DATA_CACHE` env var, else
 `platformdirs.user_cache_dir("flpq-data")`.
 
-### S1: platformdirs dependency + flpq_data/dataset/cache.py
+### S1: platformdirs dependency + flpq_data/dataset/cache.py [done] (f8c2760)
 
 **Code:** `pyproject.toml` (new `platformdirs` dependency), new
 `flpq_data/dataset/cache.py`, `flpq_data/dataset/__init__.py`
