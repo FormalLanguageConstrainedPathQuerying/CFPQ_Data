@@ -24,6 +24,12 @@ single source of truth for what docs to update when code changes.
 - numpydoc style: `Parameters`, `Returns`, `Examples` sections.
 - `Examples` are run as **doctests** (`--doctest-modules`) — keep them
   self-contained and output-stable.
+- Cross-references in docstrings (`:func:`, `:data:`, ...) must point at
+  targets that are actually documented (listed in an autosummary or on a
+  reference page); the build runs with `-W` (no-warnings), so a reference to
+  an undocumented constant or an external module (e.g.
+  `platformdirs.user_cache_dir`) fails it. Use double-backtick literals for
+  such names. Module-level `#:` comments are not docstrings and are safe.
 
 ## Completeness verification
 
