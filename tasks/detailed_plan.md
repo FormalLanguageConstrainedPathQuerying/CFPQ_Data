@@ -80,7 +80,7 @@ file
   (category rdf, 144 nodes, 252 edges) against the docs table; every record
   has a 64-hex sha256 and a non-empty queries list.
 
-### S3: flpq_data/dataset/registry.py — the metadata API
+### S3: flpq_data/dataset/registry.py — the metadata API [done] (5c7e98b)
 
 **Code:** New `flpq_data/dataset/registry.py` (`QueryInfo`, `GraphInfo`,
 `graphs`, `graph_info`, `categories`); export via
