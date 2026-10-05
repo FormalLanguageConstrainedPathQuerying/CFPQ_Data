@@ -20,6 +20,7 @@ Dataset utilities
     categories
     download_graph
     download_reachable_pairs
+    graph_dir
     graph_info
     graph_names
     reachable_pairs
