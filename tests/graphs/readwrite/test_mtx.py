@@ -9,6 +9,7 @@ from flpq_data.graphs.readwrite.mtx import (
     graph_to_mtx_dir,
     iter_edges_from_mtx_dir,
     label_to_filename,
+    mtx_dir_from_edges,
 )
 
 
@@ -159,3 +160,70 @@ def test_iter_edges_from_mtx_dir_rejects_bad_nnz(tmp_path):
 
     with pytest.raises(ValueError, match="declares 2 entries but has 1"):
         list(iter_edges_from_mtx_dir(tmp_path))
+
+
+def test_mtx_dir_from_edges(tmp_path):
+    d = mtx_dir_from_edges(
+        [(0, "a", 1), (1, "a", 2), (2, "b_5", 0)], tmp_path / "graph"
+    )
+
+    assert sorted(p.name for p in d.glob("*.mtx")) == ["a.mtx", "b_5.mtx"]
+    assert not list(d.glob("*.tmp"))
+
+    lines = (d / "a.mtx").read_text().splitlines()
+    assert lines[:3] == [
+        "%%MatrixMarket matrix coordinate pattern general",
+        "%%GraphBLAS type bool",
+        "3 3 2",
+    ]
+    assert lines[3:] == ["0 1", "1 2"]
+
+
+def test_mtx_dir_from_edges_interleaved_labels(tmp_path):
+    # The labels interleave arbitrarily: the writer must reopen closed temp
+    # files (at most one is open at a time, so the label count is unbounded).
+    edges = [(i, f"l{i % 300}", i + 1) for i in range(600)]
+    d = mtx_dir_from_edges(edges, tmp_path / "graph")
+
+    files = list(d.glob("*.mtx"))
+    assert len(files) == 300
+    total = 0
+    for p in files:
+        lines = p.read_text().splitlines()
+        nnz = int(lines[2].split()[2])
+        assert len(lines) - 3 == nnz
+        total += nnz
+    assert total == 600
+
+
+def test_mtx_dir_from_edges_dimension(tmp_path):
+    # An explicit dimension preserves isolated nodes that carry no edges.
+    d = mtx_dir_from_edges([(0, "a", 1)], tmp_path / "graph", dimension=5)
+
+    assert (d / "a.mtx").read_text().splitlines()[2] == "5 5 1"
+
+
+def test_mtx_dir_from_edges_rejects_small_dimension(tmp_path):
+    with pytest.raises(ValueError, match="smaller than the largest node index"):
+        mtx_dir_from_edges([(0, "a", 4)], tmp_path / "graph", dimension=3)
+
+    assert not list((tmp_path / "graph").glob("*.tmp"))
+
+
+def test_mtx_dir_from_edges_digit_strings(tmp_path):
+    d = mtx_dir_from_edges([("0", "a", "1")], tmp_path / "graph")
+
+    assert (d / "a.mtx").read_text().splitlines()[3:] == ["0 1"]
+
+
+def test_mtx_dir_from_edges_rejects_non_integer_nodes(tmp_path):
+    with pytest.raises(TypeError, match="non-negative integers"):
+        mtx_dir_from_edges([(0, "a", 1), ("x", "a", 2)], tmp_path / "graph")
+
+    assert not list((tmp_path / "graph").glob("*.tmp"))
+
+
+def test_mtx_dir_from_edges_empty(tmp_path):
+    d = mtx_dir_from_edges([], tmp_path / "graph")
+
+    assert not list(d.glob("*"))

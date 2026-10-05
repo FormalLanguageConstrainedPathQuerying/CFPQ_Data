@@ -10,6 +10,7 @@ import networkx as nx
 __all__ = [
     "iter_edges_from_text",
     "iter_edges_from_txt",
+    "txt_from_edges",
     "graph_from_text",
     "graph_to_text",
     "graph_from_txt",
@@ -83,6 +84,56 @@ def iter_edges_from_txt(
         yield from iter_edges_from_text(f)
 
     logging.info(f"Stream edges from {path=}")
+
+
+def txt_from_edges(
+    edges: Iterable[Tuple[str, str, str]],
+    path: Union[pathlib.Path, str],
+    *,
+    quoting: bool = False,
+) -> pathlib.Path:
+    """Writes an edge stream to a TXT file.
+
+    One ``FROM LABEL TO`` line per edge (the format of
+    :func:`iter_edges_from_text`); the memory stays O(1) in the number of
+    edges.
+
+    Parameters
+    ----------
+    edges : Iterable[Tuple[str, str, str]]
+        The ``(u, label, v)`` edge tuples to write.
+
+    path : Union[Path, str]
+        The path to the TXT file where the edges will be saved.
+
+    quoting : bool
+        If true, quotes will be added.
+
+    Examples
+    --------
+    >>> import pathlib, tempfile
+    >>> p = pathlib.Path(tempfile.mkdtemp()) / "g.txt"
+    >>> _ = txt_from_edges([("1", "A", "2")], p)
+    >>> p.read_text()
+    '1 A 2\\n'
+
+    Returns
+    -------
+    path : Path
+        Path to the TXT file where the edges will be saved.
+    """
+    with open(path, "w") as f:
+        for u, label, v in edges:
+            if quoting:
+                f.write(f"'{u}' '{label}' '{v}'\n")
+            else:
+                f.write(f"{u} {label} {v}\n")
+
+    dest = pathlib.Path(path).resolve()
+
+    logging.info(f"Save edges to {dest=}")
+
+    return dest
 
 
 def graph_from_text(text: Iterable[str]) -> nx.MultiDiGraph:

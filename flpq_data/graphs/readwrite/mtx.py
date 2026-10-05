@@ -1,8 +1,10 @@
 """Read (and write) a graph from (and to) a directory of MatrixMarket files."""
 
 import logging
+import os
 import pathlib
-from typing import Dict, Iterator, List, Tuple, Union
+import tempfile
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple, Union
 
 import networkx as nx
 
@@ -10,6 +12,7 @@ __all__ = [
     "filename_to_label",
     "label_to_filename",
     "iter_edges_from_mtx_dir",
+    "mtx_dir_from_edges",
     "graph_from_mtx_dir",
     "graph_to_mtx_dir",
 ]
@@ -143,6 +146,156 @@ def iter_edges_from_mtx_dir(
             raise ValueError(f"{mtx_file=} declares {nnz} entries but has {count}")
 
     logging.info(f"Stream edges from {path=}")
+
+
+def _node_index(node: Any) -> int:
+    """Returns the matrix index of a node id.
+
+    Parameters
+    ----------
+    node : Any
+        A node id — a non-negative integer or its string form.
+
+    Returns
+    -------
+    index : int
+        The matrix index of the node.
+
+    Raises
+    ------
+    TypeError
+        If the node id is not a non-negative integer (or digit string).
+    """
+    if isinstance(node, int):
+        index = node
+    elif isinstance(node, str):
+        try:
+            index = int(node)
+        except ValueError as e:
+            raise TypeError(
+                f"The node ids must be non-negative integers (got {node!r})"
+            ) from e
+    else:
+        raise TypeError(f"The node ids must be non-negative integers (got {node!r})")
+
+    if index < 0:
+        raise TypeError(f"The node ids must be non-negative integers (got {node!r})")
+
+    return index
+
+
+def mtx_dir_from_edges(
+    edges: Iterable[Tuple[Any, str, Any]],
+    path: Union[pathlib.Path, str],
+    *,
+    dimension: Optional[int] = None,
+) -> pathlib.Path:
+    """Writes an edge stream to a directory of MatrixMarket files.
+
+    One Boolean pattern matrix per label (the canonical name from
+    :func:`label_to_filename`), 0-based indices and no values — the layout of
+    :func:`iter_edges_from_mtx_dir`. The stream is consumed in a single pass:
+    each label's edges are appended to its own temporary file (at most one of
+    which is open at a time, so the number of labels is unbounded), and after
+    the stream ends every file is finalized with its three-line header. The
+    memory stays O(1) in the number of edges; the disk holds one extra copy
+    of the edge data until the files are finalized.
+
+    Parameters
+    ----------
+    edges : Iterable[Tuple[Any, str, Any]]
+        The ``(u, label, v)`` edge tuples to write; node ids must be
+        non-negative integers (digit strings are accepted).
+
+    path : Union[Path, str]
+        The path to the directory where the MatrixMarket files will be saved.
+
+    dimension : int, optional
+        The matrix dimensions to declare in every file header. Defaults to
+        the largest node index plus one; give it explicitly when the graph
+        has isolated nodes that carry no edges (e.g. an in-memory graph).
+
+    Examples
+    --------
+    >>> import pathlib, tempfile
+    >>> d = pathlib.Path(tempfile.mkdtemp()) / "graph"
+    >>> _ = mtx_dir_from_edges([(0, "a", 1)], d)
+    >>> (d / "a.mtx").read_text().splitlines()[2:]
+    ['2 2 1', '0 1']
+
+    Returns
+    -------
+    path : Path
+        Path to the directory where the MatrixMarket files will be saved.
+
+    Raises
+    ------
+    TypeError
+        If a node id is not a non-negative integer (or digit string).
+
+    ValueError
+        If ``dimension`` is given but smaller than the largest node index
+        plus one.
+    """
+    dest = pathlib.Path(path)
+    dest.mkdir(parents=True, exist_ok=True)
+
+    max_node = -1
+    counts: Dict[str, int] = {}
+    temps: Dict[str, pathlib.Path] = {}
+    current: Optional[Tuple[str, Any]] = None  # (label, open handle)
+
+    def _cleanup() -> None:
+        for temp in temps.values():
+            temp.unlink(missing_ok=True)
+
+    try:
+        for u, label, v in edges:
+            i = _node_index(u)
+            j = _node_index(v)
+            max_node = max(max_node, i, j)
+
+            if current is not None and current[0] != label:
+                current[1].close()
+                current = None
+            if current is None:
+                if label not in temps:
+                    fd, name = tempfile.mkstemp(dir=dest, prefix=".mtx-", suffix=".tmp")
+                    os.close(fd)
+                    temps[label] = pathlib.Path(name)
+                    counts[label] = 0
+                current = (label, open(temps[label], "a"))
+
+            current[1].write(f"{i} {j}\n")
+            counts[label] += 1
+
+        if current is not None:
+            current[1].close()
+
+        if dimension is not None and dimension < max_node + 1:
+            raise ValueError(
+                f"{dimension=} is smaller than the largest node index plus one "
+                f"({max_node + 1})"
+            )
+    except Exception:
+        _cleanup()
+        raise
+
+    dim = dimension if dimension is not None else max_node + 1
+    for label in sorted(counts):
+        final = dest / label_to_filename(label)
+        with open(temps[label], "r") as src, open(final, "w") as dst:
+            dst.write(f"{_MTX_HEADER[0]}\n{_MTX_HEADER[1]}\n")
+            dst.write(f"{dim} {dim} {counts[label]}\n")
+            for line in src:
+                dst.write(line)
+        temps[label].unlink()
+
+    dest = dest.resolve()
+
+    logging.info(f"Save edges to {dest=}")
+
+    return dest
 
 
 def graph_from_mtx_dir(path: Union[pathlib.Path, str]) -> nx.MultiDiGraph:

@@ -83,3 +83,25 @@ def test_iter_edges_from_txt(tmp_path):
         ("1", "A", "2"),
         ("3", "b_5", "4"),
     ]
+
+
+def test_txt_from_edges(tmp_path):
+    p = tmp_path / "g.txt"
+    flpq_data.txt_from_edges([("1", "A", "2"), ("3", "b_5", "4")], p)
+
+    assert p.read_text() == "1 A 2\n3 b_5 4\n"
+
+
+def test_txt_from_edges_quoting(tmp_path):
+    p = tmp_path / "g.txt"
+    flpq_data.txt_from_edges([("1", "A", "2")], p, quoting=True)
+
+    assert p.read_text() == "'1' 'A' '2'\n"
+
+
+def test_txt_from_edges_round_trip(tmp_path):
+    p = tmp_path / "g.txt"
+    edges = [("1", "A", "2"), ("3", "b_5", "4")]
+    flpq_data.txt_from_edges(edges, p)
+
+    assert list(flpq_data.iter_edges_from_txt(p)) == edges

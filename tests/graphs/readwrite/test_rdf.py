@@ -1,6 +1,7 @@
 import os
 
 import pytest
+import rdflib
 
 import flpq_data
 
@@ -74,3 +75,30 @@ def test_iter_edges_from_rdf_rejects_foreign_terms(tmp_path):
 
     with pytest.raises(ValueError, match="Unrecognized"):
         list(flpq_data.iter_edges_from_rdf(p))
+
+
+def test_rdf_from_edges_valid_encoding(tmp_path):
+    p = tmp_path / "g.ttl"
+    flpq_data.rdf_from_edges([(0, "a b", 1), (1, 'q"<{}|^`#', 2)], p)
+
+    g = rdflib.Graph()
+    g.parse(str(p))
+    assert len(list(g)) == 2
+    for subj, pred, obj in g:
+        # Valid RDF 1.1: IRI endpoints and predicates (no Literals).
+        assert isinstance(subj, rdflib.URIRef)
+        assert isinstance(pred, rdflib.URIRef)
+        assert isinstance(obj, rdflib.URIRef)
+        assert str(subj).startswith("urn:flpq:node:")
+        assert str(obj).startswith("urn:flpq:node:")
+        assert str(pred).startswith("urn:flpq:label:")
+
+
+def test_rdf_from_edges_round_trip(tmp_path):
+    p = tmp_path / "g.ttl"
+    edges = [(0, "a", 1), (1, "b_5", 2), (2, "label with space", 0)]
+    flpq_data.rdf_from_edges(edges, p)
+
+    assert sorted(flpq_data.iter_edges_from_rdf(p)) == sorted(
+        (str(u), label, str(v)) for u, label, v in edges
+    )
