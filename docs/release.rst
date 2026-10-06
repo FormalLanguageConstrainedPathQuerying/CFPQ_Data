@@ -38,11 +38,24 @@ The ``publish`` workflow (``.github/workflows/publish.yml``) runs when a
 On every pull request targeting ``master``, the same build step runs and the
 artifacts are published to **TestPyPI** via Trusted Publishing (OIDC — the
 publisher's subject claim must be
-``repo:FormalLanguageConstrainedPathQuerying/CFPQ_Data:pull_request``), with
-``skip-existing`` so concurrent PRs sharing a version do not collide. This is
-a packaging check that fails the PR before a release tag is cut; since a tag
-always points at a merged PR's head, it validates exactly the code that will
-be released.
+``repo:FormalLanguageConstrainedPathQuerying/FLPQ_Data:pull_request``). Before
+building, the run rewrites the version on the runner to ``<version>.dev<run
+number>`` (a PEP 440 developmental release) so every push publishes a distinct
+artifact and no manual cleanup is needed between iterations; the committed
+version is never changed, and the commit SHA is recorded in the run's step
+summary. This is a packaging check that fails the PR before a release tag is
+cut; since a tag always points at a merged PR's head, it validates exactly the
+code that will be released.
+
+A commit-hash suffix is not possible: PEP 440 forbids local version
+identifiers (``X.Y.Z+<hash>``) on public indices, so only the numeric
+developmental suffix is publishable. Testers install the pre-release
+explicitly::
+
+   pip install --pre --index-url https://test.pypi.org/simple/ \
+       --extra-index-url https://pypi.org/simple/ flpq-data
+
+or pin the exact ``X.Y.Z.devN`` version.
 
 Two packaging constraints matter:
 
@@ -52,9 +65,10 @@ Two packaging constraints matter:
   TestPyPI pre-publish still validates the build and its metadata before a
   tag is cut.
 - PyPI and TestPyPI reject re-uploads of files that already exist for a
-  version. The PR check uses ``skip-existing`` to stay green; the real
-  publish does not — if a tag push reaches PyPI and then fails, an owner must
-  delete the release on PyPI before the tag can be re-pushed.
+  version. The PR check keeps ``skip-existing`` as a safety net even though
+  its per-run version is unique; the real publish does not — if a tag push
+  reaches PyPI and then fails, an owner must delete the release on PyPI
+  before the tag can be re-pushed.
 
 Merging a pull request into ``master`` never publishes: the workflow runs
 only on ``v*`` tag pushes (the merge does redeploy the docs site).

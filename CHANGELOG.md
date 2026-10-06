@@ -98,6 +98,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- The `publish` workflow gives every pull request targeting `master` a unique
+  `X.Y.Z.dev<run number>` version on the runner before building, so each push
+  publishes a distinct TestPyPI pre-release instead of being skipped as an
+  existing file; the commit SHA is recorded in the run's step summary. The
+  committed version and the tag/PyPI release path are unchanged.
 - **Breaking:** the package is renamed `cfpq_data` -> `flpq_data` (PyPI
   distribution `flpq-data`) and `grammars/` is restructured into
   `queries/{cfpq,rpq,mcfpq}/` — the module tree gains the same query-class
