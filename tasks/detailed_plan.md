@@ -36,7 +36,7 @@ run publish a distinct, automatically derived developmental version.
 - Existing `build` job in `.github/workflows/publish.yml` — extended, no new
   workflow.
 
-### S1: `utils/set_dev_version.py` + tests [ ]
+### S1: `utils/set_dev_version.py` + tests [done] (cf1299f)
 
 **Code:** New `utils/set_dev_version.py` with `set_dev_version(version)` and
 `main(argv)`; `utils/bump_version.py` — rename `_set_version` →
@@ -52,7 +52,7 @@ run publish a distinct, automatically derived developmental version.
   touches `CHANGELOG.md`.
 - `main` prints the new version and returns 0; returns 1 on `ValueError`.
 
-### S2: Wire the dev version into the publish workflow (PR path only) [ ]
+### S2: Wire the dev version into the publish workflow (PR path only) [done] (e8bd4af)
 
 **Code:** `.github/workflows/publish.yml` — add a `Set TestPyPI dev version`
 step in the `build` job, guarded by `if: github.event_name == 'pull_request'`,
@@ -81,7 +81,7 @@ between "Set up uv" and "Build distributions"; update the top-of-file and
 - The `if` guard is event-based, so tag builds are untouched (no-op).
 - `uv version --short` reads the committed `6.0.0` before the rewrite.
 
-### S3: Document the behaviour and record it in the changelog [ ]
+### S3: Document the behaviour and record it in the changelog [done] (729838c)
 
 **Code:** none.
 **Tests:** `pre-commit` only.
