@@ -96,7 +96,7 @@ the old strings) + pre-commit.
   Language constrained Path-Querying algorithms evaluation." (line 10);
   keywords: `"CONTEXT-FREE"` → `"FORMAL-LANGUAGE"` (line 13).
 
-### S3: Rename the logo file [ ]
+### S3: Rename the logo file [done] (afdfe61)
 
 **Code:** `git mv docs/_static/img/CFPQDataLogo.svg
 docs/_static/img/FLPQDataLogo.svg`; `docs/conf.py:210` `html_logo` path.
