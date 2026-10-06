@@ -68,7 +68,7 @@ the old strings) + pre-commit.
 - `CHANGELOG.md:3`: header line → "All notable changes to FLPQ_Data are
   documented in this file." Nothing else in the changelog changes.
 
-### S2: Rename in docs content [ ]
+### S2: Rename in docs content [done] (0fac7cf)
 
 **Code:** `docs/conf.py` (`project`, linkcheck UA, `htmlhelp_basename`,
 `man_pages`).
