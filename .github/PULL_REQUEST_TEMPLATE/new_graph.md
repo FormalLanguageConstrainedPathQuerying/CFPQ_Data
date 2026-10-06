@@ -6,7 +6,7 @@
 | Type | ``<new graph (full archive) or new queries for an existing graph (partial archive)>`` |
 | Full Name | ``<The full name of the graph — for a partial archive, the name of the existing graph being extended>`` |
 | Category | ``<Existing category name, or "new: <proposed name>" for a new category (new graphs only)>`` |
-| Version | ``<Current version of CFPQ_Data>`` |
+| Version | ``<Current version of FLPQ_Data>`` |
 | Archive | [link](``<Google Drive link to the archive — <name>.tar.gz, full or partial>``) |
 
 ## Data format

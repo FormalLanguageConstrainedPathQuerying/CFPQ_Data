@@ -100,7 +100,7 @@ Test pipeline
 The test suite is ``pytest`` with **doctests enabled**: the ``Examples``
 sections of public docstrings are executed as tests, so the documented
 behavior and the tested behavior are the same code. The canonical command
-is exactly what CI runs — the "Test CFPQ_Data with coverage (line and
+is exactly what CI runs — the "Test FLPQ_Data with coverage (line and
 branch >= 95%)" step of :file:`.github/workflows/coverage.yml`.
 
 Coverage is part of the pipeline: branch coverage is always on

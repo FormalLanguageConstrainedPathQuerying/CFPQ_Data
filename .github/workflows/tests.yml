@@ -28,5 +28,5 @@ jobs:
       - name: Show installed packages
         run: uv tree
 
-      - name: Test CFPQ_Data
+      - name: Test FLPQ_Data
         run: uv run pytest

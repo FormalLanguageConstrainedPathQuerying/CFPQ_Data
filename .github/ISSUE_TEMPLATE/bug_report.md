@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: `[e.g. Ubuntu 20.04]`
- - CFPQ_Data: `[e.g. 22]`
+ - FLPQ_Data: `[e.g. 22]`
  - Python: `[e.g. 3.8]`
  - Other important stuff versions
 

@@ -4,7 +4,7 @@
 |           |                                                                        |
 |-----------|------------------------------------------------------------------------|
 | Full Name | ``<Specify the full name of the grammar template>``                    |
-| Version   | ``<Current version of CFPQ_Data>``                                     |
+| Version   | ``<Current version of FLPQ_Data>``                                     |
 | Class     | ``<Specify the formal grammar class to which the grammar belongs>``    |
 | Kind      | ``<Specify the kind of problem for which this grammar can be used>``   |
 | Origin    | [link](``<Link to download the grammar or link to the grammar info>``) |
