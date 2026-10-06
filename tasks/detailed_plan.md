@@ -152,6 +152,25 @@ unchanged, filename only.
 3. Quality gate on the feature branch (tests + style + type check + docs
    build) must PASS before merge to `dev`.
 
+## Code Review
+
+Whole-repo review of `git diff dev...HEAD` against the checklist:
+
+- **Correctness**: every clause of #156 is traceable — all live files renamed
+  (residual scan returns only gitignored caches, the gitignored
+  `temporal_cfpq/` tool, and history kept by decision); all four confirmed
+  decisions applied.
+- **Tests**: no code logic changed; 626/626 pass at every subtask.
+- **Docs**: docs build clean (no-warnings policy) after S2 and S3; the
+  schema.org metadata, citation, and Sphinx project metadata all match the
+  new name.
+- **Duplication / dead code**: pure rename, none introduced.
+- **Style**: one finding — the AGENTS.md rewording left a 90-character line
+  in a ~76-wrapped file; fixed in a follow-up commit (a24bcc5).
+- **Scope**: diff touches only the planned files; no unrelated edits.
+
+Zero findings after the fix.
+
 ## Post-merge (outside the repo, reported to the user)
 
 - `git remote set-url origin
