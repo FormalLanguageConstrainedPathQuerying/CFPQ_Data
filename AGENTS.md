@@ -2,8 +2,8 @@
 
 FLPQ_Data is a Python package (`flpq_data`, Apache-2.0) providing Graphs and
 Grammars for experimental analysis of Formal Language constrained Path
-Querying (FLPQ) algorithms. It is both the dataset and the tools to support and use it —
-extend, modify, validate.
+Querying (FLPQ) algorithms. It is both the dataset and the tools to support
+and use it — extend, modify, validate.
 This file is an entrypoint/TOC only — details live in the skills
 linked below.
 
