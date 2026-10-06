@@ -70,7 +70,7 @@ If you use CFPQ_Data in your work, please cite the repository:
      title  = {CFPQ\_Data: Graphs and Grammars for Context-Free Path Querying},
      author = {Abzalov, Vadim and Kovalev, Nikita and Grigorev, Semyon},
      year   = {2026},
-     url    = {https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data},
+     url    = {https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data},
      note   = {Software and dataset},
    }
 

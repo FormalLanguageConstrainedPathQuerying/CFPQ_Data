@@ -38,9 +38,9 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data"
-"Source Code" = "https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data"
-"Bug Tracker" = "https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/issues"
+Documentation = "https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data"
+"Source Code" = "https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data"
+"Bug Tracker" = "https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/issues"
 
 [dependency-groups]
 dev = [

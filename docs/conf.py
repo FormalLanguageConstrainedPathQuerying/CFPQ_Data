@@ -97,7 +97,7 @@ linkcheck_allow_unauthorized = True
 # pages remain valid; their robot policy asks for a descriptive UA.
 linkcheck_user_agent = (
     "CFPQ_Data-docs-linkcheck "
-    "(https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data)"
+    "(https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data)"
 )
 
 # linkcheck: skip exactly these two hosts. Both answer 403 to datacenter
@@ -195,7 +195,7 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data",
+            "url": "https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data",
             "icon": "fab fa-github",
         },
         {
@@ -237,7 +237,7 @@ html_sidebars = {
 html_copy_source = False
 
 html_use_opensearch = (
-    "https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/"
+    "https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/"
 )
 
 

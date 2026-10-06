@@ -19,7 +19,7 @@ assignees: rustam-azimov, vadyushkins
 
 ## Data format
 
-The main way to provide data is a **Google Drive link** to an archive prepared per the structure-validation tool. Two kinds of archives exist (both documented in the "File structure" section of the [Graphs page](https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/graphs/index.html)):
+The main way to provide data is a **Google Drive link** to an archive prepared per the structure-validation tool. Two kinds of archives exist (both documented in the "File structure" section of the [Graphs page](https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/graphs/index.html)):
 
 - **Full archive** — a new graph: `<name>.tar.gz` unpacks to a self-contained directory with `README.md`, `graph/` (one Boolean MatrixMarket pattern file per stored edge label), and `queries/` (one directory per query in `cfpq/`, `rpq/`, or `mcfpq/`; each query directory holds every representation of the query — `.cnf`/`.rsm`, `.re`/`.rsm` (regular only), or `.mcfg` — plus one `results.mtx` with the constrained reachability facts).
 - **Partial archive** — new queries for an existing graph: `<name>.tar.gz` unpacks to a directory containing only `queries/` — the new query directories (same layout) plus a `README.md` fragment with one `## <class>/<query>` section per new query.
@@ -31,7 +31,7 @@ python utils/check_archive_structure.py <name>.tar.gz            # full archive
 python utils/check_archive_structure.py <name>.tar.gz --partial  # partial archive
 ```
 
-A partial archive is merged into the existing graph archive by the maintainer (`python utils/merge_archive.py EXISTING.tar.gz PARTIAL.tar.gz -o <name>.tar.gz`), re-validated, and uploaded. The query file formats — including the recursive state machine (`.rsm`) format — are documented on the [FLPQ design page](https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data/flpq.html).
+A partial archive is merged into the existing graph archive by the maintainer (`python utils/merge_archive.py EXISTING.tar.gz PARTIAL.tar.gz -o <name>.tar.gz`), re-validated, and uploaded. The query file formats — including the recursive state machine (`.rsm`) format — are documented on the [FLPQ design page](https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/flpq.html).
 
 ## Description document
 

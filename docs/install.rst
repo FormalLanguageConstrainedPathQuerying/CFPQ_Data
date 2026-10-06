@@ -40,7 +40,7 @@ install into your user directory using the ``--user`` flag::
     pip install --user flpq-data
 
 Alternatively, you can manually download ``flpq_data`` from
-`GitHub <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data/releases>`_  or
+`GitHub <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/releases>`_  or
 `PyPI <https://pypi.org/project/flpq-data/>`_.
 To install one of these versions, unpack it and run the following from the
 top-level source directory using the Terminal::

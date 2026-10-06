@@ -168,7 +168,7 @@ setup command lives in :file:`docs/README.md`. Two policies matter:
 **Deployment.** Pushing to ``master`` deploys the site:
 :file:`.github/workflows/deploy_docs.yml` builds the HTML and publishes
 :file:`docs/_build/html` to the ``gh-pages`` branch, which GitHub serves as
-the project website (https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data).
+the project website (https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data).
 The workflow skips forks — it runs only for the owning repository.
 
 .. _developer-release:

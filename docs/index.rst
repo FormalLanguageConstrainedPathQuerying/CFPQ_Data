@@ -12,7 +12,7 @@ terms of the :doc:`Apache-2.0 License </license>`. The accompanying dataset
 (graphs and grammars) is released under
 :doc:`CC-BY 4.0 </license>`.
 
-We welcome contributions. Join us on `GitHub <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data>`_.
+We welcome contributions. Join us on `GitHub <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data>`_.
 
 Documentation
 =============
