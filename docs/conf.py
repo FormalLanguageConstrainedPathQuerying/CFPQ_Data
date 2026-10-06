@@ -207,7 +207,7 @@ html_theme_options = {
     "navbar_end": ["navbar-icon-links"],
 }
 
-html_logo = "_static/img/CFPQDataLogo.svg"
+html_logo = "_static/img/FLPQDataLogo.svg"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
