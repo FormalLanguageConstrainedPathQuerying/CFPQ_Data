@@ -10,7 +10,7 @@ Tutorial
    :Release: |release|
    :Date: |today|
 
-This guide can help you start working with CFPQ_Data.
+This guide can help you start working with FLPQ_Data.
 
 **You can download this tutorial as a Jupyter Notebook from the link at the end of the page.**
 

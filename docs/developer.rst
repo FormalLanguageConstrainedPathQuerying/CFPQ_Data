@@ -9,7 +9,7 @@ Developer guide
    :Date: |today|
 
 How to set up a development environment, run the checks that continuous
-integration runs, and contribute to CFPQ_Data. If you only want to *use*
+integration runs, and contribute to FLPQ_Data. If you only want to *use*
 the package, start with :doc:`/getting_started` instead.
 
 .. _developer-ci:
@@ -34,7 +34,7 @@ coverage gate, doctests as tests.
 Development setup
 -----------------
 
-CFPQ_Data requires Python 3.11–3.13 (``pyproject.toml`` declares
+FLPQ_Data requires Python 3.11–3.13 (``pyproject.toml`` declares
 ``>=3.11,<3.14``). The canonical development environment is **uv** — all CI
 workflows install their dependencies through it. Install uv once (see the
 `uv installation guide <https://docs.astral.sh/uv/getting-started/installation/>`_),

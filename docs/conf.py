@@ -32,7 +32,7 @@ os.environ["PYTHONPATH"] = (
 
 # -- Project information -----------------------------------------------------
 
-project = "CFPQ_Data"
+project = "FLPQ_Data"
 copyright = f"2019-{date.today().year}, vdshk"
 author = "vdshk"
 
@@ -96,7 +96,7 @@ linkcheck_allow_unauthorized = True
 # ("Too many requests") to generic client UAs from some networks while the
 # pages remain valid; their robot policy asks for a descriptive UA.
 linkcheck_user_agent = (
-    "CFPQ_Data-docs-linkcheck "
+    "FLPQ_Data-docs-linkcheck "
     "(https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data)"
 )
 
@@ -244,13 +244,13 @@ html_use_opensearch = (
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "CFPQ_Data"
+htmlhelp_basename = "FLPQ_Data"
 
 # -- Options for manual page output ------------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "flpq_data", "CFPQ_Data Documentation", [author], 1)]
+man_pages = [(master_doc, "flpq_data", "FLPQ_Data Documentation", [author], 1)]
 
 # -- Options for intersphinx extension ---------------------------------------
 

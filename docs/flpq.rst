@@ -10,7 +10,7 @@ FLPQ: Formal-Language-Constrained Path Querying
 
 Formal-language-constrained path querying (FLPQ) studies reachability in
 labeled directed graphs where a path from :math:`u` to :math:`v` counts only
-if its edge-label string belongs to a given formal language. CFPQ_Data
+if its edge-label string belongs to a given formal language. FLPQ_Data
 currently provides data for context-free path queries (CFPQ); it is being
 extended to all classes of FLPQ: regular path queries (RPQ) and multiple
 context-free path queries (MCFPQ). This page records the design decisions —

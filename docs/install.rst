@@ -8,7 +8,7 @@ Install
    :Release: |release|
    :Date: |today|
 
-CFPQ_Data requires Python 3.11–3.13.  If you do not already
+FLPQ_Data requires Python 3.11–3.13.  If you do not already
 have a Python environment configured on your computer, please see the
 instructions for installing the full `scientific Python stack
 <https://scipy.org/install.html>`_.
