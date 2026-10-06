@@ -1,6 +1,6 @@
 ---
 name: release
-description: Use when cutting a CFPQ_Data release — bumping the version, finalizing the changelog, tagging, publishing to PyPI — or recovering from a failed publish. Covers the procedure, the automated publish workflow, and recovery.
+description: Use when cutting an FLPQ_Data release — bumping the version, finalizing the changelog, tagging, publishing to PyPI — or recovering from a failed publish. Covers the procedure, the automated publish workflow, and recovery.
 ---
 
 # Release

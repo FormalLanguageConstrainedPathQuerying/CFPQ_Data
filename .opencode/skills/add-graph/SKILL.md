@@ -1,6 +1,6 @@
 ---
 name: add-graph
-description: Use when adding a new graph to CFPQ_Data. Covers the mtx-per-label archive format, the registry.json wiring, and the PR/issue templates.
+description: Use when adding a new graph to FLPQ_Data. Covers the mtx-per-label archive format, the registry.json wiring, and the PR/issue templates.
 ---
 
 # Add a graph to the dataset

@@ -1,6 +1,6 @@
 ---
 name: run-tests
-description: Use when running the CFPQ_Data test suite (pytest). Thin pointer to the "Test pipeline" section of docs/developer.rst, which holds the model and points at the CI workflow step with the exact command; keeps the machine-specific pitfalls (bare pytest, partial venv after uv add, stale coverage.json gate).
+description: Use when running the FLPQ_Data test suite (pytest). Thin pointer to the "Test pipeline" section of docs/developer.rst, which holds the model and points at the CI workflow step with the exact command; keeps the machine-specific pitfalls (bare pytest, partial venv after uv add, stale coverage.json gate).
 ---
 
 # Run tests

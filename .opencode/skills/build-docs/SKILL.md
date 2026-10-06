@@ -1,6 +1,6 @@
 ---
 name: build-docs
-description: Use when building the CFPQ_Data Sphinx documentation. Thin pointer to the "Docs build and deploy" section of docs/developer.rst and docs/README.md, which hold the model and point at the CI workflow steps with the exact commands; keeps the agent-specific notes.
+description: Use when building the FLPQ_Data Sphinx documentation. Thin pointer to the "Docs build and deploy" section of docs/developer.rst and docs/README.md, which hold the model and point at the CI workflow steps with the exact commands; keeps the agent-specific notes.
 ---
 
 # Build docs

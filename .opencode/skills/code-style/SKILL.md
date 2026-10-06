@@ -1,6 +1,6 @@
 ---
 name: code-style
-description: Use before committing to format and lint CFPQ_Data. Thin pointer to the "Quality checks" section of docs/developer.rst, which holds the model and points at the CI workflow step with the exact command; the hook list is defined in .pre-commit-config.yaml.
+description: Use before committing to format and lint FLPQ_Data. Thin pointer to the "Quality checks" section of docs/developer.rst, which holds the model and points at the CI workflow step with the exact command; the hook list is defined in .pre-commit-config.yaml.
 ---
 
 # Code style

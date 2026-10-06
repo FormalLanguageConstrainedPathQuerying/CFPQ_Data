@@ -1,6 +1,6 @@
 ---
 name: add-grammar
-description: Use when adding a new grammar template to CFPQ_Data. Covers the generator/readwrite/converter module conventions and the PR/issue templates.
+description: Use when adding a new grammar template to FLPQ_Data. Covers the generator/readwrite/converter module conventions and the PR/issue templates.
 ---
 
 # Add a grammar template
