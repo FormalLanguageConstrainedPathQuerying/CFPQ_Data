@@ -108,7 +108,7 @@ unchanged, filename only.
 - Rename via `git mv` to preserve history.
 - Update `html_logo = "_static/img/FLPQDataLogo.svg"`.
 
-### S4: Rename in CI workflows and GitHub templates [ ]
+### S4: Rename in CI workflows and GitHub templates [done] (07b6810)
 
 **Code:** `.github/workflows/tests.yml`, `.github/workflows/coverage.yml`,
 `.github/ISSUE_TEMPLATE/graph-add-template.md`,
