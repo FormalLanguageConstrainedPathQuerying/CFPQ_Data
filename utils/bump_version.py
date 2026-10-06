@@ -26,12 +26,12 @@ import sys
 
 from check_version_sync import ROOT, config_version, pyproject_version
 
-__all__ = ["bump", "main"]
+__all__ = ["bump", "set_version_field", "main"]
 
 SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+$")
 
 
-def _set_version(text: str, field_pattern: str, new_version: str) -> str:
+def set_version_field(text: str, field_pattern: str, new_version: str) -> str:
     """Replace the version value following ``field_pattern``.
 
     ``field_pattern`` must match the line prefix (e.g. ``^VERSION\\s*=\\s*``);
@@ -68,12 +68,12 @@ def bump(new_version: str, date: str | None = None) -> dict[str, str]:
     changes: dict[str, str] = {}
 
     config_path = ROOT / "flpq_data" / "config.py"
-    changes[str(config_path)] = _set_version(
+    changes[str(config_path)] = set_version_field(
         config_path.read_text(encoding="utf-8"), r"^VERSION\s*=\s*", new_version
     )
 
     pyproject_path = ROOT / "pyproject.toml"
-    changes[str(pyproject_path)] = _set_version(
+    changes[str(pyproject_path)] = set_version_field(
         pyproject_path.read_text(encoding="utf-8"), r"^version\s*=\s*", new_version
     )
 
