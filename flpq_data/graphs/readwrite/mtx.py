@@ -294,6 +294,10 @@ def mtx_dir_from_edges(
                     dst.write(line)
             temps[label].unlink()
     except Exception:
+        # Close the open handle first: Windows cannot unlink a file that is
+        # still open (the exception may have fired before close-on-switch).
+        if current is not None:
+            current[1].close()
         # All-or-nothing: no temp or partially written final file survives.
         _cleanup()
         raise
