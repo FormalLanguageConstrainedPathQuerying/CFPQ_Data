@@ -4,7 +4,10 @@ on:
   push:
     tags: ['v*']
   # Packaging check for every PR targeting the release branch: build the
-  # sdist/wheel and publish to TestPyPI before a release tag is cut.
+  # sdist/wheel and publish to TestPyPI before a release tag is cut. Each PR
+  # run rewrites the version to <base>.dev<run number> so every push publishes
+  # a distinct artifact (a fixed version would be skipped after the first
+  # upload). Tag pushes publish the committed version unchanged.
   pull_request:
     branches: [master]
 
@@ -34,6 +37,25 @@ jobs:
           fi
           echo "Tag ${GITHUB_REF_NAME} matches package version ${ver}"
 
+      # TestPyPI only: give this PR run a unique developmental version so
+      # repeated pushes produce new artifacts instead of being skipped. The
+      # committed sources on the runner are rewritten, never committed. A
+      # commit-hash suffix is impossible here (PEP 440 forbids local version
+      # identifiers on PyPI), so the SHA goes to the run summary instead.
+      - name: Set TestPyPI dev version
+        if: github.event_name == 'pull_request'
+        run: |
+          set -euo pipefail
+          base="$(uv version --short)"
+          dev="${base}.dev${{ github.run_number }}"
+          python utils/set_dev_version.py "$dev"
+          {
+            echo "### TestPyPI pre-publish"
+            echo ""
+            echo "- version: \`${dev}\`"
+            echo "- commit: \`${{ github.sha }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Build distributions
         run: uv build
 
@@ -60,8 +82,9 @@ jobs:
           repository-url: https://test.pypi.org/legacy/
           # No `password`: uses OIDC Trusted Publishing configured on
           # TestPyPI for the pull_request subject claim.
-          # Concurrent PRs share the same package version and TestPyPI
-          # rejects re-uploads of existing files; skip instead of failing.
+          # Each run carries a unique .dev<run number> version, so this is a
+          # safety net rather than a workaround: TestPyPI rejects re-uploads
+          # of existing files, and a collision should stay green (not fail).
           skip-existing: true
 
   publish-pypi:
