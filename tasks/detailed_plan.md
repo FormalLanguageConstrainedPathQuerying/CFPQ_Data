@@ -43,7 +43,7 @@ branding and the "Context-Free Path Querying" description must become
 
 ## Subtasks
 
-### S1: Rename in packaging metadata and top-level files [ ]
+### S1: Rename in packaging metadata and top-level files [done] (7248e21)
 
 **Code:** `pyproject.toml` (description, keywords), `README.rst`, `AGENTS.md`,
 `LICENSE.txt`, `LICENSE-DATA.txt`, `graphs_list.md`, `CHANGELOG.md` (header
