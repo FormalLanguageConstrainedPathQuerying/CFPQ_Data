@@ -1,7 +1,7 @@
 Dataset License
 ===============
 
-The CFPQ_Data dataset -- the graphs and grammars distributed from the
+The FLPQ_Data dataset -- the graphs and grammars distributed from the
 ``cfpq-data`` object-storage bucket and fetched via
 ``flpq_data.dataset.graph_dir()`` into the machine-global cache (see
 ``flpq_data.dataset.cache_root()``) -- is licensed under the Creative Commons

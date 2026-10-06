@@ -1,4 +1,4 @@
-CFPQ_Data
+FLPQ_Data
 =========
 
 .. image:: https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/actions/workflows/tests.yml/badge.svg?branch=master
@@ -19,9 +19,9 @@ CFPQ_Data
 .. image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
    :target: https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/master/LICENSE.txt
 
-CFPQ_Data is a Python package for the creation, manipulation, and study of the
+FLPQ_Data is a Python package for the creation, manipulation, and study of the
 structure, dynamics, and functions of complex Graphs and Grammars used for
-experimental analysis of Context-Free Path Querying algorithms.
+experimental analysis of Formal Language constrained Path Querying algorithms.
 
 - **Website:** https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data
 - **Tutorial:** https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/tutorial.html
@@ -42,7 +42,7 @@ Requires Python 3.11–3.13; see the `Install <https://formallanguageconstrained
 What's inside
 **************
 
-CFPQ_Data bundles **113 labeled directed graphs** across eight families — C alias analysis, RDF/OWL datasets, Java points-to, field-sensitive aliasing, context-sensitive data-flow, data provenance, name resolution (stack graphs), and biological graphs from UniProt — together with the context-free grammars used to query them. Each graph ships as a per-label MatrixMarket archive; see the `Graphs <https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/graphs/index.html>`_ page for statistics and download links.
+FLPQ_Data bundles **113 labeled directed graphs** across eight families — C alias analysis, RDF/OWL datasets, Java points-to, field-sensitive aliasing, context-sensitive data-flow, data provenance, name resolution (stack graphs), and biological graphs from UniProt — together with the context-free grammars used to query them. Each graph ships as a per-label MatrixMarket archive; see the `Graphs <https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/graphs/index.html>`_ page for statistics and download links.
 
 Examples
 ********
@@ -70,7 +70,7 @@ Load graph from Dataset
 For developers
 **************
 
-To work on CFPQ_Data itself, set up the development environment (uv)::
+To work on FLPQ_Data itself, set up the development environment (uv)::
 
    uv sync --all-groups
 
@@ -96,7 +96,7 @@ Just create
 Citation
 ********
 
-If you use CFPQ_Data in your work, please cite it — see the `Citation <https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/about.html#citation>`_ section on the About page for BibTeX entries.
+If you use FLPQ_Data in your work, please cite it — see the `Citation <https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/about.html#citation>`_ section on the About page for BibTeX entries.
 
 Licensing
 *********
