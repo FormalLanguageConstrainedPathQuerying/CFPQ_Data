@@ -126,7 +126,7 @@ unchanged, filename only.
   FLPQ_Data". The "Which of RPQ, CFPQ, MCFPQ apply" fields are query-class
   names and stay.
 
-### S5: Rename in skill descriptions [ ]
+### S5: Rename in skill descriptions [done] (a16128f)
 
 **Code:** `.opencode/skills/add-grammar/SKILL.md`, `add-graph/SKILL.md`,
 `build-docs/SKILL.md`, `code-style/SKILL.md`, `release/SKILL.md`,
