@@ -16,11 +16,12 @@ agent-specific notes below.
 
 - No-warnings policy (see the docs page): any Sphinx warning fails the build
   — fix it, do not suppress it (`suppress_warnings`) or weaken the flag.
-- A config-only change (e.g. enabling `nitpicky`) does not re-resolve
-  references in documents whose content is unchanged — their doctrees are
-  reused from the cache, so unresolved-reference warnings stay hidden until
-  those pages are next edited. After changing reference-related config, do a
-  clean rebuild (`make clean && make html`) before trusting the warning log.
+- A plain local rebuild is not CI-equivalent: stale doctrees and git-ignored
+  autosummary stubs can mask unresolved references (policy: "Fresh-state
+  verification" in docs/developer.rst). After adding or removing reference
+  targets, autosummary entries, or automodule directives — and before
+  trusting any green warning log for a push — run the fresh build (command in
+  docs/README.md).
 - API reference pages use `.. automodule::` / `.. autosummary::`; generated
   stub files land under `docs/*/generated/` and are git-ignored.
 - Add new public functions to the matching `docs/reference/<sub>/...rst`

@@ -156,6 +156,14 @@ setup command lives in :file:`docs/README.md`. Two policies matter:
 - **Resilient inventory fetches.** Intersphinx inventories are fetched with
   retries on transient connection errors (:file:`docs/conf.py`); a persistent
   failure still warns and fails the build.
+- **Fresh-state verification.** CI builds from a fresh checkout; locally two
+  artifact classes survive a plain rebuild and can mask failures — cached
+  doctrees (references in unchanged documents are not re-resolved) and the
+  git-ignored autosummary stubs under ``docs/*/generated/`` (parsed as
+  ordinary documents, registering objects of an older build state). After
+  adding or removing reference targets, autosummary entries, or automodule
+  directives, verify with the fresh build (the ``fresh`` target of
+  :file:`docs/Makefile`; the local command in :file:`docs/README.md`).
 
 **Deployment.** Pushing to ``master`` deploys the site:
 :file:`.github/workflows/deploy_docs.yml` builds the HTML and publishes

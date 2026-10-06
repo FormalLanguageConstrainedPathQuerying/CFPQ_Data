@@ -21,8 +21,10 @@ type check, and the docs build:
 - **Type check** — `uv run ty check` must report no errors; CI additionally
   runs Pyright (see the "Quality checks" section of `docs/developer.rst`).
 - **Docs build** — see the "Docs build and deploy" section of
-  `docs/developer.rst` (and `docs/README.md`) for the exact command. It must
-  exit 0. The build runs under the no-warnings policy (`-W --keep-going`, see
+  `docs/developer.rst` (and `docs/README.md`) for the exact command. Run it
+  fresh (the `fresh` target — a plain local rebuild is not CI-equivalent, see
+  the "Fresh-state verification" policy in the same section). It must exit 0.
+  The build runs under the no-warnings policy (`-W --keep-going`, see
   `docs/Makefile`): any warning — including an unresolved cross-reference
   under `nitpicky = True` — fails the build, so the exit code is sufficient.
   There are no tolerated warnings; fix them instead of suppressing.
@@ -42,8 +44,9 @@ only defines the gate semantics.
 2. Run the full style/lint pass ("Quality checks" section of
    `docs/developer.rst`). It must show no errors.
 3. Run the type check (`uv run ty check`). It must report no errors.
-4. Build the docs ("Docs build and deploy" section of `docs/developer.rst`).
-   It must exit 0 (no-warnings policy: any warning fails the build).
+4. Build the docs fresh ("Docs build and deploy" section of
+   `docs/developer.rst`; command in `docs/README.md`). It must exit 0
+   (no-warnings policy: any warning fails the build).
 5. Confirm the branch's CI link check ("Check links" step of
    `.github/workflows/docs.yml`) is green — it runs in CI only, not locally.
 6. Interpret the result:

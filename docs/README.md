@@ -21,6 +21,13 @@ in ``docs/Makefile``): any Sphinx warning — including an unresolved
 cross-reference under ``nitpicky = True`` — fails the build and lists every
 warning in one run. Fix the warnings; do not suppress them.
 
+A plain rebuild reuses cached doctrees and git-ignored autosummary stubs
+from previous builds, so it is not CI-equivalent (see the "Fresh-state
+verification" policy in the developer guide). The fresh build wipes them
+first::
+
+    uv run make -C docs/ fresh
+
 ## Check links
 
 The link check verifies that all links in the documentation resolve (local
