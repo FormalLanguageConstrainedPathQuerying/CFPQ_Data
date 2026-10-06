@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/zulip.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/zulip.tar.gz>`_
    * - Source
      - `zulip <https://github.com/zulip/zulip>`_
 
@@ -71,5 +71,3 @@ Edges Statistics
      - 29409
    * - wasAttributedTo_r
      - 29409
-
-.. include:: grammar_data_provenance.inc

@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/povray_field_sensitive_alias.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/povray_field_sensitive_alias.tar.gz>`_
 
 
 Graph Statistics
@@ -43,15 +43,13 @@ Edges Statistics
      - Num Edge Label
    * - :math:`a`
      - 9056
-   * - :math:`abar`
+   * - :math:`a_r`
      - 9056
    * - :math:`d`
      - 3436
-   * - :math:`dbar`
+   * - :math:`d_r`
      - 3436
    * - :math:`f_i`
      - 6951
-   * - :math:`fbar_i`
+   * - :math:`f_r_i`
      - 6951
-
-.. include:: grammar_cpu17_field_sensitive_alias.inc

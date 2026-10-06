@@ -78,7 +78,7 @@ Example:
 ```
 ### S1: Add graph generator to CSV export
 
-**Code:** New file `cfpq_data/graphs/generators/labeled_cycle_graph.py`
+**Code:** New file `flpq_data/graphs/generators/labeled_cycle_graph.py`
           with a `labeled_cycle_graph` function
 **Tests:** New `tests/graphs/generators/test_labeled_cycle_graph.py`
           verifying node/edge counts and labels
@@ -145,7 +145,8 @@ Requirements:
 
 ## Task Authoring Guidelines
 
-When writing a new task for `tasks/tasks.md`, follow these rules:
+When creating a new task issue (`gh issue create`, label `task`), follow
+these rules (they apply to the issue body):
 
 - **Specify output format upfront**. If the task involves TeX or dot
   visualization, include the exact column layout, math mode conventions, and
@@ -159,10 +160,10 @@ When writing a new task for `tasks/tasks.md`, follow these rules:
 - **Specify type genericity**. If a module must handle arbitrary types, state
   it explicitly (e.g., "generic over terminal and nonterminal types").
 - **Specify reuse expectations**. If the task builds on existing infrastructure
-  (e.g., "reuse the labeled graph generators from `cfpq_data/graphs`"), name
+  (e.g., "reuse the labeled graph generators from `flpq_data/graphs`"), name
   the dependencies. This prevents reinvention.
 
 ## Task Completeness Verification
 
 See the `subtask-loop` skill — it is the single source of truth for verifying
-task completion before marking a task `[done]` in `tasks/tasks.md`.
+task completion before a task is considered done.

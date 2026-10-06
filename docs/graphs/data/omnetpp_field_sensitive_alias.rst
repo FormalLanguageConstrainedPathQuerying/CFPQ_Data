@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/omnetpp_field_sensitive_alias.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/omnetpp_field_sensitive_alias.tar.gz>`_
 
 
 Graph Statistics
@@ -43,15 +43,13 @@ Edges Statistics
      - Num Edge Label
    * - :math:`a`
      - 30131
-   * - :math:`abar`
+   * - :math:`a_r`
      - 30131
    * - :math:`d`
      - 12579
-   * - :math:`dbar`
+   * - :math:`d_r`
      - 12579
    * - :math:`f_i`
      - 16822
-   * - :math:`fbar_i`
+   * - :math:`f_r_i`
      - 16822
-
-.. include:: grammar_cpu17_field_sensitive_alias.inc

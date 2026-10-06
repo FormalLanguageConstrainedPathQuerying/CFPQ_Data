@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/flask.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/flask.tar.gz>`_
    * - Source
      - `flask <https://github.com/pallets/flask>`_
 
@@ -71,5 +71,3 @@ Edges Statistics
      - 694
    * - wasAttributedTo_r
      - 694
-
-.. include:: grammar_data_provenance.inc

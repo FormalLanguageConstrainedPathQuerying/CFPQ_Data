@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/wikipedia-provenance.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/wikipedia-provenance.tar.gz>`_
    * - Source
      - `wikipedia-provenance <https://github.com/matthewgamble/wikipedia-provenance>`_
 
@@ -71,5 +71,3 @@ Edges Statistics
      - 125
    * - wasAttributedTo_r
      - 125
-
-.. include:: grammar_data_provenance.inc

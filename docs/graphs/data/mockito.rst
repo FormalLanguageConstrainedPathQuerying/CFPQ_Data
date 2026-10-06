@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/mockito.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/mockito.tar.gz>`_
    * - Source
      - `mockito homepage <https://site.mockito.org/>`_
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 25436
-     - 62388
+     - 31194
 
 
 Edges Statistics
@@ -45,19 +45,9 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 1358
-   * - :math:`\overline{\textit{alloc}}`
-     - 1358
    * - :math:`\textit{assign}`
-     - 26131
-   * - :math:`\overline{\textit{assign}}`
      - 26131
    * - :math:`\textit{load}_i`
      - 2076
-   * - :math:`\overline{\textit{load}_i}`
-     - 2076
    * - :math:`\textit{store}_i`
      - 1629
-   * - :math:`\overline{\textit{store}_i}`
-     - 1629
-
-.. include:: grammar_java_points_to.inc

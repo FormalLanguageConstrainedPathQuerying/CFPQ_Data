@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/django.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/django.tar.gz>`_
    * - Source
      - `django <https://github.com/django/django>`_
 
@@ -71,5 +71,3 @@ Edges Statistics
      - 11427
    * - wasAttributedTo_r
      - 11427
-
-.. include:: grammar_data_provenance.inc

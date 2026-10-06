@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/commons_io.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/commons_io.tar.gz>`_
    * - Source
      - `commons_io homepage <https://commons.apache.org/io/>`_
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 26188
-     - 62428
+     - 31214
 
 
 Edges Statistics
@@ -45,19 +45,9 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 1022
-   * - :math:`\overline{\textit{alloc}}`
-     - 1022
    * - :math:`\textit{assign}`
-     - 26735
-   * - :math:`\overline{\textit{assign}}`
      - 26735
    * - :math:`\textit{load}_i`
      - 2210
-   * - :math:`\overline{\textit{load}_i}`
-     - 2210
    * - :math:`\textit{store}_i`
      - 1247
-   * - :math:`\overline{\textit{store}_i}`
-     - 1247
-
-.. include:: grammar_java_points_to.inc

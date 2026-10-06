@@ -8,7 +8,7 @@ About
    :Release: |release|
    :Date: |today|
 
-CFPQ_Data development is guided by the following core team:
+FLPQ_Data development is guided by the following core team:
 
 .. raw:: html
 
@@ -62,15 +62,15 @@ CFPQ_Data development is guided by the following core team:
 Citation
 --------
 
-If you use CFPQ_Data in your work, please cite the repository:
+If you use FLPQ_Data in your work, please cite the repository:
 
 .. code-block:: bibtex
 
-   @misc{cfpq_data,
-     title  = {CFPQ\_Data: Graphs and Grammars for Context-Free Path Querying},
+   @misc{flpq_data,
+     title  = {FLPQ\_Data: Graphs and Grammars for Formal Language constrained Path Querying},
      author = {Abzalov, Vadim and Kovalev, Nikita and Grigorev, Semyon},
      year   = {2026},
-     url    = {https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data},
+     url    = {https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data},
      note   = {Software and dataset},
    }
 

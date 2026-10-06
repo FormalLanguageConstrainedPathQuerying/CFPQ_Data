@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_1.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_1.tar.gz>`_
 
 
 Graph Statistics
@@ -29,7 +29,7 @@ Graph Statistics
 
    * - Num Nodes
      - Num Edges
-   * - 3081
+   * - 3082
      - 11966
 
 
@@ -67,19 +67,3 @@ Edges Statistics
      - 1621
    * - refers_to_r
      - 1621
-
-Grammar
-------------------
-
-The grammar file is attached to the archive.
-
-.. math::
-
-   S &\to Seq \quad IsAssociated \quad IsSimilar \\
-   Seq &\to IsSimilar \quad (codes\_for \quad IsSimilar)? \\
-   IsSimilar &\to \varepsilon \\
-             &\mid has \quad IsSimilar \quad has_{r} \\
-             &\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to_{r} \quad IsSimilar \\
-             &\mid belongs\_to \quad IsSimilar \quad belongs\_to_{r} \\
-             &\mid participate\_in \quad IsSimilar \quad participate\_in_{r} \\
-   IsAssociated &\to refers\_to \quad refers\_to_{r}

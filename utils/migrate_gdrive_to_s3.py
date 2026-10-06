@@ -17,14 +17,15 @@ import tempfile
 from dataclasses import dataclass
 
 import requests
-
-from cfpq_data.dataset import DATASET, DATASET_KEY_PREFIX, DATASET_URL
 from upload_to_s3 import (
     DEFAULT_BUCKET,
     DEFAULT_ENDPOINT_URL,
     create_s3_client,
     upload_file,
 )
+
+from flpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL
+from flpq_data.dataset.registry import graph_names
 
 __all__ = [
     "MigrationItem",
@@ -105,8 +106,8 @@ def discover_items(docs_dir: pathlib.Path | str) -> list[MigrationItem]:
         One item per unique Drive file ID. Only the "Direct download"
         archive is considered; "Origin" files (``.txt``, ``.xml.tar.gz``)
         are ignored. The object key name is the rst stem for old-collection
-        graphs (stems in :data:`cfpq_data.dataset.DATASET`) and the page's
-        "Full Name" otherwise.
+        graphs (stems in :func:`flpq_data.dataset.registry.graph_names`) and
+        the page's "Full Name" otherwise.
     """
     docs_dir = pathlib.Path(docs_dir)
     items: list[MigrationItem] = []
@@ -125,7 +126,7 @@ def discover_items(docs_dir: pathlib.Path | str) -> list[MigrationItem]:
 
             match = FULL_NAME_RE.search(text)
             full_name = match.group(1) if match else rst.stem
-            name = rst.stem if rst.stem in DATASET else full_name
+            name = rst.stem if rst.stem in graph_names() else full_name
 
             items.append(
                 MigrationItem(
@@ -346,7 +347,7 @@ def migrate(
     when another Drive file claims the same name: that item is stored under
     its docs page stem instead (see :func:`_key_name_for`), keeping both
     archives. Objects are stored under ``DATASET_KEY_PREFIX``
-    (``5.0.0/graph/``), matching :data:`cfpq_data.dataset.DATASET_URL`.
+    (``5.0.0/graph/``), matching :data:`flpq_data.dataset.DATASET_URL`.
 
     For each item (at most one local file on disk at any time):
 
@@ -397,8 +398,7 @@ def migrate(
                         f"{local_path} for inspection."
                     )
                 logging.info(
-                    f"{key_name}: content identical to the stored copy, "
-                    f"skipping upload"
+                    f"{key_name}: content identical to the stored copy, skipping upload"
                 )
                 summary["skipped_duplicate"] += 1
             elif is_on_yandex(key_name):
@@ -504,8 +504,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="report the plan without downloading, uploading or modifying "
-        "docs/mapping",
+        help="report the plan without downloading, uploading or modifying docs/mapping",
     )
     args = parser.parse_args(argv)
 

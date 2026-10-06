@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/commons_lang3.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/commons_lang3.tar.gz>`_
    * - Source
      - `commons_lang3 homepage <https://commons.apache.org/lang/>`_
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 40970
-     - 96854
+     - 48427
 
 
 Edges Statistics
@@ -45,19 +45,9 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 1837
-   * - :math:`\overline{\textit{alloc}}`
-     - 1837
    * - :math:`\textit{assign}`
-     - 40599
-   * - :math:`\overline{\textit{assign}}`
      - 40599
    * - :math:`\textit{load}_i`
      - 3272
-   * - :math:`\overline{\textit{load}_i}`
-     - 3272
    * - :math:`\textit{store}_i`
      - 2719
-   * - :math:`\overline{\textit{store}_i}`
-     - 2719
-
-.. include:: grammar_java_points_to.inc

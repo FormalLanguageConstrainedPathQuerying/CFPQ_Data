@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jsonpath.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jsonpath.tar.gz>`_
    * - Source
      - `jsonpath <https://github.com/json-path/JsonPath>`_
 
@@ -53,5 +53,3 @@ Edges Statistics
      - 4190
    * - vpsh_i
      - 33312
-
-.. include:: grammar_name_resolution.inc

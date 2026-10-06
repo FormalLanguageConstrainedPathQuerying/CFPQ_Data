@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jackson.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jackson.tar.gz>`_
    * - Source
      - `jackson homepage <https://github.com/FasterXML/jackson>`_
 
@@ -32,7 +32,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 149404
-     - 395356
+     - 197678
 
 
 Edges Statistics
@@ -45,19 +45,9 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 4244
-   * - :math:`\overline{\textit{alloc}}`
-     - 4244
    * - :math:`\textit{assign}`
-     - 159765
-   * - :math:`\overline{\textit{assign}}`
      - 159765
    * - :math:`\textit{load}_i`
      - 22160
-   * - :math:`\overline{\textit{load}_i}`
-     - 22160
    * - :math:`\textit{store}_i`
      - 11509
-   * - :math:`\overline{\textit{store}_i}`
-     - 11509
-
-.. include:: grammar_java_points_to.inc

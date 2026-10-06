@@ -1,18 +1,18 @@
 .. _contents:
 
-Data for Context-Free Path Querying Evaluation
-==============================================
+Data for Formal Language constrained Path Querying Evaluation
+=============================================================
 
-CFPQ_Data is a Python package for the creation, manipulation, and study of the
+FLPQ_Data is a Python package for the creation, manipulation, and study of the
 structure, dynamics, and functions of complex Graphs and Grammars used for
-experimental analysis of Context-Free Path Querying algorithms.
+experimental analysis of Formal Language constrained Path Querying algorithms.
 
-CFPQ_Data is free software; you can redistribute it and/or modify it under the
+FLPQ_Data is free software; you can redistribute it and/or modify it under the
 terms of the :doc:`Apache-2.0 License </license>`. The accompanying dataset
-(graphs, grammars, and benchmarks) is released under
+(graphs and grammars) is released under
 :doc:`CC-BY 4.0 </license>`.
 
-We welcome contributions. Join us on `GitHub <https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data>`_.
+We welcome contributions. Join us on `GitHub <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data>`_.
 
 Documentation
 =============
@@ -26,6 +26,7 @@ Documentation
    :maxdepth: 1
 
    getting_started
+   flpq
    dataset
    reference/index
    project

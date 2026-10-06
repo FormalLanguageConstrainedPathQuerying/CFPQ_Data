@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/fastapi.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/fastapi.tar.gz>`_
    * - Source
      - `fastapi <https://github.com/fastapi/fastapi>`_
 
@@ -71,5 +71,3 @@ Edges Statistics
      - 3177
    * - wasAttributedTo_r
      - 3177
-
-.. include:: grammar_data_provenance.inc

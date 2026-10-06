@@ -1,6 +1,6 @@
 .. _reference_graphs:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 ******
 Graphs
@@ -16,4 +16,5 @@ Graphs
 
    graphs_generators
    graphs_readwrite
+   graphs_converters
    graphs_utils

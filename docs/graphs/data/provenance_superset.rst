@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/superset.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/superset.tar.gz>`_
    * - Source
      - `superset <https://github.com/apache/superset>`_
 
@@ -71,5 +71,3 @@ Edges Statistics
      - 37077
    * - wasAttributedTo_r
      - 37077
-
-.. include:: grammar_data_provenance.inc

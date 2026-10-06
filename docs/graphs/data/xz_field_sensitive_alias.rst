@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/xz_field_sensitive_alias.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/xz_field_sensitive_alias.tar.gz>`_
 
 
 Graph Statistics
@@ -43,15 +43,13 @@ Edges Statistics
      - Num Edge Label
    * - :math:`a`
      - 1521
-   * - :math:`abar`
+   * - :math:`a_r`
      - 1521
    * - :math:`d`
      - 588
-   * - :math:`dbar`
+   * - :math:`d_r`
      - 588
    * - :math:`f_i`
      - 1193
-   * - :math:`fbar_i`
+   * - :math:`f_r_i`
      - 1193
-
-.. include:: grammar_cpu17_field_sensitive_alias.inc

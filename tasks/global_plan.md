@@ -1,61 +1,108 @@
-# Global Plan: Tasks 34-35 (v5.0.0 release preparation)
+# Global Plan: End-user core rework (hub #148)
+
+Rework the package core for end users: dataset utilisation for benchmarks
+and statistical analysis. The core (`flpq_data/`) is split from dataset
+maintenance utils (repo-only `utils/`). Driven by #140 (cache downloaded
+graph datasets) and #147 (expose the dataset category of each graph).
+
+## Decisions (confirmed with the user)
+
+| # | Decision | Choice |
+|---|---|---|
+| 1 | Metadata storage | New per-graph `registry.json` (bundled + published per S3 version) |
+| 2 | Cache layout | Per-graph folder: archive + unpacked contents together; version root mirrors the S3 prefix |
+| 3 | Accessor name | `graph_dir(name)`; `download_graph`/`download` become deprecated aliases |
+| 4 | Version selection | Current dataset version only (no `version=` param); cache stays version-structured |
+| 5 | Loader scope | Metadata + local paths only (no convenience loaders) |
+
+## Target design
+
+**Boundary.** `flpq_data/` = end-user core (lazy dataset access, metadata,
+graph/query I/O). `utils/` = maintenance (validation, upload, merge, registry
+generation) — repo-only, never installed. `config.DATA`/`GRAPHS_DIR` removed;
+the boundary is documented in `docs/flpq.rst` + AGENTS.md.
+
+**Registry schema** (`flpq_data/dataset/registry.json`, published as
+`<version>/registry.json` on S3):
+
+```json
+{ "version": "6.0.0",
+  "graphs": { "skos": { "category": "rdf", "num_nodes": 144, "num_edges": 252,
+                        "size_mb": 0.003, "sha256": "…",
+                        "queries": [ {"class": "cfpq",
+                                      "name": "nested_parentheses_subClassOf",
+                                      "representations": ["cnf", "rsm"]} ] } } }
+```
+
+**Cache layout.** Root = `FLPQ_DATA_CACHE` env var >
+`platformdirs.user_cache_dir("flpq-data")` (new dependency; OS default:
+`~/.cache/flpq-data`, `~/Library/Caches/…`, `%LOCALAPPDATA%\…\Cache`).
+"Machine-global" = per-user, shared across projects — not tied to a venv or
+install dir.
+
+```
+<root>/6.0.0/
+├── reachable_pairs.csv      # per-version copy (replaces flpq_data/data/)
+└── graph/<name>/<name>.tar.gz + README.md, graph/*.mtx, queries/…   (unpacked in the same folder)
+```
+
+Multiple dataset versions coexist under `<root>/`.
+
+**Lazy `graph_dir(name)`.** Validate the name against the bundled registry →
+if `<root>/<v>/graph/<name>/` exists with an archive whose sha256 matches the
+registry → return the path, zero network. Else: download to a temp file →
+`raise_for_status` → stream-verify sha256 → extract → single-top-dir check →
+atomic move into the cache. Integrity on hit: a sidecar `.sha256` written at
+install is compared against the registry (fast path); `verify=True` re-hashes
+the archive.
+
+**Metadata API.** `graph_names() -> list[str]` (named to avoid clashing
+with the `flpq_data.graphs` subpackage), `graph_info(name) -> GraphInfo`
+(frozen dataclass), `categories() -> dict[str, list[str]]` (#147). The
+never-released `GRAPHS`/`DATASET` constants are dropped (6.0.0 is pre-release;
+the future `cfpq-data` shim maps `DATASET -> graph_names()`).
+
+**Cache manipulation.** `cache_root() -> Path`, `cached_versions() ->
+list[str]`, `clear_cache(keep: str | None = None)` — `None` wipes all version
+dirs, `keep="6.0.0"` keeps only that one.
 
 ## Tasks
 
-- **Task 34**: Add references to the resolved issues (#122, #76, #75, #74,
-  #28 sub-items, #26, #16, #2 partial) to the `[Unreleased]` section of
-  `CHANGELOG.md`. The resolution analysis is recorded in the detailed plan.
-- **Task 35**: Cut the v5.0.0 release per the `release` skill: promote the
-  changelog via `utils/bump_version.py 5.0.0`, commit, push `dev`, open a PR
-  `dev` -> `master` (reviewed and merged **manually by the user**), then — only
-  after the user confirms the merge — fetch origin, tag `v5.0.0` on
-  `origin/master`, push the tag, and verify the automated PyPI publish and
-  GitHub Release.
+- **T1** (#149) [done]: Design doc — record all decisions in `docs/flpq.rst`
+  (boundary, registry schema + generation/publication, cache layout/lifecycle/
+  integrity, full API incl. deprecations; cite #140/#147); AGENTS.md
+  package-layout lines; CHANGELOG `[Unreleased]`. Docs-only task.
+- **T2** (#150) [done]: Graph registry + metadata API (closes #147) —
+  `utils/generate_registry.py` (maintenance; pattern of
+  `utils/archive_sizes.py`), bundled `registry.json`, `GraphInfo`/`graph_names()`/
+  `graph_info()`/`categories()`, drop `GRAPHS`/`DATASET`.
+- **T3** (#151) [done]: Machine-global versioned cache + lazy downloads
+  (closes #140) — `platformdirs` dependency, `cache.py` (`cache_root()` with
+  env-var override), lazy `graph_dir()` with checksum verification and atomic
+  install, `reachable_pairs.csv` moved into the per-version cache, in-package
+  data dir removed.
+- **T4** (#152) [done]: Cache manipulation API — `clear_cache(keep=None)` +
+  tests + docs.
 
 ## Dependencies
 
-- **34 -> 35**: the changelog must be finalized before `bump_version.py`
-  promotes `[Unreleased]` to `[5.0.0]`; otherwise the release notes would miss
-  the issue references.
+T1 → T2 → T3 → T4. T2 must precede T3 (the registry carries the checksums T3
+verifies and replaces `GRAPHS` for name validation). T4 needs T3's structure.
+No file-set conflicts between tasks beyond `data.py`/docs, which are
+sequential anyway.
 
-## Verified facts (analysis of 2026-09-16, on `dev`)
+## Notes
 
-### Issue resolution status
-
-| Issue | Status | Evidence |
-|---|---|---|
-| #122 broken function doc links on the Graphs page | resolved | task 31 (commit 8485b56); explicit `:obj:` roles at `docs/graphs/index.rst:43,62`; systematic prevention: nitpicky + no-warnings build + linkcheck in CI and the quality gate |
-| #76 developer docs | resolved | task 33; `docs/developer.rst` covers all five requested areas (pre-commit, test pipeline, docs deploy, package deploy, guidelines); README "For developers" section |
-| #75 release pipeline documentation | resolved (nuance) | task 24; `docs/release.rst` + `.github/workflows/publish.yml`; TestPyPI validation is a manual `workflow_dispatch` run, not an automatic per-PR release |
-| #74 docs prebuild for PR | resolved | `.github/workflows/docs.yml` on `[push, pull_request]`: no-warnings build + full linkcheck |
-| #26 data from "Subgraph Queries by Context-free Grammars" | resolved | `docs/graphs/biological_uniprot.rst` cites exactly that paper; 10 UniProt graphs |
-| #16 data for data provenance | resolved | `docs/graphs/data_provenance.rst`: 18 W3C-PROV graphs, cites the issue's first reference |
-| #2 static code analysis cases | **partial** | Zheng & Rugina "Demand-driven Alias Analysis for C" -> `c_alias_analysis` category (20 graphs); Vedurada "Batch Alias Analysis" (ASE 2019) -> no trace in the repo |
-| #28 umbrella "Make CFPQ_Data better. Again." | **7 of 8 sub-items** | resolved: #27 (networkx generators; GTgraph only a stale `.gitignore` line), PR #24 (merged long ago), #32 (reachable-pair reference values, tasks 26/28), #20 (Num Nodes/Num Edges columns), #30 (six labeled generators), #33 (release process, task 24), #26; open: the Vedurada part of #2 |
-
-### Release mechanics
-
-- Version is already `5.0.0` in `cfpq_data/config.py` and `pyproject.toml`
-  (task 15); `utils/bump_version.py 5.0.0` is idempotent for the version
-  fields and only promotes `[Unreleased]` -> `## [5.0.0] - <date>`.
-- The dataset is already served from the `5.0.0/graph/` prefix (tasks 19/20) —
-  a major release needs no re-upload.
-- **Trusted Publishing for PyPI was configured by the user** (repository
-  `FormalLanguageConstrainedPathQuerying/CFPQ_Data`, workflow `publish.yml`);
-  no token needed for the real publish.
-
-## Human gates (task 35)
-
-1. The user reviews and merges the `dev` -> `master` PR manually. Nothing is
-   tagged or pushed before the user confirms the merge.
-2. The tag is created on `origin/master` after a fresh `git fetch origin`, so
-   it points at the merged commit.
-
-## Conflicts / overlapping changes
-
-- Both tasks touch `CHANGELOG.md`: task 34 edits `[Unreleased]`, task 35
-  promotes it — strictly sequential, 34 first.
-- No other file overlaps; no code changes in either task (task 35 runs the
-  existing `bump_version.py`).
-
-## Execution order: 34 -> 35
+- **Execution order**: T1 → T2 → T3 → T4, one feature branch per task, merge
+  to `dev` after the quality gate; each subtask commit carries its own
+  `<issue>-S<n>` identifier; the last subtask commit of a task carries
+  `Closes #<own issue>` plus `Closes #147` (T2) / `Closes #140` (T3).
+- **No-network test policy**: download paths are tested with monkeypatched
+  `requests.get` and real tarballs built in `tmp_path`; the cache root is
+  redirected via `FLPQ_DATA_CACHE`. The registry generator is a local-only
+  maintenance script (like `utils/archive_sizes.py`) — CI never runs it.
+- **Coverage gate** ≥95% line+branch applies to all new package code.
+- **Doctests**: `--doctest-modules` runs over the package; network examples
+  follow the existing SKIP convention.
+- The in-package `flpq_data/data/` dir (gitignored scratch) is orphaned by T3
+  — no migration; users re-download into the new cache.

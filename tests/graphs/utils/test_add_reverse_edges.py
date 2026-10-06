@@ -2,18 +2,18 @@ import random
 
 import pytest
 
-import cfpq_data
+import flpq_data
 
 seed = 42
 random.seed(seed)
 
-g1 = cfpq_data.labeled_barabasi_albert_graph(42, 3, seed=seed, labels="a")
-g2 = cfpq_data.labeled_binomial_graph(42, 0.73, seed=seed, labels=["a"])
-g3 = cfpq_data.labeled_two_cycles_graph(42, 29)
+g1 = flpq_data.labeled_barabasi_albert_graph(42, 3, seed=seed, labels="a")
+g2 = flpq_data.labeled_binomial_graph(42, 0.73, seed=seed, labels=["a"])
+g3 = flpq_data.labeled_two_cycles_graph(42, 29)
 
-rg1 = cfpq_data.add_reverse_edges(g1)
-rg2 = cfpq_data.add_reverse_edges(g2, mapping={"a": "b"})
-rg3 = cfpq_data.add_reverse_edges(g3)
+rg1 = flpq_data.add_reverse_edges(g1)
+rg2 = flpq_data.add_reverse_edges(g2, mapping={"a": "b"})
+rg3 = flpq_data.add_reverse_edges(g3)
 
 
 @pytest.mark.parametrize(

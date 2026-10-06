@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/perlbench.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/perlbench.tar.gz>`_
 
 
 Graph Statistics
@@ -47,5 +47,3 @@ Edges Statistics
      - 149363
    * - :math:`ret_i`
      - 62417
-
-.. include:: grammar_cpu17_context_sensitive_data_flow.inc

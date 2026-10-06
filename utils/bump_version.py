@@ -4,7 +4,7 @@
 Updates, atomically (all files are validated and transformed before any of
 them is written):
 
-* ``cfpq_data/config.py`` -- the canonical ``VERSION``
+* ``flpq_data/config.py`` -- the canonical ``VERSION``
 * ``pyproject.toml``      -- the declared ``version``
 * ``CHANGELOG.md``        -- promotes ``## [Unreleased]`` to a dated release
   section (``## [X.Y.Z] - <date>``) and inserts a fresh empty
@@ -26,12 +26,12 @@ import sys
 
 from check_version_sync import ROOT, config_version, pyproject_version
 
-__all__ = ["bump", "main"]
+__all__ = ["bump", "set_version_field", "main"]
 
 SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+$")
 
 
-def _set_version(text: str, field_pattern: str, new_version: str) -> str:
+def set_version_field(text: str, field_pattern: str, new_version: str) -> str:
     """Replace the version value following ``field_pattern``.
 
     ``field_pattern`` must match the line prefix (e.g. ``^VERSION\\s*=\\s*``);
@@ -67,13 +67,13 @@ def bump(new_version: str, date: str | None = None) -> dict[str, str]:
 
     changes: dict[str, str] = {}
 
-    config_path = ROOT / "cfpq_data" / "config.py"
-    changes[str(config_path)] = _set_version(
+    config_path = ROOT / "flpq_data" / "config.py"
+    changes[str(config_path)] = set_version_field(
         config_path.read_text(encoding="utf-8"), r"^VERSION\s*=\s*", new_version
     )
 
     pyproject_path = ROOT / "pyproject.toml"
-    changes[str(pyproject_path)] = _set_version(
+    changes[str(pyproject_path)] = set_version_field(
         pyproject_path.read_text(encoding="utf-8"), r"^version\s*=\s*", new_version
     )
 

@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jiaozi.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jiaozi.tar.gz>`_
    * - Source
      - `jiaozi <https://github.com/Jzvd/JiaoZiVideoPlayer>`_
 
@@ -53,5 +53,3 @@ Edges Statistics
      - 1094
    * - vpsh_i
      - 9660
-
-.. include:: grammar_name_resolution.inc

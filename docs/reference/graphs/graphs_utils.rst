@@ -1,6 +1,6 @@
 .. _graphs_utils:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 ***************
 Graph utilities
@@ -11,13 +11,14 @@ Graph utilities
     `NetworkX Utilities
     <https://networkx.org/documentation/stable/reference/utils.html>`_
 
-.. automodule:: cfpq_data.graphs.utils
+.. automodule:: flpq_data.graphs.utils
 .. autosummary::
    :toctree: generated/
 
-   add_reverse_edges
-   change_edges
-   edges_statistics
-   filter_edges
-   multiple_source_utils
-   nodes_to_integers
+    add_reverse_edges
+    change_edges
+    edges_statistics
+    filter_edges
+    multiple_source_utils
+    nodes_to_integers
+    to_g_text

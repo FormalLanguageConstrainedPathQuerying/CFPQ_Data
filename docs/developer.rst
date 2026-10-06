@@ -9,60 +9,88 @@ Developer guide
    :Date: |today|
 
 How to set up a development environment, run the checks that continuous
-integration runs, and contribute to CFPQ_Data. If you only want to *use* the
-package, start with :doc:`/getting_started` instead.
+integration runs, and contribute to FLPQ_Data. If you only want to *use*
+the package, start with :doc:`/getting_started` instead.
+
+.. _developer-ci:
+
+CI as source of truth
+---------------------
+
+The CI workflows under :file:`.github/workflows/` are the source of truth
+for every command they run: this page and the agent skills reference the
+workflow file and step name instead of restating such a command, so a
+command changes in exactly one place. Commands with non-trivial arguments
+(flags, paths, multi-part pipelines) always take that reference form; bare
+tool invocations (``uv run ty check``, ``uv run pyright``) may stay inline
+where they name a gate step, because they carry no drift risk. What this
+page still documents is what CI does not cover: local-only commands
+(environment setup, installing the git hook, running a single test module)
+and the policies behind the checks — the no-warnings build, the 95/95
+coverage gate, doctests as tests.
 
 .. _developer-setup:
 
 Development setup
 -----------------
 
-CFPQ_Data requires Python 3.11–3.13 (``pyproject.toml`` declares
-``>=3.11,<3.14``). The canonical development environment is **Poetry** — all
-CI workflows install their dependencies through it:
+FLPQ_Data requires Python 3.11–3.13 (``pyproject.toml`` declares
+``>=3.11,<3.14``). The canonical development environment is **uv** — all CI
+workflows install their dependencies through it. Install uv once (see the
+`uv installation guide <https://docs.astral.sh/uv/getting-started/installation/>`_),
+then from the repository root::
 
-.. code-block:: bash
+   uv sync --all-groups
 
-   poetry install --with dev,test,docs
-   poetry run pip install .
+- ``--all-groups`` pulls the three PEP 735 dependency groups from
+  ``pyproject.toml``: developer tools (``ruff``, ``ty``, ``pyright``,
+  ``pre-commit``, ``boto3``), test extras (``pytest``, ``pytest-cov``), and
+  the Sphinx docs stack. The full environment is needed because every check
+  must resolve imports from any dependency group — ty/pyright type-check
+  ``tests/``, ``docs/conf.py`` and ``utils/``, which import pytest, sphinx
+  and boto3.
+- ``uv sync`` also installs ``flpq_data`` itself (editable) into the project
+  environment, so no separate install step is needed; ``uv run ...`` executes
+  commands inside that environment.
+- The committed :file:`uv.lock` pins every dependency; CI passes ``--frozen``
+  to fail on a lockfile that is out of sync with ``pyproject.toml``.
 
-- ``--with dev,test,docs`` pulls the three dependency groups from
-  ``pyproject.toml``: developer tools (``black``, ``pre-commit``, ``pytest``,
-  ``boto3``), test extras (``pytest-cov``, ``codecov``), and the Sphinx docs
-  stack.
-- The project is declared with ``package-mode = false``, so Poetry installs
-  only the dependencies; ``poetry run pip install .`` then installs
-  ``cfpq_data`` itself from :file:`setup.py`.
-- ``requirements/*.txt`` are read by :file:`setup.py` to declare the
-  distribution's install requirements on PyPI; the Poetry groups in
-  ``pyproject.toml`` drive the development environment and CI.
+.. _developer-quality:
 
-.. _developer-precommit:
+Quality checks
+--------------
 
-Pre-commit
-----------
-
-Formatting and hygiene checks run through ``pre-commit``. The hook list —
-black formatting plus whitespace, YAML, and requirements-file fixers, and a
-version-sync check that fails when :file:`cfpq_data/config.py` and
-:file:`pyproject.toml` declare different versions — is defined in
+Linting, formatting, and type checking are managed by uv and run through
+``pre-commit``. The hook list — hygiene checks, the official ``uv-lock`` and
+ruff hooks (check with autofix plus format), a version-sync check that fails
+when :file:`flpq_data/config.py` and :file:`pyproject.toml` declare different
+versions, and a local ty type check — is defined in
 :file:`.pre-commit-config.yaml`, which is the source of truth; do not
 maintain a copy of it elsewhere.
 
+The ``ruff-pre-commit`` hook revision must match the ruff version locked in
+:file:`uv.lock`; bump both together when upgrading ruff.
+
 Install the git hook once so the checks run on every commit::
 
-   pre-commit install
+   uv run pre-commit install
 
-Run the full pass manually (this is what CI does)::
+Run the full pass manually — it is exactly the "Run pre-commit" step of
+:file:`.github/workflows/lint.yml`.
 
-   pre-commit run --all-files --color always --verbose --show-diff-on-failure
+The individual tools can also be run directly::
 
-Format a single file with black directly::
+   uv run ruff check .
+   uv run ruff format .
+   uv run ty check
 
-   black <path>
-
-CI runs this full pass on every push and pull request
+CI additionally runs Pyright, the stricter of the two type checkers; ty is
+the fast local check. The full pass runs on every push and pull request
 (:file:`.github/workflows/lint.yml`).
+
+The package ships a PEP 561 :file:`py.typed` marker, so type checkers in
+downstream projects use the inline annotations of ``flpq_data`` instead of
+treating it as untyped.
 
 .. _developer-tests:
 
@@ -71,35 +99,49 @@ Test pipeline
 
 The test suite is ``pytest`` with **doctests enabled**: the ``Examples``
 sections of public docstrings are executed as tests, so the documented
-behavior and the tested behavior are the same code. The canonical local
-command (the one CI runs)::
+behavior and the tested behavior are the same code. The canonical command
+is exactly what CI runs — the "Test FLPQ_Data with coverage (line and
+branch >= 95%)" step of :file:`.github/workflows/coverage.yml`.
 
-   poetry run pytest --doctest-modules -vv -s cfpq_data tests
+Coverage is part of the pipeline: branch coverage is always on
+(``[tool.coverage.run]`` in ``pyproject.toml``), and the check fails unless
+**both** line and branch coverage are at least 95%. The threshold lives in
+``utils/check_coverage.py`` because the combined ``--cov-fail-under`` cannot
+enforce each metric separately. A single module or function runs without the
+coverage gate::
 
-A single module or function::
+   uv run pytest tests/graphs/utils/test_add_reverse_edges.py
 
-   poetry run pytest tests/graphs/utils/test_add_reverse_edges.py
+The suite also validates the math snippets of the docs pages: Sphinx passes
+math verbatim to MathJax, which renders it in the browser, so a broken
+snippet (e.g. an unescaped underscore inside a ``\textit{...}`` group) sails
+through the Sphinx build and shows up only as an error on the deployed site.
+``tests/utils/test_check_math_snippets.py`` runs
+``utils/check_math_snippets.py`` over every page and fails the suite on any
+broken snippet.
 
 - Doctest discovery and test paths are configured in ``pyproject.toml``
   (``[tool.pytest.ini_options]``).
 - ``tests/`` mirrors the package layout (e.g. ``tests/graphs/generators/``
-  for ``cfpq_data/graphs/generators/``).
+  for ``flpq_data/graphs/generators/``).
 
 Continuous integration:
 
 - :file:`.github/workflows/tests.yml` — runs the suite on every push and pull
   request across a matrix of Linux, macOS, and Windows with Python 3.11.
-- :file:`.github/workflows/coverage.yml` — runs the same suite with
-  ``--cov=cfpq_data`` and uploads the report to Codecov.
+- :file:`.github/workflows/coverage.yml` — runs the same suite with coverage,
+  enforces the 95/95 line+branch gate with ``utils/check_coverage.py``, and
+  uploads the report to Codecov.
 
 .. _developer-docs:
 
 Docs build and deploy
 ---------------------
 
-The documentation is built with Sphinx from the :file:`docs/` directory; the
-canonical local instructions (installing the docs dependencies, building the
-HTML, checking links) live in :file:`docs/README.md`. Two policies matter:
+The documentation is built with Sphinx from the :file:`docs/` directory.
+The build and link-check commands are exactly what CI runs — the "Build"
+and "Check links" steps of :file:`.github/workflows/docs.yml`; the local
+setup command lives in :file:`docs/README.md`. Two policies matter:
 
 - **No-warnings policy.** The build runs with ``-W --keep-going`` (set in
   :file:`docs/Makefile`), so any Sphinx warning — including an unresolved
@@ -107,18 +149,26 @@ HTML, checking links) live in :file:`docs/README.md`. Two policies matter:
   do not suppress them.
 - **Full link check.** ``sphinx-build -b linkcheck`` verifies every local
   target and external URL (two documented exceptions in
-  :file:`docs/conf.py`); it exits non-zero on broken or timed-out links.
+  :file:`docs/conf.py`); it exits non-zero on broken or timed-out links. It
+  is network-bound and slow locally (rate-limited retries), so it runs in CI
+  only — the "Check links" step of :file:`.github/workflows/docs.yml` — and
+  is not part of the local quality gate (see "Quality gate").
 - **Resilient inventory fetches.** Intersphinx inventories are fetched with
   retries on transient connection errors (:file:`docs/conf.py`); a persistent
   failure still warns and fails the build.
-
-Both the build and the link check run in CI on every push and pull request
-(:file:`.github/workflows/docs.yml`).
+- **Fresh-state verification.** CI builds from a fresh checkout; locally two
+  artifact classes survive a plain rebuild and can mask failures — cached
+  doctrees (references in unchanged documents are not re-resolved) and the
+  git-ignored autosummary stubs under ``docs/*/generated/`` (parsed as
+  ordinary documents, registering objects of an older build state). After
+  adding or removing reference targets, autosummary entries, or automodule
+  directives, verify with the fresh build (the ``fresh`` target of
+  :file:`docs/Makefile`; the local command in :file:`docs/README.md`).
 
 **Deployment.** Pushing to ``master`` deploys the site:
 :file:`.github/workflows/deploy_docs.yml` builds the HTML and publishes
 :file:`docs/_build/html` to the ``gh-pages`` branch, which GitHub serves as
-the project website (https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data).
+the project website (https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data).
 The workflow skips forks — it runs only for the owning repository.
 
 .. _developer-release:
@@ -155,9 +205,41 @@ atomic subtask::
    fix(XXX-SN): description
    docs(XXX-SN): description
 
-``XXX`` is the task ID and ``SN`` a single subtask identifier (ranges or
-lists are not allowed). Commit messages must explain *why* the change was
-made, not only what it does.
+``XXX`` is the task's GitHub issue number and ``SN`` a single subtask
+identifier (ranges or lists are not allowed). Commit messages must explain
+*why* the change was made, not only what it does.
+
+Issue references
+~~~~~~~~~~~~~~~~
+
+Every task is itself a GitHub issue (label ``task``; the working loop lives
+in the ``workflow-management`` skill). GitHub closes an issue automatically
+once a commit containing a closing keyword (``close``, ``closes``, ``closed``,
+``fixes``, ``fixed``) reaches the repository's default branch (`mechanism
+<https://github.blog/news-insights/product-news/closing-issues-via-commit-messages/>`_).
+This project relies on that mechanism:
+
+- A completed task carries the closing keyword for its own issue — and for
+  every linked issue it fully resolves — in exactly one commit: by
+  convention, the last subtask's commit. Each keyword is a standalone line in
+  the message body: ``Fixes #N`` when the work fixes a reported defect,
+  ``Closes #N`` otherwise. No other commit of the task repeats a keyword::
+
+     docs(XXX-S3): final subtask — verify and clean up
+
+     Closes #XXX
+     Fixes #127
+
+- A task that only partially addresses a linked issue references it without a
+  closing keyword (bare ``#N``); GitHub links the issue but leaves it open.
+
+Because the keywords live in the last subtask's commit, an incomplete or
+blocked task — whose branch never merges — carries no keyword and can never
+close its issue by accident.
+
+Since feature branches merge to ``dev`` and only releases merge ``dev`` into
+``master``, the default branch, a task's issue closes when the release
+containing the task lands on ``master`` — not when the task merges to ``dev``.
 
 Quality gate
 ~~~~~~~~~~~~
@@ -167,8 +249,12 @@ no exceptions:
 
 1. The full test suite: 0 failures, 0 skipped.
 2. The full pre-commit pass: no errors.
-3. The docs build: exit 0 under the no-warnings policy.
-4. The link check: no broken or timed-out links.
+3. Type checking: ``uv run ty check`` and Pyright both report no errors.
+4. The docs build: exit 0 under the no-warnings policy.
+5. The link check (CI only): the "Check links" step of
+   :file:`.github/workflows/docs.yml` reports no broken or timed-out links.
+   It is network-bound and slow locally (rate-limited retries), so it is not
+   part of the local gate — the branch's CI run must be green before merge.
 
 Merge strategy
 ~~~~~~~~~~~~~~

@@ -77,7 +77,21 @@ the operational procedure (validation, merge) lives in the skill.
 
 ### 7. Mark Completed
 
-Mark the subtask as completed in `tasks/detailed_plan.md`.
+Mark the subtask as completed in `tasks/detailed_plan.md` (`[done]` suffix +
+commit hash on the subtask heading), then mirror the file onto the plan
+comment of the task issue: find the comment by its `<!-- detailed-plan -->`
+first line and PATCH its body to the current file content:
+
+```bash
+REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+CID=$(gh api "repos/$REPO/issues/<N>/comments" \
+  --jq '[.[] | select(.body | startswith("<!-- detailed-plan -->"))] | last.id')
+{ echo '<!-- detailed-plan -->'; cat tasks/detailed_plan.md; } > /tmp/plan_comment.md
+gh api -X PATCH "repos/$REPO/issues/comments/$CID" \
+  --input <(jq -Rs '{body: .}' /tmp/plan_comment.md)
+```
+
+The local file is the single source of truth; the comment is a pure mirror.
 
 If at any point in steps 1–7 you hit an unresolvable problem that prevents 100%
 completion, **STOP the cycle immediately** and follow the Blocked Work Protocol
@@ -147,8 +161,7 @@ failing tests to make the suite green. Instead:
 3. Ask the user for guidance: additional subtasks, algorithmic hints, descoping,
    or splitting the task.
 4. **Transfer user guidance to the task** per the `user-guidance-transfer`
-   skill — append `**[USER GUIDANCE]**` annotation to the task in
-   `tasks/tasks.md`.
+   skill — post it verbatim as a comment on the task issue.
 5. Append a `## Design Notes` section to `tasks/detailed_plan.md`. See the
    `planning` skill for the full template. Minimum required content:
 
@@ -166,13 +179,16 @@ failing tests to make the suite green. Instead:
      goals.
    - **Skipped Tests**: list any tests skipped and the reason.
 
-   Commit this summary so the plan serves as a persistent design record for
-   future task refinement.
+    Commit this summary so the plan serves as a persistent design record for
+    future task refinement.
+6. Post the block report (the `## Design Notes` content) as a comment on the
+   task issue, so the block is visible in the task record.
 
 ## Task Completion Verification
 
 This section is the **single source of truth** for what "done" means. Before
-marking a task `[done]` in `tasks/tasks.md`, verify:
+a task is considered done — its last subtask's commit carries `Closes #<N>`
+(the task's own issue) and is merged to `dev` — verify:
 
 - [ ] Every clause in the task description is traceable to implemented and
       committed code.
@@ -181,7 +197,7 @@ marking a task `[done]` in `tasks/tasks.md`, verify:
 - [ ] All tests pass (0 failures, 0 skipped).
 - [ ] All quality gates pass (see the `quality-gates` skill).
 - [ ] If any of the above fails, the task is NOT done — it is blocked. Follow
-      the Blocked Work Protocol. Do NOT mark it `[done]` with known unresolved
+      the Blocked Work Protocol. Do NOT close it with known unresolved
       limitations.
 
 Partial completion is not completion. "All passing tests are for the parts I
@@ -189,10 +205,11 @@ did" does not mean the task is done if other parts were reverted.
 
 ## Marking Complete
 
-Mark the task as completed in `tasks/tasks.md` — **only prepend `[done] ` to the
-existing task line. Never rewrite the task description.** The task text in
-`tasks/tasks.md` is user-authored and immutable.
+A task is complete when its last subtask's commit carries `Closes #<N>` (the
+task's own issue number) as a standalone line; GitHub closes the issue when
+the release containing the task lands on `master`. Never edit the issue body
+— it is user-authored and immutable.
 
-The `[done]` tag means COMPLETE: every requirement met, every test passing,
-every edge case handled. Never mark a task as `[done]` with known failures or
-unresolved limitations.
+Complete means COMPLETE: every requirement met, every test passing, every
+edge case handled. Never close a task with known failures or unresolved
+limitations.

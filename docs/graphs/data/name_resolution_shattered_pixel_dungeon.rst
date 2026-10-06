@@ -18,7 +18,7 @@ Info
    * - Version
      - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/shattered_pixel_dungeon.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/shattered_pixel_dungeon.tar.gz>`_
    * - Source
      - `shattered_pixel_dungeon <https://github.com/00-Evan/shattered-pixel-dungeon>`_
 
@@ -53,5 +53,3 @@ Edges Statistics
      - 16938
    * - vpsh_i
      - 241777
-
-.. include:: grammar_name_resolution.inc

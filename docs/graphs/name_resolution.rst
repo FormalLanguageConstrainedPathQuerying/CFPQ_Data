@@ -28,24 +28,45 @@ scopes.
      - Num Nodes
      - Num Edges
      - name_resolution
+     - Size (MB)
      - Download
    * - :ref:`name_resolution_jiaozi`
      - 54952
      - 46322
-     - 14435
-     - `jiaozi.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jiaozi.tar.gz>`_ 📥
+     - not available
+     - 0.252
+     - `jiaozi.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jiaozi.tar.gz>`_ 📥
    * - :ref:`name_resolution_jsonpath`
      - 185421
      - 161488
      - 59764
-     - `jsonpath.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jsonpath.tar.gz>`_ 📥
+     - 1.03
+     - `jsonpath.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jsonpath.tar.gz>`_ 📥
    * - :ref:`name_resolution_shattered_pixel_dungeon`
      - 1179205
      - 1017798
-     - 971998
-     - `shattered_pixel_dungeon.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/shattered_pixel_dungeon.tar.gz>`_ 📥
+     - not available
+     - 5.13
+     - `shattered_pixel_dungeon.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/shattered_pixel_dungeon.tar.gz>`_ 📥
    * - :ref:`name_resolution_libgdx`
      - 2571363
      - 2321366
      - not available
-     - `libgdx.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/libgdx.tar.gz>`_ 📥
+     - 11.54
+     - `libgdx.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/libgdx.tar.gz>`_ 📥
+
+Canonical grammars
+------------------
+
+The grammar file is attached to the archive.
+
+.. math::
+
+   S &\to \varepsilon \\
+     &\mid eps \quad S \\
+     &\mid Q \quad S \\
+     &\mid V \quad S \\
+   S\#psh_{i} &\to psh_{i} \quad S \\
+   S\#vpsh_{i} &\to vpsh_{i} \quad S \\
+   V &\to S\#vpsh_{i} \quad vpp_{i} \\
+   Q &\to S\#psh_{i} \quad pp_{i}
