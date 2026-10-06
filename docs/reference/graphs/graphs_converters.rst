@@ -12,4 +12,4 @@ section for the formats and their memory characteristics.
 .. autosummary::
    :toctree: generated/
 
-   convert_graph
+    graphs.converters
