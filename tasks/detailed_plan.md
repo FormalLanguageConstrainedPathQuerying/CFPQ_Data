@@ -1,180 +1,158 @@
-# Detailed Plan: Task 156 — Rename project CFPQ_Data to FLPQ_Data
+# Detailed Plan: Task 157 — Transform the uniprot grammar to minimize dense intermediate matrices
 
-Issue #156. The GitHub repository was renamed to
-`FormalLanguageConstrainedPathQuerying/FLPQ_Data` and the PyPI distribution is
-`flpq-data`; the project scope grew from Context-Free Path Querying (CFPQ) to
-Formal Language constrained Path Querying (FLPQ). All remaining `CFPQ_Data`
-branding and the "Context-Free Path Querying" description must become
-`FLPQ_Data` / "Formal Language constrained Path Querying".
+Issue #157. The uniprot (unigraph) CFPQ grammar materializes very dense
+intermediate n×n matrices (the `Seq` closure and dense×medium products), which
+makes FastMatrixCFPQ OOM on unigraph_9/10 and take 67 min–4.8 h on
+unigraph_4–8. This task applies the muravev-style restructuring
+(arXiv:2401.11029, optimization 5 — the same idea behind
+`java_points_to_muravev2024.cnf` / `c_alias_muravev2024.cnf`) to the uniprot
+grammar: restructure the WCNF so that dense nonterminals are never standalone
+factors in binary productions, while preserving the language. Language
+preservation is checked first — equality of reachable pairs on small graphs via
+the FastMatrixCFPQ oracle (`temporal_cfpq`).
 
 ## Context
 
-- The package was already renamed `cfpq_data` → `flpq_data` (task 49, issue
-  #135); `pyproject.toml` already declares `name = "flpq-data"` and all site
-  URLs in the repo already use `.../FLPQ_Data`. Only the project *branding*
-  (name + description) lags behind.
-- `flpq-data` is not on PyPI yet; the first publish under the new name is the
-  6.0.0 release, so the citation in `docs/about.rst` is updated now.
+**The muravev pattern.** In both published transformations the dense
+nonterminal appears only multiplied by terminal-anchored (sparse) matrices:
+
+- c_alias: original `M -> d̄·V·d` with `V2 -> ε|M` (dense standalone factor;
+  dense×dense products in `V1·V2`, `V2·V3`) becomes
+  `M -> N1·N3 | N2·N3` with `N1`/`N3` terminal-anchored runs and `M` only via
+  `N2 -> N1·M`, `AM -> a·M`.
+- java_points_to: original materializes dense `Al = PT·FT` as a factor
+  (`PTH -> load_i·Al·store_i·PTH`); the optimized grammar uses
+  `LP_i -> load_i·PT`, `FS_i -> FT·store_i`, `LPFS_i -> LP_i·FS_i`.
+
+**The uniprot grammar** (in-archive `unigraph_N.cnf`, identical language for
+all 10 graphs). With `X = IsSimilar`, `R = refers_to·refers_to_r`,
+`cf = codes_for`:
+
+```
+S = Seq · R · X,   Seq = X | X·cf·X,
+X = ε | has·X·has_r | iso·X·iso_r·X | bt·X·bt_r | pi·X·pi_r
+```
+
+`X` is a *nested balanced* (Dyck-like) language. The original WCNF
+materializes dense `M_Seq ≈ M_X ∪ M_X·cf·M_X` and does dense×medium products
+(`S -> Seq·S_1`, `Seq -> X·Seq_1`).
+
+**Pitfall found while prototyping.** A flat "run of steps" restructuring
+(`Lp -> Step·Lp | ...`) is NOT equivalent: `X` is nested, not a Kleene star —
+the prototype accepted 480556 pairs on unigraph_1 vs the correct 376578. The
+correct fact: non-ε `X` = exactly ONE outermost step
+(`X⁺ = St1∪St2∪St3∪St4`).
+
+## Transformed grammar (design)
+
+```
+S -> N3 | Lp·N3,   N3 = IsAssociated·IsSimilar        (refers_to-anchored)
+Lp = St1|St2|St3|St4 | CfX | StCf1|StCf2|StCf3|StCf4  (terminal-prefixed)
+StCfi = St_i·CfX,   CfX = codes_for·IsSimilar
+St1 = has·X·has_r, St2 = iso·X·iso_r·X, St3 = bt·X·bt_r, St4 = pi·X·pi_r
+```
+
+**Equivalence.** `L(S) = X·(ε|cf·X)·R·X = R·X ∪ X⁺·R·X ∪ cf·X·R·X ∪
+X⁺·cf·X·R·X` — exactly the language of the transformed grammar. Verified by
+in-memory brute force on unigraph_1: pair sets identical (376578, matches the
+recorded reference).
+
+**Sparsity.** The dense `M_Seq` matrix is eliminated; every multiplication of
+dense `X` is terminal×dense or dense×terminal; the top-level product `Lp·N3`
+pairs two terminal-anchored (edge-count-bounded) matrices.
 
 ## Decisions (confirmed with the user)
 
-1. Target name: **FLPQ_Data** (matches the renamed GitHub repo and the
-   `flpq-data` PyPI name).
-2. **Keep** the S3 bucket name `cfpq-data.storage.yandexcloud.net` — no data
-   migration, no URL changes.
-3. The `cfpq-data` PyPI deprecation shim is a **separate task**.
-4. `CHANGELOG.md`: update **only the header line**; past entries stay as-is.
-
-## Out of scope (verified by full-repo scan)
-
-- Query-class names `cfpq`/`mcfpq`/`rpq`: module tree
-  `flpq_data/queries/cfpq/**`, `docs/queries/cfpq/**`,
-  `docs/reference/queries/cfpq/**`, `tests/queries/cfpq/**`,
-  `registry.json` class values, and all prose using "CFPQ" as the query class.
-- S3 bucket URLs: `flpq_data/dataset/data.py`, `reachable_pairs.py`,
-  `graphs_list.md`, ~150 `docs/graphs/**` pages, `utils/migration_mapping.json`,
-  `docs/release.rst`, `docs/reachable_pairs.rst`, 6 test files.
-- History: `tasks/tasks.md`, `tasks/global_plan.md`, past `CHANGELOG.md`
-  entries, `utils/optimized_grammars_record.json`, old issue URLs (GitHub
-  redirects).
-- External names: FastMatrixCFPQ tool, paper titles ("Context-Free Path
-  Queries on RDF Graphs", ...), gitignored `temporal_cfpq/` oracle.
-- Build artifacts: `docs/_build/`, `.venv/`, `.pytest_cache/`, `coverage.json`.
+1. Scope: **experiment only** — no archive/S3 changes, no package code changes.
+2. Verification graphs: **unigraph_1 + unigraph_2 + unigraph_3** (small).
+3. File name: `unigraph_1_sparse.cnf`.
+4. User guidance (verbatim): "In report provide difference for both time and
+   memory consumption between original and modified grammars."
 
 ## Subtasks
 
-### S1: Rename in packaging metadata and top-level files [done] (7248e21)
+### S1: Update temporal_cfpq tooling for flpq_data 6.0.0 [local, gitignored] [done]
 
-**Code:** `pyproject.toml` (description, keywords), `README.rst`, `AGENTS.md`,
-`LICENSE.txt`, `LICENSE-DATA.txt`, `graphs_list.md`, `CHANGELOG.md` (header
-line only).
-**Tests:** full test suite (no code changes; guards against any assertion on
-the old strings) + pre-commit.
-**Docs:** `README.rst` is the sdist readme — updated in place.
-
-**Spec:**
-- `pyproject.toml:4`: description → "Python package containing Graphs and
-  Grammars for experimental analysis of Formal Language constrained Path
-  Querying algorithms".
-- `pyproject.toml:12`: keywords — replace `"context-free"` with
-  `"formal-language"` (keep `"flpq-data"`).
-- `README.rst`: title (line 1) and every `CFPQ_Data` mention (lines 22, 45,
-  73, 99) → `FLPQ_Data`; line 24 description → "Formal Language constrained
-  Path Querying algorithms".
-- `AGENTS.md:3–4`: `CFPQ_Data` → `FLPQ_Data`; "Context-Free Path Querying
-  (CFPQ)" → "Formal Language constrained Path Querying (FLPQ)".
-- `LICENSE.txt:4`, `LICENSE-DATA.txt:4`: `CFPQ_Data` → `FLPQ_Data`.
-- `graphs_list.md:3`: "CFPQ dataset" → "FLPQ dataset".
-- `CHANGELOG.md:3`: header line → "All notable changes to FLPQ_Data are
-  documented in this file." Nothing else in the changelog changes.
-
-### S2: Rename in docs content [done] (0fac7cf)
-
-**Code:** `docs/conf.py` (`project`, linkcheck UA, `htmlhelp_basename`,
-`man_pages`).
-**Tests:** docs build (Sphinx with no-warnings policy) + full test suite.
-**Docs:** `docs/index.rst`, `about.rst`, `install.rst`, `developer.rst`,
-`license.rst`, `tutorial.rst`, `getting_started.rst`, `flpq.rst`,
-`_templates/layout.html`.
+**Code:** `temporal_cfpq/run_reference.py`, `temporal_cfpq/verify_bf.py`,
+`temporal_cfpq/verify_optimized.py`: imports `cfpq_data.*` → `flpq_data.*`
+(`dataset.data.download` → `graph_dir`; `grammars.readwrite.cnf_template` →
+`queries.cfpq.readwrite.cnf_template`; drop removed `config.GRAPHS_DIR`);
+in-archive grammar path `path/"grammar"/*.cnf` →
+`path/"queries/cfpq/<query>"/*.cnf`.
+**Tests:** import check of all three scripts; `stream_g_file` +
+`grammar_terminals` smoke run on the cached `unigraph_1` unpacked archive.
+**Docs:** none (gitignored local tool).
 
 **Spec:**
-- `docs/index.rst`: page title → "Data for Formal Language constrained Path
-  Querying Evaluation"; lines 6, 10 `CFPQ_Data` → `FLPQ_Data`; line 8
-  description reworded as in S1.
-- `docs/about.rst`: lines 11, 65 → `FLPQ_Data`; BibTeX title (line 70) →
-  `FLPQ\_Data: Graphs and Grammars for Formal Language constrained Path
-  Querying`.
-- `docs/install.rst:11`, `developer.rst:12,37`, `license.rst:11`,
-  `tutorial.rst:13`, `getting_started.rst:12`, `flpq.rst:13`: `CFPQ_Data` →
-  `FLPQ_Data`. (`developer.rst:103` quotes the CI step name and is updated in
-  S4 together with the workflow it describes.)
-- `docs/conf.py`: `project = "FLPQ_Data"` (line 35); linkcheck UA prefix
-  `"FLPQ_Data-docs-linkcheck "` (line 99); `htmlhelp_basename = "FLPQ_Data"`
-  (line 247); `man_pages` description `"FLPQ_Data Documentation"` (line 253).
-- `docs/_templates/layout.html`: schema.org `Dataset.name` → `"FLPQ_Data"`
-  (line 9); `description` → "Dataset contains graphs and grammars for Formal
-  Language constrained Path-Querying algorithms evaluation." (line 10);
-  keywords: `"CONTEXT-FREE"` → `"FORMAL-LANGUAGE"` (line 13).
+- Keep the CLI behavior and CSV schemas unchanged.
+- `graph_dir(name)` replaces `download(name)` (same return: unpacked dir).
+- Grammar discovery helper returns the query dir(s) under `queries/cfpq/`;
+  scripts that glob `grammar/*.cnf` must instead glob
+  `queries/cfpq/*/*.cnf`.
 
-### S3: Rename the logo file [done] (afdfe61)
+### S2: Add unigraph_1_sparse.cnf + verification script; run on unigraph_1 [local, gitignored] [done]
 
-**Code:** `git mv docs/_static/img/CFPQDataLogo.svg
-docs/_static/img/FLPQDataLogo.svg`; `docs/conf.py:210` `html_logo` path.
-**Tests:** docs build (the logo is referenced from `conf.py`).
-**Docs:** the SVG itself contains no "CFPQ" text (verified) — content
-unchanged, filename only.
+**Code:** New `temporal_cfpq/grammars/unigraph_1_sparse.cnf` (38 productions,
+WCNF, same terminal set as the original, start `S` — content fixed by the
+design above). New `temporal_cfpq/verify_uniprot_sparse.py` modeled on
+`verify_optimized.py`: for each graph in CASES = unigraph_1/2/3, stream ONE
+`.g` (terminal sets are identical), run the solver once per grammar
+(original in-archive `.cnf` vs `unigraph_1_sparse.cnf`), compare counts
+pairwise AND against the recorded references in
+`results/reference_answers.csv`; append rows to
+`results/uniprot_sparse_check.csv`; exit non-zero on any mismatch or solver
+failure.
+**Tests:** The script's own assertions ARE the tests: unigraph_1 must give
+original == sparse == 376578, status ok for both runs.
+**Docs:** none (gitignored local tool).
 
 **Spec:**
-- Rename via `git mv` to preserve history.
-- Update `html_logo = "_static/img/FLPQDataLogo.svg"`.
+- Reuse `run_reference.py` helpers (`stream_g_file`, `run_solver`,
+  `ensure_container`, `docker_available`) — no duplicated logic.
+- The sparse `.cnf` must parse with `cnf_template_from_cnf`.
+- Reference counts: unigraph_1 = 376578, unigraph_2 = 39888347,
+  unigraph_3 = 52471840 (from `results/reference_answers.csv`).
 
-### S4: Rename in CI workflows and GitHub templates [done] (07b6810)
+### S3: Run on unigraph_2 + unigraph_3; collect time AND memory [local, gitignored] [done]
 
-**Code:** `.github/workflows/tests.yml`, `.github/workflows/coverage.yml`,
-`.github/ISSUE_TEMPLATE/graph-add-template.md`,
-`grammar-add-template.md`, `bug_report.md`,
-`.github/PULL_REQUEST_TEMPLATE/new_graph.md`, `new_grammar.md`.
-**Tests:** pre-commit `check-yaml` on the workflow files; full test suite.
-**Docs:** none (templates are contribution scaffolding).
-
-**Spec:**
-- `tests.yml:31`: step name → "Test FLPQ_Data".
-- `coverage.yml:28`: step name → "Test FLPQ_Data with coverage (line and
-  branch >= 95%)"; update the matching reference in `docs/developer.rst:103`
-  if it quotes the old step name (it does — "Test CFPQ_Data with coverage").
-- Templates: every "Current version of CFPQ_Data" field → "Current version of
-  FLPQ_Data". The "Which of RPQ, CFPQ, MCFPQ apply" fields are query-class
-  names and stay.
-
-### S5: Rename in skill descriptions [done] (a16128f)
-
-**Code:** `.opencode/skills/add-grammar/SKILL.md`, `add-graph/SKILL.md`,
-`build-docs/SKILL.md`, `code-style/SKILL.md`, `release/SKILL.md`,
-`run-tests/SKILL.md` (line 3 `description:` of each).
-**Tests:** pre-commit; full test suite.
-**Docs:** none.
+**Code:** Extend the solver invocation in `verify_uniprot_sparse.py` to wrap
+the CLI with `/usr/bin/time -v` inside the container and record
+`Maximum resident set size (kbytes)` per run (peak RSS of the solver process);
+CSV gains a `peak_rss_kib` column. Run CASES unigraph_2, unigraph_3
+(unigraph_1 re-run for a complete table).
+**Tests:** All three graphs: original == sparse == recorded reference, status
+ok; CSV contains elapsed_sec and peak_rss_kib for all 6 runs.
+**Docs:** none (gitignored local tool).
 
 **Spec:**
-- In each `description:` line, "CFPQ_Data" → "FLPQ_Data". No other skill
-  content changes (module paths like `flpq_data/queries/cfpq` are query-class
-  names and stay).
-- This is the last subtask: the commit carries `Closes #156` as a standalone
-  line.
+- Memory = peak RSS of the solver process via `/usr/bin/time -v` (available in
+  the image), NOT container-level `docker stats` sampling.
+- Same container memory cap (10 GiB) and timeout (600 s) for both grammars —
+  fair comparison.
+- Report (printed + CSV): per graph, original vs sparse: elapsed time, peak
+  RSS, reachable pairs; plus the absolute and relative differences.
 
-## Verification
+### S4: Record the experiment in the repo [commit]
 
-1. Per subtask: pre-commit + full test suite; S2/S3 additionally the docs
-   build (`uv run make -C docs html`).
-2. Residual scan after S5 (must return only out-of-scope hits):
-   `grep -rn "CFPQ_Data" --exclude-dir=.git --exclude-dir=.venv
-   --exclude-dir=_build --exclude-dir=.pytest_cache .` → expected: none in
-   live files; `cfpq-data.storage` URLs and history files remain by decision.
-3. Quality gate on the feature branch (tests + style + type check + docs
-   build) must PASS before merge to `dev`.
+**Code:** New `utils/uniprot_sparse_record.json` — mirrors the
+`optimized_grammars_record.json` convention: description (what was transformed
+and why), date, the full transformed `.cnf` text, the equivalence rationale
+(including the nested-vs-flat pitfall), and the verification table (graph ×
+grammar: pairs, status, elapsed_sec, peak_rss_kib) with the time/memory
+differences.
+**Tests:** `python3 -m json.tool` validity; the embedded `.cnf` parses via
+`cnf_template_from_text`; the pairs column matches
+`results/uniprot_sparse_check.csv`.
+**Docs:** none (no package code, no shipped grammar — experiment record only).
 
-## Code Review
+**Spec:**
+- Single commit `docs(157-S4): ...` with a standalone `Closes #157` line.
+- The record is the durable artifact: temporal_cfpq/ is gitignored and
+  machine-local.
 
-Whole-repo review of `git diff dev...HEAD` against the checklist:
+## Commit structure
 
-- **Correctness**: every clause of #156 is traceable — all live files renamed
-  (residual scan returns only gitignored caches, the gitignored
-  `temporal_cfpq/` tool, and history kept by decision); all four confirmed
-  decisions applied.
-- **Tests**: no code logic changed; 626/626 pass at every subtask.
-- **Docs**: docs build clean (no-warnings policy) after S2 and S3; the
-  schema.org metadata, citation, and Sphinx project metadata all match the
-  new name.
-- **Duplication / dead code**: pure rename, none introduced.
-- **Style**: one finding — the AGENTS.md rewording left a 90-character line
-  in a ~76-wrapped file; fixed in a follow-up commit (a24bcc5).
-- **Scope**: diff touches only the planned files; no unrelated edits.
-
-Zero findings after the fix.
-
-## Post-merge (outside the repo, reported to the user)
-
-- `git remote set-url origin
-  git@github.com:FormalLanguageConstrainedPathQuerying/FLPQ_Data.git`
-  (the old URL still works via GitHub redirect).
-- Rename the local checkout directory `/home/gsv/Projects/CFPQ_Data` →
-  `FLPQ_Data` after the session ends.
+S1–S3 touch only gitignored local tooling → no commits (bounded uncommitted
+work = none; the repo stays clean until S4). S4's work commit (`docs(157-S4)`)
+carries `Closes #157` and commits the plan file together with the record; a
+final `docs(157)` commit marks S4 done (the 156 pattern).

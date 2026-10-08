@@ -1,0 +1,95 @@
+{
+ "description": "Experiment record (issue #157): a muravev-style restructuring (arXiv:2401.11029, optimization 5 — the same idea behind java_points_to_muravev2024.cnf and c_alias_muravev2024.cnf) of the uniprot (unigraph) CFPQ grammar. The in-archive unigraph_N.cnf grammars materialize a very dense intermediate matrix M_Seq ~= M_X union M_X.cf.M_X (X = IsSimilar) and perform dense x medium products, which makes FastMatrixCFPQ OOM on unigraph_9/10 and take 67 min - 4.8 h on unigraph_4-8. The transformed grammar below keeps the same language and terminal set but never uses a dense nonterminal as a standalone factor in a binary production: every multiplication of the dense IsSimilar matrix is terminal x dense or dense x terminal, and the top-level product Lp.N3 pairs two terminal-anchored (edge-count-bounded) matrices. No archive or package change ships with this record — it documents the transformation and its verification so the sparse grammar can be reused as a low-memory oracle for the large unigraph graphs.",
+ "date": "2026-10-07",
+ "original_grammar": "queries/cfpq/unigraph_N/unigraph_N.cnf (identical language for all 10 unigraph archives)",
+ "transformed_grammar_file": "unigraph_1_sparse.cnf",
+ "transformed_grammar": "S\tN3\nS\tLp\tN3\nN3\tIsAssociated\tIsSimilar\nIsAssociated\trefers_to\tIsAssociated_1\nIsAssociated_1\trefers_to_r\nLp\tSt1\nLp\tSt2\nLp\tSt3\nLp\tSt4\nLp\tCfX\nLp\tSt1\tCfX\nLp\tSt2\tCfX\nLp\tSt3\tCfX\nLp\tSt4\tCfX\nCfX\tcodes_for\tIsSimilar\nSt1a\thas\tIsSimilar\nSt1\tSt1a\thas_r\nSt2a\tis_homologous_to\tIsSimilar\nSt2b\tSt2a\tis_homologous_to_r\nSt2\tSt2b\tIsSimilar\nSt3a\tbelongs_to\tIsSimilar\nSt3\tSt3a\tbelongs_to_r\nSt4a\tparticipate_in\tIsSimilar\nSt4\tSt4a\tparticipate_in_r\nIsSimilar\nIsSimilar\thas\tIsSimilar_1\nIsSimilar_1\tIsSimilar\thas_r\nIsSimilar\tis_homologous_to\tIsSimilar_2\nIsSimilar_2\tIsSimilar\tIsSimilar_3\nIsSimilar_3\tis_homologous_to_r\tIsSimilar\nIsSimilar\tbelongs_to\tIsSimilar_4\nIsSimilar_4\tIsSimilar\tbelongs_to_r\nIsSimilar\tparticipate_in\tIsSimilar_5\nIsSimilar_5\tIsSimilar\tparticipate_in_r\nCount:\nS\n",
+ "equivalence": {
+  "original_language": "With X = IsSimilar, R = refers_to.refers_to_r, cf = codes_for: S = Seq.R.X with Seq = X | X.cf.X and X = eps | has.X.has_r | iso.X.iso_r.X | bt.X.bt_r | pi.X.pi_r. So L(S) = X.(eps|cf.X).R.X = R.X union X+.R.X union cf.X.R.X union X+.cf.X.R.X.",
+  "transformed_language": "S -> N3 | Lp.N3 with N3 = IsAssociated.IsSimilar (= R.X), Lp = St1|St2|St3|St4 | CfX | St1.CfX | St2.CfX | St3.CfX | St4.CfX, where St_i is one outermost X step (has/iso/bt/pi anchored) and CfX = cf.IsSimilar. So L(S) = R.X union (St1|St2|St3|St4).R.X union cf.X.R.X union (St1|St2|St3|St4).cf.X.R.X.",
+  "why_equal": "A non-eps X is exactly ONE outermost step (X+ = St1 union St2 union St3 union St4): the nested balanced (Dyck-like) structure of X is carried by the recursive IsSimilar productions, while each St_i contributes precisely its outermost pair of terminals. Substituting gives L(S) identical to the original language.",
+  "pitfall": "A flat 'run of steps' restructuring (Lp -> Step.Lp | ...) is NOT equivalent: X is nested, not a Kleene star. The flat prototype accepted 480556 pairs on unigraph_1 vs the correct 376578 — it over-approximates by allowing arbitrary concatenations of steps.",
+  "sparsity": "The dense M_Seq matrix is eliminated; every multiplication of dense IsSimilar is terminal x dense or dense x terminal, and Lp.N3 pairs two terminal-anchored (edge-count-bounded) matrices."
+ },
+ "verification": {
+  "oracle": "FastMatrixCFPQ 1.1.0 (Docker image fast_matrix_cfpq:1.1.0), algorithm IncrementalAllPairsCFLReachabilityMatrix",
+  "container_mem_limit_gib": 10,
+  "timeout_sec": 600,
+  "method": "For each graph, ONE streamed .g edge list (terminal sets are identical) is solved once per grammar — the original in-archive unigraph_N.cnf and unigraph_1_sparse.cnf; counts must be equal to each other and match the recorded references in temporal_cfpq/results/reference_answers.csv. Peak RSS of the solver process measured with /usr/bin/time -v inside the container.",
+  "runs": [
+   {
+    "graph": "unigraph_1",
+    "num_nodes": 3082,
+    "num_edges": 6033,
+    "original": {
+     "grammar": "unigraph_1.cnf",
+     "num_reachable_pairs": 376578,
+     "elapsed_sec": 8.82,
+     "peak_rss_kib": 154100,
+     "status": "ok"
+    },
+    "sparse": {
+     "grammar": "unigraph_1_sparse.cnf",
+     "num_reachable_pairs": 376578,
+     "elapsed_sec": 3.25,
+     "peak_rss_kib": 154448,
+     "status": "ok"
+    }
+   },
+   {
+    "graph": "unigraph_2",
+    "num_nodes": 36468,
+    "num_edges": 88353,
+    "original": {
+     "grammar": "unigraph_2.cnf",
+     "num_reachable_pairs": 39888347,
+     "elapsed_sec": 119.55,
+     "peak_rss_kib": 1843888,
+     "status": "ok"
+    },
+    "sparse": {
+     "grammar": "unigraph_1_sparse.cnf",
+     "num_reachable_pairs": 39888347,
+     "elapsed_sec": 141.48,
+     "peak_rss_kib": 2016208,
+     "status": "ok"
+    }
+   },
+   {
+    "graph": "unigraph_3",
+    "num_nodes": 41333,
+    "num_edges": 101718,
+    "original": {
+     "grammar": "unigraph_3.cnf",
+     "num_reachable_pairs": 52471840,
+     "elapsed_sec": 176.0,
+     "peak_rss_kib": 2366008,
+     "status": "ok"
+    },
+    "sparse": {
+     "grammar": "unigraph_1_sparse.cnf",
+     "num_reachable_pairs": 52471840,
+     "elapsed_sec": 175.19,
+     "peak_rss_kib": 2489872,
+     "status": "ok"
+    }
+   }
+  ],
+  "differences": {
+   "note": "On the small verification graphs the sparse grammar is not faster (the dense intermediate is still affordable there) and uses slightly more peak RSS; its purpose is to avoid the OOM on unigraph_9/10 and cut the 67 min - 4.8 h runtimes of unigraph_4-8, where the original grammar's dense M_Seq does not fit.",
+   "unigraph_1": {
+    "elapsed_sec": "-5.57 (8.82 -> 3.25, -63%)",
+    "peak_rss_kib": "+348 (154100 -> 154448, +0.2%)"
+   },
+   "unigraph_2": {
+    "elapsed_sec": "+21.93 (119.55 -> 141.48, +18%)",
+    "peak_rss_kib": "+172320 (1843888 -> 2016208, +9%)"
+   },
+   "unigraph_3": {
+    "elapsed_sec": "-0.81 (176.0 -> 175.19, -0.5%)",
+    "peak_rss_kib": "+123864 (2366008 -> 2489872, +5%)"
+   }
+  },
+  "result_csv": "temporal_cfpq/results/uniprot_sparse_check.csv"
+ }
+}
