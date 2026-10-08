@@ -132,7 +132,7 @@ ok; CSV contains elapsed_sec and peak_rss_kib for all 6 runs.
 - Report (printed + CSV): per graph, original vs sparse: elapsed time, peak
   RSS, reachable pairs; plus the absolute and relative differences.
 
-### S4: Record the experiment in the repo [commit]
+### S4: Record the experiment in the repo [commit] [done] (b51918a)
 
 **Code:** New `utils/uniprot_sparse_record.json` — mirrors the
 `optimized_grammars_record.json` convention: description (what was transformed
