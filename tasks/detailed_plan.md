@@ -46,7 +46,7 @@ one.
 **Tests:** skip; verify with
 `python utils/audit_info_tables.py --dir docs/old_graphs/data`.
 
-### S3: Record the removal in the changelog [docs]
+### S3: Record the removal in the changelog [docs] [done] (ed1d8e5)
 
 **Code:** none (docs only).
 **Files:** `CHANGELOG.md` — a "Changed" entry under `[6.0.0]`: this task
