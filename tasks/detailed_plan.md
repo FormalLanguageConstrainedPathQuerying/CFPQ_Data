@@ -37,7 +37,7 @@ existing page) will no longer carry the row.
 — no `Version` field, shapes reduce to `[Full Name, Direct download]` (50)
 and `[Full Name, Direct download, Source]` (63).
 
-### S2: Remove the Version row from the 54 historical old_graphs pages [docs]
+### S2: Remove the Version row from the 54 historical old_graphs pages [docs] [done] (850f392)
 
 **Code:** none (docs only).
 **Files:** `docs/old_graphs/data/*.rst` — same deletion (`- 4.0.0` value);
