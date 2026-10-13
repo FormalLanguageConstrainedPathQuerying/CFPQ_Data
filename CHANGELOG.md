@@ -214,6 +214,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   page wrapped identifiers containing underscores in `\textit{...}` inside
   math, where an underscore is illegal. Parameter names now use the literal
   style and the reverse labels are plain subscripts (#127).
+- The canonical-grammar math block on the Field-Sensitive Alias category
+  page described a different language than the `vf.cnf`/`vf.rsm` shipped in
+  every archive: its `a`-part accepted and rejected different strings (a
+  single reverse `a` edge is in the dataset language but not in the docs'
+  one). The block now reproduces the archive's productions, verified
+  language-identical by exhaustive CYK membership comparison (#131).
 
 ## [5.0.0] - 2026-09-16
 
