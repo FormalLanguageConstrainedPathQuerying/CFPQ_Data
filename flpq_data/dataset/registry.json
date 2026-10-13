@@ -21,8 +21,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 1721418,
       "num_edges": 1510411,
-      "size_mb": 9.049,
-      "sha256": "8db6acb9e55667012a67386bd23754706fca2bbc8330c1af18d3435c604fea2c",
+      "size_mb": 364.198,
+      "sha256": "d0171fd28bb34884e557c7f44e724de8cdbb9882d14fd4e3c49d512e8ebaf4d0",
       "queries": [
         {
           "class": "cfpq",
@@ -39,8 +39,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 3448422,
       "num_edges": 2970242,
-      "size_mb": 18.255,
-      "sha256": "a3db0893a2ddadc1bf275a21cc59ed7acec578b2366251fb43eaee0bf014b063",
+      "size_mb": 45.264,
+      "sha256": "6044f0a0fbef2168cddab9e576c0caa69857efa87f679268002daab3c455f4de",
       "queries": [
         {
           "class": "cfpq",
@@ -106,8 +106,8 @@
       "category": "java_points_to",
       "num_nodes": 60175,
       "num_edges": 63089,
-      "size_mb": 0.31,
-      "sha256": "93a37a283aa0d9f045a038399c7bc64fadfcc945436afa7ddf41bba7e9bcfac7",
+      "size_mb": 0.454,
+      "sha256": "231edc7bb42b2fec9b7f5c8c91fef5be243db300ea308c3d58c396ff0892a24f",
       "queries": [
         {
           "class": "cfpq",
@@ -155,8 +155,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 3423234,
       "num_edges": 2951393,
-      "size_mb": 18.137,
-      "sha256": "390b4e86e4191f7eda159cc9b25704ec8897424ae8b117148b1f2572e1002ec9",
+      "size_mb": 45.205,
+      "sha256": "3d8a28b80f1a184a894fd947c42b7e56261bf7719ff2704cca0ee1af36ccf4ef",
       "queries": [
         {
           "class": "cfpq",
@@ -191,8 +191,8 @@
       "category": "context_sensitive_data_flow",
       "num_nodes": 359200,
       "num_edges": 580297,
-      "size_mb": 2.737,
-      "sha256": "b749c667bc3c59920d82440c93c43bf74c2560af089e84a541e23c92b43b3fb6",
+      "size_mb": 123.502,
+      "sha256": "00af336fe6f8eeea9025bfed7cc71ec8f876ab0081b3e2624ae2292f3fa1f343",
       "queries": [
         {
           "class": "cfpq",
@@ -208,8 +208,8 @@
       "category": "field_sensitive_alias",
       "num_nodes": 22350,
       "num_edges": 28318,
-      "size_mb": 0.112,
-      "sha256": "24d1aeae8ba20c7fac81caf6a280df1a814c6cd10287091426d7d0898bc61ec8",
+      "size_mb": 97.868,
+      "sha256": "89c88b33d6bce77e77db1b122a49f7970e1fae85f1a0b3eda8090795aa67af3e",
       "queries": [
         {
           "class": "cfpq",
@@ -324,8 +324,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 3464970,
       "num_edges": 2988387,
-      "size_mb": 18.377,
-      "sha256": "f9fc5028d98146353584f894b9566609c504e3b5a9ef3f734c3671cfa627048b",
+      "size_mb": 45.836,
+      "sha256": "22af058cfe638637e056d6f6bf9e6ed611f53445a62e1d68274444ac39d1f6aa",
       "queries": [
         {
           "class": "cfpq",
@@ -358,8 +358,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 4273803,
       "num_edges": 3707769,
-      "size_mb": 22.988,
-      "sha256": "90c00507048fc9f368d489b8698f36215f079597c2727d0b24aaa29458bf5ff0",
+      "size_mb": 110.634,
+      "sha256": "91a0ba48257bafda9a5376d65d2cd6baf39962200319b90cdf6eb4e2f85cc0d5",
       "queries": [
         {
           "class": "cfpq",
@@ -407,8 +407,8 @@
       "category": "java_points_to",
       "num_nodes": 41383,
       "num_edges": 40200,
-      "size_mb": 0.208,
-      "sha256": "a5976d4f17c4d004de52fcfffef8557994a81f116c9dfc0484710fda742fbc58",
+      "size_mb": 0.284,
+      "sha256": "48bdf0adab227b92445aaab7ac7bb286a59b86c155598aef5643dff4a78fa294",
       "queries": [
         {
           "class": "cfpq",
@@ -425,8 +425,8 @@
       "category": "rdf",
       "num_nodes": 48815,
       "num_edges": 86543,
-      "size_mb": 0.36,
-      "sha256": "57dd9d963d03fee52a40ea999725f989ad2966a4c9e45637f916f65924835082",
+      "size_mb": 38.43,
+      "sha256": "3120a81fbd11b88ae5239238640b26b33e9f43f8237028117e255c2244d50c0f",
       "queries": [
         {
           "class": "cfpq",
@@ -526,8 +526,8 @@
       "category": "java_points_to",
       "num_nodes": 86183,
       "num_edges": 83016,
-      "size_mb": 0.417,
-      "sha256": "a989dd1fea3863ebe312a3435b57b567e870d7cf8cc980e0e108bd6dca35daa3",
+      "size_mb": 0.67,
+      "sha256": "61044e84497d347c219ae48301101667883410c41a97bff961b86bef08170fac",
       "queries": [
         {
           "class": "cfpq",
@@ -544,8 +544,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 4177416,
       "num_edges": 3609373,
-      "size_mb": 22.341,
-      "sha256": "fb38164c2204f816f263cde51020214e1227e5c6c11ab2b644dab59675f95dca",
+      "size_mb": 69.654,
+      "sha256": "40d4e9561ddce5e490a0f0a2ea44d56a9b6f9deeba609dd19f4394e613d7d1fb",
       "queries": [
         {
           "class": "cfpq",
@@ -624,8 +624,8 @@
       "category": "rdf",
       "num_nodes": 450609,
       "num_edges": 2201518,
-      "size_mb": 7.954,
-      "sha256": "4b36e2295b01d0d41620e0ef1369de66a7b96e1382c7f2c84929004958659ecf",
+      "size_mb": 593.142,
+      "sha256": "239cb0636526cfafc9b41c809448e813a2825c02d1908bc44ec2aedf1b520724",
       "queries": [
         {
           "class": "cfpq",
@@ -742,8 +742,8 @@
       "category": "java_points_to",
       "num_nodes": 129562,
       "num_edges": 168116,
-      "size_mb": 1.061,
-      "sha256": "800fdbe860cfc683f572f37aac2de7907426b35a0511d901cdd0b9ec1d2125a0",
+      "size_mb": 71.9,
+      "sha256": "c2d924380cc5a025c394d66c12c46a2ffcee8d54b4ef03d195a5ac7e42d30bb7",
       "queries": [
         {
           "class": "cfpq",
@@ -778,8 +778,8 @@
       "category": "java_points_to",
       "num_nodes": 44717,
       "num_edges": 56683,
-      "size_mb": 0.263,
-      "sha256": "08f536c33c595ace844fec0211fcc9f994767be3cabc80a00d50b4d2717a8dd4",
+      "size_mb": 0.519,
+      "sha256": "7aeaa4a09331459a76d0959ab020fb5d78f6bb62b2264cf082de6d3e766c7f7a",
       "queries": [
         {
           "class": "cfpq",
@@ -796,8 +796,8 @@
       "category": "data_provenance",
       "num_nodes": 826,
       "num_edges": 2517,
-      "size_mb": 0.011,
-      "sha256": "a9d47a48bc2cab993db99ab889fa2b70c813a63e4452e42f53ec07eb0b6f5405",
+      "size_mb": 0.023,
+      "sha256": "92925a062e9c3606774fc75b1290ea1aa7c9fc3e78eaea89f870c75d11b9dfe8",
       "queries": [
         {
           "class": "cfpq",
@@ -829,8 +829,8 @@
       "category": "field_sensitive_alias",
       "num_nodes": 41652,
       "num_edges": 55775,
-      "size_mb": 0.223,
-      "sha256": "14c531039461fde9a2c515ced2b413ec4227b7e7fa39b0042611a0f739cdee95",
+      "size_mb": 953.157,
+      "sha256": "906964d4482e6202be59a8c1c7dc8c56b7d46ef1a1303c0fb987ceeb31154ac2",
       "queries": [
         {
           "class": "cfpq",
@@ -846,8 +846,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 2446224,
       "num_edges": 2112809,
-      "size_mb": 12.836,
-      "sha256": "f01718c9bd8f8f71a6da61420e892c9cf1e17af077059f4a7ee8d1536e7e6da2",
+      "size_mb": 31.761,
+      "sha256": "7f177eefbf52f25e884addbeee18d7af262abdee5fcab30e192e9cfce9642310",
       "queries": [
         {
           "class": "cfpq",
@@ -864,8 +864,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 3401022,
       "num_edges": 2931498,
-      "size_mb": 18.013,
-      "sha256": "a966289ace93fbc04c4ce337958966cf01d8b7a4dfa7156f15dfab9d3945b589",
+      "size_mb": 44.558,
+      "sha256": "7cbba65f445c0086b9557d9dcc1b71cf537171b3db8c2dd957035792809dc4b6",
       "queries": [
         {
           "class": "cfpq",
@@ -898,8 +898,8 @@
       "category": "java_points_to",
       "num_nodes": 149404,
       "num_edges": 197678,
-      "size_mb": 1.222,
-      "sha256": "0f47b5df436d3cc7178aec15fe25945966d38f04ce089936a9dc6fbafff767c2",
+      "size_mb": 10.668,
+      "sha256": "ac2b13d8707268ff21c83c69dcdabdf7bf2a80c833e5a2e8019b220236ce467f",
       "queries": [
         {
           "class": "cfpq",
@@ -916,8 +916,8 @@
       "category": "name_resolution",
       "num_nodes": 54952,
       "num_edges": 46322,
-      "size_mb": 0.252,
-      "sha256": "fa7d4fc0fc50b7cacee488861803e99a8e9be24dbb4780a7a2801b05a573f868",
+      "size_mb": 0.294,
+      "sha256": "cada211c12a3e287aca5a7474598a8e16a9a8e03612df30b05715892e39f9d0b",
       "queries": [
         {
           "class": "cfpq",
@@ -964,8 +964,8 @@
       "category": "java_points_to",
       "num_nodes": 59818,
       "num_edges": 74685,
-      "size_mb": 0.453,
-      "sha256": "6fbda9f65638829218d374800368cb0d488731d50b115c0c76a6b23c1e1a3eda",
+      "size_mb": 0.861,
+      "sha256": "033d0c1d395d86eb47ceb88368a590b25a61fd5bbd01be6eb9eee98877e5d01b",
       "queries": [
         {
           "class": "cfpq",
@@ -982,8 +982,8 @@
       "category": "java_points_to",
       "num_nodes": 191895,
       "num_edges": 260034,
-      "size_mb": 1.046,
-      "sha256": "64a2460dcb23fd34173bc1d6726658ea216311f2d5d7f0525726934d0c5fae5f",
+      "size_mb": 2.578,
+      "sha256": "5b77256849138a21296d12b156b302218e33ad1268869292539423ad0ab2072a",
       "queries": [
         {
           "class": "cfpq",
@@ -1000,8 +1000,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 11254434,
       "num_edges": 9484213,
-      "size_mb": 59.988,
-      "sha256": "5519963394fb3164868e304f6fcddbd002a2c73ae2dc37cd9e972137e12c9a39",
+      "size_mb": 148.573,
+      "sha256": "4de8773316ff098664865822cd801ba00bc2439ea1c43a6716be41906c0267cf",
       "queries": [
         {
           "class": "cfpq",
@@ -1052,8 +1052,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 3401355,
       "num_edges": 2931880,
-      "size_mb": 18.012,
-      "sha256": "6c3533d7e85b8523a3f4cadc5cc33fb7362f27a76f3a6390c0ee6e50c6810cdf",
+      "size_mb": 44.682,
+      "sha256": "a230f38156d02c649f0292872d8760b7a91677b9713828794123f93662f04527",
       "queries": [
         {
           "class": "cfpq",
@@ -1140,8 +1140,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 2538243,
       "num_edges": 2191079,
-      "size_mb": 13.327,
-      "sha256": "4b4415a4a1bf69c1f7ae5c5de1f88b0c4ae69cd928caf54ecbe41d046ed94e10",
+      "size_mb": 33.301,
+      "sha256": "3e0c80f5430ce1c98c11fd7983407c354e302451e77b0bb9debdc1935b186f46",
       "queries": [
         {
           "class": "cfpq",
@@ -1210,8 +1210,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 4039470,
       "num_edges": 3500141,
-      "size_mb": 21.655,
-      "sha256": "120f8988301316d9d4fd46e43b19409bc673468494e0f56070aaa97d01740cdf",
+      "size_mb": 65.471,
+      "sha256": "54fb0062e22b0c40ee4e4ac0458ddcd9570df9fbb7eb9d13cbab69fd265cd73a",
       "queries": [
         {
           "class": "cfpq",
@@ -1228,8 +1228,8 @@
       "category": "context_sensitive_data_flow",
       "num_nodes": 463454,
       "num_edges": 958487,
-      "size_mb": 6.419,
-      "sha256": "0a5375c0af81da52ce8d1d5ad43ef8ddcdd3c374b477f7e3e831a831ce2b4de8",
+      "size_mb": 28.878,
+      "sha256": "2075832473f12807663ad94f77c1d134b025b81928874a529cc7616717a86881",
       "queries": [
         {
           "class": "cfpq",
@@ -1245,8 +1245,8 @@
       "category": "field_sensitive_alias",
       "num_nodes": 49962,
       "num_edges": 59532,
-      "size_mb": 0.26,
-      "sha256": "9df0819457b96841cb5f9719273dcceb2cd6ace9d1f6345cdb8892afa864801a",
+      "size_mb": 407.468,
+      "sha256": "eafa7b5be5d94ddc64d607411890655aae879fe13a581a4eb1fa1a6037620b05",
       "queries": [
         {
           "class": "cfpq",
@@ -1295,8 +1295,8 @@
       "category": "field_sensitive_alias",
       "num_nodes": 29788,
       "num_edges": 32264,
-      "size_mb": 0.145,
-      "sha256": "096ad30cb6a1ffca27e76db8cdece0017fe3fe65d9064b0a512eb66a9663a725",
+      "size_mb": 126.354,
+      "sha256": "ca326743fc0b125e7fe280581a5c352770c39f4f166139901bab0d6a9499269c",
       "queries": [
         {
           "class": "cfpq",
@@ -1374,8 +1374,8 @@
       "category": "context_sensitive_data_flow",
       "num_nodes": 605864,
       "num_edges": 1114892,
-      "size_mb": 4.642,
-      "sha256": "1e9f4e7c8bc0edc50a62d3f115ceee269b1e22a1ac9bc08269956277f0675afa",
+      "size_mb": 728.829,
+      "sha256": "8f096465eb048208db620956fd5e11f45c6b6b0efb8a160f2f30be217be07a39",
       "queries": [
         {
           "class": "cfpq",
@@ -1391,8 +1391,8 @@
       "category": "field_sensitive_alias",
       "num_nodes": 38091,
       "num_edges": 55437,
-      "size_mb": 0.223,
-      "sha256": "182cd9b8971159d55381e07c8f906c02cdd8063d21846bcc35e8e75f0227722a",
+      "size_mb": 2105.77,
+      "sha256": "4081d52ef738e845cf2fc4e949287effaed3005620f03032dd44d61f59178c10",
       "queries": [
         {
           "class": "cfpq",
@@ -1473,8 +1473,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 5203419,
       "num_edges": 4678543,
-      "size_mb": 29.368,
-      "sha256": "06da5e21eb732c7b4b45a8d981bad8333070511fe7ef079a7c3aff94699c6699",
+      "size_mb": 424.643,
+      "sha256": "ed8b4d37a8e5c570cab11650231ecd205086f95de67bdaa77577755a8d0a88ce",
       "queries": [
         {
           "class": "cfpq",
@@ -1491,8 +1491,8 @@
       "category": "context_sensitive_data_flow",
       "num_nodes": 346034,
       "num_edges": 581210,
-      "size_mb": 2.446,
-      "sha256": "97fc61e10255245b683a1f01fcd54e0b95309dd0302460151db31dd41c5bbf61",
+      "size_mb": 90.665,
+      "sha256": "faa054181899c8119197b8fb433e1051f04ba98391761ae8ee6c83bd5fa272d4",
       "queries": [
         {
           "class": "cfpq",
@@ -1508,8 +1508,8 @@
       "category": "field_sensitive_alias",
       "num_nodes": 15137,
       "num_edges": 19443,
-      "size_mb": 0.08,
-      "sha256": "b43cb61d59e2640891ca39f34181f4016b8e46f4c3a3613d7d674d1b69f7712c",
+      "size_mb": 70.244,
+      "sha256": "d11ddbb97ac461631609583f6d620227b4aadb8e2943b13a32a3cd7c8ff6f70c",
       "queries": [
         {
           "class": "cfpq",
@@ -1591,8 +1591,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 3479982,
       "num_edges": 3003326,
-      "size_mb": 18.475,
-      "sha256": "9518d111ffa147d9761a99559ab7fb283f931fa26842a14baeed42f2f082a479",
+      "size_mb": 46.739,
+      "sha256": "9ef60323453d905276784f26b160e43455c875f73e1f907d6dbb6dda54fb91b1",
       "queries": [
         {
           "class": "cfpq",
@@ -1609,8 +1609,8 @@
       "category": "name_resolution",
       "num_nodes": 1179205,
       "num_edges": 1017798,
-      "size_mb": 5.134,
-      "sha256": "7b1c0f1eef3781b0616321128300257850968d2a728d306c1bf623eca498c614",
+      "size_mb": 8.147,
+      "sha256": "a1a6d38e9de79d1d9cb65f0364febc9e79f23c56893b0751b62f2f902d9defd2",
       "queries": [
         {
           "class": "cfpq",
@@ -1656,8 +1656,8 @@
       "category": "c_alias_analysis",
       "num_nodes": 3528861,
       "num_edges": 3049732,
-      "size_mb": 18.774,
-      "sha256": "4507f79c9d07d3cbab273280241e6f9033a0dc625d154e57d2c5e06665bea2da",
+      "size_mb": 49.406,
+      "sha256": "f3d1e1afba4a878ff62b37935ed86a35acd8b9e10ffe1ab2e2be11eddc069a2d",
       "queries": [
         {
           "class": "cfpq",
@@ -1724,8 +1724,8 @@
       "category": "rdf",
       "num_nodes": 5728398,
       "num_edges": 14922125,
-      "size_mb": 59.519,
-      "sha256": "6b8263396e7303307aa7f64070f69fa65eac49551755ca7ab4841e33a40e42cf",
+      "size_mb": 59.52,
+      "sha256": "0d168f3c76983b6a20bc3b732087aba08b92923140a93e2a6fec2a69b88874c9",
       "queries": [
         {
           "class": "cfpq",
@@ -1755,8 +1755,8 @@
       "category": "rdf",
       "num_nodes": 2112625,
       "num_edges": 32876289,
-      "size_mb": 99.646,
-      "sha256": "96b727397362401744d979893daf13c72bda61ed779a9aca6c0f606df841c290",
+      "size_mb": 133.908,
+      "sha256": "ce2d82787eee5e04fffe392f4bf396fb4470a01d59fb20ad42f24f31b99c6bf9",
       "queries": [
         {
           "class": "cfpq",
@@ -1786,8 +1786,8 @@
       "category": "java_points_to",
       "num_nodes": 111327,
       "num_edges": 110884,
-      "size_mb": 0.563,
-      "sha256": "f033a92d0ebeb0ff6f6fbbcadda5b2ac8cb73d36299d4781b2f63cf816b77c89",
+      "size_mb": 0.832,
+      "sha256": "f0afc1d553e134883623a5413c20504fb5fd1e6528e446571e57c0b623882d46",
       "queries": [
         {
           "class": "cfpq",
@@ -1804,8 +1804,8 @@
       "category": "java_points_to",
       "num_nodes": 439693,
       "num_edges": 466969,
-      "size_mb": 2.33,
-      "sha256": "128212712d7455dfd4e1ed09712115244d18219ce980f16e4499194eac32f1f6",
+      "size_mb": 4.298,
+      "sha256": "c81d3ba74d8c09fb4f304ef3abc7732840f4fb8e589d9de0e3d0988c7ab3ac43",
       "queries": [
         {
           "class": "cfpq",
@@ -1822,8 +1822,8 @@
       "category": "java_points_to",
       "num_nodes": 440680,
       "num_edges": 468263,
-      "size_mb": 2.337,
-      "sha256": "28cee1551fa4215d9583e25600075e8f936f78c749a287d46368f648b3ec4dd5",
+      "size_mb": 4.302,
+      "sha256": "b2a1f5fd81c4c5c3a7ca4ef977ff782f648e997464a9ccfc40fc96cb9e8aca01",
       "queries": [
         {
           "class": "cfpq",
@@ -1903,8 +1903,8 @@
       "category": "biological_uniprot",
       "num_nodes": 36468,
       "num_edges": 88353,
-      "size_mb": 0.3,
-      "sha256": "50e33ce400e074035a4fd52f0c58672e63334d649d0b7989d09e9d33367b7bdf",
+      "size_mb": 106.104,
+      "sha256": "7d3a6beb667511a455683bd8bea4b26058e743b332bf2f2980e3f1c87879e81f",
       "queries": [
         {
           "class": "cfpq",
@@ -1919,8 +1919,8 @@
       "category": "biological_uniprot",
       "num_nodes": 41333,
       "num_edges": 101718,
-      "size_mb": 0.344,
-      "sha256": "1623dd324af7a76115752fb69ba6b153106782ce0f6cfffb09d83631078a0c07",
+      "size_mb": 138.87,
+      "sha256": "9f2b13946cae3106b2b0660ce0318f75227b0ee606e0822e700e29eb19458250",
       "queries": [
         {
           "class": "cfpq",
@@ -1935,8 +1935,8 @@
       "category": "biological_uniprot",
       "num_nodes": 215481,
       "num_edges": 691906,
-      "size_mb": 2.255,
-      "sha256": "66e4d7515f09510be121529bec0aa9143819eeea4b618d6e0bf347bc08f7a5ed",
+      "size_mb": 2163.028,
+      "sha256": "bd5711927a061966870e6588b6a099623b77f5a7e495ad65e81b2d2409305718",
       "queries": [
         {
           "class": "cfpq",
@@ -1951,8 +1951,8 @@
       "category": "biological_uniprot",
       "num_nodes": 243839,
       "num_edges": 942263,
-      "size_mb": 3.154,
-      "sha256": "fce8f45a8c9d3e626dbef3212091690079be5bc61a2cace1d5a457909e47ede6",
+      "size_mb": 6007.858,
+      "sha256": "f05230b1891fbef2ee73121edf11881b6cd1639763ef14174fac0fa715ca18f5",
       "queries": [
         {
           "class": "cfpq",
@@ -1967,8 +1967,8 @@
       "category": "biological_uniprot",
       "num_nodes": 286645,
       "num_edges": 881565,
-      "size_mb": 2.943,
-      "sha256": "fde0b70f867cc1e3f9be2c3bb290b51a17a01a05add36c8b3f5ff943210f05cd",
+      "size_mb": 4603.695,
+      "sha256": "6618253b59a75d6546750f42522815e414e9c05aaa5ff4bd6966535fcfb66abe",
       "queries": [
         {
           "class": "cfpq",
@@ -1983,8 +1983,8 @@
       "category": "biological_uniprot",
       "num_nodes": 285577,
       "num_edges": 1069173,
-      "size_mb": 3.474,
-      "sha256": "ea41f82cc13b7df0eb1bbf226d171e37a007dac075b62fcb340fe73a8a54bbc0",
+      "size_mb": 6098.271,
+      "sha256": "6e04a6a75adf9863c3d6d1c0373a77274d9264c56f7393784c0566ae2ac8217e",
       "queries": [
         {
           "class": "cfpq",
@@ -2161,8 +2161,8 @@
       "category": "java_points_to",
       "num_nodes": 58476,
       "num_edges": 62758,
-      "size_mb": 0.32,
-      "sha256": "ca953219f9c1278b60f37ccb8078039dd6cbc7c7859134812ce5965f5642b58b",
+      "size_mb": 0.476,
+      "sha256": "32ea05b91203d262cac9a4312dc85d21dd53b03a03a5b196c16922d3afaa4be3",
       "queries": [
         {
           "class": "cfpq",

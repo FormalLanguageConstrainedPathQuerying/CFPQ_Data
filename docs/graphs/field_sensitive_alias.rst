@@ -56,7 +56,7 @@ field (the ``f_i`` family), as in `"Taming Transitive Redundancy for Context-Fre
    * - :ref:`povray_field_sensitive_alias`
      - 15137
      - 38886
-     - not available
+     - 27219043
      - 0.080
      - `povray_field_sensitive_alias.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/povray_field_sensitive_alias.tar.gz>`_ 📥
    * - :ref:`x264_field_sensitive_alias`
@@ -68,31 +68,31 @@ field (the ``f_i`` family), as in `"Taming Transitive Redundancy for Context-Fre
    * - :ref:`cactus_field_sensitive_alias`
      - 22350
      - 56636
-     - not available
+     - 37625324
      - 0.112
      - `cactus_field_sensitive_alias.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/cactus_field_sensitive_alias.tar.gz>`_ 📥
    * - :ref:`parest_field_sensitive_alias`
      - 29788
      - 64528
-     - not available
+     - 49415038
      - 0.145
      - `parest_field_sensitive_alias.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/parest_field_sensitive_alias.tar.gz>`_ 📥
    * - :ref:`perlbench_field_sensitive_alias`
      - 38091
      - 110874
-     - not available
+     - 851737865
      - 0.223
      - `perlbench_field_sensitive_alias.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/perlbench_field_sensitive_alias.tar.gz>`_ 📥
    * - :ref:`imagick_field_sensitive_alias`
      - 41652
      - 111550
-     - not available
+     - 369956094
      - 0.223
      - `imagick_field_sensitive_alias.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/imagick_field_sensitive_alias.tar.gz>`_ 📥
    * - :ref:`omnetpp_field_sensitive_alias`
      - 49962
      - 119064
-     - not available
+     - 158255766
      - 0.260
      - `omnetpp_field_sensitive_alias.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/omnetpp_field_sensitive_alias.tar.gz>`_ 📥
 

@@ -98,6 +98,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Filled 56 of the 60 previously "not available" reachable-pair reference
+  counts in `reachable_pairs.csv` (issue #130): the in-archive `results.mtx`
+  stubs of the affected graphs now carry the full Boolean reachability matrix,
+  computed with FastMatrixCFPQ using the language-equivalent low-memory
+  grammars where they exist (`c_alias_muravev2024.cnf`,
+  `java_points_to_muravev2024.cnf`, and the sparse uniprot grammar of issue
+  #157). 48 counts match independent reference values exactly; the 8
+  `java_points_to` pairs with stale references were confirmed by the dataset
+  maintainer. The 4 pairs that exceed the 124 GB RAM compute host (libgdx /
+  name_resolution, unigraph_8/9/10) remain "not available"; per-pair run data
+  and the infeasibility rationale are recorded in
+  `utils/stub_results_record.json`.
 - The `publish` workflow gives every pull request targeting `master` a unique
   `X.Y.Z.dev<run number>` version on the runner before building, so each push
   publishes a distinct TestPyPI pre-release instead of being skipped as an

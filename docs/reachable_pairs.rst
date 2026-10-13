@@ -55,61 +55,61 @@ C alias analysis
      - Reachable pairs
    * - apache
      - c_alias.cnf
-     - not available
+     - 92806768
    * - arch
      - c_alias.cnf
-     - not available
+     - 5339563
    * - block
      - c_alias.cnf
-     - not available
+     - 5351409
    * - bzip
      - c_alias.cnf
      - 315
    * - crypto
      - c_alias.cnf
-     - not available
+     - 5428237
    * - drivers
      - c_alias.cnf
-     - not available
+     - 18825025
    * - fs
      - c_alias.cnf
-     - not available
+     - 9646475
    * - gzip
      - c_alias.cnf
      - 1458
    * - init
      - c_alias.cnf
-     - not available
+     - 3783769
    * - ipc
      - c_alias.cnf
-     - not available
+     - 5249389
    * - kernel
      - c_alias.cnf
-     - not available
+     - 16747731
    * - lib
      - c_alias.cnf
-     - not available
+     - 5276303
    * - ls
      - c_alias.cnf
      - 854
    * - mm
      - c_alias.cnf
-     - not available
+     - 3990305
    * - net
      - c_alias.cnf
-     - not available
+     - 8833403
    * - postgre
      - c_alias.cnf
-     - not available
+     - 90661446
    * - pr
      - c_alias.cnf
      - 385
    * - security
      - c_alias.cnf
-     - not available
+     - 5593387
    * - sound
      - c_alias.cnf
-     - not available
+     - 6085269
    * - wc
      - c_alias.cnf
      - 156
@@ -162,7 +162,7 @@ RDF
      - 6
    * - enzyme
      - nested_parentheses_broaderTransitive.cnf
-     - not available
+     - 14267542
    * - enzyme
      - nested_parentheses_subClassOf.cnf
      - 394
@@ -201,16 +201,16 @@ RDF
      - 12
    * - geospecies
      - nested_parentheses_broaderTransitive.cnf
-     - not available
+     - 226669749
    * - geospecies
      - nested_parentheses_subClassOf.cnf
      - 0
    * - geospecies
      - nested_parentheses_subClassOf_type.cnf
-     - not available
+     - 85
    * - geospecies
      - nested_parentheses_type.cnf
-     - not available
+     - 85
    * - go
      - nested_parentheses_subClassOf.cnf
      - 640305
@@ -267,22 +267,22 @@ RDF
      - 29
    * - taxonomy
      - nested_parentheses_subClassOf.cnf
-     - not available
+     - 151703
    * - taxonomy
      - nested_parentheses_subClassOf_type.cnf
-     - not available
+     - 151706
    * - taxonomy
      - nested_parentheses_type.cnf
-     - not available
+     - 4
    * - taxonomy_hierarchy
      - nested_parentheses_subClassOf.cnf
-     - not available
+     - 5351657
    * - taxonomy_hierarchy
      - nested_parentheses_subClassOf_type.cnf
-     - not available
+     - 5351657
    * - taxonomy_hierarchy
      - nested_parentheses_type.cnf
-     - not available
+     - 0
    * - travel
      - nested_parentheses_subClassOf.cnf
      - 33
@@ -326,7 +326,7 @@ Java points-to graphs
      - 21532
    * - batik
      - java_points_to.cnf
-     - not available
+     - 45968
    * - commons_io
      - java_points_to.cnf
      - 24020
@@ -335,28 +335,28 @@ Java points-to graphs
      - 27553
    * - eclipse
      - java_points_to.cnf
-     - not available
+     - 21830
    * - fop
      - java_points_to.cnf
-     - not available
+     - 76615
    * - gson
      - java_points_to.cnf
      - 56325
    * - guava
      - java_points_to.cnf
-     - not available
+     - 26384496
    * - h2
      - java_points_to.cnf
-     - not available
+     - 92038
    * - jackson
      - java_points_to.cnf
-     - not available
+     - 3108775
    * - junit5
      - java_points_to.cnf
-     - not available
+     - 129598
    * - jython
      - java_points_to.cnf
-     - not available
+     - 561720
    * - luindex
      - java_points_to.cnf
      - 9677
@@ -374,16 +374,16 @@ Java points-to graphs
      - 16354
    * - tomcat
      - java_points_to.cnf
-     - not available
+     - 82424
    * - tradebeans
      - java_points_to.cnf
-     - not available
+     - 696316
    * - tradesoap
      - java_points_to.cnf
-     - not available
+     - 698567
    * - xalan
      - java_points_to.cnf
-     - not available
+     - 52382
 
 Field-Sensitive Alias
 ---------------------
@@ -397,10 +397,10 @@ Field-Sensitive Alias
      - Reachable pairs
    * - cactus_field_sensitive_alias
      - vf.cnf
-     - not available
+     - 37625324
    * - imagick_field_sensitive_alias
      - vf.cnf
-     - not available
+     - 369956094
    * - leela_field_sensitive_alias
      - vf.cnf
      - 3968276
@@ -409,16 +409,16 @@ Field-Sensitive Alias
      - 262566
    * - omnetpp_field_sensitive_alias
      - vf.cnf
-     - not available
+     - 158255766
    * - parest_field_sensitive_alias
      - vf.cnf
-     - not available
+     - 49415038
    * - perlbench_field_sensitive_alias
      - vf.cnf
-     - not available
+     - 851737865
    * - povray_field_sensitive_alias
      - vf.cnf
-     - not available
+     - 27219043
    * - x264_field_sensitive_alias
      - vf.cnf
      - 5246565
@@ -438,7 +438,7 @@ Context-Sensitive Data-Flow
      - Reachable pairs
    * - cactus
      - aa.cnf
-     - not available
+     - 47806209
    * - imagick
      - aa.cnf
      - 12687034
@@ -450,16 +450,16 @@ Context-Sensitive Data-Flow
      - 739646
    * - omnetpp
      - aa.cnf
-     - not available
+     - 8424500
    * - parest
      - aa.cnf
      - 1342540
    * - perlbench
      - aa.cnf
-     - not available
+     - 297504186
    * - povray
      - aa.cnf
-     - not available
+     - 34599413
    * - x264
      - aa.cnf
      - 20259480
@@ -497,7 +497,7 @@ Data Provenance
      - 8062
    * - httpx
      - prov_derivation.cnf
-     - not available
+     - 4408
    * - itsdangerous
      - prov_derivation.cnf
      - 2912
@@ -544,7 +544,7 @@ Name Resolution
      - Reachable pairs
    * - jiaozi
      - name_resolution.cnf
-     - not available
+     - 14435
    * - jsonpath
      - name_resolution.cnf
      - 59764
@@ -553,7 +553,7 @@ Name Resolution
      - not available
    * - shattered_pixel_dungeon
      - name_resolution.cnf
-     - not available
+     - 971998
 
 Biological graphs from UniProt
 ------------------------------
@@ -573,22 +573,22 @@ Biological graphs from UniProt
      - not available
    * - unigraph_2
      - unigraph_2.cnf
-     - not available
+     - 39888347
    * - unigraph_3
      - unigraph_3.cnf
-     - not available
+     - 52471840
    * - unigraph_4
      - unigraph_4.cnf
-     - not available
+     - 808091802
    * - unigraph_5
      - unigraph_5.cnf
-     - not available
+     - 2303590109
    * - unigraph_6
      - unigraph_6.cnf
-     - not available
+     - 1722963921
    * - unigraph_7
      - unigraph_7.cnf
-     - not available
+     - 2320964134
    * - unigraph_8
      - unigraph_8.cnf
      - not available

@@ -99,13 +99,13 @@ are not stored (see :ref:`graphs`).
    * - :ref:`eclipse`
      - 41383
      - 40200
-     - not available
+     - 21830
      - 0.208
      - `eclipse.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/eclipse.tar.gz>`_ 📥
    * - :ref:`h2`
      - 44717
      - 56683
-     - not available
+     - 92038
      - 0.263
      - `h2.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/h2.tar.gz>`_ 📥
    * - :ref:`pmd`
@@ -117,61 +117,61 @@ are not stored (see :ref:`graphs`).
    * - :ref:`xalan`
      - 58476
      - 62758
-     - not available
+     - 52382
      - 0.320
      - `xalan.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/xalan.tar.gz>`_ 📥
    * - :ref:`junit5`
      - 59818
      - 74685
-     - not available
+     - 129598
      - 0.453
      - `junit5.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/junit5.tar.gz>`_ 📥
    * - :ref:`batik`
      - 60175
      - 63089
-     - not available
+     - 45968
      - 0.310
      - `batik.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/batik.tar.gz>`_ 📥
    * - :ref:`fop`
      - 86183
      - 83016
-     - not available
+     - 76615
      - 0.417
      - `fop.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/fop.tar.gz>`_ 📥
    * - :ref:`tomcat`
      - 111327
      - 110884
-     - not available
+     - 82424
      - 0.563
      - `tomcat.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/tomcat.tar.gz>`_ 📥
    * - :ref:`guava`
      - 129562
      - 168116
-     - not available
+     - 26384496
      - 1.06
      - `guava.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/guava.tar.gz>`_ 📥
    * - :ref:`jackson`
      - 149404
      - 197678
-     - not available
+     - 3108775
      - 1.22
      - `jackson.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jackson.tar.gz>`_ 📥
    * - :ref:`jython`
      - 191895
      - 260034
-     - not available
+     - 561720
      - 1.05
      - `jython.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jython.tar.gz>`_ 📥
    * - :ref:`tradebeans`
      - 439693
      - 466969
-     - not available
+     - 696316
      - 2.33
      - `tradebeans.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/tradebeans.tar.gz>`_ 📥
    * - :ref:`tradesoap`
      - 440680
      - 468263
-     - not available
+     - 698567
      - 2.34
      - `tradesoap.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/tradesoap.tar.gz>`_ 📥
 
