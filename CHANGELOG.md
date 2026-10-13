@@ -163,6 +163,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `graph_to_text` emits one line per edge using the edge's `label` attribute
   (the convention `graph_to_mtx_dir` already required) instead of one line
   per value in the edge data dict.
+- The per-graph docs pages no longer carry a `Version` row in their Info
+  table: it was a manually maintained duplicate of the dataset version —
+  stale on the current pages (`5.0.0` against the `6.0.0` dataset) and
+  already visible in each page's own download URL and in `DATASET_VERSION`
+  of `flpq_data/config.py`.
 
 ### Deprecated
 
