@@ -28,7 +28,7 @@ existing page) will no longer carry the row.
 
 ## Subtasks
 
-### S1: Remove the Version row from the 113 current per-graph pages [docs]
+### S1: Remove the Version row from the 113 current per-graph pages [docs] [done] (cc13b4e)
 
 **Code:** none (docs only).
 **Files:** `docs/graphs/data/*.rst` — delete the two-line Info-table row
