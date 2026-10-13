@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - eclass_514en
-   * - Version
-     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/eclass.tar.gz>`_
    * - Source

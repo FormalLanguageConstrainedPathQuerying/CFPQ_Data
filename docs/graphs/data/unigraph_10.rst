@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - unigraph_10
-   * - Version
-     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_10.tar.gz>`_
 

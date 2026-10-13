@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - pmd
-   * - Version
-     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/pmd.tar.gz>`_
    * - Source

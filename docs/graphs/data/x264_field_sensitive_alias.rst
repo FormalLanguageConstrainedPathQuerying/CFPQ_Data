@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - x264
-   * - Version
-     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/x264_field_sensitive_alias.tar.gz>`_
 

@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - scikit-learn
-   * - Version
-     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/scikit-learn.tar.gz>`_
    * - Source

@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - tomcat
-   * - Version
-     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/tomcat.tar.gz>`_
    * - Source

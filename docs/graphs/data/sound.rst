@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - sound_after_inline
-   * - Version
-     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/sound.tar.gz>`_
 

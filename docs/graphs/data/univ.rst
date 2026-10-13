@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - univ_bench
-   * - Version
-     - 5.0.0
    * - Direct download
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/univ.tar.gz>`_
    * - Source
