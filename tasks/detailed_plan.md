@@ -272,7 +272,7 @@ disk; results in `results/archive_validation.txt`) — including enzyme and
 taxonomy_hierarchy, whose original validation log line was lost to a log
 truncation.
 
-### S5: Upload updated archives + CSV to S3 [remote, needs credentials]
+### S5: Upload updated archives + CSV to S3 [remote, needs credentials] [done]
 
 **Code:** With the user-provided IAM keys (Decision 5), run
 `utils/upload_to_s3.py` on the remote for every repacked archive under
@@ -289,7 +289,15 @@ sha256 of each uploaded object equals the local repacked file.
 - Keys are passed as CLI arguments only; never stored in files, logs, or the
   record.
 
-### S6: Sync the repo data: CSV, docs tables, registry, record [commit]
+**Execution notes (2026-10-13).** All 51 objects uploaded with
+`utils/upload_to_s3.py` (each `.tar.gz` re-validated before upload, stored
+size verified after): 50 archives under `6.0.0/graph/` + the filled
+`reachable_pairs.csv` under `6.0.0/reachable_pairs.csv`, zero failures.
+Post-upload audit per object: downloaded each of the 50 archives from S3,
+sha256-equal to the local repacked file, and structure-valid — 50/50 OK, 0
+failures.
+
+### S6: Sync the repo data: CSV, docs tables, registry, record [commit] [done]
 
 **Code:** Fill the 60 cells of `flpq_data/dataset/reachable_pairs.csv` (the
 infeasible pairs, if any, stay empty per Decision 4); regenerate both doc
@@ -312,6 +320,18 @@ changed graphs; the record JSON is valid and its counts equal the CSV cells.
 - Single work commit `feat(130-S6): ...` carrying a standalone `Closes #130`;
   a final `docs(130)` commit marks S6 done (the 156 pattern). The plan file is
   committed with the work commit.
+
+**Execution notes (2026-10-13).** 56 cells filled, the 4 infeasible pairs
+left empty. Docs tables regenerated (`reachable_pairs.rst` + 7 category
+pages; the only remaining "not available" cells are the 4 infeasible pairs).
+`registry.json` regenerated on the remote (it downloads every archive from
+S3; local disk was too small) — exactly the 50 repacked entries changed, and
+the new registry was re-uploaded as `6.0.0/registry.json` so clients verify
+against the new digests. `utils/stub_results_record.json` added (60 per-pair
+entries; counts verified equal to the CSV cells). The
+available/unavailable test updated from 95/60 to 151/4. Quality gates all
+green: 626 tests passed, coverage 99.14% line / 95.34% branch (>= 95%),
+pre-commit clean, `ty` clean, docs build with no warnings.
 
 ## Commit structure
 
