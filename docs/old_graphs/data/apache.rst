@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - apache_httpd_2_2_18_points_to_graph
-   * - Version
-     - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/apache.tar.gz>`_
 

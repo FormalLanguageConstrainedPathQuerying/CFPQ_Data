@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - tradebeans
-   * - Version
-     - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/tradebeans.tar.gz>`_
    * - Origin
