@@ -78,9 +78,12 @@ def bump(new_version: str, date: str | None = None) -> dict[str, str]:
     )
 
     changelog_path = ROOT / "CHANGELOG.md"
+    # The pattern's ``\s*`` swallows the header's own line break, so the
+    # replacement must end with one to keep the blank line that separates
+    # the promoted header from the section body (or the next header).
     promoted, count = re.subn(
         r"^## \[Unreleased\]\s*$",
-        f"## [Unreleased]\n\n## [{new_version}] - {date}",
+        f"## [Unreleased]\n\n## [{new_version}] - {date}\n",
         changelog_path.read_text(encoding="utf-8"),
         count=1,
         flags=re.MULTILINE,

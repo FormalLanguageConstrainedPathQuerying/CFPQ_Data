@@ -45,6 +45,12 @@ def test_bump_orders_unreleased_before_dated_section(repo):
     assert changelog.index("## [5.1.0] - 2026-09-08") < changelog.index("- a change")
 
 
+def test_bump_keeps_blank_line_after_promoted_header(repo):
+    bump_version.bump("5.1.0", date="2026-09-08")
+    changelog = (repo / "CHANGELOG.md").read_text()
+    assert "## [Unreleased]\n\n## [5.1.0] - 2026-09-08\n\n### Added" in changelog
+
+
 def test_bump_rejects_bad_semver(repo):
     with pytest.raises(ValueError, match="not a valid"):
         bump_version.bump("5.1")
