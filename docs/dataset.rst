@@ -26,4 +26,4 @@ list of applicable graphs.
 How to add a new grammar?
 -------------------------
 
-Just create a PR (Pull Request) corresponding to the `"Template for adding a new grammar" <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_grammar.md>`_.
+Grammars are added together with the data they apply to — create an ``Issue`` corresponding to the `"CONTRIBUTE NEW DATA" issue template <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/master/.github/ISSUE_TEMPLATE/new-data-template.md>`_ (the "Queries and grammars" section). A grammar is accepted only if it is instantiated as at least one query with reference results in a contributed archive.
