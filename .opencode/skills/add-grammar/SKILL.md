@@ -1,6 +1,6 @@
 ---
 name: add-grammar
-description: Use when adding a new grammar template to FLPQ_Data. Covers the generator/readwrite/converter module conventions and the PR/issue templates.
+description: Use when adding a new grammar template to FLPQ_Data. Covers the generator/readwrite/converter module conventions and the issue template.
 ---
 
 # Add a grammar template
@@ -14,6 +14,16 @@ The required fields and metadata live in the GitHub issue template — do
   section; a grammar arrives only together with a data contribution)
 
 Fill in every field in the triangle brackets (`<>`) of that template.
+
+## Where grammars come from
+
+Grammars arrive via cases 2, 3, or 4b of a CONTRIBUTE NEW DATA issue: the
+issue carries the grammar definition (LaTeX plus file-format text), and the
+same grammar is instantiated as at least one query directory with
+`results.mtx` in a contributed archive. When the grammar is parameterized,
+implement its generator module under `flpq_data/queries/<class>/generators/`
+per the package conventions below; the docs wiring (category page, table
+column) follows the "Documentation" section of the `add-graph` skill.
 
 ## Package conventions
 
