@@ -3,14 +3,15 @@ import shutil
 
 import merge_archive
 import pytest
-from check_archive_structure import validate_archive
-from merge_archive import main, merge_archives
-from test_check_archive_structure import (
+from archive_helpers import (
     _partial_tree,
     _query_dir,
     _tarball,
     _valid_tree,
 )
+from merge_archive import main, merge_archives
+
+from flpq_data.tools.check_archive_structure import validate_archive
 
 
 @pytest.fixture(autouse=True)

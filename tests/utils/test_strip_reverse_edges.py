@@ -1,9 +1,13 @@
 import pathlib
 import tempfile
 
-from check_archive_structure import unpack_single_dir, validate_archive
+from archive_helpers import README, _tarball, _valid_tree
 from strip_reverse_edges import main, strip_reverse_edges
-from test_check_archive_structure import README, _tarball, _valid_tree
+
+from flpq_data.tools.check_archive_structure import (
+    unpack_single_dir,
+    validate_archive,
+)
 
 MTX = (
     "%%MatrixMarket matrix coordinate pattern general\n"
