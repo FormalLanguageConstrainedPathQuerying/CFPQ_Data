@@ -103,7 +103,7 @@ updated per the documentation skill; no secrets). Data contributions do not
 use PRs — they use the CONTRIBUTE NEW DATA issue (pointer line in the
 template).
 
-### S3: External contribution guide in the docs
+### S3: External contribution guide in the docs [done] f9076cd
 
 **Code:** Rewrite the "How to add a new graph?" section of
 `docs/graphs/index.rst` (currently *"Just create a PR"*) into a
