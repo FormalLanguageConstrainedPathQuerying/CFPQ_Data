@@ -1,6 +1,6 @@
 ---
 name: add-graph
-description: Use when adding a new graph to FLPQ_Data. Covers the mtx-per-label archive format, the registry.json wiring, and the PR/issue templates.
+description: Use when adding a new graph to FLPQ_Data. Covers the mtx-per-label archive format, accepting external contributions (the issue-first pipeline), and the registry.json wiring.
 ---
 
 # Add a graph to the dataset
@@ -19,15 +19,42 @@ Fill in every field in the triangle brackets (`<>`) of that template.
 
 The archive layout and the label conventions are documented once in the
 "File structure" section of `docs/graphs/index.rst` — follow it exactly.
-Pack every query of the graph into the archive per the "Queries" section of
-the PR template, then validate with
+Pack every query of the graph into the archive per the "Queries and
+grammars" section of the issue template, then validate with
 `python utils/check_archive_structure.py <archive>.tar.gz` (the upload tool
 runs the same check and refuses invalid archives).
 
 New queries for an existing graph ship as a **partial archive** instead —
-see the "Data format" section of the PR template; it is validated with
+see the "Data format" section of the issue template; it is validated with
 `--partial` and merged into the existing archive with
 `python utils/merge_archive.py EXISTING.tar.gz PARTIAL.tar.gz -o <name>.tar.gz`.
+
+## Accepting an external contribution
+
+Data arrives as a CONTRIBUTE NEW DATA issue carrying one or more archives.
+Per archive, in order:
+
+1. Download it from the Drive link in the issue.
+2. Verify its SHA256 against the value in the issue — a mismatch means the
+   shared file is not the validated one; stop and ask the contributor.
+3. Re-run `python utils/check_archive_structure.py <name>.tar.gz` (add
+   `--partial` for partial archives) — it must pass.
+4. Check the graph name against `flpq_data/dataset/registry.json` and
+   `flpq_data/dataset/reachable_pairs.csv`: a full archive's name must be
+   new, a partial archive's target must exist.
+5. Add its reachable-pairs rows with
+   `python utils/add_reachable_pairs.py <name>.tar.gz --graph NAME --category CAT [--partial]`
+   (it re-validates the archive and refuses duplicates).
+6. Put it in place: a full archive is uploaded to the dataset URL (see
+   "Wiring a new graph into the code"); a partial archive is merged with
+   `python utils/merge_archive.py EXISTING.tar.gz PARTIAL.tar.gz -o <name>.tar.gz`
+   and the result uploaded under the graph's name.
+
+Once per issue, after every archive is in: regenerate the registry
+(`python utils/generate_registry.py`), do the "Documentation" steps (per-graph
+pages, category table(s), canonical grammars, new category page), then run
+`python utils/reachable_pairs_tables.py --update` and
+`python utils/archive_sizes.py --update`.
 
 ## Wiring a new graph into the code
 
@@ -44,11 +71,11 @@ see the "Data format" section of the PR template; it is validated with
 
 1. Create the per-graph page `docs/graphs/data/<name>.rst`, following the
    structure of an existing page (description, statistics tables). The page
-   carries **no** grammar section: canonical grammars are documented once on
-   the category page. Statistics conventions: the PR template is the source
-   of truth.
-2. Handle the grammar case from the PR template's "Canonical grammars"
-   section:
+    carries **no** grammar section: canonical grammars are documented once on
+    the category page. Statistics conventions: the issue template is the
+    source of truth.
+2. Handle the grammar case from the issue template's "Queries and grammars"
+    section:
    - *existing category, existing grammar(s)* — nothing to add; the new table
      row fills in the matching column(s);
    - *new grammar for an existing category* — append the grammar to the
