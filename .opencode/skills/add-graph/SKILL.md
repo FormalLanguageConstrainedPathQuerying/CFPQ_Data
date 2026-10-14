@@ -7,13 +7,13 @@ description: Use when adding a new graph to FLPQ_Data. Covers the mtx-per-label 
 
 ## Source of truth
 
-The required fields and metadata live in the GitHub templates — do **not**
-duplicate them here:
+The required fields and metadata live in the GitHub issue template — do
+**not** duplicate them here:
 
-- `.github/PULL_REQUEST_TEMPLATE/new_graph.md`
-- `.github/ISSUE_TEMPLATE/graph-add-template.md`
+- `.github/ISSUE_TEMPLATE/new-data-template.md` (data contributions are
+  issue-first; there is no PR path for data)
 
-Fill in every field in the triangle brackets (`<>`) of those templates.
+Fill in every field in the triangle brackets (`<>`) of that template.
 
 ## Data format
 
