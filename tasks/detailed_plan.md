@@ -37,7 +37,7 @@ existing query; more than one graph inside a single archive.
 
 ---
 
-### S1: Unified "CONTRIBUTE NEW DATA" issue template
+### S1: Unified "CONTRIBUTE NEW DATA" issue template [done] 4d1c42c
 
 **Code:** Restructure `.github/ISSUE_TEMPLATE/graph-add-template.md` into
 `.github/ISSUE_TEMPLATE/new-data-template.md` (rename + rewrite); delete
