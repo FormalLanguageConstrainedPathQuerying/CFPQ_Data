@@ -15,7 +15,7 @@ Contributing data
 -----------------
 
 New data — graphs, queries, grammars — enters the dataset through a single
-`"CONTRIBUTE NEW DATA" issue <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/master/.github/ISSUE_TEMPLATE/new-data-template.md>`_:
+`"CONTRIBUTE NEW DATA" issue <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/dev/.github/ISSUE_TEMPLATE/new-data-template.md>`_:
 you prepare one or more archives (one graph each), validate them, publish
 them (e.g. to Google Drive), and open the issue with the links, the
 validation output, the SHA256 of every archive, and the motivation. The
