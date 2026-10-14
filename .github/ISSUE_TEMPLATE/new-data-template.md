@@ -34,13 +34,13 @@ One row per archive. An issue may carry a **set** of archives (e.g. all graphs o
 
 ## Validation (mandatory, per archive)
 
-Validate every archive **before** sharing it and paste the output below. Without cloning the repo: `pip install flpq-data`, download the single script [`check_archive_structure.py`](https://raw.githubusercontent.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/master/utils/check_archive_structure.py), and run it (all imports resolve from the installed package).
+Validate every archive **before** sharing it and paste the output below. Without cloning the repo: `pip install flpq-data` — the checker is installed with the package as the `flpq-check-archive` command.
 
 ### `<name>.tar.gz`
 
 ```
-python check_archive_structure.py <name>.tar.gz            # full archive
-python check_archive_structure.py <name>.tar.gz --partial  # partial archive
+flpq-check-archive <name>.tar.gz            # full archive
+flpq-check-archive <name>.tar.gz --partial  # partial archive
 <archive> structure ok
 ```
 

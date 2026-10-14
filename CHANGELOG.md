@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- The `flpq-check-archive` console command (installed with the package):
+  validates a graph archive's structure, so contributors check their
+  archives with `pip install flpq-data` alone — no script download.
 - `utils/add_reachable_pairs.py`: derives the reachable-pairs rows of one
   validated archive (one row per query directory, with the declared entry
   count of its `results.mtx` as `num_reachable_pairs`) and inserts them into
@@ -16,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   and refusing duplicate rows and category disagreements.
 
 ### Changed
+
+- The archive structure checker moved from `utils/check_archive_structure.py`
+  to `flpq_data/tools/` (console command `flpq-check-archive`); the S3 client
+  factory and bucket constants moved to `flpq_data.dataset.s3`.
 
 - Data contributions are issue-first: a single "CONTRIBUTE NEW DATA" issue
   carries one or more validated archives (one graph each), the per-archive

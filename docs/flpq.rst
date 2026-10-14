@@ -419,7 +419,7 @@ Migration path:
   ``queries/cfpq/<query>/`` directory each, add the per-query
   ``results.mtx`` (the constrained reachability facts), write the
   mandatory-question ``README.md``, and validate with
-  ``utils/check_archive_structure.py`` (:ref:`archive_structure`).
+  ``flpq-check-archive`` (:ref:`archive_structure`).
 - The example query archives (``4.0.0/grammar/example/``) are dropped —
   every query file lives inside a graph archive.
 - Re-point ``DATASET_URL`` at the new prefix as part of the version bump

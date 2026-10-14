@@ -25,3 +25,4 @@ Reference
    dataset/index
    graphs/index
    queries/index
+   tools/index

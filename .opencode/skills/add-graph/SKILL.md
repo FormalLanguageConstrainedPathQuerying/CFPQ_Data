@@ -21,8 +21,8 @@ The archive layout and the label conventions are documented once in the
 "File structure" section of `docs/graphs/index.rst` — follow it exactly.
 Pack every query of the graph into the archive per the "Queries and
 grammars" section of the issue template, then validate with
-`python utils/check_archive_structure.py <archive>.tar.gz` (the upload tool
-runs the same check and refuses invalid archives).
+`flpq-check-archive <archive>.tar.gz` (the upload tool runs the same check
+and refuses invalid archives).
 
 New queries for an existing graph ship as a **partial archive** instead —
 see the "Data format" section of the issue template; it is validated with
@@ -37,8 +37,8 @@ Per archive, in order:
 1. Download it from the Drive link in the issue.
 2. Verify its SHA256 against the value in the issue — a mismatch means the
    shared file is not the validated one; stop and ask the contributor.
-3. Re-run `python utils/check_archive_structure.py <name>.tar.gz` (add
-   `--partial` for partial archives) — it must pass.
+3. Re-run `flpq-check-archive <name>.tar.gz` (add `--partial` for partial
+   archives) — it must pass.
 4. Check the graph name against `flpq_data/dataset/registry.json` and
    `flpq_data/dataset/reachable_pairs.csv`: a full archive's name must be
    new, a partial archive's target must exist.

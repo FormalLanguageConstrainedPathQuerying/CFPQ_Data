@@ -37,12 +37,12 @@ Validation
 
 Every archive must pass the structure checker before it is shared::
 
-   python utils/check_archive_structure.py <name>.tar.gz            # full archive
-   python utils/check_archive_structure.py <name>.tar.gz --partial  # partial archive
+   flpq-check-archive <name>.tar.gz            # full archive
+   flpq-check-archive <name>.tar.gz --partial  # partial archive
 
 The issue carries the pasted output of this command per archive, the
 archive's SHA256, and the FLPQ_Data version used; the template has the
-recipe for running the checker without cloning the repo.
+recipe — ``pip install flpq-data`` installs the checker.
 
 Consistency invariants
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -112,8 +112,8 @@ A **partial archive** provides new queries for an existing graph: it unpacks
 to a directory named after that graph and contains only ``queries/`` — the
 new query directories (same layout) plus a ``README.md`` fragment with one
 section per new query. It is validated with
-``python utils/check_archive_structure.py <name>.tar.gz --partial`` and
-merged into the existing archive with :ref:`merge_archive`.
+``flpq-check-archive <name>.tar.gz --partial`` and merged into the existing
+archive with :ref:`merge_archive`.
 
 The pre-migration graphs on the :ref:`old_graphs` page use the old CSV
 format instead.
