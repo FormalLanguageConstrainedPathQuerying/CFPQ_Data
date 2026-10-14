@@ -7,13 +7,13 @@ description: Use when adding a new grammar template to FLPQ_Data. Covers the gen
 
 ## Source of truth
 
-The required fields and metadata live in the GitHub templates — do **not**
-duplicate them here:
+The required fields and metadata live in the GitHub issue template — do
+**not** duplicate them here:
 
-- `.github/PULL_REQUEST_TEMPLATE/new_grammar.md`
-- `.github/ISSUE_TEMPLATE/grammar-add-template.md`
+- `.github/ISSUE_TEMPLATE/new-data-template.md` (the "Queries and grammars"
+  section; a grammar arrives only together with a data contribution)
 
-Fill in every field in the triangle brackets (`<>`) of those templates.
+Fill in every field in the triangle brackets (`<>`) of that template.
 
 ## Package conventions
 

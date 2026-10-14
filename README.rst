@@ -85,13 +85,10 @@ The full developer guide — development setup, quality checks, the test
 pipeline, docs build and deployment, the package release process, and
 contribution guidelines — is on the `Developer <https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/developer.html>`_ page.
 
-How to add a new graph?
-***********************
+How to contribute new data?
+**************************
 
-Just create
-
-- an ``Issue`` corresponding to the `"Issue template for adding a new graph" <https://github.com/formallanguageconstrainedpathquerying/FLPQ_Data/blob/master/.github/ISSUE_TEMPLATE/graph-add-template.md>`_.
-- a ``Pull Request`` corresponding to the `"Pull request template for adding a new graph" <https://github.com/formallanguageconstrainedpathquerying/FLPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md>`_.
+Create an ``Issue`` corresponding to the `"CONTRIBUTE NEW DATA" issue template <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/master/.github/ISSUE_TEMPLATE/new-data-template.md>`_ — one or more validated archives (one graph each), links to them, and the motivation. The maintainers upload and merge the data into the dataset; the full contribution guide is on the `Graphs <https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data/graphs/index.html>`_ page.
 
 Citation
 ********
