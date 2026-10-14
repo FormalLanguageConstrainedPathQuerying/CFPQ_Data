@@ -59,7 +59,7 @@ docs = [
   "jupyter-client>=8.7.0,<9.0.0",
   "nb2plots>=0.7.2,<0.8.0",
   "numpydoc>=1.10.0,<2.0.0",
-  "pydata-sphinx-theme>=0.16.1,<0.22.0",
+  "pydata-sphinx-theme>=0.16.1,<0.24.0",
   "sphinx>=9.0.4,<10.0.0",
   "sphinx-copybutton>=0.5.2,<0.6.0",
 ]
