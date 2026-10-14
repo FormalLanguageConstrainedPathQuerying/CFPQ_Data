@@ -165,7 +165,7 @@ docstring stays the source of truth for details.
 - Exit non-zero on any problem (invalid archive, duplicate row, missing
   representation file), printing each problem.
 
-### S5: Maintainer acceptance pipeline in the skills
+### S5: Maintainer acceptance pipeline in the skills [done] 8e98011
 
 **Code:** Extend `.opencode/skills/add-graph/SKILL.md` with an "Accepting an
 external contribution" section; update `.opencode/skills/add-grammar/SKILL.md`
