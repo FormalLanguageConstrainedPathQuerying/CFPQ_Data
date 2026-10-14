@@ -187,6 +187,29 @@ step with the archives; an unregistered query aborts the merge.
 The output file must be named after the graph (``<graph>.tar.gz``): the
 upload tool stores it under that name, replacing the previous archive.
 
+.. _add_reachable_pairs:
+
+Add reachable-pairs rows
+------------------------
+
+``utils/add_reachable_pairs.py`` derives the reachable-pairs rows of one
+validated archive and inserts them into
+``flpq_data/dataset/reachable_pairs.csv``::
+
+   python utils/add_reachable_pairs.py ARCHIVE.tar.gz --graph NAME \
+       --category CAT [--partial] [--dry-run]
+
+For every ``queries/<class>/<query>/`` directory the tool emits one row:
+the query directory name as the stem of the ``grammar`` file (the
+representation is picked in the order ``cnf > re > mcfg > rsm``) and the
+declared entry count of the query's ``results.mtx`` as
+``num_reachable_pairs``. The archive must pass the structure checker first
+(full mode, or ``--partial`` for a partial archive), and a tarball must be
+named after the graph. The CSV's ``(graph, grammar)`` sort order is
+preserved; a row that already exists, or a category that disagrees with the
+graph's existing rows, is reported and nothing is written. ``--dry-run``
+prints the rows instead of writing them.
+
 .. _reachable_pairs_tables:
 
 Reachable pair counts
