@@ -6,7 +6,7 @@ __all__ = [
     "ROOT",
 ]
 
-VERSION = "6.0.0"
+VERSION = "6.1.0"
 
 #: The dataset version served on object storage: the package major version
 #: with zeroed minor and patch (a minor/patch release does not move the
