@@ -26,13 +26,16 @@ manual script download.
 - The wheel build (`packages = ["flpq_data"]`) picks up the new submodule
   automatically; `[project.scripts]` registers the entry point; uv installs
   the project itself, so the command works in-repo too.
-- Coverage: the moved lines now count toward the 95% flpq_data gate; the
-  existing tests cover the module (incl. mock-tested `_audit`); one new
-  branch (missing boto3) gets a test.
+- Coverage: the moved lines now count toward the 95% flpq_data gate. The
+  existing tests did not cover 28 defensive branch edges of the module;
+  S1 adds tests for every reachable one and removes two provably dead
+  constructs (the indexed-reversed label check — every stem it matches
+  also matches the reverse regex — and the `__main__` guard, replaced by
+  the console entry point).
 
 ---
 
-### S1: Move the checker into the package + console entry point
+### S1: Move the checker into the package + console entry point [done] 9abbf5d
 
 One atomic increment — moving the module without its tests would break the
 suite, so code and tests move together.
