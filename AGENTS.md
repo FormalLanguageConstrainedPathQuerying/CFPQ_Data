@@ -25,8 +25,8 @@ gate → merge, and points to the other workflow skills below.
   code: design decisions, non-trivial constraints. Skills stay thin pointers
   to docs, code, or CI — they never re-describe them.
 * Data archives are self-contained and must align with the checker
-  (`utils/check_archive_structure.py`) — the source of truth for any data
-  structure.
+  (`flpq_data/tools/check_archive_structure.py`, console command
+  `flpq-check-archive`) — the source of truth for any data structure.
 * Tools, not instructions. If you can do something with existing tool --- do it. No thinking, no long instructions, no manual analysis. You want to analyze code coverage? Just run coverage tool and analyze report. No workaround for regular tasks. If there is a tool for regular task it must be installed and configured appropriately.
 * Always learn, never forget — encode patterns before session ends
 
@@ -39,6 +39,8 @@ gate → merge, and points to the other workflow skills below.
 - `flpq_data/queries/` — per-class query modules: `cfpq/` (`generators`,
   `readwrite`, `converters`, `utils`), `rpq/` (`readwrite`), `mcfpq/`
   (`readwrite`).
+- `flpq_data/tools/` — the archive structure checker (console command
+  `flpq-check-archive`).
 - `tests/` mirrors the package structure (pytest + doctests).
 
 ## Skills
