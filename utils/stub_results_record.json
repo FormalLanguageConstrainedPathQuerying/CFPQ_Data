@@ -1,0 +1,925 @@
+{
+ "description": "Experiment record (issue #130): fills the 56 previously missing reachable-pair reference counts of flpq_data/dataset/reachable_pairs.csv. The in-archive results.mtx stubs of these pairs were empty placeholders; each was computed with FastMatrixCFPQ 1.1.0 (IncrementalAllPairsCFLReachabilityMatrix) on a 24-core / 124 GB RAM host, using the language-equivalent low-memory grammar where one exists (c_alias_muravev2024.cnf, java_points_to_muravev2024.cnf, and the task-157 sparse uniprot grammar unigraph_1_sparse.cnf) and recorded under the canonical in-archive grammar name. The repacked archives with filled results.mtx were uploaded to 6.0.0/graph/<graph>.tar.gz and audited (sha256 + structure, 50/50 OK). 48 computed counts match the independent references of temporal_cfpq/results/reference_answers.csv exactly; the 8 java_points_to pairs with stale references were confirmed correct by the user (issue #130). The remaining 4 pairs are documented infeasible on this hardware.",
+ "date": "2026-10-13",
+ "vf_aa_name_mapping": "For the 10 aa/vf pairs (cactus, omnetpp, perlbench, povray and their _field_sensitive_alias siblings) reference_answers.csv records the grammar names swapped relative to the archive query dirs: the aa/ query dir is referenced under the name vf.cnf and the vf/ dir under aa.cnf. The fill driver matched by query dir, so the counts are recorded under the canonical in-archive names.",
+ "infeasible_pairs": [
+  {
+   "graph": "libgdx",
+   "grammar": "name_resolution.cnf",
+   "status": "oom",
+   "rationale": "peak RSS 120346364 KiB (114.8 GiB) at the 115 GiB container cap and still growing; no low-memory grammar variant exists for name_resolution, so the pair exceeds the host's 124 GB RAM."
+  },
+  {
+   "graph": "unigraph_8",
+   "grammar": "unigraph_8.cnf",
+   "status": "oom",
+   "rationale": "peak RSS 120406780 KiB (114.9 GiB) at the 115 GiB container cap after 4.6 h, even with the task-157 sparse grammar unigraph_1_sparse.cnf; infeasible on 124 GB RAM."
+  },
+  {
+   "graph": "unigraph_9",
+   "grammar": "unigraph_9.cnf",
+   "status": "oom",
+   "rationale": "peak RSS 120346300 KiB (114.8 GiB) at the 115 GiB container cap after 5.3 h, even with the task-157 sparse grammar unigraph_1_sparse.cnf; infeasible on 124 GB RAM."
+  },
+  {
+   "graph": "unigraph_10",
+   "grammar": "unigraph_10.cnf",
+   "status": "error(rc=1):graphblas.exceptions.OutOfMemory",
+   "rationale": "GraphBLAS raises OutOfMemory after 60 s with the task-157 sparse grammar: a single dense intermediate matrix is ~529 GB, far beyond the host's 124 GB RAM; infeasible for any grammar on this hardware."
+  }
+ ],
+ "pairs": [
+  {
+   "graph": "apache",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 92806768,
+   "status": "ok",
+   "elapsed_sec": 30.65,
+   "peak_rss_kib": 2956004,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 92806768
+   },
+   "archive_sha256_before": "8db6acb9e55667012a67386bd23754706fca2bbc8330c1af18d3435c604fea2c",
+   "archive_sha256_after": "d0171fd28bb34884e557c7f44e724de8cdbb9882d14fd4e3c49d512e8ebaf4d0"
+  },
+  {
+   "graph": "arch",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 5339563,
+   "status": "ok",
+   "elapsed_sec": 5.55,
+   "peak_rss_kib": 1089556,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 5339563
+   },
+   "archive_sha256_before": "a3db0893a2ddadc1bf275a21cc59ed7acec578b2366251fb43eaee0bf014b063",
+   "archive_sha256_after": "6044f0a0fbef2168cddab9e576c0caa69857efa87f679268002daab3c455f4de"
+  },
+  {
+   "graph": "batik",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 45968,
+   "status": "ok",
+   "elapsed_sec": 0.84,
+   "peak_rss_kib": 162964,
+   "verification": {
+    "source": "user-confirmed fresh run (issue #130)",
+    "value": 45968,
+    "note": "the stale reference_answers.csv value 868368 predates the dataset refresh and was superseded"
+   },
+   "archive_sha256_before": "93a37a283aa0d9f045a038399c7bc64fadfcc945436afa7ddf41bba7e9bcfac7",
+   "archive_sha256_after": "231edc7bb42b2fec9b7f5c8c91fef5be243db300ea308c3d58c396ff0892a24f"
+  },
+  {
+   "graph": "block",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 5351409,
+   "status": "ok",
+   "elapsed_sec": 5.79,
+   "peak_rss_kib": 1078844,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 5351409
+   },
+   "archive_sha256_before": "390b4e86e4191f7eda159cc9b25704ec8897424ae8b117148b1f2572e1002ec9",
+   "archive_sha256_after": "3d8a28b80f1a184a894fd947c42b7e56261bf7719ff2704cca0ee1af36ccf4ef"
+  },
+  {
+   "graph": "cactus",
+   "grammar": "aa.cnf",
+   "run_grammar": "aa.cnf",
+   "num_reachable_pairs": 47806209,
+   "status": "ok",
+   "elapsed_sec": 16.64,
+   "peak_rss_kib": 1620644,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 47806209
+   },
+   "archive_sha256_before": "b749c667bc3c59920d82440c93c43bf74c2560af089e84a541e23c92b43b3fb6",
+   "archive_sha256_after": "00af336fe6f8eeea9025bfed7cc71ec8f876ab0081b3e2624ae2292f3fa1f343"
+  },
+  {
+   "graph": "cactus_field_sensitive_alias",
+   "grammar": "vf.cnf",
+   "run_grammar": "vf.cnf",
+   "num_reachable_pairs": 37625324,
+   "status": "ok",
+   "elapsed_sec": 15.4,
+   "peak_rss_kib": 1619408,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 37625324
+   },
+   "archive_sha256_before": "24d1aeae8ba20c7fac81caf6a280df1a814c6cd10287091426d7d0898bc61ec8",
+   "archive_sha256_after": "89c88b33d6bce77e77db1b122a49f7970e1fae85f1a0b3eda8090795aa67af3e"
+  },
+  {
+   "graph": "crypto",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 5428237,
+   "status": "ok",
+   "elapsed_sec": 5.78,
+   "peak_rss_kib": 1080400,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 5428237
+   },
+   "archive_sha256_before": "f9fc5028d98146353584f894b9566609c504e3b5a9ef3f734c3671cfa627048b",
+   "archive_sha256_after": "22af058cfe638637e056d6f6bf9e6ed611f53445a62e1d68274444ac39d1f6aa"
+  },
+  {
+   "graph": "drivers",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 18825025,
+   "status": "ok",
+   "elapsed_sec": 12.33,
+   "peak_rss_kib": 1398500,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 18825025
+   },
+   "archive_sha256_before": "90c00507048fc9f368d489b8698f36215f079597c2727d0b24aaa29458bf5ff0",
+   "archive_sha256_after": "91a0ba48257bafda9a5376d65d2cd6baf39962200319b90cdf6eb4e2f85cc0d5"
+  },
+  {
+   "graph": "eclipse",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 21830,
+   "status": "ok",
+   "elapsed_sec": 0.78,
+   "peak_rss_kib": 156488,
+   "verification": {
+    "source": "user-confirmed fresh run (issue #130)",
+    "value": 21830,
+    "note": "the stale reference_answers.csv value 378989 predates the dataset refresh and was superseded"
+   },
+   "archive_sha256_before": "a5976d4f17c4d004de52fcfffef8557994a81f116c9dfc0484710fda742fbc58",
+   "archive_sha256_after": "48bdf0adab227b92445aaab7ac7bb286a59b86c155598aef5643dff4a78fa294"
+  },
+  {
+   "graph": "enzyme",
+   "grammar": "nested_parentheses_broaderTransitive.cnf",
+   "run_grammar": "nested_parentheses_broaderTransitive.cnf",
+   "num_reachable_pairs": 14267542,
+   "status": "ok",
+   "elapsed_sec": 4.04,
+   "peak_rss_kib": 588400,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 14267542
+   },
+   "archive_sha256_before": "57dd9d963d03fee52a40ea999725f989ad2966a4c9e45637f916f65924835082",
+   "archive_sha256_after": "3120a81fbd11b88ae5239238640b26b33e9f43f8237028117e255c2244d50c0f"
+  },
+  {
+   "graph": "fop",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 76615,
+   "status": "ok",
+   "elapsed_sec": 0.93,
+   "peak_rss_kib": 170900,
+   "verification": {
+    "source": "user-confirmed fresh run (issue #130)",
+    "value": 76615,
+    "note": "the stale reference_answers.csv value 1984072 predates the dataset refresh and was superseded"
+   },
+   "archive_sha256_before": "a989dd1fea3863ebe312a3435b57b567e870d7cf8cc980e0e108bd6dca35daa3",
+   "archive_sha256_after": "61044e84497d347c219ae48301101667883410c41a97bff961b86bef08170fac"
+  },
+  {
+   "graph": "fs",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 9646475,
+   "status": "ok",
+   "elapsed_sec": 7.92,
+   "peak_rss_kib": 1293272,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 9646475
+   },
+   "archive_sha256_before": "fb38164c2204f816f263cde51020214e1227e5c6c11ab2b644dab59675f95dca",
+   "archive_sha256_after": "40d4e9561ddce5e490a0f0a2ea44d56a9b6f9deeba609dd19f4394e613d7d1fb"
+  },
+  {
+   "graph": "geospecies",
+   "grammar": "nested_parentheses_broaderTransitive.cnf",
+   "run_grammar": "nested_parentheses_broaderTransitive.cnf",
+   "num_reachable_pairs": 226669749,
+   "status": "ok",
+   "elapsed_sec": 54.73,
+   "peak_rss_kib": 6000092,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 226669749
+   },
+   "archive_sha256_before": "4b36e2295b01d0d41620e0ef1369de66a7b96e1382c7f2c84929004958659ecf",
+   "archive_sha256_after": "239cb0636526cfafc9b41c809448e813a2825c02d1908bc44ec2aedf1b520724"
+  },
+  {
+   "graph": "geospecies",
+   "grammar": "nested_parentheses_subClassOf_type.cnf",
+   "run_grammar": "nested_parentheses_subClassOf_type.cnf",
+   "num_reachable_pairs": 85,
+   "status": "ok",
+   "elapsed_sec": 2.05,
+   "peak_rss_kib": 464388,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 85
+   },
+   "archive_sha256_before": "4b36e2295b01d0d41620e0ef1369de66a7b96e1382c7f2c84929004958659ecf",
+   "archive_sha256_after": "239cb0636526cfafc9b41c809448e813a2825c02d1908bc44ec2aedf1b520724"
+  },
+  {
+   "graph": "geospecies",
+   "grammar": "nested_parentheses_type.cnf",
+   "run_grammar": "nested_parentheses_type.cnf",
+   "num_reachable_pairs": 85,
+   "status": "ok",
+   "elapsed_sec": 2.04,
+   "peak_rss_kib": 463164,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 85
+   },
+   "archive_sha256_before": "4b36e2295b01d0d41620e0ef1369de66a7b96e1382c7f2c84929004958659ecf",
+   "archive_sha256_after": "239cb0636526cfafc9b41c809448e813a2825c02d1908bc44ec2aedf1b520724"
+  },
+  {
+   "graph": "guava",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 26384496,
+   "status": "ok",
+   "elapsed_sec": 14.29,
+   "peak_rss_kib": 1309492,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 26384496
+   },
+   "archive_sha256_before": "800fdbe860cfc683f572f37aac2de7907426b35a0511d901cdd0b9ec1d2125a0",
+   "archive_sha256_after": "c2d924380cc5a025c394d66c12c46a2ffcee8d54b4ef03d195a5ac7e42d30bb7"
+  },
+  {
+   "graph": "h2",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 92038,
+   "status": "ok",
+   "elapsed_sec": 0.86,
+   "peak_rss_kib": 160504,
+   "verification": {
+    "source": "user-confirmed fresh run (issue #130)",
+    "value": 92038,
+    "note": "the stale reference_answers.csv value 2611022 predates the dataset refresh and was superseded"
+   },
+   "archive_sha256_before": "08f536c33c595ace844fec0211fcc9f994767be3cabc80a00d50b4d2717a8dd4",
+   "archive_sha256_after": "7aeaa4a09331459a76d0959ab020fb5d78f6bb62b2264cf082de6d3e766c7f7a"
+  },
+  {
+   "graph": "httpx",
+   "grammar": "prov_derivation.cnf",
+   "run_grammar": "prov_derivation.cnf",
+   "num_reachable_pairs": 4408,
+   "status": "ok",
+   "elapsed_sec": 1.54,
+   "peak_rss_kib": 144848,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 4408
+   },
+   "archive_sha256_before": "a9d47a48bc2cab993db99ab889fa2b70c813a63e4452e42f53ec07eb0b6f5405",
+   "archive_sha256_after": "92925a062e9c3606774fc75b1290ea1aa7c9fc3e78eaea89f870c75d11b9dfe8"
+  },
+  {
+   "graph": "imagick_field_sensitive_alias",
+   "grammar": "vf.cnf",
+   "run_grammar": "vf.cnf",
+   "num_reachable_pairs": 369956094,
+   "status": "ok",
+   "elapsed_sec": 125.19,
+   "peak_rss_kib": 14466960,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 369956094
+   },
+   "archive_sha256_before": "14c531039461fde9a2c515ced2b413ec4227b7e7fa39b0042611a0f739cdee95",
+   "archive_sha256_after": "906964d4482e6202be59a8c1c7dc8c56b7d46ef1a1303c0fb987ceeb31154ac2"
+  },
+  {
+   "graph": "init",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 3783769,
+   "status": "ok",
+   "elapsed_sec": 4.1,
+   "peak_rss_kib": 836036,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 3783769
+   },
+   "archive_sha256_before": "f01718c9bd8f8f71a6da61420e892c9cf1e17af077059f4a7ee8d1536e7e6da2",
+   "archive_sha256_after": "7f177eefbf52f25e884addbeee18d7af262abdee5fcab30e192e9cfce9642310"
+  },
+  {
+   "graph": "ipc",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 5249389,
+   "status": "ok",
+   "elapsed_sec": 5.48,
+   "peak_rss_kib": 1060168,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 5249389
+   },
+   "archive_sha256_before": "a966289ace93fbc04c4ce337958966cf01d8b7a4dfa7156f15dfab9d3945b589",
+   "archive_sha256_after": "7cbba65f445c0086b9557d9dcc1b71cf537171b3db8c2dd957035792809dc4b6"
+  },
+  {
+   "graph": "jackson",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 3108775,
+   "status": "ok",
+   "elapsed_sec": 4.24,
+   "peak_rss_kib": 298032,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 3108775
+   },
+   "archive_sha256_before": "0f47b5df436d3cc7178aec15fe25945966d38f04ce089936a9dc6fbafff767c2",
+   "archive_sha256_after": "ac2b13d8707268ff21c83c69dcdabdf7bf2a80c833e5a2e8019b220236ce467f"
+  },
+  {
+   "graph": "jiaozi",
+   "grammar": "name_resolution.cnf",
+   "run_grammar": "name_resolution.cnf",
+   "num_reachable_pairs": 14435,
+   "status": "ok",
+   "elapsed_sec": 1.57,
+   "peak_rss_kib": 435420,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 14435
+   },
+   "archive_sha256_before": "fa7d4fc0fc50b7cacee488861803e99a8e9be24dbb4780a7a2801b05a573f868",
+   "archive_sha256_after": "cada211c12a3e287aca5a7474598a8e16a9a8e03612df30b05715892e39f9d0b"
+  },
+  {
+   "graph": "junit5",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 129598,
+   "status": "ok",
+   "elapsed_sec": 1.06,
+   "peak_rss_kib": 165764,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 129598
+   },
+   "archive_sha256_before": "6fbda9f65638829218d374800368cb0d488731d50b115c0c76a6b23c1e1a3eda",
+   "archive_sha256_after": "033d0c1d395d86eb47ceb88368a590b25a61fd5bbd01be6eb9eee98877e5d01b"
+  },
+  {
+   "graph": "jython",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 561720,
+   "status": "ok",
+   "elapsed_sec": 1.36,
+   "peak_rss_kib": 218812,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 561720
+   },
+   "archive_sha256_before": "64a2460dcb23fd34173bc1d6726658ea216311f2d5d7f0525726934d0c5fae5f",
+   "archive_sha256_after": "5b77256849138a21296d12b156b302218e33ad1268869292539423ad0ab2072a"
+  },
+  {
+   "graph": "kernel",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 16747731,
+   "status": "ok",
+   "elapsed_sec": 17.44,
+   "peak_rss_kib": 3162756,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 16747731
+   },
+   "archive_sha256_before": "5519963394fb3164868e304f6fcddbd002a2c73ae2dc37cd9e972137e12c9a39",
+   "archive_sha256_after": "4de8773316ff098664865822cd801ba00bc2439ea1c43a6716be41906c0267cf"
+  },
+  {
+   "graph": "lib",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 5276303,
+   "status": "ok",
+   "elapsed_sec": 5.48,
+   "peak_rss_kib": 1047336,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 5276303
+   },
+   "archive_sha256_before": "6c3533d7e85b8523a3f4cadc5cc33fb7362f27a76f3a6390c0ee6e50c6810cdf",
+   "archive_sha256_after": "a230f38156d02c649f0292872d8760b7a91677b9713828794123f93662f04527"
+  },
+  {
+   "graph": "libgdx",
+   "grammar": "name_resolution.cnf",
+   "run_grammar": "name_resolution.cnf",
+   "num_reachable_pairs": null,
+   "status": "oom",
+   "elapsed_sec": 253.28,
+   "peak_rss_kib": 120346364,
+   "archive_sha256_before": "b924226a67f3ec482d6f0ba714e33e0c8d60c1e16c5846546b22577e07aa360a",
+   "archive_sha256_after": "b924226a67f3ec482d6f0ba714e33e0c8d60c1e16c5846546b22577e07aa360a"
+  },
+  {
+   "graph": "mm",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 3990305,
+   "status": "ok",
+   "elapsed_sec": 4.36,
+   "peak_rss_kib": 851948,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 3990305
+   },
+   "archive_sha256_before": "4b4415a4a1bf69c1f7ae5c5de1f88b0c4ae69cd928caf54ecbe41d046ed94e10",
+   "archive_sha256_after": "3e0c80f5430ce1c98c11fd7983407c354e302451e77b0bb9debdc1935b186f46"
+  },
+  {
+   "graph": "net",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 8833403,
+   "status": "ok",
+   "elapsed_sec": 7.7,
+   "peak_rss_kib": 1268808,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 8833403
+   },
+   "archive_sha256_before": "120f8988301316d9d4fd46e43b19409bc673468494e0f56070aaa97d01740cdf",
+   "archive_sha256_after": "54fb0062e22b0c40ee4e4ac0458ddcd9570df9fbb7eb9d13cbab69fd265cd73a"
+  },
+  {
+   "graph": "omnetpp",
+   "grammar": "aa.cnf",
+   "run_grammar": "aa.cnf",
+   "num_reachable_pairs": 8424500,
+   "status": "ok",
+   "elapsed_sec": 4.75,
+   "peak_rss_kib": 540960,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 8424500
+   },
+   "archive_sha256_before": "0a5375c0af81da52ce8d1d5ad43ef8ddcdd3c374b477f7e3e831a831ce2b4de8",
+   "archive_sha256_after": "2075832473f12807663ad94f77c1d134b025b81928874a529cc7616717a86881"
+  },
+  {
+   "graph": "omnetpp_field_sensitive_alias",
+   "grammar": "vf.cnf",
+   "run_grammar": "vf.cnf",
+   "num_reachable_pairs": 158255766,
+   "status": "ok",
+   "elapsed_sec": 72.68,
+   "peak_rss_kib": 5458016,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 158255766
+   },
+   "archive_sha256_before": "9df0819457b96841cb5f9719273dcceb2cd6ace9d1f6345cdb8892afa864801a",
+   "archive_sha256_after": "eafa7b5be5d94ddc64d607411890655aae879fe13a581a4eb1fa1a6037620b05"
+  },
+  {
+   "graph": "parest_field_sensitive_alias",
+   "grammar": "vf.cnf",
+   "run_grammar": "vf.cnf",
+   "num_reachable_pairs": 49415038,
+   "status": "ok",
+   "elapsed_sec": 17.45,
+   "peak_rss_kib": 1857152,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 49415038
+   },
+   "archive_sha256_before": "096ad30cb6a1ffca27e76db8cdece0017fe3fe65d9064b0a512eb66a9663a725",
+   "archive_sha256_after": "ca326743fc0b125e7fe280581a5c352770c39f4f166139901bab0d6a9499269c"
+  },
+  {
+   "graph": "perlbench",
+   "grammar": "aa.cnf",
+   "run_grammar": "aa.cnf",
+   "num_reachable_pairs": 297504186,
+   "status": "ok",
+   "elapsed_sec": 88.09,
+   "peak_rss_kib": 7772940,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 297504186
+   },
+   "archive_sha256_before": "1e9f4e7c8bc0edc50a62d3f115ceee269b1e22a1ac9bc08269956277f0675afa",
+   "archive_sha256_after": "8f096465eb048208db620956fd5e11f45c6b6b0efb8a160f2f30be217be07a39"
+  },
+  {
+   "graph": "perlbench_field_sensitive_alias",
+   "grammar": "vf.cnf",
+   "run_grammar": "vf.cnf",
+   "num_reachable_pairs": 851737865,
+   "status": "ok",
+   "elapsed_sec": 433.73,
+   "peak_rss_kib": 25103540,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 851737865
+   },
+   "archive_sha256_before": "182cd9b8971159d55381e07c8f906c02cdd8063d21846bcc35e8e75f0227722a",
+   "archive_sha256_after": "4081d52ef738e845cf2fc4e949287effaed3005620f03032dd44d61f59178c10"
+  },
+  {
+   "graph": "postgre",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 90661446,
+   "status": "ok",
+   "elapsed_sec": 36.68,
+   "peak_rss_kib": 3544312,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 90661446
+   },
+   "archive_sha256_before": "06da5e21eb732c7b4b45a8d981bad8333070511fe7ef079a7c3aff94699c6699",
+   "archive_sha256_after": "ed8b4d37a8e5c570cab11650231ecd205086f95de67bdaa77577755a8d0a88ce"
+  },
+  {
+   "graph": "povray",
+   "grammar": "aa.cnf",
+   "run_grammar": "aa.cnf",
+   "num_reachable_pairs": 34599413,
+   "status": "ok",
+   "elapsed_sec": 14.01,
+   "peak_rss_kib": 1247492,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 34599413
+   },
+   "archive_sha256_before": "97fc61e10255245b683a1f01fcd54e0b95309dd0302460151db31dd41c5bbf61",
+   "archive_sha256_after": "faa054181899c8119197b8fb433e1051f04ba98391761ae8ee6c83bd5fa272d4"
+  },
+  {
+   "graph": "povray_field_sensitive_alias",
+   "grammar": "vf.cnf",
+   "run_grammar": "vf.cnf",
+   "num_reachable_pairs": 27219043,
+   "status": "ok",
+   "elapsed_sec": 11.0,
+   "peak_rss_kib": 1259508,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 27219043
+   },
+   "archive_sha256_before": "b43cb61d59e2640891ca39f34181f4016b8e46f4c3a3613d7d674d1b69f7712c",
+   "archive_sha256_after": "d11ddbb97ac461631609583f6d620227b4aadb8e2943b13a32a3cd7c8ff6f70c"
+  },
+  {
+   "graph": "security",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 5593387,
+   "status": "ok",
+   "elapsed_sec": 5.68,
+   "peak_rss_kib": 1149492,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 5593387
+   },
+   "archive_sha256_before": "9518d111ffa147d9761a99559ab7fb283f931fa26842a14baeed42f2f082a479",
+   "archive_sha256_after": "9ef60323453d905276784f26b160e43455c875f73e1f907d6dbb6dda54fb91b1"
+  },
+  {
+   "graph": "shattered_pixel_dungeon",
+   "grammar": "name_resolution.cnf",
+   "run_grammar": "name_resolution.cnf",
+   "num_reachable_pairs": 971998,
+   "status": "ok",
+   "elapsed_sec": 97.44,
+   "peak_rss_kib": 46344952,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 971998
+   },
+   "archive_sha256_before": "7b1c0f1eef3781b0616321128300257850968d2a728d306c1bf623eca498c614",
+   "archive_sha256_after": "a1a6d38e9de79d1d9cb65f0364febc9e79f23c56893b0751b62f2f902d9defd2"
+  },
+  {
+   "graph": "sound",
+   "grammar": "c_alias.cnf",
+   "run_grammar": "c_alias_muravev2024.cnf",
+   "num_reachable_pairs": 6085269,
+   "status": "ok",
+   "elapsed_sec": 6.17,
+   "peak_rss_kib": 1138676,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 6085269
+   },
+   "archive_sha256_before": "4507f79c9d07d3cbab273280241e6f9033a0dc625d154e57d2c5e06665bea2da",
+   "archive_sha256_after": "f3d1e1afba4a878ff62b37935ed86a35acd8b9e10ffe1ab2e2be11eddc069a2d"
+  },
+  {
+   "graph": "taxonomy",
+   "grammar": "nested_parentheses_subClassOf.cnf",
+   "run_grammar": "nested_parentheses_subClassOf.cnf",
+   "num_reachable_pairs": 151703,
+   "status": "ok",
+   "elapsed_sec": 9.96,
+   "peak_rss_kib": 2342828,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 151703
+   },
+   "archive_sha256_before": "6b8263396e7303307aa7f64070f69fa65eac49551755ca7ab4841e33a40e42cf",
+   "archive_sha256_after": "0d168f3c76983b6a20bc3b732087aba08b92923140a93e2a6fec2a69b88874c9"
+  },
+  {
+   "graph": "taxonomy",
+   "grammar": "nested_parentheses_subClassOf_type.cnf",
+   "run_grammar": "nested_parentheses_subClassOf_type.cnf",
+   "num_reachable_pairs": 151706,
+   "status": "ok",
+   "elapsed_sec": 9.83,
+   "peak_rss_kib": 2343524,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 151706
+   },
+   "archive_sha256_before": "6b8263396e7303307aa7f64070f69fa65eac49551755ca7ab4841e33a40e42cf",
+   "archive_sha256_after": "0d168f3c76983b6a20bc3b732087aba08b92923140a93e2a6fec2a69b88874c9"
+  },
+  {
+   "graph": "taxonomy",
+   "grammar": "nested_parentheses_type.cnf",
+   "run_grammar": "nested_parentheses_type.cnf",
+   "num_reachable_pairs": 4,
+   "status": "ok",
+   "elapsed_sec": 9.78,
+   "peak_rss_kib": 2343060,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 4
+   },
+   "archive_sha256_before": "6b8263396e7303307aa7f64070f69fa65eac49551755ca7ab4841e33a40e42cf",
+   "archive_sha256_after": "0d168f3c76983b6a20bc3b732087aba08b92923140a93e2a6fec2a69b88874c9"
+  },
+  {
+   "graph": "taxonomy_hierarchy",
+   "grammar": "nested_parentheses_subClassOf.cnf",
+   "run_grammar": "nested_parentheses_subClassOf.cnf",
+   "num_reachable_pairs": 5351657,
+   "status": "ok",
+   "elapsed_sec": 22.57,
+   "peak_rss_kib": 5160468,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 5351657
+   },
+   "archive_sha256_before": "96b727397362401744d979893daf13c72bda61ed779a9aca6c0f606df841c290",
+   "archive_sha256_after": "ce2d82787eee5e04fffe392f4bf396fb4470a01d59fb20ad42f24f31b99c6bf9"
+  },
+  {
+   "graph": "taxonomy_hierarchy",
+   "grammar": "nested_parentheses_subClassOf_type.cnf",
+   "run_grammar": "nested_parentheses_subClassOf_type.cnf",
+   "num_reachable_pairs": 5351657,
+   "status": "ok",
+   "elapsed_sec": 22.6,
+   "peak_rss_kib": 5166332,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 5351657
+   },
+   "archive_sha256_before": "96b727397362401744d979893daf13c72bda61ed779a9aca6c0f606df841c290",
+   "archive_sha256_after": "ce2d82787eee5e04fffe392f4bf396fb4470a01d59fb20ad42f24f31b99c6bf9"
+  },
+  {
+   "graph": "taxonomy_hierarchy",
+   "grammar": "nested_parentheses_type.cnf",
+   "run_grammar": "nested_parentheses_type.cnf",
+   "num_reachable_pairs": 0,
+   "status": "ok",
+   "elapsed_sec": 19.83,
+   "peak_rss_kib": 5165528,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 0
+   },
+   "archive_sha256_before": "96b727397362401744d979893daf13c72bda61ed779a9aca6c0f606df841c290",
+   "archive_sha256_after": "ce2d82787eee5e04fffe392f4bf396fb4470a01d59fb20ad42f24f31b99c6bf9"
+  },
+  {
+   "graph": "tomcat",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 82424,
+   "status": "ok",
+   "elapsed_sec": 0.94,
+   "peak_rss_kib": 178556,
+   "verification": {
+    "source": "user-confirmed fresh run (issue #130)",
+    "value": 82424,
+    "note": "the stale reference_answers.csv value 3792543 predates the dataset refresh and was superseded"
+   },
+   "archive_sha256_before": "f033a92d0ebeb0ff6f6fbbcadda5b2ac8cb73d36299d4781b2f63cf816b77c89",
+   "archive_sha256_after": "f0afc1d553e134883623a5413c20504fb5fd1e6528e446571e57c0b623882d46"
+  },
+  {
+   "graph": "tradebeans",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 696316,
+   "status": "ok",
+   "elapsed_sec": 1.7,
+   "peak_rss_kib": 283052,
+   "verification": {
+    "source": "user-confirmed fresh run (issue #130)",
+    "value": 696316,
+    "note": "the stale reference_answers.csv value 34370090 predates the dataset refresh and was superseded"
+   },
+   "archive_sha256_before": "128212712d7455dfd4e1ed09712115244d18219ce980f16e4499194eac32f1f6",
+   "archive_sha256_after": "c81d3ba74d8c09fb4f304ef3abc7732840f4fb8e589d9de0e3d0988c7ab3ac43"
+  },
+  {
+   "graph": "tradesoap",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 698567,
+   "status": "ok",
+   "elapsed_sec": 1.7,
+   "peak_rss_kib": 283968,
+   "verification": {
+    "source": "user-confirmed fresh run (issue #130)",
+    "value": 698567,
+    "note": "the stale reference_answers.csv value 34451130 predates the dataset refresh and was superseded"
+   },
+   "archive_sha256_before": "28cee1551fa4215d9583e25600075e8f936f78c749a287d46368f648b3ec4dd5",
+   "archive_sha256_after": "b2a1f5fd81c4c5c3a7ca4ef977ff782f648e997464a9ccfc40fc96cb9e8aca01"
+  },
+  {
+   "graph": "unigraph_10",
+   "grammar": "unigraph_10.cnf",
+   "run_grammar": "unigraph_1_sparse.cnf",
+   "num_reachable_pairs": null,
+   "status": "error(rc=1):graphblas.exceptions.OutOfMemory",
+   "elapsed_sec": 60.4,
+   "peak_rss_kib": 66289612,
+   "archive_sha256_before": "0dc4ba028f50a6805fa97b8f2f5c148c103cd98213ba855fcf1f7a77594768c1",
+   "archive_sha256_after": "0dc4ba028f50a6805fa97b8f2f5c148c103cd98213ba855fcf1f7a77594768c1"
+  },
+  {
+   "graph": "unigraph_2",
+   "grammar": "unigraph_2.cnf",
+   "run_grammar": "unigraph_1_sparse.cnf",
+   "num_reachable_pairs": 39888347,
+   "status": "ok",
+   "elapsed_sec": 22.54,
+   "peak_rss_kib": 2020556,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 39888347
+   },
+   "archive_sha256_before": "50e33ce400e074035a4fd52f0c58672e63334d649d0b7989d09e9d33367b7bdf",
+   "archive_sha256_after": "7d3a6beb667511a455683bd8bea4b26058e743b332bf2f2980e3f1c87879e81f"
+  },
+  {
+   "graph": "unigraph_3",
+   "grammar": "unigraph_3.cnf",
+   "run_grammar": "unigraph_1_sparse.cnf",
+   "num_reachable_pairs": 52471840,
+   "status": "ok",
+   "elapsed_sec": 31.43,
+   "peak_rss_kib": 2506280,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 52471840
+   },
+   "archive_sha256_before": "1623dd324af7a76115752fb69ba6b153106782ce0f6cfffb09d83631078a0c07",
+   "archive_sha256_after": "9f2b13946cae3106b2b0660ce0318f75227b0ee606e0822e700e29eb19458250"
+  },
+  {
+   "graph": "unigraph_4",
+   "grammar": "unigraph_4.cnf",
+   "run_grammar": "unigraph_1_sparse.cnf",
+   "num_reachable_pairs": 808091802,
+   "status": "ok",
+   "elapsed_sec": 3636.33,
+   "peak_rss_kib": 42600188,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 808091802
+   },
+   "archive_sha256_before": "66e4d7515f09510be121529bec0aa9143819eeea4b618d6e0bf347bc08f7a5ed",
+   "archive_sha256_after": "bd5711927a061966870e6588b6a099623b77f5a7e495ad65e81b2d2409305718"
+  },
+  {
+   "graph": "unigraph_5",
+   "grammar": "unigraph_5.cnf",
+   "run_grammar": "unigraph_1_sparse.cnf",
+   "num_reachable_pairs": 2303590109,
+   "status": "ok",
+   "elapsed_sec": 11355.97,
+   "peak_rss_kib": 100470080,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 2303590109
+   },
+   "archive_sha256_before": "fce8f45a8c9d3e626dbef3212091690079be5bc61a2cace1d5a457909e47ede6",
+   "archive_sha256_after": "f05230b1891fbef2ee73121edf11881b6cd1639763ef14174fac0fa715ca18f5"
+  },
+  {
+   "graph": "unigraph_6",
+   "grammar": "unigraph_6.cnf",
+   "run_grammar": "unigraph_1_sparse.cnf",
+   "num_reachable_pairs": 1722963921,
+   "status": "ok",
+   "elapsed_sec": 9803.4,
+   "peak_rss_kib": 76834008,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 1722963921
+   },
+   "archive_sha256_before": "fde0b70f867cc1e3f9be2c3bb290b51a17a01a05add36c8b3f5ff943210f05cd",
+   "archive_sha256_after": "6618253b59a75d6546750f42522815e414e9c05aaa5ff4bd6966535fcfb66abe"
+  },
+  {
+   "graph": "unigraph_7",
+   "grammar": "unigraph_7.cnf",
+   "run_grammar": "unigraph_1_sparse.cnf",
+   "num_reachable_pairs": 2320964134,
+   "status": "ok",
+   "elapsed_sec": 16855.25,
+   "peak_rss_kib": 105448232,
+   "verification": {
+    "source": "temporal_cfpq/results/reference_answers.csv",
+    "value": 2320964134
+   },
+   "archive_sha256_before": "ea41f82cc13b7df0eb1bbf226d171e37a007dac075b62fcb340fe73a8a54bbc0",
+   "archive_sha256_after": "6e04a6a75adf9863c3d6d1c0373a77274d9264c56f7393784c0566ae2ac8217e"
+  },
+  {
+   "graph": "unigraph_8",
+   "grammar": "unigraph_8.cnf",
+   "run_grammar": "unigraph_1_sparse.cnf",
+   "num_reachable_pairs": null,
+   "status": "oom",
+   "elapsed_sec": 16419.38,
+   "peak_rss_kib": 120406780,
+   "archive_sha256_before": "2f7f866f1244e878bc2e4f1aa53c0c10833beeca4a4cb734d7fa325f317548ff",
+   "archive_sha256_after": "2f7f866f1244e878bc2e4f1aa53c0c10833beeca4a4cb734d7fa325f317548ff"
+  },
+  {
+   "graph": "unigraph_9",
+   "grammar": "unigraph_9.cnf",
+   "run_grammar": "unigraph_1_sparse.cnf",
+   "num_reachable_pairs": null,
+   "status": "oom",
+   "elapsed_sec": 19119.09,
+   "peak_rss_kib": 120346300,
+   "archive_sha256_before": "8d24a389b49b77034c777d92b62cc100d1d86ab2f208c12e9ce7c1901c85a966",
+   "archive_sha256_after": "8d24a389b49b77034c777d92b62cc100d1d86ab2f208c12e9ce7c1901c85a966"
+  },
+  {
+   "graph": "xalan",
+   "grammar": "java_points_to.cnf",
+   "run_grammar": "java_points_to_muravev2024.cnf",
+   "num_reachable_pairs": 52382,
+   "status": "ok",
+   "elapsed_sec": 0.95,
+   "peak_rss_kib": 162740,
+   "verification": {
+    "source": "user-confirmed fresh run (issue #130)",
+    "value": 52382,
+    "note": "the stale reference_answers.csv value 1138776 predates the dataset refresh and was superseded"
+   },
+   "archive_sha256_before": "ca953219f9c1278b60f37ccb8078039dd6cbc7c7859134812ce5965f5642b58b",
+   "archive_sha256_after": "32ea05b91203d262cac9a4312dc85d21dd53b03a03a5b196c16922d3afaa4be3"
+  }
+ ]
+}

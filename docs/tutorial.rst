@@ -1,6 +1,6 @@
 .. _tutorial:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 Tutorial
 ========
@@ -10,7 +10,7 @@ Tutorial
    :Release: |release|
    :Date: |today|
 
-This guide can help you start working with CFPQ_Data.
+This guide can help you start working with FLPQ_Data.
 
 **You can download this tutorial as a Jupyter Notebook from the link at the end of the page.**
 
@@ -36,7 +36,7 @@ First you need to import the package.
 
 .. nbplot::
 
-   import cfpq_data
+   import flpq_data
 
 Load graph
 ----------
@@ -46,11 +46,11 @@ After the package is imported, we can load the graphs.
 Load graph archive from Dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the archive with the graph using function :obj:`download <cfpq_data.dataset.download>`.
+We can load the archive with the graph using function :obj:`graph_dir <flpq_data.dataset.graph_dir>`: it returns the local directory of the graph and downloads it into the machine-global cache only when it is not there yet.
 
 .. nbplot::
 
-   bzip_path = cfpq_data.download("bzip")
+   bzip_path = flpq_data.graph_dir("bzip")
 
 Load graph by path
 ^^^^^^^^^^^^^^^^^^
@@ -58,11 +58,11 @@ Load graph by path
 The archive unpacks to a directory with one MatrixMarket file per edge
 label in its ``graph`` subdirectory (see :ref:`graph_file_structure`). We
 can load the graph along the specified path using function
-:obj:`graph_from_mtx_dir <cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
+:obj:`graph_from_mtx_dir <flpq_data.graphs.readwrite.mtx.graph_from_mtx_dir>`.
 
 .. nbplot::
 
-   bzip = cfpq_data.graph_from_mtx_dir(bzip_path / "graph")
+   bzip = flpq_data.graph_from_mtx_dir(bzip_path / "graph")
 
 Create graph
 ------------
@@ -76,54 +76,80 @@ For example, let's create a one cycle graph, with 5 nodes, the edges of which ar
 
 .. nbplot::
 
-    cycle = cfpq_data.labeled_cycle_graph(5, label="a")
+    cycle = flpq_data.labeled_cycle_graph(5, label="a")
 
 Change edges
 ------------
 
-We can change the specified graph labels by using function :obj:`change_edges <cfpq_data.graphs.utils.change_edges>`
+We can change the specified graph labels by using function :obj:`change_edges <flpq_data.graphs.utils.change_edges>`
 from :ref:`graphs_utils`.
 
 .. nbplot::
 
-    new_cycle = cfpq_data.change_edges(cycle, {"a": "b"})
+    new_cycle = flpq_data.change_edges(cycle, {"a": "b"})
 
 Now the labels ``a`` have changed to ``b``.
 
 Add reverse edges
 -----------------
 
-In addition, we can add reverse edges to the graph by using function :obj:`add_reverse_edges <cfpq_data.graphs.utils.add_reverse_edges>`
+In addition, we can add reverse edges to the graph by using function :obj:`add_reverse_edges <flpq_data.graphs.utils.add_reverse_edges>`
 from :ref:`graphs_utils`. This is extremely useful if graph analysis is formulated using such reverse edges.
 
 .. nbplot::
 
-    new_cycle_with_reversed = cfpq_data.add_reverse_edges(new_cycle)
+    new_cycle_with_reversed = flpq_data.add_reverse_edges(new_cycle)
 
 Now, for each edge with label ``a`` this graph contains the reversed edge with label ``a_r``.
+
+Convert graph format
+--------------------
+
+Graphs can be converted between the supported formats — ``mtx`` (a directory
+of MatrixMarket files), ``txt``, ``rdf``, and the FastMatrixCFPQ ``.g`` text
+— with function :obj:`convert_graph <flpq_data.graphs.converters.convert_graph>`:
+the conversion runs over a streaming edge iterator without building an
+in-memory graph, so even large archives convert in constant memory (see the
+:ref:`graph_format_conversion` section).
+
+.. nbplot::
+
+    txt_path = flpq_data.convert_graph(
+        bzip_path / "graph", "bzip.txt", src_format="mtx", dst_format="txt"
+    )
 
 Load grammar
 ------------
 
-Also, we can load the grammars generated from grammar templates that are described on the :ref:`grammar_templates` page.
+Graph archives from the dataset are self-contained: besides the graph they carry the
+queries that apply to the graph under ``queries/`` — one directory per query with its
+grammar template and a precomputed ``results.mtx`` (see :ref:`graph_file_structure`).
+The grammar templates themselves are described in the :ref:`CFPQ section <cfpq_queries>`.
 
-Load grammars archive from Dataset
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-We can load the archive with the grammars for the specified template using function :obj:`download_grammars <cfpq_data.dataset.download_grammars>`.
-
-.. nbplot::
-
-   c_alias_path = cfpq_data.download_grammars("c_alias")
-
-Load grammars archive for specified graph
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-For some grammar templates we also can load the archive with the grammars for specific graphs.
+A grammar template may use indexed symbols (e.g. ``load_i``); we materialize it over a
+concrete graph with functions :obj:`cnf_template_from_text <flpq_data.queries.cfpq.readwrite.cnf_template.cnf_template_from_text>`
+and :obj:`materialize <flpq_data.queries.cfpq.readwrite.cnf_template.materialize>`,
+which expand every index present in the graph edge labels:
 
 .. nbplot::
 
-   java_pt_avrora_path = cfpq_data.download_grammars("java_points_to", graph_name="avrora")
+    import networkx as nx
+    g = nx.MultiDiGraph()
+    _ = g.add_edges_from(
+        [(0, 1, {"label": "load_0"}), (1, 2, {"label": "store_0"}),
+         (0, 3, {"label": "alloc"})]
+    )
+    text = ("PT\tPTh\talloc\n"
+            "PT\talloc\n"
+            "PTh\tload_i\tAl_st_PTh_i\n"
+            "Al_st_PTh_i\tAl\tst_PTh_i\n"
+            "st_PTh_i\tstore_i\tPTh\n"
+            "Al\tPT\n"
+            "\n"
+            "Count:\n"
+            "PT")
+    template = flpq_data.cnf_template_from_text(text)
+    cfg = flpq_data.materialize(template, g)
 
 Regular grammars
 ----------------
@@ -135,21 +161,21 @@ Currently, we have one representation of regular grammars:
 Create a regular expression
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For example, a regular expression can be created by using function :obj:`regex_from_text <cfpq_data.grammars.readwrite.regex.regex_from_text>`
-from :ref:`grammars_readwrite`.
+For example, a regular expression can be created by using function :obj:`regex_from_text <flpq_data.queries.rpq.readwrite.regex.regex_from_text>`
+from :ref:`cfpq_readwrite`.
 
 .. nbplot::
 
-    regex = cfpq_data.regex_from_text("a (bc|d*)")
+    regex = flpq_data.regex_from_text("a (bc|d*)")
 
 Load regular expression by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the regular expression along the specified path using function :obj:`regex_from_txt <cfpq_data.grammars.readwrite.regex.regex_from_txt>`.
+We can load the regular expression along the specified path using function :obj:`regex_from_txt <flpq_data.queries.rpq.readwrite.regex.regex_from_txt>`.
 
 .. nbplot::
-   path = cfpq_data.regex_to_txt(regex, "test.txt")
-   regex_by_path = cfpq_data.regex_from_txt(path)
+   path = flpq_data.regex_to_txt(regex, "test.txt")
+   regex_by_path = flpq_data.regex_from_txt(path)
 
 Сontext-free grammars
 ---------------------
@@ -163,26 +189,26 @@ Currently, we have three representations of context-free grammars (CFGs):
 Create a classic context-free grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A classic context-free grammar can be created by using function :obj:`cfg_from_text <cfpq_data.grammars.readwrite.cfg.cfg_from_text>`
-from :ref:`grammars_readwrite`.
+A classic context-free grammar can be created by using function :obj:`cfg_from_text <flpq_data.queries.cfpq.readwrite.cfg.cfg_from_text>`
+from :ref:`cfpq_readwrite`.
 
 .. nbplot::
 
-    cfg = cfpq_data.cfg_from_text("S -> a S b S | a b")
+    cfg = flpq_data.cfg_from_text("S -> a S b S | a b")
 
 Load context-free grammar by path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We can load the classic context-free grammar along the specified path using function :obj:`cfg_from_txt <cfpq_data.grammars.readwrite.cfg.cfg_from_txt>`.
+We can load the classic context-free grammar along the specified path using function :obj:`cfg_from_txt <flpq_data.queries.cfpq.readwrite.cfg.cfg_from_txt>`.
 
 .. nbplot::
-   path = cfpq_data.cfg_to_txt(cfg, "test.txt")
-   cfg_by_path = cfpq_data.cfg_from_txt(path)
+   path = flpq_data.cfg_to_txt(cfg, "test.txt")
+   cfg_by_path = flpq_data.cfg_from_txt(path)
 
 Generate grammar
 ----------------
 
-We can also generate a grammar for specified template using one of the generators in module :ref:`grammars_generators`.
+We can also generate a grammar for specified template using one of the generators in module :ref:`cfpq_generators`.
 
 Generate a Dyck grammar
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -191,7 +217,7 @@ For example, let's generate a :ref:`dyck` grammar of the balanced strings with `
 
 .. nbplot::
 
-    dyck_cfg = cfpq_data.dyck_grammar([("a", "b")], eps=False)
+    dyck_cfg = flpq_data.dyck_grammar([("a", "b")], eps=False)
 
 Generate a Java Points-to grammar
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -200,42 +226,6 @@ Also, let's generate a :ref:`java_points-to` grammar for the field-sensitive ana
 
 .. nbplot::
 
-    java_pt_cfg = cfpq_data.java_points_to_grammar(["f0", "f1"])
+    java_pt_cfg = flpq_data.java_points_to_grammar(["f0", "f1"])
 
-Benchmarks
-----------
-
-In addition, one of the prepared benchmarks that contains graphs, queries, other input data, and results for
-a particular formal-language-constrained path querying problem can be downloaded.
-
-Currently, we provide the following benchmarks documented on the :ref:`benchmarks` page:
-
-1. :ref:`msreachability`
-
-Load benchmark archive
-^^^^^^^^^^^^^^^^^^^^^^
-
-You can load the archive with the benchmark using function :obj:`download_benchmark <cfpq_data.dataset.download_benchmark>`.
-
-.. nbplot::
-
-   ms_reachability_path = cfpq_data.download_benchmark("MS_Reachability")
-
-MS_Reachability benchmark
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-MS_Reachability benchmark can be used for the experimental study of the algorithms that solve the multiple-source
-formal-language-constrained reachability problem. This benchmark is described on the :ref:`msreachability` page.
-
-For this benchmark we provide some useful functions from
-:ref:`graphs_utils`.
-For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
-functions :obj:`multiple_source_from_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt>` and
-:obj:`multiple_source_to_txt <cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt>`.
-
-.. nbplot::
-
-    s = {1, 2, 5, 10}
-    path = cfpq_data.multiple_source_to_txt(s, "test.txt")
-    source_vertices = cfpq_data.multiple_source_from_txt(path)
 .. code-links::

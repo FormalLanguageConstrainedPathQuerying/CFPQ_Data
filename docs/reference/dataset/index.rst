@@ -1,6 +1,6 @@
 .. _dataset:
 
-.. currentmodule:: cfpq_data
+.. currentmodule:: flpq_data
 
 *****************
 Dataset utilities
@@ -11,13 +11,21 @@ Dataset utilities
    :Release: |release|
    :Date: |today|
 
-.. automodule:: cfpq_data.dataset
+.. automodule:: flpq_data.dataset
 .. autosummary::
    :toctree: generated/
 
-   download
-   download_grammars
-   download_benchmark
-   DATASET
-   BENCHMARKS
-   GRAMMAR_TEMPLATES
+    cached_versions
+    cache_root
+    categories
+    clear_cache
+    download_graph
+    download_reachable_pairs
+    graph_dir
+    graph_info
+    graph_names
+    reachable_pairs
+    version_dir
+
+.. autoclass:: GraphInfo
+.. autoclass:: QueryInfo

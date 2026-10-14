@@ -11,30 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v7
+      - name: Set up uv with Python ${{ matrix.python-version }}
+        uses: astral-sh/setup-uv@v10.1.0
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Poetry
-        run: |
-          pip install poetry
-
-      - name: Install dependencies with Poetry
-        run: |
-          poetry install --no-interaction --no-ansi --with dev,test
+      # Why these flags: see "Development setup" in docs/developer.rst.
+      - name: Install dependencies with uv
+        run: uv sync --frozen --all-groups
 
       - name: Show installed packages
-        run: poetry show
+        run: uv tree
 
-      - name: Install packages
-        run: |
-          python -m pip install .
-
-
-      - name: Test CFPQ_Data with coverage
-        run: |
-          poetry run pytest --cov=cfpq_data --doctest-modules -vv -s cfpq_data tests
+      # Per-metric gate rationale: see "Test pipeline" in docs/developer.rst.
+      # term-missing keeps the uncovered lines in the CI log.
+      - name: Test FLPQ_Data with coverage (line and branch >= 95%)
+        run: uv run pytest --cov=flpq_data --cov-report=term-missing --cov-report=json && uv run python utils/check_coverage.py
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v7

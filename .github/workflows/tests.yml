@@ -16,26 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v7
+      - name: Set up uv with Python ${{ matrix.python-version }}
+        uses: astral-sh/setup-uv@v10.1.0
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Poetry
-        run: |
-          pip install poetry
-
-      - name: Install dependencies with Poetry
-        run: |
-          poetry install --no-interaction --no-ansi --with dev,test
+      # Why these flags: see "Development setup" in docs/developer.rst.
+      - name: Install dependencies with uv
+        run: uv sync --frozen --all-groups
 
       - name: Show installed packages
-        run: poetry show
+        run: uv tree
 
-      - name: Install packages
-        run: |
-          python -m pip install .
-
-      - name: Test CFPQ_Data
-        run: |
-          poetry run pytest --doctest-modules -vv -s cfpq_data tests
+      - name: Test FLPQ_Data
+        run: uv run pytest

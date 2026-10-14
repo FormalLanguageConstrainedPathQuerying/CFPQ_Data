@@ -13,17 +13,17 @@ the project's single-source-of-truth principle.
 
 Run through these before creating new material:
 
-- [ ] **Package code** — search `cfpq_data/` for an existing function or type
+- [ ] **Package code** — search `flpq_data/` for an existing function or type
       that already does (or nearly does) the job. Prefer generalizing the
       existing one over adding a near-copy.
 - [ ] **Graph types** — graphs are `networkx.MultiDiGraph`; use NetworkX
       built-ins (`nx.from_pandas_edgelist`, generators, `nx.MultiDiGraph`) and
-      the existing `cfpq_data.graphs` helpers instead of reimplementing.
+      the existing `flpq_data.graphs` helpers instead of reimplementing.
 - [ ] **Grammar types** — grammars are `pyformlang` `CFG` / `CNF` / `RSA` /
-      `Regex`; use pyformlang APIs and existing `cfpq_data.grammars` converters
+      `Regex`; use pyformlang APIs and existing `flpq_data.queries.cfpq` converters
       instead of reimplementing.
-- [ ] **Generators** — check `cfpq_data/graphs/generators` and
-      `cfpq_data/grammars/generators` for an existing template before adding a
+- [ ] **Generators** — check `flpq_data/graphs/generators` and
+      `flpq_data/queries/cfpq/generators` for an existing template before adding a
       new one.
 - [ ] **Readwrite** — check `readwrite` modules for an existing
       `*_from_text`/`*_to_text` pair before adding new serialization.

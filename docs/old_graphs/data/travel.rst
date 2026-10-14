@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - travel
-   * - Version
-     - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/travel.tar.gz>`_
 

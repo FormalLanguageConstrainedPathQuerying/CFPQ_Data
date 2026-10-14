@@ -1,7 +1,7 @@
 License
 =======
 
-CFPQ_Data is distributed with the Apache-2.0 License.
+FLPQ_Data is distributed with the Apache-2.0 License.
 
 ::
 

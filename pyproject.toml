@@ -1,50 +1,109 @@
-[tool.poetry]
-authors = [
-  "Vadim Abzalov vadim.i.abzalov@gmail.com",
-  "Nikita Kovalev Nikitoskova123@gmail.com",
-]
-description = "Python package containing Graphs and Grammars for experimental analysis of Context-Free Path Querying algorithms"
-name = "cfpq_data"
-package-mode = false
-version = "5.0.0"
+[project]
+name = "flpq-data"
+version = "6.0.0"
+description = "Python package containing Graphs and Grammars for experimental analysis of Formal Language constrained Path Querying algorithms"
+readme = "README.rst"
 license = "Apache-2.0 AND CC-BY-4.0"
+authors = [
+  { name = "Vadim Abzalov", email = "vadim.i.abzalov@gmail.com" },
+  { name = "Nikita Kovalev", email = "Nikitoskova123@gmail.com" },
+]
+requires-python = ">=3.11,<3.14"
+keywords = ["graphs", "grammars", "formal-language", "path-query", "flpq-data"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Education",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: MacOS",
+  "Operating System :: Unix",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = [
+  "networkx>=3.6.1,<4.0.0",
+  "rdflib>=7.5.0,<8.0.0",
+  "requests>=2.32.5,<3.0.0",
+  "pyformlang==1.0.1",
+  "lark>=1.3.1,<2.0.0",
+  "platformdirs>=4.12.3,<5.0.0",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.11,<3.14"
-networkx = "^3.6.1"
-pandas = ">=2.3.3,<4.0.0"
-rdflib = "^7.5.0"
-requests = "^2.32.5"
-pyformlang = "1.0.1"
+[project.urls]
+Documentation = "https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data"
+"Source Code" = "https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data"
+"Bug Tracker" = "https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/issues"
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^9.0.2"
-black = ">=25.12,<27.0"
-pre-commit = "^4.5.1"
-boto3 = "^1.43.86"
+[dependency-groups]
+dev = [
+  "boto3>=1.43.86,<2.0.0",
+  "pre-commit>=4.5.1,<5.0.0",
+  "pyright>=1.1.414",
+  "ruff>=0.16.7,<0.17",
+  "ty>=0.0.81,<0.1",
+]
+test = [
+  "pytest>=9.0.2,<10.0.0",
+  "pytest-cov>=7.0.0,<8.0.0",
+]
+docs = [
+  "ipykernel>=7.1.0,<8.0.0",
+  "jupyter-client>=8.7.0,<9.0.0",
+  "nb2plots>=0.7.2,<0.8.0",
+  "numpydoc>=1.10.0,<2.0.0",
+  "pydata-sphinx-theme>=0.16.1,<0.22.0",
+  "sphinx>=9.0.4,<10.0.0",
+  "sphinx-copybutton>=0.5.2,<0.6.0",
+]
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.group.test.dependencies]
-codecov = "^2.1.13"
-pytest = "^9.0.2"
-pytest-cov = "^7.0.0"
+[tool.hatch.build.targets.wheel]
+packages = ["flpq_data"]
 
-[tool.poetry.group.docs.dependencies]
-nb2plots = "^0.7.2"
-numpydoc = "^1.10.0"
-pydata-sphinx-theme = ">=0.16.1,<0.22.0"
-sphinx = "^9.0.4"
-sphinx-copybutton = "^0.5.2"
-ipykernel = "^7.1.0"
-jupyter-client = "^8.7.0"
+[tool.hatch.build.targets.sdist]
+include = [
+  "flpq_data",
+  "README.rst",
+  "LICENSE.txt",
+  "LICENSE-DATA.txt",
+]
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F403", "F405"]
+"docs/conf.py" = ["E402"]
+"tests/utils/conftest.py" = ["E402"]
+
+[tool.ty.environment]
+extra-paths = ["utils"]
+
+[tool.pyright]
+pythonVersion = "3.11"
+extraPaths = ["utils"]
+# Local scratch/working directory (gitignored), not part of the package.
+exclude = ["temporal_cfpq"]
+
+[tool.coverage.run]
+# Branch coverage is always on so the line+branch gate (utils/check_coverage.py)
+# sees both metrics in every report.
+branch = true
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules -vv -s"
-testpaths = ["cfpq_data", "tests"]
-
-[build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
-build-backend = "setuptools.build_meta"
+testpaths = ["flpq_data", "tests"]

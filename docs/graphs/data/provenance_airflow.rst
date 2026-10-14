@@ -15,10 +15,8 @@ Info
      -
    * - Full Name
      - airflow
-   * - Version
-     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/airflow.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/airflow.tar.gz>`_
    * - Source
      - `airflow <https://github.com/apache/airflow>`_
 
@@ -71,5 +69,3 @@ Edges Statistics
      - 42997
    * - wasAttributedTo_r
      - 42997
-
-.. include:: grammar_data_provenance.inc

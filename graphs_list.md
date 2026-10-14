@@ -1,6 +1,6 @@
 # Graph List
 
-All 113 graphs in the CFPQ dataset, grouped by source area.
+All 113 graphs in the FLPQ dataset, grouped by source area.
 
 | Source area | Graphs |
 |---|---:|

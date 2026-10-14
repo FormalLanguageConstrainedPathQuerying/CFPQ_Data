@@ -15,10 +15,8 @@ Info
      -
    * - Full Name
      - parest
-   * - Version
-     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/parest.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/parest.tar.gz>`_
 
 
 Graph Statistics
@@ -47,5 +45,3 @@ Edges Statistics
      - 4301
    * - :math:`ret_i`
      - 2291
-
-.. include:: grammar_cpu17_context_sensitive_data_flow.inc

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check that the package version is consistent across its sources.
 
-The canonical version lives in ``cfpq_data/config.py`` (``VERSION``);
+The canonical version lives in ``flpq_data/config.py`` (``VERSION``);
 ``pyproject.toml`` must declare the same value. This tool exits non-zero on a
 mismatch so it can be wired into pre-commit and CI.
 
@@ -24,11 +24,11 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 
 def config_version() -> str:
-    """Returns the ``VERSION`` declared in ``cfpq_data/config.py``."""
-    text = (ROOT / "cfpq_data" / "config.py").read_text(encoding="utf-8")
+    """Returns the ``VERSION`` declared in ``flpq_data/config.py``."""
+    text = (ROOT / "flpq_data" / "config.py").read_text(encoding="utf-8")
     match = re.search(r'^VERSION\s*=\s*["\']([^"\']+)["\']', text, re.MULTILINE)
     if not match:
-        raise ValueError("Could not find VERSION in cfpq_data/config.py")
+        raise ValueError("Could not find VERSION in flpq_data/config.py")
     return match.group(1)
 
 

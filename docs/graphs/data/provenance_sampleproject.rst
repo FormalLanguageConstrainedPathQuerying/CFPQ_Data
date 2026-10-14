@@ -15,10 +15,8 @@ Info
      -
    * - Full Name
      - sampleproject
-   * - Version
-     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/sampleproject.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/sampleproject.tar.gz>`_
    * - Source
      - `sampleproject <https://github.com/pypa/sampleproject>`_
 
@@ -71,5 +69,3 @@ Edges Statistics
      - 64
    * - wasAttributedTo_r
      - 64
-
-.. include:: grammar_data_provenance.inc

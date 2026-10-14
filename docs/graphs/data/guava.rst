@@ -15,10 +15,8 @@ Info
      -
    * - Full Name
      - guava
-   * - Version
-     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/guava.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/guava.tar.gz>`_
    * - Source
      - `guava homepage <https://guava.dev/>`_
 
@@ -32,7 +30,7 @@ Graph Statistics
    * - Num Nodes
      - Num Edges
    * - 129562
-     - 336232
+     - 168116
 
 
 Edges Statistics
@@ -45,19 +43,9 @@ Edges Statistics
      - Num Edge Label
    * - :math:`\textit{alloc}`
      - 4346
-   * - :math:`\overline{\textit{alloc}}`
-     - 4346
    * - :math:`\textit{assign}`
-     - 143683
-   * - :math:`\overline{\textit{assign}}`
      - 143683
    * - :math:`\textit{load}_i`
      - 12981
-   * - :math:`\overline{\textit{load}_i}`
-     - 12981
    * - :math:`\textit{store}_i`
      - 7106
-   * - :math:`\overline{\textit{store}_i}`
-     - 7106
-
-.. include:: grammar_java_points_to.inc

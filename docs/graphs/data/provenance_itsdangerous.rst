@@ -15,10 +15,8 @@ Info
      -
    * - Full Name
      - itsdangerous
-   * - Version
-     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/itsdangerous.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/itsdangerous.tar.gz>`_
    * - Source
      - `itsdangerous <https://github.com/pallets/itsdangerous>`_
 
@@ -71,5 +69,3 @@ Edges Statistics
      - 206
    * - wasAttributedTo_r
      - 206
-
-.. include:: grammar_data_provenance.inc

@@ -20,8 +20,8 @@ findings.
 
 ## Checklist
 
-- [ ] **Correctness** — every clause of the task (`tasks/tasks.md`) is
-      traceable to committed code.
+- [ ] **Correctness** — every clause of the task issue (#N) is traceable to
+      committed code.
 - [ ] **Tests** — new code is covered; no test was weakened or skipped; the
       suite passes (see `run-tests`).
 - [ ] **Docs** — docs updated per the `documentation` skill; docstrings follow

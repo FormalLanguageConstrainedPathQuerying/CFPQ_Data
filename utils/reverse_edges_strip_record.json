@@ -1,0 +1,44 @@
+{
+  "commons_io": {
+    "date": "2026-10-03",
+    "key": "6.0.0/graph/commons_io.tar.gz",
+    "old_sha256": "eb493b2d35f0e2715f18b26f6313e1d62377849e81de1d786c91c1f23a459214",
+    "new_sha256": "75dbbd98342eb4d2b81912d21b3f2c8a53b46ced71f5640f7f03c4c85f16b6fd"
+  },
+  "commons_lang3": {
+    "date": "2026-10-03",
+    "key": "6.0.0/graph/commons_lang3.tar.gz",
+    "old_sha256": "67de848c6f9dfe5bed84bac9fb12dc0b2e9fccaf7e5aef234e270cfa28df1cd0",
+    "new_sha256": "05607caac6f9e9e28d307b7c12f97c1d1c1b1c9112904184abcf4e044311214d"
+  },
+  "gson": {
+    "date": "2026-10-03",
+    "key": "6.0.0/graph/gson.tar.gz",
+    "old_sha256": "917810b0ce580d41980b7aeffaee0edf799a25a7f0e3d8024e5323e64a9c99db",
+    "new_sha256": "9bf3c2d092c0dd2ea354abcaa9a5fcfe7d4a11440716f44a720829f595f660be"
+  },
+  "guava": {
+    "date": "2026-10-03",
+    "key": "6.0.0/graph/guava.tar.gz",
+    "old_sha256": "0cab3173f2c6c9e5dbf25f9af9bc9e7cb13b58903da7bdbbf08b65fa28adf40d",
+    "new_sha256": "800fdbe860cfc683f572f37aac2de7907426b35a0511d901cdd0b9ec1d2125a0"
+  },
+  "jackson": {
+    "date": "2026-10-03",
+    "key": "6.0.0/graph/jackson.tar.gz",
+    "old_sha256": "a77db9fcceda50704307033dbc154eedd6beb5576c970a1226b4151fed45f4cb",
+    "new_sha256": "0f47b5df436d3cc7178aec15fe25945966d38f04ce089936a9dc6fbafff767c2"
+  },
+  "junit5": {
+    "date": "2026-10-03",
+    "key": "6.0.0/graph/junit5.tar.gz",
+    "old_sha256": "b85410972daf348607a95fb4fe76ac17a2fc2f3c074b2e5a83ebe342aa2209c0",
+    "new_sha256": "6fbda9f65638829218d374800368cb0d488731d50b115c0c76a6b23c1e1a3eda"
+  },
+  "mockito": {
+    "date": "2026-10-03",
+    "key": "6.0.0/graph/mockito.tar.gz",
+    "old_sha256": "5420f4ffe6b06d438681b203c203838ad5e2aba8d3deb5a46a06ea44869911da",
+    "new_sha256": "c7f535bdbac2d9c3aad372f880bedb74c78ae7645e0e25e7c50f1965c023f4eb"
+  }
+}

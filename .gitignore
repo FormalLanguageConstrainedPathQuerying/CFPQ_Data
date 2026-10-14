@@ -1,9 +1,6 @@
 # IDEA
 .idea
 
-# Data
-cfpq_data/data
-
 # Temporal CFPQ reference-answer tool (local-only, not part of the package)
 temporal_cfpq/
 
@@ -49,6 +46,7 @@ htmlcov/
 .tox/
 .coverage
 .coverage.*
+coverage.json
 .cache
 nosetests.xml
 coverage.xml
@@ -57,6 +55,9 @@ coverage.xml
 .pytest_cache/
 
 # Doctest files
+bzip.txt
+test.csv
+test.mcfg
 test.txt
 test.xml
 
@@ -80,15 +81,16 @@ instance/
 docs/_build/
 docs/*/generated/*
 docs/*/*/generated/*
+docs/*/*/*/generated/*
 
 # PyBuilder
 target/
 
+# Node
+node_modules/
+
 # Jupyter Notebook
 .ipynb_checkpoints
-
-# pyenv
-.python-version
 
 # celery beat schedule file
 celerybeat-schedule

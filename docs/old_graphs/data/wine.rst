@@ -15,8 +15,6 @@ Info
      -
    * - Full Name
      - wine
-   * - Version
-     - 4.0.0
    * - Direct download (.csv + .md)
      - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/4.0.0/graph/wine.tar.gz>`_
    * - Origin

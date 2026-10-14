@@ -15,10 +15,8 @@ Info
      -
    * - Full Name
      - libgdx
-   * - Version
-     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/libgdx.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/libgdx.tar.gz>`_
    * - Source
      - `libgdx <https://github.com/libgdx/libgdx>`_
 
@@ -53,5 +51,3 @@ Edges Statistics
      - 53796
    * - vpsh_i
      - 551892
-
-.. include:: grammar_name_resolution.inc

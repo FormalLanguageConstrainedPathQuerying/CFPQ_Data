@@ -1,0 +1,162 @@
+"""Create a context-free grammar from different formats."""
+
+import logging
+import re
+
+from pyformlang.cfg import CFG, Production, Terminal, Variable
+from pyformlang.regular_expression import Regex
+from pyformlang.rsa import RecursiveAutomaton as RSA
+
+__all__ = [
+    "cfg_from_cnf",
+    "cfg_from_regex",
+    "cfg_from_rsa",
+]
+
+
+def cfg_from_cnf(cnf: CFG) -> CFG:
+    """Create a context-free grammar [2]_ from given context-free grammar
+    in Chomsky normal form [1]_.
+
+    Parameters
+    ----------
+    cnf : CFG
+        Context free grammar in Chomsky normal form.
+
+    Examples
+    --------
+    >>> from flpq_data import *
+    >>> gr = cnf_from_text("S -> a b")
+    >>> cfg = cfg_from_cnf(gr)
+    >>> cfg_to_text(cfg)
+    'S -> a#CNF# b#CNF#\\na#CNF# -> a\\nb#CNF# -> b'
+
+    Returns
+    -------
+    cfg : CFG
+        Context-free grammar.
+
+    References
+    ----------
+    .. [1] https://en.wikipedia.org/wiki/Chomsky_normal_form
+    .. [2] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
+    """
+    cfg = CFG.from_text(cnf.to_text(), cnf.start_symbol)
+
+    logging.info(f"Create {cfg=} from {cnf=}")
+
+    return cfg
+
+
+def cfg_from_regex(regex: Regex, *, start_symbol: Variable = Variable("S")) -> CFG:
+    """Create a context-free grammar [1]_ from given regular expression [2]_.
+
+    Parameters
+    ----------
+    regex : Regex
+        Regular expression.
+
+    start_symbol : string
+        Start symbol of a context-free grammar.
+
+    Examples
+    --------
+    >>> from flpq_data import *
+    >>> expr = regex_from_text("a*")
+    >>> cfg = cfg_from_regex(expr)
+    >>> cfg_to_text(cfg)
+    'S -> \\nS -> A0\\nS -> S S\\nA0 -> a'
+
+    Returns
+    -------
+    cfg : CFG
+        Context-free grammar.
+
+    References
+    ----------
+    .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
+    .. [2] https://en.wikipedia.org/wiki/Regular_expression#Formal_definition
+    """
+    cfg = regex.to_cfg(start_symbol.value)
+
+    logging.info(f"Create {cfg=} from {regex=}")
+
+    return cfg
+
+
+def cfg_from_rsa(rsa: RSA) -> CFG:
+    """Create a context-free grammar [1]_ from given Recursive State Automaton [2]_.
+
+    Parameters
+    ----------
+    rsa : RSA
+        Recursive State Automaton.
+
+    Examples
+    --------
+    >>> from flpq_data import *
+    >>> gr = rsa_from_text("S -> (a | b)*")
+    >>> cfg = cfg_from_rsa(gr)
+    >>> cfg_to_text(cfg)
+    'S -> \\nS -> a S\\nS -> b S'
+
+    Returns
+    -------
+    cfg : CFG
+        Context-free grammar.
+
+    References
+    ----------
+    .. [1] https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions
+    .. [2] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+       State Machines.
+       In: Berry G., Comon H., Finkel A. (eds) Computer Aided Verification. CAV 2001.
+       Lecture Notes in Computer Science, vol 2102.
+       Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-44585-4_18
+    """
+    variables = set()
+    terminals = set()
+    productions = set()
+
+    box_names = {sym.value for sym in rsa.labels}
+
+    for symbol in rsa.labels:
+        box = rsa.get_box(symbol)
+        if box is None:
+            raise ValueError(f"RSA has no box for label {symbol.value}")
+        dfa = box.dfa
+
+        variables.add(Variable(symbol.value))
+
+        naming = {dfa.start_state: Variable(symbol.value)}
+
+        for state in sorted(dfa.states, key=lambda s: str(s.value)):
+            if state not in naming:
+                naming[state] = Variable(f"{symbol.value}_{state.value}")
+                variables.add(naming[state])
+
+            if state in dfa.final_states:
+                productions.add(Production(naming[state], []))
+
+        for v, label, to in dfa._transition_function.get_edges():
+            match = re.search(r'"(?:TER|VAR):(.*)"', label.value)
+            label_value = match.group(1) if match is not None else label.value
+
+            if label_value in box_names:
+                production_label = Variable(label_value)
+            else:
+                terminals.add(Terminal(label_value))
+                production_label = Terminal(label_value)
+
+            productions.add(Production(naming[v], [production_label, naming[to]]))
+
+    cfg = CFG(
+        variables=variables,
+        terminals=terminals,
+        start_symbol=Variable(rsa.initial_label.value),
+        productions=productions,
+    )
+
+    logging.info(f"Create {cfg=} from {rsa=}")
+
+    return cfg

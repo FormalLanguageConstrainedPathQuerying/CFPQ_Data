@@ -15,10 +15,8 @@ Info
      -
    * - Full Name
      - scikit-learn
-   * - Version
-     - 5.0.0
    * - Direct download
-     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/scikit-learn.tar.gz>`_
+     - `.tar.gz <https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/scikit-learn.tar.gz>`_
    * - Source
      - `scikit-learn <https://github.com/scikit-learn/scikit-learn>`_
 
@@ -71,5 +69,3 @@ Edges Statistics
      - 5368
    * - wasAttributedTo_r
      - 5368
-
-.. include:: grammar_data_provenance.inc

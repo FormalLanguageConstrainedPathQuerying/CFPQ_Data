@@ -8,7 +8,7 @@ Release process
    :Release: |release|
    :Date: |today|
 
-A release publishes two things: the ``cfpq-data`` **package** on PyPI and the
+A release publishes two things: the ``flpq-data`` **package** on PyPI and the
 **dataset** served from Yandex Object Storage. This page describes the model;
 the step-by-step procedure lives in the ``release`` skill.
 
@@ -16,7 +16,7 @@ Versioning
 ----------
 
 - Versions follow `Semantic Versioning <https://semver.org/>`_.
-- The canonical version is ``VERSION`` in :file:`cfpq_data/config.py`.
+- The canonical version is ``VERSION`` in :file:`flpq_data/config.py`.
   ``pyproject.toml`` must declare the same value; a pre-commit hook
   (``check-version-sync``) and CI fail on a mismatch.
 - Releases are tagged ``vX.Y.Z`` (e.g. ``v5.0.0``). The tag must match the
@@ -30,7 +30,7 @@ The ``publish`` workflow (``.github/workflows/publish.yml``) runs when a
 ``v*`` tag is pushed:
 
 1. Verifies the tag matches the package version.
-2. Builds the sdist and wheel (``python -m build``).
+2. Builds the sdist and wheel (``uv build``).
 3. Publishes to PyPI via **Trusted Publishing** (OIDC) — no stored token; a
    ``PYPI_API_TOKEN`` secret is supported as a fallback.
 4. Creates a GitHub Release with the matching changelog section.
@@ -38,16 +38,45 @@ The ``publish`` workflow (``.github/workflows/publish.yml``) runs when a
 On every pull request targeting ``master``, the same build step runs and the
 artifacts are published to **TestPyPI** via Trusted Publishing (OIDC — the
 publisher's subject claim must be
-``repo:FormalLanguageConstrainedPathQuerying/CFPQ_Data:pull_request``), with
-``skip-existing`` so concurrent PRs sharing a version do not collide. This is
-a packaging check that fails the PR before a release tag is cut; since a tag
-always points at a merged PR's head, it validates exactly the code that will
-be released.
+``repo:FormalLanguageConstrainedPathQuerying/FLPQ_Data:pull_request``). Before
+building, the run rewrites the version on the runner to ``<version>.dev<run
+number>`` (a PEP 440 developmental release) so every push publishes a distinct
+artifact and no manual cleanup is needed between iterations; the committed
+version is never changed, and the commit SHA is recorded in the run's step
+summary. This is a packaging check that fails the PR before a release tag is
+cut; since a tag always points at a merged PR's head, it validates exactly the
+code that will be released.
+
+A commit-hash suffix is not possible: PEP 440 forbids local version
+identifiers (``X.Y.Z+<hash>``) on public indices, so only the numeric
+developmental suffix is publishable. Testers install the pre-release
+explicitly::
+
+   pip install --pre --index-url https://test.pypi.org/simple/ \
+       --extra-index-url https://pypi.org/simple/ flpq-data
+
+or pin the exact ``X.Y.Z.devN`` version.
+
+Two packaging constraints matter:
+
+- With PEP 621 metadata and hatchling, all build inputs are VCS-tracked and
+  ``uv build`` builds the wheel directly from the source tree (not from the
+  sdist), so nothing can be silently missing from a distribution. The PR's
+  TestPyPI pre-publish still validates the build and its metadata before a
+  tag is cut.
+- PyPI and TestPyPI reject re-uploads of files that already exist for a
+  version. The PR check keeps ``skip-existing`` as a safety net even though
+  its per-run version is unique; the real publish does not — if a tag push
+  reaches PyPI and then fails, an owner must delete the release on PyPI
+  before the tag can be re-pushed.
+
+Merging a pull request into ``master`` never publishes: the workflow runs
+only on ``v*`` tag pushes (the merge does redeploy the docs site).
 
 Prerequisites (one-time, owner action)
 --------------------------------------
 
-Publishing requires PyPI access. The ``cfpq-data`` project owners must either:
+Publishing requires PyPI access. The ``flpq-data`` project owners must either:
 
 - configure **Trusted Publishing** on PyPI for this repository and the
   ``publish.yml`` workflow (recommended — no long-lived secret), or

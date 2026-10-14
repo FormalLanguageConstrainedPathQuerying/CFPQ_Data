@@ -9,7 +9,7 @@ Getting started
    :Release: |release|
    :Date: |today|
 
-How to install CFPQ_Data and use it on a small example.
+How to install FLPQ_Data and use it on a small example.
 
 .. toctree::
    :maxdepth: 1

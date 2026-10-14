@@ -6,14 +6,14 @@ description: Use when determining which docs to update for a code change. Maps s
 # Documentation
 
 Sphinx docs live in `docs/`; the API reference mirrors the package under
-`docs/reference/` (`graphs/`, `grammars/`, `dataset/`). This skill is the
+`docs/reference/` (`graphs/`, `queries/`, `dataset/`). This skill is the
 single source of truth for what docs to update when code changes.
 
 ## Mapping: source change -> doc action
 
 | Source change | Required doc action |
 |---|---|
-| New public function/class | Add to the matching `autosummary` list in `docs/reference/<sub>/<module>.rst` (e.g. `graphs_generators.rst`, `grammars_readwrite.rst`); write a numpydoc docstring with `Examples` |
+| New public function/class | Add to the matching `autosummary` list in the reference page (e.g. `docs/reference/graphs/graphs_generators.rst`, `docs/reference/queries/cfpq/cfpq_readwrite.rst`); write a numpydoc docstring with `Examples` |
 | Changed public function | Update its numpydoc docstring (params, returns, `Examples`) |
 | New module | Add a `*.rst` page and add it to the parent `index.rst` toctree |
 | Removed/renamed API | Update the autosummary list and any docstrings/links referencing it |
@@ -24,6 +24,12 @@ single source of truth for what docs to update when code changes.
 - numpydoc style: `Parameters`, `Returns`, `Examples` sections.
 - `Examples` are run as **doctests** (`--doctest-modules`) — keep them
   self-contained and output-stable.
+- Cross-references in docstrings (`:func:`, `:data:`, ...) must point at
+  targets that are actually documented (listed in an autosummary or on a
+  reference page); the build runs with `-W` (no-warnings), so a reference to
+  an undocumented constant or an external module (e.g.
+  `platformdirs.user_cache_dir`) fails it. Use double-backtick literals for
+  such names. Module-level `#:` comments are not docstrings and are safe.
 
 ## Completeness verification
 
