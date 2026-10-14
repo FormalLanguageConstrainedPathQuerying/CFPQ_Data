@@ -54,7 +54,7 @@ FLPQ_Data version used: ``<version>``
 
 ## Reference results (mandatory)
 
-Every query directory ships one `results.mtx` with the constrained reachability facts — a Boolean pattern matrix with the graph's dimensions, where an entry `(i, j)` means some path from node `i` to node `j` satisfies the query. **Queries without reference results are not accepted.** Every new graph must ship at least one query; every new grammar must be instantiated as at least one such query in a contributed archive.
+Every query directory ships one `results.mtx` with the constrained reachability facts — a Boolean pattern matrix with the graph's dimensions, where an entry `(i, j)` means some path from node `i` to node `j` satisfies the query. **Queries without reference results are not accepted.** Every new graph must ship at least one query (the structure checker refuses archives without one).
 
 ## Data format
 
