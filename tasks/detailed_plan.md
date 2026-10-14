@@ -132,7 +132,7 @@ do not duplicate).
 - Note that a set of graphs for a category goes into one issue as multiple
   archives.
 
-### S4: `utils/add_reachable_pairs.py` — derive CSV rows from an archive
+### S4: `utils/add_reachable_pairs.py` — derive CSV rows from an archive [done] 23f0011
 
 **Code:** New file `utils/add_reachable_pairs.py`. Reuse from
 `check_archive_structure.py`: `unpack_single_dir`, `_mtx_header`,
