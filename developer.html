@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Developer guide &#8212; CFPQ_Data 5.0.0 documentation</title>
+    <title>Developer guide &#8212; FLPQ_Data 6.0.0 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="_static/documentation_options.js?v=b1b76d9c"></script>
+    <script src="_static/documentation_options.js?v=cb01d673"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -50,7 +50,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'developer';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 5.0.0 documentation"
+          title="Search within FLPQ_Data 6.0.0 documentation"
           href="_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -62,12 +62,12 @@
     {
         "@context": "https://schema.org/",
         "@type": "Dataset",
-        "name": "CFPQ_Data",
-        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
         "keywords": [
             "GRAPHS",
             "GRAMMARS",
-            "CONTEXT-FREE",
+            "FORMAL-LANGUAGE",
             "PATH-QUERY"
         ],
         "creator": [
@@ -161,8 +161,8 @@
       
     
     
-    <img src="_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
-    <img src="_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -180,6 +180,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -234,7 +241,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -245,7 +252,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
       
@@ -303,6 +310,13 @@
 
 
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="dataset.html">
     Dataset
   </a>
@@ -343,7 +357,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -354,7 +368,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
         
@@ -438,92 +452,128 @@
 <span id="developer"></span><h1>Developer guide<a class="headerlink" href="#developer-guide" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>5.0.0</p>
+<dd class="field-odd"><p>6.0.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sep 18, 2026</p>
+<dd class="field-even"><p>Oct 14, 2026</p>
 </dd>
 </dl>
 <p>How to set up a development environment, run the checks that continuous
-integration runs, and contribute to CFPQ_Data. If you only want to <em>use</em> the
-package, start with <a class="reference internal" href="getting_started.html"><span class="doc">Getting started</span></a> instead.</p>
+integration runs, and contribute to FLPQ_Data. If you only want to <em>use</em>
+the package, start with <a class="reference internal" href="getting_started.html"><span class="doc">Getting started</span></a> instead.</p>
+<section id="ci-as-source-of-truth">
+<span id="developer-ci"></span><h2>CI as source of truth<a class="headerlink" href="#ci-as-source-of-truth" title="Link to this heading">#</a></h2>
+<p>The CI workflows under <code class="file docutils literal notranslate"><span class="pre">.github/workflows/</span></code> are the source of truth
+for every command they run: this page and the agent skills reference the
+workflow file and step name instead of restating such a command, so a
+command changes in exactly one place. Commands with non-trivial arguments
+(flags, paths, multi-part pipelines) always take that reference form; bare
+tool invocations (<code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">ty</span> <span class="pre">check</span></code>, <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">pyright</span></code>) may stay inline
+where they name a gate step, because they carry no drift risk. What this
+page still documents is what CI does not cover: local-only commands
+(environment setup, installing the git hook, running a single test module)
+and the policies behind the checks — the no-warnings build, the 95/95
+coverage gate, doctests as tests.</p>
+</section>
 <section id="development-setup">
 <span id="developer-setup"></span><h2>Development setup<a class="headerlink" href="#development-setup" title="Link to this heading">#</a></h2>
-<p>CFPQ_Data requires Python 3.11–3.13 (<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> declares
-<code class="docutils literal notranslate"><span class="pre">&gt;=3.11,&lt;3.14</span></code>). The canonical development environment is <strong>Poetry</strong> — all
-CI workflows install their dependencies through it:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>install<span class="w"> </span>--with<span class="w"> </span>dev,test,docs
-poetry<span class="w"> </span>run<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
+<p>FLPQ_Data requires Python 3.11–3.13 (<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> declares
+<code class="docutils literal notranslate"><span class="pre">&gt;=3.11,&lt;3.14</span></code>). The canonical development environment is <strong>uv</strong> — all CI
+workflows install their dependencies through it. Install uv once (see the
+<a class="reference external" href="https://docs.astral.sh/uv/getting-started/installation/">uv installation guide</a>),
+then from the repository root:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="n">sync</span> <span class="o">--</span><span class="nb">all</span><span class="o">-</span><span class="n">groups</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--with</span> <span class="pre">dev,test,docs</span></code> pulls the three dependency groups from
-<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>: developer tools (<code class="docutils literal notranslate"><span class="pre">black</span></code>, <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest</span></code>,
-<code class="docutils literal notranslate"><span class="pre">boto3</span></code>), test extras (<code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code>, <code class="docutils literal notranslate"><span class="pre">codecov</span></code>), and the Sphinx docs
-stack.</p></li>
-<li><p>The project is declared with <code class="docutils literal notranslate"><span class="pre">package-mode</span> <span class="pre">=</span> <span class="pre">false</span></code>, so Poetry installs
-only the dependencies; <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">run</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> then installs
-<code class="docutils literal notranslate"><span class="pre">cfpq_data</span></code> itself from <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">requirements/*.txt</span></code> are read by <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> to declare the
-distribution’s install requirements on PyPI; the Poetry groups in
-<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> drive the development environment and CI.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--all-groups</span></code> pulls the three PEP 735 dependency groups from
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>: developer tools (<code class="docutils literal notranslate"><span class="pre">ruff</span></code>, <code class="docutils literal notranslate"><span class="pre">ty</span></code>, <code class="docutils literal notranslate"><span class="pre">pyright</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>, <code class="docutils literal notranslate"><span class="pre">boto3</span></code>), test extras (<code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code>), and
+the Sphinx docs stack. The full environment is needed because every check
+must resolve imports from any dependency group — ty/pyright type-check
+<code class="docutils literal notranslate"><span class="pre">tests/</span></code>, <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> and <code class="docutils literal notranslate"><span class="pre">utils/</span></code>, which import pytest, sphinx
+and boto3.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code> also installs <code class="docutils literal notranslate"><span class="pre">flpq_data</span></code> itself (editable) into the project
+environment, so no separate install step is needed; <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">...</span></code> executes
+commands inside that environment.</p></li>
+<li><p>The committed <code class="file docutils literal notranslate"><span class="pre">uv.lock</span></code> pins every dependency; CI passes <code class="docutils literal notranslate"><span class="pre">--frozen</span></code>
+to fail on a lockfile that is out of sync with <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.</p></li>
 </ul>
 </section>
-<section id="pre-commit">
-<span id="developer-precommit"></span><h2>Pre-commit<a class="headerlink" href="#pre-commit" title="Link to this heading">#</a></h2>
-<p>Formatting and hygiene checks run through <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>. The hook list —
-black formatting plus whitespace, YAML, and requirements-file fixers, and a
-version-sync check that fails when <code class="file docutils literal notranslate"><span class="pre">cfpq_data/config.py</span></code> and
-<code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code> declare different versions — is defined in
+<section id="quality-checks">
+<span id="developer-quality"></span><h2>Quality checks<a class="headerlink" href="#quality-checks" title="Link to this heading">#</a></h2>
+<p>Linting, formatting, and type checking are managed by uv and run through
+<code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>. The hook list — hygiene checks, the official <code class="docutils literal notranslate"><span class="pre">uv-lock</span></code> and
+ruff hooks (check with autofix plus format), a version-sync check that fails
+when <code class="file docutils literal notranslate"><span class="pre">flpq_data/config.py</span></code> and <code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code> declare different
+versions, and a local ty type check — is defined in
 <code class="file docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>, which is the source of truth; do not
 maintain a copy of it elsewhere.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ruff-pre-commit</span></code> hook revision must match the ruff version locked in
+<code class="file docutils literal notranslate"><span class="pre">uv.lock</span></code>; bump both together when upgrading ruff.</p>
 <p>Install the git hook once so the checks run on every commit:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pre</span><span class="o">-</span><span class="n">commit</span> <span class="n">install</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="n">run</span> <span class="n">pre</span><span class="o">-</span><span class="n">commit</span> <span class="n">install</span>
 </pre></div>
 </div>
-<p>Run the full pass manually (this is what CI does):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pre</span><span class="o">-</span><span class="n">commit</span> <span class="n">run</span> <span class="o">--</span><span class="nb">all</span><span class="o">-</span><span class="n">files</span> <span class="o">--</span><span class="n">color</span> <span class="n">always</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">--</span><span class="n">show</span><span class="o">-</span><span class="n">diff</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">failure</span>
+<p>Run the full pass manually — it is exactly the “Run pre-commit” step of
+<code class="file docutils literal notranslate"><span class="pre">.github/workflows/lint.yml</span></code>.</p>
+<p>The individual tools can also be run directly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="n">run</span> <span class="n">ruff</span> <span class="n">check</span> <span class="o">.</span>
+<span class="n">uv</span> <span class="n">run</span> <span class="n">ruff</span> <span class="nb">format</span> <span class="o">.</span>
+<span class="n">uv</span> <span class="n">run</span> <span class="n">ty</span> <span class="n">check</span>
 </pre></div>
 </div>
-<p>Format a single file with black directly:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">black</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>CI runs this full pass on every push and pull request
+<p>CI additionally runs Pyright, the stricter of the two type checkers; ty is
+the fast local check. The full pass runs on every push and pull request
 (<code class="file docutils literal notranslate"><span class="pre">.github/workflows/lint.yml</span></code>).</p>
+<p>The package ships a PEP 561 <code class="file docutils literal notranslate"><span class="pre">py.typed</span></code> marker, so type checkers in
+downstream projects use the inline annotations of <code class="docutils literal notranslate"><span class="pre">flpq_data</span></code> instead of
+treating it as untyped.</p>
 </section>
 <section id="test-pipeline">
 <span id="developer-tests"></span><h2>Test pipeline<a class="headerlink" href="#test-pipeline" title="Link to this heading">#</a></h2>
 <p>The test suite is <code class="docutils literal notranslate"><span class="pre">pytest</span></code> with <strong>doctests enabled</strong>: the <code class="docutils literal notranslate"><span class="pre">Examples</span></code>
 sections of public docstrings are executed as tests, so the documented
-behavior and the tested behavior are the same code. The canonical local
-command (the one CI runs):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">run</span> <span class="n">pytest</span> <span class="o">--</span><span class="n">doctest</span><span class="o">-</span><span class="n">modules</span> <span class="o">-</span><span class="n">vv</span> <span class="o">-</span><span class="n">s</span> <span class="n">cfpq_data</span> <span class="n">tests</span>
+behavior and the tested behavior are the same code. The canonical command
+is exactly what CI runs — the “Test FLPQ_Data with coverage (line and
+branch &gt;= 95%)” step of <code class="file docutils literal notranslate"><span class="pre">.github/workflows/coverage.yml</span></code>.</p>
+<p>Coverage is part of the pipeline: branch coverage is always on
+(<code class="docutils literal notranslate"><span class="pre">[tool.coverage.run]</span></code> in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>), and the check fails unless
+<strong>both</strong> line and branch coverage are at least 95%. The threshold lives in
+<code class="docutils literal notranslate"><span class="pre">utils/check_coverage.py</span></code> because the combined <code class="docutils literal notranslate"><span class="pre">--cov-fail-under</span></code> cannot
+enforce each metric separately. A single module or function runs without the
+coverage gate:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="n">run</span> <span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span><span class="n">graphs</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">test_add_reverse_edges</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p>A single module or function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">run</span> <span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span><span class="n">graphs</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">test_add_reverse_edges</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
+<p>The suite also validates the math snippets of the docs pages: Sphinx passes
+math verbatim to MathJax, which renders it in the browser, so a broken
+snippet (e.g. an unescaped underscore inside a <code class="docutils literal notranslate"><span class="pre">\textit{...}</span></code> group) sails
+through the Sphinx build and shows up only as an error on the deployed site.
+<code class="docutils literal notranslate"><span class="pre">tests/utils/test_check_math_snippets.py</span></code> runs
+<code class="docutils literal notranslate"><span class="pre">utils/check_math_snippets.py</span></code> over every page and fails the suite on any
+broken snippet.</p>
 <ul class="simple">
 <li><p>Doctest discovery and test paths are configured in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>
 (<code class="docutils literal notranslate"><span class="pre">[tool.pytest.ini_options]</span></code>).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tests/</span></code> mirrors the package layout (e.g. <code class="docutils literal notranslate"><span class="pre">tests/graphs/generators/</span></code>
-for <code class="docutils literal notranslate"><span class="pre">cfpq_data/graphs/generators/</span></code>).</p></li>
+for <code class="docutils literal notranslate"><span class="pre">flpq_data/graphs/generators/</span></code>).</p></li>
 </ul>
 <p>Continuous integration:</p>
 <ul class="simple">
 <li><p><code class="file docutils literal notranslate"><span class="pre">.github/workflows/tests.yml</span></code> — runs the suite on every push and pull
 request across a matrix of Linux, macOS, and Windows with Python 3.11.</p></li>
-<li><p><code class="file docutils literal notranslate"><span class="pre">.github/workflows/coverage.yml</span></code> — runs the same suite with
-<code class="docutils literal notranslate"><span class="pre">--cov=cfpq_data</span></code> and uploads the report to Codecov.</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">.github/workflows/coverage.yml</span></code> — runs the same suite with coverage,
+enforces the 95/95 line+branch gate with <code class="docutils literal notranslate"><span class="pre">utils/check_coverage.py</span></code>, and
+uploads the report to Codecov.</p></li>
 </ul>
 </section>
 <section id="docs-build-and-deploy">
 <span id="developer-docs"></span><h2>Docs build and deploy<a class="headerlink" href="#docs-build-and-deploy" title="Link to this heading">#</a></h2>
-<p>The documentation is built with Sphinx from the <code class="file docutils literal notranslate"><span class="pre">docs/</span></code> directory; the
-canonical local instructions (installing the docs dependencies, building the
-HTML, checking links) live in <code class="file docutils literal notranslate"><span class="pre">docs/README.md</span></code>. Two policies matter:</p>
+<p>The documentation is built with Sphinx from the <code class="file docutils literal notranslate"><span class="pre">docs/</span></code> directory.
+The build and link-check commands are exactly what CI runs — the “Build”
+and “Check links” steps of <code class="file docutils literal notranslate"><span class="pre">.github/workflows/docs.yml</span></code>; the local
+setup command lives in <code class="file docutils literal notranslate"><span class="pre">docs/README.md</span></code>. Two policies matter:</p>
 <ul class="simple">
 <li><p><strong>No-warnings policy.</strong> The build runs with <code class="docutils literal notranslate"><span class="pre">-W</span> <span class="pre">--keep-going</span></code> (set in
 <code class="file docutils literal notranslate"><span class="pre">docs/Makefile</span></code>), so any Sphinx warning — including an unresolved
@@ -531,17 +581,26 @@ cross-reference under <code class="docutils literal notranslate"><span class="pr
 do not suppress them.</p></li>
 <li><p><strong>Full link check.</strong> <code class="docutils literal notranslate"><span class="pre">sphinx-build</span> <span class="pre">-b</span> <span class="pre">linkcheck</span></code> verifies every local
 target and external URL (two documented exceptions in
-<code class="file docutils literal notranslate"><span class="pre">docs/conf.py</span></code>); it exits non-zero on broken or timed-out links.</p></li>
+<code class="file docutils literal notranslate"><span class="pre">docs/conf.py</span></code>); it exits non-zero on broken or timed-out links. It
+is network-bound and slow locally (rate-limited retries), so it runs in CI
+only — the “Check links” step of <code class="file docutils literal notranslate"><span class="pre">.github/workflows/docs.yml</span></code> — and
+is not part of the local quality gate (see “Quality gate”).</p></li>
 <li><p><strong>Resilient inventory fetches.</strong> Intersphinx inventories are fetched with
 retries on transient connection errors (<code class="file docutils literal notranslate"><span class="pre">docs/conf.py</span></code>); a persistent
 failure still warns and fails the build.</p></li>
+<li><p><strong>Fresh-state verification.</strong> CI builds from a fresh checkout; locally two
+artifact classes survive a plain rebuild and can mask failures — cached
+doctrees (references in unchanged documents are not re-resolved) and the
+git-ignored autosummary stubs under <code class="docutils literal notranslate"><span class="pre">docs/*/generated/</span></code> (parsed as
+ordinary documents, registering objects of an older build state). After
+adding or removing reference targets, autosummary entries, or automodule
+directives, verify with the fresh build (the <code class="docutils literal notranslate"><span class="pre">fresh</span></code> target of
+<code class="file docutils literal notranslate"><span class="pre">docs/Makefile</span></code>; the local command in <code class="file docutils literal notranslate"><span class="pre">docs/README.md</span></code>).</p></li>
 </ul>
-<p>Both the build and the link check run in CI on every push and pull request
-(<code class="file docutils literal notranslate"><span class="pre">.github/workflows/docs.yml</span></code>).</p>
 <p><strong>Deployment.</strong> Pushing to <code class="docutils literal notranslate"><span class="pre">master</span></code> deploys the site:
 <code class="file docutils literal notranslate"><span class="pre">.github/workflows/deploy_docs.yml</span></code> builds the HTML and publishes
 <code class="file docutils literal notranslate"><span class="pre">docs/_build/html</span></code> to the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch, which GitHub serves as
-the project website (<a class="reference external" href="https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data">https://formallanguageconstrainedpathquerying.github.io/CFPQ_Data</a>).
+the project website (<a class="reference external" href="https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data">https://formallanguageconstrainedpathquerying.github.io/FLPQ_Data</a>).
 The workflow skips forks — it runs only for the owning repository.</p>
 </section>
 <section id="package-deploy">
@@ -572,9 +631,39 @@ atomic subtask:</p>
 <span class="n">docs</span><span class="p">(</span><span class="n">XXX</span><span class="o">-</span><span class="n">SN</span><span class="p">):</span> <span class="n">description</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">XXX</span></code> is the task ID and <code class="docutils literal notranslate"><span class="pre">SN</span></code> a single subtask identifier (ranges or
-lists are not allowed). Commit messages must explain <em>why</em> the change was
-made, not only what it does.</p>
+<p><code class="docutils literal notranslate"><span class="pre">XXX</span></code> is the task’s GitHub issue number and <code class="docutils literal notranslate"><span class="pre">SN</span></code> a single subtask
+identifier (ranges or lists are not allowed). Commit messages must explain
+<em>why</em> the change was made, not only what it does.</p>
+</section>
+<section id="issue-references">
+<h3>Issue references<a class="headerlink" href="#issue-references" title="Link to this heading">#</a></h3>
+<p>Every task is itself a GitHub issue (label <code class="docutils literal notranslate"><span class="pre">task</span></code>; the working loop lives
+in the <code class="docutils literal notranslate"><span class="pre">workflow-management</span></code> skill). GitHub closes an issue automatically
+once a commit containing a closing keyword (<code class="docutils literal notranslate"><span class="pre">close</span></code>, <code class="docutils literal notranslate"><span class="pre">closes</span></code>, <code class="docutils literal notranslate"><span class="pre">closed</span></code>,
+<code class="docutils literal notranslate"><span class="pre">fixes</span></code>, <code class="docutils literal notranslate"><span class="pre">fixed</span></code>) reaches the repository’s default branch (<a class="reference external" href="https://github.blog/news-insights/product-news/closing-issues-via-commit-messages/">mechanism</a>).
+This project relies on that mechanism:</p>
+<ul>
+<li><p>A completed task carries the closing keyword for its own issue — and for
+every linked issue it fully resolves — in exactly one commit: by
+convention, the last subtask’s commit. Each keyword is a standalone line in
+the message body: <code class="docutils literal notranslate"><span class="pre">Fixes</span> <span class="pre">#N</span></code> when the work fixes a reported defect,
+<code class="docutils literal notranslate"><span class="pre">Closes</span> <span class="pre">#N</span></code> otherwise. No other commit of the task repeats a keyword:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docs(XXX-S3): final subtask — verify and clean up
+
+Closes #XXX
+Fixes #127
+</pre></div>
+</div>
+</li>
+<li><p>A task that only partially addresses a linked issue references it without a
+closing keyword (bare <code class="docutils literal notranslate"><span class="pre">#N</span></code>); GitHub links the issue but leaves it open.</p></li>
+</ul>
+<p>Because the keywords live in the last subtask’s commit, an incomplete or
+blocked task — whose branch never merges — carries no keyword and can never
+close its issue by accident.</p>
+<p>Since feature branches merge to <code class="docutils literal notranslate"><span class="pre">dev</span></code> and only releases merge <code class="docutils literal notranslate"><span class="pre">dev</span></code> into
+<code class="docutils literal notranslate"><span class="pre">master</span></code>, the default branch, a task’s issue closes when the release
+containing the task lands on <code class="docutils literal notranslate"><span class="pre">master</span></code> — not when the task merges to <code class="docutils literal notranslate"><span class="pre">dev</span></code>.</p>
 </section>
 <section id="quality-gate">
 <h3>Quality gate<a class="headerlink" href="#quality-gate" title="Link to this heading">#</a></h3>
@@ -583,8 +672,12 @@ no exceptions:</p>
 <ol class="arabic simple">
 <li><p>The full test suite: 0 failures, 0 skipped.</p></li>
 <li><p>The full pre-commit pass: no errors.</p></li>
+<li><p>Type checking: <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">ty</span> <span class="pre">check</span></code> and Pyright both report no errors.</p></li>
 <li><p>The docs build: exit 0 under the no-warnings policy.</p></li>
-<li><p>The link check: no broken or timed-out links.</p></li>
+<li><p>The link check (CI only): the “Check links” step of
+<code class="file docutils literal notranslate"><span class="pre">.github/workflows/docs.yml</span></code> reports no broken or timed-out links.
+It is network-bound and slow locally (rate-limited retries), so it is not
+part of the local gate — the branch’s CI run must be green before merge.</p></li>
 </ol>
 </section>
 <section id="merge-strategy">
@@ -624,14 +717,16 @@ add a new graph?” section of the README.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-as-source-of-truth">CI as source of truth</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-setup">Development setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-commit">Pre-commit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quality-checks">Quality checks</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-pipeline">Test pipeline</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docs-build-and-deploy">Docs build and deploy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-deploy">Package deploy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contribution-guidelines">Contribution guidelines</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#branching-model">Branching model</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commits">Commits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-references">Issue references</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quality-gate">Quality gate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-strategy">Merge strategy</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-graphs-and-grammars">Adding graphs and grammars</a></li>

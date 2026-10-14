@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Data Provenance &#8212; CFPQ_Data 5.0.0 documentation</title>
+    <title>Data Provenance &#8212; FLPQ_Data 6.0.0 documentation</title>
   
   
   
@@ -42,15 +42,16 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=b1b76d9c"></script>
+    <script src="../_static/documentation_options.js?v=cb01d673"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'graphs/data_provenance';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 5.0.0 documentation"
+          title="Search within FLPQ_Data 6.0.0 documentation"
           href="../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -62,12 +63,12 @@
     {
         "@context": "https://schema.org/",
         "@type": "Dataset",
-        "name": "CFPQ_Data",
-        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
         "keywords": [
             "GRAPHS",
             "GRAMMARS",
-            "CONTEXT-FREE",
+            "FORMAL-LANGUAGE",
             "PATH-QUERY"
         ],
         "creator": [
@@ -161,8 +162,8 @@
       
     
     
-    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
-    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -180,6 +181,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -234,7 +242,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -245,7 +253,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
       
@@ -264,6 +272,10 @@
     </div>
   
 
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
   
 </div>
 
@@ -294,6 +306,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -339,7 +358,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -350,7 +369,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
         
@@ -396,10 +415,10 @@
 <li class="toctree-l2"><a class="reference internal" href="biological_uniprot.html">Biological graphs from UniProt</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../grammars/index.html">Grammars</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../indexed_grammars.html">Indexed Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/cfpq/index.html">CFPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/rpq/index.html">RPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/mcfpq/index.html">MCFPQ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reachable_pairs.html">Reachable Pair Counts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../benchmarks/index.html">Benchmarks</a></li>
 </ul>
 </div>
 </nav></div>
@@ -467,10 +486,10 @@
 <span id="graphs-data-provenance"></span><h1>Data Provenance<a class="headerlink" href="#data-provenance" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>5.0.0</p>
+<dd class="field-odd"><p>6.0.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sep 18, 2026</p>
+<dd class="field-even"><p>Oct 14, 2026</p>
 </dd>
 </dl>
 <p>Data-provenance graphs recording the lineage of data artifacts in a set of
@@ -484,6 +503,7 @@ Python projects, following the W3C PROV model (<code class="docutils literal not
 <th class="head"><p>Num Nodes</p></th>
 <th class="head"><p>Num Edges</p></th>
 <th class="head"><p>prov_derivation</p></th>
+<th class="head"><p>Size (MB)</p></th>
 <th class="head"><p>Download</p></th>
 </tr>
 </thead>
@@ -492,112 +512,150 @@ Python projects, following the W3C PROV model (<code class="docutils literal not
 <td><p>148</p></td>
 <td><p>763</p></td>
 <td><p>342</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/sampleproject.tar.gz">sampleproject.tar.gz</a> 📥</p></td>
+<td><p>0.004</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/sampleproject.tar.gz">sampleproject.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_wikipedia_provenance.html#provenance-wikipedia-provenance"><span class="std std-ref">wikipedia-provenance</span></a></p></td>
 <td><p>316</p></td>
 <td><p>1284</p></td>
 <td><p>1732</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/wikipedia-provenance.tar.gz">wikipedia-provenance.tar.gz</a> 📥</p></td>
+<td><p>0.009</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/wikipedia-provenance.tar.gz">wikipedia-provenance.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/provenance_pluggy.html#provenance-pluggy"><span class="std std-ref">pluggy</span></a></p></td>
 <td><p>353</p></td>
 <td><p>1818</p></td>
 <td><p>880</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pluggy.tar.gz">pluggy.tar.gz</a> 📥</p></td>
+<td><p>0.008</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/pluggy.tar.gz">pluggy.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_itsdangerous.html#provenance-itsdangerous"><span class="std std-ref">itsdangerous</span></a></p></td>
 <td><p>425</p></td>
 <td><p>2210</p></td>
 <td><p>2912</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/itsdangerous.tar.gz">itsdangerous.tar.gz</a> 📥</p></td>
+<td><p>0.014</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/itsdangerous.tar.gz">itsdangerous.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/provenance_requests.html#provenance-requests"><span class="std std-ref">requests</span></a></p></td>
 <td><p>682</p></td>
 <td><p>3369</p></td>
 <td><p>2524</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/requests.tar.gz">requests.tar.gz</a> 📥</p></td>
+<td><p>0.016</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/requests.tar.gz">requests.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_httpx.html#provenance-httpx"><span class="std std-ref">httpx</span></a></p></td>
 <td><p>826</p></td>
 <td><p>4247</p></td>
 <td><p>4408</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/httpx.tar.gz">httpx.tar.gz</a> 📥</p></td>
+<td><p>0.011</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/httpx.tar.gz">httpx.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/provenance_click.html#provenance-click"><span class="std std-ref">click</span></a></p></td>
 <td><p>944</p></td>
 <td><p>4654</p></td>
 <td><p>2710</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/click.tar.gz">click.tar.gz</a> 📥</p></td>
+<td><p>0.020</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/click.tar.gz">click.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_jinja.html#provenance-jinja"><span class="std std-ref">jinja</span></a></p></td>
 <td><p>1202</p></td>
 <td><p>6277</p></td>
 <td><p>7436</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/jinja.tar.gz">jinja.tar.gz</a> 📥</p></td>
+<td><p>0.036</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/jinja.tar.gz">jinja.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/provenance_flask.html#provenance-flask"><span class="std std-ref">flask</span></a></p></td>
 <td><p>1517</p></td>
 <td><p>7728</p></td>
 <td><p>8062</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/flask.tar.gz">flask.tar.gz</a> 📥</p></td>
+<td><p>0.041</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/flask.tar.gz">flask.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_fastapi.html#provenance-fastapi"><span class="std std-ref">fastapi</span></a></p></td>
 <td><p>6455</p></td>
 <td><p>26528</p></td>
 <td><p>8814</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/fastapi.tar.gz">fastapi.tar.gz</a> 📥</p></td>
+<td><p>0.094</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/fastapi.tar.gz">fastapi.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/provenance_celery.html#provenance-celery"><span class="std std-ref">celery</span></a></p></td>
 <td><p>6880</p></td>
 <td><p>35874</p></td>
 <td><p>25306</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/celery.tar.gz">celery.tar.gz</a> 📥</p></td>
+<td><p>0.158</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/celery.tar.gz">celery.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_scikit_learn.html#provenance-scikit-learn"><span class="std std-ref">scikit-learn</span></a></p></td>
 <td><p>11706</p></td>
 <td><p>60181</p></td>
 <td><p>217728</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/scikit-learn.tar.gz">scikit-learn.tar.gz</a> 📥</p></td>
+<td><p>0.725</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/scikit-learn.tar.gz">scikit-learn.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/provenance_sphinx.html#provenance-sphinx"><span class="std std-ref">sphinx</span></a></p></td>
 <td><p>13431</p></td>
 <td><p>72692</p></td>
 <td><p>304084</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/sphinx.tar.gz">sphinx.tar.gz</a> 📥</p></td>
+<td><p>0.974</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/sphinx.tar.gz">sphinx.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_pandas.html#provenance-pandas"><span class="std std-ref">pandas</span></a></p></td>
 <td><p>13696</p></td>
 <td><p>70959</p></td>
 <td><p>154646</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pandas.tar.gz">pandas.tar.gz</a> 📥</p></td>
+<td><p>0.601</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/pandas.tar.gz">pandas.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/provenance_django.html#provenance-django"><span class="std std-ref">django</span></a></p></td>
 <td><p>23749</p></td>
 <td><p>113137</p></td>
 <td><p>615946</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/django.tar.gz">django.tar.gz</a> 📥</p></td>
+<td><p>1.94</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/django.tar.gz">django.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_zulip.html#provenance-zulip"><span class="std std-ref">zulip</span></a></p></td>
 <td><p>59854</p></td>
 <td><p>310032</p></td>
 <td><p>209908</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/zulip.tar.gz">zulip.tar.gz</a> 📥</p></td>
+<td><p>1.21</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/zulip.tar.gz">zulip.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/provenance_superset.html#provenance-superset"><span class="std std-ref">superset</span></a></p></td>
 <td><p>76348</p></td>
 <td><p>394708</p></td>
 <td><p>97460</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/superset.tar.gz">superset.tar.gz</a> 📥</p></td>
+<td><p>1.03</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/superset.tar.gz">superset.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/provenance_airflow.html#provenance-airflow"><span class="std std-ref">airflow</span></a></p></td>
 <td><p>90673</p></td>
 <td><p>454738</p></td>
 <td><p>91350</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/airflow.tar.gz">airflow.tar.gz</a> 📥</p></td>
+<td><p>1.15</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/airflow.tar.gz">airflow.tar.gz</a> 📥</p></td>
 </tr>
 </tbody>
 </table>
+<section id="canonical-grammars">
+<h2>Canonical grammars<a class="headerlink" href="#canonical-grammars" title="Link to this heading">#</a></h2>
+<p>The grammar file is attached to the archive.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S &amp;\to Entity \quad Core \quad Entity \\
+Core &amp;\to wasDerivedFrom \\
+     &amp;\mid wasDerivedFrom_{r} \\
+     &amp;\mid specializationOf \\
+     &amp;\mid specializationOf_{r} \\
+     &amp;\mid wasGeneratedBy \quad Activity \quad used \\
+     &amp;\mid used_{r} \quad Activity \quad wasGeneratedBy_{r} \\
+     &amp;\mid wasGeneratedBy \quad Activity \quad Core \\
+     &amp;\quad Activity \quad wasGeneratedBy_{r} \\
+     &amp;\mid used_{r} \quad Activity \quad Core \\
+     &amp;\quad Activity \quad used \\
+     &amp;\mid wasDerivedFrom \quad Entity \quad Core \\
+     &amp;\quad Entity \quad wasDerivedFrom_{r} \\
+     &amp;\mid specializationOf \quad Entity \quad Core \\
+     &amp;\quad Entity \quad specializationOf_{r}\end{split}\]</div>
+</section>
 </section>
 
 
@@ -610,6 +668,24 @@ Python projects, following the W3C PROV model (<code class="docutils literal not
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#canonical-grammars">Canonical grammars</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

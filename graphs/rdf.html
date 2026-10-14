@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>RDF &#8212; CFPQ_Data 5.0.0 documentation</title>
+    <title>RDF &#8212; FLPQ_Data 6.0.0 documentation</title>
   
   
   
@@ -42,15 +42,16 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=b1b76d9c"></script>
+    <script src="../_static/documentation_options.js?v=cb01d673"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'graphs/rdf';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 5.0.0 documentation"
+          title="Search within FLPQ_Data 6.0.0 documentation"
           href="../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -62,12 +63,12 @@
     {
         "@context": "https://schema.org/",
         "@type": "Dataset",
-        "name": "CFPQ_Data",
-        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
         "keywords": [
             "GRAPHS",
             "GRAMMARS",
-            "CONTEXT-FREE",
+            "FORMAL-LANGUAGE",
             "PATH-QUERY"
         ],
         "creator": [
@@ -161,8 +162,8 @@
       
     
     
-    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
-    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -180,6 +181,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -234,7 +242,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -245,7 +253,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
       
@@ -264,6 +272,10 @@
     </div>
   
 
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
   
 </div>
 
@@ -294,6 +306,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -339,7 +358,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -350,7 +369,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
         
@@ -398,10 +417,10 @@
 <li class="toctree-l2"><a class="reference internal" href="biological_uniprot.html">Biological graphs from UniProt</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../grammars/index.html">Grammars</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../indexed_grammars.html">Indexed Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/cfpq/index.html">CFPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/rpq/index.html">RPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/mcfpq/index.html">MCFPQ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reachable_pairs.html">Reachable Pair Counts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../benchmarks/index.html">Benchmarks</a></li>
 </ul>
 </div>
 </nav></div>
@@ -469,10 +488,10 @@
 <span id="graphs-rdf"></span><h1>RDF<a class="headerlink" href="#rdf" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>5.0.0</p>
+<dd class="field-odd"><p>6.0.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sep 18, 2026</p>
+<dd class="field-even"><p>Oct 14, 2026</p>
 </dd>
 </dl>
 <p>Labeled directed graphs built from RDF / OWL datasets, where nodes are
@@ -489,6 +508,7 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <th class="head"><p>subClassOf_type</p></th>
 <th class="head"><p>type</p></th>
 <th class="head"><p>broaderTransitive</p></th>
+<th class="head"><p>Size (MB)</p></th>
 <th class="head"><p>Download</p></th>
 </tr>
 </thead>
@@ -500,7 +520,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>12</p></td>
 <td><p>12</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/generations.tar.gz">generations.tar.gz</a> 📥</p></td>
+<td><p>0.003</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/generations.tar.gz">generations.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/travel.html#travel"><span class="std std-ref">travel</span></a></p></td>
 <td><p>131</p></td>
@@ -509,7 +530,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>52</p></td>
 <td><p>19</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/travel.tar.gz">travel.tar.gz</a> 📥</p></td>
+<td><p>0.004</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/travel.tar.gz">travel.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/skos.html#skos"><span class="std std-ref">skos</span></a></p></td>
 <td><p>144</p></td>
@@ -518,7 +540,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>30</p></td>
 <td><p>29</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/skos.tar.gz">skos.tar.gz</a> 📥</p></td>
+<td><p>0.003</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/skos.tar.gz">skos.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/univ.html#univ"><span class="std std-ref">univ</span></a></p></td>
 <td><p>179</p></td>
@@ -527,7 +550,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>25</p></td>
 <td><p>6</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/univ.tar.gz">univ.tar.gz</a> 📥</p></td>
+<td><p>0.003</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/univ.tar.gz">univ.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/foaf.html#foaf"><span class="std std-ref">foaf</span></a></p></td>
 <td><p>256</p></td>
@@ -536,7 +560,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>36</p></td>
 <td><p>29</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/foaf.tar.gz">foaf.tar.gz</a> 📥</p></td>
+<td><p>0.004</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/foaf.tar.gz">foaf.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/atom.html#atom"><span class="std std-ref">atom</span></a></p></td>
 <td><p>291</p></td>
@@ -545,7 +570,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>6</p></td>
 <td><p>4</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/atom.tar.gz">atom.tar.gz</a> 📥</p></td>
+<td><p>0.004</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/atom.tar.gz">atom.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/people.html#people"><span class="std std-ref">people</span></a></p></td>
 <td><p>337</p></td>
@@ -554,7 +580,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>51</p></td>
 <td><p>29</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/people.tar.gz">people.tar.gz</a> 📥</p></td>
+<td><p>0.005</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/people.tar.gz">people.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/biomedical.html#biomedical"><span class="std std-ref">biomedical</span></a></p></td>
 <td><p>341</p></td>
@@ -563,7 +590,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>47</p></td>
 <td><p>4</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/biomedical.tar.gz">biomedical.tar.gz</a> 📥</p></td>
+<td><p>0.004</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/biomedical.tar.gz">biomedical.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/pizza.html#pizza"><span class="std std-ref">pizza</span></a></p></td>
 <td><p>671</p></td>
@@ -572,7 +600,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>1356</p></td>
 <td><p>20</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pizza.tar.gz">pizza.tar.gz</a> 📥</p></td>
+<td><p>0.013</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/pizza.tar.gz">pizza.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/wine.html#wine"><span class="std std-ref">wine</span></a></p></td>
 <td><p>733</p></td>
@@ -581,7 +610,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>565</p></td>
 <td><p>65</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/wine.tar.gz">wine.tar.gz</a> 📥</p></td>
+<td><p>0.012</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/wine.tar.gz">wine.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/funding.html#funding"><span class="std std-ref">funding</span></a></p></td>
 <td><p>778</p></td>
@@ -590,7 +620,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>58</p></td>
 <td><p>31</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/funding.tar.gz">funding.tar.gz</a> 📥</p></td>
+<td><p>0.007</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/funding.tar.gz">funding.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/core.html#core"><span class="std std-ref">core</span></a></p></td>
 <td><p>1323</p></td>
@@ -599,7 +630,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>204</p></td>
 <td><p>61</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/core.tar.gz">core.tar.gz</a> 📥</p></td>
+<td><p>0.014</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/core.tar.gz">core.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/pathways.html#pathways"><span class="std std-ref">pathways</span></a></p></td>
 <td><p>6238</p></td>
@@ -608,7 +640,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>884</p></td>
 <td><p>2</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/pathways.tar.gz">pathways.tar.gz</a> 📥</p></td>
+<td><p>0.052</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/pathways.tar.gz">pathways.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/go_hierarchy.html#go-hierarchy"><span class="std std-ref">go_hierarchy</span></a></p></td>
 <td><p>45007</p></td>
@@ -617,7 +650,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>588976</p></td>
 <td><p>0</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/go_hierarchy.tar.gz">go_hierarchy.tar.gz</a> 📥</p></td>
+<td><p>4.97</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/go_hierarchy.tar.gz">go_hierarchy.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/enzyme.html#enzyme"><span class="std std-ref">enzyme</span></a></p></td>
 <td><p>48815</p></td>
@@ -626,7 +660,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>396</p></td>
 <td><p>3</p></td>
 <td><p>14267542</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/enzyme.tar.gz">enzyme.tar.gz</a> 📥</p></td>
+<td><p>0.360</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/enzyme.tar.gz">enzyme.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/geospecies.html#geospecies"><span class="std std-ref">geospecies</span></a></p></td>
 <td><p>450609</p></td>
@@ -635,7 +670,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>85</p></td>
 <td><p>85</p></td>
 <td><p>226669749</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/geospecies.tar.gz">geospecies.tar.gz</a> 📥</p></td>
+<td><p>7.95</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/geospecies.tar.gz">geospecies.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/go.html#go"><span class="std std-ref">go</span></a></p></td>
 <td><p>582929</p></td>
@@ -644,7 +680,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>640316</p></td>
 <td><p>9</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/go.tar.gz">go.tar.gz</a> 📥</p></td>
+<td><p>11.23</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/go.tar.gz">go.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/eclass.html#eclass"><span class="std std-ref">eclass</span></a></p></td>
 <td><p>239111</p></td>
@@ -653,7 +690,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>90994</p></td>
 <td><p>6</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/eclass.tar.gz">eclass.tar.gz</a> 📥</p></td>
+<td><p>2.10</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/eclass.tar.gz">eclass.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/taxonomy_hierarchy.html#taxonomy-hierarchy"><span class="std std-ref">taxonomy_hierarchy</span></a></p></td>
 <td><p>2112625</p></td>
@@ -662,7 +700,8 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>5351657</p></td>
 <td><p>0</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/taxonomy_hierarchy.tar.gz">taxonomy_hierarchy.tar.gz</a> 📥</p></td>
+<td><p>99.65</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/taxonomy_hierarchy.tar.gz">taxonomy_hierarchy.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/taxonomy.html#taxonomy"><span class="std std-ref">taxonomy</span></a></p></td>
 <td><p>5728398</p></td>
@@ -671,10 +710,45 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
 <td><p>151706</p></td>
 <td><p>4</p></td>
 <td></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/taxonomy.tar.gz">taxonomy.tar.gz</a> 📥</p></td>
+<td><p>59.52</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/taxonomy.tar.gz">taxonomy.tar.gz</a> 📥</p></td>
 </tr>
 </tbody>
 </table>
+<section id="canonical-grammars">
+<h2>Canonical grammars<a class="headerlink" href="#canonical-grammars" title="Link to this heading">#</a></h2>
+<p>Nested parentheses grammars introduced in <a class="reference external" href="https://arxiv.org/abs/1506.00743">“Context-Free Path Queries on RDF Graphs”</a>.
+Template for these grammars is described on the <a class="reference internal" href="../queries/cfpq/data/nested_parentheses.html#nested-parentheses"><span class="std std-ref">Nested Parentheses</span></a> page.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S \, \rightarrow \, subClassOf_r \, S \, subClassOf \, \mid \, subClassOf_r \, subClassOf \, \\
+S \, \rightarrow \, type_r \, S \, type \, \mid \, type_r \, type \, \\\end{split}\]</div>
+<p><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html">Pyformlang CFG</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">-&gt;</span> <span class="n">subClassOf_r</span> <span class="n">S</span> <span class="n">subClassOf</span> <span class="o">|</span> <span class="n">subClassOf_r</span> <span class="n">subClassOf</span>
+<span class="n">S</span> <span class="o">-&gt;</span> <span class="n">type_r</span> <span class="n">S</span> <span class="nb">type</span> <span class="o">|</span> <span class="n">type_r</span> <span class="nb">type</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="math notranslate nohighlight">
+\[\begin{split}S \, \rightarrow \, subClassOf_r \, S \, subClassOf \, \mid \, subClassOf_r \, subClassOf \, \\\end{split}\]</div>
+<p><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html">Pyformlang CFG</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">-&gt;</span> <span class="n">subClassOf_r</span> <span class="n">S</span> <span class="n">subClassOf</span> <span class="o">|</span> <span class="n">subClassOf_r</span> <span class="n">subClassOf</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="math notranslate nohighlight">
+\[\begin{split}S \, \rightarrow \, type_r \, S \, type \, \mid \, type_r \, type \, \\\end{split}\]</div>
+<p><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html">Pyformlang CFG</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">-&gt;</span> <span class="n">type_r</span> <span class="n">S</span> <span class="nb">type</span> <span class="o">|</span> <span class="n">type_r</span> <span class="nb">type</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="math notranslate nohighlight">
+\[\begin{split}S \, \rightarrow \, broaderTransitive \, S \, broaderTransitive_r \, \mid \, broaderTransitive \, broaderTransitive_r \, \\\end{split}\]</div>
+<p><a class="reference external" href="https://pyformlang.readthedocs.io/en/latest/modules/context_free_grammar.html">Pyformlang CFG</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">-&gt;</span> <span class="n">broaderTransitive</span> <span class="n">S</span> <span class="n">broaderTransitive_r</span> <span class="o">|</span> <span class="n">broaderTransitive</span> <span class="n">broaderTransitive_r</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -687,6 +761,24 @@ queries over RDF as in <a class="reference external" href="https://arxiv.org/abs
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#canonical-grammars">Canonical grammars</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

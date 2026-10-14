@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Tutorial &#8212; CFPQ_Data 5.0.0 documentation</title>
+    <title>Tutorial &#8212; FLPQ_Data 6.0.0 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="_static/documentation_options.js?v=b1b76d9c"></script>
+    <script src="_static/documentation_options.js?v=cb01d673"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -50,24 +50,24 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 5.0.0 documentation"
+          title="Search within FLPQ_Data 6.0.0 documentation"
           href="_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Dataset" href="dataset.html" />
+    <link rel="next" title="FLPQ: Formal-Language-Constrained Path Querying" href="flpq.html" />
     <link rel="prev" title="Install" href="install.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
         "@context": "https://schema.org/",
         "@type": "Dataset",
-        "name": "CFPQ_Data",
-        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
         "keywords": [
             "GRAPHS",
             "GRAMMARS",
-            "CONTEXT-FREE",
+            "FORMAL-LANGUAGE",
             "PATH-QUERY"
         ],
         "creator": [
@@ -161,8 +161,8 @@
       
     
     
-    <img src="_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
-    <img src="_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -180,6 +180,13 @@
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -234,7 +241,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -245,7 +252,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
       
@@ -303,6 +310,13 @@
 
 
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="dataset.html">
     Dataset
   </a>
@@ -343,7 +357,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -354,7 +368,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
         
@@ -435,13 +449,13 @@
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>5.0.0</p>
+<dd class="field-odd"><p>6.0.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sep 18, 2026</p>
+<dd class="field-even"><p>Oct 14, 2026</p>
 </dd>
 </dl>
-<p>This guide can help you start working with CFPQ_Data.</p>
+<p>This guide can help you start working with FLPQ_Data.</p>
 <p><strong>You can download this tutorial as a Jupyter Notebook from the link at the end of the page.</strong></p>
 <p><strong>NetworkX.</strong> We use the NetworkX <a class="reference external" href="https://networkx.org/documentation/latest/reference/classes/multidigraph.html">MultiDiGraph</a> to represent the labeled graph.
 To familiarize yourself with this representation and find useful functions, see <a class="reference external" href="https://networkx.org/documentation/latest/tutorial.html">NetworkX tutorial</a>.</p>
@@ -452,7 +466,7 @@ To familiarize yourself with this representations and find useful functions, see
 <section id="import">
 <h2>Import<a class="headerlink" href="#import" title="Link to this heading">#</a></h2>
 <p>First you need to import the package.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">cfpq_data</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">flpq_data</span>
 </pre></div>
 </div>
 </section>
@@ -461,8 +475,8 @@ To familiarize yourself with this representations and find useful functions, see
 <p>After the package is imported, we can load the graphs.</p>
 <section id="load-graph-archive-from-dataset">
 <h3>Load graph archive from Dataset<a class="headerlink" href="#load-graph-archive-from-dataset" title="Link to this heading">#</a></h3>
-<p>We can load the archive with the graph using function <a class="reference internal" href="reference/dataset/generated/cfpq_data.dataset.download.html#cfpq_data.dataset.download" title="cfpq_data.dataset.download"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bzip_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;bzip&quot;</span><span class="p">)</span>
+<p>We can load the archive with the graph using function <a class="reference internal" href="reference/dataset/generated/flpq_data.dataset.graph_dir.html#flpq_data.dataset.graph_dir" title="flpq_data.dataset.graph_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_dir</span></code></a>: it returns the local directory of the graph and downloads it into the machine-global cache only when it is not there yet.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bzip_path</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">graph_dir</span><span class="p">(</span><span class="s2">"bzip"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -471,8 +485,8 @@ To familiarize yourself with this representations and find useful functions, see
 <p>The archive unpacks to a directory with one MatrixMarket file per edge
 label in its <code class="docutils literal notranslate"><span class="pre">graph</span></code> subdirectory (see <a class="reference internal" href="graphs/index.html#graph-file-structure"><span class="std std-ref">File structure</span></a>). We
 can load the graph along the specified path using function
-<a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.readwrite.mtx.html#cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir" title="cfpq_data.graphs.readwrite.mtx.graph_from_mtx_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_from_mtx_dir</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bzip</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">graph_from_mtx_dir</span><span class="p">(</span><span class="n">bzip_path</span> <span class="o">/</span> <span class="s2">&quot;graph&quot;</span><span class="p">)</span>
+<a class="reference internal" href="reference/graphs/generated/flpq_data.graphs.readwrite.mtx.html#flpq_data.graphs.readwrite.mtx.graph_from_mtx_dir" title="flpq_data.graphs.readwrite.mtx.graph_from_mtx_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_from_mtx_dir</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bzip</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">graph_from_mtx_dir</span><span class="p">(</span><span class="n">bzip_path</span> <span class="o">/</span> <span class="s2">"graph"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -483,46 +497,72 @@ can load the graph along the specified path using function
 <section id="create-a-one-cycle-graph">
 <h3>Create a one cycle graph<a class="headerlink" href="#create-a-one-cycle-graph" title="Link to this heading">#</a></h3>
 <p>For example, let’s create a one cycle graph, with 5 nodes, the edges of which are marked with the letter <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cycle</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">labeled_cycle_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cycle</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">labeled_cycle_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"a"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="change-edges">
 <h2>Change edges<a class="headerlink" href="#change-edges" title="Link to this heading">#</a></h2>
-<p>We can change the specified graph labels by using function <a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.change_edges.html#cfpq_data.graphs.utils.change_edges" title="cfpq_data.graphs.utils.change_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_edges</span></code></a>
+<p>We can change the specified graph labels by using function <a class="reference internal" href="reference/graphs/generated/flpq_data.graphs.utils.change_edges.html#flpq_data.graphs.utils.change_edges" title="flpq_data.graphs.utils.change_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_edges</span></code></a>
 from <a class="reference internal" href="reference/graphs/graphs_utils.html#graphs-utils"><span class="std std-ref">Graph utilities</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_cycle</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">change_edges</span><span class="p">(</span><span class="n">cycle</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_cycle</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">change_edges</span><span class="p">(</span><span class="n">cycle</span><span class="p">,</span> <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="s2">"b"</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>Now the labels <code class="docutils literal notranslate"><span class="pre">a</span></code> have changed to <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
 </section>
 <section id="add-reverse-edges">
 <h2>Add reverse edges<a class="headerlink" href="#add-reverse-edges" title="Link to this heading">#</a></h2>
-<p>In addition, we can add reverse edges to the graph by using function <a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.add_reverse_edges.html#cfpq_data.graphs.utils.add_reverse_edges" title="cfpq_data.graphs.utils.add_reverse_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_reverse_edges</span></code></a>
+<p>In addition, we can add reverse edges to the graph by using function <a class="reference internal" href="reference/graphs/generated/flpq_data.graphs.utils.add_reverse_edges.html#flpq_data.graphs.utils.add_reverse_edges" title="flpq_data.graphs.utils.add_reverse_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_reverse_edges</span></code></a>
 from <a class="reference internal" href="reference/graphs/graphs_utils.html#graphs-utils"><span class="std std-ref">Graph utilities</span></a>. This is extremely useful if graph analysis is formulated using such reverse edges.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_cycle_with_reversed</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">add_reverse_edges</span><span class="p">(</span><span class="n">new_cycle</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_cycle_with_reversed</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">add_reverse_edges</span><span class="p">(</span><span class="n">new_cycle</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now, for each edge with label <code class="docutils literal notranslate"><span class="pre">a</span></code> this graph contains the reversed edge with label <code class="docutils literal notranslate"><span class="pre">a_r</span></code>.</p>
 </section>
+<section id="convert-graph-format">
+<h2>Convert graph format<a class="headerlink" href="#convert-graph-format" title="Link to this heading">#</a></h2>
+<p>Graphs can be converted between the supported formats — <code class="docutils literal notranslate"><span class="pre">mtx</span></code> (a directory
+of MatrixMarket files), <code class="docutils literal notranslate"><span class="pre">txt</span></code>, <code class="docutils literal notranslate"><span class="pre">rdf</span></code>, and the FastMatrixCFPQ <code class="docutils literal notranslate"><span class="pre">.g</span></code> text
+— with function <a class="reference internal" href="reference/graphs/generated/flpq_data.graphs.converters.html#flpq_data.graphs.converters.convert_graph" title="flpq_data.graphs.converters.convert_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_graph</span></code></a>:
+the conversion runs over a streaming edge iterator without building an
+in-memory graph, so even large archives convert in constant memory (see the
+<a class="reference internal" href="graphs/index.html#graph-format-conversion"><span class="std std-ref">Format conversion</span></a> section).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">txt_path</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">convert_graph</span><span class="p">(</span>
+    <span class="n">bzip_path</span> <span class="o">/</span> <span class="s2">"graph"</span><span class="p">,</span> <span class="s2">"bzip.txt"</span><span class="p">,</span> <span class="n">src_format</span><span class="o">=</span><span class="s2">"mtx"</span><span class="p">,</span> <span class="n">dst_format</span><span class="o">=</span><span class="s2">"txt"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="load-grammar">
 <h2>Load grammar<a class="headerlink" href="#load-grammar" title="Link to this heading">#</a></h2>
-<p>Also, we can load the grammars generated from grammar templates that are described on the <a class="reference internal" href="grammars/index.html#grammar-templates"><span class="std std-ref">Grammars</span></a> page.</p>
-<section id="load-grammars-archive-from-dataset">
-<h3>Load grammars archive from Dataset<a class="headerlink" href="#load-grammars-archive-from-dataset" title="Link to this heading">#</a></h3>
-<p>We can load the archive with the grammars for the specified template using function <a class="reference internal" href="reference/dataset/generated/cfpq_data.dataset.download_grammars.html#cfpq_data.dataset.download_grammars" title="cfpq_data.dataset.download_grammars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_grammars</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c_alias_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">download_grammars</span><span class="p">(</span><span class="s2">&quot;c_alias&quot;</span><span class="p">)</span>
+<p>Graph archives from the dataset are self-contained: besides the graph they carry the
+queries that apply to the graph under <code class="docutils literal notranslate"><span class="pre">queries/</span></code> — one directory per query with its
+grammar template and a precomputed <code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> (see <a class="reference internal" href="graphs/index.html#graph-file-structure"><span class="std std-ref">File structure</span></a>).
+The grammar templates themselves are described in the <a class="reference internal" href="queries/cfpq/index.html#cfpq-queries"><span class="std std-ref">CFPQ section</span></a>.</p>
+<p>A grammar template may use indexed symbols (e.g. <code class="docutils literal notranslate"><span class="pre">load_i</span></code>); we materialize it over a
+concrete graph with functions <a class="reference internal" href="reference/queries/cfpq/generated/flpq_data.queries.cfpq.readwrite.cnf_template.html#flpq_data.queries.cfpq.readwrite.cnf_template.cnf_template_from_text" title="flpq_data.queries.cfpq.readwrite.cnf_template.cnf_template_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cnf_template_from_text</span></code></a>
+and <a class="reference internal" href="reference/queries/cfpq/generated/flpq_data.queries.cfpq.readwrite.cnf_template.html#flpq_data.queries.cfpq.readwrite.cnf_template.materialize" title="flpq_data.queries.cfpq.readwrite.cnf_template.materialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">materialize</span></code></a>,
+which expand every index present in the graph edge labels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span>
+    <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="s2">"load_0"</span><span class="p">}),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="s2">"store_0"</span><span class="p">}),</span>
+     <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="s2">"alloc"</span><span class="p">})]</span>
+<span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"PT</span><span class="se">\t</span><span class="s2">PTh</span><span class="se">\t</span><span class="s2">alloc</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"PT</span><span class="se">\t</span><span class="s2">alloc</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"PTh</span><span class="se">\t</span><span class="s2">load_i</span><span class="se">\t</span><span class="s2">Al_st_PTh_i</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"Al_st_PTh_i</span><span class="se">\t</span><span class="s2">Al</span><span class="se">\t</span><span class="s2">st_PTh_i</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"st_PTh_i</span><span class="se">\t</span><span class="s2">store_i</span><span class="se">\t</span><span class="s2">PTh</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"Al</span><span class="se">\t</span><span class="s2">PT</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"Count:</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="s2">"PT"</span><span class="p">)</span>
+<span class="n">template</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">cnf_template_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">cfg</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">materialize</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="load-grammars-archive-for-specified-graph">
-<h3>Load grammars archive for specified graph<a class="headerlink" href="#load-grammars-archive-for-specified-graph" title="Link to this heading">#</a></h3>
-<p>For some grammar templates we also can load the archive with the grammars for specific graphs.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">java_pt_avrora_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">download_grammars</span><span class="p">(</span><span class="s2">&quot;java_points_to&quot;</span><span class="p">,</span> <span class="n">graph_name</span><span class="o">=</span><span class="s2">&quot;avrora&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
 </section>
 <section id="regular-grammars">
 <h2>Regular grammars<a class="headerlink" href="#regular-grammars" title="Link to this heading">#</a></h2>
@@ -532,17 +572,17 @@ from <a class="reference internal" href="reference/graphs/graphs_utils.html#grap
 </ol>
 <section id="create-a-regular-expression">
 <h3>Create a regular expression<a class="headerlink" href="#create-a-regular-expression" title="Link to this heading">#</a></h3>
-<p>For example, a regular expression can be created by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.regex.html#cfpq_data.grammars.readwrite.regex.regex_from_text" title="cfpq_data.grammars.readwrite.regex.regex_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex_from_text</span></code></a>
-from <a class="reference internal" href="reference/grammars/grammars_readwrite.html#grammars-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">regex</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">regex_from_text</span><span class="p">(</span><span class="s2">&quot;a (bc|d*)&quot;</span><span class="p">)</span>
+<p>For example, a regular expression can be created by using function <a class="reference internal" href="reference/queries/rpq/generated/flpq_data.queries.rpq.readwrite.regex.html#flpq_data.queries.rpq.readwrite.regex.regex_from_text" title="flpq_data.queries.rpq.readwrite.regex.regex_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex_from_text</span></code></a>
+from <a class="reference internal" href="reference/queries/cfpq/cfpq_readwrite.html#cfpq-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">regex</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">regex_from_text</span><span class="p">(</span><span class="s2">"a (bc|d*)"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="load-regular-expression-by-path">
 <h3>Load regular expression by path<a class="headerlink" href="#load-regular-expression-by-path" title="Link to this heading">#</a></h3>
-<p>We can load the regular expression along the specified path using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.regex.html#cfpq_data.grammars.readwrite.regex.regex_from_txt" title="cfpq_data.grammars.readwrite.regex.regex_from_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex_from_txt</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">regex_to_txt</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
-<span class="n">regex_by_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">regex_from_txt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<p>We can load the regular expression along the specified path using function <a class="reference internal" href="reference/queries/rpq/generated/flpq_data.queries.rpq.readwrite.regex.html#flpq_data.queries.rpq.readwrite.regex.regex_from_txt" title="flpq_data.queries.rpq.readwrite.regex.regex_from_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex_from_txt</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">regex_to_txt</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="s2">"test.txt"</span><span class="p">)</span>
+<span class="n">regex_by_path</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">regex_from_txt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -557,66 +597,35 @@ from <a class="reference internal" href="reference/grammars/grammars_readwrite.h
 </ol>
 <section id="create-a-classic-context-free-grammar">
 <h3>Create a classic context-free grammar<a class="headerlink" href="#create-a-classic-context-free-grammar" title="Link to this heading">#</a></h3>
-<p>A classic context-free grammar can be created by using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_text" title="cfpq_data.grammars.readwrite.cfg.cfg_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_text</span></code></a>
-from <a class="reference internal" href="reference/grammars/grammars_readwrite.html#grammars-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">cfg_from_text</span><span class="p">(</span><span class="s2">&quot;S -&gt; a S b S | a b&quot;</span><span class="p">)</span>
+<p>A classic context-free grammar can be created by using function <a class="reference internal" href="reference/queries/cfpq/generated/flpq_data.queries.cfpq.readwrite.cfg.html#flpq_data.queries.cfpq.readwrite.cfg.cfg_from_text" title="flpq_data.queries.cfpq.readwrite.cfg.cfg_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_text</span></code></a>
+from <a class="reference internal" href="reference/queries/cfpq/cfpq_readwrite.html#cfpq-readwrite"><span class="std std-ref">Reading and writing grammars</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">cfg_from_text</span><span class="p">(</span><span class="s2">"S -&gt; a S b S | a b"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="load-context-free-grammar-by-path">
 <h3>Load context-free grammar by path<a class="headerlink" href="#load-context-free-grammar-by-path" title="Link to this heading">#</a></h3>
-<p>We can load the classic context-free grammar along the specified path using function <a class="reference internal" href="reference/grammars/generated/cfpq_data.grammars.readwrite.cfg.html#cfpq_data.grammars.readwrite.cfg.cfg_from_txt" title="cfpq_data.grammars.readwrite.cfg.cfg_from_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_txt</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">cfg_to_txt</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
-<span class="n">cfg_by_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">cfg_from_txt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<p>We can load the classic context-free grammar along the specified path using function <a class="reference internal" href="reference/queries/cfpq/generated/flpq_data.queries.cfpq.readwrite.cfg.html#flpq_data.queries.cfpq.readwrite.cfg.cfg_from_txt" title="flpq_data.queries.cfpq.readwrite.cfg.cfg_from_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_txt</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">cfg_to_txt</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">"test.txt"</span><span class="p">)</span>
+<span class="n">cfg_by_path</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">cfg_from_txt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="generate-grammar">
 <h2>Generate grammar<a class="headerlink" href="#generate-grammar" title="Link to this heading">#</a></h2>
-<p>We can also generate a grammar for specified template using one of the generators in module <a class="reference internal" href="reference/grammars/grammars_generators.html#grammars-generators"><span class="std std-ref">Grammar generators</span></a>.</p>
+<p>We can also generate a grammar for specified template using one of the generators in module <a class="reference internal" href="reference/queries/cfpq/cfpq_generators.html#cfpq-generators"><span class="std std-ref">Grammar generators</span></a>.</p>
 <section id="generate-a-dyck-grammar">
 <h3>Generate a Dyck grammar<a class="headerlink" href="#generate-a-dyck-grammar" title="Link to this heading">#</a></h3>
-<p>For example, let’s generate a <a class="reference internal" href="grammars/data/dyck.html#dyck"><span class="std std-ref">Dyck</span></a> grammar of the balanced strings with <code class="docutils literal notranslate"><span class="pre">a</span></code> as an opening parenthesis, <code class="docutils literal notranslate"><span class="pre">b</span></code> as a closing parenthesis, and without the empty string.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dyck_cfg</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">dyck_grammar</span><span class="p">([(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">)],</span> <span class="n">eps</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<p>For example, let’s generate a <a class="reference internal" href="queries/cfpq/data/dyck.html#dyck"><span class="std std-ref">Dyck</span></a> grammar of the balanced strings with <code class="docutils literal notranslate"><span class="pre">a</span></code> as an opening parenthesis, <code class="docutils literal notranslate"><span class="pre">b</span></code> as a closing parenthesis, and without the empty string.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dyck_cfg</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">dyck_grammar</span><span class="p">([(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">)],</span> <span class="n">eps</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="generate-a-java-points-to-grammar">
 <h3>Generate a Java Points-to grammar<a class="headerlink" href="#generate-a-java-points-to-grammar" title="Link to this heading">#</a></h3>
-<p>Also, let’s generate a <a class="reference internal" href="grammars/data/java_points_to.html#java-points-to"><span class="std std-ref">Java Points-to</span></a> grammar for the field-sensitive analysis of Java programs with field names <code class="docutils literal notranslate"><span class="pre">f0</span></code> and <code class="docutils literal notranslate"><span class="pre">f1</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">java_pt_cfg</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">java_points_to_grammar</span><span class="p">([</span><span class="s2">&quot;f0&quot;</span><span class="p">,</span> <span class="s2">&quot;f1&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="benchmarks">
-<h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Link to this heading">#</a></h2>
-<p>In addition, one of the prepared benchmarks that contains graphs, queries, other input data, and results for
-a particular formal-language-constrained path querying problem can be downloaded.</p>
-<p>Currently, we provide the following benchmarks documented on the <a class="reference internal" href="benchmarks/index.html#benchmarks"><span class="std std-ref">Benchmarks</span></a> page:</p>
-<ol class="arabic simple">
-<li><p><a class="reference internal" href="benchmarks/data/ms_reachability.html#msreachability"><span class="std std-ref">MS_Reachability</span></a></p></li>
-</ol>
-<section id="load-benchmark-archive">
-<h3>Load benchmark archive<a class="headerlink" href="#load-benchmark-archive" title="Link to this heading">#</a></h3>
-<p>You can load the archive with the benchmark using function <a class="reference internal" href="reference/dataset/generated/cfpq_data.dataset.download_benchmark.html#cfpq_data.dataset.download_benchmark" title="cfpq_data.dataset.download_benchmark"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_benchmark</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ms_reachability_path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">download_benchmark</span><span class="p">(</span><span class="s2">&quot;MS_Reachability&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="ms-reachability-benchmark">
-<h3>MS_Reachability benchmark<a class="headerlink" href="#ms-reachability-benchmark" title="Link to this heading">#</a></h3>
-<p>MS_Reachability benchmark can be used for the experimental study of the algorithms that solve the multiple-source
-formal-language-constrained reachability problem. This benchmark is described on the <a class="reference internal" href="benchmarks/data/ms_reachability.html#msreachability"><span class="std std-ref">MS_Reachability</span></a> page.</p>
-<p>For this benchmark we provide some useful functions from
-<a class="reference internal" href="reference/graphs/graphs_utils.html#graphs-utils"><span class="std std-ref">Graph utilities</span></a>.
-For example, the set of source vertices can be saved to the TXT file or it can be loaded from benchmark by using
-functions <a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.multiple_source_utils.html#cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt" title="cfpq_data.graphs.utils.multiple_source_utils.multiple_source_from_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiple_source_from_txt</span></code></a> and
-<a class="reference internal" href="reference/graphs/generated/cfpq_data.graphs.utils.multiple_source_utils.html#cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt" title="cfpq_data.graphs.utils.multiple_source_utils.multiple_source_to_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiple_source_to_txt</span></code></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">}</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">multiple_source_to_txt</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
-<span class="n">source_vertices</span> <span class="o">=</span> <span class="n">cfpq_data</span><span class="o">.</span><span class="n">multiple_source_from_txt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<p>Also, let’s generate a <a class="reference internal" href="queries/cfpq/data/java_points_to.html#java-points-to"><span class="std std-ref">Java Points-to</span></a> grammar for the field-sensitive analysis of Java programs with field names <code class="docutils literal notranslate"><span class="pre">f0</span></code> and <code class="docutils literal notranslate"><span class="pre">f1</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">java_pt_cfg</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">java_points_to_grammar</span><span class="p">([</span><span class="s2">"f0"</span><span class="p">,</span> <span class="s2">"f1"</span><span class="p">])</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -663,11 +672,8 @@ functions <a class="reference internal" href="reference/graphs/generated/cfpq_da
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-edges">Change edges</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-reverse-edges">Add reverse edges</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-grammar">Load grammar</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-grammars-archive-from-dataset">Load grammars archive from Dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-grammars-archive-for-specified-graph">Load grammars archive for specified graph</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-graph-format">Convert graph format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-grammar">Load grammar</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regular-grammars">Regular grammars</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-regular-expression">Create a regular expression</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-regular-expression-by-path">Load regular expression by path</a></li>
@@ -681,11 +687,6 @@ functions <a class="reference internal" href="reference/graphs/generated/cfpq_da
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-grammar">Generate grammar</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-a-dyck-grammar">Generate a Dyck grammar</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-a-java-points-to-grammar">Generate a Java Points-to grammar</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmarks">Benchmarks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-benchmark-archive">Load benchmark archive</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ms-reachability-benchmark">MS_Reachability benchmark</a></li>
 </ul>
 </li>
 </ul>

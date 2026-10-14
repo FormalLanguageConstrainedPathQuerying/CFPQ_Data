@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Biological graphs from UniProt &#8212; CFPQ_Data 5.0.0 documentation</title>
+    <title>Biological graphs from UniProt &#8212; FLPQ_Data 6.0.0 documentation</title>
   
   
   
@@ -42,15 +42,16 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=b1b76d9c"></script>
+    <script src="../_static/documentation_options.js?v=cb01d673"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'graphs/biological_uniprot';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 5.0.0 documentation"
+          title="Search within FLPQ_Data 6.0.0 documentation"
           href="../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -62,12 +63,12 @@
     {
         "@context": "https://schema.org/",
         "@type": "Dataset",
-        "name": "CFPQ_Data",
-        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
         "keywords": [
             "GRAPHS",
             "GRAMMARS",
-            "CONTEXT-FREE",
+            "FORMAL-LANGUAGE",
             "PATH-QUERY"
         ],
         "creator": [
@@ -161,8 +162,8 @@
       
     
     
-    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
-    <img src="../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -180,6 +181,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -234,7 +242,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -245,7 +253,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
       
@@ -264,6 +272,10 @@
     </div>
   
 
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
   
 </div>
 
@@ -294,6 +306,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -339,7 +358,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -350,7 +369,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
         
@@ -388,10 +407,10 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../grammars/index.html">Grammars</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../indexed_grammars.html">Indexed Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/cfpq/index.html">CFPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/rpq/index.html">RPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/mcfpq/index.html">MCFPQ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reachable_pairs.html">Reachable Pair Counts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../benchmarks/index.html">Benchmarks</a></li>
 </ul>
 </div>
 </nav></div>
@@ -459,10 +478,10 @@
 <span id="graphs-biological-uniprot"></span><h1>Biological graphs from UniProt<a class="headerlink" href="#biological-graphs-from-uniprot" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>5.0.0</p>
+<dd class="field-odd"><p>6.0.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sep 18, 2026</p>
+<dd class="field-even"><p>Oct 14, 2026</p>
 </dd>
 </dl>
 <p>Biological interaction graphs derived from the UniProt knowledgebase, where
@@ -477,72 +496,96 @@ as in <a class="reference external" href="https://researchportal.helsinki.fi/en/
 <th class="head"><p>Num Nodes</p></th>
 <th class="head"><p>Num Edges</p></th>
 <th class="head"><p>grammar</p></th>
+<th class="head"><p>Size (MB)</p></th>
 <th class="head"><p>Download</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_1.html#unigraph-1"><span class="std std-ref">unigraph_1</span></a></p></td>
-<td><p>3081</p></td>
+<td><p>3082</p></td>
 <td><p>11966</p></td>
 <td><p>376578</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_1.tar.gz">unigraph_1.tar.gz</a> 📥</p></td>
+<td><p>0.972</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_1.tar.gz">unigraph_1.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_2.html#unigraph-2"><span class="std std-ref">unigraph_2</span></a></p></td>
-<td><p>36467</p></td>
+<td><p>36468</p></td>
 <td><p>168344</p></td>
 <td><p>39888347</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_2.tar.gz">unigraph_2.tar.gz</a> 📥</p></td>
+<td><p>0.300</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_2.tar.gz">unigraph_2.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_3.html#unigraph-3"><span class="std std-ref">unigraph_3</span></a></p></td>
-<td><p>41332</p></td>
+<td><p>41333</p></td>
 <td><p>193866</p></td>
 <td><p>52471840</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_3.tar.gz">unigraph_3.tar.gz</a> 📥</p></td>
+<td><p>0.344</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_3.tar.gz">unigraph_3.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_4.html#unigraph-4"><span class="std std-ref">unigraph_4</span></a></p></td>
-<td><p>215480</p></td>
+<td><p>215481</p></td>
 <td><p>1346130</p></td>
 <td><p>808091802</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_4.tar.gz">unigraph_4.tar.gz</a> 📥</p></td>
+<td><p>2.25</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_4.tar.gz">unigraph_4.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_5.html#unigraph-5"><span class="std std-ref">unigraph_5</span></a></p></td>
-<td><p>243838</p></td>
+<td><p>243839</p></td>
 <td><p>1818404</p></td>
 <td><p>2303590109</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_5.tar.gz">unigraph_5.tar.gz</a> 📥</p></td>
+<td><p>3.15</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_5.tar.gz">unigraph_5.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_6.html#unigraph-6"><span class="std std-ref">unigraph_6</span></a></p></td>
-<td><p>286644</p></td>
+<td><p>286645</p></td>
 <td><p>1708910</p></td>
 <td><p>1722963921</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_6.tar.gz">unigraph_6.tar.gz</a> 📥</p></td>
+<td><p>2.94</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_6.tar.gz">unigraph_6.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_7.html#unigraph-7"><span class="std std-ref">unigraph_7</span></a></p></td>
-<td><p>285576</p></td>
+<td><p>285577</p></td>
 <td><p>2073268</p></td>
 <td><p>2320964134</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_7.tar.gz">unigraph_7.tar.gz</a> 📥</p></td>
+<td><p>3.47</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_7.tar.gz">unigraph_7.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_8.html#unigraph-8"><span class="std std-ref">unigraph_8</span></a></p></td>
-<td><p>449236</p></td>
+<td><p>449237</p></td>
 <td><p>3385168</p></td>
 <td><p>not available</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_8.tar.gz">unigraph_8.tar.gz</a> 📥</p></td>
+<td><p>5.72</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_8.tar.gz">unigraph_8.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="data/unigraph_9.html#unigraph-9"><span class="std std-ref">unigraph_9</span></a></p></td>
-<td><p>475478</p></td>
+<td><p>475479</p></td>
 <td><p>3579034</p></td>
 <td><p>not available</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_9.tar.gz">unigraph_9.tar.gz</a> 📥</p></td>
+<td><p>6.10</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_9.tar.gz">unigraph_9.tar.gz</a> 📥</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="data/unigraph_10.html#unigraph-10"><span class="std std-ref">unigraph_10</span></a></p></td>
-<td><p>2055881</p></td>
+<td><p>2055882</p></td>
 <td><p>17223588</p></td>
 <td><p>not available</p></td>
-<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/5.0.0/graph/unigraph_10.tar.gz">unigraph_10.tar.gz</a> 📥</p></td>
+<td><p>29.27</p></td>
+<td><p><a class="reference external" href="https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/unigraph_10.tar.gz">unigraph_10.tar.gz</a> 📥</p></td>
 </tr>
 </tbody>
 </table>
+<section id="canonical-grammars">
+<h2>Canonical grammars<a class="headerlink" href="#canonical-grammars" title="Link to this heading">#</a></h2>
+<p>The grammar file is attached to the archive.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S &amp;\to Seq \quad IsAssociated \quad IsSimilar \\
+Seq &amp;\to IsSimilar \quad (codes\_for \quad IsSimilar)? \\
+IsSimilar &amp;\to \varepsilon \\
+          &amp;\mid has \quad IsSimilar \quad has_{r} \\
+          &amp;\mid is\_homologous\_to \quad IsSimilar \quad is\_homologous\_to_{r} \quad IsSimilar \\
+          &amp;\mid belongs\_to \quad IsSimilar \quad belongs\_to_{r} \\
+          &amp;\mid participate\_in \quad IsSimilar \quad participate\_in_{r} \\
+IsAssociated &amp;\to refers\_to \quad refers\_to_{r}\end{split}\]</div>
+</section>
 </section>
 
 
@@ -555,6 +598,24 @@ as in <a class="reference external" href="https://researchportal.helsinki.fi/en/
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#canonical-grammars">Canonical grammars</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

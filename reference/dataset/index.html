@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Dataset utilities &#8212; CFPQ_Data 5.0.0 documentation</title>
+    <title>Dataset utilities &#8212; FLPQ_Data 6.0.0 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../../_static/documentation_options.js?v=b1b76d9c"></script>
+    <script src="../../_static/documentation_options.js?v=cb01d673"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -50,24 +50,24 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'reference/dataset/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within CFPQ_Data 5.0.0 documentation"
+          title="Search within FLPQ_Data 6.0.0 documentation"
           href="../../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="cfpq_data.dataset.download" href="generated/cfpq_data.dataset.download.html" />
+    <link rel="next" title="flpq_data.dataset.cached_versions" href="generated/flpq_data.dataset.cached_versions.html" />
     <link rel="prev" title="Reference" href="../index.html" />
 <!-- Dataset metadata -->
 <script type="application/ld+json">
     {
         "@context": "https://schema.org/",
         "@type": "Dataset",
-        "name": "CFPQ_Data",
-        "description": "Dataset contains graphs and grammars for Context-Free Path-Querying algorithms evaluation.",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
         "keywords": [
             "GRAPHS",
             "GRAMMARS",
-            "CONTEXT-FREE",
+            "FORMAL-LANGUAGE",
             "PATH-QUERY"
         ],
         "creator": [
@@ -161,8 +161,8 @@
       
     
     
-    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-light" alt="CFPQ_Data 5.0.0 documentation - Home"/>
-    <img src="../../_static/CFPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="CFPQ_Data 5.0.0 documentation - Home"/>
+    <img src="../../_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="../../_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
   
   
 </a></div>
@@ -180,6 +180,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -234,7 +241,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -245,7 +252,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
       
@@ -264,6 +271,10 @@
     </div>
   
 
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
   
 </div>
 
@@ -294,6 +305,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../getting_started.html">
     Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
   </a>
 </li>
 
@@ -339,7 +357,7 @@
           
           
           
-          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/CFPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -350,7 +368,7 @@
           
           
           
-          <a href="https://pypi.org/project/cfpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
         </li>
 </ul></div>
         
@@ -366,16 +384,21 @@
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Dataset utilities</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="generated/cfpq_data.dataset.download.html">cfpq_data.dataset.download</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/cfpq_data.dataset.download_grammars.html">cfpq_data.dataset.download_grammars</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/cfpq_data.dataset.download_benchmark.html">cfpq_data.dataset.download_benchmark</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/cfpq_data.dataset.DATASET.html">cfpq_data.dataset.DATASET</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/cfpq_data.dataset.BENCHMARKS.html">cfpq_data.dataset.BENCHMARKS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated/cfpq_data.dataset.GRAMMAR_TEMPLATES.html">cfpq_data.dataset.GRAMMAR_TEMPLATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.cached_versions.html">flpq_data.dataset.cached_versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.cache_root.html">flpq_data.dataset.cache_root</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.categories.html">flpq_data.dataset.categories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.clear_cache.html">flpq_data.dataset.clear_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.download_graph.html">flpq_data.dataset.download_graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.download_reachable_pairs.html">flpq_data.dataset.download_reachable_pairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.graph_dir.html">flpq_data.dataset.graph_dir</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.graph_info.html">flpq_data.dataset.graph_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.graph_names.html">flpq_data.dataset.graph_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.reachable_pairs.html">flpq_data.dataset.reachable_pairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/flpq_data.dataset.version_dir.html">flpq_data.dataset.version_dir</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../graphs/index.html">Graphs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../grammars/index.html">Grammars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../queries/index.html">Queries</a></li>
 </ul>
 </div>
 </nav></div>
@@ -440,34 +463,94 @@
 <span id="dataset"></span><h1>Dataset utilities<a class="headerlink" href="#dataset-utilities" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>5.0.0</p>
+<dd class="field-odd"><p>6.0.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sep 18, 2026</p>
+<dd class="field-even"><p>Oct 14, 2026</p>
 </dd>
 </dl>
-<span class="target" id="module-cfpq_data.dataset"></span><table class="autosummary longtable docutils align-default">
+<span class="target" id="module-flpq_data.dataset"></span><table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/cfpq_data.dataset.download.html#cfpq_data.dataset.download" title="cfpq_data.dataset.download"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download</span></code></a>(name)</p></td>
-<td><p>Download graph data from dataset.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/flpq_data.dataset.cached_versions.html#flpq_data.dataset.cached_versions" title="flpq_data.dataset.cached_versions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cached_versions</span></code></a>()</p></td>
+<td><p>Return the dataset versions present in the cache.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/cfpq_data.dataset.download_grammars.html#cfpq_data.dataset.download_grammars" title="cfpq_data.dataset.download_grammars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_grammars</span></code></a>(template, *[, graph_name])</p></td>
-<td><p>Download grammars of the given template.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/flpq_data.dataset.cache_root.html#flpq_data.dataset.cache_root" title="flpq_data.dataset.cache_root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cache_root</span></code></a>()</p></td>
+<td><p>Return the effective cache root.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/cfpq_data.dataset.download_benchmark.html#cfpq_data.dataset.download_benchmark" title="cfpq_data.dataset.download_benchmark"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_benchmark</span></code></a>(name)</p></td>
-<td><p>Download benchmark data.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/flpq_data.dataset.categories.html#flpq_data.dataset.categories" title="flpq_data.dataset.categories"><code class="xref py py-obj docutils literal notranslate"><span class="pre">categories</span></code></a>()</p></td>
+<td><p>Returns the dataset categories mapped to their graph names.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/cfpq_data.dataset.DATASET.html#cfpq_data.dataset.DATASET" title="cfpq_data.dataset.DATASET"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DATASET</span></code></a></p></td>
-<td><p>Built-in mutable sequence.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/flpq_data.dataset.clear_cache.html#flpq_data.dataset.clear_cache" title="flpq_data.dataset.clear_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_cache</span></code></a>([keep])</p></td>
+<td><p>Remove the cached dataset versions, optionally keeping one.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/cfpq_data.dataset.BENCHMARKS.html#cfpq_data.dataset.BENCHMARKS" title="cfpq_data.dataset.BENCHMARKS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BENCHMARKS</span></code></a></p></td>
-<td><p>Built-in mutable sequence.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/flpq_data.dataset.download_graph.html#flpq_data.dataset.download_graph" title="flpq_data.dataset.download_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_graph</span></code></a>(name)</p></td>
+<td><p>Deprecated alias of <a class="reference internal" href="generated/flpq_data.dataset.graph_dir.html#flpq_data.dataset.graph_dir" title="flpq_data.dataset.graph_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">graph_dir()</span></code></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/cfpq_data.dataset.GRAMMAR_TEMPLATES.html#cfpq_data.dataset.GRAMMAR_TEMPLATES" title="cfpq_data.dataset.GRAMMAR_TEMPLATES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GRAMMAR_TEMPLATES</span></code></a></p></td>
-<td><p>Built-in mutable sequence.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/flpq_data.dataset.download_reachable_pairs.html#flpq_data.dataset.download_reachable_pairs" title="flpq_data.dataset.download_reachable_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_reachable_pairs</span></code></a>()</p></td>
+<td><p>Download the versioned reachable-pairs CSV from the dataset storage.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/flpq_data.dataset.graph_dir.html#flpq_data.dataset.graph_dir" title="flpq_data.dataset.graph_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_dir</span></code></a>(name[, verify])</p></td>
+<td><p>Return the local directory of a graph, downloading it on a cache miss.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/flpq_data.dataset.graph_info.html#flpq_data.dataset.graph_info" title="flpq_data.dataset.graph_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_info</span></code></a>(name)</p></td>
+<td><p>Returns the registry record of one graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/flpq_data.dataset.graph_names.html#flpq_data.dataset.graph_names" title="flpq_data.dataset.graph_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_names</span></code></a>()</p></td>
+<td><p>Returns the names of all downloadable graphs, sorted.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/flpq_data.dataset.reachable_pairs.html#flpq_data.dataset.reachable_pairs" title="flpq_data.dataset.reachable_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reachable_pairs</span></code></a>([graph, grammar, category, ...])</p></td>
+<td><p>Return reference reachable-pair counts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/flpq_data.dataset.version_dir.html#flpq_data.dataset.version_dir" title="flpq_data.dataset.version_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">version_dir</span></code></a>([version])</p></td>
+<td><p>Return the cache directory of a dataset version.</p></td>
 </tr>
 </tbody>
 </table>
+<dl class="py class">
+<dt class="sig sig-object py" id="flpq_data.dataset.GraphInfo">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">GraphInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_mb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sha256</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">queries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#flpq_data.dataset.QueryInfo" title="flpq_data.dataset.registry.QueryInfo"><span class="pre">QueryInfo</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/flpq_data/dataset/registry.html#GraphInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flpq_data.dataset.GraphInfo" title="Link to this definition">#</a></dt>
+<dd><p>The registry record of one graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong><span class="classifier">str</span></dt><dd><p>The graph name (the archive is <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;.tar.gz</span></code>).</p>
+</dd>
+<dt><strong>category</strong><span class="classifier">str</span></dt><dd><p>The dataset category the graph belongs to.</p>
+</dd>
+<dt><strong>num_nodes</strong><span class="classifier">int</span></dt><dd><p>The number of vertices (the declared MTX dimension).</p>
+</dd>
+<dt><strong>num_edges</strong><span class="classifier">int</span></dt><dd><p>The number of stored edges (the sum of the MTX nnz).</p>
+</dd>
+<dt><strong>size_mb</strong><span class="classifier">float</span></dt><dd><p>The archive size in MB (three decimals).</p>
+</dd>
+<dt><strong>sha256</strong><span class="classifier">str</span></dt><dd><p>The sha256 hex digest of the <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;.tar.gz</span></code> archive.</p>
+</dd>
+<dt><strong>queries</strong><span class="classifier">tuple[QueryInfo, …]</span></dt><dd><p>The queries shipped with the graph, sorted by (class, name).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flpq_data.dataset.QueryInfo">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">QueryInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">representations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/flpq_data/dataset/registry.html#QueryInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flpq_data.dataset.QueryInfo" title="Link to this definition">#</a></dt>
+<dd><p>One query of a graph (a <code class="docutils literal notranslate"><span class="pre">queries/</span></code> dir of its archive).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>query_class</strong><span class="classifier">str</span></dt><dd><p>The query class (<code class="docutils literal notranslate"><span class="pre">cfpq</span></code>, <code class="docutils literal notranslate"><span class="pre">rpq</span></code>, or <code class="docutils literal notranslate"><span class="pre">mcfpq</span></code>).</p>
+</dd>
+<dt><strong>name</strong><span class="classifier">str</span></dt><dd><p>The query name (the directory name under <code class="docutils literal notranslate"><span class="pre">queries/&lt;class&gt;/</span></code>).</p>
+</dd>
+<dt><strong>representations</strong><span class="classifier">tuple[str, …]</span></dt><dd><p>The representation formats present for the query (e.g.
+<code class="docutils literal notranslate"><span class="pre">(&quot;cnf&quot;,</span> <span class="pre">&quot;rsm&quot;)</span></code>), sorted.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -480,6 +563,25 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flpq_data.dataset.GraphInfo"><code class="docutils literal notranslate"><span class="pre">GraphInfo</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flpq_data.dataset.QueryInfo"><code class="docutils literal notranslate"><span class="pre">QueryInfo</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

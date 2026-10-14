@@ -1,0 +1,764 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>CFPQ &#8212; FLPQ_Data 6.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d9aafeaa" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/copybutton.css?v=b2a5787b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/about.css?v=48cf5573" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=fdb814aa" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="../../_static/documentation_options.js?v=cb01d673"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'queries/cfpq/index';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within FLPQ_Data 6.0.0 documentation"
+          href="../../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="C Alias" href="data/c_alias.html" />
+    <link rel="prev" title="unigraph_10" href="../../graphs/data/unigraph_10.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "FORMAL-LANGUAGE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="../../_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../graphs/index.html">Graphs</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">CFPQ</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="data/c_alias.html">C Alias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/dyck.html">Dyck</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/java_points_to.html">Java Points-to</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/nested_parentheses.html">Nested Parentheses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="indexed_grammars.html">Indexed Grammars</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpq/index.html">RPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mcfpq/index.html">MCFPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reachable_pairs.html">Reachable Pair Counts</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../dataset.html" class="nav-link">Dataset</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">CFPQ</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="cfpq">
+<span id="cfpq-queries"></span><h1>CFPQ<a class="headerlink" href="#cfpq" title="Link to this heading">#</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Release<span class="colon">:</span></dt>
+<dd class="field-odd"><p>6.0.0</p>
+</dd>
+<dt class="field-even">Date<span class="colon">:</span></dt>
+<dd class="field-even"><p>Oct 14, 2026</p>
+</dd>
+</dl>
+<p>Context-free path queries (CFPQ) constrain the paths of a labeled graph by a
+context-free language: a pair <span class="math notranslate nohighlight">\((u, v)\)</span> is reachable if some path from
+<span class="math notranslate nohighlight">\(u\)</span> to <span class="math notranslate nohighlight">\(v\)</span> is labeled by a string of the language. A query is
+specified by a grammar template instantiated per graph from its stored labels;
+one query may carry several representations of the same language (a CFG or an
+RSM). The graph catalog is shared across all query classes — the “Applicable
+graphs” list below cross-links the per-graph pages without duplicating them.</p>
+<div class="toctree-wrapper compound">
+</div>
+<section id="grammar-templates">
+<h2>Grammar templates<a class="headerlink" href="#grammar-templates" title="Link to this heading">#</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Grammar</p></th>
+<th class="head"><p>Class</p></th>
+<th class="head"><p>Kind</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="data/nested_parentheses.html#nested-parentheses"><span class="std std-ref">Nested Parentheses</span></a></p></td>
+<td><p>Context-Free</p></td>
+<td><p>Hierarchical</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/dyck.html#dyck"><span class="std std-ref">Dyck</span></a></p></td>
+<td><p>Context-Free</p></td>
+<td><p>Hierarchical</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="data/c_alias.html#c-alias"><span class="std std-ref">C Alias</span></a></p></td>
+<td><p>Context-Free</p></td>
+<td><p>Static Analysis</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data/java_points_to.html#java-points-to"><span class="std std-ref">Java Points-to</span></a></p></td>
+<td><p>Context-Free</p></td>
+<td><p>Static Analysis</p></td>
+</tr>
+</tbody>
+</table>
+<p>The static-analysis grammars use a compact indexed form; see
+<a class="reference internal" href="indexed_grammars.html"><span class="doc">Indexed Grammars</span></a>.</p>
+</section>
+<section id="applicable-graphs">
+<h2>Applicable graphs<a class="headerlink" href="#applicable-graphs" title="Link to this heading">#</a></h2>
+<p>Graphs from the shared <a class="reference internal" href="../../graphs/index.html#graphs"><span class="std std-ref">catalog</span></a> that carry at least one CFPQ
+query.</p>
+<section id="c-alias-analysis">
+<h3>C alias analysis<a class="headerlink" href="#c-alias-analysis" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../graphs/data/apache.html#apache"><span class="std std-ref">apache</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/arch.html#arch"><span class="std std-ref">arch</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/block.html#block"><span class="std std-ref">block</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/bzip.html#bzip"><span class="std std-ref">bzip</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/crypto.html#crypto"><span class="std std-ref">crypto</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/drivers.html#drivers"><span class="std std-ref">drivers</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/fs.html#fs"><span class="std std-ref">fs</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/gzip.html#gzip"><span class="std std-ref">gzip</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/init.html#init"><span class="std std-ref">init</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/ipc.html#ipc"><span class="std std-ref">ipc</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/kernel.html#kernel"><span class="std std-ref">kernel</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/lib.html#lib"><span class="std std-ref">lib</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/ls.html#ls"><span class="std std-ref">ls</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/mm.html#mm"><span class="std std-ref">mm</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/net.html#net"><span class="std std-ref">net</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/postgre.html#postgre"><span class="std std-ref">postgre</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/pr.html#pr"><span class="std std-ref">pr</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/security.html#security"><span class="std std-ref">security</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/sound.html#sound"><span class="std std-ref">sound</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/wc.html#wc"><span class="std std-ref">wc</span></a></p></li>
+</ul>
+</section>
+<section id="rdf">
+<h3>RDF<a class="headerlink" href="#rdf" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../graphs/data/atom.html#atom"><span class="std std-ref">atom</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/biomedical.html#biomedical"><span class="std std-ref">biomedical</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/core.html#core"><span class="std std-ref">core</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/eclass.html#eclass"><span class="std std-ref">eclass</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/enzyme.html#enzyme"><span class="std std-ref">enzyme</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/foaf.html#foaf"><span class="std std-ref">foaf</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/funding.html#funding"><span class="std std-ref">funding</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/generations.html#generations"><span class="std std-ref">generations</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/geospecies.html#geospecies"><span class="std std-ref">geospecies</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/go.html#go"><span class="std std-ref">go</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/go_hierarchy.html#go-hierarchy"><span class="std std-ref">go_hierarchy</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/pathways.html#pathways"><span class="std std-ref">pathways</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/people.html#people"><span class="std std-ref">people</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/pizza.html#pizza"><span class="std std-ref">pizza</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/skos.html#skos"><span class="std std-ref">skos</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/taxonomy.html#taxonomy"><span class="std std-ref">taxonomy</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/taxonomy_hierarchy.html#taxonomy-hierarchy"><span class="std std-ref">taxonomy_hierarchy</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/travel.html#travel"><span class="std std-ref">travel</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/univ.html#univ"><span class="std std-ref">univ</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/wine.html#wine"><span class="std std-ref">wine</span></a></p></li>
+</ul>
+</section>
+<section id="java-points-to-graphs">
+<h3>Java points-to graphs<a class="headerlink" href="#java-points-to-graphs" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../graphs/data/avrora.html#avrora"><span class="std std-ref">avrora</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/batik.html#batik"><span class="std std-ref">batik</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/commons_io.html#commons-io"><span class="std std-ref">commons_io</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/commons_lang3.html#commons-lang3"><span class="std std-ref">commons_lang3</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/eclipse.html#eclipse"><span class="std std-ref">eclipse</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/fop.html#fop"><span class="std std-ref">fop</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/gson.html#gson"><span class="std std-ref">gson</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/guava.html#guava"><span class="std std-ref">guava</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/h2.html#h2"><span class="std std-ref">h2</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/jackson.html#jackson"><span class="std std-ref">jackson</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/junit5.html#junit5"><span class="std std-ref">junit5</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/jython.html#jython"><span class="std std-ref">jython</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/luindex.html#luindex"><span class="std std-ref">luindex</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/lusearch.html#lusearch"><span class="std std-ref">lusearch</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/mockito.html#mockito"><span class="std std-ref">mockito</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/pmd.html#pmd"><span class="std std-ref">pmd</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/sunflow.html#sunflow"><span class="std std-ref">sunflow</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/tomcat.html#tomcat"><span class="std std-ref">tomcat</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/tradebeans.html#tradebeans"><span class="std std-ref">tradebeans</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/tradesoap.html#tradesoap"><span class="std std-ref">tradesoap</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/xalan.html#xalan"><span class="std std-ref">xalan</span></a></p></li>
+</ul>
+</section>
+<section id="field-sensitive-alias">
+<h3>Field-Sensitive Alias<a class="headerlink" href="#field-sensitive-alias" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../graphs/data/cactus_field_sensitive_alias.html#cactus-field-sensitive-alias"><span class="std std-ref">cactus</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/imagick_field_sensitive_alias.html#imagick-field-sensitive-alias"><span class="std std-ref">imagick</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/leela_field_sensitive_alias.html#leela-field-sensitive-alias"><span class="std std-ref">leela</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/nab_field_sensitive_alias.html#nab-field-sensitive-alias"><span class="std std-ref">nab</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/omnetpp_field_sensitive_alias.html#omnetpp-field-sensitive-alias"><span class="std std-ref">omnetpp</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/parest_field_sensitive_alias.html#parest-field-sensitive-alias"><span class="std std-ref">parest</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/perlbench_field_sensitive_alias.html#perlbench-field-sensitive-alias"><span class="std std-ref">perlbench</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/povray_field_sensitive_alias.html#povray-field-sensitive-alias"><span class="std std-ref">povray</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/x264_field_sensitive_alias.html#x264-field-sensitive-alias"><span class="std std-ref">x264</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/xz_field_sensitive_alias.html#xz-field-sensitive-alias"><span class="std std-ref">xz</span></a></p></li>
+</ul>
+</section>
+<section id="context-sensitive-data-flow">
+<h3>Context-Sensitive Data-Flow<a class="headerlink" href="#context-sensitive-data-flow" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../graphs/data/cactus.html#cactus"><span class="std std-ref">cactus</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/imagick.html#imagick"><span class="std std-ref">imagick</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/leela.html#leela"><span class="std std-ref">leela</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/nab.html#nab"><span class="std std-ref">nab</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/omnetpp.html#omnetpp"><span class="std std-ref">omnetpp</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/parest.html#parest"><span class="std std-ref">parest</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/perlbench.html#perlbench"><span class="std std-ref">perlbench</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/povray.html#povray"><span class="std std-ref">povray</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/x264.html#x264"><span class="std std-ref">x264</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/xz.html#xz"><span class="std std-ref">xz</span></a></p></li>
+</ul>
+</section>
+<section id="data-provenance">
+<h3>Data Provenance<a class="headerlink" href="#data-provenance" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../graphs/data/provenance_airflow.html#provenance-airflow"><span class="std std-ref">airflow</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_celery.html#provenance-celery"><span class="std std-ref">celery</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_click.html#provenance-click"><span class="std std-ref">click</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_django.html#provenance-django"><span class="std std-ref">django</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_fastapi.html#provenance-fastapi"><span class="std std-ref">fastapi</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_flask.html#provenance-flask"><span class="std std-ref">flask</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_httpx.html#provenance-httpx"><span class="std std-ref">httpx</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_itsdangerous.html#provenance-itsdangerous"><span class="std std-ref">itsdangerous</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_jinja.html#provenance-jinja"><span class="std std-ref">jinja</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_pandas.html#provenance-pandas"><span class="std std-ref">pandas</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_pluggy.html#provenance-pluggy"><span class="std std-ref">pluggy</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_requests.html#provenance-requests"><span class="std std-ref">requests</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_sampleproject.html#provenance-sampleproject"><span class="std std-ref">sampleproject</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_scikit_learn.html#provenance-scikit-learn"><span class="std std-ref">scikit-learn</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_sphinx.html#provenance-sphinx"><span class="std std-ref">sphinx</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_superset.html#provenance-superset"><span class="std std-ref">superset</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_wikipedia_provenance.html#provenance-wikipedia-provenance"><span class="std std-ref">wikipedia-provenance</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/provenance_zulip.html#provenance-zulip"><span class="std std-ref">zulip</span></a></p></li>
+</ul>
+</section>
+<section id="name-resolution">
+<h3>Name Resolution<a class="headerlink" href="#name-resolution" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../graphs/data/name_resolution_jiaozi.html#name-resolution-jiaozi"><span class="std std-ref">jiaozi</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/name_resolution_jsonpath.html#name-resolution-jsonpath"><span class="std std-ref">jsonpath</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/name_resolution_libgdx.html#name-resolution-libgdx"><span class="std std-ref">libgdx</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/name_resolution_shattered_pixel_dungeon.html#name-resolution-shattered-pixel-dungeon"><span class="std std-ref">shattered_pixel_dungeon</span></a></p></li>
+</ul>
+</section>
+<section id="biological-graphs-from-uniprot">
+<h3>Biological graphs from UniProt<a class="headerlink" href="#biological-graphs-from-uniprot" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_1.html#unigraph-1"><span class="std std-ref">unigraph_1</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_10.html#unigraph-10"><span class="std std-ref">unigraph_10</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_2.html#unigraph-2"><span class="std std-ref">unigraph_2</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_3.html#unigraph-3"><span class="std std-ref">unigraph_3</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_4.html#unigraph-4"><span class="std std-ref">unigraph_4</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_5.html#unigraph-5"><span class="std std-ref">unigraph_5</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_6.html#unigraph-6"><span class="std std-ref">unigraph_6</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_7.html#unigraph-7"><span class="std std-ref">unigraph_7</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_8.html#unigraph-8"><span class="std std-ref">unigraph_8</span></a></p></li>
+<li><p><a class="reference internal" href="../../graphs/data/unigraph_9.html#unigraph-9"><span class="std std-ref">unigraph_9</span></a></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grammar-templates">Grammar templates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applicable-graphs">Applicable graphs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-alias-analysis">C alias analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rdf">RDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#java-points-to-graphs">Java points-to graphs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#field-sensitive-alias">Field-Sensitive Alias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context-sensitive-data-flow">Context-Sensitive Data-Flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provenance">Data Provenance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name-resolution">Name Resolution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biological-graphs-from-uniprot">Biological graphs from UniProt</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2019-2026, vdshk.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

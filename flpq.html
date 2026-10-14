@@ -1,0 +1,1074 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>FLPQ: Formal-Language-Constrained Path Querying &#8212; FLPQ_Data 6.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d9aafeaa" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/copybutton.css?v=b2a5787b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/about.css?v=48cf5573" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=fdb814aa" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="_static/documentation_options.js?v=cb01d673"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'flpq';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within FLPQ_Data 6.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dataset" href="dataset.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "FORMAL-LANGUAGE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">FLPQ: Formal-Language-Constrained Path Querying</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="flpq-formal-language-constrained-path-querying">
+<span id="flpq"></span><h1>FLPQ: Formal-Language-Constrained Path Querying<a class="headerlink" href="#flpq-formal-language-constrained-path-querying" title="Link to this heading">#</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Release<span class="colon">:</span></dt>
+<dd class="field-odd"><p>6.0.0</p>
+</dd>
+<dt class="field-even">Date<span class="colon">:</span></dt>
+<dd class="field-even"><p>Oct 14, 2026</p>
+</dd>
+</dl>
+<p>Formal-language-constrained path querying (FLPQ) studies reachability in
+labeled directed graphs where a path from <span class="math notranslate nohighlight">\(u\)</span> to <span class="math notranslate nohighlight">\(v\)</span> counts only
+if its edge-label string belongs to a given formal language. FLPQ_Data
+currently provides data for context-free path queries (CFPQ); it is being
+extended to all classes of FLPQ: regular path queries (RPQ) and multiple
+context-free path queries (MCFPQ). This page records the design decisions —
+the query-class taxonomy, the grammar formalisms and file formats, and the
+target structure of the site, the package, and the dataset. Implementation
+happens in follow-up tasks; until then the existing CFPQ data and interfaces
+remain unchanged.</p>
+<section id="query-classes">
+<h2>Query classes<a class="headerlink" href="#query-classes" title="Link to this heading">#</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Query class</p></th>
+<th class="head"><p>Language class</p></th>
+<th class="head"><p>Formalism</p></th>
+<th class="head"><p>Status in the dataset</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RPQ</p></td>
+<td><p>Regular</p></td>
+<td><p>Regular expressions, NFA/DFA</p></td>
+<td><p>designed, no data</p></td>
+</tr>
+<tr class="row-odd"><td><p>CFPQ</p></td>
+<td><p>Context-free</p></td>
+<td><p>CFG/CNF (incl. indexed grammars)</p></td>
+<td><p>current</p></td>
+</tr>
+<tr class="row-even"><td><p>MCFPQ</p></td>
+<td><p>Multiple context-free</p></td>
+<td><p>MCFG, <span class="math notranslate nohighlight">\(d\)</span>-MCFG(<span class="math notranslate nohighlight">\(r\)</span>)</p></td>
+<td><p>planned</p></td>
+</tr>
+</tbody>
+</table>
+<p>All three classes use the same query pattern: a language <span class="math notranslate nohighlight">\(L\)</span> constrains
+the paths of a labeled graph, and a pair <span class="math notranslate nohighlight">\((u, v)\)</span> is reachable if some
+string of <span class="math notranslate nohighlight">\(L\)</span> labels a path from <span class="math notranslate nohighlight">\(u\)</span> to <span class="math notranslate nohighlight">\(v\)</span>. The classes
+differ only in the language class used for the constraint and in the
+formalism that specifies it. The existing data — the <a class="reference internal" href="graphs/index.html#graphs"><span class="std std-ref">graphs</span></a>
+catalog, the <a class="reference internal" href="queries/cfpq/index.html#cfpq-queries"><span class="std std-ref">query templates</span></a>, and the
+<a class="reference internal" href="reachable_pairs.html#reachable-pairs"><span class="std std-ref">reachable pair counts</span></a> — is CFPQ data; the shared
+graph catalog is reused by all classes.</p>
+</section>
+<section id="regular-path-queries">
+<h2>Regular path queries<a class="headerlink" href="#regular-path-queries" title="Link to this heading">#</a></h2>
+<p>RPQ constraints are regular languages over the graph’s edge labels. The
+design decision for this class:</p>
+<ul>
+<li><p><strong>Format.</strong> An RPQ query is a regular expression in the pyformlang
+<code class="docutils literal notranslate"><span class="pre">Regex</span></code> text syntax, stored as a <code class="docutils literal notranslate"><span class="pre">.re</span></code> file and read by
+<a class="reference internal" href="reference/queries/rpq/generated/flpq_data.queries.rpq.readwrite.regex.html#flpq_data.queries.rpq.readwrite.regex.regex_from_text" title="flpq_data.queries.rpq.readwrite.regex.regex_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regex_from_text</span></code></a>.</p></li>
+<li><p><strong>Templates.</strong> As with CFG templates, an RPQ template is a named,
+parameterized regular expression instantiated per graph from its stored
+labels. The designed seed set consists of two canonical queries applicable
+to every graph:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">reachability</span></code> — <span class="math notranslate nohighlight">\((L_1 \,|\, \dots \,|\, L_n)^*\)</span> over all stored
+labels <span class="math notranslate nohighlight">\(L_1, \dots, L_n\)</span>: unrestricted reachability;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label_star</span></code> — <span class="math notranslate nohighlight">\(L^*\)</span> for each stored label <span class="math notranslate nohighlight">\(L\)</span>: the
+per-label transitive closure.</p></li>
+</ul>
+<p>Additional templates may be added later together with real-world data; the
+stub pages in the <a class="reference internal" href="queries/rpq/index.html#rpq-queries"><span class="std std-ref">RPQ section</span></a>
+document both templates.</p>
+</li>
+<li><p><strong>Placement.</strong> Query files live inside the self-contained graph archive
+under <code class="docutils literal notranslate"><span class="pre">queries/rpq/</span></code> (see the “File structure” section of the
+<a class="reference internal" href="graphs/index.html#graphs"><span class="std std-ref">Graphs</span></a> page); there are no standalone query or example archives. An
+RPQ may also be represented by a regular RSM (<code class="docutils literal notranslate"><span class="pre">.rsm</span></code>, see below).</p></li>
+<li><p><strong>Data status.</strong> No real-world RPQ data exists yet — the templates are
+designed stubs. Real-world data will be provided later and enters the
+dataset via the graph archives (migration, task 48).</p></li>
+</ul>
+</section>
+<section id="recursive-state-machines">
+<h2>Recursive state machines<a class="headerlink" href="#recursive-state-machines" title="Link to this heading">#</a></h2>
+<p>A recursive state machine (RSM) <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is a way to specify context-free
+languages that resembles finite automata: it is a set of <strong>boxes</strong>, each box
+being a deterministic finite automaton without ε-transitions over the union
+alphabet of terminals and nonterminals, with a start state and final states.
+There is no stack in the representation — recursion happens during
+computation, when a transition labelled by a nonterminal invokes the
+respective box. A grammar in Extended Backus-Naur Form (EBNF) — productions
+<code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-&gt;</span> <span class="pre">E</span></code> where <code class="docutils literal notranslate"><span class="pre">E</span></code> is a regular expression over terminals and
+nonterminals — maps to an RSM with one box per production.</p>
+<p>RSMs are the query formalism of the GLL-based CFPQ algorithm <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, which
+evaluates EBNF queries natively and was evaluated on this dataset.</p>
+<p>Every RSM defines a context-free language, and
+<a class="reference internal" href="reference/queries/cfpq/generated/flpq_data.queries.cfpq.converters.cfg.html#flpq_data.queries.cfpq.converters.cfg.cfg_from_rsa" title="flpq_data.queries.cfpq.converters.cfg.cfg_from_rsa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg_from_rsa</span></code></a> converts
+it to a CFG (each box state becomes a nonterminal, each transition a
+production). An RSM is therefore a valid alternative representation of a
+CFPQ query — and of an RPQ when it is regular: no box transition is labelled
+by a nonterminal.</p>
+<section id="format">
+<h3>Format<a class="headerlink" href="#format" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">.rsm</span></code> file uses one of two description styles, selected automatically by
+<a class="reference internal" href="reference/queries/rpq/generated/flpq_data.queries.rpq.readwrite.rsa.html#flpq_data.queries.rpq.readwrite.rsa.rsa_from_text" title="flpq_data.queries.rpq.readwrite.rsa.rsa_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rsa_from_text</span></code></a>:</p>
+<ul>
+<li><p><strong>EBNF style</strong> — one production per line; each production becomes one box:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">start</span><span class="p">:</span> <span class="n">S</span>
+<span class="n">S</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="o">*</span> <span class="n">b</span> <span class="n">S</span> <span class="n">c</span>
+<span class="n">B</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="n">y</span><span class="p">)</span><span class="o">+</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Transition-system style</strong> — explicit boxes as labelled graphs with start
+and final states (a <code class="docutils literal notranslate"><span class="pre">[box</span> <span class="pre">&lt;name&gt;]</span></code> section header selects this style):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">start</span><span class="p">:</span> <span class="n">S</span>
+<span class="p">[</span><span class="n">box</span> <span class="n">S</span><span class="p">]</span>
+<span class="n">start</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">final</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+<span class="mi">0</span> <span class="o">--</span><span class="n">a</span><span class="o">--&gt;</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="o">--</span><span class="n">b</span><span class="o">--&gt;</span> <span class="mi">2</span>
+<span class="mi">1</span> <span class="o">--</span><span class="n">c</span><span class="o">--&gt;</span> <span class="mi">3</span>
+<span class="p">[</span><span class="n">box</span> <span class="n">B</span><span class="p">]</span>
+<span class="n">start</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">final</span><span class="p">:</span> <span class="mi">1</span>
+<span class="mi">0</span> <span class="o">--</span><span class="n">x</span><span class="o">--&gt;</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>In both styles an optional <code class="docutils literal notranslate"><span class="pre">start:</span> <span class="pre">&lt;N&gt;</span></code> line names the start box (<code class="docutils literal notranslate"><span class="pre">S</span></code> by
+default). Boxes are deterministic — a repeated <code class="docutils literal notranslate"><span class="pre">(state,</span> <span class="pre">label)</span></code> transition
+is an error. <a class="reference internal" href="reference/queries/rpq/generated/flpq_data.queries.rpq.readwrite.rsa.html#flpq_data.queries.rpq.readwrite.rsa.rsa_to_text" title="flpq_data.queries.rpq.readwrite.rsa.rsa_to_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rsa_to_text</span></code></a> emits the EBNF style as the
+canonical form, so a transition-system file round-trips to EBNF-style text.</p>
+</section>
+<section id="placement">
+<h3>Placement<a class="headerlink" href="#placement" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">.rsm</span></code> representation files are allowed in the <code class="docutils literal notranslate"><span class="pre">queries/cfpq/</span></code> and
+<code class="docutils literal notranslate"><span class="pre">queries/rpq/</span></code> query directories of a graph archive (see the “File
+structure” section of the <a class="reference internal" href="graphs/index.html#graphs"><span class="std std-ref">Graphs</span></a> page). In <code class="docutils literal notranslate"><span class="pre">rpq/</span></code> the RSM must be
+regular — no box transition may be labelled by a nonterminal.</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
+State Machines. In: Berry G., Comon H., Finkel A. (eds) Computer Aided
+Verification. CAV 2001. Lecture Notes in Computer Science, vol 2102.
+Springer, Berlin, Heidelberg. <a class="reference external" href="https://doi.org/10.1007/3-540-44585-4_18">https://doi.org/10.1007/3-540-44585-4_18</a></p>
+</aside>
+<aside class="footnote brackets" id="id4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Abzalov V., Pogozhelskaya V., Kutuev V., Grigorev S. (2023) GLL-based
+Context-Free Path Querying for Neo4j. arXiv:2312.11925.</p>
+</aside>
+</aside>
+</section>
+</section>
+<section id="multiple-context-free-languages">
+<h2>Multiple context-free languages<a class="headerlink" href="#multiple-context-free-languages" title="Link to this heading">#</a></h2>
+<p>MCFPQ constraints are multiple context-free languages (MCFLs), generated by
+multiple context-free grammars (MCFGs)
+(<a class="reference external" href="https://doi.org/10.1016/0304-3975(91)90374-B">Seki et al., 1991</a>). An
+MCFL is a class of languages strictly wider than the context-free languages:
+an MCFG performs simultaneous context-free parsing on several substrings of a
+word and can thus express bounded context-sensitivity between them. MCFLs are
+mildly context-sensitive: membership is decidable, and the classes form an
+infinite hierarchy parameterized by two integers.</p>
+<p>A multiple context-free grammar of dimension <span class="math notranslate nohighlight">\(d\)</span> and rank <span class="math notranslate nohighlight">\(r\)</span>,
+written <span class="math notranslate nohighlight">\(d\)</span>-MCFG(<span class="math notranslate nohighlight">\(r\)</span>), is a tuple
+<span class="math notranslate nohighlight">\(\mathcal{G} = (\mathcal{N}, \Sigma, \mathcal{R}, \mathcal{S})\)</span>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{N}\)</span> — nonterminals, each denoted as a predicate
+<span class="math notranslate nohighlight">\(A(x_1, \dots, x_k)\)</span> of arity <span class="math notranslate nohighlight">\(k \leq d\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> — terminals;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{R}\)</span> — rules. A <em>basic rule</em> is a nonterminal
+<span class="math notranslate nohighlight">\(A(s_1, \dots, s_k)\)</span> with each <span class="math notranslate nohighlight">\(s_i\)</span> a string of terminals
+(possibly empty). A <em>production rule</em> has the form</p>
+<div class="math notranslate nohighlight">
+\[A_0(s_1, \dots, s_{k_0}) \leftarrow
+A_1(x_1^1, \dots, x_{k_1}^1), \dots, A_\ell(x_1^\ell, \dots, x_{k_\ell}^\ell)\]</div>
+<p>with <span class="math notranslate nohighlight">\(\ell \leq r\)</span>, each head template
+<span class="math notranslate nohighlight">\(s_i \in (\Sigma \cup X)^*\)</span> over the rule’s variables
+<span class="math notranslate nohighlight">\(X = \{x_j^i\}\)</span>, and each variable appearing at most once in
+<span class="math notranslate nohighlight">\(s_1 \cdots s_{k_0}\)</span>;</p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{S}\)</span> — the start nonterminal, of arity 1.</p></li>
+</ul>
+<p>A nonterminal of arity <span class="math notranslate nohighlight">\(k\)</span> derives a <em>tuple</em> of <span class="math notranslate nohighlight">\(k\)</span> strings
+simultaneously; the language of the grammar is
+<span class="math notranslate nohighlight">\(\mathcal{L}(\mathcal{G}) = \{w \in \Sigma^* : \mathcal{S} \Rightarrow w\}\)</span>.</p>
+<p>The hierarchy contains the familiar classes as special levels: context-free
+languages are exactly the 1-MCFLs, and tree adjoining languages (and head
+languages) fall in dimension 2. Membership of a word of length <span class="math notranslate nohighlight">\(n\)</span> is
+decidable in <span class="math notranslate nohighlight">\(O(n^{d(r+1)})\)</span> time.</p>
+<p>In the path-querying setting, MCFL reachability generalizes CFPQ directly
+(<a class="reference external" href="https://arxiv.org/abs/2411.06383">Conrado et al., POPL 2025</a>,
+<a class="reference external" href="https://dl.acm.org/doi/10.1145/3704854">ACM</a>). On a labeled graph, an
+arity-<span class="math notranslate nohighlight">\(k\)</span> nonterminal denotes <span class="math notranslate nohighlight">\(k\)</span> independent paths:
+<span class="math notranslate nohighlight">\(A[(u_1, v_1), \dots, (u_k, v_k)]\)</span> holds iff there exist paths
+<span class="math notranslate nohighlight">\(P_i : u_i \leadsto v_i\)</span> such that
+<span class="math notranslate nohighlight">\(A \Rightarrow (\lambda(P_1), \dots, \lambda(P_k))\)</span>. Because the start
+symbol always has arity 1, the reachable <em>pairs</em>
+<span class="math notranslate nohighlight">\(\{(u, v) : \mathcal{S}[(u, v)]\}\)</span> are defined exactly as for CFPQ, so
+the reference-answer data of this dataset extends to MCFPQ without changing
+its meaning. All-pairs reachability is computable in
+<span class="math notranslate nohighlight">\(O(n^{2d+1})\)</span> time for <span class="math notranslate nohighlight">\(r = 1\)</span> and
+<span class="math notranslate nohighlight">\(O(n^{d(r+1)})\)</span> for <span class="math notranslate nohighlight">\(r &gt; 1\)</span>. The paper’s motivating application
+is static program analysis: the MCFLs underapproximate interleaved Dyck
+reachability — the undecidable language behind combined call-context and
+field sensitivity — with tunable precision as the dimension grows.</p>
+</section>
+<section id="mcfg-grammar-format-mcfg">
+<h2>MCFG grammar format (.mcfg)<a class="headerlink" href="#mcfg-grammar-format-mcfg" title="Link to this heading">#</a></h2>
+<p>MCFPQ grammars are stored in text files with the <code class="docutils literal notranslate"><span class="pre">.mcfg</span></code> extension, one
+rule per line, in a Datalog-like syntax that follows the predicate notation
+of <a class="reference external" href="https://arxiv.org/abs/2411.06383">Conrado et al.</a>. The syntax was
+chosen deliberately: it reads like logic-programming rules, it subsumes CFGs
+as the dimension-1 special case, and it matches the formalism used by the
+reachability literature.</p>
+<section id="lexical-conventions">
+<h3>Lexical conventions<a class="headerlink" href="#lexical-conventions" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Blank lines and lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code> are ignored.</p></li>
+<li><p><strong>Nonterminals</strong> — identifiers starting with an uppercase letter
+(<code class="docutils literal notranslate"><span class="pre">S</span></code>, <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">P1</span></code>), consistent with the CFG convention of this
+dataset.</p></li>
+<li><p><strong>Terminals</strong> — edge labels verbatim (<code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">#</span></code>, <code class="docutils literal notranslate"><span class="pre">subClassOf</span></code>,
+<code class="docutils literal notranslate"><span class="pre">load_5</span></code>).</p></li>
+<li><p><strong>Variables</strong> — a lowercase letter followed by one or more digits
+(<code class="docutils literal notranslate"><span class="pre">x1</span></code>, <code class="docutils literal notranslate"><span class="pre">y2</span></code>, …), mirroring the <span class="math notranslate nohighlight">\(x^i\)</span>, <span class="math notranslate nohighlight">\(y^j\)</span> notation of
+the literature. A terminal must never match this pattern; the reader
+rejects such grammars.</p></li>
+<li><p><strong>Empty string</strong> — the token <code class="docutils literal notranslate"><span class="pre">eps</span></code>.</p></li>
+<li><p><strong>Arrow</strong> — <code class="docutils literal notranslate"><span class="pre">&lt;-</span></code> between the head and the body of a production rule.</p></li>
+</ul>
+</section>
+<section id="rule-forms">
+<h3>Rule forms<a class="headerlink" href="#rule-forms" title="Link to this heading">#</a></h3>
+<p>A <em>basic rule</em> names a nonterminal with terminal-string arguments, each
+argument a space-separated sequence of terminals or <code class="docutils literal notranslate"><span class="pre">eps</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A <em>production rule</em> has a head — a nonterminal whose arguments are
+templates mixing terminals and variables — and a body of comma-separated
+atoms carrying variables only:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span><span class="p">(</span><span class="n">x1</span> <span class="n">y1</span> <span class="c1"># y2 x2) &lt;- A(x1, x2), A(y1, y2)</span>
+</pre></div>
+</div>
+</section>
+<section id="validation-constraints">
+<h3>Validation constraints<a class="headerlink" href="#validation-constraints" title="Link to this heading">#</a></h3>
+<p>The reader enforces, beyond parsing:</p>
+<ul class="simple">
+<li><p><strong>Arity consistency</strong> — every occurrence of a nonterminal carries the
+same number of arguments.</p></li>
+<li><p><strong>Variable uniqueness</strong> — all body variables of a rule are pairwise
+distinct.</p></li>
+<li><p><strong>No dangling variables</strong> — each body variable appears exactly once
+across the head templates (stricter than the minimal definition, which
+allows at most one appearance; every published example satisfies the
+stricter form).</p></li>
+<li><p><strong>Start symbol</strong> — defaults to <code class="docutils literal notranslate"><span class="pre">S</span></code>, must have arity 1, and is
+overridable via an API parameter, consistent with the existing
+<code class="docutils literal notranslate"><span class="pre">cnf</span></code>/<code class="docutils literal notranslate"><span class="pre">cfg</span></code>/<code class="docutils literal notranslate"><span class="pre">rsa</span></code> readers.</p></li>
+</ul>
+<p>The dimension <span class="math notranslate nohighlight">\(d\)</span> (maximum nonterminal arity) and the rank <span class="math notranslate nohighlight">\(r\)</span>
+(maximum number of body atoms) are computed from the rules and reported by
+the reader; the file carries no header to keep in sync.</p>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<p>The 2-MCFG(2) for <span class="math notranslate nohighlight">\(\mathcal{L} = \{w_1 w_2 \# w_2 w_1 \mid
+w_1, w_2 \in \{0, 1\}^*\}\)</span> from the literature (<code class="docutils literal notranslate"><span class="pre">A</span></code> parses equal pairs of
+binary strings; <code class="docutils literal notranslate"><span class="pre">S</span></code> interleaves two such pairs around <code class="docutils literal notranslate"><span class="pre">#</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
+<span class="n">A</span><span class="p">(</span><span class="n">x1</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x2</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">A</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+<span class="n">A</span><span class="p">(</span><span class="n">x1</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x2</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">A</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+<span class="n">S</span><span class="p">(</span><span class="n">x1</span> <span class="n">y1</span> <span class="c1"># y2 x2) &lt;- A(x1, x2), A(y1, y2)</span>
+</pre></div>
+</div>
+<p>The same format subsumes CFGs: the dimension-1 grammar for
+<span class="math notranslate nohighlight">\(\{0^n 1^n 1^m 0^m \mid n, m \geq 0\}\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">(</span><span class="n">eps</span><span class="p">)</span>
+<span class="n">B</span><span class="p">(</span><span class="n">eps</span><span class="p">)</span>
+<span class="n">A</span><span class="p">(</span><span class="mi">0</span> <span class="n">x1</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">A</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+<span class="n">B</span><span class="p">(</span><span class="mi">1</span> <span class="n">x2</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">B</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+<span class="n">S</span><span class="p">(</span><span class="n">x1</span> <span class="n">x2</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">A</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span> <span class="n">B</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="parser-and-relationship-to-existing-formats">
+<h3>Parser and relationship to existing formats<a class="headerlink" href="#parser-and-relationship-to-existing-formats" title="Link to this heading">#</a></h3>
+<p>No off-the-shelf library parses this syntax: the PyPI <code class="docutils literal notranslate"><span class="pre">datalog</span></code> package is
+a hardware data-logger driver, <code class="docutils literal notranslate"><span class="pre">pyDatalog</span></code> is a Datalog engine without a
+documented text parser (and standard Datalog heads take variables and
+constants only, so MCFG head templates are outside its grammar), and no
+MCFG/MCFL library exists on PyPI. The reader therefore uses <a class="reference external" href="https://github.com/lark-parser/lark">lark</a> (MIT license, actively maintained,
+no required dependencies); its EBNF grammar doubles as executable
+documentation of the format, and the semantic constraints above are checked
+on the parse tree.</p>
+<p>Existing formats are kept: CFPQ queries stay <code class="docutils literal notranslate"><span class="pre">.cnf</span></code> (the pyformlang
+ecosystem), RPQ queries are regular-expression <code class="docutils literal notranslate"><span class="pre">.re</span></code> text files, and
+MCFPQ uses <code class="docutils literal notranslate"><span class="pre">.mcfg</span></code>; all of them live inside the self-contained graph
+archives (see “Dataset layout and migration” below). A <code class="docutils literal notranslate"><span class="pre">.cnf</span> <span class="pre">&lt;-&gt;</span> <span class="pre">.mcfg</span></code>
+converter is a follow-up task.</p>
+</section>
+</section>
+<section id="site-structure">
+<h2>Site structure<a class="headerlink" href="#site-structure" title="Link to this heading">#</a></h2>
+<p>The Dataset section has one sub-section per query class next to the shared
+graph catalog: each class reuses the existing layout — an index page with its
+templates and its “Applicable graphs” list, and one page per template — while
+the graph catalog stays shared.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Dataset
+├── Graphs           shared catalog (8 categories, 113 pages) — unchanged
+├── CFPQ             grammar templates (4 + indexed grammars) | applicable graphs
+├── RPQ              query templates (regular expressions)    | applicable graphs
+├── MCFPQ            grammar templates (MCFG)                 | applicable graphs
+└── Reachable pairs  per-category tables; flat CSV download
+</pre></div>
+</div>
+<p>There is no separate benchmarks section: benchmarking data and results are
+not part of the dataset site. The per-class “applicable graphs” lists are
+rendered from the reachable-pairs registry (<code class="docutils literal notranslate"><span class="pre">reachable_pairs.csv</span></code>) by a
+<code class="docutils literal notranslate"><span class="pre">utils/</span></code> generator and cross-link the shared per-graph pages — no graph page
+is duplicated. The sidebar navigation depth (<code class="docutils literal notranslate"><span class="pre">navigation_depth</span> <span class="pre">=</span> <span class="pre">3</span></code> in
+<code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code>) accommodates the section -&gt; class -&gt; template pages without
+change.</p>
+<section id="reachable-pair-counts">
+<h3>Reachable pair counts<a class="headerlink" href="#reachable-pair-counts" title="Link to this heading">#</a></h3>
+<p>The single flat table currently rendered on the
+<a class="reference internal" href="reachable_pairs.html#reachable-pairs"><span class="std std-ref">reachable pairs</span></a> page is removed; it is too large to
+scan. The page renders one table per graph category instead (columns:
+Graph, Grammar, Reachable pairs), so every table stays small. The flat
+table survives as a downloadable CSV — the single source of truth for
+automatic processing — which gains a <code class="docutils literal notranslate"><span class="pre">category</span></code> and a <code class="docutils literal notranslate"><span class="pre">query_class</span></code>
+column so it is self-describing. A generator script in <code class="docutils literal notranslate"><span class="pre">utils/</span></code> (following the pattern of
+<code class="docutils literal notranslate"><span class="pre">utils/archive_sizes.py</span></code>) renders both the per-category tables and the
+count columns of the category pages from that CSV, so no count is
+hand-maintained in two places.</p>
+</section>
+</section>
+<section id="package-structure">
+<h2>Package structure<a class="headerlink" href="#package-structure" title="Link to this heading">#</a></h2>
+<p>The package is renamed from <code class="docutils literal notranslate"><span class="pre">cfpq_data</span></code> to <code class="docutils literal notranslate"><span class="pre">flpq_data</span></code> (PyPI
+distribution <code class="docutils literal notranslate"><span class="pre">flpq-data</span></code>) at version 6.0.0, and the grammar module gains
+the same query-class level as the site:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>flpq_data/
+├── config.py        version
+├── dataset/         registry + metadata API, machine-global cache with lazy access (graph_dir), reachable pairs
+ ├── graphs/          class-agnostic I/O (mtx/rdf/txt), streaming format conversion, generators, utils
+└── queries/         renamed from grammars/
+    ├── cfpq/        existing generators/, readwrite/{cfg,cnf,cnf_template}, converters/, utils/
+    ├── rpq/         readwrite/{regex,rsa} moved here; new regex-template generators
+    └── mcfpq/       new lark-based mcfg readwrite; generators
+</pre></div>
+</div>
+<section id="api-changes">
+<h3>API changes<a class="headerlink" href="#api-changes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">download(name)</span></code> becomes <code class="docutils literal notranslate"><span class="pre">graph_dir(name)</span></code> and returns the
+self-contained directory — the graph plus its <code class="docutils literal notranslate"><span class="pre">queries/</span></code> tree — from the
+machine-global cache, downloading only on a miss (see “Core API: metadata,
+lazy access, and cache”); <code class="docutils literal notranslate"><span class="pre">download_graph(name)</span></code> and <code class="docutils literal notranslate"><span class="pre">download(name)</span></code>
+stay as deprecated aliases;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">download_grammars(template,</span> <span class="pre">graph_name=None)</span></code> is deprecated: queries
+come with the graph archive (the example archives it downloaded for
+<code class="docutils literal notranslate"><span class="pre">graph_name=None</span></code> are dropped);</p></li>
+<li><p>the old names stay in <code class="docutils literal notranslate"><span class="pre">flpq_data</span></code> as deprecated aliases;</p></li>
+<li><p>the graph registry list is replaced by the per-graph <code class="docutils literal notranslate"><span class="pre">registry.json</span></code>
+and the <code class="docutils literal notranslate"><span class="pre">graph_names()</span></code> function (see “Core API: metadata, lazy access,
+and cache”), and <code class="docutils literal notranslate"><span class="pre">GRAMMAR_TEMPLATES</span></code> becomes the per-class
+<code class="docutils literal notranslate"><span class="pre">CFPQ_TEMPLATES</span></code> / <code class="docutils literal notranslate"><span class="pre">RPQ_TEMPLATES</span></code> / <code class="docutils literal notranslate"><span class="pre">MCFPQ_TEMPLATES</span></code> — they name
+the query files inside the archives, not downloadable archives;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reachable_pairs()</span></code> gains the category and query_class fields.</p></li>
+</ul>
+</section>
+<section id="distribution">
+<h3>Distribution<a class="headerlink" href="#distribution" title="Link to this heading">#</a></h3>
+<p>The new PyPI project <code class="docutils literal notranslate"><span class="pre">flpq-data</span></code> carries version 6.0.0. The existing
+<code class="docutils literal notranslate"><span class="pre">cfpq-data</span></code> distribution is published at 6.0.0 as a thin shim that
+depends on <code class="docutils literal notranslate"><span class="pre">flpq-data</span></code> and re-exports the old names with
+<code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code>, so scripts importing <code class="docutils literal notranslate"><span class="pre">cfpq_data</span></code> keep working
+through one more release.</p>
+</section>
+</section>
+<section id="dataset-layout-and-migration">
+<h2>Dataset layout and migration<a class="headerlink" href="#dataset-layout-and-migration" title="Link to this heading">#</a></h2>
+<p>The dataset on object storage moves to the 6.0.0 key prefix:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>6.0.0/
+└── graph/&lt;name&gt;.tar.gz                self-contained — repackaged from 5.0.0
+</pre></div>
+</div>
+<p>Graphs are large and class-agnostic, so they live under one shared prefix.
+Queries no longer have their own archives: every graph archive is
+self-contained and carries all queries that apply to the graph — the layout
+is documented once in the “File structure” section of the <a class="reference internal" href="graphs/index.html#graphs"><span class="std std-ref">Graphs</span></a>
+page (<code class="docutils literal notranslate"><span class="pre">README.md</span></code>, <code class="docutils literal notranslate"><span class="pre">graph/*.mtx</span></code>, and <code class="docutils literal notranslate"><span class="pre">queries/{cfpq,rpq,mcfpq}/</span></code> with
+one directory per query — its representations plus a <code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> — and a
+common description document).</p>
+<p>Migration path:</p>
+<ul class="simple">
+<li><p>Repackage every graph archive into the self-contained structure: move the
+per-graph grammars from the legacy <code class="docutils literal notranslate"><span class="pre">4.0.0/grammar/</span></code> archives into one
+<code class="docutils literal notranslate"><span class="pre">queries/cfpq/&lt;query&gt;/</span></code> directory each, add the per-query
+<code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> (the constrained reachability facts), write the
+mandatory-question <code class="docutils literal notranslate"><span class="pre">README.md</span></code>, and validate with
+<code class="docutils literal notranslate"><span class="pre">utils/check_archive_structure.py</span></code> (<a class="reference internal" href="utils.html#archive-structure"><span class="std std-ref">Archive structure</span></a>).</p></li>
+<li><p>The example query archives (<code class="docutils literal notranslate"><span class="pre">4.0.0/grammar/example/</span></code>) are dropped —
+every query file lives inside a graph archive.</p></li>
+<li><p>Re-point <code class="docutils literal notranslate"><span class="pre">DATASET_URL</span></code> at the new prefix as part of the version bump
+(the rename task); <code class="docutils literal notranslate"><span class="pre">GRAMMARS_URL</span></code> disappears with the separate grammar
+archives.</p></li>
+<li><p>The upload tool validates the structure before uploading
+(<a class="reference internal" href="utils.html#upload-to-s3"><span class="std std-ref">Upload to Yandex S3</span></a>, <a class="reference internal" href="utils.html#archive-structure"><span class="std std-ref">Archive structure</span></a>).</p></li>
+</ul>
+</section>
+<section id="core-api-metadata-lazy-access-and-cache">
+<h2>Core API: metadata, lazy access, and cache<a class="headerlink" href="#core-api-metadata-lazy-access-and-cache" title="Link to this heading">#</a></h2>
+<p>The package core is for end users — dataset utilisation for benchmarks and
+statistical analysis. Dataset maintenance (archive validation, upload, merge,
+registry generation) lives in the repo-only <code class="docutils literal notranslate"><span class="pre">utils/</span></code> scripts and is never
+installed with the wheel; nothing in <code class="docutils literal notranslate"><span class="pre">flpq_data/</span></code> performs maintenance
+work, and the maintenance scripts consume the package as a library. This
+design responds to #140 (the graph archive was re-downloaded on every call)
+and #147 (no way to get the category of a graph from the package); it is
+tracked in hub issue #148.</p>
+<section id="graph-registry">
+<h3>Graph registry<a class="headerlink" href="#graph-registry" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">flpq_data/dataset/registry.json</span></code> is the machine-readable per-graph
+registry, bundled with the wheel for the current dataset version and
+published to object storage as <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;/registry.json</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"6.0.0"</span><span class="p">,</span>
+  <span class="s2">"graphs"</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"skos"</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"category"</span><span class="p">:</span> <span class="s2">"rdf"</span><span class="p">,</span> <span class="s2">"num_nodes"</span><span class="p">:</span> <span class="mi">144</span><span class="p">,</span>
+                        <span class="s2">"num_edges"</span><span class="p">:</span> <span class="mi">252</span><span class="p">,</span> <span class="s2">"size_mb"</span><span class="p">:</span> <span class="mf">0.003</span><span class="p">,</span>
+                        <span class="s2">"sha256"</span><span class="p">:</span> <span class="s2">"..."</span><span class="p">,</span>
+                        <span class="s2">"queries"</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span><span class="s2">"class"</span><span class="p">:</span> <span class="s2">"cfpq"</span><span class="p">,</span>
+                                      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"nested_parentheses_subClassOf"</span><span class="p">,</span>
+                                      <span class="s2">"representations"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"cnf"</span><span class="p">,</span> <span class="s2">"rsm"</span><span class="p">]}</span> <span class="p">]</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>Field sources: the graph list and <code class="docutils literal notranslate"><span class="pre">category</span></code> from
+<code class="docutils literal notranslate"><span class="pre">reachable_pairs.csv</span></code>; <code class="docutils literal notranslate"><span class="pre">num_nodes</span></code>/<code class="docutils literal notranslate"><span class="pre">num_edges</span></code> from the MTX headers of
+the archive’s <code class="docutils literal notranslate"><span class="pre">graph/</span></code> dir; <code class="docutils literal notranslate"><span class="pre">size_mb</span></code> from the stored object size;
+<code class="docutils literal notranslate"><span class="pre">sha256</span></code> of the <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code>; <code class="docutils literal notranslate"><span class="pre">queries</span></code> from the archive’s <code class="docutils literal notranslate"><span class="pre">queries/</span></code>
+tree. The repo-only <code class="docutils literal notranslate"><span class="pre">utils/generate_registry.py</span></code> (pattern of
+<code class="docutils literal notranslate"><span class="pre">utils/archive_sizes.py</span></code>) regenerates the file; it runs locally, never in
+CI (no-network policy).</p>
+<p>The metadata API never touches the network: <code class="docutils literal notranslate"><span class="pre">graph_names()</span> <span class="pre">-&gt;</span>
+<span class="pre">list[str]</span></code> (named to avoid clashing with the <code class="docutils literal notranslate"><span class="pre">flpq_data.graphs</span></code>
+subpackage),
+<code class="docutils literal notranslate"><span class="pre">graph_info(name)</span> <span class="pre">-&gt;</span> <span class="pre">GraphInfo</span></code> (a frozen dataclass mirroring one registry
+record), and <code class="docutils literal notranslate"><span class="pre">categories()</span> <span class="pre">-&gt;</span> <span class="pre">dict[str,</span> <span class="pre">list[str]]</span></code> — the category-to-
+graphs mapping of #147. The never-released <code class="docutils literal notranslate"><span class="pre">GRAPHS</span></code>/<code class="docutils literal notranslate"><span class="pre">DATASET</span></code> constants
+are dropped; the future <code class="docutils literal notranslate"><span class="pre">cfpq-data</span></code> shim maps <code class="docutils literal notranslate"><span class="pre">DATASET</span> <span class="pre">-&gt;</span>
+<span class="pre">graph_names()</span></code>.</p>
+</section>
+<section id="machine-global-cache">
+<h3>Machine-global cache<a class="headerlink" href="#machine-global-cache" title="Link to this heading">#</a></h3>
+<p>Downloaded data lives outside the package in a machine-global, per-user
+cache shared across projects: the <code class="docutils literal notranslate"><span class="pre">FLPQ_DATA_CACHE</span></code> environment variable,
+or the OS default from <code class="docutils literal notranslate"><span class="pre">platformdirs.user_cache_dir(&quot;flpq-data&quot;)</span></code> when it
+is unset (<code class="docutils literal notranslate"><span class="pre">~/.cache/flpq-data</span></code> on Linux, <code class="docutils literal notranslate"><span class="pre">~/Library/Caches/flpq-data</span></code> on
+macOS, <code class="docutils literal notranslate"><span class="pre">%LOCALAPPDATA%\flpq-data\Cache</span></code> on Windows). The in-package data
+dir (the old <code class="docutils literal notranslate"><span class="pre">config.DATA</span></code>/<code class="docutils literal notranslate"><span class="pre">GRAPHS_DIR</span></code>) is removed.</p>
+<p>The cache mirrors the dataset layout; the dataset version is the root, so
+several versions coexist:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;root&gt;/6.0.0/
+├── reachable_pairs.csv
+└── graph/&lt;name&gt;/&lt;name&gt;.tar.gz   plus the unpacked contents in the same
+                                  folder (README.md, graph/*.mtx, queries/)
+</pre></div>
+</div>
+</section>
+<section id="lazy-access">
+<h3>Lazy access<a class="headerlink" href="#lazy-access" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">graph_dir(name)</span></code> is the single data accessor and is lazy: it returns the
+local graph folder and downloads only when the cache is missing or invalid.</p>
+<ul class="simple">
+<li><p>The name is validated against the bundled registry.</p></li>
+<li><p>Hit: <code class="docutils literal notranslate"><span class="pre">&lt;root&gt;/&lt;v&gt;/graph/&lt;name&gt;/</span></code> exists and the archive’s sha256 (sidecar
+<code class="docutils literal notranslate"><span class="pre">.sha256</span></code> written at install) matches the registry — return the path,
+zero network. <code class="docutils literal notranslate"><span class="pre">verify=True</span></code> re-hashes the archive instead of trusting
+the sidecar.</p></li>
+<li><p>Miss: download to a temp file (<code class="docutils literal notranslate"><span class="pre">raise_for_status</span></code>), stream-verify the
+sha256 against the registry, extract, check the single top-level dir, and
+move the folder into the cache atomically; any failure leaves the cache
+untouched.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">download_graph</span></code>/<code class="docutils literal notranslate"><span class="pre">download</span></code> remain as deprecated aliases of
+<code class="docutils literal notranslate"><span class="pre">graph_dir</span></code>. <code class="docutils literal notranslate"><span class="pre">reachable_pairs.csv</span></code> resolves to the per-version cache copy
+when present, else the bundled file; <code class="docutils literal notranslate"><span class="pre">download_reachable_pairs()</span></code> writes
+into the cache.</p>
+</section>
+<section id="cache-manipulation">
+<h3>Cache manipulation<a class="headerlink" href="#cache-manipulation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cache_root()</span> <span class="pre">-&gt;</span> <span class="pre">Path</span></code> — the effective cache root (env var or OS
+default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cached_versions()</span> <span class="pre">-&gt;</span> <span class="pre">list[str]</span></code> — dataset versions present in the
+cache.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clear_cache(keep:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None)</span></code> — remove version directories under
+the root except <code class="docutils literal notranslate"><span class="pre">keep</span></code> (<code class="docutils literal notranslate"><span class="pre">None</span></code> removes all); returns the removed
+paths.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#query-classes">Query classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regular-path-queries">Regular path queries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursive-state-machines">Recursive state machines</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#format">Format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#placement">Placement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-context-free-languages">Multiple context-free languages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcfg-grammar-format-mcfg">MCFG grammar format (.mcfg)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lexical-conventions">Lexical conventions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-forms">Rule forms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-constraints">Validation constraints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parser-and-relationship-to-existing-formats">Parser and relationship to existing formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#site-structure">Site structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reachable-pair-counts">Reachable pair counts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-structure">Package structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-changes">API changes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution">Distribution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-layout-and-migration">Dataset layout and migration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-api-metadata-lazy-access-and-cache">Core API: metadata, lazy access, and cache</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-registry">Graph registry</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-global-cache">Machine-global cache</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-access">Lazy access</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cache-manipulation">Cache manipulation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2019-2026, vdshk.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
