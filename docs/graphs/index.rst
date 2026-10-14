@@ -9,10 +9,68 @@ Graphs
    :Release: |release|
    :Date: |today|
 
-How to add a new graph?
------------------------
+.. _contributing_data:
 
-Just create a PR (Pull Request) corresponding to the `"Template for adding a new graph" <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md>`_.
+Contributing data
+-----------------
+
+New data — graphs, queries, grammars — enters the dataset through a single
+`"CONTRIBUTE NEW DATA" issue <https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/master/.github/ISSUE_TEMPLATE/new-data-template.md>`_:
+you prepare one or more archives (one graph each), validate them, publish
+them (e.g. to Google Drive), and open the issue with the links, the
+validation output, the SHA256 of every archive, and the motivation. The
+maintainers upload the archives and merge them into the dataset — no pull
+request is needed.
+
+Contribution cases
+^^^^^^^^^^^^^^^^^^
+
+1. **New graph(s), existing category, existing grammar(s)** — full
+   archive(s); the queries instantiate the category's canonical grammar(s).
+2. **New graph(s), existing category, new grammar** — full archive(s) plus a
+   grammar definition; the grammar gets a new column in the category table.
+3. **New graph(s), new category** — full archive(s) plus the category
+   name/description and its canonical grammar(s); a new category page is
+   created.
+4. **New queries for existing graph(s)** — partial archive(s); sub-case 4b
+   if a query uses a new grammar.
+
+A set of graphs for a category goes into one issue as several archives. The
+issue template lists every required field per case (statistics, grammar
+definitions, category description).
+
+Validation
+^^^^^^^^^^
+
+Every archive must pass the structure checker before it is shared::
+
+   python utils/check_archive_structure.py <name>.tar.gz            # full archive
+   python utils/check_archive_structure.py <name>.tar.gz --partial  # partial archive
+
+The issue carries the pasted output of this command per archive, the
+archive's SHA256, and the FLPQ_Data version used; the template has the
+recipe for running the checker without cloning the repo.
+
+Consistency invariants
+^^^^^^^^^^^^^^^^^^^^^^
+
+- No graph without at least one query.
+- No query without reference results (``results.mtx``).
+- No item without description and motivation: every graph is described in
+  its archive ``README.md``, every query in ``queries/README.md``, and the
+  issue states why each new graph, grammar, or category is useful to other
+  users.
+
+Not accepted via this flow
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- A grammar or query provided outside an archive — without reference
+  results.
+- Updates to an existing graph (a new version of the source dataset).
+- A new representation of an existing query (e.g. adding ``.rsm`` next to a
+  ``.cnf``-only query).
+- More than one graph inside a single archive (use several archives in one
+  issue instead).
 
 .. _graph_file_structure:
 
