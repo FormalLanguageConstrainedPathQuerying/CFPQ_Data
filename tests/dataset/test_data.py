@@ -8,6 +8,7 @@ import requests
 
 import flpq_data
 import flpq_data.dataset.data as data
+from flpq_data.config import VERSION
 from flpq_data.dataset import DATASET_KEY_PREFIX, DATASET_URL, graph_dir
 from flpq_data.dataset.data import download, download_graph
 from flpq_data.dataset.registry import GraphInfo
@@ -67,10 +68,11 @@ def _install_fixture(tmp_path: pathlib.Path, monkeypatch) -> tuple[pathlib.Path,
 
 
 def test_url_constants():
-    # The whole dataset lives under the current version prefix.
+    # The whole dataset lives under the current major-version prefix; it
+    # moves only on a major release, so the literals are pinned here.
     assert DATASET_KEY_PREFIX == "6.0.0/graph"
     assert DATASET_URL == "https://cfpq-data.storage.yandexcloud.net/6.0.0/graph/"
-    assert flpq_data.__version__ == "6.0.0"
+    assert flpq_data.__version__ == VERSION
 
 
 def test_graph_dir_miss_downloads_and_installs(tmp_path, monkeypatch):
