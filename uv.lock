@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.11, <3.14"
 resolution-markers = [
     "python_full_version >= '3.12' and sys_platform == 'win32'",
@@ -595,7 +595,7 @@ docs = [
     { name = "jupyter-client", specifier = ">=8.7.0,<9.0.0" },
     { name = "nb2plots", specifier = ">=0.7.2,<0.8.0" },
     { name = "numpydoc", specifier = ">=1.10.0,<2.0.0" },
-    { name = "pydata-sphinx-theme", specifier = ">=0.16.1,<0.24.0" },
+    { name = "pydata-sphinx-theme", specifier = ">=0.16.1,<0.22.0" },
     { name = "sphinx", specifier = ">=9.0.4,<10.0.0" },
     { name = "sphinx-copybutton", specifier = ">=0.5.2,<0.6.0" },
 ]
