@@ -87,7 +87,7 @@ other doc changes in this subtask.
   new representation of an existing query; more than one graph inside a
   single archive.
 
-### S2: PR template cleanup
+### S2: PR template cleanup [done] ba5d880
 
 **Code:** Delete `.github/PULL_REQUEST_TEMPLATE/new_graph.md` and
 `.github/PULL_REQUEST_TEMPLATE/new_grammar.md`; add a generic
