@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `utils/add_reachable_pairs.py`: derives the reachable-pairs rows of one
+  validated archive (one row per query directory, with the declared entry
+  count of its `results.mtx` as `num_reachable_pairs`) and inserts them into
+  `flpq_data/dataset/reachable_pairs.csv`, preserving the file's sort order
+  and refusing duplicate rows and category disagreements.
+
+### Changed
+
+- Data contributions are issue-first: a single "CONTRIBUTE NEW DATA" issue
+  carries one or more validated archives (one graph each), the per-archive
+  validation output and SHA256, and the motivation; maintainers upload and
+  merge the data into the dataset. The Graphs page documents the flow, the
+  four contribution cases, and the consistency invariants — no graph without
+  a query, no query without reference results, no item without description
+  and motivation.
+
+### Removed
+
+- The `ADD NEW GRAPH` / `ADD NEW GRAMMAR` issue templates and the
+  `new_graph` / `new_grammar` PR templates: data has no PR path, and a
+  grammar is accepted only together with the archive that instantiates it as
+  a query with reference results. A generic PR template covers code
+  contributions.
+
 ## [6.0.0] - 2026-10-13
 
 ### Added
