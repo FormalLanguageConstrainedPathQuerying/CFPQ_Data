@@ -36,8 +36,9 @@ import re
 from typing import Optional, Sequence
 
 from archive_sizes import iter_graph_tables
-from check_archive_structure import QUERY_CLASSES
 from config import MAIN_FOLDER
+
+from flpq_data.tools.check_archive_structure import QUERY_CLASSES
 
 __all__ = [
     "BEGIN_MARKER",

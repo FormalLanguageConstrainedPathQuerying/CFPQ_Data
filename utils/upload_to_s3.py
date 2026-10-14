@@ -5,9 +5,14 @@ import logging
 import pathlib
 from typing import Optional, Sequence, Union
 
-import boto3
 from botocore.client import BaseClient
 from sizes import format_size_mb
+
+from flpq_data.dataset.s3 import (
+    DEFAULT_BUCKET,
+    DEFAULT_ENDPOINT_URL,
+    create_s3_client,
+)
 
 __all__ = [
     "DEFAULT_ENDPOINT_URL",
@@ -17,39 +22,6 @@ __all__ = [
     "copy_object",
     "main",
 ]
-
-DEFAULT_ENDPOINT_URL = "https://s3.yandexcloud.net"
-DEFAULT_BUCKET = "cfpq-data"
-
-
-def create_s3_client(
-    access_key_id: str,
-    secret_access_key: str,
-    endpoint_url: str = DEFAULT_ENDPOINT_URL,
-) -> BaseClient:
-    """Create a boto3 S3 client for Yandex Object Storage.
-
-    Parameters
-    ----------
-    access_key_id : str
-        Yandex Cloud IAM service account key ID (provided from the CLI).
-    secret_access_key : str
-        Yandex Cloud IAM service account secret key (provided from the CLI).
-    endpoint_url : str, optional
-        S3 API endpoint of the bucket's region.
-        Default: ``DEFAULT_ENDPOINT_URL``.
-
-    Returns
-    -------
-    client : botocore.client.BaseClient
-        Configured S3 client.
-    """
-    return boto3.client(
-        "s3",
-        aws_access_key_id=access_key_id,
-        aws_secret_access_key=secret_access_key,
-        endpoint_url=endpoint_url,
-    )
 
 
 def upload_file(
@@ -165,7 +137,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     Credentials are always taken from the command line and are never read
     from environment variables or config files. Any ``.tar.gz`` upload is
     first validated as a graph archive (see
-    :mod:`check_archive_structure`); an invalid archive is refused.
+    :mod:`flpq_data.tools.check_archive_structure`); an invalid archive is
+    refused.
 
     Returns
     -------
@@ -202,7 +175,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
 
     if args.file.endswith(".tar.gz"):
-        from check_archive_structure import validate_archive
+        from flpq_data.tools.check_archive_structure import validate_archive
 
         problems = validate_archive(args.file)
         if problems:

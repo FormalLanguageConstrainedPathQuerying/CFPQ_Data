@@ -42,6 +42,9 @@ Documentation = "https://formallanguageconstrainedpathquerying.github.io/FLPQ_Da
 "Source Code" = "https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data"
 "Bug Tracker" = "https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/issues"
 
+[project.scripts]
+flpq-check-archive = "flpq_data.tools.check_archive_structure:main"
+
 [dependency-groups]
 dev = [
   "boto3>=1.43.86,<2.0.0",
@@ -91,11 +94,11 @@ select = ["E", "F", "W", "I"]
 "tests/utils/conftest.py" = ["E402"]
 
 [tool.ty.environment]
-extra-paths = ["utils"]
+extra-paths = ["utils", "tests"]
 
 [tool.pyright]
 pythonVersion = "3.11"
-extraPaths = ["utils"]
+extraPaths = ["utils", "tests"]
 # Local scratch/working directory (gitignored), not part of the package.
 exclude = ["temporal_cfpq"]
 

@@ -12,11 +12,11 @@ A partial archive provides new queries for an existing graph: it contains
 only ``queries/`` (the new query directories plus a ``README.md`` fragment
 with their sections) and is validated with ``--partial``.
 
-Usage (from any directory)::
+The command-line entry point is installed with the package::
 
-    python utils/check_archive_structure.py ARCHIVE.tar.gz
-    python utils/check_archive_structure.py UNPACKED_DIR
-    python utils/check_archive_structure.py PARTIAL.tar.gz --partial
+    flpq-check-archive ARCHIVE.tar.gz
+    flpq-check-archive UNPACKED_DIR
+    flpq-check-archive PARTIAL.tar.gz --partial
 """
 
 import argparse
@@ -310,7 +310,6 @@ def _mtx_range_problems(graph_dir: pathlib.Path) -> list[str]:
 # --------------------------------------------------------------------------- #
 
 _FORBIDDEN_COMPONENTS = ("bar", "rev")
-_INDEXED_RE = re.compile(r"^(.+)_(\d+)$")
 _INDEXED_REV_RE = re.compile(r"^(.*)_r_(\d+)$")
 
 
@@ -359,7 +358,7 @@ def _label_problems(graph_dir: pathlib.Path) -> list[str]:
     stems = {path.stem for path in graph_dir.glob("*.mtx")}
 
     for stem in sorted(stems):
-        # Rule 1: no forbidden components (bar, rev)
+        # No forbidden components (bar, rev)
         parts = stem.replace("_", " ").split()
         for part in parts:
             if part in _FORBIDDEN_COMPONENTS:
@@ -369,17 +368,7 @@ def _label_problems(graph_dir: pathlib.Path) -> list[str]:
                 )
                 break
 
-        # Rule 2: indexed-reversed order must be <base>_r_<N>, not <base>_<N>_r
-        m = _INDEXED_RE.fullmatch(stem)
-        if m and not _INDEXED_REV_RE.fullmatch(stem):
-            base, idx = m.groups()
-            if base.endswith("_r"):
-                problems.append(
-                    f"graph/{stem}.mtx: indexed-reversed label must be "
-                    f"{base[:-2]}_r_{idx} (got {stem})"
-                )
-
-    # Rule 3: no stored reverses — if the forward label is stored, neither its
+    # No stored reverses — if the forward label is stored, neither its
     # unindexed reverse (L_r) nor its indexed reverse (B_r_<n>) may be stored.
     for stem in sorted(stems):
         forward = stored_reverse_forward(stem, stems)
@@ -769,7 +758,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
 
     if args.audit:
-        from upload_to_s3 import DEFAULT_BUCKET, DEFAULT_ENDPOINT_URL, create_s3_client
+        from flpq_data.dataset.s3 import (
+            DEFAULT_BUCKET,
+            DEFAULT_ENDPOINT_URL,
+            create_s3_client,
+        )
 
         if not args.access_key_id or not args.secret_access_key:
             print(
@@ -777,11 +770,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 "required for --audit"
             )
             return 1
-        client = create_s3_client(
-            args.access_key_id,
-            args.secret_access_key,
-            args.endpoint_url or DEFAULT_ENDPOINT_URL,
-        )
+        try:
+            client = create_s3_client(
+                args.access_key_id,
+                args.secret_access_key,
+                args.endpoint_url or DEFAULT_ENDPOINT_URL,
+            )
+        except ImportError:
+            print("error: --audit requires boto3 (pip install boto3)")
+            return 1
         problems = _audit(client, args.bucket or DEFAULT_BUCKET, args.prefix)
     elif args.path is None:
         print("error: give a path to validate or use --audit")
@@ -797,7 +794,3 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     kind = "partial archive" if args.partial else "archive"
     print(f"{kind} structure ok")
     return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

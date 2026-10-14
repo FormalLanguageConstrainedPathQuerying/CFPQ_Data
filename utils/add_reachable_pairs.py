@@ -28,13 +28,14 @@ import tarfile
 import tempfile
 from typing import Optional, Sequence
 
-from check_archive_structure import (
+from config import MAIN_FOLDER
+
+from flpq_data.tools.check_archive_structure import (
     QUERY_CLASSES,
     _mtx_header,
     unpack_single_dir,
     validate_archive,
 )
-from config import MAIN_FOLDER
 
 __all__ = [
     "REACHABLE_PAIRS_CSV",
@@ -96,7 +97,8 @@ def derive_rows(root: pathlib.Path, graph: str, category: str) -> list[dict[str,
     ----------
     root : Path
         The unpacked archive directory (it must have passed
-        :func:`check_archive_structure.validate_archive`, so every query
+        :func:`flpq_data.tools.check_archive_structure.validate_archive`, so
+        every query
         directory holds a representation file and a parseable
         ``results.mtx``).
     graph : str

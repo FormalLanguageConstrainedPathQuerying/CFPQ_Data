@@ -1,90 +1,19 @@
 import pathlib
 import shutil
+import sys
 import tarfile
 from unittest import mock
 
-from check_archive_structure import _audit, main, validate_archive
-
-README = """# g
-
-## What is this graph?
-A test graph.
-
-## Source
-A test source.
-
-## Construction
-Generated.
-
-## Nodes
-Two nodes.
-
-## Edges and labels
-Label a: one edge.
-
-## Query classes
-CFPQ applies.
-
-## License
-Apache-2.0.
-
-## Caveats
-None.
-"""
-
-RESULTS = (
-    "%%MatrixMarket matrix coordinate pattern general\n"
-    "%%GraphBLAS type bool\n2 2 1\n0 1\n"
+from archive_helpers import (
+    README,
+    RESULTS,
+    _partial_tree,
+    _query_dir,
+    _tarball,
+    _valid_tree,
 )
 
-
-def _query_dir(
-    tree: pathlib.Path, cls: str, name: str, representation: str
-) -> pathlib.Path:
-    query = tree / "queries" / cls / name
-    query.mkdir(parents=True)
-    (query / f"{name}{representation}").write_text(
-        {
-            ".cnf": "S\ta\tN1\nN1\ta\n\nCount:\nS",
-            ".rsm": "S -> a*",
-            ".re": "a*",
-            ".mcfg": "A(a)\nS(x1) <- A(x1)",
-        }[representation]
-    )
-    (query / "results.mtx").write_text(RESULTS)
-    return query
-
-
-def _valid_tree(root: pathlib.Path, name: str = "g") -> pathlib.Path:
-    d = root / name
-    (d / "graph").mkdir(parents=True)
-    for cls in ("cfpq", "rpq", "mcfpq"):
-        (d / "queries" / cls).mkdir(parents=True)
-    (d / "README.md").write_text(README)
-    (d / "graph" / "a.mtx").write_text(
-        "%%MatrixMarket matrix coordinate pattern general\n"
-        "%%GraphBLAS type bool\n2 2 1\n0 1\n"
-    )
-    _query_dir(d, "cfpq", "s", ".cnf")
-    (d / "queries" / "README.md").write_text(
-        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n- Purpose: test.\n"
-    )
-    return d
-
-
-def _partial_tree(root: pathlib.Path, name: str = "g") -> pathlib.Path:
-    d = root / name
-    _query_dir(d, "cfpq", "s", ".cnf")
-    (d / "queries" / "README.md").write_text(
-        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n- Purpose: test.\n"
-    )
-    return d
-
-
-def _tarball(tree: pathlib.Path, dest: pathlib.Path) -> pathlib.Path:
-    with tarfile.open(dest, "w:gz") as tarball:
-        tarball.add(tree, arcname=tree.name)
-    return dest
+from flpq_data.tools.check_archive_structure import _audit, main, validate_archive
 
 
 def test_valid_directory_passes(tmp_path):
@@ -627,6 +556,191 @@ def test_main_partial_reports_problems(tmp_path, capsys):
     assert "error:" in out and "structure violation" in out
 
 
+def test_unexpected_entry_in_queries(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "notes.txt").write_text("extra")
+
+    problems = validate_archive(tree)
+
+    assert any("queries/notes.txt: unexpected entry" in p for p in problems)
+
+
+def test_missing_queries_readme(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "README.md").unlink()
+
+    problems = validate_archive(tree)
+
+    assert any("queries/README.md: missing" in p for p in problems)
+
+
+def test_partial_unexpected_entry_in_queries(tmp_path):
+    tree = _partial_tree(tmp_path)
+    (tree / "queries" / "notes.txt").write_text("extra")
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("queries/notes.txt: unexpected entry" in p for p in problems)
+
+
+def test_partial_missing_queries_readme(tmp_path):
+    tree = _partial_tree(tmp_path)
+    (tree / "queries" / "README.md").unlink()
+
+    problems = validate_archive(tree, partial=True)
+
+    assert any("queries/README.md: missing" in p for p in problems)
+
+
+def test_subdirectory_in_query_dir(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "queries" / "cfpq" / "s" / "sub").mkdir()
+
+    problems = validate_archive(tree)
+
+    assert any("only files are allowed" in p for p in problems)
+
+
+def test_second_header_line_mismatch(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "graph" / "a.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "wrong second line\n2 2 1\n0 1\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any(p.startswith("graph/:") for p in problems)
+
+
+def test_non_numeric_dimension_line(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "graph" / "a.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\nx y z\n0 1\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any(p.startswith("graph/:") for p in problems)
+
+
+def test_blank_line_in_mtx_body_is_skipped(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "graph" / "a.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n2 2 1\n0 1\n\n"
+    )
+
+    assert validate_archive(tree) == []
+
+
+def test_graph_mtx_entry_count_mismatch(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "graph" / "a.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n2 2 2\n0 1\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any(p.startswith("graph/:") for p in problems)
+
+
+def test_graph_mtx_malformed_entry_line(tmp_path):
+    tree = _valid_tree(tmp_path)
+    (tree / "graph" / "a.mtx").write_text(
+        "%%MatrixMarket matrix coordinate pattern general\n"
+        "%%GraphBLAS type bool\n2 2 1\nx y\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any(p.startswith("graph/:") for p in problems)
+
+
+def test_forbidden_label_component(tmp_path):
+    tree = _valid_tree(tmp_path)
+    _write_mtx(tree / "graph" / "a_bar.mtx")
+
+    problems = validate_archive(tree)
+
+    assert any("forbidden component 'bar'" in p for p in problems)
+
+
+def test_same_dir_different_terminals(tmp_path):
+    tree = _valid_tree(tmp_path)
+    query = tree / "queries" / "cfpq" / "t"
+    query.mkdir(parents=True)
+    (query / "t.cnf").write_text("S\tb\tN1\nN1\tb\n\nCount:\nS")
+    (query / "t.rsm").write_text("S -> c*")
+    (query / "results.mtx").write_text(RESULTS)
+    (tree / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n\n## cfpq/t\n- Language: b*.\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any("use different terminal sets" in p for p in problems)
+
+
+def test_same_dir_subset_terminals(tmp_path):
+    tree = _valid_tree(tmp_path)
+    query = tree / "queries" / "cfpq" / "t"
+    query.mkdir(parents=True)
+    (query / "t.cnf").write_text("S\ta\tN1\nN1\ta\nS\tb\tN2\nN2\tb\n\nCount:\nS")
+    (query / "t.rsm").write_text("S -> a*")
+    (query / "results.mtx").write_text(RESULTS)
+    (tree / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n\n## cfpq/t\n- Language: ab.\n"
+    )
+
+    problems = validate_archive(tree)
+
+    assert any("use different terminal sets" in p for p in problems)
+
+
+def test_same_dir_equal_terminals_pass(tmp_path):
+    tree = _valid_tree(tmp_path)
+    query = tree / "queries" / "cfpq" / "t"
+    query.mkdir(parents=True)
+    (query / "t.cnf").write_text("S\ta\tN1\nN1\ta\n\nCount:\nS")
+    (query / "t.rsm").write_text("S -> a*")
+    (query / "results.mtx").write_text(RESULTS)
+    (tree / "queries" / "README.md").write_text(
+        "# Queries for g\n\n## cfpq/s\n- Language: a*.\n\n## cfpq/t\n- Language: a*.\n"
+    )
+
+    assert validate_archive(tree) == []
+
+
+def test_tarball_with_two_top_level_dirs(tmp_path):
+    tree = _valid_tree(tmp_path, name="g")
+    (tmp_path / "other").mkdir()
+    dest = tmp_path / "g.tar.gz"
+    with tarfile.open(dest, "w:gz") as tarball:
+        tarball.add(tree, arcname="g")
+        tarball.add(tmp_path / "other", arcname="other")
+
+    problems = validate_archive(dest)
+
+    assert any("must contain a single top-level directory" in p for p in problems)
+
+
+def test_broken_symlink_is_rejected(tmp_path):
+    link = tmp_path / "g.tar.gz"
+    link.symlink_to(tmp_path / "nowhere")
+
+    problems = validate_archive(link)
+
+    assert any("not a .tar.gz archive" in p for p in problems)
+
+
+def test_main_without_path_reports_it(capsys):
+    assert main([]) == 1
+    assert "give a path to validate or use --audit" in capsys.readouterr().out
+
+
 def _mock_s3(archives: dict[str, bytes]) -> mock.Mock:
     client = mock.Mock()
     client.get_paginator.return_value.paginate.return_value = [
@@ -676,7 +790,7 @@ def test_main_audit_requires_credentials(capsys):
 def test_main_audit_validates_bucket(tmp_path, monkeypatch, capsys):
     tarball = _tarball(_valid_tree(tmp_path), tmp_path / "g.tar.gz")
     client = _mock_s3({"5.0.0/graph/g.tar.gz": tarball.read_bytes()})
-    monkeypatch.setattr("upload_to_s3.boto3.client", lambda *args, **kwargs: client)
+    monkeypatch.setattr("boto3.client", lambda *args, **kwargs: client)
 
     status = main(
         [
@@ -692,3 +806,28 @@ def test_main_audit_validates_bucket(tmp_path, monkeypatch, capsys):
 
     assert status == 0
     assert "archive structure ok" in capsys.readouterr().out
+
+
+def test_main_audit_without_boto3_reports_it(monkeypatch, capsys):
+    monkeypatch.setitem(sys.modules, "boto3", None)
+
+    status = main(
+        [
+            "--audit",
+            "--access-key-id",
+            "key-id",
+            "--secret-access-key",
+            "secret",
+        ]
+    )
+
+    assert status == 1
+    assert "--audit requires boto3" in capsys.readouterr().out
+
+
+def test_console_entry_point_is_registered():
+    from importlib.metadata import entry_points
+
+    eps = entry_points(group="console_scripts", name="flpq-check-archive")
+
+    assert [ep.value for ep in eps] == ["flpq_data.tools.check_archive_structure:main"]

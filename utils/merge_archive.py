@@ -1,6 +1,6 @@
 """Merge a partial archive into an existing graph archive.
 
-A partial archive (validated with ``check_archive_structure.py --partial``)
+A partial archive (validated with ``flpq-check-archive --partial``)
 provides new queries for an existing graph: it contains only ``queries/`` —
 the new query directories plus a ``README.md`` fragment with their sections.
 This tool copies the new query directories into the existing archive,
@@ -26,12 +26,6 @@ import tarfile
 import tempfile
 from typing import Optional, Sequence, Union
 
-from check_archive_structure import (
-    QUERY_CLASSES,
-    parse_readme_sections,
-    unpack_single_dir,
-    validate_archive,
-)
 from config import MAIN_FOLDER
 from migrate_gdrive_to_s3 import (
     DRIVE_FILE_ID_RE,
@@ -39,6 +33,13 @@ from migrate_gdrive_to_s3 import (
     download_from_drive,
 )
 from reachable_pairs_tables import load_rows
+
+from flpq_data.tools.check_archive_structure import (
+    QUERY_CLASSES,
+    parse_readme_sections,
+    unpack_single_dir,
+    validate_archive,
+)
 
 __all__ = ["REGISTRY_CSV", "merge_archives", "main"]
 

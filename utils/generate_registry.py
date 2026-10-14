@@ -32,12 +32,16 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional, Sequence
 
 import requests
-from check_archive_structure import QUERY_CLASSES, _graph_dimensions, _mtx_header
 from config import MAIN_FOLDER
 from reachable_pairs_tables import load_rows
 
 from flpq_data.config import DATASET_VERSION
 from flpq_data.dataset.data import DATASET_URL
+from flpq_data.tools.check_archive_structure import (
+    QUERY_CLASSES,
+    _graph_dimensions,
+    _mtx_header,
+)
 
 __all__ = [
     "REGISTRY_CSV",

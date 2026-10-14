@@ -3,7 +3,7 @@ import pathlib
 
 import add_reachable_pairs
 from add_reachable_pairs import add_rows, derive_rows, main, representation_file
-from test_check_archive_structure import _partial_tree, _tarball, _valid_tree
+from archive_helpers import _partial_tree, _tarball, _valid_tree
 
 HEADER = ["graph", "grammar", "category", "query_class", "num_reachable_pairs"]
 

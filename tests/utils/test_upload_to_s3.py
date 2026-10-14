@@ -2,7 +2,7 @@ import pathlib
 from unittest import mock
 
 import pytest
-from test_check_archive_structure import README, _tarball, _valid_tree
+from archive_helpers import README, _tarball, _valid_tree
 from upload_to_s3 import (
     DEFAULT_BUCKET,
     DEFAULT_ENDPOINT_URL,
@@ -21,7 +21,7 @@ def test_create_s3_client_passes_credentials_and_endpoint(monkeypatch):
         calls.update(kwargs)
         return "client"
 
-    monkeypatch.setattr("upload_to_s3.boto3.client", fake_client)
+    monkeypatch.setattr("boto3.client", fake_client)
 
     client = create_s3_client("key-id", "secret", endpoint_url="https://example.com")
 
@@ -41,7 +41,7 @@ def test_create_s3_client_default_endpoint(monkeypatch):
         calls.update(kwargs)
         return "client"
 
-    monkeypatch.setattr("upload_to_s3.boto3.client", fake_client)
+    monkeypatch.setattr("boto3.client", fake_client)
 
     create_s3_client("key-id", "secret")
 
@@ -140,7 +140,7 @@ def test_main_uploads_valid_archive_and_reports_size(tmp_path, monkeypatch, caps
     file = _valid_tarball(tmp_path)
     client = mock.Mock()
     client.head_object.return_value = {"ContentLength": file.stat().st_size}
-    monkeypatch.setattr("upload_to_s3.boto3.client", lambda *args, **kwargs: client)
+    monkeypatch.setattr("boto3.client", lambda *args, **kwargs: client)
 
     status = main(
         [
@@ -175,7 +175,7 @@ def test_main_reports_size_above_one_megabyte(tmp_path, monkeypatch, capsys):
     file = _tarball(tree, tmp_path / "g.tar.gz")
     client = mock.Mock()
     client.head_object.return_value = {"ContentLength": file.stat().st_size}
-    monkeypatch.setattr("upload_to_s3.boto3.client", lambda *args, **kwargs: client)
+    monkeypatch.setattr("boto3.client", lambda *args, **kwargs: client)
 
     main(
         [
@@ -196,7 +196,7 @@ def test_main_refuses_invalid_archive_without_uploading(tmp_path, monkeypatch, c
     (tree / "README.md").write_text(README.replace("## License\nApache-2.0.\n", ""))
     file = _tarball(tree, tmp_path / "g.tar.gz")
     client = mock.Mock()
-    monkeypatch.setattr("upload_to_s3.boto3.client", lambda *args, **kwargs: client)
+    monkeypatch.setattr("boto3.client", lambda *args, **kwargs: client)
 
     status = main(
         [
