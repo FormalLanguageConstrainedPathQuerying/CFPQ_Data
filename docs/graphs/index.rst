@@ -25,19 +25,12 @@ request is needed.
 Contribution cases
 ^^^^^^^^^^^^^^^^^^
 
-1. **New graph(s), existing category, existing grammar(s)** — full
-   archive(s); the queries instantiate the category's canonical grammar(s).
-2. **New graph(s), existing category, new grammar** — full archive(s) plus a
-   grammar definition; the grammar gets a new column in the category table.
-3. **New graph(s), new category** — full archive(s) plus the category
-   name/description and its canonical grammar(s); a new category page is
-   created.
-4. **New queries for existing graph(s)** — partial archive(s); sub-case 4b
-   if a query uses a new grammar.
-
-A set of graphs for a category goes into one issue as several archives. The
-issue template lists every required field per case (statistics, grammar
-definitions, category description).
+The issue template's "Contribution type" section lists the four contribution
+cases — new graph(s) for an existing or a new category, with an existing or
+a new grammar, and new queries for existing graph(s) — and what each
+requires; its remaining sections carry every required field (statistics,
+grammar definitions, category description). A set of graphs for a category
+goes into one issue as several archives (one graph per archive).
 
 Validation
 ^^^^^^^^^^
@@ -64,13 +57,10 @@ Consistency invariants
 Not accepted via this flow
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- A grammar or query provided outside an archive — without reference
-  results.
-- Updates to an existing graph (a new version of the source dataset).
-- A new representation of an existing query (e.g. adding ``.rsm`` next to a
-  ``.cnf``-only query).
-- More than one graph inside a single archive (use several archives in one
-  issue instead).
+The issue template's "Not accepted via this flow" section lists the declined
+cases: a grammar or query provided outside an archive (without reference
+results), updates to an existing graph, a new representation of an existing
+query, and more than one graph inside a single archive.
 
 .. _graph_file_structure:
 
