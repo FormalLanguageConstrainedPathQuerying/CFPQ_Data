@@ -190,7 +190,7 @@ docstrings or template fields.
   (cases 2/3/4b of the CONTRIBUTE NEW DATA issue); pointer to the template;
   the generator-module conventions stay as-is.
 
-### S6: Changelog
+### S6: Changelog [done] 0f20cd1
 
 **Code:** none. **Tests:** none.
 
