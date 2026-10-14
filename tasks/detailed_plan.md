@@ -92,7 +92,7 @@ docs sweep is S2).
 - Verify: full suite + coverage gate green (canonical command from
   `docs/developer.rst`).
 
-### S2: Docs and flow sweep
+### S2: Docs and flow sweep [done] 3c0ab23
 
 **Code:** none (docs/templates/skills only).
 
