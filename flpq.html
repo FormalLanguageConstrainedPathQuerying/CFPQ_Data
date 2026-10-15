@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>FLPQ: Formal-Language-Constrained Path Querying &#8212; FLPQ_Data 6.0.0 documentation</title>
+    <title>FLPQ: Formal-Language-Constrained Path Querying &#8212; FLPQ_Data 6.1.0 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="_static/documentation_options.js?v=cb01d673"></script>
+    <script src="_static/documentation_options.js?v=d9c7ea69"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -51,7 +51,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'flpq';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within FLPQ_Data 6.0.0 documentation"
+          title="Search within FLPQ_Data 6.1.0 documentation"
           href="_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -162,8 +162,8 @@
       
     
     
-    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
-    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.1.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -443,10 +443,10 @@
 <span id="flpq"></span><h1>FLPQ: Formal-Language-Constrained Path Querying<a class="headerlink" href="#flpq-formal-language-constrained-path-querying" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>6.0.0</p>
+<dd class="field-odd"><p>6.1.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Oct 14, 2026</p>
+<dd class="field-even"><p>Oct 15, 2026</p>
 </dd>
 </dl>
 <p>Formal-language-constrained path querying (FLPQ) studies reachability in
@@ -853,14 +853,14 @@ per-graph grammars from the legacy <code class="docutils literal notranslate"><s
 <code class="docutils literal notranslate"><span class="pre">queries/cfpq/&lt;query&gt;/</span></code> directory each, add the per-query
 <code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> (the constrained reachability facts), write the
 mandatory-question <code class="docutils literal notranslate"><span class="pre">README.md</span></code>, and validate with
-<code class="docutils literal notranslate"><span class="pre">utils/check_archive_structure.py</span></code> (<a class="reference internal" href="utils.html#archive-structure"><span class="std std-ref">Archive structure</span></a>).</p></li>
+<code class="docutils literal notranslate"><span class="pre">flpq-check-archive</span></code> (<a class="reference internal" href="reference/tools/index.html#archive-structure"><span class="std std-ref">Archive structure checker</span></a>).</p></li>
 <li><p>The example query archives (<code class="docutils literal notranslate"><span class="pre">4.0.0/grammar/example/</span></code>) are dropped —
 every query file lives inside a graph archive.</p></li>
 <li><p>Re-point <code class="docutils literal notranslate"><span class="pre">DATASET_URL</span></code> at the new prefix as part of the version bump
 (the rename task); <code class="docutils literal notranslate"><span class="pre">GRAMMARS_URL</span></code> disappears with the separate grammar
 archives.</p></li>
 <li><p>The upload tool validates the structure before uploading
-(<a class="reference internal" href="utils.html#upload-to-s3"><span class="std std-ref">Upload to Yandex S3</span></a>, <a class="reference internal" href="utils.html#archive-structure"><span class="std std-ref">Archive structure</span></a>).</p></li>
+(<a class="reference internal" href="utils.html#upload-to-s3"><span class="std std-ref">Upload to Yandex S3</span></a>, <a class="reference internal" href="reference/tools/index.html#archive-structure"><span class="std std-ref">Archive structure checker</span></a>).</p></li>
 </ul>
 </section>
 <section id="core-api-metadata-lazy-access-and-cache">

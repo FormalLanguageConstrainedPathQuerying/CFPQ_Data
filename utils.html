@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Maintainer tools &#8212; FLPQ_Data 6.0.0 documentation</title>
+    <title>Maintainer tools &#8212; FLPQ_Data 6.1.0 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="_static/documentation_options.js?v=cb01d673"></script>
+    <script src="_static/documentation_options.js?v=d9c7ea69"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -50,7 +50,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'utils';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within FLPQ_Data 6.0.0 documentation"
+          title="Search within FLPQ_Data 6.1.0 documentation"
           href="_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -160,8 +160,8 @@
       
     
     
-    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
-    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.1.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -451,10 +451,10 @@
 <span id="utils"></span><h1>Maintainer tools<a class="headerlink" href="#maintainer-tools" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>6.0.0</p>
+<dd class="field-odd"><p>6.1.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Oct 14, 2026</p>
+<dd class="field-even"><p>Oct 15, 2026</p>
 </dd>
 </dl>
 <p>The <code class="docutils literal notranslate"><span class="pre">utils/</span></code> directory contains maintainer scripts for managing the dataset
@@ -481,7 +481,7 @@ cfpq-data bucket).</p></li>
 <code class="docutils literal notranslate"><span class="pre">6.0.0/graph/NAME.tar.gz</span></code> to follow the dataset layout).</p></li>
 </ul>
 <p>Before uploading any <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> the tool validates it as a graph archive
-(<a class="reference internal" href="#archive-structure"><span class="std std-ref">Archive structure</span></a>) and refuses an invalid one; after the upload it
+(<a class="reference internal" href="reference/tools/index.html#archive-structure"><span class="std std-ref">Archive structure checker</span></a>) and refuses an invalid one; after the upload it
 verifies that the stored object size equals the local file size and reports
 an error otherwise. The verified size is then reported in bytes and
 megabytes, with the same MB formatting as the <code class="docutils literal notranslate"><span class="pre">Size</span> <span class="pre">(MB)</span></code> column of the
@@ -520,64 +520,11 @@ different content.</p></li>
 verified size), add the table row with that value, and run this tool before
 committing so every row — including the new one — matches S3.</p>
 </section>
-<section id="archive-structure">
-<span id="id2"></span><h2>Archive structure<a class="headerlink" href="#archive-structure" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">utils/check_archive_structure.py</span></code> validates that a graph archive has the
-fixed self-contained structure documented in the “File structure” section of
-the <a class="reference internal" href="graphs/index.html#graphs"><span class="std std-ref">Graphs</span></a> page:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">utils</span><span class="o">/</span><span class="n">check_archive_structure</span><span class="o">.</span><span class="n">py</span> <span class="n">ARCHIVE</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
-<span class="n">python</span> <span class="n">utils</span><span class="o">/</span><span class="n">check_archive_structure</span><span class="o">.</span><span class="n">py</span> <span class="n">UNPACKED_DIR</span>
-<span class="n">python</span> <span class="n">utils</span><span class="o">/</span><span class="n">check_archive_structure</span><span class="o">.</span><span class="n">py</span> <span class="n">PARTIAL</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">partial</span>
-<span class="n">python</span> <span class="n">utils</span><span class="o">/</span><span class="n">check_archive_structure</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">audit</span> <span class="o">--</span><span class="n">prefix</span> <span class="mf">6.0.0</span><span class="o">/</span><span class="n">graph</span><span class="o">/</span> \
-    <span class="o">--</span><span class="n">access</span><span class="o">-</span><span class="n">key</span><span class="o">-</span><span class="nb">id</span> <span class="n">KEY_ID</span> <span class="o">--</span><span class="n">secret</span><span class="o">-</span><span class="n">access</span><span class="o">-</span><span class="n">key</span> <span class="n">SECRET</span>
-</pre></div>
-</div>
-<p>A <strong>partial archive</strong> provides new queries for an existing graph: it contains
-only <code class="docutils literal notranslate"><span class="pre">queries/</span></code> — the new query directories plus a <code class="docutils literal notranslate"><span class="pre">README.md</span></code> fragment
-with their sections. With <code class="docutils literal notranslate"><span class="pre">--partial</span></code> the tool checks that skeleton, that
-every representation file parses (the label and dimension checks are skipped
-— there is no graph to check against), and that the fragment describes
-exactly the query directories it contains.</p>
-<p>The checks:</p>
-<ul class="simple">
-<li><p><strong>Skeleton.</strong> A single top-level directory named after the archive,
-containing exactly <code class="docutils literal notranslate"><span class="pre">README.md</span></code>, <code class="docutils literal notranslate"><span class="pre">graph/</span></code> (non-empty, only <code class="docutils literal notranslate"><span class="pre">.mtx</span></code>
-files), and <code class="docutils literal notranslate"><span class="pre">queries/</span></code> with its <code class="docutils literal notranslate"><span class="pre">README.md</span></code> and the three class
-directories. Each class directory holds query directories only (flat query
-files are rejected); each query directory contains at least one
-representation file with a class extension (<code class="docutils literal notranslate"><span class="pre">.cnf</span></code>/<code class="docutils literal notranslate"><span class="pre">.rsm</span></code> for CFPQ,
-<code class="docutils literal notranslate"><span class="pre">.re</span></code>/<code class="docutils literal notranslate"><span class="pre">.rsm</span></code> for RPQ, <code class="docutils literal notranslate"><span class="pre">.mcfg</span></code> for MCFPQ) and exactly one
-<code class="docutils literal notranslate"><span class="pre">results.mtx</span></code>.</p></li>
-<li><p><strong>Graph.</strong> Every MTX file parses as a Boolean pattern matrix, every edge
-endpoint fits the declared dimensions, and all label matrices declare the
-same dimensions.</p></li>
-<li><p><strong>Labels.</strong> No forbidden label components (<code class="docutils literal notranslate"><span class="pre">bar</span></code>, <code class="docutils literal notranslate"><span class="pre">rev</span></code>); an indexed
-reversed label is written <code class="docutils literal notranslate"><span class="pre">&lt;base&gt;_r_&lt;n&gt;</span></code> (not <code class="docutils literal notranslate"><span class="pre">&lt;base&gt;_&lt;n&gt;_r</span></code>); and
-reversed edges are not stored — neither <code class="docutils literal notranslate"><span class="pre">&lt;label&gt;_r.mtx</span></code> nor
-<code class="docutils literal notranslate"><span class="pre">&lt;base&gt;_r_&lt;n&gt;.mtx</span></code> may exist when the forward matrix is present (they are
-auto-generated by <a class="reference internal" href="reference/graphs/generated/flpq_data.graphs.utils.add_reverse_edges.html#flpq_data.graphs.utils.add_reverse_edges" title="flpq_data.graphs.utils.add_reverse_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_reverse_edges</span></code></a>).</p></li>
-<li><p><strong>Results.</strong> Every <code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> parses as a Boolean pattern matrix with
-the graph’s dimensions and in-range entries.</p></li>
-<li><p><strong>Queries.</strong> Every representation file parses with its class reader (an
-<code class="docutils literal notranslate"><span class="pre">.rsm</span></code> via <a class="reference internal" href="reference/queries/rpq/generated/flpq_data.queries.rpq.readwrite.rsa.html#flpq_data.queries.rpq.readwrite.rsa.rsa_from_text" title="flpq_data.queries.rpq.readwrite.rsa.rsa_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rsa_from_text</span></code></a>),
-uses at least one terminal, and uses only labels of its own graph (stored
-or reversed). An <code class="docutils literal notranslate"><span class="pre">.rsm</span></code> in <code class="docutils literal notranslate"><span class="pre">rpq/</span></code> must be regular — no box transition
-labelled by a nonterminal.</p></li>
-<li><p><strong>Description.</strong> <code class="docutils literal notranslate"><span class="pre">README.md</span></code> answers all mandatory questions of the
-contribution templates; <code class="docutils literal notranslate"><span class="pre">queries/README.md</span></code> describes exactly the query
-directories that exist, each with a non-empty section.</p></li>
-</ul>
-<p>The tool collects every violation and exits non-zero if any is found, so it
-can gate a commit. With <code class="docutils literal notranslate"><span class="pre">--audit</span></code> it downloads and validates every
-<code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> object under the bucket prefix (credentials from the command
-line, like <a class="reference internal" href="#upload-to-s3"><span class="std std-ref">Upload to Yandex S3</span></a>). <a class="reference internal" href="#upload-to-s3"><span class="std std-ref">Upload to Yandex S3</span></a> runs the same check
-before uploading any <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> and refuses an invalid archive.</p>
-</section>
 <section id="strip-stored-reverse-edges">
 <span id="strip-reverse-edges"></span><h2>Strip stored reverse edges<a class="headerlink" href="#strip-stored-reverse-edges" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">utils/strip_reverse_edges.py</span></code> normalizes a legacy archive that still stores
 reverse matrices (the unindexed <code class="docutils literal notranslate"><span class="pre">L_r.mtx</span></code> or the indexed
-<code class="docutils literal notranslate"><span class="pre">&lt;base&gt;_r_&lt;n&gt;.mtx</span></code>) — both are rejected by <a class="reference internal" href="#archive-structure"><span class="std std-ref">Archive structure</span></a>:</p>
+<code class="docutils literal notranslate"><span class="pre">&lt;base&gt;_r_&lt;n&gt;.mtx</span></code>) — both are rejected by <a class="reference internal" href="reference/tools/index.html#archive-structure"><span class="std std-ref">Archive structure checker</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">utils</span><span class="o">/</span><span class="n">strip_reverse_edges</span><span class="o">.</span><span class="n">py</span> <span class="n">ARCHIVE</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">-</span><span class="n">o</span> <span class="n">STRIPPED</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
@@ -616,6 +563,26 @@ step with the archives; an unregistered query aborts the merge.</p>
 <p>The output file must be named after the graph (<code class="docutils literal notranslate"><span class="pre">&lt;graph&gt;.tar.gz</span></code>): the
 upload tool stores it under that name, replacing the previous archive.</p>
 </section>
+<section id="add-reachable-pairs-rows">
+<span id="add-reachable-pairs"></span><h2>Add reachable-pairs rows<a class="headerlink" href="#add-reachable-pairs-rows" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">utils/add_reachable_pairs.py</span></code> derives the reachable-pairs rows of one
+validated archive and inserts them into
+<code class="docutils literal notranslate"><span class="pre">flpq_data/dataset/reachable_pairs.csv</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">utils</span><span class="o">/</span><span class="n">add_reachable_pairs</span><span class="o">.</span><span class="n">py</span> <span class="n">ARCHIVE</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">graph</span> <span class="n">NAME</span> \
+    <span class="o">--</span><span class="n">category</span> <span class="n">CAT</span> <span class="p">[</span><span class="o">--</span><span class="n">partial</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">dry</span><span class="o">-</span><span class="n">run</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For every <code class="docutils literal notranslate"><span class="pre">queries/&lt;class&gt;/&lt;query&gt;/</span></code> directory the tool emits one row:
+the query directory name as the stem of the <code class="docutils literal notranslate"><span class="pre">grammar</span></code> file (the
+representation is picked in the order <code class="docutils literal notranslate"><span class="pre">cnf</span> <span class="pre">&gt;</span> <span class="pre">re</span> <span class="pre">&gt;</span> <span class="pre">mcfg</span> <span class="pre">&gt;</span> <span class="pre">rsm</span></code>) and the
+declared entry count of the query’s <code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> as
+<code class="docutils literal notranslate"><span class="pre">num_reachable_pairs</span></code>. The archive must pass the structure checker first
+(full mode, or <code class="docutils literal notranslate"><span class="pre">--partial</span></code> for a partial archive), and a tarball must be
+named after the graph. The CSV’s <code class="docutils literal notranslate"><span class="pre">(graph,</span> <span class="pre">grammar)</span></code> sort order is
+preserved; a row that already exists, or a category that disagrees with the
+graph’s existing rows, is reported and nothing is written. <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code>
+prints the rows instead of writing them.</p>
+</section>
 <section id="reachable-pair-counts">
 <span id="reachable-pairs-tables"></span><h2>Reachable pair counts<a class="headerlink" href="#reachable-pair-counts" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">utils/reachable_pairs_tables.py</span></code> keeps the reachable-pairs renderings in
@@ -651,7 +618,7 @@ category and query class and run this tool with <code class="docutils literal no
 committing.</p>
 </section>
 <section id="applicable-graphs">
-<span id="id3"></span><h2>Applicable graphs<a class="headerlink" href="#applicable-graphs" title="Link to this heading">#</a></h2>
+<span id="id2"></span><h2>Applicable graphs<a class="headerlink" href="#applicable-graphs" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">utils/applicable_graphs.py</span></code> keeps the per-class “Applicable graphs” lists
 of <code class="docutils literal notranslate"><span class="pre">docs/queries/{cfpq,rpq,mcfpq}/index.rst</span></code> in sync with the same CSV
 registry:</p>
@@ -689,7 +656,7 @@ from the current dataset prefix and records: the category (from the CSV),
 the node and edge counts (loaded with the package’s own MTX reader), the
 archive size in MB and its sha256, and the query list from the archive’s
 <code class="docutils literal notranslate"><span class="pre">queries/</span></code> tree (class, name, representations — the class-to-representation
-mapping is reused from <a class="reference internal" href="#archive-structure"><span class="std std-ref">Archive structure</span></a>). The result is written as
+mapping is reused from <a class="reference internal" href="reference/tools/index.html#archive-structure"><span class="std std-ref">Archive structure checker</span></a>). The result is written as
 deterministic JSON.</p>
 <p>Behavior:</p>
 <ul class="simple">
@@ -769,9 +736,9 @@ testing).</p>
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upload-to-yandex-s3">Upload to Yandex S3</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#archive-sizes">Archive sizes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#archive-structure">Archive structure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strip-stored-reverse-edges">Strip stored reverse edges</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-partial-archives">Merge partial archives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-reachable-pairs-rows">Add reachable-pairs rows</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reachable-pair-counts">Reachable pair counts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applicable-graphs">Applicable graphs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-registry">Graph registry</a></li>

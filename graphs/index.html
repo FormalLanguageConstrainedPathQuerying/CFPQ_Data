@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Graphs &#8212; FLPQ_Data 6.0.0 documentation</title>
+    <title>Graphs &#8212; FLPQ_Data 6.1.0 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=cb01d673"></script>
+    <script src="../_static/documentation_options.js?v=d9c7ea69"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -51,7 +51,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'graphs/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within FLPQ_Data 6.0.0 documentation"
+          title="Search within FLPQ_Data 6.1.0 documentation"
           href="../_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -162,8 +162,8 @@
       
     
     
-    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.0.0 documentation - Home"/>
-    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.0.0 documentation - Home"/>
+    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.1.0 documentation - Home"/>
+    <img src="../_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.1.0 documentation - Home"/>
   
   
 </a></div>
@@ -463,15 +463,59 @@
 <span id="id1"></span><h1>Graphs<a class="headerlink" href="#graphs" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>6.0.0</p>
+<dd class="field-odd"><p>6.1.0</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>Oct 14, 2026</p>
+<dd class="field-even"><p>Oct 15, 2026</p>
 </dd>
 </dl>
-<section id="how-to-add-a-new-graph">
-<h2>How to add a new graph?<a class="headerlink" href="#how-to-add-a-new-graph" title="Link to this heading">#</a></h2>
-<p>Just create a PR (Pull Request) corresponding to the <a class="reference external" href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/master/.github/PULL_REQUEST_TEMPLATE/new_graph.md">“Template for adding a new graph”</a>.</p>
+<section id="contributing-data">
+<span id="id2"></span><h2>Contributing data<a class="headerlink" href="#contributing-data" title="Link to this heading">#</a></h2>
+<p>New data — graphs, queries, grammars — enters the dataset through a single
+<a class="reference external" href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/dev/.github/ISSUE_TEMPLATE/new-data-template.md">“CONTRIBUTE NEW DATA” issue</a>:
+you prepare one or more archives (one graph each), validate them, publish
+them (e.g. to Google Drive), and open the issue with the links, the
+validation output, the SHA256 of every archive, and the motivation. The
+maintainers upload the archives and merge them into the dataset — no pull
+request is needed.</p>
+<section id="contribution-cases">
+<h3>Contribution cases<a class="headerlink" href="#contribution-cases" title="Link to this heading">#</a></h3>
+<p>The issue template’s “Contribution type” section lists the four contribution
+cases — new graph(s) for an existing or a new category, with an existing or
+a new grammar, and new queries for existing graph(s) — and what each
+requires; its remaining sections carry every required field (statistics,
+grammar definitions, category description). A set of graphs for a category
+goes into one issue as several archives (one graph per archive).</p>
+</section>
+<section id="validation">
+<h3>Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h3>
+<p>Every archive must pass the structure checker before it is shared:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flpq</span><span class="o">-</span><span class="n">check</span><span class="o">-</span><span class="n">archive</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>            <span class="c1"># full archive</span>
+<span class="n">flpq</span><span class="o">-</span><span class="n">check</span><span class="o">-</span><span class="n">archive</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">partial</span>  <span class="c1"># partial archive</span>
+</pre></div>
+</div>
+<p>The issue carries the pasted output of this command per archive, the
+archive’s SHA256, and the FLPQ_Data version used; the template has the
+recipe — <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">flpq-data</span></code> installs the checker.</p>
+</section>
+<section id="consistency-invariants">
+<h3>Consistency invariants<a class="headerlink" href="#consistency-invariants" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>No graph without at least one query.</p></li>
+<li><p>No query without reference results (<code class="docutils literal notranslate"><span class="pre">results.mtx</span></code>).</p></li>
+<li><p>No item without description and motivation: every graph is described in
+its archive <code class="docutils literal notranslate"><span class="pre">README.md</span></code>, every query in <code class="docutils literal notranslate"><span class="pre">queries/README.md</span></code>, and the
+issue states why each new graph, grammar, or category is useful to other
+users.</p></li>
+</ul>
+</section>
+<section id="not-accepted-via-this-flow">
+<h3>Not accepted via this flow<a class="headerlink" href="#not-accepted-via-this-flow" title="Link to this heading">#</a></h3>
+<p>The issue template’s “Not accepted via this flow” section lists the declined
+cases: a grammar or query provided outside an archive (without reference
+results), updates to an existing graph, a new representation of an existing
+query, and more than one graph inside a single archive.</p>
+</section>
 </section>
 <section id="file-structure">
 <span id="graph-file-structure"></span><h2>File structure<a class="headerlink" href="#file-structure" title="Link to this heading">#</a></h2>
@@ -521,8 +565,8 @@ labelled by a nonterminal.</p></li>
 to a directory named after that graph and contains only <code class="docutils literal notranslate"><span class="pre">queries/</span></code> — the
 new query directories (same layout) plus a <code class="docutils literal notranslate"><span class="pre">README.md</span></code> fragment with one
 section per new query. It is validated with
-<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">utils/check_archive_structure.py</span> <span class="pre">&lt;name&gt;.tar.gz</span> <span class="pre">--partial</span></code> and
-merged into the existing archive with <a class="reference internal" href="../utils.html#merge-archive"><span class="std std-ref">Merge partial archives</span></a>.</p>
+<code class="docutils literal notranslate"><span class="pre">flpq-check-archive</span> <span class="pre">&lt;name&gt;.tar.gz</span> <span class="pre">--partial</span></code> and merged into the existing
+archive with <a class="reference internal" href="../utils.html#merge-archive"><span class="std std-ref">Merge partial archives</span></a>.</p>
 <p>The pre-migration graphs on the <a class="reference internal" href="../old_graphs/index.html#old-graphs"><span class="std std-ref">Old graphs</span></a> page use the old CSV
 format instead.</p>
 <p>Each file <code class="docutils literal notranslate"><span class="pre">graph/&lt;label&gt;.mtx</span></code> is a Boolean pattern matrix that holds
@@ -740,7 +784,13 @@ it.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-add-a-new-graph">How to add a new graph?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing-data">Contributing data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contribution-cases">Contribution cases</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-invariants">Consistency invariants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-accepted-via-this-flow">Not accepted via this flow</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure">File structure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indexed-labels">Indexed labels</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reversed-edges">Reversed edges</a></li>

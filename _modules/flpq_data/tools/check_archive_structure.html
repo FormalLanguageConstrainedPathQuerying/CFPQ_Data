@@ -1,0 +1,1305 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flpq_data.tools.check_archive_structure &#8212; FLPQ_Data 6.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d9aafeaa" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/copybutton.css?v=b2a5787b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/about.css?v=48cf5573" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fdb814aa" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="../../../_static/documentation_options.js?v=d9c7ea69"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/flpq_data/tools/check_archive_structure';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within FLPQ_Data 6.1.0 documentation"
+          href="../../../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "FORMAL-LANGUAGE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.1.0 documentation - Home"/>
+    <img src="../../../_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.1.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">flpq_data.tools.check_archive_structure</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for flpq_data.tools.check_archive_structure</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Validate the structure of a graph archive.</span>
+
+<span class="sd">Every graph archive must have the same fixed, self-contained structure</span>
+<span class="sd">(documented in the "File structure" section of ``docs/graphs/index.rst``):</span>
+<span class="sd">a description document answering the mandatory questions, one Boolean</span>
+<span class="sd">MatrixMarket file per stored edge label, and all queries of the graph as</span>
+<span class="sd">directories grouped by class — each query directory holding every</span>
+<span class="sd">representation of the query plus one ``results.mtx`` with the constrained</span>
+<span class="sd">reachability facts — described in a common document.</span>
+
+<span class="sd">A partial archive provides new queries for an existing graph: it contains</span>
+<span class="sd">only ``queries/`` (the new query directories plus a ``README.md`` fragment</span>
+<span class="sd">with their sections) and is validated with ``--partial``.</span>
+
+<span class="sd">The command-line entry point is installed with the package::</span>
+
+<span class="sd">    flpq-check-archive ARCHIVE.tar.gz</span>
+<span class="sd">    flpq-check-archive UNPACKED_DIR</span>
+<span class="sd">    flpq-check-archive PARTIAL.tar.gz --partial</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tarfile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyformlang.regular_expression</span><span class="w"> </span><span class="kn">import</span> <span class="n">Regex</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyformlang.rsa</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveAutomaton</span> <span class="k">as</span> <span class="n">RSA</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">flpq_data.graphs.readwrite.mtx</span><span class="w"> </span><span class="kn">import</span> <span class="n">_MTX_HEADER</span><span class="p">,</span> <span class="n">graph_from_mtx_dir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flpq_data.queries.cfpq.converters.cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">cfg_from_rsa</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flpq_data.queries.cfpq.readwrite.cnf_template</span><span class="w"> </span><span class="kn">import</span> <span class="n">cnf_template_from_text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flpq_data.queries.mcfpq.readwrite.mcfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">mcfg_from_text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flpq_data.queries.rpq.readwrite.rsa</span><span class="w"> </span><span class="kn">import</span> <span class="n">rsa_from_text</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"MANDATORY_README_SECTIONS"</span><span class="p">,</span>
+    <span class="s2">"QUERY_CLASSES"</span><span class="p">,</span>
+    <span class="s2">"stored_reverse_forward"</span><span class="p">,</span>
+    <span class="s2">"parse_readme_sections"</span><span class="p">,</span>
+    <span class="s2">"unpack_single_dir"</span><span class="p">,</span>
+    <span class="s2">"validate_archive"</span><span class="p">,</span>
+    <span class="s2">"main"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#: The questions the archive ``README.md`` must answer (one ``##`` section each).</span>
+<span class="n">MANDATORY_README_SECTIONS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"What is this graph?"</span><span class="p">,</span>
+    <span class="s2">"Source"</span><span class="p">,</span>
+    <span class="s2">"Construction"</span><span class="p">,</span>
+    <span class="s2">"Nodes"</span><span class="p">,</span>
+    <span class="s2">"Edges and labels"</span><span class="p">,</span>
+    <span class="s2">"Query classes"</span><span class="p">,</span>
+    <span class="s2">"License"</span><span class="p">,</span>
+    <span class="s2">"Caveats"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1">#: Query class -&gt; file extensions of the representation files in a query directory.</span>
+<span class="n">QUERY_CLASSES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"cfpq"</span><span class="p">:</span> <span class="p">(</span><span class="s2">".cnf"</span><span class="p">,</span> <span class="s2">".rsm"</span><span class="p">),</span> <span class="s2">"rpq"</span><span class="p">:</span> <span class="p">(</span><span class="s2">".re"</span><span class="p">,</span> <span class="s2">".rsm"</span><span class="p">),</span> <span class="s2">"mcfpq"</span><span class="p">:</span> <span class="p">(</span><span class="s2">".mcfg"</span><span class="p">,)}</span>
+
+<span class="n">_VARIABLE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[a-z][0-9]+"</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_query_terminals</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Return the terminals used by one query representation file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : Path</span>
+<span class="sd">        The representation file to read (its extension selects the format).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    terminals : set[str]</span>
+<span class="sd">        The edge labels the query uses.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    Exception</span>
+<span class="sd">        If the file cannot be parsed as a query of its class.</span>
+<span class="sd">    """</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">".cnf"</span><span class="p">:</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">cnf_template_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">symbol</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">cfg</span><span class="o">.</span><span class="n">terminals</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">".rsm"</span><span class="p">:</span>
+        <span class="n">rsa</span> <span class="o">=</span> <span class="n">rsa_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">cfg_from_rsa</span><span class="p">(</span><span class="n">rsa</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">symbol</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">cfg</span><span class="o">.</span><span class="n">terminals</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">".re"</span><span class="p">:</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">Regex</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">nfa</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">to_epsilon_nfa</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">nfa</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">symbol</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">nfa</span><span class="o">.</span><span class="n">symbols</span><span class="p">}</span>
+    <span class="n">mcfg</span> <span class="o">=</span> <span class="n">mcfg_from_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">terminals</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">mcfg</span><span class="o">.</span><span class="n">rules</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">rule</span><span class="o">.</span><span class="n">head_args</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="o">!=</span> <span class="s2">"eps"</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_VARIABLE</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+                    <span class="n">terminals</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">terminals</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_skeleton_problems</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Check the fixed archive skeleton under ``root``."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="p">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()}</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"README.md"</span><span class="p">,</span> <span class="s2">"graph"</span><span class="p">,</span> <span class="s2">"queries"</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">entries</span> <span class="o">-</span> <span class="n">expected</span><span class="p">):</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"unexpected entry </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> (expected only </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">expected</span> <span class="o">-</span> <span class="n">entries</span><span class="p">):</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"missing entry </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">problems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">problems</span>
+
+    <span class="n">graph_dir</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">"graph"</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">".mtx"</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">graph_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span>
+    <span class="p">):</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"graph/ must contain at least one .mtx file"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">graph_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">or</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">!=</span> <span class="s2">".mtx"</span><span class="p">:</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"graph/</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: only .mtx files are allowed in graph/"</span><span class="p">)</span>
+
+    <span class="n">queries_dir</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">"queries"</span>
+    <span class="n">query_entries</span> <span class="o">=</span> <span class="p">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">queries_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()}</span>
+    <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"README.md"</span><span class="p">,</span> <span class="o">*</span><span class="n">QUERY_CLASSES</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">query_entries</span> <span class="o">-</span> <span class="n">allowed</span><span class="p">):</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"queries/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: unexpected entry (expected only README.md and "</span>
+            <span class="sa">f</span><span class="s2">"class directories </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">QUERY_CLASSES</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="s2">"README.md"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">query_entries</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"queries/README.md: missing"</span><span class="p">)</span>
+    <span class="n">present_classes</span> <span class="o">=</span> <span class="n">query_entries</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">QUERY_CLASSES</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">present_classes</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"queries/: at least one class directory is required "</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">QUERY_CLASSES</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+    <span class="k">for</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">exts</span> <span class="ow">in</span> <span class="n">QUERY_CLASSES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">cls_dir</span> <span class="o">=</span> <span class="n">queries_dir</span> <span class="o">/</span> <span class="bp">cls</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cls_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cls_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"queries/</span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: must be a query directory "</span>
+                    <span class="s2">"(flat query files are no longer allowed)"</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_query_dir_problems</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">exts</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_partial_skeleton_problems</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Check the skeleton of a partial archive under ``root``."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="p">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()}</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">entries</span> <span class="o">-</span> <span class="p">{</span><span class="s2">"queries"</span><span class="p">}):</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"unexpected entry </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> (a partial archive contains only queries/)"</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="s2">"queries"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"missing entry 'queries'"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">problems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">problems</span>
+
+    <span class="n">queries_dir</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">"queries"</span>
+    <span class="n">query_entries</span> <span class="o">=</span> <span class="p">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">queries_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()}</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">query_entries</span> <span class="o">-</span> <span class="p">{</span><span class="s2">"README.md"</span><span class="p">,</span> <span class="o">*</span><span class="n">QUERY_CLASSES</span><span class="p">}):</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"queries/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: unexpected entry (expected only README.md and "</span>
+            <span class="sa">f</span><span class="s2">"the class directories </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">QUERY_CLASSES</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="s2">"README.md"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">query_entries</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"queries/README.md: missing"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">query_entries</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">QUERY_CLASSES</span><span class="p">)):</span>
+        <span class="n">cls_dir</span> <span class="o">=</span> <span class="n">queries_dir</span> <span class="o">/</span> <span class="bp">cls</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">cls_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"queries/</span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">/: a partial archive must add at least one query"</span>
+            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cls_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"queries/</span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: must be a query directory "</span>
+                    <span class="s2">"(flat query files are no longer allowed)"</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_query_dir_problems</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">QUERY_CLASSES</span><span class="p">[</span><span class="bp">cls</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">query_entries</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">QUERY_CLASSES</span><span class="p">)):</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"queries/: at least one class directory is required "</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">QUERY_CLASSES</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_query_dir_problems</span><span class="p">(</span>
+    <span class="n">query_dir</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exts</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Check one ``queries/&lt;class&gt;/&lt;query&gt;/`` directory."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rel</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"queries/</span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">query_dir</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">has_representation</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">query_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: only files are allowed"</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"results.mtx"</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exts</span><span class="p">:</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: only </span><span class="si">{</span><span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">exts</span><span class="p">)</span><span class="si">}</span><span class="s2"> representation files "</span>
+                <span class="s2">"and results.mtx are allowed"</span>
+            <span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="n">has_representation</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_representation</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">/: no </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2"> representation file (</span><span class="si">{</span><span class="s1">' or '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">exts</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">query_dir</span> <span class="o">/</span> <span class="s2">"results.mtx"</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">/: missing results.mtx"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mtx_header</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">"""The (rows, cols, nnz) declared by one Boolean MatrixMarket file.</span>
+
+<span class="sd">    Returns None when the file does not follow the dataset format (the</span>
+<span class="sd">    two-line header and a dimension line). Streams — only the first lines</span>
+<span class="sd">    are read.</span>
+<span class="sd">    """</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="o">!=</span> <span class="n">_MTX_HEADER</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="o">!=</span> <span class="n">_MTX_HEADER</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">nnz</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">nnz</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mtx_entries</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Yields the (tail, head) entry pairs of one Boolean MatrixMarket file,</span>
+<span class="sd">    streaming line by line (O(1) memory).</span>
+
+<span class="sd">    Raises ValueError on a malformed entry line.</span>
+<span class="sd">    """</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>  <span class="c1"># the two header lines and the dimension line</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">yield</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_graph_dimensions</span><span class="p">(</span><span class="n">graph_dir</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">"""The declared dimensions of every parseable graph label matrix."""</span>
+    <span class="n">dimensions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">mtx_file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">graph_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.mtx"</span><span class="p">)):</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="n">_mtx_header</span><span class="p">(</span><span class="n">mtx_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dimensions</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">header</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">header</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">dimensions</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mtx_range_problems</span><span class="p">(</span><span class="n">graph_dir</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Check that edge endpoints fit the declared matrix dimensions."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">mtx_file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">graph_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.mtx"</span><span class="p">)):</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="n">_mtx_header</span><span class="p">(</span><span class="n">mtx_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>  <span class="c1"># a format problem graph_from_mtx_dir already reports</span>
+        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">nnz</span> <span class="o">=</span> <span class="n">header</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tail</span><span class="p">,</span> <span class="n">head</span> <span class="ow">in</span> <span class="n">_mtx_entries</span><span class="p">(</span><span class="n">mtx_file</span><span class="p">):</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">tail</span> <span class="o">&lt;</span> <span class="n">rows</span> <span class="ow">or</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">head</span> <span class="o">&lt;</span> <span class="n">cols</span><span class="p">:</span>
+                    <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"graph/</span><span class="si">{</span><span class="n">mtx_file</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: edge (</span><span class="si">{</span><span class="n">tail</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">head</span><span class="si">}</span><span class="s2">) is outside "</span>
+                        <span class="sa">f</span><span class="s2">"the declared </span><span class="si">{</span><span class="n">rows</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">cols</span><span class="si">}</span><span class="s2"> matrix"</span>
+                    <span class="p">)</span>
+                    <span class="k">break</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">continue</span>  <span class="c1"># a format problem graph_from_mtx_dir already reports</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">!=</span> <span class="n">nnz</span><span class="p">:</span>
+            <span class="k">continue</span>  <span class="c1"># a format problem graph_from_mtx_dir already reports</span>
+    <span class="n">dimensions</span> <span class="o">=</span> <span class="n">_graph_dimensions</span><span class="p">(</span><span class="n">graph_dir</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dimensions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">"graph/: all label matrices must declare the same dimensions "</span>
+            <span class="sa">f</span><span class="s2">"(found </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">dimensions</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># Naming consistency rules</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+<span class="n">_FORBIDDEN_COMPONENTS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"bar"</span><span class="p">,</span> <span class="s2">"rev"</span><span class="p">)</span>
+<span class="n">_INDEXED_REV_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^(.*)_r_(\d+)$"</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="stored_reverse_forward">
+<a class="viewcode-back" href="../../../reference/tools/generated/flpq_data.tools.stored_reverse_forward.html#flpq_data.tools.stored_reverse_forward">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">stored_reverse_forward</span><span class="p">(</span><span class="n">stem</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stems</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Return the forward label of a stored reversed matrix ``stem``, if any.</span>
+
+<span class="sd">    A matrix stem is a stored reverse when its forward label is also stored:</span>
+<span class="sd">    the unindexed form ``L_r`` (forward ``L``) or the indexed form</span>
+<span class="sd">    ``&lt;base&gt;_r_&lt;n&gt;`` (forward ``&lt;base&gt;_&lt;n&gt;``). Reversed edges must not be</span>
+<span class="sd">    stored — they are auto-generated (see</span>
+<span class="sd">    :func:`flpq_data.graphs.utils.add_reverse_edges`).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    stem : str</span>
+<span class="sd">        The file stem (name without the ``.mtx`` suffix).</span>
+<span class="sd">    stems : Set[str]</span>
+<span class="sd">        The stems of all label matrices stored in the ``graph/`` directory.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; stored_reverse_forward("a_r", {"a", "a_r"})</span>
+<span class="sd">    'a'</span>
+<span class="sd">    &gt;&gt;&gt; stored_reverse_forward("load_r_0", {"load_0", "load_r_0"})</span>
+<span class="sd">    'load_0'</span>
+<span class="sd">    &gt;&gt;&gt; stored_reverse_forward("load_r_0", {"load_r_0"}) is None</span>
+<span class="sd">    True</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    forward : str or None</span>
+<span class="sd">        The forward label ``stem`` reverses, or None when ``stem`` is not a</span>
+<span class="sd">        stored reverse.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">stem</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"_r"</span><span class="p">):</span>
+        <span class="n">forward</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">stem</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">indexed</span> <span class="o">=</span> <span class="n">_INDEXED_REV_RE</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">stem</span><span class="p">)</span>
+        <span class="n">forward</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">indexed</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">indexed</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">indexed</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">forward</span> <span class="k">if</span> <span class="n">forward</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">forward</span> <span class="ow">in</span> <span class="n">stems</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_label_problems</span><span class="p">(</span><span class="n">graph_dir</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Check edge-label naming conventions in ``graph/``."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">stems</span> <span class="o">=</span> <span class="p">{</span><span class="n">path</span><span class="o">.</span><span class="n">stem</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">graph_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.mtx"</span><span class="p">)}</span>
+
+    <span class="k">for</span> <span class="n">stem</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">stems</span><span class="p">):</span>
+        <span class="c1"># No forbidden components (bar, rev)</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">stem</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">_FORBIDDEN_COMPONENTS</span><span class="p">:</span>
+                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"graph/</span><span class="si">{</span><span class="n">stem</span><span class="si">}</span><span class="s2">.mtx: label contains forbidden component "</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">part</span><span class="si">!r}</span><span class="s2"> (use '_r' for reversed edges)"</span>
+                <span class="p">)</span>
+                <span class="k">break</span>
+
+    <span class="c1"># No stored reverses — if the forward label is stored, neither its</span>
+    <span class="c1"># unindexed reverse (L_r) nor its indexed reverse (B_r_&lt;n&gt;) may be stored.</span>
+    <span class="k">for</span> <span class="n">stem</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">stems</span><span class="p">):</span>
+        <span class="n">forward</span> <span class="o">=</span> <span class="n">stored_reverse_forward</span><span class="p">(</span><span class="n">stem</span><span class="p">,</span> <span class="n">stems</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">forward</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"graph/</span><span class="si">{</span><span class="n">stem</span><span class="si">}</span><span class="s2">.mtx: reversed edge is stored but must be "</span>
+                <span class="sa">f</span><span class="s2">"auto-generated from </span><span class="si">{</span><span class="n">forward</span><span class="si">}</span><span class="s2">.mtx"</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_same_dir_consistency_problems</span><span class="p">(</span><span class="n">queries_dir</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Check that all representations in one query directory use the same</span>
+<span class="sd">    terminal set (they must define the same language)."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">queries_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">problems</span>
+    <span class="k">for</span> <span class="n">cls_dir</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">queries_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cls_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="ow">or</span> <span class="n">cls_dir</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">QUERY_CLASSES</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">query_dir</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cls_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">query_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">term_sets</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">query_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">".cnf"</span><span class="p">,</span> <span class="s2">".rsm"</span><span class="p">,</span> <span class="s2">".re"</span><span class="p">,</span> <span class="s2">".mcfg"</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">terminals</span> <span class="o">=</span> <span class="n">_query_terminals</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">term_sets</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">terminals</span><span class="p">)</span>
+            <span class="c1"># Compare all pairs</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">term_sets</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="n">term_sets</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">!=</span> <span class="n">term_sets</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">j</span><span class="p">]]:</span>
+                        <span class="n">only_i</span> <span class="o">=</span> <span class="n">term_sets</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">-</span> <span class="n">term_sets</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+                        <span class="n">only_j</span> <span class="o">=</span> <span class="n">term_sets</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">-</span> <span class="n">term_sets</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+                        <span class="n">detail</span> <span class="o">=</span> <span class="s2">""</span>
+                        <span class="k">if</span> <span class="n">only_i</span><span class="p">:</span>
+                            <span class="n">detail</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> has extra </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">only_i</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="k">if</span> <span class="n">only_j</span><span class="p">:</span>
+                            <span class="n">detail</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">names</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s2"> has extra </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">only_j</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"queries/</span><span class="si">{</span><span class="n">cls_dir</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">query_dir</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/: "</span>
+                            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">names</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s2"> use different terminal "</span>
+                            <span class="sa">f</span><span class="s2">"sets (must represent the same language)</span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_naming_problems</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Run all naming-consistency checks on the unpacked archive."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">graph_dir</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">"graph"</span>
+    <span class="n">queries_dir</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">"queries"</span>
+    <span class="k">if</span> <span class="n">graph_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_label_problems</span><span class="p">(</span><span class="n">graph_dir</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">queries_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_same_dir_consistency_problems</span><span class="p">(</span><span class="n">queries_dir</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_results_problems</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Check every per-query results.mtx against the graph."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dimensions</span> <span class="o">=</span> <span class="n">_graph_dimensions</span><span class="p">(</span><span class="n">root</span> <span class="o">/</span> <span class="s2">"graph"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dimensions</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">problems</span>  <span class="c1"># the matrix shape is undefined; already reported</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">dimensions</span><span class="p">))</span>
+
+    <span class="n">queries_dir</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">"queries"</span>
+    <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">QUERY_CLASSES</span><span class="p">:</span>
+        <span class="n">cls_dir</span> <span class="o">=</span> <span class="n">queries_dir</span> <span class="o">/</span> <span class="bp">cls</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cls_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">query_dir</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cls_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">query_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">query_dir</span> <span class="o">/</span> <span class="s2">"results.mtx"</span>
+            <span class="n">rel</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"queries/</span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">query_dir</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/results.mtx"</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">_mtx_header</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">: cannot be parsed as a Boolean MatrixMarket file"</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">nnz</span> <span class="o">=</span> <span class="n">header</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span> <span class="o">!=</span> <span class="n">expected</span><span class="p">:</span>
+                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">: must be a </span><span class="si">{</span><span class="n">expected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">expected</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> matrix "</span>
+                    <span class="sa">f</span><span class="s2">"(the graph declares </span><span class="si">{</span><span class="n">expected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">expected</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">)"</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">tail</span><span class="p">,</span> <span class="n">head</span> <span class="ow">in</span> <span class="n">_mtx_entries</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">tail</span> <span class="o">&lt;</span> <span class="n">rows</span> <span class="ow">or</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">head</span> <span class="o">&lt;</span> <span class="n">cols</span><span class="p">:</span>
+                        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">: entry (</span><span class="si">{</span><span class="n">tail</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">head</span><span class="si">}</span><span class="s2">) is outside the "</span>
+                            <span class="sa">f</span><span class="s2">"declared </span><span class="si">{</span><span class="n">rows</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">cols</span><span class="si">}</span><span class="s2"> matrix"</span>
+                        <span class="p">)</span>
+                        <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">break</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">: cannot be parsed as a Boolean MatrixMarket file"</span>
+                <span class="p">)</span>
+                <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">done</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">!=</span> <span class="n">nnz</span><span class="p">:</span>
+                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">: declares </span><span class="si">{</span><span class="n">nnz</span><span class="si">}</span><span class="s2"> entries but has </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_readme_problems</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Check that README.md answers all the mandatory questions."""</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="n">root</span> <span class="o">/</span> <span class="s2">"README.md"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"## "</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">"README.md: missing mandatory section '## </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s2">'"</span>
+        <span class="k">for</span> <span class="n">question</span> <span class="ow">in</span> <span class="n">MANDATORY_README_SECTIONS</span>
+        <span class="k">if</span> <span class="n">question</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">headers</span>
+    <span class="p">]</span>
+
+
+<div class="viewcode-block" id="parse_readme_sections">
+<a class="viewcode-back" href="../../../reference/tools/generated/flpq_data.tools.parse_readme_sections.html#flpq_data.tools.parse_readme_sections">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_readme_sections</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">"""Parse the ``## &lt;name&gt;`` sections of a queries README into an ordered</span>
+<span class="sd">    mapping section name -&gt; body lines."""</span>
+    <span class="n">sections</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"## "</span><span class="p">):</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">sections</span><span class="p">[</span><span class="n">current</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">elif</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sections</span><span class="p">[</span><span class="n">current</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sections</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_rsm_recurses</span><span class="p">(</span><span class="n">rsa</span><span class="p">:</span> <span class="n">RSA</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Whether any box transition is labelled by a nonterminal (box name)."""</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="n">label</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">rsa</span><span class="o">.</span><span class="n">labels</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">rsa</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">rsa</span><span class="o">.</span><span class="n">get_box</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">box</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">symbol</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">box</span><span class="o">.</span><span class="n">dfa</span><span class="o">.</span><span class="n">symbols</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_query_problems</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Check that queries parse, use at least one terminal, and are all</span>
+<span class="sd">    described. A terminal matching no stored label is legal: it stays inert</span>
+<span class="sd">    on materialization (see :func:`flpq_data.materialize`) and the query</span>
+<span class="sd">    yields an empty result — the RDF category ships such non-applicable</span>
+<span class="sd">    variants."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">queries_dir</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">"queries"</span>
+
+    <span class="n">existing</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">exts</span> <span class="ow">in</span> <span class="n">QUERY_CLASSES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">cls_dir</span> <span class="o">=</span> <span class="n">queries_dir</span> <span class="o">/</span> <span class="bp">cls</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cls_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">query_dir</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cls_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">query_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="k">continue</span>  <span class="c1"># reported by the skeleton check</span>
+            <span class="n">representations</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">path</span>
+                <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">query_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">in</span> <span class="n">exts</span>
+            <span class="p">]</span>
+            <span class="n">existing</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">query_dir</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">representations</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">rel</span><span class="p">,</span> <span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">representations</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">existing</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">representations</span><span class="p">:</span>
+            <span class="n">where</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"queries/</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">terminals</span> <span class="o">=</span> <span class="n">_query_terminals</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">where</span><span class="si">}</span><span class="s2">: cannot be parsed as a </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2"> query (</span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">terminals</span><span class="p">:</span>
+                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">where</span><span class="si">}</span><span class="s2">: uses no terminal (an empty query is meaningless)"</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="bp">cls</span> <span class="o">==</span> <span class="s2">"rpq"</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">".rsm"</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">rsa</span> <span class="o">=</span> <span class="n">rsa_from_text</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">continue</span>  <span class="c1"># already reported above</span>
+                <span class="k">if</span> <span class="n">_rsm_recurses</span><span class="p">(</span><span class="n">rsa</span><span class="p">):</span>
+                    <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">where</span><span class="si">}</span><span class="s2">: an rpq query must be regular (no box "</span>
+                        <span class="s2">"transition may be labelled by a nonterminal)"</span>
+                    <span class="p">)</span>
+
+    <span class="n">doc</span> <span class="o">=</span> <span class="p">(</span><span class="n">queries_dir</span> <span class="o">/</span> <span class="s2">"README.md"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="n">sections</span> <span class="o">=</span> <span class="n">parse_readme_sections</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sections</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">existing</span><span class="p">)):</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"queries/README.md: section </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> does not match any query directory"</span>
+        <span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">existing</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">sections</span><span class="p">)):</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"queries/README.md: no section describing </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">sections</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">existing</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">body</span><span class="p">):</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"queries/README.md: the section for </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> is empty"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_validate_root</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="n">partial</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Validate the unpacked archive directory ``root``."""</span>
+    <span class="k">if</span> <span class="n">partial</span><span class="p">:</span>
+        <span class="n">problems</span> <span class="o">=</span> <span class="n">_partial_skeleton_problems</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">problems</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">problems</span>  <span class="c1"># the deeper checks are meaningless without the skeleton</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_query_problems</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">problems</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="n">_skeleton_problems</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">problems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">problems</span>  <span class="c1"># the deeper checks are meaningless without the skeleton</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">graph_from_mtx_dir</span><span class="p">(</span><span class="n">root</span> <span class="o">/</span> <span class="s2">"graph"</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"graph/: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_mtx_range_problems</span><span class="p">(</span><span class="n">root</span> <span class="o">/</span> <span class="s2">"graph"</span><span class="p">))</span>
+    <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_results_problems</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+    <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_readme_problems</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+    <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_query_problems</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+    <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_naming_problems</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<div class="viewcode-block" id="unpack_single_dir">
+<a class="viewcode-back" href="../../../reference/tools/generated/flpq_data.tools.unpack_single_dir.html#flpq_data.tools.unpack_single_dir">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">unpack_single_dir</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Unpack ``path`` (a ``.tar.gz``) into ``dest`` and return its single</span>
+<span class="sd">    top-level directory.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the archive does not contain a single top-level directory.</span>
+<span class="sd">    """</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">unpack_archive</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dest</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: must contain a single top-level directory"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="validate_archive">
+<a class="viewcode-back" href="../../../reference/tools/generated/flpq_data.tools.validate_archive.html#flpq_data.tools.validate_archive">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_archive</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">partial</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Validate one graph archive (a ``.tar.gz`` or an unpacked directory).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : Union[str, Path]</span>
+<span class="sd">        The archive to validate.</span>
+<span class="sd">    partial : bool</span>
+<span class="sd">        Validate a partial archive (new queries for an existing graph:</span>
+<span class="sd">        ``queries/`` only) instead of a full graph archive.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    problems : list[str]</span>
+<span class="sd">        All structure violations found; an empty list means the archive is</span>
+<span class="sd">        valid.</span>
+<span class="sd">    """</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">_validate_root</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">partial</span><span class="o">=</span><span class="n">partial</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">is_tar</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">is_tarfile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="n">is_tar</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">!=</span> <span class="s2">".gz"</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_tar</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: not a .tar.gz archive or an unpacked directory"</span><span class="p">]</span>
+
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">unpack_single_dir</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)]</span>
+        <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">expected_name</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">".tar.gz"</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">expected_name</span><span class="p">:</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"top-level directory </span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> must be named after the "</span>
+                <span class="sa">f</span><span class="s2">"archive (</span><span class="si">{</span><span class="n">expected_name</span><span class="si">!r}</span><span class="s2">)"</span>
+            <span class="p">)</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_validate_root</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">partial</span><span class="o">=</span><span class="n">partial</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">problems</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_audit</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">bucket</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Validate every ``.tar.gz`` object stored under the bucket prefix."""</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">key_prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span><span class="si">}</span><span class="s2">/"</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="s2">""</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">get_paginator</span><span class="p">(</span><span class="s2">"list_objects_v2"</span><span class="p">)</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span>
+        <span class="n">Bucket</span><span class="o">=</span><span class="n">bucket</span><span class="p">,</span> <span class="n">Prefix</span><span class="o">=</span><span class="n">key_prefix</span>
+    <span class="p">):</span>
+        <span class="n">objects</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="n">obj</span><span class="p">[</span><span class="s2">"Key"</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Contents"</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="k">if</span> <span class="n">obj</span><span class="p">[</span><span class="s2">"Key"</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".tar.gz"</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">objects</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"no .tar.gz objects found under s3://</span><span class="si">{</span><span class="n">bucket</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">key_prefix</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">problems</span>
+
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">object_key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">objects</span><span class="p">):</span>
+            <span class="c1"># A per-key sandbox keeps the original file name, which the</span>
+            <span class="c1"># top-level-directory check depends on.</span>
+            <span class="n">sandbox</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">/</span> <span class="n">object_key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="s2">"__"</span><span class="p">)</span>
+            <span class="n">sandbox</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+            <span class="n">local</span> <span class="o">=</span> <span class="n">sandbox</span> <span class="o">/</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">object_key</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">object_key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">object_key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">problem</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">problem</span> <span class="ow">in</span> <span class="n">validate_archive</span><span class="p">(</span><span class="n">local</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Command-line entry point.</span>
+
+<span class="sd">    Validates one local graph archive, or — with ``--audit`` — every</span>
+<span class="sd">    ``.tar.gz`` object under a bucket prefix, and prints every structure</span>
+<span class="sd">    violation found.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    status : int</span>
+<span class="sd">        0 when everything is valid, 1 otherwise.</span>
+<span class="sd">    """</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Validate the fixed self-contained structure of a graph archive."</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"path"</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"path to a .tar.gz archive or an unpacked archive directory"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--partial"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">"validate a partial archive (queries/ only — new queries for an "</span>
+            <span class="s2">"existing graph) instead of a full graph archive"</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--audit"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">"validate every .tar.gz object under --prefix in the bucket "</span>
+            <span class="s2">"instead of a local path"</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--prefix"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"bucket prefix to audit (with --audit)"</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--access-key-id"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Yandex Cloud IAM key ID (with --audit)"</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--secret-access-key"</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"Yandex Cloud IAM secret key (with --audit)"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--endpoint-url"</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"S3 API endpoint (with --audit; default: the upload tool's)"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--bucket"</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"target bucket (with --audit; default: the upload tool's)"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">audit</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">flpq_data.dataset.s3</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+            <span class="n">DEFAULT_BUCKET</span><span class="p">,</span>
+            <span class="n">DEFAULT_ENDPOINT_URL</span><span class="p">,</span>
+            <span class="n">create_s3_client</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">access_key_id</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">secret_access_key</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">"error: --access-key-id and --secret-access-key are "</span>
+                <span class="s2">"required for --audit"</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">client</span> <span class="o">=</span> <span class="n">create_s3_client</span><span class="p">(</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">access_key_id</span><span class="p">,</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">secret_access_key</span><span class="p">,</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">endpoint_url</span> <span class="ow">or</span> <span class="n">DEFAULT_ENDPOINT_URL</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"error: --audit requires boto3 (pip install boto3)"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="n">problems</span> <span class="o">=</span> <span class="n">_audit</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">bucket</span> <span class="ow">or</span> <span class="n">DEFAULT_BUCKET</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"error: give a path to validate or use --audit"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">problems</span> <span class="o">=</span> <span class="n">validate_archive</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">partial</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">partial</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">problems</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">problem</span> <span class="ow">in</span> <span class="n">problems</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"error: </span><span class="si">{</span><span class="n">problem</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">problems</span><span class="p">)</span><span class="si">}</span><span class="s2"> structure violation(s) found"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="s2">"partial archive"</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">partial</span> <span class="k">else</span> <span class="s2">"archive"</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2"> structure ok"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2019-2026, vdshk.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
