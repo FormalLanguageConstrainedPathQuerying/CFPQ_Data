@@ -74,8 +74,8 @@ design decision for this class:
   stub pages in the :ref:`RPQ section <rpq_queries>`
   document both templates.
 - **Placement.** Query files live inside the self-contained graph archive
-  under ``queries/rpq/`` (see the "File structure" section of the
-  :ref:`graphs` page); there are no standalone query or example archives. An
+  under ``queries/rpq/`` (see :ref:`file_structure`); there are no standalone
+  query or example archives. An
   RPQ may also be represented by a regular RSM (``.rsm``, see below).
 - **Data status.** No real-world RPQ data exists yet — the templates are
   designed stubs. Real-world data will be provided later and enters the
@@ -141,9 +141,9 @@ Placement
 ^^^^^^^^^
 
 ``.rsm`` representation files are allowed in the ``queries/cfpq/`` and
-``queries/rpq/`` query directories of a graph archive (see the "File
-structure" section of the :ref:`graphs` page). In ``rpq/`` the RSM must be
-regular — no box transition may be labelled by a nonterminal.
+``queries/rpq/`` query directories of a graph archive (see
+:ref:`file_structure`). In ``rpq/`` the RSM must be regular — no box
+transition may be labelled by a nonterminal.
 
 .. [1] Alur R., Etessami K., Yannakakis M. (2001) Analysis of Recursive
    State Machines. In: Berry G., Comon H., Finkel A. (eds) Computer Aided
@@ -407,10 +407,9 @@ The dataset on object storage moves to the 6.0.0 key prefix::
 Graphs are large and class-agnostic, so they live under one shared prefix.
 Queries no longer have their own archives: every graph archive is
 self-contained and carries all queries that apply to the graph — the layout
-is documented once in the "File structure" section of the :ref:`graphs`
-page (``README.md``, ``graph/*.mtx``, and ``queries/{cfpq,rpq,mcfpq}/`` with
-one directory per query — its representations plus a ``results.mtx`` — and a
-common description document).
+is documented once in :ref:`file_structure` (``README.md``, ``graph/*.mtx``,
+and ``queries/{cfpq,rpq,mcfpq}/`` with one directory per query — its
+representations plus a ``results.mtx`` — and a common description document).
 
 Migration path:
 

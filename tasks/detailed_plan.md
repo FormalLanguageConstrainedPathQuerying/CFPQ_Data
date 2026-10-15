@@ -1,142 +1,152 @@
-# Detailed Plan: Task 165 — Package the archive checker as `flpq-check-archive`
+# Detailed Plan: Task 167 — Single contribution page under the Dataset root
 
-Issue #165. Move the archive structure checker from `utils/` into the
-`flpq_data` package and expose it as a console entry point, so external
-contributors validate archives with `pip install flpq-data` alone — no
-manual script download.
+Issue #167. The data-contribution process is documented in four scattered
+places: the "Contributing data" section of the Graphs page
+(`docs/graphs/index.rst`), a stranded "How to add a new grammar?" section on
+the Dataset root (`docs/dataset.rst`), a stale pointer in the developer guide
+(`docs/developer.rst`, referencing a README section that does not exist under
+that name), and the README. Consolidate it into one page under the Dataset
+root, and elevate the "File structure" archive-layout reference (currently on
+the Graphs page) to its own dataset-level page.
 
-## Confirmed decisions (user guidance, verbatim on the issue)
+## Confirmed decisions (user guidance)
 
-- Scope: **checker only**. The other utils are repo-bound maintainer tools
-  (S3 credentials, in-repo CSV/docs paths) that would fail outside a
-  checkout.
-- Entry point name: **`flpq-check-archive`** (e.g.
-  `flpq-check-archive my_graph.tar.gz --partial`).
+- Placement: **flat file + toctree** — new pages are siblings of
+  `dataset.rst`, listed in its toctree, so they appear as subpages under
+  Dataset in the navigation. No existing public URL changes (no directory
+  restructure).
+- File structure: **own dataset-level page** — it describes the full archive
+  layout and is a neutral format reference used by contributors *and* end
+  users (tutorial, issue template); it does not live inside the contribution
+  page.
+- No-duplication: every fact keeps exactly one home; all other mentions become
+  cross-references re-pointed to the new locations.
 
-## Design notes
+## Reuse analysis
 
-- The checker imports only from `flpq_data.*` + `pyformlang` — no
-  repo-bound paths — so it moves cleanly into the package.
-- boto3 is a dev-only dependency; the `--audit` subcommand (S3 audit) is
-  maintainer-side. `create_s3_client` + `DEFAULT_BUCKET` /
-  `DEFAULT_ENDPOINT_URL` move to `flpq_data/dataset/s3.py` with boto3
-  imported lazily inside the function, so the package imports without
-  boto3; `--audit` reports a clean "boto3 required" error when it is
-  missing.
-- The wheel build (`packages = ["flpq_data"]`) picks up the new submodule
-  automatically; `[project.scripts]` registers the entry point; uv installs
-  the project itself, so the command works in-repo too.
-- Coverage: the moved lines now count toward the 95% flpq_data gate. The
-  existing tests did not cover 28 defensive branch edges of the module;
-  S1 adds tests for every reachable one and removes two provably dead
-  constructs (the indexed-reversed label check — every stem it matches
-  also matches the reverse regex — and the `__main__` guard, replaced by
-  the console entry point).
+- No package code changes (docs-only task).
+- All new-page content is **moved verbatim** from existing sections — nothing
+  is re-described: "Contributing data" (`docs/graphs/index.rst:12-63`),
+  "How to add a new grammar?" (`docs/dataset.rst:26-29`), "File structure"
+  (`docs/graphs/index.rst:65-152`).
+- The issue template (`.github/ISSUE_TEMPLATE/new-data-template.md`) remains
+  the single source of truth for required fields; the pages keep pointing at
+  it instead of restating its content.
+- Page header pattern (`.. only:: html` + `:Release:` / `:Date:`) reused from
+  existing pages; label `contributing_data` reused on the new page;
+  `graph_file_structure` renamed to `file_structure` (all four `:ref:` uses
+  updated in the same commit).
 
 ---
 
-### S1: Move the checker into the package + console entry point [done] 9abbf5d
-
-One atomic increment — moving the module without its tests would break the
-suite, so code and tests move together.
-
-**Code:**
-- `git mv utils/check_archive_structure.py` →
-  `flpq_data/tools/check_archive_structure.py`; update the module docstring
-  Usage block to `flpq-check-archive ...`.
-- New `flpq_data/tools/__init__.py` — star import of the checker module,
-  following the `flpq_data/dataset/__init__.py` pattern.
-- New `flpq_data/dataset/s3.py`: `DEFAULT_ENDPOINT_URL`, `DEFAULT_BUCKET`,
-  `create_s3_client` (moved from `utils/upload_to_s3.py`; boto3 imported
-  lazily inside the function body; numpydoc docstring with doctest-safe
-  examples). Star-imported from `flpq_data/dataset/__init__.py`.
-- `pyproject.toml`: `[project.scripts]` with
-  `flpq-check-archive = "flpq_data.tools.check_archive_structure:main"`.
-- Checker's `--audit` branch: import the S3 helpers from
-  `flpq_data.dataset.s3`; wrap client creation so a missing boto3 prints
-  `error: --audit requires boto3 (pip install boto3)` and returns 1.
-- Utils importers updated to the package path: `merge_archive.py`,
-  `add_reachable_pairs.py`, `reachable_pairs_tables.py`,
-  `strip_reverse_edges.py`, `generate_registry.py`; `upload_to_s3.py` drops
-  its own constant/client definitions (imports them from the package; its
-  `__all__` keeps re-exporting them so existing imports keep working) and
-  its lazy `validate_archive` import points at the package module.
-
-**Tests:**
-- Move `tests/utils/test_check_archive_structure.py` →
-  `tests/tools/test_check_archive_structure.py`; imports from
-  `flpq_data.tools.check_archive_structure`.
-- Extract the shared tree builders (`README`, `RESULTS`, `_query_dir`,
-  `_valid_tree`, `_partial_tree`, `_tarball`) into `tests/archive_helpers.py`;
-  new root `tests/conftest.py` inserting `tests/` on `sys.path` (the four
-  utils test files — `test_merge_archive`, `test_add_reachable_pairs`,
-  `test_strip_reverse_edges`, `test_upload_to_s3` — import those helpers;
-  their import lines point at `archive_helpers`).
-- New tests: the missing-boto3 `--audit` branch (mocked import failure);
-  the declared console entry point via `importlib.metadata` (name
-  `flpq-check-archive`, value `flpq_data.tools.check_archive_structure:main`).
-
-**Docs:** none in this subtask beyond the moved module's docstring (the
-docs sweep is S2).
-
-**Spec:**
-- The public API and behavior are unchanged — this is a move, not a rewrite;
-  `validate_archive`, `unpack_single_dir`, `stored_reverse_forward`,
-  `parse_readme_sections`, `QUERY_CLASSES`, `MANDATORY_README_SECTIONS` keep
-  their signatures.
-- `flpq_data/dataset/s3.py` must import cleanly without boto3 installed
-  (lazy import inside `create_s3_client` only).
-- After the move, no file outside `tests/` may import the bare
-  `check_archive_structure` module name; all in-repo consumers use
-  `flpq_data.tools.check_archive_structure`.
-- Verify: full suite + coverage gate green (canonical command from
-  `docs/developer.rst`).
-
-### S2: Docs and flow sweep [done] 3c0ab23
+### S1: Move "File structure" to its own dataset-level page [ ]
 
 **Code:** none (docs/templates/skills only).
+
+**Tests:** fresh docs build under the no-warnings policy (orphan-document and
+duplicate-label checks included).
+
+**Docs:**
+- New `docs/file_structure.rst` — title "File structure", label
+  `.. _file_structure:` (renamed from `graph_file_structure`), standard page
+  header; content moved verbatim from `docs/graphs/index.rst:65-152` (archive
+  layout, partial archives, MTX format, "Indexed labels" and "Reversed edges"
+  subsections demoted one level).
+- `docs/dataset.rst`: add `file_structure` to the toctree (same commit — an
+  unwired document is an orphan warning under the no-warnings policy).
+- `docs/graphs/index.rst`: remove the "File structure" section.
+- Re-point every reference to the old location:
+  - `:ref:`graph_file_structure`` → `:ref:`file_structure``:
+    `docs/tutorial.rst` (2×), `docs/queries/rpq/index.rst`.
+  - Prose "the 'File structure' section of the :ref:`graphs` page" → the new
+    page: `docs/flpq.rst` (2×), `docs/queries/rpq/data/reachability.rst`,
+    `docs/queries/rpq/data/label_star.rst`,
+    `docs/reference/tools/index.rst`.
+  - `.github/ISSUE_TEMPLATE/new-data-template.md`: the "Data format" link
+    `.../graphs/index.html` → `.../file_structure.html`.
+  - `.opencode/skills/add-graph/SKILL.md`: "File structure section of
+    `docs/graphs/index.rst`" → `docs/file_structure.rst`.
+  - Discovered during implementation (different phrasing, caught by the
+    build + grep sweep): `docs/flpq.rst` RSM "Placement" paragraph and the
+    `flpq_data/tools/check_archive_structure.py` module docstring — both
+    re-pointed to the new page (docstring-only change; the module's 80 tests
+    pass).
+
+**Spec:**
+- The moved text is verbatim except heading levels; no sentence is rewritten
+  or dropped.
+- After the commit, no file in the repo references `graph_file_structure` or
+  describes the archive layout outside `docs/file_structure.rst`.
+- The Graphs page keeps "Format conversion", "Contents", and the category
+  tables untouched.
+
+### S2: Create the "Contributing data" page; remove the old sections [ ]
+
+**Code:** none (docs only).
 
 **Tests:** fresh docs build under the no-warnings policy.
 
 **Docs:**
-- New reference page `docs/reference/tools/index.rst` following the
-  `docs/reference/dataset/index.rst` pattern (`.. automodule::` +
-  autosummary of the checker's public API, `generated/` toctree); it carries
-  the existing `.. _archive_structure:` anchor (so `:ref:`archive_structure`
-  from `docs/flpq.rst` and `docs/utils.rst` keeps resolving); add
-  `tools/index` to the `docs/reference/index.rst` toctree.
-- Remove the "Archive structure checker" section from `docs/utils.rst` (the
-  tool is no longer a repo util).
-- `docs/flpq.rst`: update the checker path mention in the migration-path
-  note.
-- `.github/ISSUE_TEMPLATE/new-data-template.md` "Validation" section: the
-  recipe becomes `pip install flpq-data` +
-  `flpq-check-archive <name>.tar.gz [--partial]` — no raw-URL script
-  download.
-- `docs/graphs/index.rst`: "Contributing data" → Validation subsection and
-  the "File structure" partial-validation command mention use the console
-  command.
-- `.opencode/skills/add-graph/SKILL.md`: the two checker invocations use the
-  console command.
-- `AGENTS.md`: the checker path in the data-archives principle line and a
-  `flpq_data/tools/` line in the package layout.
-- `CHANGELOG.md` Unreleased: Added — `flpq-check-archive` console command,
-  validation with `pip install flpq-data` alone; Changed — checker moved
-  from `utils/` to `flpq_data/tools/`, S3 client helpers moved to
-  `flpq_data.dataset.s3`.
+- New `docs/contributing_data.rst` — title "Contributing data", label
+  `.. _contributing_data:` (moved from the Graphs page), standard page header.
+  Sections, in order:
+  - Intro (from `docs/graphs/index.rst:17-23`): all new data enters through
+    the single CONTRIBUTE NEW DATA issue; prepare → validate → publish → open
+    issue; maintainers upload and merge; no PR needed. Plus one sentence
+    pointing to :ref:`file_structure` for the archive layout every
+    contribution must follow.
+  - "Contribution cases" (from `docs/graphs/index.rst:25-33`).
+  - "Validation" (from `docs/graphs/index.rst:35-45`).
+  - "Consistency invariants" (from `docs/graphs/index.rst:47-55`).
+  - "Not accepted via this flow" (from `docs/graphs/index.rst:57-63`).
+  - "Grammars" (from `docs/dataset.rst:26-29`, condensed to avoid repeating
+    the intro's issue-creation sentence): grammars arrive with the data they
+    apply to (template's "Queries and grammars" section); accepted only if
+    instantiated as at least one query with reference results in a
+    contributed archive.
+- `docs/dataset.rst`: remove the "How to add a new grammar?" section; add
+  `contributing_data` to the toctree (before `file_structure`); extend the
+  intro by one sentence naming the two new subpages.
+- `docs/graphs/index.rst`: remove the "Contributing data" section (the page
+  becomes a pure catalog: intro, Format conversion, Contents, tables).
 
 **Spec:**
-- Every remaining mention of `utils/check_archive_structure.py` in
-  docs/templates/skills/AGENTS.md is updated (the historical CHANGELOG entry
-  stays as-is).
-- The contributor flow documented end-to-end: `pip install flpq-data`, then
-  `flpq-check-archive <name>.tar.gz [--partial]`.
+- The issue-template link appears exactly once on the new page (in the
+  intro); the grammar section references the template's section name without
+  repeating the full link.
+- After the commit, "Contributing data" content exists only in
+  `docs/contributing_data.rst`; the label `contributing_data` resolves to the
+  new page.
+
+### S3: Re-point external pointers; changelog [ ]
+
+**Code:** none (README/docs/changelog only).
+
+**Tests:** fresh docs build under the no-warnings policy.
+
+**Docs:**
+- `README.rst` "How to contribute new data?": "the full contribution guide is
+  on the Graphs page" → the Contributing data page
+  (`.../FLPQ_Data/contributing_data.html`).
+- `docs/developer.rst` "Adding graphs and grammars": replace the stale
+  pointer (it references a README section titled "How to add a new graph?"
+  that does not exist) with :doc:`/contributing_data`.
+- `CHANGELOG.md` Unreleased → Changed: contribution documentation
+  consolidated under the Dataset section — new "Contributing data" and
+  "File structure" pages; both sections removed from the Graphs page and the
+  Dataset root.
+
+**Spec:**
+- No file references the old locations of either section (verified by grep
+  for "How to add a new graph", "How to add a new grammar", and the two old
+  section headings).
+- The last subtask's commit carries `Closes #167`.
 
 ---
 
 ## Execution order
 
-S1 → S2. One commit per subtask (`feat(165-SN)` / `docs(165-SN)`), code
-review + quality gate before merge to `dev`; the last subtask's commit
-carries `Closes #165`. Final verification includes a one-off `uv build`
-wheel inspection (module present, entry point registered).
+S1 → S2 → S3. One commit per subtask (`docs(167-SN)`); docs-only task — code
+gates (tests, lint, format) are skipped per the workflow rules, but each
+subtask must leave a green fresh docs build; code review + quality gate
+(docs build, CI linkcheck) before merge to `dev`.

@@ -28,8 +28,8 @@ Archive structure checker
 -------------------------
 
 ``flpq-check-archive`` (installed with the package) validates that a graph
-archive has the fixed self-contained structure documented in the "File
-structure" section of the :ref:`graphs` page::
+archive has the fixed self-contained structure documented in
+:ref:`file_structure`::
 
    flpq-check-archive ARCHIVE.tar.gz
    flpq-check-archive UNPACKED_DIR

@@ -40,7 +40,7 @@ Query templates
 
 Both templates are designed stubs: no real-world RPQ data exists yet. When the
 data is provided, a query lives inside the self-contained graph archive under
-``queries/rpq/`` (see :ref:`graph_file_structure`).
+``queries/rpq/`` (see :ref:`file_structure`).
 
 Applicable graphs
 -----------------

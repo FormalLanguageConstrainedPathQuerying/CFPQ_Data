@@ -22,6 +22,7 @@ list of applicable graphs.
    queries/rpq/index
    queries/mcfpq/index
    reachable_pairs
+   file_structure
 
 How to add a new grammar?
 -------------------------
