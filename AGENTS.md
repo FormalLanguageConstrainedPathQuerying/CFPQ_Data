@@ -18,7 +18,7 @@ gate → merge, and points to the other workflow skills below.
 
 * Documentation is about "What" and "Why". Skills are about "How".
 * This file is a short entry point for fast cold errors-free start.
-* Only one source of truth. No duplicates. Each thing (in both code and documentation) described exactly once. Use generalization (especially for code), cross-references, links, other similar techniques to avoid duplicates and reuse staff.
+* Only one source of truth. No duplicates. Each thing (in both code, issues, pull request descriptions, and documentation) described exactly once. Use generalization (especially for code), cross-references, links, other similar techniques to avoid duplicates and reuse staff. Find what you can to reuse before creating new one.
 * Source-of-truth hierarchy: code, scripts, CI configs > docs. If a fact can
   be extracted from code or scripts (e.g., CI configs), it is not duplicated
   in docs. Docs hold only what cannot be unambiguously reconstructed from
@@ -27,8 +27,13 @@ gate → merge, and points to the other workflow skills below.
 * Data archives are self-contained and must align with the checker
   (`flpq_data/tools/check_archive_structure.py`, console command
   `flpq-check-archive`) — the source of truth for any data structure.
-* Tools, not instructions. If you can do something with existing tool --- do it. No thinking, no long instructions, no manual analysis. You want to analyze code coverage? Just run coverage tool and analyze report. No workaround for regular tasks. If there is a tool for regular task it must be installed and configured appropriately.
+* Tools, not instructions. If you can do something with existing tool --- do it. No thinking, no long instructions, no manual analysis. Do you want to analyze code coverage? Just run coverage tool and analyze report. No workaround for regular tasks. If there is a tool for regular task it must be installed and configured appropriately.
 * Always learn, never forget — encode patterns before session ends
+* Issues, pull requests, and their comments are a knowledge base of technical
+  details. Log task-related findings and inspirations in the descriptions or
+  comments of the respective issues/PRs. When faced with a problem, check
+  whether a similar problem was solved or described previously — look for the
+  solution in existing issues, PRs, and their comments first.
 
 ## Package layout
 
