@@ -80,7 +80,7 @@ duplicate-label checks included).
 - The Graphs page keeps "Format conversion", "Contents", and the category
   tables untouched.
 
-### S2: Create the "Contributing data" page; remove the old sections [ ]
+### S2: Create the "Contributing data" page; remove the old sections [done] 46dabfd
 
 **Code:** none (docs only).
 
@@ -108,7 +108,9 @@ duplicate-label checks included).
   `contributing_data` to the toctree (before `file_structure`); extend the
   intro by one sentence naming the two new subpages.
 - `docs/graphs/index.rst`: remove the "Contributing data" section (the page
-  becomes a pure catalog: intro, Format conversion, Contents, tables).
+  becomes a pure catalog: intro, Format conversion, Contents, tables). The
+  page previously had no intro paragraph (it started with the moved
+  section), so one sentence is added naming what the catalog page holds.
 
 **Spec:**
 - The issue-template link appears exactly once on the new page (in the
