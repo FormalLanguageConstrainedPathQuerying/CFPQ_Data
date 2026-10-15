@@ -39,7 +39,7 @@ the Graphs page) to its own dataset-level page.
 
 ---
 
-### S1: Move "File structure" to its own dataset-level page [ ]
+### S1: Move "File structure" to its own dataset-level page [done] 202952d
 
 **Code:** none (docs/templates/skills only).
 
