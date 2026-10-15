@@ -49,7 +49,7 @@ Grammar Description
 -------------------
 The reachability template generates the language of all strings over the stored labels of the graph: a pair :math:`(u, v)` is reachable if some path from :math:`u` to :math:`v` is labeled by an arbitrary string over the label set — unrestricted reachability.
 
-This is a designed stub: no real-world RPQ data exists yet. When the data is provided, the query file lives inside the self-contained graph archive under ``queries/rpq/`` (see the "File structure" section of the :ref:`graphs` page).
+This is a designed stub: no real-world RPQ data exists yet. When the data is provided, the query file lives inside the self-contained graph archive under ``queries/rpq/`` (see :ref:`file_structure`).
 
 Example Grammars
 ----------------

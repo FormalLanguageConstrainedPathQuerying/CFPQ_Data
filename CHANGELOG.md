@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.1.1] - 2026-10-15
+
+### Changed
+
+- The contribution documentation is consolidated under the Dataset section:
+  new "Contributing data" and "File structure" pages; both sections are
+  removed from the Graphs page (now a pure catalog) and from the Dataset root.
+
 ## [6.1.0] - 2026-10-14
 
 ### Added

@@ -1,7 +1,7 @@
 """Validate the structure of a graph archive.
 
 Every graph archive must have the same fixed, self-contained structure
-(documented in the "File structure" section of ``docs/graphs/index.rst``):
+(documented in ``docs/file_structure.rst``):
 a description document answering the mandatory questions, one Boolean
 MatrixMarket file per stored edge label, and all queries of the graph as
 directories grouped by class — each query directory holding every

@@ -49,7 +49,7 @@ Grammar Description
 -------------------
 The label star template generates the language of all strings consisting of repetitions of a single stored label: a pair :math:`(u, v)` is reachable if some path from :math:`u` to :math:`v` is labeled entirely by :math:`L` — the transitive closure of the edges labeled :math:`L`.
 
-This is a designed stub: no real-world RPQ data exists yet. When the data is provided, the query file lives inside the self-contained graph archive under ``queries/rpq/`` (see the "File structure" section of the :ref:`graphs` page).
+This is a designed stub: no real-world RPQ data exists yet. When the data is provided, the query file lives inside the self-contained graph archive under ``queries/rpq/`` (see :ref:`file_structure`).
 
 Example Grammars
 ----------------

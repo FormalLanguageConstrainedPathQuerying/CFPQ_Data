@@ -17,8 +17,8 @@ Fill in every field in the triangle brackets (`<>`) of that template.
 
 ## Data format
 
-The archive layout and the label conventions are documented once in the
-"File structure" section of `docs/graphs/index.rst` — follow it exactly.
+The archive layout and the label conventions are documented once in
+`docs/file_structure.rst` — follow it exactly.
 Pack every query of the graph into the archive per the "Queries and
 grammars" section of the issue template, then validate with
 `flpq-check-archive <archive>.tar.gz` (the upload tool runs the same check

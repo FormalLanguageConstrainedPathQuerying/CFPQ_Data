@@ -265,6 +265,6 @@ linear history, no squash, so every subtask commit keeps its own message.
 Adding graphs and grammars
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-New dataset entries follow the contribution templates in :file:`.github/`
-(issue and pull-request templates for graphs and grammars); see the "How to
-add a new graph?" section of the README.
+New dataset entries — graphs, queries, grammars — enter through a single
+CONTRIBUTE NEW DATA issue; the full flow is documented in
+:doc:`contributing_data`.
