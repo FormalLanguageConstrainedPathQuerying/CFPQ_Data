@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Contributing data &#8212; FLPQ_Data 6.1.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d9aafeaa" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/copybutton.css?v=b2a5787b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/about.css?v=48cf5573" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=fdb814aa" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="_static/documentation_options.js?v=bd083a2d"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contributing_data';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within FLPQ_Data 6.1.1 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="File structure" href="file_structure.html" />
+    <link rel="prev" title="Reachable Pair Counts" href="reachable_pairs.html" />
+<!-- Dataset metadata -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Dataset",
+        "name": "FLPQ_Data",
+        "description": "Dataset contains graphs and grammars for Formal Language constrained Path-Querying algorithms evaluation.",
+        "keywords": [
+            "GRAPHS",
+            "GRAMMARS",
+            "FORMAL-LANGUAGE",
+            "PATH-QUERY"
+        ],
+        "creator": [
+            {
+                "@type": "Organization",
+                "url": "https://spbu.ru/",
+                "name": "Saint Petersburg State University"
+            }
+        ],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "hasPart": [
+            {
+                "@type": "Dataset",
+                "name": "Geospecies knowledge database",
+                "description": "Graph related to taxonomic hierarchy and geographical information of animal species",
+                "license": "http://creativecommons.org/licenses/by-sa/3.0/us/"
+            },
+            {
+                "@type": "Dataset",
+                "name": "UniProt databases",
+                "description": "Core and supporting datasets from UniProt protein sequences databases",
+                "license": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ]
+    }
+</script>
+<!-- End of the dataset metadata -->
+
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.1.1 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.1.1 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="flpq.html">
+    FLPQ: Formal-Language-Constrained Path Querying
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="dataset.html">
+    Dataset
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="project.html">
+    Project
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/flpq-data/" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-box fa-lg" aria-hidden="true"></i><span class="visually-hidden">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="graphs/index.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queries/cfpq/index.html">CFPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queries/rpq/index.html">RPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queries/mcfpq/index.html">MCFPQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reachable_pairs.html">Reachable Pair Counts</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Contributing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_structure.html">File structure</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="dataset.html" class="nav-link">Dataset</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Contributing data</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="contributing-data">
+<span id="id1"></span><h1>Contributing data<a class="headerlink" href="#contributing-data" title="Link to this heading">#</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Release<span class="colon">:</span></dt>
+<dd class="field-odd"><p>6.1.1</p>
+</dd>
+<dt class="field-even">Date<span class="colon">:</span></dt>
+<dd class="field-even"><p>Oct 15, 2026</p>
+</dd>
+</dl>
+<p>New data — graphs, queries, grammars — enters the dataset through a single
+<a class="reference external" href="https://github.com/FormalLanguageConstrainedPathQuerying/FLPQ_Data/blob/dev/.github/ISSUE_TEMPLATE/new-data-template.md">“CONTRIBUTE NEW DATA” issue</a>:
+you prepare one or more archives (one graph each), validate them, publish
+them (e.g. to Google Drive), and open the issue with the links, the
+validation output, the SHA256 of every archive, and the motivation. The
+maintainers upload the archives and merge them into the dataset — no pull
+request is needed. Every archive must follow the layout documented in
+<a class="reference internal" href="file_structure.html#file-structure"><span class="std std-ref">File structure</span></a>.</p>
+<section id="contribution-cases">
+<h2>Contribution cases<a class="headerlink" href="#contribution-cases" title="Link to this heading">#</a></h2>
+<p>The issue template’s “Contribution type” section lists the four contribution
+cases — new graph(s) for an existing or a new category, with an existing or
+a new grammar, and new queries for existing graph(s) — and what each
+requires; its remaining sections carry every required field (statistics,
+grammar definitions, category description). A set of graphs for a category
+goes into one issue as several archives (one graph per archive).</p>
+</section>
+<section id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h2>
+<p>Every archive must pass the structure checker before it is shared:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flpq</span><span class="o">-</span><span class="n">check</span><span class="o">-</span><span class="n">archive</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>            <span class="c1"># full archive</span>
+<span class="n">flpq</span><span class="o">-</span><span class="n">check</span><span class="o">-</span><span class="n">archive</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">partial</span>  <span class="c1"># partial archive</span>
+</pre></div>
+</div>
+<p>The issue carries the pasted output of this command per archive, the
+archive’s SHA256, and the FLPQ_Data version used; the template has the
+recipe — <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">flpq-data</span></code> installs the checker.</p>
+</section>
+<section id="consistency-invariants">
+<h2>Consistency invariants<a class="headerlink" href="#consistency-invariants" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>No graph without at least one query.</p></li>
+<li><p>No query without reference results (<code class="docutils literal notranslate"><span class="pre">results.mtx</span></code>).</p></li>
+<li><p>No item without description and motivation: every graph is described in
+its archive <code class="docutils literal notranslate"><span class="pre">README.md</span></code>, every query in <code class="docutils literal notranslate"><span class="pre">queries/README.md</span></code>, and the
+issue states why each new graph, grammar, or category is useful to other
+users.</p></li>
+</ul>
+</section>
+<section id="not-accepted-via-this-flow">
+<h2>Not accepted via this flow<a class="headerlink" href="#not-accepted-via-this-flow" title="Link to this heading">#</a></h2>
+<p>The issue template’s “Not accepted via this flow” section lists the declined
+cases: a grammar or query provided outside an archive (without reference
+results), updates to an existing graph, a new representation of an existing
+query, and more than one graph inside a single archive.</p>
+</section>
+<section id="grammars">
+<h2>Grammars<a class="headerlink" href="#grammars" title="Link to this heading">#</a></h2>
+<p>Grammars are added together with the data they apply to — the template’s
+“Queries and grammars” section carries their definitions. A grammar is
+accepted only if it is instantiated as at least one query with reference
+results in a contributed archive.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contribution-cases">Contribution cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-invariants">Consistency invariants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#not-accepted-via-this-flow">Not accepted via this flow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grammars">Grammars</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2019-2026, vdshk.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

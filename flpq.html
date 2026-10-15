@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>FLPQ: Formal-Language-Constrained Path Querying &#8212; FLPQ_Data 6.1.0 documentation</title>
+    <title>FLPQ: Formal-Language-Constrained Path Querying &#8212; FLPQ_Data 6.1.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="_static/documentation_options.js?v=d9c7ea69"></script>
+    <script src="_static/documentation_options.js?v=bd083a2d"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -51,7 +51,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'flpq';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within FLPQ_Data 6.1.0 documentation"
+          title="Search within FLPQ_Data 6.1.1 documentation"
           href="_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -162,8 +162,8 @@
       
     
     
-    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.1.0 documentation - Home"/>
-    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.1.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.1.1 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.1.1 documentation - Home"/>
   
   
 </a></div>
@@ -443,7 +443,7 @@
 <span id="flpq"></span><h1>FLPQ: Formal-Language-Constrained Path Querying<a class="headerlink" href="#flpq-formal-language-constrained-path-querying" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>6.1.0</p>
+<dd class="field-odd"><p>6.1.1</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
 <dd class="field-even"><p>Oct 15, 2026</p>
@@ -519,8 +519,8 @@ stub pages in the <a class="reference internal" href="queries/rpq/index.html#rpq
 document both templates.</p>
 </li>
 <li><p><strong>Placement.</strong> Query files live inside the self-contained graph archive
-under <code class="docutils literal notranslate"><span class="pre">queries/rpq/</span></code> (see the “File structure” section of the
-<a class="reference internal" href="graphs/index.html#graphs"><span class="std std-ref">Graphs</span></a> page); there are no standalone query or example archives. An
+under <code class="docutils literal notranslate"><span class="pre">queries/rpq/</span></code> (see <a class="reference internal" href="file_structure.html#file-structure"><span class="std std-ref">File structure</span></a>); there are no standalone
+query or example archives. An
 RPQ may also be represented by a regular RSM (<code class="docutils literal notranslate"><span class="pre">.rsm</span></code>, see below).</p></li>
 <li><p><strong>Data status.</strong> No real-world RPQ data exists yet — the templates are
 designed stubs. Real-world data will be provided later and enters the
@@ -583,9 +583,9 @@ canonical form, so a transition-system file round-trips to EBNF-style text.</p>
 <section id="placement">
 <h3>Placement<a class="headerlink" href="#placement" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">.rsm</span></code> representation files are allowed in the <code class="docutils literal notranslate"><span class="pre">queries/cfpq/</span></code> and
-<code class="docutils literal notranslate"><span class="pre">queries/rpq/</span></code> query directories of a graph archive (see the “File
-structure” section of the <a class="reference internal" href="graphs/index.html#graphs"><span class="std std-ref">Graphs</span></a> page). In <code class="docutils literal notranslate"><span class="pre">rpq/</span></code> the RSM must be
-regular — no box transition may be labelled by a nonterminal.</p>
+<code class="docutils literal notranslate"><span class="pre">queries/rpq/</span></code> query directories of a graph archive (see
+<a class="reference internal" href="file_structure.html#file-structure"><span class="std std-ref">File structure</span></a>). In <code class="docutils literal notranslate"><span class="pre">rpq/</span></code> the RSM must be regular — no box
+transition may be labelled by a nonterminal.</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -842,10 +842,9 @@ through one more release.</p>
 <p>Graphs are large and class-agnostic, so they live under one shared prefix.
 Queries no longer have their own archives: every graph archive is
 self-contained and carries all queries that apply to the graph — the layout
-is documented once in the “File structure” section of the <a class="reference internal" href="graphs/index.html#graphs"><span class="std std-ref">Graphs</span></a>
-page (<code class="docutils literal notranslate"><span class="pre">README.md</span></code>, <code class="docutils literal notranslate"><span class="pre">graph/*.mtx</span></code>, and <code class="docutils literal notranslate"><span class="pre">queries/{cfpq,rpq,mcfpq}/</span></code> with
-one directory per query — its representations plus a <code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> — and a
-common description document).</p>
+is documented once in <a class="reference internal" href="file_structure.html#file-structure"><span class="std std-ref">File structure</span></a> (<code class="docutils literal notranslate"><span class="pre">README.md</span></code>, <code class="docutils literal notranslate"><span class="pre">graph/*.mtx</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">queries/{cfpq,rpq,mcfpq}/</span></code> with one directory per query — its
+representations plus a <code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> — and a common description document).</p>
 <p>Migration path:</p>
 <ul class="simple">
 <li><p>Repackage every graph archive into the self-contained structure: move the

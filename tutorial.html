@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Tutorial &#8212; FLPQ_Data 6.1.0 documentation</title>
+    <title>Tutorial &#8212; FLPQ_Data 6.1.1 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="_static/documentation_options.js?v=d9c7ea69"></script>
+    <script src="_static/documentation_options.js?v=bd083a2d"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -50,7 +50,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="search" type="application/opensearchdescription+xml"
-          title="Search within FLPQ_Data 6.1.0 documentation"
+          title="Search within FLPQ_Data 6.1.1 documentation"
           href="_static/opensearch.xml"/>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -161,8 +161,8 @@
       
     
     
-    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.1.0 documentation - Home"/>
-    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.1.0 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-light" alt="FLPQ_Data 6.1.1 documentation - Home"/>
+    <img src="_static/FLPQDataLogo.svg" class="logo__image only-dark pst-js-only" alt="FLPQ_Data 6.1.1 documentation - Home"/>
   
   
 </a></div>
@@ -449,7 +449,7 @@
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading">#</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Release<span class="colon">:</span></dt>
-<dd class="field-odd"><p>6.1.0</p>
+<dd class="field-odd"><p>6.1.1</p>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
 <dd class="field-even"><p>Oct 15, 2026</p>
@@ -483,7 +483,7 @@ To familiarize yourself with this representations and find useful functions, see
 <section id="load-graph-by-path">
 <h3>Load graph by path<a class="headerlink" href="#load-graph-by-path" title="Link to this heading">#</a></h3>
 <p>The archive unpacks to a directory with one MatrixMarket file per edge
-label in its <code class="docutils literal notranslate"><span class="pre">graph</span></code> subdirectory (see <a class="reference internal" href="graphs/index.html#graph-file-structure"><span class="std std-ref">File structure</span></a>). We
+label in its <code class="docutils literal notranslate"><span class="pre">graph</span></code> subdirectory (see <a class="reference internal" href="file_structure.html#file-structure"><span class="std std-ref">File structure</span></a>). We
 can load the graph along the specified path using function
 <a class="reference internal" href="reference/graphs/generated/flpq_data.graphs.readwrite.mtx.html#flpq_data.graphs.readwrite.mtx.graph_from_mtx_dir" title="flpq_data.graphs.readwrite.mtx.graph_from_mtx_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_from_mtx_dir</span></code></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bzip</span> <span class="o">=</span> <span class="n">flpq_data</span><span class="o">.</span><span class="n">graph_from_mtx_dir</span><span class="p">(</span><span class="n">bzip_path</span> <span class="o">/</span> <span class="s2">"graph"</span><span class="p">)</span>
@@ -538,7 +538,7 @@ in-memory graph, so even large archives convert in constant memory (see the
 <h2>Load grammar<a class="headerlink" href="#load-grammar" title="Link to this heading">#</a></h2>
 <p>Graph archives from the dataset are self-contained: besides the graph they carry the
 queries that apply to the graph under <code class="docutils literal notranslate"><span class="pre">queries/</span></code> — one directory per query with its
-grammar template and a precomputed <code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> (see <a class="reference internal" href="graphs/index.html#graph-file-structure"><span class="std std-ref">File structure</span></a>).
+grammar template and a precomputed <code class="docutils literal notranslate"><span class="pre">results.mtx</span></code> (see <a class="reference internal" href="file_structure.html#file-structure"><span class="std std-ref">File structure</span></a>).
 The grammar templates themselves are described in the <a class="reference internal" href="queries/cfpq/index.html#cfpq-queries"><span class="std std-ref">CFPQ section</span></a>.</p>
 <p>A grammar template may use indexed symbols (e.g. <code class="docutils literal notranslate"><span class="pre">load_i</span></code>); we materialize it over a
 concrete graph with functions <a class="reference internal" href="reference/queries/cfpq/generated/flpq_data.queries.cfpq.readwrite.cnf_template.html#flpq_data.queries.cfpq.readwrite.cnf_template.cnf_template_from_text" title="flpq_data.queries.cfpq.readwrite.cnf_template.cnf_template_from_text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cnf_template_from_text</span></code></a>
