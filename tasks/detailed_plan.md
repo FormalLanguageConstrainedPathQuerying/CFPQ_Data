@@ -120,7 +120,7 @@ duplicate-label checks included).
   `docs/contributing_data.rst`; the label `contributing_data` resolves to the
   new page.
 
-### S3: Re-point external pointers; changelog [ ]
+### S3: Re-point external pointers; changelog [done] deef55a
 
 **Code:** none (README/docs/changelog only).
 
